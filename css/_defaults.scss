@@ -1,0 +1,104 @@
+/*--------------------------------------End CSS Reset / Start General-------------------------------*/
+
+
+// Baseline grid: 3px
+
+
+
+//border box borrowed from responsive.gs
+* { -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
+body{
+	color: $dark-grey;
+	font: 62.5% 'Merriweather', "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4{
+	font-family: 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+}
+
+h1{
+	font-size: 3.6em; /*18x4*/
+	line-height: 1.5;
+}
+
+h2{
+	font-size: 2.4em;/*18x3*/
+	line-height: 1.5;
+}
+
+h3{
+	font-size: 1.6em;/*18x2 - 6*/
+	line-height: 1.5;
+}
+
+p, ul, dl{
+	font-size: 1.6em;
+	font-weight: 100;
+	line-height: 1.5;
+	margin-bottom: 20px;
+}
+
+
+ul{
+	line-height: 1.5;
+}
+
+a{
+	cursor: pointer;
+}
+
+a, input[type="submit"]{
+	text-decoration: none;
+	color: $blue;
+	opacity: 1;
+	outline: none;
+	-webkit-appearance: none;/*overrides safari mobile default styling*/
+}
+
+a:visited{
+	outline: none;
+}
+
+a:hover, input[type="submit"]:hover{
+	opacity: .5;
+}
+
+a.no-tran:hover{
+	opacity: 1;
+}
+
+img{
+	max-width: 100%;
+}
+
+input, button, textarea{
+	border: none;
+	border: 1px solid $light-grey;
+	border-radius: 2px;
+	height: 30px;
+	display: block;
+	margin-bottom: 9px;
+	padding: 9px;
+	font-size: 1.6em;
+	font-weight: 100;
+	outline: none;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: $light-grey;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: $light-grey;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: $light-grey;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: $light-grey;
+}

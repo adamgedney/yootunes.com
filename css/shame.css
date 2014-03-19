@@ -1,0 +1,130 @@
+
+
+
+
+/* 	Copyright Adam Gedney 3/31/13
+	contact: adam.gedney@gmail.com
+	http://adamgedney.com
+
+"Good UI design is humble.” – Jono DiCarlo
+*/
+
+/*--------------------------------------Start CSS Reset---------------------------------------------*/
+
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)
+*/
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, cite, code,del, em, img, strike, strong, sub, sup, tt, var,b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+margin: 0;
+padding: 0;
+border: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+display: block;
+}
+
+ul {
+list-style: none;
+}
+
+
+
+
+
+
+
+/*--------------------------------------End CSS Reset / Start General-------------------------------*/
+
+
+body{
+background: #fafafa;
+color: #6e6e6e;
+font: 62.5% "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+}
+
+h1{
+font-size: 6.9em;
+line-height: 1.1em;
+}
+
+h2{
+font-size: 2.6em;
+line-height: 1.14em;
+}
+
+h3{
+font-size: 1.6em;
+line-height: 1.8em;
+}
+
+p, ul, dl{
+font-size: 1.4em;
+line-height: 1.6;
+margin-bottom: 20px;
+}
+
+ul{
+line-height: 1.3em;
+}
+
+a{
+text-decoration: none;
+color: #08298A;
+}
+
+
+/*--------------------------------------End General / Start objects------------------------------------*/
+
+
+
+/*Signup form*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Header login form*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

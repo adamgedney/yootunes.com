@@ -1,0 +1,177 @@
+/* 	Copyright Adam Gedney 12/2/13
+	contact: adam.gedney@gmail.com
+	http://adamgedney.com
+
+"Good UI design is humble.” – Jono DiCarlo
+
+
+
+/*-----12 col grid------*/
+
+@mixin col($num_col){
+
+	@if $num_col == 1 {
+		width: 8.33333333%;
+		}
+	@if $num_col == 2 {
+		width: 16.6666667%;
+		}
+	@if $num_col == 3 {
+		width: 25%;
+		}
+	@if  $num_col == 4 {
+		width: 33.3333333%;
+		}
+	@if $num_col == 5 {
+		width: 41.6666666%;
+		}
+	@if $num_col == 6 {
+		width: 50%;
+		}
+	@if $num_col == 7 {
+		width: 58.3333333%;
+		}
+	@if $num_col == 8 {
+		width: 66.6666666%;
+		}
+	@if $num_col == 9 {
+		width: 75%;
+		}
+	@if $num_col == 10{
+		width: 83.3333333%;
+		}
+	@if $num_col == 11 {
+		width: 91.6666666%;
+		}
+	@if $num_col == 12 {
+		width: 100%;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+@mixin col_ctr($num_col){
+	@if $num_col == 0 {
+		margin-left: 0;
+		margin-right: 0;
+		}
+	@if $num_col == 1 {
+		margin-left: 45.8333334%;
+		margin-right: 45.8333334%;
+		}
+	@if $num_col == 2 {
+		margin-left: 41.6666666%;
+		margin-right: 41.6666666%;
+		}
+	@if $num_col == 3 {
+		margin-left: 37.5%;
+		margin-right: 37.5%;
+		}
+	@if  $num_col == 4 {
+		margin-left: 33.3333334%;
+		margin-right: 33.3333334%;
+		}
+	@if $num_col == 5 {
+		margin-left: 29.1666667%;
+		margin-right: 29.1666667%;
+		}
+	@if $num_col == 6 {
+		margin-left: 25%;
+		margin-right: 25%;
+		}
+	@if $num_col == 7 {
+		margin-left: 20.833335%;
+		margin-right: 20.833335%;
+		}
+	@if $num_col == 8 {
+		margin-left: 16.6666667%;
+		margin-right: 16.6666667%;
+		}
+	@if $num_col == 9 {
+		margin-left: 12.5%;
+		margin-right: 12.5%;
+		}
+	@if $num_col == 10{
+		margin-left: 8.33333335%;
+		margin-right: 8.33333335%;
+		}
+	@if $num_col == 11 {
+		margin-left: 4.1666667%;
+		margin-right: 4.1666667%;
+		}
+	@if $num_col == 12 {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+@mixin vertical-align($top:50%){
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+
+
+
+
+
+
+
+
+@mixin duration($time: .7s){
+		transition-duration: $time;
+-webkit-transition-duration: $time;
+}
+
+
+
+
+
+
+
+
+/*Breakpoints -------------------*/
+@mixin break-sm {
+  @media only screen and (min-width: 480px) {
+    @content;
+  }
+}
+
+@mixin break-md{
+  @media only screen and (min-width: 770px) {
+    @content;
+  }
+}
+
+@mixin break-lg {
+  @media only screen and (max-width: 1140px) {
+    @content;
+  }
+}
+
+
+
+
+
