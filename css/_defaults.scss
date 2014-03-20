@@ -13,14 +13,11 @@
 
 
 body{
-	color: $dark-grey;
-	font: 62.5% 'Merriweather', "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+	color: nth($grey, 1);
+	font: 62.5% 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4{
-	font-family: 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
-}
 
 h1{
 	font-size: 3.6em; /*18x4*/
@@ -79,7 +76,7 @@ img{
 
 input, button, textarea{
 	border: none;
-	border: 1px solid $light-grey;
+	border: 1px solid nth($grey, 3);
 	border-radius: 2px;
 	height: 30px;
 	display: block;
@@ -91,14 +88,14 @@ input, button, textarea{
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color: $light-grey;
+    color: nth($grey, 3);
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: $light-grey;
+    color: nth($grey, 3);
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: $light-grey;
+    color: nth($grey, 3);
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-    color: $light-grey;
+    color: nth($grey, 3);
 }

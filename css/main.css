@@ -1,0 +1,216 @@
+/*
+	Thanks for checking out my code!!
+
+
+	Copyright Adam Gedney 2/15/14
+	contact: adam.gedney@gmail.com
+	http://adamgedney.com
+
+"Good UI design is humble.” – Jono DiCarlo
+*/
+/*
+
+
+----------------SASS------------------*/
+/*----Sass imports----*/
+/* 	Copyright Adam Gedney 12/2/13
+	contact: adam.gedney@gmail.com
+	http://adamgedney.com
+
+"Good UI design is humble.” – Jono DiCarlo
+
+
+
+/*-----12 col grid------*/
+/*Breakpoints -------------------*/
+/*--------------------------------------Start CSS Reset---------------------------------------------*/
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)
+*/
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, cite, code, del, em, img, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+/*--------------------------------------End CSS Reset / Start General-------------------------------*/
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  color: #272a2a;
+  font: 62.5% 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-size: 3.6em;
+  /*18x4*/
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: 2.4em;
+  /*18x3*/
+  line-height: 1.5;
+}
+
+h3 {
+  font-size: 1.6em;
+  /*18x2 - 6*/
+  line-height: 1.5;
+}
+
+p, ul, dl {
+  font-size: 1.6em;
+  font-weight: 100;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+ul {
+  line-height: 1.5;
+}
+
+a {
+  cursor: pointer;
+}
+
+a, input[type="submit"] {
+  text-decoration: none;
+  color: #3b578a;
+  opacity: 1;
+  outline: none;
+  -webkit-appearance: none;
+  /*overrides safari mobile default styling*/
+}
+
+a:visited {
+  outline: none;
+}
+
+a:hover, input[type="submit"]:hover {
+  opacity: .5;
+}
+
+a.no-tran:hover {
+  opacity: 1;
+}
+
+img {
+  max-width: 100%;
+}
+
+input, button, textarea {
+  border: none;
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+  height: 30px;
+  display: block;
+  margin-bottom: 9px;
+  padding: 9px;
+  font-size: 1.6em;
+  font-weight: 100;
+  outline: none;
+}
+
+::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #d6d6d6;
+}
+
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #d6d6d6;
+}
+
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #d6d6d6;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #d6d6d6;
+}
+
+/*--------------------------------------End General / Start Objects------------------------------------*/
+.hide-text {
+  text-indent: 200%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.red {
+  color: #cf2425;
+}
+
+.blue {
+  color: #3b578a;
+}
+
+.light-gray {
+  color: #d6d6d6;
+}
+
+.dark-gray {
+  color: #272a2a;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+/*--------------------------------------End Objects / Start Main------------------------------------*/
+header {
+  height: 60px;
+  background: #0f1010;
+}
+
+.hero {
+  height: 700px;
+  height: 100vh;
+  background: url(../images/hero-bg.jpg) #ebebeb no-repeat;
+  background-size: cover;
+  width: 100%;
+  overflow: hidden;
+}
+
+.cta {
+  height: 100%;
+  width: 50%;
+  float: left;
+}
+
+.signup {
+  height: 100%;
+  width: 50%;
+  float: left;
+}
+
+.howto {
+  height: 400px;
+  background: #0f1010;
+}
+
+.details {
+  height: 800px;
+}

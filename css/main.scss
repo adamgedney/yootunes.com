@@ -8,20 +8,20 @@
 
 "Good UI design is humble.” – Jono DiCarlo
 */
+
 /*
 
 
 ----------------SASS------------------*/
-$white: #fff;
-$off-white: #f6f6f6;
-$light-grey: #e8e8e8;
-$med-grey: #969696;
-$dark-grey: #333333;
-$black: #000;
-$dark-red: #990100;
-$light-red: #b90504;
-$blue: #0971b2;
-$yellow: #fffc19;
+
+$white: #ebebeb;
+$grey: #272a2a,
+#949494,
+#d6d6d6;
+$black: #0f1010;
+$blue: #3b578a;
+$red: #cf2425;
+$yellow: #e5a539;
 
 /*----Sass imports----*/
 @import "util";
@@ -33,66 +33,67 @@ $yellow: #fffc19;
 
 /*--------------------------------------End General / Start Objects------------------------------------*/
 
-.hide-text{
-	text-indent: 200%;
-	overflow: hidden;
-	white-space: nowrap;
+.hide-text {
+  text-indent: 200%;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.red{
-	color: $dark-red;
+.red {
+  color: $red;
 }
 
-.blue{
-	color: $blue;
+.blue {
+  color: $blue;
 }
 
-.light-gray{
-	color: $light-grey;
+.light-gray {
+  color: nth($grey, 3);
 }
 
-.dark-gray{
-	color: $dark-grey;
+.dark-gray {
+  color: nth($grey, 1);
 }
 
-.underline{
-	text-decoration: underline;
+.underline {
+  text-decoration: underline;
 }
-
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
+header {
+  height: 60px;
+  background: $black;
+}
 
+.hero {
+  height: 700px;
+  height: 100vh;
+  background: url(../images/hero-bg.jpg) $white no-repeat;
+  background-size: cover;
+  @include col(12);
+  overflow: hidden;
+}
 
+.cta{
+	height: 100%;
+	@include col(6);
+	float: left;
+	// background: $red;
+}
 
+.signup{
+	height: 100%;
+	@include col(6);
+	float: left;
+	// background: $red;
+}
 
+.howto{
+	height: 400px; //remove after content in place
+	background: $black;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.details{
+	height: 800px;//remove after content in place
+}
