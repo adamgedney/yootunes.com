@@ -80,6 +80,11 @@ header {
   background: $black;
   padding: 0 6%;
   overflow: hidden;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  opacity: .95;
 
   img{
   	margin-top: 6px;
@@ -102,9 +107,10 @@ header {
 
 .hero {
   height: 700px;
-  height: 92vh;
+  height: 100vh;
   background: url(../images/hero-bg.jpg) $white no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   @include col(12);
   overflow: hidden;
 }
@@ -114,7 +120,7 @@ header {
 	@include col(6);
 	float: left;
 	padding-left: 6%;
-	margin-top: 99px;
+	margin-top: 138px;
 
 	h2{
 		color: $white;
@@ -134,7 +140,7 @@ header {
 	height: 100%;
 	@include col(5);
 	float: right;
-	margin-top: 99px;
+	margin-top: 138px;
 	padding-right: 6%;
 
 	h2{
@@ -146,7 +152,7 @@ header {
 	form{
 		float: right;
 		@include col(9);
-		opacity: .9;
+		opacity: .98;
 
 		input[type="email"], input[type="text"], input[type="submit"], .fb-signup{
 			height: 48px;
@@ -182,6 +188,9 @@ header {
 	height: 400px; //remove after content in place
 	background: $black;
 	position: relative;
+	-webkit-box-shadow: 0px -6px 9px 0px rgba(39, 42, 42, 0.39);
+	   -moz-box-shadow: 0px -6px 9px 0px rgba(39, 42, 42, 0.39);
+			box-shadow: 0px -6px 9px 0px rgba(39, 42, 42, 0.39);
 
 	&:before{
 		content: "";
