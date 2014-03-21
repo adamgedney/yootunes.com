@@ -97,6 +97,24 @@ input[type="submit"], .copy-signup{
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 
+// body{
+// 	@include break-sm{
+// 		font-size: 1.8em;
+// 	}
+// }
+
+// h1, h2{
+// 	font-size: .7em;
+
+// 	@include break-sm{
+// 		font-size: .6em;
+// 	}
+// }
+
+
+
+
+
 .popdown{
 	@include col(10);
 	position: absolute;
@@ -123,10 +141,6 @@ input[type="submit"], .copy-signup{
 		right: 27px;
 	}
 }
-
-
-
-
 
 
 
@@ -184,18 +198,25 @@ header {
 	height: 100%;
 	@include col(12);
 	padding-left: 6%;
-	margin-top: 198px;
-		@include break-md{
-			@include col(6);
-			float: left;
-		}
+	margin-top: 108px;
+
+	@include break-sm{
+		margin-top: 198px;
+	}
+
+	@include break-md{
+		@include col(6);
+		float: left;
+	}
 
 	h2{
 		color: $black;
 		margin-bottom: 18px;
+		font-weight: 400;
 
 		@include break-sm{
 			color: $white;
+			font-weight: 100;
 		}
 
 		@include break-md{
@@ -221,19 +242,27 @@ header {
 .signup{
 	height: 100%;
 	@include col(12);
-	margin-top: 198px;
+	margin-top: 81px;
 	padding-right: 6%;
-		@include break-md{
-			@include col(6);
-			float: left;
-		}
+
+	@include break-sm{
+		margin-top: 198px;
+	}
+
+	@include break-md{
+		@include col(6);
+		float: left;
+	}
 
 	h2{
 		color: $black;
-		float: right;
+		padding-left: 6%;
+		text-align: center;
 
 		@include break-sm{
 			color: $white;
+			float: right;
+			text-align: left;
 		}
 
 		@include break-md{
@@ -244,7 +273,14 @@ header {
 	form{
 		float: right;
 		opacity: .98;
-		@include col(12);
+		@include col(10);
+		@include col_ctr(10);
+		margin-bottom: 42px;
+
+		@include break-sm{
+			margin-bottom: 0;
+		}
+
 		@include break-md{
 			@include col(9);
 		}
@@ -273,7 +309,7 @@ header {
 	@include break-md{
 		&:before{
 			content: "";
-			background: url(../images/icons/mouse.svg) no-repeat $black;
+			background: url(../images/icons/mouse.svg) no-repeat rgba(15,16,16, .4);
 			background-position: center 27px;
 			background-size: 30px;
 			position: absolute;
@@ -288,7 +324,11 @@ header {
 	h2{
 		text-align: center;
 		color: $white;
-		padding: 148px 0 72px;
+		padding: 72px 0 72px;
+
+		@include break-sm{
+			padding: 148px 0 72px;
+		}
 	}
 }
 
@@ -300,12 +340,18 @@ header {
 	padding: 0 6% 148px;
 
 	div{
-		width: 50%;
 		float: left;
 		padding: 0 18px;
-		@include break-md{
+		margin-bottom: 18px;
+		@include col(8);
+		@include col_ctr(8);
+
+		@include break-sm{
+			margin-bottom: 0;
+			@include col_ctr(0);
 			width: 20%;
 		}
+
 
 		.svg{
 			fill: $white;
@@ -314,7 +360,11 @@ header {
 
 		p{
 			color: $yellow;
-			font-size: 2.1em;
+			font-size: 1.8em;
+
+			@include break-sm{
+				font-size: 2.1em;
+			}
 		}
 	}
 }
@@ -327,7 +377,11 @@ header {
 	// height: 800px;//remove after content in place
 	background: $white;
 	overflow: hidden;
-	padding-top: 148px;
+	padding-top: 72px;
+
+	@include break-sm{
+		padding-top: 148px;
+	}
 }
 
 .shots{
@@ -340,7 +394,12 @@ header {
 
 .copy{
 	float: left;
-	padding:0 6%;
+	padding:36px 6% 0;
+
+	@include break-sm{
+		padding:0 6%;
+	}
+
 	@include break-md{
 		@include col(6);
 	}
@@ -356,8 +415,11 @@ header {
 
 	button{
 		height: 57px;
-		// @include col(10);
-		// @include col_ctr(10);
+		margin-bottom: 72px;
+
+		@include break-sm{
+			margin-bottom: 0;
+		}
 	}
 }
 

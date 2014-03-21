@@ -82,7 +82,7 @@ h3 {
 }
 
 p, ul, dl {
-  font-size: 1.8em;
+  font-size: 1.6em;
   line-height: 1.5;
   margin-bottom: 20px;
 }
@@ -289,7 +289,12 @@ header button {
   height: 100%;
   width: 100%;
   padding-left: 6%;
-  margin-top: 198px;
+  margin-top: 108px;
+}
+@media only screen and (min-width: 480px) {
+  .cta {
+    margin-top: 198px;
+  }
 }
 @media only screen and (min-width: 770px) {
   .cta {
@@ -300,10 +305,12 @@ header button {
 .cta h2 {
   color: #0f1010;
   margin-bottom: 18px;
+  font-weight: 400;
 }
 @media only screen and (min-width: 480px) {
   .cta h2 {
     color: #ebebeb;
+    font-weight: 100;
   }
 }
 @media only screen and (min-width: 770px) {
@@ -329,8 +336,13 @@ header button {
 .signup {
   height: 100%;
   width: 100%;
-  margin-top: 198px;
+  margin-top: 81px;
   padding-right: 6%;
+}
+@media only screen and (min-width: 480px) {
+  .signup {
+    margin-top: 198px;
+  }
 }
 @media only screen and (min-width: 770px) {
   .signup {
@@ -340,11 +352,14 @@ header button {
 }
 .signup h2 {
   color: #0f1010;
-  float: right;
+  padding-left: 6%;
+  text-align: center;
 }
 @media only screen and (min-width: 480px) {
   .signup h2 {
     color: #ebebeb;
+    float: right;
+    text-align: left;
   }
 }
 @media only screen and (min-width: 770px) {
@@ -355,7 +370,15 @@ header button {
 .signup form {
   float: right;
   opacity: .98;
-  width: 100%;
+  width: 83.3333333%;
+  margin-left: 8.33333335%;
+  margin-right: 8.33333335%;
+  margin-bottom: 42px;
+}
+@media only screen and (min-width: 480px) {
+  .signup form {
+    margin-bottom: 0;
+  }
 }
 @media only screen and (min-width: 770px) {
   .signup form {
@@ -380,7 +403,7 @@ header button {
 @media only screen and (min-width: 770px) {
   .howto:before {
     content: "";
-    background: url(../images/icons/mouse.svg) no-repeat #0f1010;
+    background: url(../images/icons/mouse.svg) no-repeat rgba(15, 16, 16, 0.4);
     background-position: center 27px;
     background-size: 30px;
     position: absolute;
@@ -395,7 +418,12 @@ header button {
 .howto h2 {
   text-align: center;
   color: #ebebeb;
-  padding: 148px 0 72px;
+  padding: 72px 0 72px;
+}
+@media only screen and (min-width: 480px) {
+  .howto h2 {
+    padding: 148px 0 72px;
+  }
 }
 
 .diagram {
@@ -404,12 +432,18 @@ header button {
   padding: 0 6% 148px;
 }
 .diagram div {
-  width: 50%;
   float: left;
   padding: 0 18px;
+  margin-bottom: 18px;
+  width: 66.6666666%;
+  margin-left: 16.6666667%;
+  margin-right: 16.6666667%;
 }
-@media only screen and (min-width: 770px) {
+@media only screen and (min-width: 480px) {
   .diagram div {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
     width: 20%;
   }
 }
@@ -419,13 +453,23 @@ header button {
 }
 .diagram div p {
   color: #e5a539;
-  font-size: 2.1em;
+  font-size: 1.8em;
+}
+@media only screen and (min-width: 480px) {
+  .diagram div p {
+    font-size: 2.1em;
+  }
 }
 
 .details {
   background: #ebebeb;
   overflow: hidden;
-  padding-top: 148px;
+  padding-top: 72px;
+}
+@media only screen and (min-width: 480px) {
+  .details {
+    padding-top: 148px;
+  }
 }
 
 .shots {
@@ -440,7 +484,12 @@ header button {
 
 .copy {
   float: left;
-  padding: 0 6%;
+  padding: 36px 6% 0;
+}
+@media only screen and (min-width: 480px) {
+  .copy {
+    padding: 0 6%;
+  }
 }
 @media only screen and (min-width: 770px) {
   .copy {
@@ -456,6 +505,12 @@ header button {
 }
 .copy button {
   height: 57px;
+  margin-bottom: 72px;
+}
+@media only screen and (min-width: 480px) {
+  .copy button {
+    margin-bottom: 0;
+  }
 }
 
 footer {
