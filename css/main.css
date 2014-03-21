@@ -222,10 +222,11 @@ input[type="submit"], .copy-signup {
   right: 0;
   top: 54px;
   margin-right: 6%;
-  height: 190px;
+  min-height: 190px;
   background: #ebebeb;
   border-radius: 2px;
   border: 1px solid #949494;
+  padding: 1%;
 }
 @media only screen and (min-width: 770px) {
   .popdown {
@@ -242,6 +243,9 @@ input[type="submit"], .copy-signup {
   position: absolute;
   top: -9px;
   right: 27px;
+}
+.popdown input, .popdown button {
+  height: 36px;
 }
 
 header {
@@ -306,11 +310,15 @@ header button {
   color: #0f1010;
   margin-bottom: 18px;
   font-weight: 400;
+  line-height: 1em;
+  text-align: center;
 }
 @media only screen and (min-width: 480px) {
   .cta h2 {
     color: #ebebeb;
     font-weight: 100;
+    line-height: 1.5em;
+    text-align: left;
   }
 }
 @media only screen and (min-width: 770px) {
@@ -358,14 +366,14 @@ header button {
 @media only screen and (min-width: 480px) {
   .signup h2 {
     color: #ebebeb;
-    text-align: left;
-    float: right;
     padding-left: 0;
   }
 }
 @media only screen and (min-width: 770px) {
   .signup h2 {
     width: 75%;
+    text-align: left;
+    float: right;
   }
 }
 .signup form {
@@ -378,15 +386,17 @@ header button {
 }
 @media only screen and (min-width: 480px) {
   .signup form {
-    margin-bottom: 0;
-    width: 75%;
-    margin-left: 0;
-    margin-right: 0;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
   }
 }
 @media only screen and (min-width: 770px) {
   .signup form {
     width: 75%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
   }
 }
 .signup form .or {
@@ -437,7 +447,7 @@ header button {
 }
 .diagram div {
   float: left;
-  padding: 0 18px;
+  padding: 0 6px;
   margin-bottom: 18px;
   width: 66.6666666%;
   margin-left: 16.6666667%;
@@ -451,15 +461,20 @@ header button {
     width: 20%;
   }
 }
+@media only screen and (min-width: 770px) {
+  .diagram div {
+    padding: 0 18px;
+  }
+}
 .diagram div .svg {
   fill: #ebebeb;
   height: 39px;
 }
 .diagram div p {
   color: #e5a539;
-  font-size: 1.8em;
+  font-size: 1.5em;
 }
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 770px) {
   .diagram div p {
     font-size: 2.1em;
   }
@@ -475,20 +490,36 @@ header button {
     padding-top: 148px;
   }
 }
+.details h2 {
+  text-align: center;
+}
+@media only screen and (min-width: 480px) {
+  .details h2 {
+    text-align: left;
+  }
+}
 
 .shots {
   float: left;
   padding-left: 6%;
+  width: 83.3333333%;
+  margin-left: 8.33333335%;
+  margin-right: 8.33333335%;
 }
 @media only screen and (min-width: 770px) {
   .shots {
     width: 50%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
 .copy {
-  float: left;
+  float: right;
   padding: 36px 6% 0;
+  width: 83.3333333%;
+  margin-left: 8.33333335%;
+  margin-right: 8.33333335%;
 }
 @media only screen and (min-width: 480px) {
   .copy {
@@ -498,6 +529,8 @@ header button {
 @media only screen and (min-width: 770px) {
   .copy {
     width: 50%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 .copy p {
@@ -602,6 +635,6 @@ footer .col-3 ul li {
   }
 }
 footer .col-3 ul li .svg {
-  fill: #cf2425;
+  fill: #494f4f;
   height: 30px;
 }

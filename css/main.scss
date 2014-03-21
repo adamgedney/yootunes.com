@@ -104,10 +104,12 @@ input[type="submit"], .copy-signup{
 	right: 0;
 	top: 54px;
 	margin-right: 6%;
-	height: 190px;
+	min-height: 190px;
 	background: $white;
 	border-radius: 2px;
 	border: 1px solid nth($grey, 3);
+	padding: 1%;
+
 	@include break-md{
 		@include col(2);
 	}
@@ -122,6 +124,10 @@ input[type="submit"], .copy-signup{
 		position: absolute;
 		top: -9px;
 		right: 27px;
+	}
+
+	input, button{
+		height: 36px;
 	}
 }
 
@@ -185,6 +191,8 @@ header {
 
 	@include break-sm{
 		margin-top: 198px;
+		// @include col(10);
+		// @include col_ctr(10);
 	}
 
 	@include break-md{
@@ -196,10 +204,14 @@ header {
 		color: $black;
 		margin-bottom: 18px;
 		font-weight: 400;
+		line-height: 1em;
+		text-align: center;
 
 		@include break-sm{
 			color: $white;
 			font-weight: 100;
+			line-height: 1.5em;
+			text-align: left;
 		}
 
 		@include break-md{
@@ -244,13 +256,13 @@ header {
 
 		@include break-sm{
 			color: $white;
-			text-align: left;
-			float: right;
 			padding-left: 0;
 		}
 
 		@include break-md{
 			@include col(9);
+			text-align: left;
+			float: right;
 		}
 	}
 
@@ -262,13 +274,14 @@ header {
 		margin-bottom: 42px;
 
 		@include break-sm{
-			margin-bottom: 0;
-			@include col(9);
-			@include col_ctr(0);
+			@include col(6);
+			@include col_ctr(6);
 		}
 
 		@include break-md{
 			@include col(9);
+			@include col_ctr(0);
+			margin-bottom: 0;
 		}
 
 		.or{
@@ -319,15 +332,13 @@ header {
 }
 
 .diagram{
-	// @include col(10);
-	// @include col_ctr(10);
 	overflow: hidden;
 	text-align: center;
 	padding: 0 6% 148px;
 
 	div{
 		float: left;
-		padding: 0 18px;
+		padding: 0 6px;
 		margin-bottom: 18px;
 		@include col(8);
 		@include col_ctr(8);
@@ -338,6 +349,10 @@ header {
 			width: 20%;
 		}
 
+		@include break-md{
+			padding: 0 18px;
+		}
+
 
 		.svg{
 			fill: $white;
@@ -346,9 +361,9 @@ header {
 
 		p{
 			color: $yellow;
-			font-size: 1.8em;
+			font-size: 1.5em;
 
-			@include break-sm{
+			@include break-md{
 				font-size: 2.1em;
 			}
 		}
@@ -360,7 +375,6 @@ header {
 
 
 .details{
-	// height: 800px;//remove after content in place
 	background: $white;
 	overflow: hidden;
 	padding-top: 72px;
@@ -368,19 +382,33 @@ header {
 	@include break-sm{
 		padding-top: 148px;
 	}
+
+	h2{
+		text-align: center;
+
+		@include break-sm{
+			text-align: left;
+		}
+	}
 }
 
 .shots{
 	float: left;
 	padding-left: 6%;
+	@include col(10);
+	@include col_ctr(10);
+
 	@include break-md{
 		@include col(6);
+		@include col_ctr(0);
 	}
 }
 
 .copy{
-	float: left;
+	float: right;
 	padding:36px 6% 0;
+	@include col(10);
+	@include col_ctr(10);
 
 	@include break-sm{
 		padding:0 6%;
@@ -388,6 +416,7 @@ header {
 
 	@include break-md{
 		@include col(6);
+		@include col_ctr(0);
 	}
 
 	p{
@@ -499,7 +528,7 @@ footer{
 				}
 
 				.svg{
-					fill: $red;
+					fill: nth($grey, 2);
 					height: 30px;
 				}
 			}
