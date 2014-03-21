@@ -284,17 +284,53 @@ footer{
 	height: 198px;
 	background: $black;
 	padding-top: 36px;
+	overflow: hidden;
 
-	nav{
-		padding-left: 6%;
+	.col-1{
+		@include col(4);
+		float: left;
+		padding:36px 0 0 6%;
+
+		nav{
+			ul{
+				li{
+					line-height: 1.5em;
+					font-size: .8em;
+
+					a{
+						color: $white;
+					}
+				}
+			}
+		}
+	}
+
+	.col-2{
+		@include col(4);
+		float: left;
+		color: $white;
+		text-align: center;
+		font-weight: 100;
+		font-size: .8em;
+		padding-top: 84px;
+	}
+
+	.col-3{
+		@include col(4);
+		float: right;
+		padding: 114px 6% 0 0;
 
 		ul{
-			li{
-				line-height: 1.5em;
-				font-size: .8em;
+			overflow: hidden;
 
-				a{
-					color: $white;
+			li{
+				display: inline-block;
+				@include col(2);
+				float: right;
+
+				.svg{
+					fill: $red;
+					height: 30px;
 				}
 			}
 		}

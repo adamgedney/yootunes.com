@@ -363,14 +363,43 @@ footer {
   height: 198px;
   background: #0f1010;
   padding-top: 36px;
+  overflow: hidden;
 }
-footer nav {
-  padding-left: 6%;
+footer .col-1 {
+  width: 33.3333333%;
+  float: left;
+  padding: 36px 0 0 6%;
 }
-footer nav ul li {
+footer .col-1 nav ul li {
   line-height: 1.5em;
   font-size: .8em;
 }
-footer nav ul li a {
+footer .col-1 nav ul li a {
   color: #ebebeb;
+}
+footer .col-2 {
+  width: 33.3333333%;
+  float: left;
+  color: #ebebeb;
+  text-align: center;
+  font-weight: 100;
+  font-size: .8em;
+  padding-top: 84px;
+}
+footer .col-3 {
+  width: 33.3333333%;
+  float: right;
+  padding: 114px 6% 0 0;
+}
+footer .col-3 ul {
+  overflow: hidden;
+}
+footer .col-3 ul li {
+  display: inline-block;
+  width: 16.6666667%;
+  float: right;
+}
+footer .col-3 ul li .svg {
+  fill: #cf2425;
+  height: 30px;
 }
