@@ -39,6 +39,14 @@ $yellow: #e5a539;
   white-space: nowrap;
 }
 
+.small{
+	font-size: .4em;
+}
+
+.super{
+	vertical-align: top;
+}
+
 .red {
   color: $red;
 }
@@ -64,6 +72,7 @@ $yellow: #e5a539;
 header {
   height: 60px;
   background: $black;
+  padding: 0 2%;
 }
 
 .hero {
@@ -79,7 +88,19 @@ header {
 	height: 100%;
 	@include col(6);
 	float: left;
-	// background: $red;
+	padding-left: 2%;
+	margin-top: 99px;
+
+	h2{
+		color: $white;
+		@include col(9);
+		margin-bottom: 18px;
+	}
+
+	p{
+		color: $white;
+		@include col(9);
+	}
 }
 
 .signup{

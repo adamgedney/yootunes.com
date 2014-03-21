@@ -68,9 +68,10 @@ h1 {
 }
 
 h2 {
-  font-size: 2.4em;
+  font-size: 3.6em;
   /*18x3*/
   line-height: 1.5;
+  font-weight: 100;
 }
 
 h3 {
@@ -80,8 +81,7 @@ h3 {
 }
 
 p, ul, dl {
-  font-size: 1.6em;
-  font-weight: 100;
+  font-size: 1.8em;
   line-height: 1.5;
   margin-bottom: 20px;
 }
@@ -159,6 +159,14 @@ input, button, textarea {
   white-space: nowrap;
 }
 
+.small {
+  font-size: .4em;
+}
+
+.super {
+  vertical-align: top;
+}
+
 .red {
   color: #cf2425;
 }
@@ -183,6 +191,7 @@ input, button, textarea {
 header {
   height: 60px;
   background: #0f1010;
+  padding: 0 2%;
 }
 
 .hero {
@@ -198,6 +207,17 @@ header {
   height: 100%;
   width: 50%;
   float: left;
+  padding-left: 2%;
+  margin-top: 99px;
+}
+.cta h2 {
+  color: #ebebeb;
+  width: 75%;
+  margin-bottom: 18px;
+}
+.cta p {
+  color: #ebebeb;
+  width: 75%;
 }
 
 .signup {
