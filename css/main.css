@@ -193,6 +193,24 @@ input, button, textarea {
   border-radius: 2px;
 }
 
+input[type="email"], input[type="text"], input[type="submit"], .fb-signup, .copy-signup {
+  height: 48px;
+  width: 100%;
+}
+
+.fb-signup {
+  border: none;
+  background: #3b578a;
+  color: #ebebeb;
+}
+
+input[type="submit"], .copy-signup {
+  border: none;
+  background: #e5a539;
+  color: #272a2a;
+  width: 100%;
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 header {
   height: 60px;
@@ -263,25 +281,10 @@ header button {
   width: 75%;
   opacity: .98;
 }
-.signup form input[type="email"], .signup form input[type="text"], .signup form input[type="submit"], .signup form .fb-signup {
-  height: 48px;
-  width: 100%;
-}
-.signup form input[type="submit"] {
-  border: none;
-  background: #e5a539;
-  color: #272a2a;
-  width: 100%;
-}
 .signup form .or {
   text-align: center;
   color: #ebebeb;
   margin-top: 18px;
-}
-.signup form .fb-signup {
-  border: none;
-  background: #3b578a;
-  color: #ebebeb;
 }
 
 .howto {
@@ -330,6 +333,17 @@ header button {
 .details {
   height: 800px;
   background: #ebebeb;
+  overflow: hidden;
+}
+
+.shots {
+  width: 50%;
+  float: left;
+}
+
+.copy {
+  width: 50%;
+  float: left;
 }
 
 footer {

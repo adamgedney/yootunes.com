@@ -73,7 +73,23 @@ $yellow: #e5a539;
 	border-radius: 2px;
 }
 
+input[type="email"], input[type="text"], input[type="submit"], .fb-signup, .copy-signup{
+	height: 48px;
+	@include col(12);
+}
 
+.fb-signup{
+	border: none;
+	background: $blue;
+	color: $white;
+}
+
+input[type="submit"], .copy-signup{
+	border: none;
+	background: $yellow;
+	color: nth($grey, 1);
+	@include col(12);
+}
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 header {
@@ -159,28 +175,10 @@ header {
 		@include col(9);
 		opacity: .98;
 
-		input[type="email"], input[type="text"], input[type="submit"], .fb-signup{
-			height: 48px;
-			@include col(12);
-		}
-
-		input[type="submit"]{
-			border: none;
-			background: $yellow;
-			color: nth($grey, 1);
-			@include col(12);
-		}
-
 		.or{
 			text-align: center;
 			color: $white;
 			margin-top: 18px;
-		}
-
-		.fb-signup{
-			border: none;
-			background: $blue;
-			color: $white;
 		}
 	}
 }
@@ -246,9 +244,18 @@ header {
 .details{
 	height: 800px;//remove after content in place
 	background: $white;
+	overflow: hidden;
 }
 
+.shots{
+	@include col(6);
+	float: left;
+}
 
+.copy{
+	@include col(6);
+	float: left;
+}
 
 
 
