@@ -209,7 +209,7 @@ header {
 	h2{
 		text-align: center;
 		color: $white;
-		padding: 72px 0;
+		padding: 148px 0 72px;
 	}
 }
 
@@ -218,7 +218,7 @@ header {
 	// @include col_ctr(10);
 	overflow: hidden;
 	text-align: center;
-	padding-bottom: 148px;
+	padding: 0 6% 148px;
 
 	div{
 		width: 20%;
@@ -245,16 +245,34 @@ header {
 	height: 800px;//remove after content in place
 	background: $white;
 	overflow: hidden;
+	padding-top: 148px;
 }
 
 .shots{
 	@include col(6);
 	float: left;
+	padding-left: 6%;
 }
 
 .copy{
 	@include col(6);
 	float: left;
+	padding:0 6%;
+
+	p{
+		margin-top: 18px;
+	}
+
+	p:nth-child(odd){
+		margin-top: 72px;
+		margin-bottom: 36px;
+	}
+
+	button{
+		height: 57px;
+		// @include col(10);
+		// @include col_ctr(10);
+	}
 }
 
 
