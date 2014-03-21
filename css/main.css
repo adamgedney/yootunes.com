@@ -267,11 +267,16 @@ header button {
 }
 
 .hero {
-  background: url(../images/hero-bg.jpg) no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
   width: 100%;
   overflow: hidden;
+  background: #ebebeb;
+}
+@media only screen and (min-width: 480px) {
+  .hero {
+    background: url(../images/hero-bg.jpg) no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
 }
 @media only screen and (min-width: 770px) {
   .hero {
@@ -293,8 +298,13 @@ header button {
   }
 }
 .cta h2 {
-  color: #ebebeb;
+  color: #0f1010;
   margin-bottom: 18px;
+}
+@media only screen and (min-width: 480px) {
+  .cta h2 {
+    color: #ebebeb;
+  }
 }
 @media only screen and (min-width: 770px) {
   .cta h2 {
@@ -302,8 +312,13 @@ header button {
   }
 }
 .cta p {
-  color: #ebebeb;
+  color: #0f1010;
   font-weight: 100;
+}
+@media only screen and (min-width: 480px) {
+  .cta p {
+    color: #ebebeb;
+  }
 }
 @media only screen and (min-width: 770px) {
   .cta p {
@@ -324,8 +339,13 @@ header button {
   }
 }
 .signup h2 {
-  color: #ebebeb;
+  color: #0f1010;
   float: right;
+}
+@media only screen and (min-width: 480px) {
+  .signup h2 {
+    color: #ebebeb;
+  }
 }
 @media only screen and (min-width: 770px) {
   .signup h2 {
@@ -344,8 +364,13 @@ header button {
 }
 .signup form .or {
   text-align: center;
-  color: #ebebeb;
+  color: #0f1010;
   margin-top: 18px;
+}
+@media only screen and (min-width: 480px) {
+  .signup form .or {
+    color: #ebebeb;
+  }
 }
 
 .howto {
@@ -438,6 +463,11 @@ footer {
   background: #0f1010;
   overflow: hidden;
 }
+@media only screen and (min-width: 480px) {
+  footer {
+    height: 198px;
+  }
+}
 @media only screen and (min-width: 770px) {
   footer {
     padding-top: 36px;
@@ -453,15 +483,18 @@ footer {
 footer .col-1 nav ul li {
   line-height: 3em;
   font-size: .8em;
-  background: #272a2a;
   padding: 0 2%;
-  border-bottom: 1px solid #0f1010;
+  border-bottom: 1px solid #272a2a;
   text-align: center;
   width: 100%;
 }
 @media only screen and (min-width: 770px) {
   footer .col-1 nav ul li {
-    background: none;
+    line-height: 1.5em;
+  }
+}
+@media only screen and (min-width: 770px) {
+  footer .col-1 nav ul li {
     padding: 0;
     text-align: left;
     border: none;

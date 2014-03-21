@@ -163,11 +163,15 @@ header {
 
 
 .hero {
-  background: url(../images/hero-bg.jpg) no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
   @include col(12);
   overflow: hidden;
+  background: $white;
+
+  @include break-sm{
+  	background: url(../images/hero-bg.jpg) no-repeat;
+  	background-size: cover;
+  	background-attachment: fixed;
+  }
 
   @include break-md{
   	height: 700px;
@@ -187,16 +191,26 @@ header {
 		}
 
 	h2{
-		color: $white;
+		color: $black;
 		margin-bottom: 18px;
+
+		@include break-sm{
+			color: $white;
+		}
+
 		@include break-md{
 			@include col(9);
 		}
 	}
 
 	p{
-		color: $white;
+		color: $black;
 		font-weight: 100;
+
+		@include break-sm{
+			color: $white;
+		}
+
 		@include break-md{
 			@include col(9);
 		}
@@ -215,8 +229,13 @@ header {
 		}
 
 	h2{
-		color: $white;
+		color: $black;
 		float: right;
+
+		@include break-sm{
+			color: $white;
+		}
+
 		@include break-md{
 			@include col(9);
 		}
@@ -232,8 +251,12 @@ header {
 
 		.or{
 			text-align: center;
-			color: $white;
+			color: $black;
 			margin-top: 18px;
+
+			@include break-sm{
+				color: $white;
+			}
 		}
 	}
 }
@@ -347,6 +370,11 @@ footer{
 	min-height: 198px;
 	background: $black;
 	overflow: hidden;
+
+	@include break-sm{
+		height: 198px;
+	}
+
 	@include break-md{
 		padding-top: 36px;
 	}
@@ -364,13 +392,16 @@ footer{
 				li{
 					line-height: 3em;
 					font-size: .8em;
-					background: nth($grey, 1);
 					padding: 0 2%;
-					border-bottom: 1px solid $black;
+					border-bottom: 1px solid nth($grey, 1);
 					text-align: center;
 					@include col(12);
+
 					@include break-md{
-						background: none;
+						line-height: 1.5em;
+					}
+
+					@include break-md{
 						padding: 0;
 						text-align: left;
 						border: none;
@@ -390,6 +421,7 @@ footer{
 		font-weight: 100;
 		font-size: .8em;
 		padding-top: 84px;
+
 		@include break-md{
 			@include col(4);
 			float: left;
@@ -400,6 +432,7 @@ footer{
 		// padding: 114px 6% 0 0;
 		@include col(6);
 		@include col_ctr(6);
+
 		@include break-md{
 			@include col(4);
 			@include col_ctr(0);
