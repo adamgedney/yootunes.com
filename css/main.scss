@@ -67,12 +67,32 @@ $yellow: #e5a539;
   text-decoration: underline;
 }
 
+.outline{
+	border: 1px solid $white;
+	border-radius: 2px;
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 header {
   height: 60px;
   background: $black;
   padding: 0 6%;
+  overflow: hidden;
+
+  h1{
+  	display: inline;
+  }
+
+  button{
+  	background: none;
+  	float: right;
+  	color: $white;
+  	line-height: 0;
+  	font-size: 1.5em;
+  	font-weight: 100;
+  	margin-top: 15px;
+  }
 }
 
 .hero {
