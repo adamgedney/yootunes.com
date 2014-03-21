@@ -1,7 +1,7 @@
 $(function(){
 
 
-//Parallax bg controller
+//Parallax bg controller==================//
 var parallax = {};
 	parallax.yPos = 0;
 	parallax.hero = $('.hero');
@@ -75,8 +75,22 @@ $('img.svg').each(function(){
 });
 
 
+//Sign up button interaction handler=======//
+$('.signin').hide();
+var toggle = false;
+
+$(document).on('click', '#sign-in-btn', function(){
+
+	if(!toggle){
+		$('.signin').fadeIn();
+		toggle = !toggle;
+	}else{
+		$('.signin').fadeOut();
+		toggle = !toggle;
+	}
 
 
+});
 
 
 

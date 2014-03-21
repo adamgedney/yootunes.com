@@ -98,14 +98,18 @@ input[type="submit"], .copy-signup{
 
 
 .popdown{
-	@include col(2);
+	@include col(10);
 	position: absolute;
 	right: 0;
-	top: 60px;
+	top: 54px;
 	margin-right: 6%;
 	height: 190px;
-	background: nth($grey, 1);
+	background: $white;
 	border-radius: 2px;
+	border: 1px solid nth($grey, 3);
+	@include break-md{
+		@include col(2);
+	}
 
 	&:before{
 		content:"";
@@ -113,7 +117,7 @@ input[type="submit"], .copy-signup{
 		height: 0;
 		border-left: 9px solid transparent;
 		border-right: 9px solid transparent;
-		border-bottom: 18px solid nth($grey, 1);
+		border-bottom: 18px solid $white;
 		position: absolute;
 		top: -9px;
 		right: 27px;
@@ -159,54 +163,72 @@ header {
 
 
 .hero {
-  height: 700px;
-  height: 100vh;
   background: url(../images/hero-bg.jpg) no-repeat;
   background-size: cover;
   background-attachment: fixed;
   @include col(12);
   overflow: hidden;
+
+  @include break-md{
+  	height: 700px;
+  	height: 100vh;
+  }
 }
 
 
 .cta{
 	height: 100%;
-	@include col(6);
-	float: left;
+	@include col(12);
 	padding-left: 6%;
 	margin-top: 198px;
+		@include break-md{
+			@include col(6);
+			float: left;
+		}
 
 	h2{
 		color: $white;
-		@include col(9);
 		margin-bottom: 18px;
+		@include break-md{
+			@include col(9);
+		}
 	}
 
 	p{
 		color: $white;
-		@include col(9);
 		font-weight: 100;
+		@include break-md{
+			@include col(9);
+		}
 	}
 }
 
 
 .signup{
 	height: 100%;
-	@include col(5);
-	float: right;
+	@include col(12);
 	margin-top: 198px;
 	padding-right: 6%;
+		@include break-md{
+			@include col(6);
+			float: left;
+		}
 
 	h2{
 		color: $white;
-		@include col(9);
 		float: right;
+		@include break-md{
+			@include col(9);
+		}
 	}
 
 	form{
 		float: right;
-		@include col(9);
 		opacity: .98;
+		@include col(12);
+		@include break-md{
+			@include col(9);
+		}
 
 		.or{
 			text-align: center;
@@ -225,17 +247,19 @@ header {
 	background: $black;
 	position: relative;
 
-	&:before{
-		content: "";
-		background: url(../images/icons/mouse.svg) no-repeat $black;
-		background-position: center 27px;
-		background-size: 30px;
-		position: absolute;
-		top: -90px;
-		height:218px;
-     	@include col(3);
-     	@include col_ctr(3);
-     	border-radius: 218px 218px 0 0;
+	@include break-md{
+		&:before{
+			content: "";
+			background: url(../images/icons/mouse.svg) no-repeat $black;
+			background-position: center 27px;
+			background-size: 30px;
+			position: absolute;
+			top: -90px;
+			height:218px;
+	     	@include col(3);
+	     	@include col_ctr(3);
+	     	border-radius: 218px 218px 0 0;
+		}
 	}
 
 	h2{
@@ -253,9 +277,12 @@ header {
 	padding: 0 6% 148px;
 
 	div{
-		width: 20%;
+		width: 50%;
 		float: left;
 		padding: 0 18px;
+		@include break-md{
+			width: 20%;
+		}
 
 		.svg{
 			fill: $white;
@@ -274,22 +301,26 @@ header {
 
 
 .details{
-	height: 800px;//remove after content in place
+	// height: 800px;//remove after content in place
 	background: $white;
 	overflow: hidden;
 	padding-top: 148px;
 }
 
 .shots{
-	@include col(6);
 	float: left;
 	padding-left: 6%;
+	@include break-md{
+		@include col(6);
+	}
 }
 
 .copy{
-	@include col(6);
 	float: left;
 	padding:0 6%;
+	@include break-md{
+		@include col(6);
+	}
 
 	p{
 		margin-top: 18px;
@@ -313,21 +344,37 @@ header {
 
 
 footer{
-	height: 198px;
+	min-height: 198px;
 	background: $black;
-	padding-top: 36px;
 	overflow: hidden;
+	@include break-md{
+		padding-top: 36px;
+	}
 
 	.col-1{
-		@include col(4);
-		float: left;
-		padding:36px 0 0 6%;
+		// padding:36px 0 0 6%;
+		@include break-md{
+			@include col(4);
+			float: left;
+			padding:36px 0 0 6%;
+		}
 
 		nav{
 			ul{
 				li{
-					line-height: 1.5em;
+					line-height: 3em;
 					font-size: .8em;
+					background: nth($grey, 1);
+					padding: 0 2%;
+					border-bottom: 1px solid $black;
+					text-align: center;
+					@include col(12);
+					@include break-md{
+						background: none;
+						padding: 0;
+						text-align: left;
+						border: none;
+					}
 
 					a{
 						color: $white;
@@ -338,19 +385,27 @@ footer{
 	}
 
 	.col-2{
-		@include col(4);
-		float: left;
 		color: $white;
 		text-align: center;
 		font-weight: 100;
 		font-size: .8em;
 		padding-top: 84px;
+		@include break-md{
+			@include col(4);
+			float: left;
+		}
 	}
 
 	.col-3{
-		@include col(4);
-		float: right;
-		padding: 114px 6% 0 0;
+		// padding: 114px 6% 0 0;
+		@include col(6);
+		@include col_ctr(6);
+		@include break-md{
+			@include col(4);
+			@include col_ctr(0);
+			float: right;
+			padding: 114px 6% 0 0;
+		}
 
 		ul{
 			overflow: hidden;
@@ -358,7 +413,9 @@ footer{
 			li{
 				display: inline-block;
 				@include col(2);
-				float: right;
+				@include break-md{
+					float: right;
+				}
 
 				.svg{
 					fill: $red;

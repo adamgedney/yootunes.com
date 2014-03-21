@@ -217,14 +217,20 @@ input[type="submit"], .copy-signup {
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 .popdown {
-  width: 16.6666667%;
+  width: 83.3333333%;
   position: absolute;
   right: 0;
-  top: 60px;
+  top: 54px;
   margin-right: 6%;
   height: 190px;
-  background: #272a2a;
+  background: #ebebeb;
   border-radius: 2px;
+  border: 1px solid #949494;
+}
+@media only screen and (min-width: 770px) {
+  .popdown {
+    width: 16.6666667%;
+  }
 }
 .popdown:before {
   content: "";
@@ -232,7 +238,7 @@ input[type="submit"], .copy-signup {
   height: 0;
   border-left: 9px solid transparent;
   border-right: 9px solid transparent;
-  border-bottom: 18px solid #272a2a;
+  border-bottom: 18px solid #ebebeb;
   position: absolute;
   top: -9px;
   right: 27px;
@@ -261,49 +267,80 @@ header button {
 }
 
 .hero {
-  height: 700px;
-  height: 100vh;
   background: url(../images/hero-bg.jpg) no-repeat;
   background-size: cover;
   background-attachment: fixed;
   width: 100%;
   overflow: hidden;
 }
+@media only screen and (min-width: 770px) {
+  .hero {
+    height: 700px;
+    height: 100vh;
+  }
+}
 
 .cta {
   height: 100%;
-  width: 50%;
-  float: left;
+  width: 100%;
   padding-left: 6%;
   margin-top: 198px;
 }
+@media only screen and (min-width: 770px) {
+  .cta {
+    width: 50%;
+    float: left;
+  }
+}
 .cta h2 {
   color: #ebebeb;
-  width: 75%;
   margin-bottom: 18px;
+}
+@media only screen and (min-width: 770px) {
+  .cta h2 {
+    width: 75%;
+  }
 }
 .cta p {
   color: #ebebeb;
-  width: 75%;
   font-weight: 100;
+}
+@media only screen and (min-width: 770px) {
+  .cta p {
+    width: 75%;
+  }
 }
 
 .signup {
   height: 100%;
-  width: 41.6666666%;
-  float: right;
+  width: 100%;
   margin-top: 198px;
   padding-right: 6%;
 }
+@media only screen and (min-width: 770px) {
+  .signup {
+    width: 50%;
+    float: left;
+  }
+}
 .signup h2 {
   color: #ebebeb;
-  width: 75%;
   float: right;
+}
+@media only screen and (min-width: 770px) {
+  .signup h2 {
+    width: 75%;
+  }
 }
 .signup form {
   float: right;
-  width: 75%;
   opacity: .98;
+  width: 100%;
+}
+@media only screen and (min-width: 770px) {
+  .signup form {
+    width: 75%;
+  }
 }
 .signup form .or {
   text-align: center;
@@ -315,18 +352,20 @@ header button {
   background: #0f1010;
   position: relative;
 }
-.howto:before {
-  content: "";
-  background: url(../images/icons/mouse.svg) no-repeat #0f1010;
-  background-position: center 27px;
-  background-size: 30px;
-  position: absolute;
-  top: -90px;
-  height: 218px;
-  width: 25%;
-  margin-left: 37.5%;
-  margin-right: 37.5%;
-  border-radius: 218px 218px 0 0;
+@media only screen and (min-width: 770px) {
+  .howto:before {
+    content: "";
+    background: url(../images/icons/mouse.svg) no-repeat #0f1010;
+    background-position: center 27px;
+    background-size: 30px;
+    position: absolute;
+    top: -90px;
+    height: 218px;
+    width: 25%;
+    margin-left: 37.5%;
+    margin-right: 37.5%;
+    border-radius: 218px 218px 0 0;
+  }
 }
 .howto h2 {
   text-align: center;
@@ -340,9 +379,14 @@ header button {
   padding: 0 6% 148px;
 }
 .diagram div {
-  width: 20%;
+  width: 50%;
   float: left;
   padding: 0 18px;
+}
+@media only screen and (min-width: 770px) {
+  .diagram div {
+    width: 20%;
+  }
 }
 .diagram div .svg {
   fill: #ebebeb;
@@ -354,22 +398,29 @@ header button {
 }
 
 .details {
-  height: 800px;
   background: #ebebeb;
   overflow: hidden;
   padding-top: 148px;
 }
 
 .shots {
-  width: 50%;
   float: left;
   padding-left: 6%;
 }
+@media only screen and (min-width: 770px) {
+  .shots {
+    width: 50%;
+  }
+}
 
 .copy {
-  width: 50%;
   float: left;
   padding: 0 6%;
+}
+@media only screen and (min-width: 770px) {
+  .copy {
+    width: 50%;
+  }
 }
 .copy p {
   margin-top: 18px;
@@ -383,36 +434,68 @@ header button {
 }
 
 footer {
-  height: 198px;
+  min-height: 198px;
   background: #0f1010;
-  padding-top: 36px;
   overflow: hidden;
 }
-footer .col-1 {
-  width: 33.3333333%;
-  float: left;
-  padding: 36px 0 0 6%;
+@media only screen and (min-width: 770px) {
+  footer {
+    padding-top: 36px;
+  }
+}
+@media only screen and (min-width: 770px) {
+  footer .col-1 {
+    width: 33.3333333%;
+    float: left;
+    padding: 36px 0 0 6%;
+  }
 }
 footer .col-1 nav ul li {
-  line-height: 1.5em;
+  line-height: 3em;
   font-size: .8em;
+  background: #272a2a;
+  padding: 0 2%;
+  border-bottom: 1px solid #0f1010;
+  text-align: center;
+  width: 100%;
+}
+@media only screen and (min-width: 770px) {
+  footer .col-1 nav ul li {
+    background: none;
+    padding: 0;
+    text-align: left;
+    border: none;
+  }
 }
 footer .col-1 nav ul li a {
   color: #ebebeb;
 }
 footer .col-2 {
-  width: 33.3333333%;
-  float: left;
   color: #ebebeb;
   text-align: center;
   font-weight: 100;
   font-size: .8em;
   padding-top: 84px;
 }
+@media only screen and (min-width: 770px) {
+  footer .col-2 {
+    width: 33.3333333%;
+    float: left;
+  }
+}
 footer .col-3 {
-  width: 33.3333333%;
-  float: right;
-  padding: 114px 6% 0 0;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+@media only screen and (min-width: 770px) {
+  footer .col-3 {
+    width: 33.3333333%;
+    margin-left: 0;
+    margin-right: 0;
+    float: right;
+    padding: 114px 6% 0 0;
+  }
 }
 footer .col-3 ul {
   overflow: hidden;
@@ -420,7 +503,11 @@ footer .col-3 ul {
 footer .col-3 ul li {
   display: inline-block;
   width: 16.6666667%;
-  float: right;
+}
+@media only screen and (min-width: 770px) {
+  footer .col-3 ul li {
+    float: right;
+  }
 }
 footer .col-3 ul li .svg {
   fill: #cf2425;
