@@ -107,7 +107,7 @@ header {
 .hero {
   height: 700px;
   height: 100vh;
-  background: url(../images/hero-bg.jpg) $white no-repeat;
+  background: url(../images/hero-bg.jpg) no-repeat;
   background-size: cover;
   background-attachment: fixed;
   @include col(12);
@@ -209,9 +209,18 @@ header {
 
 
 
+
+
 .details{
 	height: 800px;//remove after content in place
+	background: $white;
 }
+
+
+
+
+
+
 
 
 footer{

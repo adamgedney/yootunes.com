@@ -15,15 +15,17 @@ $(window).on('scroll', function(){
 
 	//checks difference between start position and current
 	if(scroll > parallax.position ){
-		parallax.yPos -= .8;
+		parallax.yPos -= 1.5;
 	}else{
-		parallax.yPos += .8;
+		parallax.yPos += 1.5;
+
+		//resets background once out of viewport to fix a presentation bug
+		if(scroll > 680){
+			parallax.yPos = -1;
+		}
 	}
 
-	//resets background once out of viewport to fix a presentation bug
-	if(scroll > 680){
-		parallax.yPos = 0;
-	}
+
 
 	//animates background image in hero
 	parallax.hero.css({

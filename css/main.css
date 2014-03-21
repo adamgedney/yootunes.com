@@ -59,6 +59,7 @@ body {
   color: #272a2a;
   font: 62.5% 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  background: #0f1010;
 }
 
 h1 {
@@ -219,7 +220,7 @@ header button {
 .hero {
   height: 700px;
   height: 100vh;
-  background: url(../images/hero-bg.jpg) #ebebeb no-repeat;
+  background: url(../images/hero-bg.jpg) no-repeat;
   background-size: cover;
   background-attachment: fixed;
   width: 100%;
@@ -304,6 +305,7 @@ header button {
 
 .details {
   height: 800px;
+  background: #ebebeb;
 }
 
 footer {
