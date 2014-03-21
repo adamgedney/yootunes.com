@@ -97,23 +97,6 @@ input[type="submit"], .copy-signup{
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 
-// body{
-// 	@include break-sm{
-// 		font-size: 1.8em;
-// 	}
-// }
-
-// h1, h2{
-// 	font-size: .7em;
-
-// 	@include break-sm{
-// 		font-size: .6em;
-// 	}
-// }
-
-
-
-
 
 .popdown{
 	@include col(10);
@@ -261,8 +244,9 @@ header {
 
 		@include break-sm{
 			color: $white;
-			float: right;
 			text-align: left;
+			float: right;
+			padding-left: 0;
 		}
 
 		@include break-md{
@@ -279,6 +263,8 @@ header {
 
 		@include break-sm{
 			margin-bottom: 0;
+			@include col(9);
+			@include col_ctr(0);
 		}
 
 		@include break-md{

@@ -358,8 +358,9 @@ header button {
 @media only screen and (min-width: 480px) {
   .signup h2 {
     color: #ebebeb;
-    float: right;
     text-align: left;
+    float: right;
+    padding-left: 0;
   }
 }
 @media only screen and (min-width: 770px) {
@@ -378,6 +379,9 @@ header button {
 @media only screen and (min-width: 480px) {
   .signup form {
     margin-bottom: 0;
+    width: 75%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 @media only screen and (min-width: 770px) {
