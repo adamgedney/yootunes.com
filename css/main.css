@@ -291,7 +291,7 @@ header button {
 }
 .howto:before {
   content: "";
-  background: url(../images/mouse.svg) no-repeat #0f1010;
+  background: url(../images/icons/mouse.svg) no-repeat #0f1010;
   background-position: center 27px;
   background-size: 30px;
   position: absolute;
@@ -301,6 +301,15 @@ header button {
   margin-left: 37.5%;
   margin-right: 37.5%;
   border-radius: 218px 218px 0 0;
+}
+
+.diagram {
+  width: 83.3333333%;
+  margin-left: 8.33333335%;
+  margin-right: 8.33333335%;
+}
+.diagram div {
+  width: 16.6666667%;
 }
 
 .details {

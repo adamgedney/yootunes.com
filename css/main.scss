@@ -73,6 +73,7 @@ $yellow: #e5a539;
 	border-radius: 2px;
 }
 
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 header {
@@ -193,7 +194,7 @@ header {
 
 	&:before{
 		content: "";
-		background: url(../images/mouse.svg) no-repeat $black;
+		background: url(../images/icons/mouse.svg) no-repeat $black;
 		background-position: center 27px;
 		background-size: 30px;
 		position: absolute;
@@ -205,7 +206,14 @@ header {
 	}
 }
 
+.diagram{
+	@include col(10);
+	@include col_ctr(10);
 
+	div{
+		@include col(2);
+	}
+}
 
 
 
