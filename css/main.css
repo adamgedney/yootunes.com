@@ -306,3 +306,19 @@ header button {
 .details {
   height: 800px;
 }
+
+footer {
+  height: 198px;
+  background: #0f1010;
+  padding-top: 36px;
+}
+footer nav {
+  padding-left: 6%;
+}
+footer nav ul li {
+  line-height: 1.5em;
+  font-size: .8em;
+}
+footer nav ul li a {
+  color: #ebebeb;
+}

@@ -215,7 +215,26 @@ header {
 }
 
 
+footer{
+	height: 198px;
+	background: $black;
+	padding-top: 36px;
 
+	nav{
+		padding-left: 6%;
+
+		ul{
+			li{
+				line-height: 1.5em;
+				font-size: .8em;
+
+				a{
+					color: $white;
+				}
+			}
+		}
+	}
+}
 
 
 
