@@ -107,8 +107,8 @@ a:visited {
   outline: none;
 }
 
-a:hover, input[type="submit"]:hover {
-  opacity: .5;
+a:hover, input[type="submit"]:hover, button:hover {
+  opacity: .7;
 }
 
 a.no-tran:hover {
@@ -191,7 +191,7 @@ input, button, textarea {
 header {
   height: 60px;
   background: #0f1010;
-  padding: 0 2%;
+  padding: 0 6%;
 }
 
 .hero {
@@ -207,7 +207,7 @@ header {
   height: 100%;
   width: 50%;
   float: left;
-  padding-left: 2%;
+  padding-left: 6%;
   margin-top: 99px;
 }
 .cta h2 {
@@ -222,8 +222,39 @@ header {
 
 .signup {
   height: 100%;
-  width: 50%;
-  float: left;
+  width: 41.6666666%;
+  float: right;
+  margin-top: 99px;
+  padding-right: 6%;
+}
+.signup h2 {
+  color: #ebebeb;
+  width: 75%;
+  float: right;
+}
+.signup form {
+  float: right;
+  width: 75%;
+  opacity: .9;
+}
+.signup form input[type="email"], .signup form input[type="text"], .signup form input[type="submit"], .signup form .fb-signup {
+  height: 48px;
+  width: 100%;
+}
+.signup form input[type="submit"] {
+  border: none;
+  background: #e5a539;
+  color: #272a2a;
+  width: 100%;
+}
+.signup form .or {
+  text-align: center;
+  color: #ebebeb;
+}
+.signup form .fb-signup {
+  border: none;
+  background: #3b578a;
+  color: #ebebeb;
 }
 
 .howto {

@@ -62,8 +62,8 @@ a:visited{
 	outline: none;
 }
 
-a:hover, input[type="submit"]:hover{
-	opacity: .5;
+a:hover, input[type="submit"]:hover, button:hover{
+	opacity: .7;
 }
 
 a.no-tran:hover{

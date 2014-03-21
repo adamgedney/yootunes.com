@@ -72,7 +72,7 @@ $yellow: #e5a539;
 header {
   height: 60px;
   background: $black;
-  padding: 0 2%;
+  padding: 0 6%;
 }
 
 .hero {
@@ -88,7 +88,7 @@ header {
 	height: 100%;
 	@include col(6);
 	float: left;
-	padding-left: 2%;
+	padding-left: 6%;
 	margin-top: 99px;
 
 	h2{
@@ -105,10 +105,48 @@ header {
 
 .signup{
 	height: 100%;
-	@include col(6);
-	float: left;
-	// background: $red;
+	@include col(5);
+	float: right;
+	margin-top: 99px;
+	padding-right: 6%;
+
+	h2{
+		color: $white;
+		@include col(9);
+		float: right;
+	}
+
+	form{
+		float: right;
+		@include col(9);
+		opacity: .9;
+
+		input[type="email"], input[type="text"], input[type="submit"], .fb-signup{
+			height: 48px;
+			@include col(12);
+		}
+
+		input[type="submit"]{
+			border: none;
+			background: $yellow;
+			color: nth($grey, 1);
+			@include col(12);
+		}
+
+		.or{
+			text-align: center;
+			color: $white;
+		}
+
+		.fb-signup{
+			border: none;
+			background: $blue;
+			color: $white;
+		}
+	}
 }
+
+
 
 .howto{
 	height: 400px; //remove after content in place
