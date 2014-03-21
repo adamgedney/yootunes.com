@@ -73,6 +73,10 @@ $yellow: #e5a539;
 	border-radius: 2px;
 }
 
+.bold{
+	font-weight: 700;
+}
+
 input[type="email"], input[type="text"], input[type="submit"], .fb-signup, .copy-signup{
 	height: 48px;
 	@include col(12);
@@ -92,11 +96,44 @@ input[type="submit"], .copy-signup{
 }
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
+
+.popdown{
+	@include col(2);
+	position: absolute;
+	right: 0;
+	top: 60px;
+	margin-right: 6%;
+	height: 190px;
+	background: nth($grey, 1);
+	border-radius: 2px;
+
+	&:before{
+		content:"";
+		width: 0;
+		height: 0;
+		border-left: 9px solid transparent;
+		border-right: 9px solid transparent;
+		border-bottom: 18px solid nth($grey, 1);
+		position: absolute;
+		top: -9px;
+		right: 27px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
 header {
   height: 60px;
   background: $black;
   padding: 0 6%;
-  overflow: hidden;
+  // overflow: hidden; //********Need to fix this to accomidate floats in children
   position: fixed;
   left: 0;
   right: 0;
@@ -129,9 +166,8 @@ header {
   background-attachment: fixed;
   @include col(12);
   overflow: hidden;
-  position: relative;
-  z-index: -2;
 }
+
 
 .cta{
 	height: 100%;
@@ -149,12 +185,9 @@ header {
 	p{
 		color: $white;
 		@include col(9);
+		font-weight: 100;
 	}
 }
-
-
-
-
 
 
 .signup{
@@ -199,7 +232,6 @@ header {
 		background-size: 30px;
 		position: absolute;
 		top: -90px;
-		z-index: -1;
 		height:218px;
      	@include col(3);
      	@include col_ctr(3);
