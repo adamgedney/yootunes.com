@@ -709,6 +709,55 @@ aside.app iframe {
   margin: 33px 0;
 }
 
+.library-nav {
+  padding: 0 6%;
+  line-height: 36px;
+  font-size: .8em;
+}
+.library-nav ul li a {
+  color: #494f4f;
+}
+
+.playlist-nav {
+  padding: 0 6%;
+  font-size: .8em;
+}
+.playlist-nav h3 {
+  display: inline;
+  line-height: 36px;
+}
+.playlist-nav ul {
+  height: 65.25vh;
+  overflow: scroll;
+  -webkit-box-shadow: inset 0px -31px 24px -7px #ebebeb;
+  -moz-box-shadow: inset 0px -31px 24px -7px #ebebeb;
+  box-shadow: inset 0px -31px 24px -7px #ebebeb;
+}
+.playlist-nav ul li {
+  line-height: 36px;
+}
+.playlist-nav ul li a {
+  color: #494f4f;
+  width: 91.6666666%;
+}
+
+.playlist-menu {
+  width: 8.33333333%;
+  float: right;
+}
+.playlist-menu svg {
+  height: 12px;
+  vertical-align: middle;
+}
+
+.add-icon {
+  height: 12px;
+  float: right;
+  width: 8.33333333%;
+  vertical-align: middle;
+}
+
+/*Main Content container===============*/
 section.app {
   width: 75%;
   float: left;

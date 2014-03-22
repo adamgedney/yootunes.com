@@ -62,8 +62,76 @@ aside.app{
 	}
 }
 
+.library-nav{
+	padding: 0 6%;
+	line-height: 36px;
+	font-size: .8em;
+
+	ul{
+		li{
+			a{
+				color: nth($grey, 2);
+			}
+		}
+	}
+}
+
+.playlist-nav{
+	padding: 0 6%;
+	font-size: .8em;
+
+	h3{
+		display: inline;
+		line-height: 36px;
+	}
+
+	ul{
+		height: 65.25vh;
+		overflow: scroll;
+-webkit-box-shadow: inset 0px -31px 24px -7px $white;
+	   -moz-box-shadow: inset 0px -31px 24px -7px $white;
+			box-shadow: inset 0px -31px 24px -7px $white;
+
+		li{
+			line-height: 36px;
+
+			a{
+				color: nth($grey, 2);
+				@include col(11);
+			}
+
+		}
+	}
+}
+
+.playlist-menu{
+	@include col(1);
+	float: right;
+
+	svg{
+		height: 12px;
+		vertical-align: middle;
+	}
+}
+
+.add-icon{
+	height: 12px;
+	float: right;
+	@include col(1);
+	vertical-align: middle;
+}
 
 
+
+
+
+
+
+
+
+
+
+/*Main Content container===============*/
 section.app{
 	@include col(9);
 	float: left;
