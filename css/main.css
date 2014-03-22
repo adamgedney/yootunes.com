@@ -690,6 +690,12 @@ aside.app {
   float: left;
   border-right: 1px solid #d6d6d6;
 }
+aside.app iframe {
+  width: 25%;
+  position: fixed;
+  bottom: 69px;
+  left: 0;
+}
 
 section.app {
   width: 75%;

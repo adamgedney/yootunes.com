@@ -41,6 +41,13 @@ aside.app{
 	height: 100vh;
 	float: left;
 	border-right: 1px solid nth($grey, 4);
+
+	iframe{
+		@include col(3);
+		position: fixed;
+		bottom: 69px;
+		left: 0;
+	}
 }
 
 section.app{

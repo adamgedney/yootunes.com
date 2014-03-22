@@ -80,7 +80,8 @@ module.exports = function(grunt) {
       //compass
       compass: {
         files: ['css/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
+        tasks: ['compass:server']
+        //tasks: ['compass:server', 'autoprefixer'] removed to hack error. Reenable before build
       },
 
       //livereload
