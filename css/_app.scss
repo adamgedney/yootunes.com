@@ -43,12 +43,13 @@ aside.app{
 	border-right: 1px solid nth($grey, 4);
 
 	iframe{
-		background: nth($grey, 2);//remove during tests. Placeholder bg color so video can be commented out
+		background: $black;//remove during tests. Placeholder bg color so video can be commented out
 		@include col(3);
 		position: fixed;
 		bottom: 69px;
 		left: 0;
 		z-index:10;
+		height: 27px;
 	}
 }
 
@@ -86,14 +87,8 @@ aside.app{
 	}
 
 	ul{
-		height: 65.25vh;
-		overflow: scroll;
--webkit-box-shadow: inset 0px -31px 24px -7px $white;
-	   -moz-box-shadow: inset 0px -31px 24px -7px $white;
-			box-shadow: inset 0px -31px 24px -7px $white;
-
 		li{
-			line-height: 36px;
+			line-height: 27px;
 
 			a{
 				color: nth($grey, 2);
@@ -121,7 +116,18 @@ aside.app{
 	vertical-align: middle;
 }
 
+.playlist-scroll-container::-webkit-scrollbar {
+    display: none;
+}
 
+.playlist-scroll-container{
+	height: 65.25vh;
+	overflow: scroll;
+
+-webkit-box-shadow: inset 0px -31px 24px -7px $white;
+	   -moz-box-shadow: inset 0px -31px 24px -7px $white;
+			box-shadow: inset 0px -31px 24px -7px $white;
+}
 
 
 

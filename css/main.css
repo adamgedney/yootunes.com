@@ -691,12 +691,13 @@ aside.app {
   border-right: 1px solid #d6d6d6;
 }
 aside.app iframe {
-  background: #494f4f;
+  background: #0f1010;
   width: 25%;
   position: fixed;
   bottom: 69px;
   left: 0;
   z-index: 10;
+  height: 27px;
 }
 
 .aside-header {
@@ -726,15 +727,8 @@ aside.app iframe {
   display: inline;
   line-height: 36px;
 }
-.playlist-nav ul {
-  height: 65.25vh;
-  overflow: scroll;
-  -webkit-box-shadow: inset 0px -31px 24px -7px #ebebeb;
-  -moz-box-shadow: inset 0px -31px 24px -7px #ebebeb;
-  box-shadow: inset 0px -31px 24px -7px #ebebeb;
-}
 .playlist-nav ul li {
-  line-height: 36px;
+  line-height: 27px;
 }
 .playlist-nav ul li a {
   color: #494f4f;
@@ -755,6 +749,18 @@ aside.app iframe {
   float: right;
   width: 8.33333333%;
   vertical-align: middle;
+}
+
+.playlist-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.playlist-scroll-container {
+  height: 65.25vh;
+  overflow: scroll;
+  -webkit-box-shadow: inset 0px -31px 24px -7px #ebebeb;
+  -moz-box-shadow: inset 0px -31px 24px -7px #ebebeb;
+  box-shadow: inset 0px -31px 24px -7px #ebebeb;
 }
 
 /*Main Content container===============*/
