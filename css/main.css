@@ -749,6 +749,7 @@ section.app {
   border-left: none;
 }
 
+/*Footer Container========================*/
 .footer {
   background: #0f1010;
   height: 72px;
@@ -757,3 +758,5 @@ section.app {
   left: 0;
   right: 0;
 }
+
+/*Move this to global after built*/
