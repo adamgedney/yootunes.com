@@ -2,7 +2,7 @@
 	Thanks for checking out my code!!
 
 
-	Copyright Adam Gedney 2/15/14
+	Copyright Adam Gedney 3/1/14
 	contact: adam.gedney@gmail.com
 	http://adamgedney.com
 
@@ -661,4 +661,27 @@ footer .col-3 ul li {
 footer .col-3 ul li .svg {
   fill: #494f4f;
   height: 30px;
+}
+
+/*----Sass import application stylesheet----*/
+/*
+	Thanks for checking out my code!!
+
+
+	Copyright Adam Gedney 3/22/14
+	contact: adam.gedney@gmail.com
+	http://adamgedney.com
+
+"Good UI design is humble.” – Jono DiCarlo
+*/
+/*
+
+
+----------------SASS------------------*/
+/*--------------------------------------End Objects / Start Main------------------------------------*/
+#app {
+  background: #ebebeb;
+}
+#app footer {
+  background: none;
 }
