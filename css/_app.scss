@@ -43,12 +43,25 @@ aside.app{
 	border-right: 1px solid nth($grey, 4);
 
 	iframe{
+		background: nth($grey, 2);//remove during tests. Placeholder bg color so video can be commented out
 		@include col(3);
 		position: fixed;
 		bottom: 69px;
 		left: 0;
 	}
 }
+
+.aside-header{
+	height: 120px;
+
+	.logo{
+		@include col(12);
+		@include col_ctr(12);
+		margin: 33px 0;
+	}
+}
+
+
 
 section.app{
 	@include col(9);

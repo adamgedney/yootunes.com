@@ -691,10 +691,21 @@ aside.app {
   border-right: 1px solid #d6d6d6;
 }
 aside.app iframe {
+  background: #494f4f;
   width: 25%;
   position: fixed;
   bottom: 69px;
   left: 0;
+}
+
+.aside-header {
+  height: 120px;
+}
+.aside-header .logo {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  margin: 33px 0;
 }
 
 section.app {
