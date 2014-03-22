@@ -750,31 +750,39 @@ section.app {
 }
 
 .main-container ul {
-  overflow: scroll;
+  margin-bottom: 0;
 }
-.main-container li {
+.main-container ul li {
   line-height: 36px;
   overflow: hidden;
   padding: 0 2%;
 }
-.main-container li span {
+.main-container ul li span {
   width: 25%;
   float: left;
   display: inline-block;
 }
-.main-container li .li-play, .main-container li .li-menu, .main-container li .li-length, .main-container li .li-genre {
+.main-container ul li .li-length, .main-container ul li .li-genre {
   width: 8.33333333%;
-}
-.main-container li .li-artist {
-  width: 16.6666667%;
-}
-.main-container li .li-menu {
   float: right;
 }
-.main-container li svg {
-  height: 18px;
-  width: 18px;
+.main-container ul li .li-play, .main-container ul li .li-menu {
+  width: 6%;
+}
+.main-container ul li .li-artist {
+  width: 16.6666667%;
+}
+.main-container ul li .li-menu {
+  float: right;
+}
+.main-container ul li svg {
+  height: 12px;
   vertical-align: middle;
+}
+
+.scroll-container {
+  height: 90vh;
+  overflow: scroll;
 }
 
 .li-header {
@@ -784,7 +792,10 @@ section.app {
   font-size: .8em;
 }
 .li-header .li-title {
-  margin-left: 8.33333333%;
+  margin-left: 6%;
+}
+.li-header .li-length {
+  margin-right: 6%;
 }
 
 .li-group {
