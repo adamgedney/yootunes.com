@@ -698,6 +698,7 @@ aside.app iframe {
   left: 0;
   z-index: 10;
   height: 27px;
+  border: none;
 }
 
 .aside-header {
@@ -710,25 +711,33 @@ aside.app iframe {
   margin: 33px 0;
 }
 
+.li-group:hover, .playlist-nav li:hover, .library-nav li:hover {
+  background: #e2e2e2;
+}
+
 .library-nav {
-  padding: 0 6%;
   line-height: 36px;
   font-size: .8em;
+}
+.library-nav ul li {
+  padding: 0 6%;
 }
 .library-nav ul li a {
   color: #494f4f;
 }
 
 .playlist-nav {
-  padding: 0 6%;
   font-size: .8em;
 }
 .playlist-nav h3 {
   display: inline;
   line-height: 36px;
+  padding: 0 6%;
 }
 .playlist-nav ul li {
   line-height: 27px;
+  cursor: pointer;
+  padding: 0 6%;
 }
 .playlist-nav ul li a {
   color: #494f4f;
@@ -749,6 +758,7 @@ aside.app iframe {
   float: right;
   width: 8.33333333%;
   vertical-align: middle;
+  margin: 0 6% 0 0;
 }
 
 .playlist-scroll-container::-webkit-scrollbar {
@@ -858,10 +868,6 @@ section.app {
   color: #494f4f;
   font-size: .8em;
   cursor: pointer;
-}
-
-.li-group:hover {
-  background: #e2e2e2;
 }
 
 /*Footer Container========================*/
