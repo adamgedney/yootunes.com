@@ -749,6 +749,32 @@ section.app {
   border-left: none;
 }
 
+.main-container {
+  overflow: hidden;
+}
+.main-container span {
+  width: 16.6666667%;
+  float: left;
+}
+.main-container li {
+  line-height: 36px;
+}
+
+.li-header {
+  font-weight: 700;
+}
+
+.li-group {
+  color: #494f4f;
+}
+.li-group svg {
+  height: 26px;
+}
+
+.li-group:hover {
+  background: #d6d6d6;
+}
+
 /*Footer Container========================*/
 .footer {
   background: #0f1010;

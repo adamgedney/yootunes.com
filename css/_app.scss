@@ -102,8 +102,34 @@ section.app{
 	}
 }
 
+.main-container{
+	overflow: hidden;
 
+	span{
+		@include col(2);
+		float: left;
+	}
 
+	li{
+		line-height: 36px;
+	}
+}
+
+.li-header{
+	font-weight: 700;
+}
+
+.li-group{
+	color: nth($grey, 2);
+
+	svg{
+		height: 26px;
+	}
+}
+
+.li-group:hover{
+	background: nth($grey, 4);
+}
 
 
 
