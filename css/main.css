@@ -681,7 +681,55 @@ footer .col-3 ul li .svg {
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 #app {
   background: #ebebeb;
+  overflow: hidden;
 }
-#app footer {
-  background: none;
+
+aside.app {
+  width: 25%;
+  height: 100vh;
+  float: left;
+  border-right: 1px solid #d6d6d6;
+}
+
+section.app {
+  width: 75%;
+  float: left;
+}
+
+.section-header {
+  height: 120px;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.search {
+  overflow: hidden;
+  width: 66.6666666%;
+  margin-left: 16.6666667%;
+  margin-right: 16.6666667%;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.search input {
+  float: left;
+  margin: 0;
+}
+.search input[type="text"] {
+  width: 83.3333333%;
+}
+.search input[type="submit"] {
+  width: 16.6666667%;
+}
+
+.footer {
+  background: #0f1010;
+  height: 72px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

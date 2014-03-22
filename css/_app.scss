@@ -33,14 +33,55 @@
 //body#app
 #app{
 	background: $white;
+	overflow: hidden;
+}
 
-	footer{
-		background: none;
+aside.app{
+	@include col(3);
+	height: 100vh;
+	float: left;
+	border-right: 1px solid nth($grey, 4);
+}
+
+section.app{
+	@include col(9);
+	float: left;
+}
+
+.section-header{
+	height: 120px;
+	border-bottom: 1px solid nth($grey, 4);
+}
+
+.search{
+	overflow: hidden;
+	@include col(8);
+	@include col_ctr(8);
+	@include vertical-align;
+
+	input{
+		float: left;
+		margin: 0;
+	}
+
+	input[type="text"]{
+		@include col(10);
+	}
+
+	input[type="submit"]{
+		@include col(2);
 	}
 }
 
 
-
+.footer{
+	background: $black;
+	height: 72px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
 
 
 
