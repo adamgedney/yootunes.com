@@ -170,23 +170,66 @@ section.app{
 .seek-ctrl{
 	@include col(3);
 	float: left;
+	@include vertical-align;
+	height: 18px;
+	overflow: hidden;
+	position: relative;
+
+	p{
+		font-size: 1.2em;
+		display: inline;
+		float: right;
+		line-height: 0px; //important for lining up seek-line
+	}
+}
+
+.seek-line{
+	@include col(10);
+	height: 0px;
+	border-bottom: 1px solid nth($grey, 2);
+	@include vertical-align;
+	margin-top: 9px;
+}
+
+#seek_dot{
+	width: 12px;
+	height: 12px;
+	background: $red;
+	border-radius: 50%;
+	position: absolute;
+	top: 3px;
+	z-index: 10;
+	opacity: .7;
 }
 
 .volume-ctrl{
 	@include col(1);
 	float: left;
-	img.vol-icon{
-	fill: $white;
-}
+	height: 100%;
+
+	.vol-icon{
+		fill: $white;
+		height: 18px;
+		@include vertical-align;
+	}
 }
 
 .playing-share-ctrl{
 	@include col(1);
 	float: left;
+	@include vertical-align;
 }
 
 /*Move this to global after built*/
 .share-strip{
+	overflow: hidden;
+
+	svg{
+		@include col(3);
+		display: block;
+		float: left;
+		padding-left: 6px;
+	}
 
 }
 

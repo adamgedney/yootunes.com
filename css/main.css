@@ -809,22 +809,89 @@ section.app {
 .seek-ctrl {
   width: 25%;
   float: left;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  height: 18px;
+  overflow: hidden;
+  position: relative;
+}
+.seek-ctrl p {
+  font-size: 1.2em;
+  display: inline;
+  float: right;
+  line-height: 0px;
+}
+
+.seek-line {
+  width: 83.3333333%;
+  height: 0px;
+  border-bottom: 1px solid #494f4f;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  margin-top: 9px;
+}
+
+#seek_dot {
+  width: 12px;
+  height: 12px;
+  background: #cf2425;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  z-index: 10;
+  opacity: .7;
 }
 
 .volume-ctrl {
   width: 8.33333333%;
   float: left;
+  height: 100%;
 }
-.volume-ctrl img.vol-icon {
+.volume-ctrl .vol-icon {
   fill: #ebebeb;
+  height: 18px;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .playing-share-ctrl {
   width: 8.33333333%;
   float: left;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 /*Move this to global after built*/
+.share-strip {
+  overflow: hidden;
+}
+.share-strip svg {
+  width: 25%;
+  display: block;
+  float: left;
+  padding-left: 6px;
+}
+
 .playon-ctrl {
   width: 8.33333333%;
   float: left;
