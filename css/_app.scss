@@ -48,6 +48,7 @@ aside.app{
 		position: fixed;
 		bottom: 69px;
 		left: 0;
+		z-index:10;
 	}
 }
 
@@ -145,7 +146,7 @@ section.app{
 }
 
 .scroll-container{
-	height: 90vh;
+	height: 65.25vh;
 	overflow: scroll;
 }
 
@@ -164,6 +165,7 @@ section.app{
 	}
 }
 
+
 .li-group{
 	color: nth($grey, 2);
 	font-size: .8em;
@@ -174,9 +176,10 @@ section.app{
 	background: nth($grey, 5);
 }
 
-.li-group:first-child{
-	// margin-top: 36px;
-}
+
+
+
+
 
 
 
@@ -189,9 +192,13 @@ section.app{
 	bottom: 0;
 	left: 0;
 	right: 0;
-	overflow: hidden;
-	color: $white;
 	padding: 0 2%;
+	color: $white;
+	// overflow: hidden;
+
+	-webkit-box-shadow: 0px -31px 24px -7px $white;
+	   -moz-box-shadow: 0px -31px 24px -7px $white;
+			box-shadow: 0px -31px 24px -7px $white;
 }
 
 

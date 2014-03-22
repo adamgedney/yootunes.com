@@ -696,6 +696,7 @@ aside.app iframe {
   position: fixed;
   bottom: 69px;
   left: 0;
+  z-index: 10;
 }
 
 .aside-header {
@@ -781,7 +782,7 @@ section.app {
 }
 
 .scroll-container {
-  height: 90vh;
+  height: 65.25vh;
   overflow: scroll;
 }
 
@@ -816,9 +817,11 @@ section.app {
   bottom: 0;
   left: 0;
   right: 0;
-  overflow: hidden;
-  color: #ebebeb;
   padding: 0 2%;
+  color: #ebebeb;
+  -webkit-box-shadow: 0px -31px 24px -7px #ebebeb;
+  -moz-box-shadow: 0px -31px 24px -7px #ebebeb;
+  box-shadow: 0px -31px 24px -7px #ebebeb;
 }
 
 .info {
