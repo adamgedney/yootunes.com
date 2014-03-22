@@ -797,6 +797,7 @@ section.app {
 .transport-ctrl svg {
   width: 33.3333333%;
   float: left;
+  cursor: pointer;
 }
 .transport-ctrl .play {
   height: 18px;
@@ -850,6 +851,7 @@ section.app {
   top: 3px;
   z-index: 10;
   opacity: .7;
+  cursor: pointer;
 }
 
 .volume-ctrl {
@@ -867,6 +869,7 @@ section.app {
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .playing-share-ctrl {
@@ -895,9 +898,58 @@ section.app {
 .playon-ctrl {
   width: 8.33333333%;
   float: left;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.playon-ctrl h3 {
+  font-size: 1.2em;
+}
+.playon-ctrl select {
+  width: 91.6666666%;
+  background: transparent;
+  background: url(../images/icons/down-arrow-wht.png) no-repeat right;
+  border-radius: 2px;
+  -webkit-appearance: none;
+  border: 1px solid #ebebeb;
+  color: #ebebeb;
+  font-size: .9em;
+  padding: 3px;
+  outline: none;
 }
 
 .profile-display {
   width: 16.6666667%;
   float: left;
+  overflow: hidden;
+  height: 100%;
+  padding: 18px 0 0 18px;
+}
+.profile-display h3 {
+  font-size: 1.2em;
+  width: 75%;
+  display: block;
+  line-height: 18px;
+}
+.profile-display p {
+  font-size: 1.5em;
+  line-height: 18px;
+  width: 75%;
+  display: inline;
+}
+.profile-display .settings-icon {
+  float: right;
+  width: 16.6666667%;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  cursor: pointer;
 }

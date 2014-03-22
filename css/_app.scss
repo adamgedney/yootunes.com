@@ -155,6 +155,7 @@ section.app{
 	svg{
 		@include col(4);
 		float: left;
+		cursor: pointer;
 	}
 
 	.play{
@@ -200,6 +201,7 @@ section.app{
 	top: 3px;
 	z-index: 10;
 	opacity: .7;
+	cursor: pointer;
 }
 
 .volume-ctrl{
@@ -211,6 +213,7 @@ section.app{
 		fill: $white;
 		height: 18px;
 		@include vertical-align;
+		cursor: pointer;
 	}
 }
 
@@ -236,12 +239,55 @@ section.app{
 .playon-ctrl{
 	@include col(1);
 	float: left;
+	@include vertical-align;
+
+	h3{
+		font-size: 1.2em;
+	}
+
+	select{
+		@include col(11);
+		background: transparent;
+		background: url(../images/icons/down-arrow-wht.png) no-repeat right;
+		border-radius: 2px;
+		-webkit-appearance: none;
+		border: 1px solid $white;
+		color: $white;
+		font-size: .9em;
+		padding: 3px;
+		outline: none;
+	}
 }
 
 
 .profile-display{
 	@include col(2);
 	float: left;
+	overflow: hidden;
+	height: 100%;
+	padding: 18px 0 0 18px;
+
+
+	h3{
+		font-size: 1.2em;
+		@include col(9);
+		display: block;
+		line-height: 18px;
+	}
+
+	p{
+		font-size: 1.5em;
+		line-height: 18px;
+		@include col(9);
+		display: inline;
+	}
+
+	.settings-icon{
+		float: right;
+		@include col(2);
+		@include vertical-align;
+		cursor: pointer;
+	}
 }
 
 
