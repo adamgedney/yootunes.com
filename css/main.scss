@@ -191,12 +191,13 @@ header {
 
 	@include break-sm{
 		margin-top: 198px;
-		// @include col(10);
-		// @include col_ctr(10);
+		@include col(10);
+		@include col_ctr(10);
 	}
 
 	@include break-md{
 		@include col(6);
+		@include col_ctr(0);
 		float: left;
 	}
 
@@ -206,6 +207,8 @@ header {
 		font-weight: 400;
 		line-height: 1em;
 		text-align: center;
+		@include col(11);
+		@include col_ctr(11);
 
 		@include break-sm{
 			color: $white;
@@ -216,19 +219,25 @@ header {
 
 		@include break-md{
 			@include col(9);
+			@include col_ctr(0);
 		}
 	}
 
 	p{
 		color: $black;
 		font-weight: 100;
+		@include col(10);
+		@include col_ctr(10);
 
 		@include break-sm{
 			color: $white;
+			@include col(11);
+			@include col_ctr(11);
 		}
 
 		@include break-md{
 			@include col(9);
+			@include col_ctr(0);
 		}
 	}
 }
@@ -238,7 +247,6 @@ header {
 	height: 100%;
 	@include col(12);
 	margin-top: 81px;
-	padding-right: 6%;
 
 	@include break-sm{
 		margin-top: 198px;
@@ -246,6 +254,7 @@ header {
 
 	@include break-md{
 		@include col(6);
+		padding-right: 6%;
 		float: left;
 	}
 
@@ -381,6 +390,11 @@ header {
 
 	@include break-sm{
 		padding-top: 148px;
+		padding-bottom: 36px;
+	}
+
+	@include break-md{
+		padding-bottom: 108px;
 	}
 
 	h2{
@@ -432,8 +446,8 @@ header {
 		height: 57px;
 		margin-bottom: 72px;
 
-		@include break-sm{
-			margin-bottom: 0;
+		@include break-md{
+			margin-bottom: 36px;
 		}
 	}
 }

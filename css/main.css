@@ -298,11 +298,16 @@ header button {
 @media only screen and (min-width: 480px) {
   .cta {
     margin-top: 198px;
+    width: 83.3333333%;
+    margin-left: 8.33333335%;
+    margin-right: 8.33333335%;
   }
 }
 @media only screen and (min-width: 770px) {
   .cta {
     width: 50%;
+    margin-left: 0;
+    margin-right: 0;
     float: left;
   }
 }
@@ -312,6 +317,9 @@ header button {
   font-weight: 400;
   line-height: 1em;
   text-align: center;
+  width: 91.6666666%;
+  margin-left: 4.1666667%;
+  margin-right: 4.1666667%;
 }
 @media only screen and (min-width: 480px) {
   .cta h2 {
@@ -324,20 +332,30 @@ header button {
 @media only screen and (min-width: 770px) {
   .cta h2 {
     width: 75%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 .cta p {
   color: #0f1010;
   font-weight: 100;
+  width: 83.3333333%;
+  margin-left: 8.33333335%;
+  margin-right: 8.33333335%;
 }
 @media only screen and (min-width: 480px) {
   .cta p {
     color: #ebebeb;
+    width: 91.6666666%;
+    margin-left: 4.1666667%;
+    margin-right: 4.1666667%;
   }
 }
 @media only screen and (min-width: 770px) {
   .cta p {
     width: 75%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -345,7 +363,6 @@ header button {
   height: 100%;
   width: 100%;
   margin-top: 81px;
-  padding-right: 6%;
 }
 @media only screen and (min-width: 480px) {
   .signup {
@@ -355,6 +372,7 @@ header button {
 @media only screen and (min-width: 770px) {
   .signup {
     width: 50%;
+    padding-right: 6%;
     float: left;
   }
 }
@@ -488,6 +506,12 @@ header button {
 @media only screen and (min-width: 480px) {
   .details {
     padding-top: 148px;
+    padding-bottom: 36px;
+  }
+}
+@media only screen and (min-width: 770px) {
+  .details {
+    padding-bottom: 108px;
   }
 }
 .details h2 {
@@ -544,9 +568,9 @@ header button {
   height: 57px;
   margin-bottom: 72px;
 }
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 770px) {
   .copy button {
-    margin-bottom: 0;
+    margin-bottom: 36px;
   }
 }
 
