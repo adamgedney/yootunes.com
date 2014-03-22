@@ -737,9 +737,16 @@ section.app {
 }
 .search input[type="text"] {
   width: 83.3333333%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border: none;
 }
 .search input[type="submit"] {
   width: 16.6666667%;
+  background: #cf2425;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
 }
 
 .footer {

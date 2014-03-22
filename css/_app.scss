@@ -86,10 +86,19 @@ section.app{
 
 	input[type="text"]{
 		@include col(10);
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		// border-right: none;
+		border: none;
 	}
 
 	input[type="submit"]{
 		@include col(2);
+		background: $red;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		// border: 1px solid nth($grey, 3);
+		border-left: none;
 	}
 }
 
