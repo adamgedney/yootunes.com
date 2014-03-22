@@ -117,27 +117,72 @@ section.app{
 	bottom: 0;
 	left: 0;
 	right: 0;
+	overflow: hidden;
+	color: $white;
+	padding: 0 2%;
 }
 
 
 .info{
+	@include col(3);
+	float: left;
+	overflow: hidden;
 
+	ul{
+		float: left;
+		margin: 9px 0 0 2%;
+
+		li{
+			font-size: .8em;
+		}
+	}
+
+	img{
+		display: block;
+		float: left;
+		height: 63px;
+		border-radius: 36px;
+		margin-top: 4px;
+	}
 }
 
 .transport-ctrl{
+	@include col(1);
+	float: left;
+	overflow: hidden;
+	@include vertical-align;
 
+	svg{
+		@include col(4);
+		float: left;
+	}
+
+	.play{
+		height: 18px;
+	}
+
+	.prev, .next{
+		height: 12px;
+		margin-top: 3px;
+	}
 }
 
 .seek-ctrl{
-
+	@include col(3);
+	float: left;
 }
 
 .volume-ctrl{
-
+	@include col(1);
+	float: left;
+	img.vol-icon{
+	fill: $white;
+}
 }
 
 .playing-share-ctrl{
-
+	@include col(1);
+	float: left;
 }
 
 /*Move this to global after built*/
@@ -146,12 +191,14 @@ section.app{
 }
 
 .playon-ctrl{
-
+	@include col(1);
+	float: left;
 }
 
 
 .profile-display{
-
+	@include col(2);
+	float: left;
 }
 
 

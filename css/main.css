@@ -757,6 +757,80 @@ section.app {
   bottom: 0;
   left: 0;
   right: 0;
+  overflow: hidden;
+  color: #ebebeb;
+  padding: 0 2%;
+}
+
+.info {
+  width: 25%;
+  float: left;
+  overflow: hidden;
+}
+.info ul {
+  float: left;
+  margin: 9px 0 0 2%;
+}
+.info ul li {
+  font-size: .8em;
+}
+.info img {
+  display: block;
+  float: left;
+  height: 63px;
+  border-radius: 36px;
+  margin-top: 4px;
+}
+
+.transport-ctrl {
+  width: 8.33333333%;
+  float: left;
+  overflow: hidden;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.transport-ctrl svg {
+  width: 33.3333333%;
+  float: left;
+}
+.transport-ctrl .play {
+  height: 18px;
+}
+.transport-ctrl .prev, .transport-ctrl .next {
+  height: 12px;
+  margin-top: 3px;
+}
+
+.seek-ctrl {
+  width: 25%;
+  float: left;
+}
+
+.volume-ctrl {
+  width: 8.33333333%;
+  float: left;
+}
+.volume-ctrl img.vol-icon {
+  fill: #ebebeb;
+}
+
+.playing-share-ctrl {
+  width: 8.33333333%;
+  float: left;
 }
 
 /*Move this to global after built*/
+.playon-ctrl {
+  width: 8.33333333%;
+  float: left;
+}
+
+.profile-display {
+  width: 16.6666667%;
+  float: left;
+}
