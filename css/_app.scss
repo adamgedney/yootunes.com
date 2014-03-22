@@ -103,32 +103,66 @@ section.app{
 }
 
 .main-container{
-	overflow: hidden;
 
-	span{
-		@include col(2);
-		float: left;
+	ul{
+		overflow: scroll;
 	}
 
 	li{
 		line-height: 36px;
+		overflow: hidden;
+		padding: 0 2%;
+
+		span{
+			@include col(3);
+			float: left;
+			display: inline-block;
+		}
+
+		.li-play, .li-menu, .li-length, .li-genre{
+			@include col(1);
+		}
+
+		.li-artist{
+			@include col(2);
+		}
+
+
+		.li-menu{
+			float: right;
+		}
+
+		svg{
+			height: 18px;
+			width: 18px;
+			vertical-align: middle;
+		}
+
 	}
+
+
 }
+
 
 .li-header{
 	font-weight: 700;
+	@include col(12);
+	border-bottom: 1px solid nth($grey, 4);
+	font-size: .8em;
+
+	.li-title{
+		margin-left: 8.33333333%;
+	}
 }
 
 .li-group{
 	color: nth($grey, 2);
-
-	svg{
-		height: 26px;
-	}
+	font-size: .8em;
+	cursor: pointer;
 }
 
 .li-group:hover{
-	background: nth($grey, 4);
+	background: nth($grey, 5);
 }
 
 

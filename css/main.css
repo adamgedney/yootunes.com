@@ -749,30 +749,52 @@ section.app {
   border-left: none;
 }
 
-.main-container {
-  overflow: hidden;
-}
-.main-container span {
-  width: 16.6666667%;
-  float: left;
+.main-container ul {
+  overflow: scroll;
 }
 .main-container li {
   line-height: 36px;
+  overflow: hidden;
+  padding: 0 2%;
+}
+.main-container li span {
+  width: 25%;
+  float: left;
+  display: inline-block;
+}
+.main-container li .li-play, .main-container li .li-menu, .main-container li .li-length, .main-container li .li-genre {
+  width: 8.33333333%;
+}
+.main-container li .li-artist {
+  width: 16.6666667%;
+}
+.main-container li .li-menu {
+  float: right;
+}
+.main-container li svg {
+  height: 18px;
+  width: 18px;
+  vertical-align: middle;
 }
 
 .li-header {
   font-weight: 700;
+  width: 100%;
+  border-bottom: 1px solid #d6d6d6;
+  font-size: .8em;
+}
+.li-header .li-title {
+  margin-left: 8.33333333%;
 }
 
 .li-group {
   color: #494f4f;
-}
-.li-group svg {
-  height: 26px;
+  font-size: .8em;
+  cursor: pointer;
 }
 
 .li-group:hover {
-  background: #d6d6d6;
+  background: #e2e2e2;
 }
 
 /*Footer Container========================*/
