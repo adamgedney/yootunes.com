@@ -485,21 +485,42 @@ $(document).on('click', '.playlist-menu', function(){
 
 //Main menu interactions========================//
 
+//main menu icon click
+$('.main_menu_popout').hide();
+var toggle5 = false;
+$(document).on('click', '.main_menu_icon', function(){
+
+	if(!toggle5){
+		// $('.main_menu_popout').fadeOut();
+		$(this).find('.main_menu_popout').fadeIn();
+
+		toggle5 = !toggle5;
+	}else if(toggle5 && toggle4 == false){
+		console.log('triggered', toggle5, toggle4);
+		$(this).find('.main_menu_popout').fadeOut();
+
+		toggle5 = !toggle5;
+	}
+});
+
+
+
+
 //playlist menu
 $('.add_to_playlist_menu').hide();
 var toggle4 = false;
 $(document).on('click', '.add_to_playlist', function(){
 
-	console.log('pl running');
 	if(!toggle4){
-
-		$('.add_to_playlist_menu').fadeIn();
+		// $('.main-popout').show();
+		$('.add_to_playlist_menu').show();
 
 		toggle4 = !toggle4;
 	}else{
 		$('.add_to_playlist_menu').fadeOut();
 
 		toggle4 = !toggle4;
+		toggle5 = false;
 	}
 });
 
