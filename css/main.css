@@ -692,6 +692,7 @@ aside.app {
 }
 aside.app iframe {
   background: #0f1010;
+  opacity: .6;
   width: 25%;
   position: fixed;
   bottom: 69px;
@@ -800,6 +801,8 @@ section.app {
 .search input {
   float: left;
   margin: 0;
+  padding: 0 6%;
+  height: 39px;
 }
 .search input[type="text"] {
   width: 83.3333333%;

@@ -44,6 +44,7 @@ aside.app{
 
 	iframe{
 		background: $black;//remove during tests. Placeholder bg color so video can be commented out
+		opacity: .6;
 		@include col(3);
 		position: fixed;
 		bottom: 69px;
@@ -166,6 +167,8 @@ section.app{
 	input{
 		float: left;
 		margin: 0;
+		padding: 0 6%;
+		height: 39px;
 	}
 
 	input[type="text"]{
