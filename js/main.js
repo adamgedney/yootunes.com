@@ -449,4 +449,32 @@ function update_time(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+//Playlist menu popout interaction=======//
+$('.playlist-popout').hide();
+var toggle3 = false;
+$(document).on('click', '.playlist-menu', function(){
+
+	if(!toggle3){
+		$('.playlist-popout').fadeIn();
+
+		toggle3 = !toggle3;
+	}else{
+		$('.playlist-popout').fadeOut();
+
+		toggle3 = !toggle3;
+	}
+
+});
+
 });// function

@@ -185,12 +185,12 @@ aside.app{
 
 
 
-.playlist-popout{
-	@include col(1);
+.popout{
+	width: 10%;
 	height: 111px;
 	background: #fff;
 	position: absolute;
-	left: 12.5%;
+	left: 11%;
 	border-radius: 2px;
 	padding: 1%;
 	z-index: 10;
@@ -213,7 +213,34 @@ aside.app{
 
 }
 
+.playlist-popout{
 
+	p{
+		font-size: .8em;
+		margin: 0;
+		overflow: hidden;
+	}
+
+	.share-strip{
+		margin-bottom: 9px;
+	}
+
+	.bottom-inner{
+		border-top: 1px solid nth($grey, 4);
+		padding-top: 12px;
+		cursor: pointer;
+	}
+
+	.trash-icon{
+		height: 12px;
+		width: 12px;
+		float: right;
+	}
+
+	svg{
+		cursor: pointer;
+	}
+}
 
 
 

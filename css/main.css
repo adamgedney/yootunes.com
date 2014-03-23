@@ -809,12 +809,12 @@ aside.app .video-size-ctrl svg:first-child {
   box-shadow: inset 0px -31px 24px -7px #ebebeb;
 }
 
-.playlist-popout {
-  width: 8.33333333%;
+.popout {
+  width: 10%;
   height: 111px;
   background: #fff;
   position: absolute;
-  left: 12.5%;
+  left: 11%;
   border-radius: 2px;
   padding: 1%;
   z-index: 10;
@@ -822,7 +822,7 @@ aside.app .video-size-ctrl svg:first-child {
   -moz-box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
   box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
 }
-.playlist-popout:before {
+.popout:before {
   content: "";
   width: 0;
   height: 0;
@@ -832,6 +832,28 @@ aside.app .video-size-ctrl svg:first-child {
   position: absolute;
   top: 5px;
   right: -12px;
+}
+
+.playlist-popout p {
+  font-size: .8em;
+  margin: 0;
+  overflow: hidden;
+}
+.playlist-popout .share-strip {
+  margin-bottom: 9px;
+}
+.playlist-popout .bottom-inner {
+  border-top: 1px solid #d6d6d6;
+  padding-top: 12px;
+  cursor: pointer;
+}
+.playlist-popout .trash-icon {
+  height: 12px;
+  width: 12px;
+  float: right;
+}
+.playlist-popout svg {
+  cursor: pointer;
 }
 
 /*Main Content container===============*/
