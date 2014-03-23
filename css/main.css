@@ -827,12 +827,13 @@ aside.app .video-size-ctrl svg:first-child {
   content: "";
   width: 0;
   height: 0;
-  border-top: 9px solid transparent;
-  border-bottom: 9px solid transparent;
-  border-left: 24px solid #fff;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-left: 9px solid #fff;
   position: absolute;
-  top: 5px;
-  right: -12px;
+  top: 11px;
+  right: -9px;
+  z-index: 99;
 }
 
 .playlist-popout p {
@@ -980,25 +981,60 @@ section.app {
   height: 10px;
 }
 .main-popout ul li .more-arrow {
-  float: right;
-  text-align: right;
+  float: left;
   width: 18px;
 }
 .main-popout ul li ul {
   position: absolute;
-  right: 112%;
-  width: 100%;
+  right: 107%;
+  width: 110%;
+  height: 350%;
+  overflow: auto;
+  top: 27px;
 }
 .main-popout ul li ul li {
   font-size: .6em;
-  line-height: 27px;
+  line-height: 18px;
+  width: 100%;
+  padding: 1%;
+}
+.main-popout ul li ul li form {
+  margin-bottom: 18px;
 }
 .main-popout ul li ul li form input {
-  height: 27px;
+  height: 18px;
+  font-size: .6em;
+}
+.main-popout ul li ul li form input[type="submit"] {
+  line-height: 0px;
+  background: #cf2425;
+  color: #ebebeb;
 }
 .main-popout ul li ul li p {
-  font-size: .6em;
-  line-height: 27px;
+  font-size: .9em;
+  line-height: 18px;
+  margin: 0;
+}
+.main-popout ul li ul li p svg {
+  float: right;
+  text-align: right;
+}
+
+.playlist-menu-header {
+  border-bottom: 1px solid #d6d6d6;
+  margin-bottom: 9px;
+}
+
+.main-popout ul::-webkit-scrollbar {
+  display: none;
+}
+
+.main-menu-first-child {
+  margin-left: 18px;
+}
+
+.li-hover:hover {
+  background: #ebebeb;
 }
 
 /*Footer Container========================*/

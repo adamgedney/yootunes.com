@@ -204,12 +204,13 @@ aside.app{
 		content:"";
 		width: 0;
 		height: 0;
-		border-top: 9px solid transparent;
-		border-bottom: 9px solid transparent;
-		border-left: 24px solid #fff;
+		border-top: 3px solid transparent;
+		border-bottom: 3px solid transparent;
+		border-left: 9px solid #fff;
 		position: absolute;
-		top: 5px;
-		right: -12px;
+		top: 11px;
+		right: -9px;
+		z-index: 99;
 	}
 
 }
@@ -244,6 +245,12 @@ aside.app{
 		float: right;
 	}
 }
+
+
+
+
+
+
 
 
 
@@ -295,7 +302,6 @@ section.app{
 }
 
 .main-container{
-
 	ul{
 		margin-bottom: 0;
 		position: relative; /*required for submenu overflow visibility*/
@@ -382,37 +388,54 @@ section.app{
 			line-height: 27px;
 			cursor: pointer;
 
-
 			svg{
 				height: 10px;
 			}
 
 			.more-arrow{
-				float: right;
-				text-align: right;
+				float: left;
 				width: 18px;
 			}
 
 			ul{
 				// display: none;
 				position: absolute;
-				right: 112%;
-				width: 100%;
-
+				right: 107%;
+				width: 110%;
+				height: 350%;
+				overflow: auto;//playlist overflow scroll
+				top: 27px;
 
 				li{
 					font-size: .6em;
-					line-height: 27px;
+					line-height: 18px;
+					@include col(12);
+					padding: 1%;
 
 					form{
+						margin-bottom: 18px;
+
 						input{
-							height: 27px;
+							height: 18px;
+							font-size: .6em;
+						}
+
+						input[type="submit"]{
+							line-height: 0px;
+							background: $red;
+							color: $white;
 						}
 					}
 
 					p{
-						font-size: .6em;
-						line-height: 27px;
+						font-size: .9em;
+						line-height: 18px;
+						margin: 0;
+
+						svg{
+							float: right;
+							text-align: right;
+						}
 					}
 				}
 			}
@@ -420,8 +443,22 @@ section.app{
 	}
 }
 
+.playlist-menu-header{
+	border-bottom: 1px solid nth($grey, 4);
+	margin-bottom: 9px;
+}
 
+.main-popout ul::-webkit-scrollbar {
+    display: none;
+}
 
+.main-menu-first-child{
+	margin-left: 18px;
+}
+
+.li-hover:hover{
+	background: $white;
+}
 
 
 
