@@ -773,6 +773,7 @@ aside.app .video-size-ctrl svg:first-child {
   line-height: 27px;
   cursor: pointer;
   padding: 0 6%;
+  position: relative;
 }
 .playlist-nav ul li a {
   color: #494f4f;
@@ -806,6 +807,31 @@ aside.app .video-size-ctrl svg:first-child {
   -webkit-box-shadow: inset 0px -31px 24px -7px #ebebeb;
   -moz-box-shadow: inset 0px -31px 24px -7px #ebebeb;
   box-shadow: inset 0px -31px 24px -7px #ebebeb;
+}
+
+.playlist-popout {
+  width: 8.33333333%;
+  height: 111px;
+  background: #fff;
+  position: absolute;
+  left: 12.5%;
+  border-radius: 2px;
+  padding: 1%;
+  z-index: 10;
+  -webkit-box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
+  -moz-box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
+  box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
+}
+.playlist-popout:before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 24px solid #fff;
+  position: absolute;
+  top: 5px;
+  right: -12px;
 }
 
 /*Main Content container===============*/
