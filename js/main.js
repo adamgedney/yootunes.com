@@ -186,4 +186,67 @@ var key = {
 
 
 
+
+
+
+
+
+
+
+//========================Seek Bar drag/drop functionality=========================//
+
+//******NOTES- convert to class to handle 2 instances for volume seek bar too
+	var seek = {};
+		seek.seek_time,
+		seek.seek_bar_width = $('.seek-line').width(),
+		seek.seek_bar_left = $('.seek-line').offset().left,
+		seek.seek_bar_right = $('.seek-line').offset().left + seek.seek_bar_width,
+		seek.seek_scrub,
+		seek.xPos,
+		seek.drag,
+		seek.duration;
+
+	//mousedown to start drag operation
+	$(document).on('mousedown', '#seek_dot', function(e){
+		seek.drag = true;
+
+		//required to prevent text selection on mouseout of seek_bar
+		e.preventDefault();
+		moving();
+	});
+
+
+	//mouseup to stop drag
+	$(document).on('mouseup', function(e){
+		seek.drag = false;
+	});
+
+
+	//drag and setTime
+	function moving(){
+		$(document).on('mousemove', function(e){
+			var set_time = ((e.pageX - seek.seek_bar_left) / seek.seek_bar_width) * seek.duration;
+
+
+			//if dragging is true
+			if(seek.drag){
+
+				$('#seek_dot').offset({left: e.pageX});
+				seek.seek_scrub = $('#seek_dot').offset().left;
+
+
+				//creates a border
+				if(seek.seek_scrub < seek.seek_bar_left){
+					$('#seek_dot').offset({left: seek.seek_bar_left});
+
+				}else if(seek.seek_scrub > (seek.seek_bar_right  - $('#seek_dot').width())){
+					$('#seek_dot').offset({left: (seek.seek_bar_right - $('#seek_dot').width())});
+
+				};
+			};
+		});
+	};
+
+
+
 });// function
