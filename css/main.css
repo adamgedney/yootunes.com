@@ -1038,6 +1038,25 @@ section.app {
   background: #ebebeb;
 }
 
+.main-popout ul li ul.share_sub_menu {
+  height: 33px;
+  top: 51px;
+  float: left;
+}
+.main-popout ul li ul.share_sub_menu li svg {
+  height: 18px;
+  margin: 0;
+  float: left;
+}
+.main-popout ul li ul.share_sub_menu li .share-strip {
+  width: 83.3333333%;
+  display: inline-block;
+}
+.main-popout ul li span.more-arrow-right {
+  float: right;
+  width: 9px;
+}
+
 /*Footer Container========================*/
 .footer {
   background: #0f1010;

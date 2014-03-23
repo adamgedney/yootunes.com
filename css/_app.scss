@@ -463,6 +463,47 @@ section.app{
 }
 
 
+.main-popout{
+	ul{
+		li{
+			ul.share_sub_menu{
+				height: 33px;
+				top: 51px;
+				// padding: auto 3%;
+				float: left;
+
+				li{
+					svg{
+						height: 18px;
+						margin: 0;
+						float: left;
+					}
+
+					.share-strip{
+						@include col(10);
+						display: inline-block;
+					}
+				}
+			}
+
+			span.more-arrow-right{
+				float: right;
+				width: 9px;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*Footer Container========================*/

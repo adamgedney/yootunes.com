@@ -432,8 +432,11 @@ window.onPlayerReady = function(event) {
 window.onPlayerStateChange = function(event){
 
 	if (event.data == YT.PlayerState.PLAYING) {
-          console.log('huh', event.data);
-          setInterval(update_time, 100);
+
+      setInterval(update_time, 100);
+      $('#play_btn').attr('src', 'images/icons/pause.png');
+    }else{
+    	$('#play_btn').attr('src', 'images/icons/play_wht.png');
     }
 };
 
@@ -485,7 +488,7 @@ $(document).on('click', '.playlist-menu', function(){
 
 //Main menu interactions========================//
 
-//main menu icon click
+//MAIN menu icon click
 $('.main_menu_popout').hide();
 var toggle5 = false;
 $(document).on('click', '.main_menu_icon', function(){
@@ -496,7 +499,7 @@ $(document).on('click', '.main_menu_icon', function(){
 
 		toggle5 = !toggle5;
 	}else if(toggle5 && toggle4 == false){
-		console.log('triggered', toggle5, toggle4);
+
 		$(this).find('.main_menu_popout').fadeOut();
 
 		toggle5 = !toggle5;
@@ -506,7 +509,7 @@ $(document).on('click', '.main_menu_icon', function(){
 
 
 
-//playlist menu
+//playlist SUB menu
 $('.add_to_playlist_menu').hide();
 var toggle4 = false;
 $(document).on('click', '.add_to_playlist', function(){
