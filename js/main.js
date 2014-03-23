@@ -1,6 +1,44 @@
 $(function(){
 
 
+/*
+* Replace all SVG images with inline SVG
+Source: http://stackoverflow.com/questions/11978995/how-to-change-color-of-svg-image-using-css-jquery-svg-image-replacement
+*/
+$('img.svg').each(function(){
+    var img = $(this);
+    var imgID = img.attr('id');
+    var imgClass = img.attr('class');
+    var imgURL = img.attr('src');
+
+    $.get(imgURL, function(data) {
+        // Get the SVG tag, ignore the rest
+        var svg = $(data).find('svg');
+
+        // Add replaced image's ID to the new SVG
+        if(typeof imgID !== 'undefined') {
+            svg = svg.attr('id', imgID);
+        }
+        // Add replaced image's classes to the new SVG
+        if(typeof imgClass !== 'undefined') {
+            svg = svg.attr('class', imgClass+' replaced-svg');
+        }
+
+        // Remove any invalid XML tags as per http://validator.w3.org
+        svg = svg.removeAttr('xmlns:a');
+
+        // Replace image with new SVG
+        img.replaceWith(svg);
+
+    }, 'xml');
+
+});
+
+
+
+
+
+
 //Parallax bg controller==================//
 var parallax = {};
 	parallax.yPos = 0;
@@ -41,38 +79,10 @@ $(window).on('scroll', function(){
 
 
 
-/*
-* Replace all SVG images with inline SVG
-Source: http://stackoverflow.com/questions/11978995/how-to-change-color-of-svg-image-using-css-jquery-svg-image-replacement
-*/
-$('img.svg').each(function(){
-    var img = $(this);
-    var imgID = img.attr('id');
-    var imgClass = img.attr('class');
-    var imgURL = img.attr('src');
 
-    $.get(imgURL, function(data) {
-        // Get the SVG tag, ignore the rest
-        var svg = $(data).find('svg');
 
-        // Add replaced image's ID to the new SVG
-        if(typeof imgID !== 'undefined') {
-            svg = svg.attr('id', imgID);
-        }
-        // Add replaced image's classes to the new SVG
-        if(typeof imgClass !== 'undefined') {
-            svg = svg.attr('class', imgClass+' replaced-svg');
-        }
 
-        // Remove any invalid XML tags as per http://validator.w3.org
-        svg = svg.removeAttr('xmlns:a');
 
-        // Replace image with new SVG
-        img.replaceWith(svg);
-
-    }, 'xml');
-
-});
 
 
 //Sign up button interaction handler=======//
@@ -246,6 +256,73 @@ var key = {
 			};
 		});
 	};
+
+
+
+
+
+
+
+
+
+//Video size controls===================//
+var toggle1 = false;
+$(document).on('click', '#video_min', function(){
+
+	var frame = $('.app iframe');
+
+	if(!toggle1){
+		frame.css({
+			'height': '227px',
+			'display': 'block'
+		});
+
+		toggle1 = !toggle1;
+	}else{
+		frame.css({
+			'height': '27px',
+			'display': 'none'
+		});
+
+		toggle1 = !toggle1;
+	}
+});
+
+var toggle2 = false;
+$(document).on('click', '#video_full', function(){
+
+	var frame = $('.app iframe');
+
+	if(!toggle2){
+		frame.css({
+			'position' : 'absolute',
+			'top' : '0',
+			'bottom' : '0',
+			'left' : '0',
+			'right' : '0',
+			'height' : '100%',
+			'width' : '100%'
+		});
+
+
+		toggle2 = !toggle2;
+
+	}else{
+		frame.css({
+			'position' : 'absolute',
+			'top' : '0',
+			'bottom' : '72px',
+			'left' : '0',
+			'right' : '0',
+			'height' : '27px',
+			'width' : '25%'
+		});
+
+
+
+		toggle2 = !toggle2;
+	}
+});
 
 
 

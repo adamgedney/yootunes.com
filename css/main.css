@@ -689,17 +689,34 @@ aside.app {
   height: 100vh;
   float: left;
   border-right: 1px solid #d6d6d6;
+  overflow: hidden;
 }
 aside.app iframe {
   background: #0f1010;
-  opacity: .6;
   width: 25%;
   position: fixed;
-  bottom: 69px;
+  bottom: 72px;
   left: 0;
   z-index: 10;
   height: 27px;
   border: none;
+}
+aside.app .video-size-ctrl {
+  background: #0f1010;
+  opacity: .9;
+  width: 25%;
+  position: fixed;
+  bottom: 72px;
+  left: 0;
+  z-index: 11;
+  height: 27px;
+  text-align: right;
+}
+aside.app .video-size-ctrl svg {
+  height: 27px;
+  width: 27px;
+  margin-left: 3px;
+  cursor: pointer;
 }
 
 .aside-header {
@@ -1038,7 +1055,7 @@ section.app {
 .playon-ctrl select {
   width: 91.6666666%;
   background: transparent;
-  background: url(../images/icons/down-arrow-wht.png) no-repeat right;
+  background: url(../images/icons/down-arrow-wht.svg) no-repeat right;
   border-radius: 2px;
   -webkit-appearance: none;
   border: 1px solid #ebebeb;

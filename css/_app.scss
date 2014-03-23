@@ -41,17 +41,37 @@ aside.app{
 	height: 100vh;
 	float: left;
 	border-right: 1px solid nth($grey, 4);
+	overflow: hidden;
 
 	iframe{
 		background: $black;//remove during tests. Placeholder bg color so video can be commented out
-		opacity: .6;
 		@include col(3);
 		position: fixed;
-		bottom: 69px;
+		bottom: 72px;
 		left: 0;
 		z-index:10;
 		height: 27px;
 		border: none;
+	}
+
+	.video-size-ctrl{
+		background: $black;
+		opacity: .9;
+		@include col(3);
+		//margin-left: 16.6666667%;
+		position: fixed;
+		bottom: 72px;
+		left: 0;
+		z-index:11;
+		height: 27px;
+		text-align: right;
+
+		svg{
+			height: 27px;
+			width: 27px;
+			margin-left: 3px;
+			cursor: pointer;
+		}
 	}
 }
 
@@ -410,7 +430,7 @@ section.app{
 	select{
 		@include col(11);
 		background: transparent;
-		background: url(../images/icons/down-arrow-wht.png) no-repeat right;
+		background: url(../images/icons/down-arrow-wht.svg) no-repeat right;
 		border-radius: 2px;
 		-webkit-appearance: none;
 		border: 1px solid $white;
