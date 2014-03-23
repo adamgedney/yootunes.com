@@ -678,6 +678,19 @@ footer .col-3 ul li .svg {
 
 
 ----------------SASS------------------*/
+a[title]:hover:after {
+  content: attr(title);
+  padding: 4px 8px;
+  color: #0f1010;
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  z-index: 200px;
+  border-radius: 2px;
+  background: #ebebeb;
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 #app {
   background: #ebebeb;
@@ -717,6 +730,9 @@ aside.app .video-size-ctrl svg {
   width: 27px;
   margin-left: 3px;
   cursor: pointer;
+}
+aside.app .video-size-ctrl svg:first-child {
+  width: 18px;
 }
 
 .aside-header {

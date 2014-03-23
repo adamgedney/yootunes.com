@@ -26,7 +26,18 @@
 
 
 
-
+a[title]:hover:after{
+	content: attr(title);
+	padding: 4px 8px;
+	color: $black;
+	position: absolute;
+	top: 0;
+	left: 0;
+	white-space: nowrap;
+	z-index: 200px;
+	border-radius:2px;
+	background: $white;
+}
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
@@ -71,6 +82,10 @@ aside.app{
 			width: 27px;
 			margin-left: 3px;
 			cursor: pointer;
+		}
+
+		svg:first-child{
+			width: 18px;
 		}
 	}
 }
