@@ -266,63 +266,124 @@ var key = {
 
 
 //Video size controls===================//
-var toggle1 = false;
+var video_size = {};
+	video_size.toggle1 = false;
+	video_size.toggle2 = false;
+	video_size.frame = $('.app iframe');
+	video_size.ctrls = $('.video-size-ctrl');
+
 $(document).on('click', '#video_min', function(){
 
-	var frame = $('.app iframe');
-
-	if(!toggle1){
-		frame.css({
-			'height': '227px',
-			'display': 'block'
+	if(!video_size.toggle1){
+		video_size.frame.css({
+			'height'   : '227px',
+			'display'  : 'block',
+			'position' : 'absolute',
+			'top'      : 'initial',
+			'bottom'   : '72px',
+			'left'     : '0',
+			'right'    : 'initial',
+			'width'    : '25%'
 		});
 
-		toggle1 = !toggle1;
+		video_size.toggle1 = !video_size.toggle1;
+		video_size.toggle2 = false;
+
+
 	}else{
-		frame.css({
-			'height': '27px',
-			'display': 'none'
+		video_size.frame.css({
+			'position' : 'absolute',
+			'top'      : 'initial',
+			'bottom'   : '72px',
+			'left'     : '0',
+			'right'    : 'initial',
+			'height'   : '27px',
+			'display'  : 'none',
+			'width'    : '25%'
 		});
 
-		toggle1 = !toggle1;
+
+		video_size.ctrls.css({
+			'bottom'     : '72px',
+			'background' : '#0f1010',
+			'textAlign'  : 'right'
+		});
+
+		video_size.toggle1 = !video_size.toggle1;
+		video_size.toggle2 = false;
 	}
 });
 
-var toggle2 = false;
+
+
+
+
 $(document).on('click', '#video_full', function(){
 
-	var frame = $('.app iframe');
-
-	if(!toggle2){
-		frame.css({
+	if(!video_size.toggle2){
+		video_size.frame.css({
 			'position' : 'absolute',
-			'top' : '0',
-			'bottom' : '0',
-			'left' : '0',
-			'right' : '0',
-			'height' : '100%',
-			'width' : '100%'
+			'top'      : '0',
+			'bottom'   : '0',
+			'left'     : '0',
+			'right'    : '0',
+			'height'   : '100%',
+			'width'    : '100%',
+			'display'  : 'block'
 		});
 
+		video_size.ctrls.css({
+			'bottom'     : '0',
+			'background' : 'none',
+			'textAlign'  : 'left'
+		});
 
-		toggle2 = !toggle2;
+		video_size.toggle2 = !video_size.toggle2;
+		video_size.toggle1 = true;
+
 
 	}else{
-		frame.css({
-			'position' : 'absolute',
-			'top' : '0',
-			'bottom' : '72px',
-			'left' : '0',
-			'right' : '0',
-			'height' : '27px',
-			'width' : '25%'
-		});
-
-
-
-		toggle2 = !toggle2;
+		leaveFullscreen();
 	}
 });
+
+
+//esc key for exiting fullscreen video
+$(document).on('keydown', function(){
+	if(key['Esc']){
+
+		leaveFullscreen();
+	}
+});
+
+
+
+function leaveFullscreen(){
+	video_size.frame.css({
+			'position' : 'absolute',
+			'top'      : 'initial',
+			'bottom'   : '72px',
+			'left'     : '0',
+			'right'    : 'initial',
+			'height'   : '27px',
+			'width'    : '25%'
+		});
+
+	video_size.ctrls.css({
+		'bottom'     : '72px',
+		'background' : '#0f1010',
+		'textAlign'  : 'right'
+	});
+
+	video_size.toggle2 = !video_size.toggle2;
+	video_size.toggle1 = false;
+};
+
+
+
+
+
+
 
 
 
