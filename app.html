@@ -11,7 +11,7 @@
 	<link rel="shortcut icon" href="http://adamshields.com/favicon.ico" />
 	<link rel="stylesheet" href="css/main.css" />
 
-
+	<script src="//www.youtube.com/player_api"></script>
 
 </head>
 	<body id="app">
@@ -75,7 +75,7 @@
 					<a href="http://youtube.com/watch?v=idSQ3hSLZ8Q" target="_blank"><img class="svg" src="images/icons/watchyoutube.svg" alt="watch video on youtube icon"/></a>
 				</div><!-- /.video-size-ctrl -->
 
-				<iframe src="//www.youtube.com/embed/idSQ3hSLZ8Q?rel=0&iv_load_policy=3&controls=0&showinfo=0" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe> --><!-- <iframe></iframe>
+				<iframe id="video" src="//www.youtube.com/embed/idSQ3hSLZ8Q?rel=0&iv_load_policy=3&controls=0&showinfo=0" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe> --><!-- <iframe></iframe>
 
 			</div><!-- /.library-nav-->
 
@@ -339,9 +339,9 @@
 
 			<div class="transport-ctrl">
 
-				<img class="svg prev" src="images/icons/prev.svg" alt="previous track control icon" />
-				<img class="svg play" src="images/icons/play_wht.svg" alt="previous track control icon" />
-				<img class="svg next" src="images/icons/next.svg" alt="previous track control icon" />
+				<img id="prev_btn" class="svg prev" src="images/icons/prev.svg" alt="previous track control icon" />
+				<img id="play_btn" class="svg play" src="images/icons/play_wht.svg" alt="previous track control icon" />
+				<img id="next_btn" class="svg next" src="images/icons/next.svg" alt="previous track control icon" />
 			</div><!-- /.transport-ctrl-->
 
 
@@ -413,8 +413,7 @@
 
 
 		<script src="js/jquery-1.10.2.min.js"></script>
-		<!-- <script src=""></script>
-		// <script src=""></script>
+		<!--// <script src=""></script>
 		// <script src=""></script>
 		// <script src=""></script>
 		// <script src=""></script>

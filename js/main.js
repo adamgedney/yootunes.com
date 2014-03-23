@@ -387,4 +387,44 @@ function leaveFullscreen(){
 
 
 
+//Player control===========================//
+
+// Inject YouTube API script
+// var tag = document.createElement('script');
+// tag.src = "//www.youtube.com/player_api";
+// var firstScriptTag = document.getElementsByTagName('script')[0];
+// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+
+function onYouTubePlayerAPIReady() {
+  // create the global player from the specific iframe (#video)
+  player = new YT.Player('video', {
+    events: {
+      // call this function when player is ready to use
+      'onReady': onPlayerReady
+    }
+  });
+
+  console.log('player API ready');
+}
+
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+player.playVideo();
+console.log('player ready');
+
+
+
+}
+
+$(document).on('click', '#play_btn', function(){
+	player.playVideo();
+});
+
+
+
+
+
+
 });// function
