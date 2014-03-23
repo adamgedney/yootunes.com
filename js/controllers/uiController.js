@@ -468,7 +468,6 @@ $(document).on('click', '.playlist-menu', function(){
 	console.log($(this));
 
 	if(!toggle3){
-		$('.playlist-popout').fadeOut();
 		$(this).find('.playlist-popout').fadeIn();
 
 		toggle3 = !toggle3;

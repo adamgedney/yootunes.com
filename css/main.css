@@ -905,11 +905,13 @@ section.app {
 
 .main-container ul {
   margin-bottom: 0;
+  position: relative;
+  /*required for submenu overflow visibility*/
 }
 .main-container ul li {
   line-height: 36px;
-  overflow: hidden;
   padding: 0 2%;
+  overflow: hidden;
 }
 .main-container ul li span {
   width: 25%;
@@ -928,6 +930,7 @@ section.app {
 }
 .main-container ul li .li-menu {
   float: right;
+  overflow: visible;
 }
 .main-container ul li svg {
   height: 12px;
@@ -956,6 +959,22 @@ section.app {
   color: #494f4f;
   font-size: .8em;
   cursor: pointer;
+}
+
+.main-popout {
+  width: 15%;
+  height: 111px;
+  padding: 0 1%;
+  right: 8.2%;
+  top: 5px;
+}
+.main-popout ul li {
+  font-size: .6em;
+  line-height: 27px;
+  cursor: pointer;
+}
+.main-popout ul li:hover {
+  background: #e2e2e2;
 }
 
 /*Footer Container========================*/

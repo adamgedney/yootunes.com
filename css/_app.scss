@@ -298,11 +298,12 @@ section.app{
 
 	ul{
 		margin-bottom: 0;
+		position: relative; /*required for submenu overflow visibility*/
 
 		li{
 			line-height: 36px;
-			overflow: hidden;
 			padding: 0 2%;
+			overflow: hidden;
 
 			span{
 				@include col(3);
@@ -325,6 +326,7 @@ section.app{
 
 			.li-menu{
 				float: right;
+				overflow: visible;
 			}
 
 			svg{
@@ -361,9 +363,34 @@ section.app{
 	color: nth($grey, 2);
 	font-size: .8em;
 	cursor: pointer;
+	// position: relative;
 }
 
 
+.main-popout{
+	width: 15%;
+	height: 111px;
+	padding: 0 1%;
+	right: 8.2%;
+	top: 5px;
+
+	ul{
+
+		li{
+			font-size: .6em;
+			line-height: 27px;
+			cursor: pointer;
+
+			svg{
+
+			}
+		}
+
+		li:hover{
+			background: nth($grey, 5);
+		}
+	}
+}
 
 
 
