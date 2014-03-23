@@ -39,6 +39,14 @@ a[title]:hover:after{
 	background: $white;
 }
 
+.adsbygoogle{
+	background: nth($grey, 4);
+	@include col(12);
+	position: relative;
+	z-index: 300;
+	bottom: 67px;
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 //body#app
