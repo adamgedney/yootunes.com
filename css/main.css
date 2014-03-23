@@ -678,13 +678,14 @@ footer .col-3 ul li .svg {
 
 
 ----------------SASS------------------*/
+/*title attrib hover effect-- work on this later*/
 a[title]:hover:after {
   content: attr(title);
   padding: 4px 8px;
   color: #0f1010;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   white-space: nowrap;
   z-index: 200px;
   border-radius: 2px;
@@ -953,13 +954,15 @@ section.app {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.transport-ctrl svg {
+.transport-ctrl svg, .transport-ctrl img {
   width: 33.3333333%;
   float: left;
   cursor: pointer;
 }
 .transport-ctrl .play {
-  height: 18px;
+  height: 17px;
+  width: 17px;
+  margin: 0 6px 0 9px;
 }
 .transport-ctrl .prev, .transport-ctrl .next {
   height: 12px;

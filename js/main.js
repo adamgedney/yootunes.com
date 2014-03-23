@@ -416,11 +416,12 @@ window.onPlayerReady = function(event) {
 
 		if(!t){
 			player.playVideo();
-
+			$('#play_btn').attr('src', 'images/icons/pause.png');
 
 			t= !t;
 		}else{
 			player.stopVideo();
+			$('#play_btn').attr('src', 'images/icons/play_wht.png');
 
 			t = !t;
 		}

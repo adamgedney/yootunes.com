@@ -25,14 +25,14 @@
 // $yellow: #e5a539;
 
 
-
+/*title attrib hover effect-- work on this later*/
 a[title]:hover:after{
 	content: attr(title);
 	padding: 4px 8px;
 	color: $black;
 	position: absolute;
 	top: 0;
-	left: 0;
+	right: 0;
 	white-space: nowrap;
 	z-index: 200px;
 	border-radius:2px;
@@ -357,14 +357,16 @@ section.app{
 	overflow: hidden;
 	@include vertical-align;
 
-	svg{
+	svg, img{
 		@include col(4);
 		float: left;
 		cursor: pointer;
 	}
 
 	.play{
-		height: 18px;
+		height: 17px;
+		width: 17px;
+		margin: 0 6px 0 9px;
 	}
 
 	.prev, .next{
