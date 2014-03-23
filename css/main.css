@@ -968,13 +968,37 @@ section.app {
   right: 8.2%;
   top: 5px;
 }
+.main-popout ul {
+  position: relative;
+}
 .main-popout ul li {
   font-size: .6em;
   line-height: 27px;
   cursor: pointer;
 }
-.main-popout ul li:hover {
-  background: #e2e2e2;
+.main-popout ul li svg {
+  height: 10px;
+}
+.main-popout ul li .more-arrow {
+  float: right;
+  text-align: right;
+  width: 18px;
+}
+.main-popout ul li ul {
+  position: absolute;
+  right: 112%;
+  width: 100%;
+}
+.main-popout ul li ul li {
+  font-size: .6em;
+  line-height: 27px;
+}
+.main-popout ul li ul li form input {
+  height: 27px;
+}
+.main-popout ul li ul li p {
+  font-size: .6em;
+  line-height: 27px;
 }
 
 /*Footer Container========================*/

@@ -375,19 +375,47 @@ section.app{
 	top: 5px;
 
 	ul{
+		position: relative;
 
 		li{
 			font-size: .6em;
 			line-height: 27px;
 			cursor: pointer;
 
+
 			svg{
-
+				height: 10px;
 			}
-		}
 
-		li:hover{
-			background: nth($grey, 5);
+			.more-arrow{
+				float: right;
+				text-align: right;
+				width: 18px;
+			}
+
+			ul{
+				// display: none;
+				position: absolute;
+				right: 112%;
+				width: 100%;
+
+
+				li{
+					font-size: .6em;
+					line-height: 27px;
+
+					form{
+						input{
+							height: 27px;
+						}
+					}
+
+					p{
+						font-size: .6em;
+						line-height: 27px;
+					}
+				}
+			}
 		}
 	}
 }
