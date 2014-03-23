@@ -186,14 +186,15 @@ aside.app{
 
 
 .popout{
-	width: 10%;
+	width: 41%;
 	height: 111px;
 	background: #fff;
 	position: absolute;
-	left: 11%;
+	right: 14.5%;
+	top: 0px;
 	border-radius: 2px;
-	padding: 1%;
-	z-index: 10;
+	padding: 6%;
+	z-index: 100;
 
 	-webkit-box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
 	   -moz-box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
@@ -231,14 +232,16 @@ aside.app{
 		cursor: pointer;
 	}
 
+	svg{
+		cursor: pointer;
+		height: 18px;
+		width: 18px;
+	}
+
 	.trash-icon{
 		height: 12px;
 		width: 12px;
 		float: right;
-	}
-
-	svg{
-		cursor: pointer;
 	}
 }
 

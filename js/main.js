@@ -465,12 +465,14 @@ $('.playlist-popout').hide();
 var toggle3 = false;
 $(document).on('click', '.playlist-menu', function(){
 
+	console.log($(this));
+
 	if(!toggle3){
-		$('.playlist-popout').fadeIn();
+		$(this).find('.playlist-popout').fadeIn();
 
 		toggle3 = !toggle3;
 	}else{
-		$('.playlist-popout').fadeOut();
+		$(this).find('.playlist-popout').fadeOut();
 
 		toggle3 = !toggle3;
 	}
