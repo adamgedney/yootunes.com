@@ -477,7 +477,41 @@ $(document).on('click', '.playlist-menu', function(){
 
 		toggle3 = !toggle3;
 	}
-
 });
+
+
+
+
+
+//Main menu interactions========================//
+
+//playlist menu
+$('.add_to_playlist_menu').hide();
+var toggle4 = false;
+$(document).on('click', '.add_to_playlist', function(){
+
+	console.log('pl running');
+	if(!toggle4){
+
+		$('.add_to_playlist_menu').fadeIn();
+
+		toggle4 = !toggle4;
+	}else{
+		$('.add_to_playlist_menu').fadeOut();
+
+		toggle4 = !toggle4;
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
 
 });// function

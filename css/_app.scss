@@ -406,11 +406,13 @@ section.app{
 				overflow: auto;//playlist overflow scroll
 				top: 27px;
 
+
 				li{
 					font-size: .6em;
 					line-height: 18px;
 					@include col(12);
 					padding: 1%;
+					z-index: 200;
 
 					form{
 						margin-bottom: 18px;
@@ -459,7 +461,6 @@ section.app{
 .li-hover:hover{
 	background: $white;
 }
-
 
 
 
