@@ -402,7 +402,8 @@ window.onYouTubePlayerAPIReady = function() {
   player = new YT.Player('video', {
     events: {
       // call this function when player is ready to use
-      'onReady': onPlayerReady()
+      'onStateChange': onPlayerStateChange,
+      'onReady': onPlayerReady
     }
   });
 }
@@ -416,6 +417,7 @@ window.onPlayerReady = function(event) {
 		if(!t){
 			player.playVideo();
 
+
 			t= !t;
 		}else{
 			player.stopVideo();
@@ -423,11 +425,26 @@ window.onPlayerReady = function(event) {
 			t = !t;
 		}
 	});
+};
+
+
+window.onPlayerStateChange = function(event){
+
+	if (event.data == YT.PlayerState.PLAYING) {
+          console.log('huh', event.data);
+          setInterval(update_time, 100);
+    }
+};
+
+function update_time(){
+	var time = player.getCurrentTime();
+
+	var m = Math.floor(time / 60);
+	var secd = time % 60;
+	var s = Math.ceil(secd)
+
+	$('#current_time').html(m + ':' + s);
 }
-
-
-
-
 
 
 
