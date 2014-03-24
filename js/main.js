@@ -546,8 +546,27 @@ $(document).on('click', '.share_song', function(){
 	}
 });
 
+//*****Note! ALL sub menus can exist on the same toggle#
+//change this when I move to ui controller
 
+//****Need to program sub menus so they hide when their siblings show.
 
+//improve metadata SUB menu
+$('.improve_meta_sub_menu').hide();
+var toggle6 = false;
+$(document).on('click', '.improve_meta', function(){
+
+	if(!toggle6){
+		$('.improve_meta_sub_menu').fadeIn();
+
+		toggle6 = !toggle6;
+	}else{
+		$('.improve_meta_sub_menu').fadeOut();
+
+		toggle6 = !toggle6;
+		toggle5 = false;
+	}
+});
 
 
 
