@@ -1038,17 +1038,17 @@ section.app {
   background: #ebebeb;
 }
 
-.main-popout ul li ul.share_sub_menu {
+.main-popout ul li ul.share-sub-menu {
   height: 33px;
   top: 51px;
   float: left;
 }
-.main-popout ul li ul.share_sub_menu li svg {
+.main-popout ul li ul.share-sub-menu li svg {
   height: 18px;
   margin: 0;
   float: left;
 }
-.main-popout ul li ul.share_sub_menu li .share-strip {
+.main-popout ul li ul.share-sub-menu li .share-strip {
   width: 83.3333333%;
   display: inline-block;
 }
@@ -1057,7 +1057,7 @@ section.app {
   width: 9px;
 }
 
-.main-popout ul li .improve_meta_sub_menu {
+.main-popout ul li .improve-meta-sub-menu {
   top: 82px;
   height: 165%;
 }
@@ -1163,7 +1163,7 @@ section.app {
   margin-top: 9px;
 }
 
-#seek_dot {
+#seek-dot {
   width: 12px;
   height: 12px;
   background: #cf2425;

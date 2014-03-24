@@ -57,7 +57,7 @@
 
 
 
-@mixin col_ctr($num_col){
+@mixin col-ctr($num_col){
 	@if $num_col == 0 {
 		margin-left: 0;
 		margin-right: 0;

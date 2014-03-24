@@ -103,7 +103,7 @@ aside.app{
 
 	.logo{
 		@include col(12);
-		@include col_ctr(12);
+		@include col-ctr(12);
 		margin: 33px 0;
 	}
 }
@@ -273,7 +273,7 @@ section.app{
 .search{
 	overflow: hidden;
 	@include col(8);
-	@include col_ctr(8);
+	@include col-ctr(8);
 	@include vertical-align;
 
 	input{
@@ -466,7 +466,7 @@ section.app{
 .main-popout{
 	ul{
 		li{
-			ul.share_sub_menu{
+			ul.share-sub-menu{
 				height: 33px;
 				top: 51px;
 				// padding: auto 3%;
@@ -497,7 +497,7 @@ section.app{
 .main-popout{
 	ul{
 		li{
-			.improve_meta_sub_menu{
+			.improve-meta-sub-menu{
 				top: 82px;
 				height: 165%;
 			}
@@ -616,7 +616,7 @@ section.app{
 	margin-top: 9px;
 }
 
-#seek_dot{
+#seek-dot{
 	width: 12px;
 	height: 12px;
 	background: $red;

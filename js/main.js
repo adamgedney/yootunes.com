@@ -207,20 +207,20 @@ var key = {
 
 //******NOTES- convert to class to handle 2 instances for volume seek bar too
 	var seek = {};
-		seek.seek_time,
-		seek.seek_bar_width = $('.seek-line').width(),
-		seek.seek_bar_left = $('.seek-line').offset().left,
-		seek.seek_bar_right = $('.seek-line').offset().left + seek.seek_bar_width,
-		seek.seek_scrub,
+		seek.seekTime,
+		seek.seekBarWidth = $('.seek-line').width(),
+		seek.seekBarLeft = $('.seek-line').offset().left,
+		seek.seekBarRight = $('.seek-line').offset().left + seek.seekBarWidth,
+		seek.seekScrub,
 		seek.xPos,
 		seek.drag,
 		seek.duration;
 
 	//mousedown to start drag operation
-	$(document).on('mousedown', '#seek_dot', function(e){
+	$(document).on('mousedown', '#seek-dot', function(e){
 		seek.drag = true;
 
-		//required to prevent text selection on mouseout of seek_bar
+		//required to prevent text selection on mouseout of seekBar
 		e.preventDefault();
 		moving();
 	});
@@ -235,22 +235,22 @@ var key = {
 	//drag and setTime
 	function moving(){
 		$(document).on('mousemove', function(e){
-			var set_time = ((e.pageX - seek.seek_bar_left) / seek.seek_bar_width) * seek.duration;
+			// var set-time = ((e.pageX - seek.seekBarLeft) / seek.seekBarWidth) * seek.duration;
 
 
 			//if dragging is true
 			if(seek.drag){
 
-				$('#seek_dot').offset({left: e.pageX});
-				seek.seek_scrub = $('#seek_dot').offset().left;
+				$('#seek-dot').offset({left: e.pageX});
+				seek.seekScrub = $('#seek-dot').offset().left;
 
 
 				//creates a border
-				if(seek.seek_scrub < seek.seek_bar_left){
-					$('#seek_dot').offset({left: seek.seek_bar_left});
+				if(seek.seekScrub < seek.seekBarLeft){
+					$('#seek-dot').offset({left: seek.seekBarLeft});
 
-				}else if(seek.seek_scrub > (seek.seek_bar_right  - $('#seek_dot').width())){
-					$('#seek_dot').offset({left: (seek.seek_bar_right - $('#seek_dot').width())});
+				}else if(seek.seekScrub > (seek.seekBarRight  - $('#seek-dot').width())){
+					$('#seek-dot').offset({left: (seek.seekBarRight - $('#seek-dot').width())});
 
 				};
 			};
@@ -266,16 +266,16 @@ var key = {
 
 
 //Video size controls===================//
-var video_size = {};
-	video_size.toggle1 = false;
-	video_size.toggle2 = false;
-	video_size.frame = $('.app iframe');
-	video_size.ctrls = $('.video-size-ctrl');
+var videoSize = {};
+	videoSize.toggle1 = false;
+	videoSize.toggle2 = false;
+	videoSize.frame = $('.app iframe');
+	videoSize.ctrls = $('.video-size-ctrl');
 
-$(document).on('click', '#video_min', function(){
+$(document).on('click', '#video-min', function(){
 
-	if(!video_size.toggle1){
-		video_size.frame.css({
+	if(!videoSize.toggle1){
+		videoSize.frame.css({
 			'height'   : '227px',
 			'display'  : 'block',
 			'position' : 'absolute',
@@ -286,12 +286,12 @@ $(document).on('click', '#video_min', function(){
 			'width'    : '25%'
 		});
 
-		video_size.toggle1 = !video_size.toggle1;
-		video_size.toggle2 = false;
+		videoSize.toggle1 = !videoSize.toggle1;
+		videoSize.toggle2 = false;
 
 
 	}else{
-		video_size.frame.css({
+		videoSize.frame.css({
 			'position' : 'absolute',
 			'top'      : 'initial',
 			'bottom'   : '72px',
@@ -303,14 +303,14 @@ $(document).on('click', '#video_min', function(){
 		});
 
 
-		video_size.ctrls.css({
+		videoSize.ctrls.css({
 			'bottom'     : '72px',
 			'background' : '#0f1010',
 			'textAlign'  : 'right'
 		});
 
-		video_size.toggle1 = !video_size.toggle1;
-		video_size.toggle2 = false;
+		videoSize.toggle1 = !videoSize.toggle1;
+		videoSize.toggle2 = false;
 	}
 });
 
@@ -318,10 +318,10 @@ $(document).on('click', '#video_min', function(){
 
 
 
-$(document).on('click', '#video_full', function(){
+$(document).on('click', '#video-full', function(){
 
-	if(!video_size.toggle2){
-		video_size.frame.css({
+	if(!videoSize.toggle2){
+		videoSize.frame.css({
 			'position' : 'absolute',
 			'top'      : '0',
 			'bottom'   : '0',
@@ -332,14 +332,14 @@ $(document).on('click', '#video_full', function(){
 			'display'  : 'block'
 		});
 
-		video_size.ctrls.css({
+		videoSize.ctrls.css({
 			'bottom'     : '0',
 			'background' : 'none',
 			'textAlign'  : 'left'
 		});
 
-		video_size.toggle2 = !video_size.toggle2;
-		video_size.toggle1 = true;
+		videoSize.toggle2 = !videoSize.toggle2;
+		videoSize.toggle1 = true;
 
 
 	}else{
@@ -359,7 +359,7 @@ $(document).on('keydown', function(){
 
 
 function leaveFullscreen(){
-	video_size.frame.css({
+	videoSize.frame.css({
 			'position' : 'absolute',
 			'top'      : 'initial',
 			'bottom'   : '72px',
@@ -369,14 +369,14 @@ function leaveFullscreen(){
 			'width'    : '25%'
 		});
 
-	video_size.ctrls.css({
+	videoSize.ctrls.css({
 		'bottom'     : '72px',
 		'background' : '#0f1010',
 		'textAlign'  : 'right'
 	});
 
-	video_size.toggle2 = !video_size.toggle2;
-	video_size.toggle1 = false;
+	videoSize.toggle2 = !videoSize.toggle2;
+	videoSize.toggle1 = false;
 };
 
 
@@ -412,16 +412,16 @@ window.onYouTubePlayerAPIReady = function() {
 window.onPlayerReady = function(event) {
 
 	var t = false;
-	$(document).on('click', '#play_btn', function(){
+	$(document).on('click', '#play-btn', function(){
 
 		if(!t){
 			player.playVideo();
-			$('#play_btn').attr('src', 'images/icons/pause.png');
+			$('#play-btn').attr('src', 'images/icons/pause.png');
 
 			t= !t;
 		}else{
 			player.stopVideo();
-			$('#play_btn').attr('src', 'images/icons/play_wht.png');
+			$('#play-btn').attr('src', 'images/icons/play-wht.png');
 
 			t = !t;
 		}
@@ -433,21 +433,21 @@ window.onPlayerStateChange = function(event){
 
 	if (event.data == YT.PlayerState.PLAYING) {
 
-      setInterval(update_time, 100);
-      $('#play_btn').attr('src', 'images/icons/pause.png');
+      setInterval(updateTime, 100);
+      $('#play-btn').attr('src', 'images/icons/pause.png');
     }else{
-    	$('#play_btn').attr('src', 'images/icons/play_wht.png');
+    	$('#play-btn').attr('src', 'images/icons/play-wht.png');
     }
 };
 
-function update_time(){
+function updateTime(){
 	var time = player.getCurrentTime();
 
 	var m = Math.floor(time / 60);
 	var secd = time % 60;
 	var s = Math.ceil(secd)
 
-	$('#current_time').html(m + ':' + s);
+	$('#current-time').html(m + ':' + s);
 }
 
 
@@ -489,18 +489,18 @@ $(document).on('click', '.playlist-menu', function(){
 //Main menu interactions========================//
 
 //MAIN menu icon click
-$('.main_menu_popout').hide();
+$('.main-menu-popout').hide();
 var toggle5 = false;
-$(document).on('click', '.main_menu_icon', function(){
+$(document).on('click', '.main-menu-icon', function(){
 
 	if(!toggle5){
-		// $('.main_menu_popout').fadeOut();
-		$(this).find('.main_menu_popout').fadeIn();
+		// $('.main-menu-popout').fadeOut();
+		$(this).find('.main-menu-popout').fadeIn();
 
 		toggle5 = !toggle5;
 	}else if(toggle5 && toggle4 == false && toggle6 == false ){
 
-		$(this).find('.main_menu_popout').fadeOut();
+		$(this).find('.main-menu-popout').fadeOut();
 
 		toggle5 = !toggle5;
 	}
@@ -510,17 +510,17 @@ $(document).on('click', '.main_menu_icon', function(){
 
 
 //playlist SUB menu
-$('.add_to_playlist_menu').hide();
+$('.add-to-playlist-menu').hide();
 var toggle4 = false;
-$(document).on('click', '.add_to_playlist', function(){
+$(document).on('click', '.add-to-playlist', function(){
 
 	if(!toggle4){
 		// $('.main-popout').show();
-		$('.add_to_playlist_menu').fadeIn();
+		$('.add-to-playlist-menu').fadeIn();
 
 		toggle4 = !toggle4;
 	}else{
-		$('.add_to_playlist_menu').fadeOut();
+		$('.add-to-playlist-menu').fadeOut();
 
 		toggle4 = !toggle4;
 		toggle5 = false;
@@ -530,16 +530,16 @@ $(document).on('click', '.add_to_playlist', function(){
 
 
 //Share SUB menu
-$('.share_sub_menu').hide();
+$('.share-sub-menu').hide();
 var toggle6 = false;
-$(document).on('click', '.share_song', function(){
+$(document).on('click', '.share-song', function(){
 
 	if(!toggle6){
-		$('.share_sub_menu').fadeIn();
+		$('.share-sub-menu').fadeIn();
 
 		toggle6 = !toggle6;
 	}else{
-		$('.share_sub_menu').fadeOut();
+		$('.share-sub-menu').fadeOut();
 
 		toggle6 = !toggle6;
 		toggle5 = false;
@@ -552,16 +552,16 @@ $(document).on('click', '.share_song', function(){
 //****Need to program sub menus so they hide when their siblings show.
 
 //improve metadata SUB menu
-$('.improve_meta_sub_menu').hide();
+$('.improve-meta-sub-menu').hide();
 var toggle6 = false;
-$(document).on('click', '.improve_meta', function(){
+$(document).on('click', '.improve-meta', function(){
 
 	if(!toggle6){
-		$('.improve_meta_sub_menu').fadeIn();
+		$('.improve-meta-sub-menu').fadeIn();
 
 		toggle6 = !toggle6;
 	}else{
-		$('.improve_meta_sub_menu').fadeOut();
+		$('.improve-meta-sub-menu').fadeOut();
 
 		toggle6 = !toggle6;
 		toggle5 = false;
