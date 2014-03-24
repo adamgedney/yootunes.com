@@ -1057,6 +1057,15 @@ section.app {
   width: 9px;
 }
 
+.main-popout ul li .improve_meta_menu {
+  top: 82px;
+  height: 165%;
+}
+.main-popout ul li .improve-meta-menu-form p {
+  padding-bottom: 12px;
+  line-height: 9px;
+}
+
 /*Footer Container========================*/
 .footer {
   background: #0f1010;

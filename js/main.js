@@ -516,7 +516,7 @@ $(document).on('click', '.add_to_playlist', function(){
 
 	if(!toggle4){
 		// $('.main-popout').show();
-		$('.add_to_playlist_menu').show();
+		$('.add_to_playlist_menu').fadeIn();
 
 		toggle4 = !toggle4;
 	}else{
@@ -535,7 +535,7 @@ var toggle6 = false;
 $(document).on('click', '.share_song', function(){
 
 	if(!toggle6){
-		$('.share_sub_menu').show();
+		$('.share_sub_menu').fadeIn();
 
 		toggle6 = !toggle6;
 	}else{
