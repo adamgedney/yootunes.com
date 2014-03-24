@@ -1105,6 +1105,7 @@ section.app {
   width: 8.33333333%;
   float: left;
   overflow: hidden;
+  height: 18px;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -1119,12 +1120,12 @@ section.app {
   cursor: pointer;
 }
 .transport-ctrl .play {
-  height: 17px;
-  width: 17px;
+  max-height: 17px;
+  max-width: 17px;
   margin: 0 6px 0 9px;
 }
 .transport-ctrl .prev, .transport-ctrl .next {
-  height: 12px;
+  max-height: 12px;
   margin-top: 3px;
 }
 

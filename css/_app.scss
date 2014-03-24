@@ -572,6 +572,7 @@ section.app{
 	@include col(1);
 	float: left;
 	overflow: hidden;
+	height: 18px;
 	@include vertical-align;
 
 	svg, img{
@@ -581,13 +582,13 @@ section.app{
 	}
 
 	.play{
-		height: 17px;
-		width: 17px;
+		max-height: 17px;
+		max-width: 17px;
 		margin: 0 6px 0 9px;
 	}
 
 	.prev, .next{
-		height: 12px;
+		max-height: 12px;
 		margin-top: 3px;
 	}
 }
