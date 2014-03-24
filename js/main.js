@@ -498,7 +498,7 @@ $(document).on('click', '.main_menu_icon', function(){
 		$(this).find('.main_menu_popout').fadeIn();
 
 		toggle5 = !toggle5;
-	}else if(toggle5 && toggle4 == false){
+	}else if(toggle5 && toggle4 == false && toggle6 == false ){
 
 		$(this).find('.main_menu_popout').fadeOut();
 
@@ -529,6 +529,22 @@ $(document).on('click', '.add_to_playlist', function(){
 
 
 
+//Share SUB menu
+$('.share_sub_menu').hide();
+var toggle6 = false;
+$(document).on('click', '.share_song', function(){
+
+	if(!toggle6){
+		$('.share_sub_menu').show();
+
+		toggle6 = !toggle6;
+	}else{
+		$('.share_sub_menu').fadeOut();
+
+		toggle6 = !toggle6;
+		toggle5 = false;
+	}
+});
 
 
 
