@@ -738,13 +738,13 @@ aside.app .video-size-ctrl svg:first-child {
 }
 
 .aside-header {
-  height: 120px;
+  height: 72px;
 }
 .aside-header .logo {
   width: 100%;
   margin-left: 0;
   margin-right: 0;
-  margin: 33px 0;
+  margin: 12px 0;
 }
 
 .li-group:hover, .playlist-nav li:hover, .library-nav li:hover {
@@ -771,7 +771,7 @@ aside.app .video-size-ctrl svg:first-child {
   padding: 0 6%;
 }
 .playlist-nav ul li {
-  line-height: 27px;
+  line-height: 42px;
   cursor: pointer;
   padding: 0 6%;
   position: relative;
@@ -868,7 +868,7 @@ section.app {
 }
 
 .section-header {
-  height: 78px;
+  height: 72px;
   border-bottom: 1px solid #d6d6d6;
 }
 
@@ -885,14 +885,17 @@ section.app {
 .search input {
   float: left;
   margin: 0;
-  height: 78px;
+  height: 72px;
 }
 .search input[type="text"] {
   width: 91.6666666%;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border: none;
-  font-size: 2.7em;
+  font-size: 3.6em;
+  font-weight: 100;
+  background: transparent;
+  padding-left: 3%;
 }
 .search input[type="submit"] {
   width: 8.33333333%;
@@ -904,6 +907,22 @@ section.app {
 .search input[type="submit"]:hover {
   opacity: .8;
 }
+.search input[type="text"]::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #e2e2e2;
+}
+.search input[type="text"]:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #e2e2e2;
+}
+.search input[type="text"]::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #e2e2e2;
+}
+.search input[type="text"]:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #e2e2e2;
+}
 
 .main-container ul {
   margin-bottom: 0;
@@ -911,7 +930,7 @@ section.app {
   /*required for submenu overflow visibility*/
 }
 .main-container ul li {
-  line-height: 36px;
+  line-height: 48px;
   padding: 0 2%;
   overflow: hidden;
 }
@@ -938,9 +957,12 @@ section.app {
   height: 12px;
   vertical-align: middle;
 }
+.main-container ul li:nth-child(even) {
+  background: #e7e7e7;
+}
 
 .scroll-container {
-  height: 65.25vh;
+  height: 75.25vh;
   overflow: scroll;
 }
 
@@ -1077,9 +1099,9 @@ section.app {
   right: 0;
   padding: 0 2%;
   color: #ebebeb;
-  -webkit-box-shadow: 0px -31px 24px -7px #ebebeb;
-  -moz-box-shadow: 0px -31px 24px -7px #ebebeb;
-  box-shadow: 0px -31px 24px -7px #ebebeb;
+  -webkit-box-shadow: 0px -41px 34px -7px #ebebeb;
+  -moz-box-shadow: 0px -41px 34px -7px #ebebeb;
+  box-shadow: 0px -41px 34px -7px #ebebeb;
 }
 
 .info {

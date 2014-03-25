@@ -99,12 +99,12 @@ aside.app{
 }
 
 .aside-header{
-	height: 120px;
+	height: 72px;
 
 	.logo{
 		@include col(12);
 		@include col-ctr(12);
-		margin: 33px 0;
+		margin: 12px 0;
 	}
 }
 
@@ -138,7 +138,7 @@ aside.app{
 
 	ul{
 		li{
-			line-height: 27px;
+			line-height: 42px;
 			cursor: pointer;
 			padding: 0 6%;
 			position: relative;
@@ -266,7 +266,7 @@ section.app{
 }
 
 .section-header{
-	height: 78px; //120
+	height: 72px; //120
 	border-bottom: 1px solid nth($grey, 4);
 }
 
@@ -275,12 +275,13 @@ section.app{
 	// @include col(8);
 	// @include col-ctr(8);
 	@include vertical-align;
+	// padding: 0 0 2px;
 
 	input{
 		float: left;
 		margin: 0;
 		// padding: 0 6%;
-		height: 78px;//39
+		height: 72px;//39
 	}
 
 	input[type="text"]{
@@ -289,7 +290,10 @@ section.app{
 		border-bottom-right-radius: 0;
 		// border-right: none;
 		border: none;
-		font-size: 2.7em;
+		font-size: 3.6em;
+		font-weight: 100;
+		background: transparent;
+		padding-left: 3%;
 	}
 
 	input[type="submit"]{
@@ -304,6 +308,19 @@ section.app{
 	input[type="submit"]:hover{
 		opacity: .8;
 	}
+
+	input[type="text"]::-webkit-input-placeholder { /* WebKit browsers */
+	    color: nth($grey, 5);
+	}
+	input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	    color: nth($grey, 5);
+	}
+	input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
+	    color: nth($grey, 5);
+	}
+	input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
+	    color: nth($grey, 5);
+	}
 }
 
 .main-container{
@@ -312,7 +329,7 @@ section.app{
 		position: relative; /*required for submenu overflow visibility*/
 
 		li{
-			line-height: 36px;
+			line-height: 48px;//36
 			padding: 0 2%;
 			overflow: hidden;
 
@@ -346,11 +363,15 @@ section.app{
 				vertical-align: middle;
 			}
 		}
+
+		li:nth-child(even){
+			background: nth($grey, 6);
+		}
 	}
 }
 
 .scroll-container{
-	height: 65.25vh;
+	height: 75.25vh;
 	overflow: scroll;
 }
 
@@ -544,9 +565,9 @@ section.app{
 	color: $white;
 	// overflow: hidden;
 
-	-webkit-box-shadow: 0px -31px 24px -7px $white;
-	   -moz-box-shadow: 0px -31px 24px -7px $white;
-			box-shadow: 0px -31px 24px -7px $white;
+	-webkit-box-shadow: 0px -41px 34px -7px $white;
+	   -moz-box-shadow: 0px -41px 34px -7px $white;
+			box-shadow: 0px -41px 34px -7px $white;
 }
 
 
