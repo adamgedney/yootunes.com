@@ -405,8 +405,38 @@ section.app{
 	cursor: pointer;
 }
 
+
+
 li.li-group:nth-child(even){
 	background: nth($grey, 6);
+}
+
+li.li-group.dropdown{
+	background: #fff;
+	padding: 9px;
+
+	img{
+		@include col(8);
+		margin: 40% 0 0 9px;
+	}
+
+	.li-desc{
+		line-height: 18px;
+		@include col(6);
+		margin-left: 9px;
+	}
+
+	.li-share{
+		@include col(2);
+		float: right;
+		margin: 9px 3.5% 0 0;
+		line-height: 27px;
+		font-weight: 700;
+
+		svg{
+			height: 21px;
+		}
+	}
 }
 
 

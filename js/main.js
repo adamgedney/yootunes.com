@@ -588,13 +588,44 @@ $(document).on('click', '.settings-icon', function(){
 
 		$('.profile-edit-menu').fadeIn();
 
-		toggle7 = !toggle3;
+		toggle7 = !toggle7;
 	}else{
 		$('.profile-edit-menu').fadeOut();
 
 		toggle7 = !toggle7;
 	}
 });
+
+
+//li group dropdown==============================//
+$('li.main-dropdown').hide();
+var toggle8 = false;
+$(document).on('click', '.li-group', function(){
+	//gets the id of the list item being clicked
+	var resultId = $(this).attr('data-resultId');
+
+	//reveals the li where the resultIds match
+	if(!toggle8){
+		$('.main-dropdown[data-resultId=' + resultId + ']').fadeIn();
+
+		toggle8 = !toggle8;
+	}else{
+		$('.main-dropdown[data-resultId=' + resultId + ']').fadeOut();
+
+		toggle8 = !toggle8;
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 
