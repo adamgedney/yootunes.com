@@ -600,7 +600,7 @@ $(document).on('click', '.settings-icon', function(){
 //li group dropdown==============================//
 $('li.main-dropdown').hide();
 var toggle8 = false;
-$(document).on('click', '.li-group', function(){
+$(document).on('click', '.dropdown-trigger', function(){
 	//gets the id of the list item being clicked
 	var resultId = $(this).attr('data-resultId');
 

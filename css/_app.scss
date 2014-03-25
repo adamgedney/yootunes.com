@@ -455,6 +455,9 @@ li.li-group.dropdown{
 }
 
 
+/*=====================================*/
+/*popouts==============================*/
+/*=====================================*/
 .main-popout{
 	width: 15%;
 	height: 111px;
@@ -572,13 +575,7 @@ li.li-group.dropdown{
 				float: right;
 				width: 9px;
 			}
-		}
-	}
-}
 
-.main-popout{
-	ul{
-		li{
 			.improve-meta-sub-menu{
 				top: 82px;
 				height: 165%;
@@ -590,30 +587,13 @@ li.li-group.dropdown{
 					padding-bottom: 12px;
 					line-height: 9px;
 				}
-
-				form{
-
-				}
 			}
 		}
 	}
 }
 
 
-
-
-
-
-
-
-
-
-/*=====================================*/
-/*Footer Container=====================*/
-/*=====================================*/
-
-
-/*Footer popouts - housed just outside footer to work around overflow*/
+//footer popout for profile
 .profile-edit-menu{
 	width: 30%;
 	height: auto;
@@ -666,6 +646,12 @@ li.li-group.dropdown{
 
 
 
+
+
+
+/*=====================================*/
+/*Footer Container=====================*/
+/*=====================================*/
 .footer{
 	background: $black;
 	height: 72px;
