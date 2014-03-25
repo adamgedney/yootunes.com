@@ -1294,10 +1294,11 @@ li.li-group.dropdown .li-share svg {
   width: 8.33333333%;
   float: left;
   height: 100%;
+  padding-left: 1.5%;
 }
 .volume-ctrl .vol-icon {
-  fill: #ebebeb;
-  height: 12px;
+  height: 15px;
+  width: 25%;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -1306,6 +1307,9 @@ li.li-group.dropdown .li-share svg {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   cursor: pointer;
+}
+.volume-ctrl .vol-icon:hover {
+  opacity: .7;
 }
 
 .playing-share-ctrl {

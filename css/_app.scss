@@ -766,12 +766,18 @@ li.li-group.dropdown{
 	@include col(1);
 	float: left;
 	height: 100%;
+	padding-left: 1.5%;
 
 	.vol-icon{
-		fill: $white;
-		height: 12px;
+		height: 15px;
+		@include col(3);
 		@include vertical-align;
 		cursor: pointer;
+		// margin-right: 3%;
+	}
+
+	.vol-icon:hover{
+		opacity: .7;
 	}
 }
 
