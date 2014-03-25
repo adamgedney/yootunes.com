@@ -936,20 +936,27 @@ section.app {
   padding: 0 2%;
   overflow: hidden;
 }
-.main-container ul li span {
+.main-container ul li .li-play {
+  float: left;
+}
+.main-container ul li .li-play, .main-container ul li .li-menu {
+  width: 6%;
+  display: inline-block;
+}
+.main-container ul li .li-title {
+  display: inline-block;
   width: 33.3333333%;
   float: left;
+}
+.main-container ul li .li-artist, .main-container ul li .li-album {
+  width: 16.6666667%;
   display: inline-block;
+  float: left;
 }
 .main-container ul li .li-length, .main-container ul li .li-genre {
   width: 8.33333333%;
   float: right;
-}
-.main-container ul li .li-play, .main-container ul li .li-menu {
-  width: 6%;
-}
-.main-container ul li .li-artist, .main-container ul li .li-album {
-  width: 16.6666667%;
+  display: inline-block;
 }
 .main-container ul li .li-menu {
   float: right;
@@ -999,7 +1006,7 @@ li.li-group:nth-child(even) {
 /*=====================================*/
 li.li-group.dropdown {
   background: #fff;
-  padding: 9px;
+  padding: 18px 18px 18px 9px;
 }
 li.li-group.dropdown img {
   width: 83.3333333%;
@@ -1008,14 +1015,15 @@ li.li-group.dropdown img {
 }
 li.li-group.dropdown .li-desc {
   line-height: 18px;
-  width: 50%;
   margin-left: 9px;
+  display: inline-block;
+  width: 50%;
 }
 li.li-group.dropdown .li-share {
   width: 16.6666667%;
   float: right;
-  margin: 9px 3.5% 0 0;
-  line-height: 27px;
+  margin: 0 3.5% 0;
+  line-height: 18px;
   font-weight: 700;
 }
 li.li-group.dropdown .li-share svg {

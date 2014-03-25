@@ -332,27 +332,35 @@ section.app{
 		position: relative; /*required for submenu overflow visibility*/
 
 		li{
-			line-height: 48px;//36
+			line-height: 48px;
 			padding: 0 2%;
 			overflow: hidden;
 
-			span{
+			.li-play{
+				float: left;
+			}
+
+			.li-play, .li-menu{
+				width: 6%;
+				display: inline-block;
+			}
+
+			.li-title{
+				display: inline-block;
 				@include col(4);
 				float: left;
+			}
+
+			.li-artist, .li-album{
+				@include col(2);
 				display: inline-block;
+				float: left;
 			}
 
 			.li-length, .li-genre{
 				@include col(1);
 				float: right;
-			}
-
-			.li-play, .li-menu{
-				width: 6%;
-			}
-
-			.li-artist, .li-album{
-				@include col(2);
+				display: inline-block;
 			}
 
 			.li-menu{
@@ -427,25 +435,26 @@ li.li-group:nth-child(even){
 
 li.li-group.dropdown{
 	background: #fff;
-	padding: 9px;
+	padding: 18px 18px 18px 9px;
 
-	img{
-		@include col(10);
-		margin: 40% 0 0 9px;
-		border-radius: 27px;
-	}
+		img{
+			@include col(10);
+			margin: 40% 0 0 9px;
+			border-radius: 27px;
+		}
 
 	.li-desc{
 		line-height: 18px;
-		@include col(6);
 		margin-left: 9px;
+		display: inline-block;
+		@include col(6);
 	}
 
 	.li-share{
 		@include col(2);
 		float: right;
-		margin: 9px 3.5% 0 0;
-		line-height: 27px;
+		margin: 0 3.5% 0;
+		line-height: 18px;
 		font-weight: 700;
 
 		svg{
