@@ -1091,13 +1091,14 @@ li.li-group:nth-child(even) {
 }
 
 /*Footer Container========================*/
-/*Foooter popouts - housed just outside footer to work around overflow*/
+/*Footer popouts - housed just outside footer to work around overflow*/
 .profile-edit-menu {
   width: 30%;
-  height: 111px;
+  height: auto;
   right: 1%;
   top: initial;
   bottom: 81px;
+  padding: 1%;
 }
 .profile-edit-menu:before {
   border-top: 9px solid  #fff;
@@ -1107,6 +1108,30 @@ li.li-group:nth-child(even) {
   top: initial;
   bottom: -12px;
   right: 6.5%;
+}
+.profile-edit-menu input {
+  width: 83.3333333%;
+  margin-left: 8.33333335%;
+  margin-right: 8.33333335%;
+  height: 45px;
+}
+.profile-edit-menu input[type="submit"] {
+  background: #cf2425;
+  color: #ebebeb;
+}
+.profile-edit-menu form {
+  margin-bottom: 72px;
+}
+.profile-edit-menu a {
+  text-decoration: underline;
+  padding: 0 8.45% 9px;
+}
+.profile-edit-menu a:nth-of-type(2) {
+  float: right;
+}
+
+.profile-edit-menu-heading {
+  margin: 36px 0 9px 8.45%;
 }
 
 .footer {
@@ -1118,9 +1143,9 @@ li.li-group:nth-child(even) {
   right: 0;
   padding: 0 2%;
   color: #ebebeb;
-  -webkit-box-shadow: 0px -41px 34px -7px #ebebeb;
-  -moz-box-shadow: 0px -41px 34px -7px #ebebeb;
-  box-shadow: 0px -41px 34px -7px #ebebeb;
+  -webkit-box-shadow: 0px -39px 34px -7px #ebebeb;
+  -moz-box-shadow: 0px -39px 34px -7px #ebebeb;
+  box-shadow: 0px -39px 34px -7px #ebebeb;
 }
 
 .info {

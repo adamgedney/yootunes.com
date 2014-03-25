@@ -554,13 +554,14 @@ li.li-group:nth-child(even){
 
 /*Footer Container========================*/
 
-/*Foooter popouts - housed just outside footer to work around overflow*/
+/*Footer popouts - housed just outside footer to work around overflow*/
 .profile-edit-menu{
 	width: 30%;
-	height: 111px;
+	height: auto;
 	right: 1%;
 	top: initial;
 	bottom: 81px;
+	padding: 1%;
 
 	&:before{
 		border-top: 9px solid  #fff;
@@ -572,8 +573,35 @@ li.li-group:nth-child(even){
 		right: 6.5%;
 
 	}
+
+	input{
+		@include col(10);
+		@include col-ctr(10);
+		height: 45px;
+	}
+
+	input[type="submit"]{
+		background: $red;
+		color: $white;
+	}
+
+	form{
+		margin-bottom: 72px;
+	}
+
+	a{
+		text-decoration: underline;
+		padding: 0 8.45% 9px;
+	}
+
+	a:nth-of-type(2){
+		float: right;
+	}
 }
 
+.profile-edit-menu-heading{
+	margin: 36px 0 9px 8.45%;
+}
 
 
 
@@ -590,9 +618,9 @@ li.li-group:nth-child(even){
 	color: $white;
 	// overflow: hidden;
 
-	-webkit-box-shadow: 0px -41px 34px -7px $white;
-	   -moz-box-shadow: 0px -41px 34px -7px $white;
-			box-shadow: 0px -41px 34px -7px $white;
+	-webkit-box-shadow: 0px -39px 34px -7px $white;
+	   -moz-box-shadow: 0px -39px 34px -7px $white;
+			box-shadow: 0px -39px 34px -7px $white;
 }
 
 

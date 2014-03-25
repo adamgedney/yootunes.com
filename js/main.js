@@ -575,5 +575,27 @@ $(document).on('click', '.improve-meta', function(){
 
 
 
+//profile edit menu popout==============//
+
+//Playlist menu popout interaction=======//
+$('.profile-edit-menu').hide();
+var toggle7 = false;
+$(document).on('click', '.settings-icon', function(){
+
+	console.log($(this));
+
+	if(!toggle7){
+
+		$('.profile-edit-menu').fadeIn();
+
+		toggle7 = !toggle3;
+	}else{
+		$('.profile-edit-menu').fadeOut();
+
+		toggle7 = !toggle7;
+	}
+});
+
+
 
 });// function
