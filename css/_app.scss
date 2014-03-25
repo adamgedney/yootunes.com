@@ -334,7 +334,7 @@ section.app{
 			overflow: hidden;
 
 			span{
-				@include col(3);
+				@include col(4);
 				float: left;
 				display: inline-block;
 			}
@@ -348,7 +348,7 @@ section.app{
 				width: 6%;
 			}
 
-			.li-artist{
+			.li-artist, .li-album{
 				@include col(2);
 			}
 
@@ -377,8 +377,20 @@ section.app{
 	border-bottom: 1px solid nth($grey, 4);
 	font-size: .8em;
 
+	.li-play{
+		// height: 21px;
+		line-height: 18px;
+		font-size: .6em;
+		padding-top: 19px;
+		color: nth($grey, 3);
+
+		svg{
+			display: block;
+		}
+	}
+
 	.li-title{
-		margin-left: 6%;
+		// margin-left: 6%;
 	}
 
 	.li-length{

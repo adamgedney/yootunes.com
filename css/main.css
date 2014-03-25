@@ -935,7 +935,7 @@ section.app {
   overflow: hidden;
 }
 .main-container ul li span {
-  width: 25%;
+  width: 33.3333333%;
   float: left;
   display: inline-block;
 }
@@ -946,7 +946,7 @@ section.app {
 .main-container ul li .li-play, .main-container ul li .li-menu {
   width: 6%;
 }
-.main-container ul li .li-artist {
+.main-container ul li .li-artist, .main-container ul li .li-album {
   width: 16.6666667%;
 }
 .main-container ul li .li-menu {
@@ -969,8 +969,14 @@ section.app {
   border-bottom: 1px solid #d6d6d6;
   font-size: .8em;
 }
-.li-header .li-title {
-  margin-left: 6%;
+.li-header .li-play {
+  line-height: 18px;
+  font-size: .6em;
+  padding-top: 19px;
+  color: #949494;
+}
+.li-header .li-play svg {
+  display: block;
 }
 .li-header .li-length {
   margin-right: 6%;
