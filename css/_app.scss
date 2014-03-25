@@ -152,9 +152,9 @@ aside.app{
 
 		}
 
-		li:hover{
-			line-height: 63px;
-		}
+		// li:hover{
+		// 	line-height: 63px;
+		// }
 	}
 }
 
@@ -214,7 +214,7 @@ aside.app{
 		border-bottom: 3px solid transparent;
 		border-left: 9px solid #fff;
 		position: absolute;
-		top: 11px;
+		top: 18px;
 		right: -9px;
 		z-index: 99;
 	}
@@ -471,7 +471,7 @@ li.li-group.dropdown{
 /*popouts==============================*/
 /*=====================================*/
 .main-popout{
-	width: 15%;
+	width: 18%;
 	height: 111px;
 	padding: 0 1%;
 	right: 8.2%;
@@ -695,7 +695,7 @@ li.li-group.dropdown{
 		}
 	}
 
-	img{
+	img, svg{
 		display: block;
 		float: left;
 		height: 63px;
@@ -777,24 +777,17 @@ li.li-group.dropdown{
 	float: left;
 	height: 100%;
 	padding-left: 1.5%;
+	margin-top: 8px;
 
 	.vol-icon{
-		height: 21px;
-		@include col(3);
-		@include vertical-align;
+		height: 24px;
 		cursor: pointer;
-		// margin-right: 3%;
+		display: block;
+		margin: 3px 0 0 27%;
 	}
 
-	.vol-icon:nth-of-type(1){
-		height: 12px;
-		width: 12px;
-		@include vertical-align;
-		vertical-align: top;
-	};
-
 	.vol-icon:hover{
-		opacity: .7;
+		opacity: .3;
 	}
 }
 
@@ -819,7 +812,7 @@ li.li-group.dropdown{
 
 .playon-ctrl{
 	@include col(1);
-	float: left;
+	float: right;
 	@include vertical-align;
 
 	h3{
@@ -843,30 +836,23 @@ li.li-group.dropdown{
 
 .profile-display{
 	@include col(2);
-	float: left;
+	float: right;
 	overflow: hidden;
 	height: 100%;
-	padding: 18px 0 0 18px;
-
-
-	h3{
-		font-size: 1.2em;
-		@include col(9);
-		display: block;
-		line-height: 18px;
-	}
+	padding: 0 3%;
 
 	p{
 		font-size: 1.2em;
-		line-height: 18px;
+		line-height: 72px;
 		@include col(9);
 		display: inline;
+		float: right;
 	}
 
 	.settings-icon{
 		float: right;
 		height: 18px;
-		@include col(2);
+		@include col(3);
 		@include vertical-align;
 		cursor: pointer;
 	}

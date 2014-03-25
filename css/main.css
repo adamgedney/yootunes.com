@@ -780,9 +780,6 @@ aside.app .video-size-ctrl svg:first-child {
   color: #494f4f;
   width: 91.6666666%;
 }
-.playlist-nav ul li:hover {
-  line-height: 63px;
-}
 
 .playlist-menu {
   width: 8.33333333%;
@@ -835,7 +832,7 @@ aside.app .video-size-ctrl svg:first-child {
   border-bottom: 3px solid transparent;
   border-left: 9px solid #fff;
   position: absolute;
-  top: 11px;
+  top: 18px;
   right: -9px;
   z-index: 99;
 }
@@ -1038,7 +1035,7 @@ li.li-group.dropdown .li-share svg {
 /*popouts==============================*/
 /*=====================================*/
 .main-popout {
-  width: 15%;
+  width: 18%;
   height: 111px;
   padding: 0 1%;
   right: 8.2%;
@@ -1211,7 +1208,7 @@ li.li-group.dropdown .li-share svg {
 .info ul li {
   font-size: .8em;
 }
-.info img {
+.info img, .info svg {
   display: block;
   float: left;
   height: 63px;
@@ -1299,33 +1296,16 @@ li.li-group.dropdown .li-share svg {
   float: left;
   height: 100%;
   padding-left: 1.5%;
+  margin-top: 8px;
 }
 .volume-ctrl .vol-icon {
-  height: 21px;
-  width: 25%;
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  height: 24px;
   cursor: pointer;
-}
-.volume-ctrl .vol-icon:nth-of-type(1) {
-  height: 12px;
-  width: 12px;
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  vertical-align: top;
+  display: block;
+  margin: 3px 0 0 27%;
 }
 .volume-ctrl .vol-icon:hover {
-  opacity: .7;
+  opacity: .3;
 }
 
 .playing-share-ctrl {
@@ -1353,7 +1333,7 @@ li.li-group.dropdown .li-share svg {
 
 .playon-ctrl {
   width: 8.33333333%;
-  float: left;
+  float: right;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -1380,27 +1360,22 @@ li.li-group.dropdown .li-share svg {
 
 .profile-display {
   width: 16.6666667%;
-  float: left;
+  float: right;
   overflow: hidden;
   height: 100%;
-  padding: 18px 0 0 18px;
-}
-.profile-display h3 {
-  font-size: 1.2em;
-  width: 75%;
-  display: block;
-  line-height: 18px;
+  padding: 0 3%;
 }
 .profile-display p {
   font-size: 1.2em;
-  line-height: 18px;
+  line-height: 72px;
   width: 75%;
   display: inline;
+  float: right;
 }
 .profile-display .settings-icon {
   float: right;
   height: 18px;
-  width: 16.6666667%;
+  width: 25%;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
