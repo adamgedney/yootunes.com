@@ -49,6 +49,7 @@ a[title]:hover:after{
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
+
 //body#app
 #app{
 	background: $white;
@@ -149,6 +150,10 @@ aside.app{
 				@include col(11);
 			}
 
+		}
+
+		li:hover{
+			line-height: 63px;
 		}
 	}
 }
@@ -376,7 +381,7 @@ section.app{
 		}
 
 		li:hover{
-			//zoom here
+			line-height: 63px;
 		}
 	}
 }
@@ -769,12 +774,18 @@ li.li-group.dropdown{
 	padding-left: 1.5%;
 
 	.vol-icon{
-		height: 15px;
+		height: 18px;
 		@include col(3);
 		@include vertical-align;
 		cursor: pointer;
 		// margin-right: 3%;
 	}
+
+	.vol-icon:nth-of-type(2){
+		height: 12px;
+		@include vertical-align;
+		vertical-align: top;
+	};
 
 	.vol-icon:hover{
 		opacity: .7;
@@ -840,7 +851,7 @@ li.li-group.dropdown{
 	}
 
 	p{
-		font-size: 1.5em;
+		font-size: 1.2em;
 		line-height: 18px;
 		@include col(9);
 		display: inline;
@@ -848,9 +859,14 @@ li.li-group.dropdown{
 
 	.settings-icon{
 		float: right;
+		height: 18px;
 		@include col(2);
 		@include vertical-align;
 		cursor: pointer;
+	}
+
+	.settings-icon:hover{
+		opacity: .7;
 	}
 }
 

@@ -780,6 +780,9 @@ aside.app .video-size-ctrl svg:first-child {
   color: #494f4f;
   width: 91.6666666%;
 }
+.playlist-nav ul li:hover {
+  line-height: 63px;
+}
 
 .playlist-menu {
   width: 8.33333333%;
@@ -965,6 +968,9 @@ section.app {
 .main-container ul li svg {
   height: 12px;
   vertical-align: middle;
+}
+.main-container ul li:hover {
+  line-height: 63px;
 }
 
 .scroll-container {
@@ -1297,7 +1303,7 @@ li.li-group.dropdown .li-share svg {
   padding-left: 1.5%;
 }
 .volume-ctrl .vol-icon {
-  height: 15px;
+  height: 18px;
   width: 25%;
   position: relative;
   top: 50%;
@@ -1307,6 +1313,17 @@ li.li-group.dropdown .li-share svg {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   cursor: pointer;
+}
+.volume-ctrl .vol-icon:nth-of-type(2) {
+  height: 12px;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  vertical-align: top;
 }
 .volume-ctrl .vol-icon:hover {
   opacity: .7;
@@ -1376,13 +1393,14 @@ li.li-group.dropdown .li-share svg {
   line-height: 18px;
 }
 .profile-display p {
-  font-size: 1.5em;
+  font-size: 1.2em;
   line-height: 18px;
   width: 75%;
   display: inline;
 }
 .profile-display .settings-icon {
   float: right;
+  height: 18px;
   width: 16.6666667%;
   position: relative;
   top: 50%;
@@ -1392,4 +1410,7 @@ li.li-group.dropdown .li-share svg {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   cursor: pointer;
+}
+.profile-display .settings-icon:hover {
+  opacity: .7;
 }
