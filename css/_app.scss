@@ -302,6 +302,7 @@ section.app{
 		font-weight: 100;
 		background: transparent;
 		padding-left: 3%;
+		outline: none;
 	}
 
 	input[type="submit"]{
@@ -762,6 +763,7 @@ li.li-group.dropdown{
 	z-index: 10;
 	opacity: .9;
 	cursor: pointer;
+	border: 1px solid $black;
 }
 
 #seek-dot:active{
@@ -777,15 +779,16 @@ li.li-group.dropdown{
 	padding-left: 1.5%;
 
 	.vol-icon{
-		height: 18px;
+		height: 21px;
 		@include col(3);
 		@include vertical-align;
 		cursor: pointer;
 		// margin-right: 3%;
 	}
 
-	.vol-icon:nth-of-type(2){
+	.vol-icon:nth-of-type(1){
 		height: 12px;
+		width: 12px;
 		@include vertical-align;
 		vertical-align: top;
 	};

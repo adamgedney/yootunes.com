@@ -901,6 +901,7 @@ section.app {
   font-weight: 100;
   background: transparent;
   padding-left: 3%;
+  outline: none;
 }
 .search input[type="submit"] {
   width: 8.33333333%;
@@ -1284,6 +1285,7 @@ li.li-group.dropdown .li-share svg {
   z-index: 10;
   opacity: .9;
   cursor: pointer;
+  border: 1px solid #0f1010;
 }
 
 #seek-dot:active {
@@ -1299,7 +1301,7 @@ li.li-group.dropdown .li-share svg {
   padding-left: 1.5%;
 }
 .volume-ctrl .vol-icon {
-  height: 18px;
+  height: 21px;
   width: 25%;
   position: relative;
   top: 50%;
@@ -1310,8 +1312,9 @@ li.li-group.dropdown .li-share svg {
   transform: translateY(-50%);
   cursor: pointer;
 }
-.volume-ctrl .vol-icon:nth-of-type(2) {
+.volume-ctrl .vol-icon:nth-of-type(1) {
   height: 12px;
+  width: 12px;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
