@@ -1,4 +1,4 @@
-var uiController = (function(window, document, $){
+var UiController = (function(window, document, $){
 
 	//private vars
 	var _foo = 'bar';
@@ -11,8 +11,8 @@ var uiController = (function(window, document, $){
 	//prototype –line up prototyped functions here.
 	uiController.prototype = {
 		constructor  : uiController,
-		someFunct    : function(){
-
+		random    : function(){
+			console.log('test uiController', Math.random());
 		},
 		someProperty : 'foobar'
 	};

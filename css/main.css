@@ -131,6 +131,7 @@ input, button, textarea {
   font-size: 1.6em;
   font-weight: 100;
   outline: none;
+  font-family: 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
 }
 
 ::-webkit-input-placeholder {
@@ -867,15 +868,12 @@ section.app {
 }
 
 .section-header {
-  height: 120px;
+  height: 78px;
   border-bottom: 1px solid #d6d6d6;
 }
 
 .search {
   overflow: hidden;
-  width: 66.6666666%;
-  margin-left: 16.6666667%;
-  margin-right: 16.6666667%;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -887,21 +885,24 @@ section.app {
 .search input {
   float: left;
   margin: 0;
-  padding: 0 6%;
-  height: 39px;
+  height: 78px;
 }
 .search input[type="text"] {
-  width: 83.3333333%;
+  width: 91.6666666%;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border: none;
+  font-size: 2.7em;
 }
 .search input[type="submit"] {
-  width: 16.6666667%;
+  width: 8.33333333%;
   background: #cf2425;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: none;
+}
+.search input[type="submit"]:hover {
+  opacity: .8;
 }
 
 .main-container ul {

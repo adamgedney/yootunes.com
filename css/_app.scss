@@ -266,38 +266,43 @@ section.app{
 }
 
 .section-header{
-	height: 120px;
+	height: 78px; //120
 	border-bottom: 1px solid nth($grey, 4);
 }
 
 .search{
 	overflow: hidden;
-	@include col(8);
-	@include col-ctr(8);
+	// @include col(8);
+	// @include col-ctr(8);
 	@include vertical-align;
 
 	input{
 		float: left;
 		margin: 0;
-		padding: 0 6%;
-		height: 39px;
+		// padding: 0 6%;
+		height: 78px;//39
 	}
 
 	input[type="text"]{
-		@include col(10);
+		@include col(11);
 		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
 		// border-right: none;
 		border: none;
+		font-size: 2.7em;
 	}
 
 	input[type="submit"]{
-		@include col(2);
+		@include col(1);
 		background: $red;
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 		// border: 1px solid nth($grey, 3);
 		border-left: none;
+	}
+
+	input[type="submit"]:hover{
+		opacity: .8;
 	}
 }
 
