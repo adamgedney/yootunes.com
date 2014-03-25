@@ -70,7 +70,7 @@ aside.app{
 		position: fixed;
 		bottom: 72px;
 		left: 0;
-		z-index:10;
+		z-index:1000;
 		height: 27px;
 		border: none;
 	}
@@ -83,7 +83,7 @@ aside.app{
 		position: fixed;
 		bottom: 72px;
 		left: 0;
-		z-index:11;
+		z-index:1001;
 		height: 27px;
 		text-align: right;
 
@@ -379,12 +379,9 @@ section.app{
 				vertical-align: middle;
 			}
 		}
-
-		li:hover{
-			line-height: 63px;
-		}
 	}
 }
+
 
 .scroll-container{
 	height: 75.25vh;
@@ -735,7 +732,7 @@ li.li-group.dropdown{
 	@include col(3);
 	float: left;
 	@include vertical-align;
-	height: 18px;
+	height: 36px;
 	overflow: hidden;
 	position: relative;
 
@@ -751,8 +748,8 @@ li.li-group.dropdown{
 	@include col(10);
 	height: 0px;
 	border-bottom: 1px solid nth($grey, 2);
-	@include vertical-align;
-	margin-top: 9px;
+	// @include vertical-align;
+	margin-top:18px;
 }
 
 #seek-dot{
@@ -761,10 +758,16 @@ li.li-group.dropdown{
 	background: $red;
 	border-radius: 50%;
 	position: absolute;
-	top: 3px;
+	top: 13px;
 	z-index: 10;
-	opacity: .7;
+	opacity: .9;
 	cursor: pointer;
+}
+
+#seek-dot:active{
+	width: 21px;
+	height: 21px;
+	top: 8px;
 }
 
 .volume-ctrl{

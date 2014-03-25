@@ -35,6 +35,7 @@ $yellow: #e5a539;
 
 
 
+
 /*--------------------------------------End General / Start Objects------------------------------------*/
 
 .hide-text {
@@ -562,6 +563,7 @@ footer{
 
 /*----Sass import application stylesheet----*/
 @import "app";
+@import "lightbox";
 
 
 

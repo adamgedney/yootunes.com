@@ -394,10 +394,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 		<section class="app">
 			<div class="section-header">
 				<div class="search">
-					<input type="text" placeholder="Search YouTube"/>
+					<input type="text" placeholder="Search YouTube" autofocus="true"/>
 					<input type="submit" value="" />
 				</div><!-- /.search-->
 			</div><!-- /.section-header-->
@@ -558,8 +570,9 @@
 						</li>
 
 						<!-- Popdown li -->
+						<!-- **important__LInk to the 500 size .jpg at grooveshark -->
 						<li data-resultId="1239" class="li-group dropdown main-dropdown"><!-- list item group-->
-							<span class="li-play"><img class="thumb" src="http://images.gs-cdn.net/static/albums/120_124599.jpg" alt="track play icon" /></span>
+							<span class="li-play"><a data-lightbox="0" href="http://images.gs-cdn.net/static/albums/500_124599.jpg" ><img class="thumb" src="http://images.gs-cdn.net/static/albums/120_124599.jpg" alt="track play icon" /></a></span>
 
 								<span class="li-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet cursus dui, ac dapibus velit. Cras molestie interdum neque vitae cursus. Proin posuere orci ut enim sodales, nec vestibulum orci dapibus. Sed non leo nunc. Sed hendrerit justo erat, eu imperdiet enim gravida a. Duis eu metus risus. Nunc pulvinar lacus erat, sed venenatis lectus ultricies non.</span>
 								<span class="li-share">&nbsp;
@@ -625,7 +638,9 @@
 
 			<div class="info">
 
-				<img src="http://images.gs-cdn.net/static/albums/120_124599.jpg" alt="album art" />
+				<a data-lightbox="img1" href="http://images.gs-cdn.net/static/albums/500_124599.jpg" >
+					<img src="http://images.gs-cdn.net/static/albums/120_124599.jpg" alt="album art" />
+				</a>
 
 				<ul>
 					<li>Black Dog</li>
@@ -713,10 +728,11 @@
 
 
 		<script src="js/libraries/jquery-1.10.2.min.js"></script>
+		<script src="js/libraries/lightbox-2.6.min.js"></script>
 		<script src="js/libraries/handlebars-v1.3.0.js"></script>
 		<script src="js/controllers/uiController.js"></script>
+
 		<!--<script src=""></script>
-		// <script src=""></script>
 		// <script src=""></script>
 		// <script src=""></script>
 		// <script src=""></script> -->
