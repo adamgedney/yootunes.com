@@ -957,9 +957,6 @@ section.app {
   height: 12px;
   vertical-align: middle;
 }
-.main-container ul li:nth-child(even) {
-  background: #e7e7e7;
-}
 
 .scroll-container {
   height: 75.25vh;
@@ -983,6 +980,10 @@ section.app {
   color: #494f4f;
   font-size: .8em;
   cursor: pointer;
+}
+
+li.li-group:nth-child(even) {
+  background: #e7e7e7;
 }
 
 .main-popout {
@@ -1090,6 +1091,24 @@ section.app {
 }
 
 /*Footer Container========================*/
+/*Foooter popouts - housed just outside footer to work around overflow*/
+.profile-edit-menu {
+  width: 30%;
+  height: 111px;
+  right: 1%;
+  top: initial;
+  bottom: 81px;
+}
+.profile-edit-menu:before {
+  border-top: 9px solid  #fff;
+  border-right: 3px solid transparent;
+  border-left: 3px solid transparent;
+  position: absolute;
+  top: initial;
+  bottom: -12px;
+  right: 6.5%;
+}
+
 .footer {
   background: #0f1010;
   height: 72px;
