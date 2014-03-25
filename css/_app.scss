@@ -61,6 +61,7 @@ aside.app{
 	float: left;
 	border-right: 1px solid nth($grey, 4);
 	overflow: hidden;
+	// background: $black; /*experimenting with dark bg*/
 
 	iframe{
 		background: $black;//remove during tests. Placeholder bg color so video can be commented out
@@ -258,8 +259,10 @@ aside.app{
 
 
 
-
+/*=====================================*/
 /*Main Content container===============*/
+/*=====================================*/
+
 section.app{
 	@include col(9);
 	float: left;
@@ -363,6 +366,10 @@ section.app{
 				vertical-align: middle;
 			}
 		}
+
+		li:hover{
+			//zoom here
+		}
 	}
 }
 
@@ -411,13 +418,21 @@ li.li-group:nth-child(even){
 	background: nth($grey, 6);
 }
 
+
+
+
+/*=====================================*/
+/*li dropdown==========================*/
+/*=====================================*/
+
 li.li-group.dropdown{
 	background: #fff;
 	padding: 9px;
 
 	img{
-		@include col(8);
+		@include col(10);
 		margin: 40% 0 0 9px;
+		border-radius: 27px;
 	}
 
 	.li-desc{
@@ -593,8 +608,10 @@ li.li-group.dropdown{
 
 
 
+/*=====================================*/
+/*Footer Container=====================*/
+/*=====================================*/
 
-/*Footer Container========================*/
 
 /*Footer popouts - housed just outside footer to work around overflow*/
 .profile-edit-menu{
@@ -757,7 +774,7 @@ li.li-group.dropdown{
 
 	.vol-icon{
 		fill: $white;
-		height: 18px;
+		height: 12px;
 		@include vertical-align;
 		cursor: pointer;
 	}

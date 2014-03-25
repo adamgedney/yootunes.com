@@ -861,7 +861,9 @@ aside.app .video-size-ctrl svg:first-child {
   float: right;
 }
 
+/*=====================================*/
 /*Main Content container===============*/
+/*=====================================*/
 section.app {
   width: 75%;
   float: left;
@@ -992,13 +994,17 @@ li.li-group:nth-child(even) {
   background: #e7e7e7;
 }
 
+/*=====================================*/
+/*li dropdown==========================*/
+/*=====================================*/
 li.li-group.dropdown {
   background: #fff;
   padding: 9px;
 }
 li.li-group.dropdown img {
-  width: 66.6666666%;
+  width: 83.3333333%;
   margin: 40% 0 0 9px;
+  border-radius: 27px;
 }
 li.li-group.dropdown .li-desc {
   line-height: 18px;
@@ -1120,7 +1126,9 @@ li.li-group.dropdown .li-share svg {
   line-height: 9px;
 }
 
-/*Footer Container========================*/
+/*=====================================*/
+/*Footer Container=====================*/
+/*=====================================*/
 /*Footer popouts - housed just outside footer to work around overflow*/
 .profile-edit-menu {
   width: 30%;
@@ -1280,7 +1288,7 @@ li.li-group.dropdown .li-share svg {
 }
 .volume-ctrl .vol-icon {
   fill: #ebebeb;
-  height: 18px;
+  height: 12px;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
