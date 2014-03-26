@@ -461,25 +461,25 @@ function updateTime(){
 
 
 
-//Playlist menu popout interaction=======//
-$('.playlist-dropdown').hide();
-var toggle3 = false;
-$(document).on('click', '.li-playlist', function(){
+// //Playlist menu popout interaction=======//
+// $('.playlist-dropdown').hide();
+// var toggle3 = false;
+// $(document).on('click', '.li-playlist', function(){
 
-	//gets the id of the list item being clicked
-	var resultId = $(this).attr('data-resultId');
+// 	//gets the id of the list item being clicked
+// 	var resultId = $(this).attr('data-resultId');
 
-	if(!toggle3){
-		$('.playlist-dropdown').fadeOut();
-		$('.playlist-dropdown[data-resultId=' + resultId + ']').fadeIn();
+// 	if(!toggle3){
+// 		$('.playlist-dropdown').fadeOut();
+// 		$('.playlist-dropdown[data-resultId=' + resultId + ']').fadeIn();
 
-		toggle3 = !toggle3;
-	}else{
-		$('.playlist-dropdown[data-resultId=' + resultId + ']').fadeOut();
+// 		toggle3 = !toggle3;
+// 	}else{
+// 		$('.playlist-dropdown[data-resultId=' + resultId + ']').fadeOut();
 
-		toggle3 = !toggle3;
-	}
-});
+// 		toggle3 = !toggle3;
+// 	}
+// });
 
 
 
