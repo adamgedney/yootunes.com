@@ -1,43 +1,6 @@
 $(function(){
 
 
-/*
-* Replace all SVG images with inline SVG
-Source: http://stackoverflow.com/questions/11978995/how-to-change-color-of-svg-image-using-css-jquery-svg-image-replacement
-*/
-$('img.svg').each(function(){
-    var img = $(this);
-    var imgID = img.attr('id');
-    var imgClass = img.attr('class');
-    var imgURL = img.attr('src');
-
-    $.get(imgURL, function(data) {
-        // Get the SVG tag, ignore the rest
-        var svg = $(data).find('svg');
-
-        // Add replaced image's ID to the new SVG
-        if(typeof imgID !== 'undefined') {
-            svg = svg.attr('id', imgID);
-        }
-        // Add replaced image's classes to the new SVG
-        if(typeof imgClass !== 'undefined') {
-            svg = svg.attr('class', imgClass+' replaced-svg');
-        }
-
-        // Remove any invalid XML tags as per http://validator.w3.org
-        svg = svg.removeAttr('xmlns:a');
-
-        // Replace image with new SVG
-        img.replaceWith(svg);
-
-    }, 'xml');
-
-});
-
-
-
-
-
 
 //Parallax bg controller==================//
 var parallax = {};
@@ -47,7 +10,6 @@ var parallax = {};
 	parallax.current = 0;
 
 $(window).on('scroll', function(){
-
 	//Sets current reference point
 	var scroll = $(window).scrollTop();
 
@@ -487,25 +449,25 @@ function updateTime(){
 
 //Main menu interactions========================//
 
-//playlist SUB menu
-$('.add-to-playlist-menu').hide();
-var toggle4 = false;
-$(document).on('click', '.add-to-playlist-menu-trigger', function(event){
-	$('.improve-meta-sub-menu').fadeOut();
-	toggle6 = false;
+// //playlist SUB menu
+// // $('.add-to-playlist-menu').hide();
+// var toggle4 = false;
+// $(document).on('click', '.add-to-playlist-menu-trigger', function(event){
+// 	$('.improve-meta-sub-menu').fadeOut();
+// 	toggle6 = false;
 
-	if(!toggle4){
-		// $('.main-popout').show();
-		$('.add-to-playlist-menu').fadeIn();
+// 	if(!toggle4){
+// 		// $('.main-popout').show();
+// 		$('.add-to-playlist-menu').fadeIn();
 
-		toggle4 = !toggle4;
-	}else{
-		$('.add-to-playlist-menu').fadeOut();
+// 		toggle4 = !toggle4;
+// 	}else{
+// 		$('.add-to-playlist-menu').fadeOut();
 
-		toggle4 = !toggle4;
-		toggle5 = false;
-	}
-});
+// 		toggle4 = !toggle4;
+// 		toggle5 = false;
+// 	}
+// });
 
 
 //*****Note! ALL sub menus can exist on the same toggle#
@@ -514,23 +476,23 @@ $(document).on('click', '.add-to-playlist-menu-trigger', function(event){
 //****Need to program sub menus so they hide when their siblings show.
 
 //improve metadata SUB menu
-$('.improve-meta-sub-menu').hide();
-var toggle6 = false;
-$(document).on('click', '.improve-meta-menu-trigger', function(){
-	$('.add-to-playlist-menu').fadeOut();
-	toggle4 = false;
+// $('.improve-meta-sub-menu').hide();
+// var toggle6 = false;
+// $(document).on('click', '.improve-meta-menu-trigger', function(){
+// 	$('.add-to-playlist-menu').fadeOut();
+// 	toggle4 = false;
 
-	if(!toggle6){
-		$('.improve-meta-sub-menu').fadeIn();
+// 	if(!toggle6){
+// 		$('.improve-meta-sub-menu').fadeIn();
 
-		toggle6 = !toggle6;
-	}else{
-		$('.improve-meta-sub-menu').fadeOut();
+// 		toggle6 = !toggle6;
+// 	}else{
+// 		$('.improve-meta-sub-menu').fadeOut();
 
-		toggle6 = !toggle6;
-		toggle5 = false;
-	}
-});
+// 		toggle6 = !toggle6;
+// 		toggle5 = false;
+// 	}
+// });
 
 
 // //Stop propagation on children of main menu====//

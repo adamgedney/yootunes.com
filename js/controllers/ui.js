@@ -1,7 +1,7 @@
 var Ui = (function(window, document, $){
 
 	//private vars
-	var _toggle = false;
+	// var _foo = 'bar';
 
 
 	//constructor method
@@ -18,7 +18,8 @@ var Ui = (function(window, document, $){
 
 
 
-		//Playlist menu dropdown interaction=======//
+
+		//Playlist menu dropdown interaction==========//
 		$(document).on('click', '.li-playlist', function(event){
 
 			this.toggle;
@@ -26,15 +27,16 @@ var Ui = (function(window, document, $){
 			var selector = '.playlist-dropdown';
 			var id = $(this).attr('data-id');
 
+			//returns the opposite boolean toggle value
 			this.toggle = toggleUi(this.toggle, selector, id);
 
-			console.log(this.toggle);
 		});
 
 
 
 
-		//Main menu dropdown interaction=======//
+
+		//Main menu dropdown interaction=============//
 		$(document).on('click', '.dropdown-trigger', function(event){
 
 			this.toggle;
@@ -42,7 +44,66 @@ var Ui = (function(window, document, $){
 			var selector = '.main-dropdown';
 			var id = $(this).attr('data-id');
 
+			//returns the opposite boolean toggle value
 			this.toggle = toggleUi(this.toggle, selector, id);
+		});
+
+
+
+
+
+		//Add to playlist sub menu interaction=========//
+		$(document).on('click', '.add-to-playlist-menu-trigger', function(event){
+
+			var that = this;
+			that.toggle;
+
+			var selector = '.add-to-playlist-menu';
+			var id = null;
+
+			//returns the opposite boolean toggle value
+			that.toggle = toggleUi(that.toggle, selector);
+
+
+
+			//listens for other sub menu events to fire
+			//to close this and flip toggle.
+			$(document).on('subOpen', function(event){
+				if(event.selector !== selector && that.toggle){
+
+					that.toggle = false;
+					$(selector).fadeOut();
+				}
+			});
+		});
+
+
+
+
+
+		//Improve data sub menu interaction=========//
+		$(document).on('click', '.improve-meta-menu-trigger', function(event){
+
+			var that = this;
+			that.toggle;
+
+			var selector = '.improve-meta-sub-menu';
+			var id = null;
+
+			//returns the opposite boolean toggle value
+			that.toggle = toggleUi(that.toggle, selector);
+
+
+
+			//listens for other sub menu events to fire
+			//to close this and flip toggle.
+			$(document).on('subOpen', function(event){
+				if(event.selector !== selector && that.toggle){
+
+					that.toggle = false;
+					$(selector).fadeOut();
+				}
+			});
 		});
 
 
@@ -74,34 +135,50 @@ var Ui = (function(window, document, $){
 //================================//
 
 
-	//event false state
+	//toggle Controller===========//
 	function toggleUi(toggle, selector, id){
 
 		this.toggle = toggle;
 
-		//clears previously open
+		//clears previously open in li, if open
 		$(selector).fadeOut();
 
-		//if an id is set, get data-id
+		//if an id is set, get data-id else run without it
 		if(id === null || id === "" || id === undefined){
 
+			//Fade in
 			if(!this.toggle){
 				$(selector).fadeIn();
+
+				//custom event for notifying sub menu handler of new sub menu open
+				$.event.trigger({
+					type	: "subOpen",
+					selector: selector
+				});
+
+			//Fade out
 			}else{
 				$(selector).fadeOut();
 			}
-
 		}else{
 
+			//Fade in
 			if(!this.toggle){
 				$(selector + '[data-id=' + id + ']').fadeIn();
+
+				//custom event for notifying sub menu handler of new sub menu open
+				$.event.trigger({
+					type	: "subOpen",
+					selector: selector
+				});
+
+			//Fade out
 			}else{
 				$(selector + '[data-id=' + id + ']').fadeOut();
 			}
 		}
 
 			return this.toggle = !this.toggle;
-
 	}//toggleUi
 
 
