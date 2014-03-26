@@ -467,19 +467,20 @@ function updateTime(){
 
 
 //Playlist menu popout interaction=======//
-$('.playlist-popout').hide();
+$('.playlist-dropdown').hide();
 var toggle3 = false;
-$(document).on('click', '.playlist-menu', function(){
+$(document).on('click', '.li-playlist', function(){
 
-	console.log($(this));
+	//gets the id of the list item being clicked
+	var resultId = $(this).attr('data-resultId');
 
 	if(!toggle3){
-		$('.playlist-popout').fadeOut();
-		$(this).find('.playlist-popout').fadeIn();
+		$('.playlist-dropdown').fadeOut();
+		$('.playlist-dropdown[data-resultId=' + resultId + ']').fadeIn();
 
 		toggle3 = !toggle3;
 	}else{
-		$(this).find('.playlist-popout').fadeOut();
+		$('.playlist-dropdown[data-resultId=' + resultId + ']').fadeOut();
 
 		toggle3 = !toggle3;
 	}

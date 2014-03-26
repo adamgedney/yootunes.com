@@ -703,8 +703,12 @@ a[title]:hover:after {
   padding-left: 6px;
 }
 
-.li-group:hover, .playlist-nav li:hover, .library-nav li:hover {
+.li-group:hover, .li-playlist:hover, .library-nav li:hover {
   background: #e2e2e2;
+}
+
+svg:hover {
+  opacity: .5;
 }
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
@@ -819,43 +823,24 @@ aside.app .video-size-ctrl svg:last-child {
 .playlist-scroll-container {
   height: 65.25vh;
   overflow: scroll;
-  -webkit-box-shadow: inset 0px -31px 24px -7px #ebebeb;
-  -moz-box-shadow: inset 0px -31px 24px -7px #ebebeb;
-  box-shadow: inset 0px -31px 24px -7px #ebebeb;
 }
 
 /*=====================================*/
 /*Base popout & Playlist popout========*/
 /*=====================================*/
-.popout {
-  width: 41%;
-  height: 111px;
+.playlist-dropdown {
   background: #fff;
-  position: absolute;
-  right: 14.5%;
-  top: 0px;
-  border-radius: 2px;
-  padding: 6%;
-  z-index: 100;
-  -webkit-box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
-  -moz-box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
-  box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
-}
-.popout:before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-top: 3px solid transparent;
-  border-bottom: 3px solid transparent;
-  border-left: 9px solid #fff;
-  position: absolute;
-  top: 18px;
-  right: -9px;
-  z-index: 99;
 }
 
+li.playlist-dropdown:hover {
+  background: #fff;
+}
+
+.playlist-popout {
+  padding: 6% 0;
+}
 .playlist-popout p {
-  font-size: .8em;
+  font-size: 1em;
   margin: 0;
   overflow: hidden;
 }
@@ -869,12 +854,12 @@ aside.app .video-size-ctrl svg:last-child {
 }
 .playlist-popout svg {
   cursor: pointer;
-  height: 18px;
-  width: 18px;
+  height: 36px;
+  width: 36px;
 }
 .playlist-popout .trash-icon {
-  height: 12px;
-  width: 12px;
+  height: 18px;
+  width: 18px;
   float: right;
 }
 
@@ -1293,14 +1278,14 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 #seek-dot {
   width: 12px;
   height: 12px;
-  background: #cf2425;
+  background: #0f1010;
   border-radius: 50%;
   position: absolute;
   top: 13px;
   z-index: 10;
   opacity: .9;
   cursor: pointer;
-  border: 1px solid #0f1010;
+  border: 1px solid #cf2425;
 }
 
 #seek-dot:active {
