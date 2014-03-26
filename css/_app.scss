@@ -47,6 +47,22 @@ a[title]:hover:after{
 // 	bottom: 67px;
 // }
 
+
+.share-strip{
+	overflow: hidden;
+
+	svg{
+		@include col(3);
+		display: block;
+		float: left;
+		padding-right: 6px;
+	}
+
+	svg:last-child{
+		padding-right: 0;
+	}
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 
@@ -444,6 +460,7 @@ li.li-group:nth-child(even){
 li.li-group.dropdown{
 	background: #fff;
 	padding: 18px 18px 18px 9px;
+	overflow: hidden;
 	// -webkit-box-shadow: inset 0px 3px 12px -2px rgba(24, 26, 26, 0.16);
 	//    -moz-box-shadow: inset 0px 3px 12px -2px rgba(24, 26, 26, 0.16);
 	// 		box-shadow: inset 0px 3px 12px -2px rgba(24, 26, 26, 0.16);
@@ -460,13 +477,20 @@ li.li-group.dropdown{
 		display: inline-block;
 		@include col(6);
 	}
+}
 
-	.li-share{
-		@include col(2);
-		float: right;
-		margin: 0 3.5% 0;
-		line-height: 18px;
-		font-weight: 700;
+
+ul.dropdown-main-menu{
+	@include col(2);
+	float: right;
+
+	li{
+		font-size: .7em;
+		line-height: 27px;
+	}
+
+	li.li-share{
+		margin-top: 18px;
 
 		svg{
 			height: 21px;
@@ -474,143 +498,142 @@ li.li-group.dropdown{
 	}
 }
 
-
 /*=====================================*/
 /*popouts==============================*/
 /*=====================================*/
-.main-popout{
-	width: 18%;
-	height: 111px;
-	padding: 0 1%;
-	right: 8.2%;
-	top: 5px;
+// .main-popout{
+// 	width: 18%;
+// 	height: 111px;
+// 	padding: 0 1%;
+// 	right: 8.2%;
+// 	top: 5px;
 
-	ul{
-		position: relative;
+// 	ul{
+// 		position: relative;
 
-		li{
-			font-size: .6em;
-			line-height: 27px;
-			cursor: pointer;
+// 		li{
+// 			font-size: .6em;
+// 			line-height: 27px;
+// 			cursor: pointer;
 
-			svg{
-				height: 10px;
-			}
+// 			svg{
+// 				height: 10px;
+// 			}
 
-			.more-arrow{
-				float: left;
-				width: 18px;
-			}
+// 			.more-arrow{
+// 				float: left;
+// 				width: 18px;
+// 			}
 
-			ul{
-				// display: none;
-				position: absolute;
-				right: 107%;
-				width: 110%;
-				height: 350%;
-				overflow: auto;//playlist overflow scroll
-				top: 27px;
-
-
-				li{
-					font-size: .6em;
-					line-height: 18px;
-					@include col(12);
-					padding: 1%;
-					z-index: 200;
-
-					form{
-						margin-bottom: 18px;
-
-						input{
-							height: 18px;
-							font-size: .6em;
-						}
-
-						input[type="submit"]{
-							line-height: 0px;
-							background: $red;
-							color: $white;
-						}
-					}
-
-					p{
-						font-size: .9em;
-						line-height: 18px;
-						margin: 0;
-
-						svg{
-							float: right;
-							text-align: right;
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-.playlist-menu-header{
-	border-bottom: 1px solid nth($grey, 4);
-	margin-bottom: 9px;
-}
-
-.main-popout ul::-webkit-scrollbar {
-    display: none;
-}
-
-.main-menu-first-child{
-	margin-left: 18px;
-}
-
-.li-hover:hover{
-	background: $white;
-}
+// 			ul{
+// 				// display: none;
+// 				position: absolute;
+// 				right: 107%;
+// 				width: 110%;
+// 				height: 350%;
+// 				overflow: auto;//playlist overflow scroll
+// 				top: 27px;
 
 
-.main-popout{
-	ul{
-		li{
-			ul.share-sub-menu{
-				height: 33px;
-				top: 51px;
-				// padding: auto 3%;
-				float: left;
+// 				li{
+// 					font-size: .6em;
+// 					line-height: 18px;
+// 					@include col(12);
+// 					padding: 1%;
+// 					z-index: 200;
 
-				li{
-					svg{
-						height: 18px;
-						margin: 0;
-						float: left;
-					}
+// 					form{
+// 						margin-bottom: 18px;
 
-					.share-strip{
-						@include col(10);
-						display: inline-block;
-					}
-				}
-			}
+// 						input{
+// 							height: 18px;
+// 							font-size: .6em;
+// 						}
 
-			span.more-arrow-right{
-				float: right;
-				width: 9px;
-			}
+// 						input[type="submit"]{
+// 							line-height: 0px;
+// 							background: $red;
+// 							color: $white;
+// 						}
+// 					}
 
-			.improve-meta-sub-menu{
-				top: 82px;
-				height: 165%;
-			}
+// 					p{
+// 						font-size: .9em;
+// 						line-height: 18px;
+// 						margin: 0;
 
-			.improve-meta-menu-form{
+// 						svg{
+// 							float: right;
+// 							text-align: right;
+// 						}
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
-				p{
-					padding-bottom: 12px;
-					line-height: 9px;
-				}
-			}
-		}
-	}
-}
+// .playlist-menu-header{
+// 	border-bottom: 1px solid nth($grey, 4);
+// 	margin-bottom: 9px;
+// }
+
+// .main-popout ul::-webkit-scrollbar {
+//     display: none;
+// }
+
+// .main-menu-first-child{
+// 	margin-left: 18px;
+// }
+
+// .li-hover:hover{
+// 	background: $white;
+// }
+
+
+// .main-popout{
+// 	ul{
+// 		li{
+// 			ul.share-sub-menu{
+// 				height: 33px;
+// 				top: 51px;
+// 				// padding: auto 3%;
+// 				float: left;
+
+// 				li{
+// 					svg{
+// 						height: 18px;
+// 						margin: 0;
+// 						float: left;
+// 					}
+
+// 					.share-strip{
+// 						@include col(10);
+// 						display: inline-block;
+// 					}
+// 				}
+// 			}
+
+// 			span.more-arrow-right{
+// 				float: right;
+// 				width: 9px;
+// 			}
+
+// 			.improve-meta-sub-menu{
+// 				top: 82px;
+// 				height: 165%;
+// 			}
+
+// 			.improve-meta-menu-form{
+
+// 				p{
+// 					padding-bottom: 12px;
+// 					line-height: 9px;
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
 
 //footer popout for profile
@@ -803,19 +826,6 @@ li.li-group.dropdown{
 	@include col(1);
 	float: left;
 	@include vertical-align;
-}
-
-/*Move this to global after built*/
-.share-strip{
-	overflow: hidden;
-
-	svg{
-		@include col(3);
-		display: block;
-		float: left;
-		padding-left: 6px;
-	}
-
 }
 
 .playon-ctrl{
