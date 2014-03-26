@@ -259,11 +259,6 @@ var key = {
 
 
 
-//what is it called when a class can be called without having to make a new instance.
-//like the Math class?
-var ui = new UiController();
-ui.random();
-
 
 
 
