@@ -491,29 +491,8 @@ $(document).on('click', '.playlist-menu', function(){
 
 //Main menu interactions========================//
 
-//MAIN menu icon click
-$('.main-menu-popout').hide();
-var toggle5 = false;
-$(document).on('click', '.main-menu-icon', function(){
-
-	if(!toggle5){
-		// $('.main-menu-popout').fadeOut();
-		$(this).find('.main-menu-popout').fadeIn();
-
-		toggle5 = !toggle5;
-	}else if(toggle5 && toggle4 == false && toggle6 == false ){
-
-		$(this).find('.main-menu-popout').fadeOut();
-
-		toggle5 = !toggle5;
-	}
-});
-
-
-
-
 //playlist SUB menu
-$('.add-to-playlist-menu').hide();
+// $('.add-to-playlist-menu').hide();
 var toggle4 = false;
 $(document).on('click', '.add-to-playlist', function(){
 
@@ -530,24 +509,6 @@ $(document).on('click', '.add-to-playlist', function(){
 	}
 });
 
-
-
-//Share SUB menu
-$('.share-sub-menu').hide();
-var toggle6 = false;
-$(document).on('click', '.share-song', function(){
-
-	if(!toggle6){
-		$('.share-sub-menu').fadeIn();
-
-		toggle6 = !toggle6;
-	}else{
-		$('.share-sub-menu').fadeOut();
-
-		toggle6 = !toggle6;
-		toggle5 = false;
-	}
-});
 
 //*****Note! ALL sub menus can exist on the same toggle#
 //change this when I move to ui controller
@@ -576,8 +537,6 @@ $(document).on('click', '.improve-meta', function(){
 
 
 //profile edit menu popout==============//
-
-//Playlist menu popout interaction=======//
 $('.profile-edit-menu').hide();
 var toggle7 = false;
 $(document).on('click', '.profile-display', function(){

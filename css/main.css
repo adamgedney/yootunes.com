@@ -703,6 +703,10 @@ a[title]:hover:after {
   padding-left: 6px;
 }
 
+.li-group:hover, .playlist-nav li:hover, .library-nav li:hover {
+  background: #e2e2e2;
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 #app {
   background: #ebebeb;
@@ -751,10 +755,9 @@ aside.app .video-size-ctrl svg:last-child {
   margin-left: 0;
 }
 
-.li-group:hover, .playlist-nav li:hover, .library-nav li:hover {
-  background: #e2e2e2;
-}
-
+/*=====================================*/
+/*Sidebar Settings=====================*/
+/*=====================================*/
 .library-nav {
   line-height: 36px;
   font-size: .8em;
@@ -774,6 +777,9 @@ aside.app .video-size-ctrl svg:last-child {
   margin-top: 18px;
 }
 
+/*=====================================*/
+/*Sidebar playlist=====================*/
+/*=====================================*/
 .playlist-nav {
   font-size: .8em;
 }
@@ -818,6 +824,9 @@ aside.app .video-size-ctrl svg:last-child {
   box-shadow: inset 0px -31px 24px -7px #ebebeb;
 }
 
+/*=====================================*/
+/*Base popout & Playlist popout========*/
+/*=====================================*/
 .popout {
   width: 41%;
   height: 111px;
@@ -945,37 +954,6 @@ section.app {
   padding: 0 2%;
   overflow: hidden;
 }
-.main-container ul li .li-col1 {
-  float: left;
-}
-.main-container ul li .li-col1, .main-container ul li .li-col7 {
-  width: 6%;
-  display: inline-block;
-}
-.main-container ul li .li-col2 {
-  display: inline-block;
-  width: 33.3333333%;
-  float: left;
-}
-.main-container ul li .li-col3, .main-container ul li .li-col4 {
-  width: 16.6666667%;
-  display: inline-block;
-  float: left;
-}
-.main-container ul li .li-col6, .main-container ul li .li-col5 {
-  width: 8.33333333%;
-  float: right;
-  display: inline-block;
-}
-.main-container ul li .li-col7 {
-  float: right;
-  margin-top: 18px;
-}
-.main-container ul li .li-col7 svg {
-  height: 12px;
-  width: 12px;
-  margin-right: 30%;
-}
 .main-container ul li svg {
   height: 12px;
   vertical-align: middle;
@@ -984,6 +962,44 @@ section.app {
 .scroll-container {
   height: 75.25vh;
   overflow: scroll;
+}
+
+/*Column widths & floats*/
+.li-col1 {
+  float: left;
+}
+
+.li-col1, .li-col7 {
+  width: 6%;
+  display: inline-block;
+}
+
+.li-col2 {
+  display: inline-block;
+  width: 33.3333333%;
+  float: left;
+}
+
+.li-col3, .li-col4 {
+  width: 16.6666667%;
+  display: inline-block;
+  float: left;
+}
+
+.li-col6, .li-col5 {
+  width: 8.33333333%;
+  float: right;
+  display: inline-block;
+}
+
+.li-col7 {
+  float: right;
+  margin-top: 18px;
+}
+.li-col7 svg {
+  height: 12px;
+  width: 12px;
+  margin-right: 30%;
 }
 
 .li-header {
@@ -1003,10 +1019,6 @@ section.app {
 }
 .li-header .li-col7 {
   text-align: right;
-}
-
-/*specificity needed to override margin-top*/
-.main-container .li-header .li-col7 {
   margin-top: 0;
 }
 
@@ -1027,6 +1039,7 @@ li.li-group.dropdown {
   background: #fff;
   padding: 18px 18px 18px 9px;
   overflow: hidden;
+  min-height: 240px;
 }
 li.li-group.dropdown img {
   width: 83.3333333%;
@@ -1040,6 +1053,7 @@ li.li-group.dropdown .li-desc {
   width: 50%;
 }
 
+/*Right side menu in dropdown*/
 ul.dropdown-main-menu {
   width: 16.6666667%;
   float: right;
@@ -1056,8 +1070,73 @@ ul.dropdown-main-menu li.li-share svg {
 }
 
 /*=====================================*/
-/*popouts==============================*/
+/*dropdown-main-menu-popouts===========*/
 /*=====================================*/
+ul.dropdown-main-menu li {
+  /*do not write styles here. Write them in the above ul.dropdown-main-menu li*/
+}
+ul.dropdown-main-menu li ul {
+  width: 110%;
+  position: absolute;
+  right: 105%;
+  height: 200px;
+  overflow: auto;
+  padding: 6% 0 0 6%;
+  border-left: 1px solid #e7e7e7;
+}
+ul.dropdown-main-menu li ul li {
+  /*submenu level*/
+}
+ul.dropdown-main-menu li ul li form {
+  margin-bottom: 9px;
+  margin-top: 0;
+  padding-right: 12%;
+  /*mimicks popout padding*/
+}
+ul.dropdown-main-menu li ul li form input {
+  height: 24px;
+  font-size: .6em;
+  margin: 0;
+  margin-bottom: 3px;
+}
+ul.dropdown-main-menu li ul li form input[type="submit"] {
+  line-height: 0px;
+  background: #cf2425;
+  color: #ebebeb;
+}
+
+ul.dropdown-main-menu li ul::-webkit-scrollbar {
+  display: none;
+}
+
+.popout {
+  font-size: .8em;
+}
+
+.add-to-playlist-menu {
+  background: none;
+  /*overrides popout styles*/
+  box-shadow: none;
+  padding-right: 0;
+  /*orig: 6% Removed to allow right arrow to hit edge*/
+}
+.add-to-playlist-menu svg {
+  /*more arrow right*/
+  float: right;
+}
+.add-to-playlist-menu p {
+  margin-bottom: 6px;
+}
+.add-to-playlist-menu li.playlist-menu-sub-list {
+  font-size: 1.2em;
+  line-height: 26px;
+}
+
+.playlist-menu-header {
+  border-bottom: 1px solid #e7e7e7;
+  margin-bottom: 3px;
+}
+
 .profile-edit-menu {
   width: 30%;
   height: auto;

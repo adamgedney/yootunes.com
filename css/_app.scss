@@ -59,6 +59,12 @@ a[title]:hover:after{
 	}
 }
 
+
+.li-group:hover, .playlist-nav li:hover, .library-nav li:hover{
+	background: nth($grey, 5);
+}
+
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 
@@ -118,10 +124,10 @@ aside.app{
 }
 
 
-.li-group:hover, .playlist-nav li:hover, .library-nav li:hover{
-	background: nth($grey, 5);
-}
 
+/*=====================================*/
+/*Sidebar Settings=====================*/
+/*=====================================*/
 .library-nav{
 	line-height: 36px;
 	font-size: .8em;
@@ -145,6 +151,12 @@ aside.app{
 	margin-top: 18px;
 }
 
+
+
+
+/*=====================================*/
+/*Sidebar playlist=====================*/
+/*=====================================*/
 .playlist-nav{
 	font-size: .8em;
 
@@ -167,10 +179,6 @@ aside.app{
 			}
 
 		}
-
-		// li:hover{
-		// 	line-height: 63px;
-		// }
 	}
 }
 
@@ -202,6 +210,13 @@ aside.app{
 }
 
 
+
+
+
+
+/*=====================================*/
+/*Base popout & Playlist popout========*/
+/*=====================================*/
 
 .popout{
 	width: 41%;
@@ -279,7 +294,6 @@ aside.app{
 /*=====================================*/
 /*Main Content container===============*/
 /*=====================================*/
-
 section.app{
 	@include col(9);
 	float: left;
@@ -292,10 +306,7 @@ section.app{
 
 .search{
 	overflow: hidden;
-	// @include col(8);
-	// @include col-ctr(8);
 	@include vertical-align;
-	// padding: 0 0 2px;
 
 	input{
 		float: left;
@@ -354,44 +365,6 @@ section.app{
 			padding: 0 2%;
 			overflow: hidden;
 
-			.li-col1{
-				float: left;
-			}
-
-			.li-col1, .li-col7{
-				width: 6%;
-				display: inline-block;
-			}
-
-			.li-col2{
-				display: inline-block;
-				@include col(4);
-				float: left;
-			}
-
-			.li-col3, .li-col4{
-				@include col(2);
-				display: inline-block;
-				float: left;
-			}
-
-			.li-col6, .li-col5{
-				@include col(1);
-				float: right;
-				display: inline-block;
-			}
-
-			.li-col7{
-				float: right;
-				margin-top: 18px;
-
-				svg{
-					height: 12px;
-					width: 12px;
-					margin-right: 30%;
-				}
-			}
-
 			svg{
 				height: 12px;
 				// width: 18px;
@@ -401,10 +374,48 @@ section.app{
 	}
 }
 
-
 .scroll-container{
 	height: 75.25vh;
 	overflow: scroll;
+}
+
+/*Column widths & floats*/
+.li-col1{
+	float: left;
+}
+
+.li-col1, .li-col7{
+	width: 6%;
+	display: inline-block;
+}
+
+.li-col2{
+	display: inline-block;
+	@include col(4);
+	float: left;
+}
+
+.li-col3, .li-col4{
+	@include col(2);
+	display: inline-block;
+	float: left;
+}
+
+.li-col6, .li-col5{
+	@include col(1);
+	float: right;
+	display: inline-block;
+}
+
+.li-col7{
+	float: right;
+	margin-top: 18px;
+
+	svg{
+		height: 12px;
+		width: 12px;
+		margin-right: 30%;
+	}
 }
 
 .li-header{
@@ -427,12 +438,8 @@ section.app{
 
 	.li-col7{
 		text-align: right;
+		margin-top: 0;
 	}
-}
-
-/*specificity needed to override margin-top*/
-.main-container .li-header .li-col7{
-	margin-top: 0;
 }
 
 .li-group{
@@ -441,11 +448,18 @@ section.app{
 	cursor: pointer;
 }
 
-
-
 li.li-group:nth-child(even){
 	background: nth($grey, 6);
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -458,15 +472,13 @@ li.li-group.dropdown{
 	background: #fff;
 	padding: 18px 18px 18px 9px;
 	overflow: hidden;
-	// -webkit-box-shadow: inset 0px 3px 12px -2px rgba(24, 26, 26, 0.16);
-	//    -moz-box-shadow: inset 0px 3px 12px -2px rgba(24, 26, 26, 0.16);
-	// 		box-shadow: inset 0px 3px 12px -2px rgba(24, 26, 26, 0.16);
+	min-height: 240px;
 
-		img{
-			@include col(10);
-			margin: 40% 0 0 9px;
-			border-radius: 27px;
-		}
+	img{
+		@include col(10);
+		margin: 40% 0 0 9px;
+		border-radius: 27px;
+	}
 
 	.li-desc{
 		line-height: 18px;
@@ -476,7 +488,7 @@ li.li-group.dropdown{
 	}
 }
 
-
+/*Right side menu in dropdown*/
 ul.dropdown-main-menu{
 	@include col(2);
 	float: right;
@@ -495,14 +507,84 @@ ul.dropdown-main-menu{
 	}
 }
 
+
+
 /*=====================================*/
-/*popouts==============================*/
+/*dropdown-main-menu-popouts===========*/
 /*=====================================*/
+ul.dropdown-main-menu{
+	li{/*do not write styles here. Write them in the above ul.dropdown-main-menu li*/
+		ul{
+			width: 110%;
+			position: absolute;
+			right: 105%;
+			height: 200px;
+			overflow: auto;
+			padding: 6% 0 0 6%;
+			border-left: 1px solid nth($grey, 6);
+
+			li{/*submenu level*/
+				form{
+					margin-bottom: 9px;
+					margin-top: 0;
+					padding-right: 12%;/*mimicks popout padding*/
+
+					input{
+						height: 24px;
+						font-size: .6em;
+						margin: 0;
+						margin-bottom: 3px;
+					}
+
+					input[type="submit"]{
+						line-height: 0px;
+						background: $red;
+						color: $white;
+					}
+				}
+			}
+		}
+	}
+}
+
+ul.dropdown-main-menu li ul::-webkit-scrollbar {
+    display: none;
+}
+
+.popout{
+	font-size: .8em;
+}
+
+.add-to-playlist-menu{
+	background: none;/*overrides popout styles*/
+	box-shadow: none;
+	padding-right: 0;/*orig: 6% Removed to allow right arrow to hit edge*/
+
+	svg{/*more arrow right*/
+		float: right;
+	}
+
+	p{
+		margin-bottom: 6px;
+	}
+
+	li.playlist-menu-sub-list{
+		font-size: 1.2em;
+		line-height: 26px;
+	}
+}
+
+
+.playlist-menu-header{
+	border-bottom: 1px solid nth($grey, 6);
+	margin-bottom: 3px;
+}
+
 // .main-popout{
-// 	width: 18%;
+// 	width: 108%;
 // 	height: 111px;
 // 	padding: 0 1%;
-// 	right: 8.2%;
+// 	right: 18.2%;
 // 	top: 5px;
 
 // 	ul{
@@ -540,18 +622,7 @@ ul.dropdown-main-menu{
 // 					z-index: 200;
 
 // 					form{
-// 						margin-bottom: 18px;
-
-// 						input{
-// 							height: 18px;
-// 							font-size: .6em;
-// 						}
-
-// 						input[type="submit"]{
-// 							line-height: 0px;
-// 							background: $red;
-// 							color: $white;
-// 						}
+//
 // 					}
 
 // 					p{
@@ -570,10 +641,7 @@ ul.dropdown-main-menu{
 // 	}
 // }
 
-// .playlist-menu-header{
-// 	border-bottom: 1px solid nth($grey, 4);
-// 	margin-bottom: 9px;
-// }
+
 
 // .main-popout ul::-webkit-scrollbar {
 //     display: none;
