@@ -31,6 +31,7 @@ init();
 //init functions
 function init(){
 	$('.playlist-dropdown').hide();
+	$('li.main-dropdown').hide();
 }
 
 })(document, window, jQuery);

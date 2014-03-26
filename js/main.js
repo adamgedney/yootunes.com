@@ -533,10 +533,10 @@ $(document).on('click', '.improve-meta-menu-trigger', function(){
 });
 
 
-//Stop propagation on children of main menu====//
-$(document).on('click', 'li', function(event){
-	event.stopPropagation();
-});
+// //Stop propagation on children of main menu====//
+// $(document).on('click', 'li', function(event){
+// 	event.stopPropagation();
+// });
 
 
 //profile edit menu popout==============//
@@ -559,24 +559,24 @@ $(document).on('click', '.profile-display', function(){
 });
 
 
-//li group dropdown==============================//
-$('li.main-dropdown').hide();
-var toggle8 = false;
-$(document).on('click', '.dropdown-trigger', function(){
-	//gets the id of the list item being clicked
-	var resultId = $(this).attr('data-resultId');
+// //li group dropdown==============================//
+// $('li.main-dropdown').hide();
+// var toggle8 = false;
+// $(document).on('click', '.dropdown-trigger', function(){
+// 	//gets the id of the list item being clicked
+// 	var resultId = $(this).attr('data-resultId');
 
-	//reveals the li where the resultIds match
-	if(!toggle8){
-		$('.main-dropdown[data-resultId=' + resultId + ']').fadeIn();
+// 	//reveals the li where the resultIds match
+// 	if(!toggle8){
+// 		$('.main-dropdown[data-resultId=' + resultId + ']').fadeIn();
 
-		toggle8 = !toggle8;
-	}else{
-		$('.main-dropdown[data-resultId=' + resultId + ']').fadeOut();
+// 		toggle8 = !toggle8;
+// 	}else{
+// 		$('.main-dropdown[data-resultId=' + resultId + ']').fadeOut();
 
-		toggle8 = !toggle8;
-	}
-});
+// 		toggle8 = !toggle8;
+// 	}
+// });
 
 
 

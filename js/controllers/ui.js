@@ -8,32 +8,45 @@ var Ui = (function(window, document, $){
 
 
 
+
+		//Stop propagation on children of main menu====//
+		$(document).on('click', 'li', function(event){
+			event.stopPropagation();
+		});
+
+
+
+
 		//Playlist menu dropdown interaction=======//
 		$(document).on('click', '.li-playlist', function(event){
-			//gets the id of the list item being clicked
+
+			var selector = '.playlist-dropdown';
 			var id = $(this).attr('data-id');
 
 				//runs appropriate off/on function for playlist selector
 				if(!_toggle){
-					toggleFalse('.playlist-dropdown', id)
+					toggleFalse(selector, id)
 				}else{
-					toggleTrue('.playlist-dropdown', id)
+					toggleTrue(selector, id)
 				};
-		});//onClick playlist menu
+		});
 
 
-		// //Main menu dropdown interaction=======//
-		// $(document).on('click', '.li-playlist', function(event){
-		// 	//gets the id of the list item being clicked
-		// 	var id = $(this).attr('data-id');
 
-		// 		//runs appropriate off/on function for playlist selector
-		// 		if(!_toggle){
-		// 			toggleFalse('.playlist-dropdown', id)
-		// 		}else{
-		// 			toggleTrue('.playlist-dropdown', id)
-		// 		};
-		// });//onClick Main menu item
+
+		//Main menu dropdown interaction=======//
+		$(document).on('click', '.dropdown-trigger', function(event){
+
+			var selector = '.main-dropdown';
+			var id = $(this).attr('data-id');
+
+				//runs appropriate off/on function for playlist selector
+				if(!_toggle){
+					toggleFalse(selector, id)
+				}else{
+					toggleTrue(selector, id)
+				};
+		});
 
 
 
@@ -44,13 +57,15 @@ var Ui = (function(window, document, $){
 
 	//methods and properties.
 	ui.prototype = {
-		constructor : ui,
-		toggleFalse : toggleFalse,
-		toggleTrue : toggleTrue
+		constructor : ui
 	};
 
 	//return constructor
 	return ui;
+
+
+
+
 
 
 
