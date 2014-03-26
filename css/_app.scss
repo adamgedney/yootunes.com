@@ -117,15 +117,6 @@ aside.app{
 	}
 }
 
-.aside-header{
-	// height: 72px;
-
-	.logo{
-		@include col(12);
-		@include col-ctr(12);
-		margin: 12px 0;
-	}
-}
 
 .li-group:hover, .playlist-nav li:hover, .library-nav li:hover{
 	background: nth($grey, 5);
@@ -144,6 +135,14 @@ aside.app{
 			}
 		}
 	}
+}
+
+.settings-menu{
+	margin-top: 72px;
+}
+
+.library-menu{
+	margin-top: 18px;
 }
 
 .playlist-nav{
@@ -724,12 +723,12 @@ ul.dropdown-main-menu{
 		}
 	}
 
-	img, svg{
+	svg{
 		display: block;
 		float: left;
-		height: 63px;
-		border-radius: 36px;
-		margin-top: 4px;
+		height: 36px;
+		width: 27px;
+		margin: 18px 18px 0 0;
 	}
 }
 
@@ -802,7 +801,7 @@ ul.dropdown-main-menu{
 }
 
 .volume-ctrl{
-	@include col(1);
+	@include col(2);
 	float: left;
 	height: 100%;
 	padding-left: 1.5%;
@@ -850,33 +849,6 @@ ul.dropdown-main-menu{
 }
 
 
-.profile-display{
-	@include col(2);
-	float: right;
-	overflow: hidden;
-	height: 100%;
-	padding: 0 3%;
-
-	p{
-		font-size: 1.2em;
-		line-height: 72px;
-		@include col(9);
-		display: inline;
-		float: right;
-	}
-
-	.settings-icon{
-		float: right;
-		height: 18px;
-		@include col(3);
-		@include vertical-align;
-		cursor: pointer;
-	}
-
-	.settings-icon:hover{
-		opacity: .7;
-	}
-}
 
 
 

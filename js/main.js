@@ -580,7 +580,7 @@ $(document).on('click', '.improve-meta', function(){
 //Playlist menu popout interaction=======//
 $('.profile-edit-menu').hide();
 var toggle7 = false;
-$(document).on('click', '.settings-icon', function(){
+$(document).on('click', '.profile-display', function(){
 
 	console.log($(this));
 
