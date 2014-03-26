@@ -945,36 +945,36 @@ section.app {
   padding: 0 2%;
   overflow: hidden;
 }
-.main-container ul li .li-play {
+.main-container ul li .li-col1 {
   float: left;
 }
-.main-container ul li .li-play, .main-container ul li .li-add {
+.main-container ul li .li-col1, .main-container ul li .li-col7 {
   width: 6%;
   display: inline-block;
 }
-.main-container ul li .li-title {
+.main-container ul li .li-col2 {
   display: inline-block;
   width: 33.3333333%;
   float: left;
 }
-.main-container ul li .li-artist, .main-container ul li .li-album {
+.main-container ul li .li-col3, .main-container ul li .li-col4 {
   width: 16.6666667%;
   display: inline-block;
   float: left;
 }
-.main-container ul li .li-length, .main-container ul li .li-genre {
+.main-container ul li .li-col6, .main-container ul li .li-col5 {
   width: 8.33333333%;
   float: right;
   display: inline-block;
 }
-.main-container ul li .li-add {
+.main-container ul li .li-col7 {
   float: right;
-  overflow: visible;
   margin-top: 18px;
 }
-.main-container ul li .li-add svg {
+.main-container ul li .li-col7 svg {
   height: 12px;
   width: 12px;
+  margin-right: 30%;
 }
 .main-container ul li svg {
   height: 12px;
@@ -992,17 +992,22 @@ section.app {
   border-bottom: 1px solid #d6d6d6;
   font-size: .8em;
 }
-.li-header .li-play {
+.li-header .li-col1 {
   line-height: 18px;
   font-size: .6em;
   padding-top: 19px;
   color: #949494;
 }
-.li-header .li-play svg {
+.li-header .li-col1 svg {
   display: block;
 }
-.li-header .li-length {
-  margin-right: 6%;
+.li-header .li-col7 {
+  text-align: right;
+}
+
+/*specificity needed to override margin-top*/
+.main-container .li-header .li-col7 {
+  margin-top: 0;
 }
 
 .li-group {

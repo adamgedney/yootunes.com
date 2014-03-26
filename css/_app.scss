@@ -354,41 +354,41 @@ section.app{
 			padding: 0 2%;
 			overflow: hidden;
 
-			.li-play{
+			.li-col1{
 				float: left;
 			}
 
-			.li-play, .li-add{
+			.li-col1, .li-col7{
 				width: 6%;
 				display: inline-block;
 			}
 
-			.li-title{
+			.li-col2{
 				display: inline-block;
 				@include col(4);
 				float: left;
 			}
 
-			.li-artist, .li-album{
+			.li-col3, .li-col4{
 				@include col(2);
 				display: inline-block;
 				float: left;
 			}
 
-			.li-length, .li-genre{
+			.li-col6, .li-col5{
 				@include col(1);
 				float: right;
 				display: inline-block;
 			}
 
-			.li-add{
+			.li-col7{
 				float: right;
-				overflow: visible;
 				margin-top: 18px;
 
 				svg{
 					height: 12px;
 					width: 12px;
+					margin-right: 30%;
 				}
 			}
 
@@ -413,7 +413,7 @@ section.app{
 	border-bottom: 1px solid nth($grey, 4);
 	font-size: .8em;
 
-	.li-play{
+	.li-col1{
 		// height: 21px;
 		line-height: 18px;
 		font-size: .6em;
@@ -425,15 +425,15 @@ section.app{
 		}
 	}
 
-	.li-title{
-		// margin-left: 6%;
-	}
-
-	.li-length{
-		margin-right: 6%;
+	.li-col7{
+		text-align: right;
 	}
 }
 
+/*specificity needed to override margin-top*/
+.main-container .li-header .li-col7{
+	margin-top: 0;
+}
 
 .li-group{
 	color: nth($grey, 2);
