@@ -700,10 +700,7 @@ a[title]:hover:after {
   width: 25%;
   display: block;
   float: left;
-  padding-right: 6px;
-}
-.share-strip svg:last-child {
-  padding-right: 0;
+  padding-left: 6px;
 }
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
@@ -805,11 +802,7 @@ aside.app .video-size-ctrl svg:last-child {
 }
 
 .add-icon {
-  height: 12px;
   float: right;
-  width: 8.33333333%;
-  vertical-align: middle;
-  margin: 0 6% 0 0;
 }
 
 .playlist-scroll-container::-webkit-scrollbar {
@@ -954,7 +947,7 @@ section.app {
 .main-container ul li .li-play {
   float: left;
 }
-.main-container ul li .li-play, .main-container ul li .li-menu {
+.main-container ul li .li-play, .main-container ul li .li-add {
   width: 6%;
   display: inline-block;
 }
@@ -973,9 +966,14 @@ section.app {
   float: right;
   display: inline-block;
 }
-.main-container ul li .li-menu {
+.main-container ul li .li-add {
   float: right;
   overflow: visible;
+  margin-top: 18px;
+}
+.main-container ul li .li-add svg {
+  height: 12px;
+  width: 12px;
 }
 .main-container ul li svg {
   height: 12px;
@@ -1045,7 +1043,7 @@ ul.dropdown-main-menu li {
   line-height: 27px;
 }
 ul.dropdown-main-menu li.li-share {
-  margin-top: 18px;
+  margin: 18px 0 0 18px;
 }
 ul.dropdown-main-menu li.li-share svg {
   height: 21px;

@@ -55,11 +55,7 @@ a[title]:hover:after{
 		@include col(3);
 		display: block;
 		float: left;
-		padding-right: 6px;
-	}
-
-	svg:last-child{
-		padding-right: 0;
+		padding-left: 6px;
 	}
 }
 
@@ -190,11 +186,7 @@ aside.app{
 }
 
 .add-icon{
-	height: 12px;
 	float: right;
-	@include col(1);
-	vertical-align: middle;
-	margin: 0 6% 0 0;
 }
 
 .playlist-scroll-container::-webkit-scrollbar {
@@ -367,7 +359,7 @@ section.app{
 				float: left;
 			}
 
-			.li-play, .li-menu{
+			.li-play, .li-add{
 				width: 6%;
 				display: inline-block;
 			}
@@ -390,9 +382,15 @@ section.app{
 				display: inline-block;
 			}
 
-			.li-menu{
+			.li-add{
 				float: right;
 				overflow: visible;
+				margin-top: 18px;
+
+				svg{
+					height: 12px;
+					width: 12px;
+				}
 			}
 
 			svg{
@@ -490,7 +488,7 @@ ul.dropdown-main-menu{
 	}
 
 	li.li-share{
-		margin-top: 18px;
+		margin: 18px 0 0 18px;
 
 		svg{
 			height: 21px;
