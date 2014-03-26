@@ -499,7 +499,7 @@ ul.dropdown-main-menu{
 	}
 
 	li.li-share{
-		margin: 18px 0 0 18px;
+		margin: 36px 0 0 18px;
 
 		svg{
 			height: 21px;
@@ -538,7 +538,7 @@ ul.dropdown-main-menu{
 
 					input[type="submit"]{
 						line-height: 0px;
-						background: $red;
+						background: $green;
 						color: $white;
 					}
 				}
@@ -565,140 +565,55 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	}
 
 	p{
-		margin-bottom: 6px;
+		margin-bottom: 15px;
+	}
+
+	p:last-child{
+		margin-bottom: 3px;
 	}
 
 	li.playlist-menu-sub-list{
 		font-size: 1.2em;
-		line-height: 26px;
+		line-height: 21px;
+	}
+
+	li.playlist-menu-sub-list:hover{
+		background: nth($grey, 6);
 	}
 }
 
 
 .playlist-menu-header{
 	border-bottom: 1px solid nth($grey, 6);
-	margin-bottom: 3px;
+	// margin-bottom: 3px;
 }
 
-// .main-popout{
-// 	width: 108%;
-// 	height: 111px;
-// 	padding: 0 1%;
-// 	right: 18.2%;
-// 	top: 5px;
+.improve-meta-sub-menu{
+	box-shadow: none;
+}
 
-// 	ul{
-// 		position: relative;
+.improve-meta-menu-form{
 
-// 		li{
-// 			font-size: .6em;
-// 			line-height: 27px;
-// 			cursor: pointer;
+	p{
+		margin-top: 27px;
+		line-height: 9px;
+		margin-bottom: 18px;
+	}
 
-// 			svg{
-// 				height: 10px;
-// 			}
-
-// 			.more-arrow{
-// 				float: left;
-// 				width: 18px;
-// 			}
-
-// 			ul{
-// 				// display: none;
-// 				position: absolute;
-// 				right: 107%;
-// 				width: 110%;
-// 				height: 350%;
-// 				overflow: auto;//playlist overflow scroll
-// 				top: 27px;
-
-
-// 				li{
-// 					font-size: .6em;
-// 					line-height: 18px;
-// 					@include col(12);
-// 					padding: 1%;
-// 					z-index: 200;
-
-// 					form{
-//
-// 					}
-
-// 					p{
-// 						font-size: .9em;
-// 						line-height: 18px;
-// 						margin: 0;
-
-// 						svg{
-// 							float: right;
-// 							text-align: right;
-// 						}
-// 					}
-// 				}
-// 			}
-// 		}
-// 	}
-// }
+	svg{
+		float: right;
+	}
+}
 
 
 
-// .main-popout ul::-webkit-scrollbar {
-//     display: none;
-// }
-
-// .main-menu-first-child{
-// 	margin-left: 18px;
-// }
-
-// .li-hover:hover{
-// 	background: $white;
-// }
 
 
-// .main-popout{
-// 	ul{
-// 		li{
-// 			ul.share-sub-menu{
-// 				height: 33px;
-// 				top: 51px;
-// 				// padding: auto 3%;
-// 				float: left;
 
-// 				li{
-// 					svg{
-// 						height: 18px;
-// 						margin: 0;
-// 						float: left;
-// 					}
 
-// 					.share-strip{
-// 						@include col(10);
-// 						display: inline-block;
-// 					}
-// 				}
-// 			}
 
-// 			span.more-arrow-right{
-// 				float: right;
-// 				width: 9px;
-// 			}
 
-// 			.improve-meta-sub-menu{
-// 				top: 82px;
-// 				height: 165%;
-// 			}
 
-// 			.improve-meta-menu-form{
-
-// 				p{
-// 					padding-bottom: 12px;
-// 					line-height: 9px;
-// 				}
-// 			}
-// 		}
-// 	}
-// }
 
 
 //footer popout for profile

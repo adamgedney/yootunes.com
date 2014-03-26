@@ -492,9 +492,11 @@ $(document).on('click', '.playlist-menu', function(){
 //Main menu interactions========================//
 
 //playlist SUB menu
-// $('.add-to-playlist-menu').hide();
+$('.add-to-playlist-menu').hide();
 var toggle4 = false;
-$(document).on('click', '.add-to-playlist', function(){
+$(document).on('click', '.add-to-playlist-menu-trigger', function(event){
+	$('.improve-meta-sub-menu').fadeOut();
+	toggle6 = false;
 
 	if(!toggle4){
 		// $('.main-popout').show();
@@ -518,7 +520,9 @@ $(document).on('click', '.add-to-playlist', function(){
 //improve metadata SUB menu
 $('.improve-meta-sub-menu').hide();
 var toggle6 = false;
-$(document).on('click', '.improve-meta', function(){
+$(document).on('click', '.improve-meta-menu-trigger', function(){
+	$('.add-to-playlist-menu').fadeOut();
+	toggle4 = false;
 
 	if(!toggle6){
 		$('.improve-meta-sub-menu').fadeIn();
@@ -533,7 +537,10 @@ $(document).on('click', '.improve-meta', function(){
 });
 
 
-
+//Stop propagation on children of main menu====//
+$(document).on('click', 'li', function(event){
+	event.stopPropagation();
+});
 
 
 //profile edit menu popout==============//
@@ -557,7 +564,7 @@ $(document).on('click', '.profile-display', function(){
 
 
 //li group dropdown==============================//
-// $('li.main-dropdown').hide();
+$('li.main-dropdown').hide();
 var toggle8 = false;
 $(document).on('click', '.dropdown-trigger', function(){
 	//gets the id of the list item being clicked

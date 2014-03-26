@@ -1063,7 +1063,7 @@ ul.dropdown-main-menu li {
   line-height: 27px;
 }
 ul.dropdown-main-menu li.li-share {
-  margin: 18px 0 0 18px;
+  margin: 36px 0 0 18px;
 }
 ul.dropdown-main-menu li.li-share svg {
   height: 21px;
@@ -1101,7 +1101,7 @@ ul.dropdown-main-menu li ul li form input {
 }
 ul.dropdown-main-menu li ul li form input[type="submit"] {
   line-height: 0px;
-  background: #cf2425;
+  background: #2f7c2f;
   color: #ebebeb;
 }
 
@@ -1125,16 +1125,34 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   float: right;
 }
 .add-to-playlist-menu p {
-  margin-bottom: 6px;
+  margin-bottom: 15px;
+}
+.add-to-playlist-menu p:last-child {
+  margin-bottom: 3px;
 }
 .add-to-playlist-menu li.playlist-menu-sub-list {
   font-size: 1.2em;
-  line-height: 26px;
+  line-height: 21px;
+}
+.add-to-playlist-menu li.playlist-menu-sub-list:hover {
+  background: #e7e7e7;
 }
 
 .playlist-menu-header {
   border-bottom: 1px solid #e7e7e7;
-  margin-bottom: 3px;
+}
+
+.improve-meta-sub-menu {
+  box-shadow: none;
+}
+
+.improve-meta-menu-form p {
+  margin-top: 27px;
+  line-height: 9px;
+  margin-bottom: 18px;
+}
+.improve-meta-menu-form svg {
+  float: right;
 }
 
 .profile-edit-menu {
