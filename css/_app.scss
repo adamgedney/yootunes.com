@@ -97,11 +97,16 @@ aside.app{
 		svg:first-child{
 			width: 18px;
 		}
+
+		svg:last-child{
+			width: 36px;
+			margin-left: 0;
+		}
 	}
 }
 
 .aside-header{
-	height: 72px;
+	// height: 72px;
 
 	.logo{
 		@include col(12);
@@ -439,6 +444,9 @@ li.li-group:nth-child(even){
 li.li-group.dropdown{
 	background: #fff;
 	padding: 18px 18px 18px 9px;
+	// -webkit-box-shadow: inset 0px 3px 12px -2px rgba(24, 26, 26, 0.16);
+	//    -moz-box-shadow: inset 0px 3px 12px -2px rgba(24, 26, 26, 0.16);
+	// 		box-shadow: inset 0px 3px 12px -2px rgba(24, 26, 26, 0.16);
 
 		img{
 			@include col(10);

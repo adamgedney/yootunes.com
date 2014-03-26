@@ -736,10 +736,11 @@ aside.app .video-size-ctrl svg {
 aside.app .video-size-ctrl svg:first-child {
   width: 18px;
 }
-
-.aside-header {
-  height: 72px;
+aside.app .video-size-ctrl svg:last-child {
+  width: 36px;
+  margin-left: 0;
 }
+
 .aside-header .logo {
   width: 100%;
   margin-left: 0;
