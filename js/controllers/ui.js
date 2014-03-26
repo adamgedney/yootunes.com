@@ -3,6 +3,7 @@ var Ui = (function(window, document, $){
 	//private vars
 	var _toggle = false;
 
+
 	//constructor method
 	var ui = function(){
 
@@ -20,15 +21,14 @@ var Ui = (function(window, document, $){
 		//Playlist menu dropdown interaction=======//
 		$(document).on('click', '.li-playlist', function(event){
 
+			this.toggle;
+
 			var selector = '.playlist-dropdown';
 			var id = $(this).attr('data-id');
 
-				//runs appropriate off/on function for playlist selector
-				if(!_toggle){
-					toggleFalse(selector, id)
-				}else{
-					toggleTrue(selector, id)
-				};
+			this.toggle = toggleUi(this.toggle, selector, id);
+
+			console.log(this.toggle);
 		});
 
 
@@ -37,15 +37,12 @@ var Ui = (function(window, document, $){
 		//Main menu dropdown interaction=======//
 		$(document).on('click', '.dropdown-trigger', function(event){
 
+			this.toggle;
+
 			var selector = '.main-dropdown';
 			var id = $(this).attr('data-id');
 
-				//runs appropriate off/on function for playlist selector
-				if(!_toggle){
-					toggleFalse(selector, id)
-				}else{
-					toggleTrue(selector, id)
-				};
+			this.toggle = toggleUi(this.toggle, selector, id);
 		});
 
 
@@ -78,35 +75,36 @@ var Ui = (function(window, document, $){
 
 
 	//event false state
-	function toggleFalse(selector, id){
+	function toggleUi(toggle, selector, id){
+
+		this.toggle = toggle;
+
 		//clears previously open
 		$(selector).fadeOut();
 
 		//if an id is set, get data-id
 		if(id === null || id === "" || id === undefined){
-			$(selector).fadeIn();
+
+			if(!this.toggle){
+				$(selector).fadeIn();
+			}else{
+				$(selector).fadeOut();
+			}
+
 		}else{
-			$(selector + '[data-id=' + id + ']').fadeIn();
+
+			if(!this.toggle){
+				$(selector + '[data-id=' + id + ']').fadeIn();
+			}else{
+				$(selector + '[data-id=' + id + ']').fadeOut();
+			}
 		}
 
-		_toggle = !_toggle;
-	}//off
+			return this.toggle = !this.toggle;
+
+	}//toggleUi
 
 
-
-
-	//event true state
-	function toggleTrue(selector, id){
-
-		//if an id is set, get data-id
-		if(id === null || id === "" || id === undefined){
-			$(selector).fadeOut();
-		}else{
-			$(selector + '[data-id=' + id + ']').fadeOut();
-		}
-
-		_toggle = !_toggle;
-	}//on
 })(window, document,jQuery);
 
 

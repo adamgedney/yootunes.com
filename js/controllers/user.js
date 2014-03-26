@@ -12,8 +12,12 @@ var User = (function(window, document, $){
 	user.prototype = {
 		constructor : user,
 		getUser 	: function(){
-			console.log('it works!');
-			return "woohoo";
+			var obj = {
+				name: 'adam',
+				email : 'adam.gedney@gmail.com',
+				tel : '845.216.5030'
+			}
+			return obj;
 		}
 	};
 

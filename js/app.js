@@ -1,4 +1,4 @@
-(function(document, window, $){
+(function(window, document, $){
 
 //Application globals==========//
 var app 		= {};
@@ -7,19 +7,17 @@ var app 		= {};
 	app.library = new Library(),
 	app.log 	= new Log(),
 	app.player 	= new Player(),
-	app.ui 		= new Ui(),
-	app.user 	= new User();
-
-console.log(app.user.getUser());
+	app.user 	= new User(),
+	app.ui 		= new Ui();
 
 
 
-//Routes reference=============//
-var route 			= {};
-	route.protocol 	= window.location.protocol,
-	route.host 		= window.location.host,
-	route.path 		= window.location.pathname;
 
+//URI reference=============//
+app.route 			= {},
+app.route.protocol 	= window.location.protocol,
+app.route.host 		= window.location.host,
+app.route.path 		= window.location.pathname;
 
 
 
@@ -34,4 +32,4 @@ function init(){
 	$('li.main-dropdown').hide();
 }
 
-})(document, window, jQuery);
+})(window, document, jQuery);
