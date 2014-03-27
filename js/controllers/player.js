@@ -4,6 +4,8 @@ var Player = (function(window, document, $){
 	var _player 		= {};
 		_player.playing = false;
 
+	var _key = new KeyHash();
+
 
 
 
@@ -41,22 +43,13 @@ var Player = (function(window, document, $){
 				//Play if not already playing
 				if(!_player.playing){
 
-					_player.playVideo();
-
-					//Updates button ui
-					$('#play-btn').attr('src', 'images/icons/pause.png');
-
-					_player.playing= !_player.playing;
+					play();
 
 				//Stop playing if already playing
 				}else{
 
-					_player.stopVideo();
+					pause();
 
-					//Updates button ui
-					$('#play-btn').attr('src', 'images/icons/play-wht.png');
-
-					_player.playing = !_player.playing;
 				}
 			});
 
@@ -65,9 +58,26 @@ var Player = (function(window, document, $){
 
 			//Keypress controls for play/pause etc.
 			$(document).on('keypress', function(event){
+				if(_key.Space){
+					//Play if not already playing
+					if(!_player.playing){
 
+						play();
+
+					//Stop playing if already playing
+					}else{
+
+						pause();
+
+					}
+				}
 			});
-		};
+
+
+
+
+		};//On Player Ready
+
 
 
 
@@ -135,6 +145,28 @@ var Player = (function(window, document, $){
 
 
 
+
+
+	function play(){
+		_player.playVideo();
+
+		//Updates button ui
+		$('#play-btn').attr('src', 'images/icons/pause.png');
+
+		_player.playing= !_player.playing;
+	}
+
+
+
+
+	function pause(){
+		_player.stopVideo();
+
+		//Updates button ui
+		$('#play-btn').attr('src', 'images/icons/play-wht.png');
+
+		_player.playing = !_player.playing;
+	}
 
 
 
