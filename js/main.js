@@ -135,118 +135,118 @@ $(document).on('click', '#sign-in-btn', function(){
 
 
 //Video size controls===================//
-var videoSize = {};
-	videoSize.toggle1 = false;
-	videoSize.toggle2 = false;
-	videoSize.frame = $('.app iframe');
-	videoSize.ctrls = $('.video-size-ctrl');
+// var videoSize = {};
+// 	videoSize.toggle1 = false;
+// 	videoSize.toggle2 = false;
+// 	videoSize.frame = $('.app iframe');
+// 	videoSize.ctrls = $('.video-size-ctrl');
 
-$(document).on('click', '#video-min', function(){
+// $(document).on('click', '#video-min', function(){
 
-	if(!videoSize.toggle1){
-		videoSize.frame.css({
-			'height'   : '227px',
-			'display'  : 'block',
-			'position' : 'absolute',
-			'top'      : 'initial',
-			'bottom'   : '72px',
-			'left'     : '0',
-			'right'    : 'initial',
-			'width'    : '25%'
-		});
+	// if(!videoSize.toggle1){
+	// 	videoSize.frame.css({
+	// 		'height'   : '227px',
+	// 		'display'  : 'block',
+	// 		'position' : 'absolute',
+	// 		'top'      : 'initial',
+	// 		'bottom'   : '72px',
+	// 		'left'     : '0',
+	// 		'right'    : 'initial',
+	// 		'width'    : '25%'
+	// 	});
 
-		videoSize.toggle1 = !videoSize.toggle1;
-		videoSize.toggle2 = false;
-
-
-	}else{
-		videoSize.frame.css({
-			'position' : 'absolute',
-			'top'      : 'initial',
-			'bottom'   : '72px',
-			'left'     : '0',
-			'right'    : 'initial',
-			'height'   : '27px',
-			'display'  : 'none',
-			'width'    : '25%'
-		});
+	// 	videoSize.toggle1 = !videoSize.toggle1;
+	// 	videoSize.toggle2 = false;
 
 
-		videoSize.ctrls.css({
-			'bottom'     : '72px',
-			'background' : '#0f1010',
-			'textAlign'  : 'right'
-		});
+	// }else{
+	// 	videoSize.frame.css({
+	// 		'position' : 'absolute',
+	// 		'top'      : 'initial',
+	// 		'bottom'   : '72px',
+	// 		'left'     : '0',
+	// 		'right'    : 'initial',
+	// 		'height'   : '27px',
+	// 		'display'  : 'none',
+	// 		'width'    : '25%'
+	// 	});
 
-		videoSize.toggle1 = !videoSize.toggle1;
-		videoSize.toggle2 = false;
-	}
-});
 
+	// 	videoSize.ctrls.css({
+	// 		'bottom'     : '72px',
+	// 		'background' : '#0f1010',
+	// 		'textAlign'  : 'right'
+	// 	});
 
+	// 	videoSize.toggle1 = !videoSize.toggle1;
+	// 	videoSize.toggle2 = false;
+	// }
+// });
 
 
 
-$(document).on('click', '#video-full', function(){
-
-	if(!videoSize.toggle2){
-		videoSize.frame.css({
-			'position' : 'absolute',
-			'top'      : '0',
-			'bottom'   : '0',
-			'left'     : '0',
-			'right'    : '0',
-			'height'   : '100%',
-			'width'    : '100%',
-			'display'  : 'block'
-		});
-
-		videoSize.ctrls.css({
-			'bottom'     : '0',
-			'background' : 'none',
-			'textAlign'  : 'left'
-		});
-
-		videoSize.toggle2 = !videoSize.toggle2;
-		videoSize.toggle1 = true;
 
 
-	}else{
-		leaveFullscreen();
-	}
-});
+// $(document).on('click', '#video-full', function(){
+
+	// if(!videoSize.toggle2){
+	// 	videoSize.frame.css({
+	// 		'position' : 'absolute',
+	// 		'top'      : '0',
+	// 		'bottom'   : '0',
+	// 		'left'     : '0',
+	// 		'right'    : '0',
+	// 		'height'   : '100%',
+	// 		'width'    : '100%',
+	// 		'display'  : 'block'
+	// 	});
+
+	// 	videoSize.ctrls.css({
+	// 		'bottom'     : '0',
+	// 		'background' : 'none',
+	// 		'textAlign'  : 'left'
+	// 	});
+
+	// 	videoSize.toggle2 = !videoSize.toggle2;
+	// 	videoSize.toggle1 = true;
 
 
-//esc key for exiting fullscreen video
-$(document).on('keydown', function(){
-	if(key['Esc']){
-
-		leaveFullscreen();
-	}
-});
+	// }else{
+	// 	leaveFullscreen();
+	// }
+// });
 
 
+// //esc key for exiting fullscreen video
+// $(document).on('keydown', function(){
+// 	if(key['Esc']){
 
-function leaveFullscreen(){
-	videoSize.frame.css({
-			'position' : 'absolute',
-			'top'      : 'initial',
-			'bottom'   : '72px',
-			'left'     : '0',
-			'right'    : 'initial',
-			'height'   : '27px',
-			'width'    : '25%'
-		});
+// 		leaveFullscreen();
+// 	}
+// });
 
-	videoSize.ctrls.css({
-		'bottom'     : '72px',
-		'background' : '#0f1010',
-		'textAlign'  : 'right'
-	});
 
-	videoSize.toggle2 = !videoSize.toggle2;
-	videoSize.toggle1 = false;
-};
+
+// function leaveFullscreen(){
+// 	videoSize.frame.css({
+// 			'position' : 'absolute',
+// 			'top'      : 'initial',
+// 			'bottom'   : '72px',
+// 			'left'     : '0',
+// 			'right'    : 'initial',
+// 			'height'   : '27px',
+// 			'width'    : '25%'
+// 		});
+
+// 	videoSize.ctrls.css({
+// 		'bottom'     : '72px',
+// 		'background' : '#0f1010',
+// 		'textAlign'  : 'right'
+// 	});
+
+// 	videoSize.toggle2 = !videoSize.toggle2;
+// 	videoSize.toggle1 = false;
+// };
 
 
 

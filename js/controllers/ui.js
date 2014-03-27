@@ -9,11 +9,15 @@ var Ui = (function(window, document, $){
 		_seek.seekBarLeft,
 		_seek.seekBarRight;
 
+	var _video 				= {};
+		_video.frame,
+		_video.ctrls;
+
 	var _videoSize 			= {};
-		_videoSize.toggle1 	= false,
-		_videoSize.toggle2 	= false,
-		_videoSize.frame 	= $('.app iframe'),
-		_videoSize.ctrls 	= $('.video-size-ctrl');
+		_videoSize.normal 	= false,
+		_videoSize.full 	= false,
+		_video.frame 	= $('.app iframe'),
+		_video.ctrls 	= $('.video-size-ctrl');
 
 	var _key = new KeyHash();
 
@@ -160,25 +164,25 @@ var Ui = (function(window, document, $){
 
 
 
-		//Player Screensize Handlers===//
+		//Player Screensize Handlers======//
 		//================================//
-		//Minimize video
+		//Minimize or show Normal video size
 		$(document).on('click', '#video-min', function(){
 
 			//Sets video to normal size
-			if(!_videoSize.toggle1){
+			if(!_videoSize.normal){
 
 				showNormalSize();
 
-				_videoSize.toggle1 = !_videoSize.toggle1;
-				_videoSize.toggle2 = false;
+				_videoSize.normal = !_videoSize.normal;
+				_videoSize.full = false;
 
 			//Sets video to minimized size
 			}else{
 				showMinSize();
 
-				_videoSize.toggle1 = !_videoSize.toggle1;
-				_videoSize.toggle2 = false;
+				_videoSize.normal = !_videoSize.normal;
+				_videoSize.full = false;
 			}
 		});
 
@@ -189,7 +193,18 @@ var Ui = (function(window, document, $){
 		//Fullscreen handlers
 		$(document).on('click', '#video-full', function(){
 
-			enterFullscreen();
+			//If video is not already full
+			if(!_videoSize.full){
+				enterFullscreen();
+
+				_videoSize.full = !_videoSize.full;
+				_videoSize.normal = true;
+			}else{
+				leaveFullscreen();
+
+				_videoSize.full = !_videoSize.full;
+				_videoSize.normal = false;
+			}
 		});
 
 
@@ -201,6 +216,9 @@ var Ui = (function(window, document, $){
 			if(_key.Esc){
 
 				leaveFullscreen();
+
+				_videoSize.full = !_videoSize.full;
+				_videoSize.normal = false;
 			}
 		});
 
@@ -331,30 +349,23 @@ var Ui = (function(window, document, $){
 	//Player screensize functions=======//
 	//Controls entering fullscreen iframe manipulation
 	function enterFullscreen(){
-		if(!_videoSize.toggle2){
-			_videoSize.frame.css({
-				'position' : 'absolute',
-				'top'      : '0',
-				'bottom'   : '0',
-				'left'     : '0',
-				'right'    : '0',
-				'height'   : '100%',
-				'width'    : '100%',
-				'display'  : 'block'
-			});
 
-			_videoSize.ctrls.css({
-				'bottom'     : '0',
-				'background' : 'none',
-				'textAlign'  : 'left'
-			});
+		_video.frame.css({
+			'position' : 'absolute',
+			'top'      : '0',
+			'bottom'   : '0',
+			'left'     : '0',
+			'right'    : '0',
+			'height'   : '100%',
+			'width'    : '100%',
+			'display'  : 'block'
+		});
 
-			_videoSize.toggle2 = !_videoSize.toggle2;
-			_videoSize.toggle1 = true;
-
-		}else{
-			leaveFullscreen();
-		}
+		_video.ctrls.css({
+			'bottom'     : '0',
+			'background' : 'none',
+			'textAlign'  : 'left'
+		});
 	}
 
 
@@ -368,7 +379,8 @@ var Ui = (function(window, document, $){
 
 	//Controls exiting fullscreen iframe manipulation
 	function leaveFullscreen(){
-		_videoSize.frame.css({
+
+		_video.frame.css({
 				'position' : 'absolute',
 				'top'      : 'initial',
 				'bottom'   : '72px',
@@ -378,14 +390,11 @@ var Ui = (function(window, document, $){
 				'width'    : '25%'
 			});
 
-		_videoSize.ctrls.css({
+		_video.ctrls.css({
 			'bottom'     : '72px',
 			'background' : '#0f1010',
 			'textAlign'  : 'right'
 		});
-
-		_videoSize.toggle2 = !_videoSize.toggle2;
-		_videoSize.toggle1 = false;
 	};
 
 
@@ -399,7 +408,7 @@ var Ui = (function(window, document, $){
 	//Controls minimizing the video
 	function showNormalSize(){
 
-		_videoSize.frame.css({
+		_video.frame.css({
 			'height'   : '227px',
 			'display'  : 'block',
 			'position' : 'absolute',
@@ -422,7 +431,7 @@ var Ui = (function(window, document, $){
 	//Controls minimizing the video
 	function showMinSize(){
 
-		_videoSize.frame.css({
+		_video.frame.css({
 			'position' : 'absolute',
 			'top'      : 'initial',
 			'bottom'   : '72px',
@@ -433,7 +442,7 @@ var Ui = (function(window, document, $){
 			'width'    : '25%'
 		});
 
-		_videoSize.ctrls.css({
+		_video.ctrls.css({
 			'bottom'     : '72px',
 			'background' : '#0f1010',
 			'textAlign'  : 'right'
