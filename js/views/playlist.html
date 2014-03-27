@@ -1,12 +1,14 @@
 <div>
 	<script id="playlist" type="text/x-handlebars-template">
 
-		<li data-id="01" class="li-playlist"><a href="#">my jazz mix</a>
+
+{{#each playlist}}
+		<li data-id="{{this.id}}" class="li-playlist"><a href="#">{{this.title}}</a>
 			<span class="playlist-menu"><img class="svg" src="images/icons/menu.svg" alt="menu icon" />
 			</span>
 		</li>
 
-		<li data-id="01" class="playlist-dropdown">
+		<li data-id="{{this.id}}" class="playlist-dropdown">
 			<div class="playlist-popout">
 					<p>Share</p>
 						<div class="share-strip">
@@ -22,12 +24,12 @@
 				</div><!-- /.playlist popout-->
 		</li>
 
+
+{{/each}}
+
+
+
+
+
 	</script>
-
-
-
-
-
-
-
 </div>
