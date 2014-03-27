@@ -94,9 +94,9 @@ var Content = (function(window, document, $){
 
 	//Gets data & Loads library template
 	function loadLibrary(){
-		var src 		= '/js/views/app.html',
-			id 			= '#app',
-			appendTo 	= '#appWrapper';
+		var src 		= '/js/views/library.html',
+			id 			= '#libraryItem',
+			appendTo 	= '#libraryWrapper';
 
 			data 	 	= {
 				test	: ''

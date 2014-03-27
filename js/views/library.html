@@ -1,5 +1,120 @@
 <div>
-	<script id="#" type="text/x-handlebars-template">
+	<script id="libraryItem" type="text/x-handlebars-template">
+
+		<li class="li-group"><!-- list item group-->
+			<span class="li-col1" title="start playing from here">
+				<img class="svg" src="images/icons/play-drk.svg" alt="track play icon" />
+			</span>
+
+			<span data-id="1239" class="dropdown-trigger">
+				<span class="li-col2">Black Dog</span>
+					<span class="li-col3">Led Zeppelin</span>
+						<span class="li-col4">Led Zeppelin IV</span>
+			</span><!-- /.dropdown-trigger-->
+
+					<span title="Add to library" class="li-col7"><img class="svg add-icon" src="images/icons/add.svg" alt="add to library icon" />
+					</span>
+
+				<span data-id="1239" class="dropdown-trigger">
+					<span class="li-col6">7:01</span>
+						<span class="li-col5">Rock</span>
+				</span><!-- /.dropdown-trigger-->
+		</li>
+
+
+		<!-- Popdown li -->
+		<!-- **important__LInk to the 500 size .jpg at grooveshark -->
+		<li data-id="1239" class="li-group dropdown main-dropdown"><!-- list item group-->
+			<span class="li-col1"><a data-lightbox="0" href="http://images.gs-cdn.net/static/albums/500_124599.jpg" ><img class="thumb" src="http://images.gs-cdn.net/static/albums/120_124599.jpg" alt="track play icon" /></a></span>
+
+				<span class="li-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet cursus dui, ac dapibus velit. Cras molestie interdum neque vitae cursus. Proin posuere orci ut enim sodales, nec vestibulum orci dapibus. Sed non leo nunc. Sed hendrerit justo erat, eu imperdiet enim gravida a. Duis eu metus risus. Nunc pulvinar lacus erat, sed venenatis lectus ultricies non.</span>
+
+
+				<ul class="dropdown-main-menu">
+
+					<!-- Main Menu li **Add to Playlists-->
+					<li class="add-to-playlist-menu-trigger">
+						<span class="more-arrow add-to-playlist">
+							<img class="svg" src="images/icons/more-arrow-left.svg" alt="more arrow"/>
+						</span>
+
+							<img class="svg" src="images/icons/add.svg" alt="add icon" />
+								Add to playlist
+
+									<!-- Sub Main Menu li-->
+									<ul class="popout add-to-playlist-menu">
+										<li class="playlist-menu-form">
+											<p class="bold">Create new playlist <img class="svg" src="images/icons/more-arrow.svg" alt="more arrow"/></p>
+
+											<form>
+												<input type="text" class="main-menu-new-playlist-input" placeholder="New playlist name"/>
+
+												<input type="submit" value="Save"/>
+											</form>
+										</li>
+
+										<li class="playlist-menu-header">
+											<p class="bold">Playlists</p>
+										</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+											<li class="li-hover playlist-menu-sub-list">My jazz mix</li>
+									</ul>
+
+					</li>
+
+					<!-- Main Menu li **Improve Data-->
+					<li class="improve-meta-menu-trigger">
+						<span class="more-arrow">
+							<img class="svg improve-meta" src="images/icons/more-arrow-left.svg" alt="more arrow"/>
+						</span>
+							<img class="svg" src="images/icons/info-icon.svg" alt="info icon" />
+								Improve data
+
+									<!-- Sub Main Menu li-->
+									<ul class="popout improve-meta-sub-menu">
+
+										<li class="improve-meta-menu-form">
+											<p class="bold">Improve data <img class="svg" src="images/icons/more-arrow.svg" alt="more arrow"/></p>
+
+											<form>
+												<input type="text" class="improve-track-input" placeholder="Track title"/>
+
+												<input type="text" class="improve-artist-input" placeholder="Artist"/>
+
+												<input type="text" class="improve-album-input" placeholder="Album"/>
+
+												<input type="text" class="improve-genre-input" placeholder="Genre"/>
+
+												<input type="submit" value="Save"/>
+											</form>
+										</li>
+									</ul>
+					</li>
+
+					<!-- Main Menu **li Share-->
+					<li class="li-share">
+					Share
+						<div class="share-strip">
+							<a href="#"><img class="svg" src="images/icons/fb-color.svg" alt="share icon" /></a>
+							<a href="#"><img class="svg" src="images/icons/google-color.svg" alt="share icon" /></a>
+							<a href="#"><img class="svg" src="images/icons/twitter-color.svg" alt="share icon" /></a>
+							<a href="#"><img class="svg" src="images/icons/link.svg" alt="share icon" /></a>
+						</div><!-- /.share-strip-->
+					</li>
+				</ul>
+		</li>
 	</script>
 
 

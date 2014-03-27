@@ -48,6 +48,7 @@
 		//Load app template
 		_app.content.loadApp();
 
+		//Makes synchronous
 		//Listens for loadApp content renderer complete
 		$(document).on('rendered', function(event){
 
@@ -56,12 +57,15 @@
 				//Load playlists
 				_app.content.loadPlaylists();
 
+				//Load library items
+				_app.content.loadLibrary();
 
 
-				//Listens for playlist renderer complete
+
+				//Listens for library renderer complete
 				$(document).on('rendered', function(event){
 
-					if(event.template === '#playlist'){
+					if(event.template === '#libraryItem'){
 
 						//Hide DOM nodes
 						hideNodes();
@@ -69,10 +73,11 @@
 						//replaces SVGs in DOM w/ inline SVG
 						replaceSVG();
 					}
-				});
+				});//onRendered
 
 			}
 		});//onRendered
+		//End Synchronous
 
 
 
