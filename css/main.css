@@ -726,7 +726,6 @@ aside.app {
 }
 aside.app .video-size-ctrl {
   background: #0f1010;
-  opacity: .9;
   width: 25%;
   position: fixed;
   bottom: 72px;

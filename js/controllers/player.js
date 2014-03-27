@@ -27,6 +27,13 @@ var Player = (function(window, document, $){
 			// create the global player from the specific iframe (#video)
 			_player = new YT.Player('video', {
 				videoId : 'idSQ3hSLZ8Q',
+				playerVars: {
+					controls 		: 0,
+					enablejsapi 	: 1,
+					rel 			: 0,
+					showinfo		: 0,
+					modestbranding 	: 1
+				},
 			    events: {
 			      // call this function when player is ready to use
 			      'onStateChange'	: onPlayerStateChange,
@@ -137,11 +144,10 @@ var Player = (function(window, document, $){
 		$(document).on('click', '.play-icon', function(){
 			var id = $(this).attr('data-videoid');
 
-			// _player.videoId = id;
-			// play();
 			_player.loadVideoById(id);
 
-			console.log('play-icon clicked', id);
+			_player.playing= !_player.playing;
+
 		});
 
 
