@@ -694,9 +694,9 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	color: $white;
 	// overflow: hidden;
 
-	-webkit-box-shadow: 0px -39px 34px -7px $white;
-	   -moz-box-shadow: 0px -39px 34px -7px $white;
-			box-shadow: 0px -39px 34px -7px $white;
+	-webkit-box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);//$white
+	   -moz-box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);
+			box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);
 }
 
 

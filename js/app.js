@@ -67,11 +67,11 @@
 
 					if(event.template === '#libraryItem'){
 
-						//Hide DOM nodes
-						hideNodes();
-
 						//replaces SVGs in DOM w/ inline SVG
 						replaceSVG();
+
+						//Hide DOM nodes
+						hideNodes();
 					}
 				});//onRendered
 

@@ -1194,9 +1194,9 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   right: 0;
   padding: 0 2%;
   color: #ebebeb;
-  -webkit-box-shadow: 0px -39px 34px -7px #ebebeb;
-  -moz-box-shadow: 0px -39px 34px -7px #ebebeb;
-  box-shadow: 0px -39px 34px -7px #ebebeb;
+  -webkit-box-shadow: 0px -60px 27px -7px rgba(235, 235, 235, 0.8);
+  -moz-box-shadow: 0px -60px 27px -7px rgba(235, 235, 235, 0.8);
+  box-shadow: 0px -60px 27px -7px rgba(235, 235, 235, 0.8);
 }
 
 .info {
