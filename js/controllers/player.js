@@ -8,6 +8,8 @@ var Player = (function(window, document, $){
 	var _player 		= {};
 		_player.playing = false;
 
+	var _volume 		= 100;
+
 
 
 
@@ -79,6 +81,20 @@ var Player = (function(window, document, $){
 
 
 
+			//Volume Up Click Handler=======//
+			$(document).on('click', '.volume-up', function(){
+				volumeUp();
+			});
+
+
+			//Volume Down Click Handler=======//
+			$(document).on('click', '.volume-down', function(){
+				volumeDown();
+			});
+
+
+
+
 		};//On Player Ready
 
 
@@ -116,10 +132,12 @@ var Player = (function(window, document, $){
 	//=========================//
 
 	//methods and properties.
-	player.prototype = {
-		constructor  : player,
-		play 		 : play,
-		pause 		 : pause
+	player.prototype 	= {
+		constructor  	: player,
+		play 		 	: play,
+		pause 		 	: pause,
+		volumeUp 		: volumeUp,
+		volumeDown 		: volumeDown
 	};
 
 	//return constructor
@@ -174,6 +192,34 @@ var Player = (function(window, document, $){
 	}
 
 
+
+
+	function volumeUp(){
+		_volume += 5;
+
+		if(_volume >= 100){
+			_volume = 100;
+		}
+
+		_player.setVolume(_volume);
+
+		console.log(_volume);
+	}
+
+
+
+
+	function volumeDown(){
+		_volume -= 5;
+
+		if(_volume <= 0){
+			_volume = 0;
+		}
+
+		_player.setVolume(_volume);
+
+		console.log(_volume);
+	}
 
 
 
