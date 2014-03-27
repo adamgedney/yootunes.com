@@ -45,12 +45,9 @@ var app 		= {};
 		//replaces SVGs in DOM w/ inline SVG
 		replaceSVG();
 
+		//Hide DOM nodes
+		hideNodes();
 
-		//hide nodes list
-		$('.playlist-dropdown').hide();
-		$('li.main-dropdown').hide();
-		$('.add-to-playlist-menu').hide();
-		$('.improve-meta-sub-menu').hide();
 
 
 
@@ -69,6 +66,7 @@ var app 		= {};
 	//Replace all SVG images with inline SVG===//
 	//Source: http://stackoverflow.com/questions/11978995/how-to-change-color-of-svg-image-using-css-jquery-svg-image-replacement
 	function replaceSVG(){
+
 		$('img.svg').each(function(){
 		    var img = $(this);
 		    var imgID = img.attr('id');
@@ -97,6 +95,24 @@ var app 		= {};
 		    }, 'xml');
 		});
 	}//replaceSVG()
+
+
+
+
+
+
+
+
+	//Maintains list of DOM nodes to hide on app init
+	function hideNodes(){
+
+		var selectors = ['.playlist-dropdown', 'li.main-dropdown',
+		'.add-to-playlist-menu', '.improve-meta-sub-menu'];
+
+		for(var i=0; i<selectors.length;i++){
+			$(selectors[i]).hide();
+		}
+	}
 
 
 

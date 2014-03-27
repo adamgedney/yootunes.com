@@ -1,11 +1,21 @@
 var Ui = (function(window, document, $){
 
 	//private vars
-	// var _foo = 'bar';
+	var _seek = {};
+		_seek.drag,
+		_seek.seekTime,
+		_seek.seekScrub,
+		_seek.seekBarWidth,
+		_seek.seekBarLeft,
+		_seek.seekBarRight;
+
+
 
 
 	//constructor method
 	var ui = function(){
+
+
 
 
 
@@ -109,9 +119,47 @@ var Ui = (function(window, document, $){
 
 
 
+		//Player seek bar ui controller===//
+		//================================//
+		//mousedown to start drag operation
+		$(document).on('mousedown', '#seek-dot', function(event){
+
+			var scrubber 			= '#seek-dot';
+				_seek.seekBarWidth 	= $('.seek-line').width(),
+				_seek.seekBarLeft 	= $('.seek-line').offset().left,
+				_seek.seekBarRight 	= $('.seek-line').offset().left + _seek.seekBarWidth,
+				_seek.drag 			= true;
+
+			//required to prevent text selection on mouseout of seekBar
+			event.preventDefault();
+
+			//calls the seek bar controller
+			moving(scrubber);
+		});
+
+
+		//mouseup to stop drag
+		$(document).on('mouseup', function(e){
+			_seek.drag = false;
+		});
+
+
+
+
+//
+
+
+
+
+
+
+
+
+
 
 
 	};//constructor function
+	//================================//
 
 	//methods and properties.
 	ui.prototype = {
@@ -140,7 +188,7 @@ var Ui = (function(window, document, $){
 
 		this.toggle = toggle;
 
-		//clears previously open in li, if open
+		//clears previously open li in ul, if open
 		$(selector).fadeOut();
 
 		//if an id is set, get data-id else run without it
@@ -160,6 +208,8 @@ var Ui = (function(window, document, $){
 			}else{
 				$(selector).fadeOut();
 			}
+
+		//runs if proving event comes w/ a specific id
 		}else{
 
 			//Fade in
@@ -180,6 +230,40 @@ var Ui = (function(window, document, $){
 
 			return this.toggle = !this.toggle;
 	}//toggleUi
+
+
+
+
+
+
+
+
+
+	//Seek bar drag functionality====//
+	function moving(scrubber){
+
+		$(document).on('mousemove', function(e){
+			// var set-time = ((e.pageX - seek.seekBarLeft) / seek.seekBarWidth) * seek.duration;
+
+			//if dragging is true, allow scrubber to move
+			if(_seek.drag){
+
+				$(scrubber).offset({left: e.pageX});
+
+				_seek.seekScrub = $(scrubber).offset().left;
+
+
+				//creates a perimeter scrubber can't leave
+				if(_seek.seekScrub < _seek.seekBarLeft){
+					$(scrubber).offset({left: _seek.seekBarLeft});
+
+				}else if(_seek.seekScrub > (_seek.seekBarRight  - $(scrubber).width())){
+					$(scrubber).offset({left: (_seek.seekBarRight - $(scrubber).width())});
+
+				};
+			};
+		});
+	};
 
 
 })(window, document,jQuery);

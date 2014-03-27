@@ -66,97 +66,6 @@ $(document).on('click', '#sign-in-btn', function(){
 
 
 
-//Keycode hash============================//
-var key = {
-    'Backspace': 8,
-    'Tab': 9,
-    'Enter': 13,
-    'Shift': 16,
-    'Ctrl': 17,
-    'Alt': 18,
-    'Pause': 19,
-    'Capslock': 20,
-    'Esc': 27,
-    'Pageup': 33,
-    'Pagedown': 34,
-    'End': 35,
-    'Home': 36,
-    'Leftarrow': 37,
-    'Uparrow': 38,
-    'Rightarrow': 39,
-    'Downarrow': 40,
-    'Insert': 45,
-    'Delete': 46,
-    '0': 48,
-    '1': 49,
-    '2': 50,
-    '3': 51,
-    '4': 52,
-    '5': 53,
-    '6': 54,
-    '7': 55,
-    '8': 56,
-    '9': 57,
-    'a': 65,
-    'b': 66,
-    'c': 67,
-    'd': 68,
-    'e': 69,
-    'f': 70,
-    'g': 71,
-    'h': 72,
-    'i': 73,
-    'j': 74,
-    'k': 75,
-    'l': 76,
-    'm': 77,
-    'n': 78,
-    'o': 79,
-    'p': 80,
-    'q': 81,
-    'r': 82,
-    's': 83,
-    't': 84,
-    'u': 85,
-    'v': 86,
-    'w': 87,
-    'x': 88,
-    'y': 89,
-    'z': 90,
-    '0numpad': 96,
-    '1numpad': 97,
-    '2numpad': 98,
-    '3numpad': 99,
-    '4numpad': 100,
-    '5numpad': 101,
-    '6numpad': 102,
-    '7numpad': 103,
-    '8numpad': 104,
-    '9numpad': 105,
-    'Multiply': 106,
-    'Plus': 107,
-    'Minut': 109,
-    'Dot': 110,
-    'Slash1': 111,
-    'F1': 112,
-    'F2': 113,
-    'F3': 114,
-    'F4': 115,
-    'F5': 116,
-    'F6': 117,
-    'F7': 118,
-    'F8': 119,
-    'F9': 120,
-    'F10': 121,
-    'F11': 122,
-    'F12': 123,
-    'equal': 187,
-    'Coma': 188,
-    'Slash': 191,
-    'Backslash': 220
-}
-
-
 
 
 
@@ -168,56 +77,56 @@ var key = {
 //========================Seek Bar drag/drop functionality=========================//
 
 //******NOTES- convert to class to handle 2 instances for volume seek bar too
-	var seek = {};
-		seek.seekTime,
-		seek.seekBarWidth = $('.seek-line').width(),
-		seek.seekBarLeft = $('.seek-line').offset().left,
-		seek.seekBarRight = $('.seek-line').offset().left + seek.seekBarWidth,
-		seek.seekScrub,
-		seek.xPos,
-		seek.drag,
-		seek.duration;
+	// var seek = {};
+	// 	seek.seekTime,
+	// 	seek.seekBarWidth = $('.seek-line').width(),
+	// 	seek.seekBarLeft = $('.seek-line').offset().left,
+	// 	seek.seekBarRight = $('.seek-line').offset().left + seek.seekBarWidth,
+	// 	seek.seekScrub,
+	// 	seek.xPos,
+	// 	seek.drag,
+	// 	seek.duration;
 
-	//mousedown to start drag operation
-	$(document).on('mousedown', '#seek-dot', function(e){
-		seek.drag = true;
+	// //mousedown to start drag operation
+	// $(document).on('mousedown', '#seek-dot', function(e){
+	// 	seek.drag = true;
 
-		//required to prevent text selection on mouseout of seekBar
-		e.preventDefault();
-		moving();
-	});
-
-
-	//mouseup to stop drag
-	$(document).on('mouseup', function(e){
-		seek.drag = false;
-	});
+	// 	//required to prevent text selection on mouseout of seekBar
+	// 	e.preventDefault();
+	// 	moving();
+	// });
 
 
-	//drag and setTime
-	function moving(){
-		$(document).on('mousemove', function(e){
-			// var set-time = ((e.pageX - seek.seekBarLeft) / seek.seekBarWidth) * seek.duration;
+	// //mouseup to stop drag
+	// $(document).on('mouseup', function(e){
+	// 	seek.drag = false;
+	// });
 
 
-			//if dragging is true
-			if(seek.drag){
+	// //drag and setTime
+	// function moving(){
+	// 	$(document).on('mousemove', function(e){
+	// 		// var set-time = ((e.pageX - seek.seekBarLeft) / seek.seekBarWidth) * seek.duration;
 
-				$('#seek-dot').offset({left: e.pageX});
-				seek.seekScrub = $('#seek-dot').offset().left;
+
+	// 		//if dragging is true
+	// 		if(seek.drag){
+
+	// 			$('#seek-dot').offset({left: e.pageX});
+	// 			seek.seekScrub = $('#seek-dot').offset().left;
 
 
-				//creates a border
-				if(seek.seekScrub < seek.seekBarLeft){
-					$('#seek-dot').offset({left: seek.seekBarLeft});
+	// 			//creates a border
+	// 			if(seek.seekScrub < seek.seekBarLeft){
+	// 				$('#seek-dot').offset({left: seek.seekBarLeft});
 
-				}else if(seek.seekScrub > (seek.seekBarRight  - $('#seek-dot').width())){
-					$('#seek-dot').offset({left: (seek.seekBarRight - $('#seek-dot').width())});
+	// 			}else if(seek.seekScrub > (seek.seekBarRight  - $('#seek-dot').width())){
+	// 				$('#seek-dot').offset({left: (seek.seekBarRight - $('#seek-dot').width())});
 
-				};
-			};
-		});
-	};
+	// 			};
+	// 		};
+	// 	});
+	// };
 
 
 
