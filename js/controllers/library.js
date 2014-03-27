@@ -10,14 +10,14 @@ var Library = (function(window, document, $){
 
 	//methods and properties.
 	library.prototype = {
-		constructor  : library,
-		getApp 			: getApp,
-		getPlaylists	: getPlaylists,
-		getLibrary		: getLibrary,
-		getSong 		: getSong,
-		getSongs		: getSongs,
-		getArtists		: getArtists,
-		getAlbums		: getAlbums
+		constructor  : library
+		// getApp 			: getApp,
+		// getPlaylists	: getPlaylists,
+		// getLibrary		: getLibrary,
+		// getSong 		: getSong,
+		// getSongs		: getSongs,
+		// getArtists		: getArtists,
+		// getAlbums		: getAlbums
 	};
 
 	//return constructor

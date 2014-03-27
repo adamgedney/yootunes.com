@@ -15,23 +15,23 @@ var Content = (function(window, document, $){
 	//constructor method
 	var content = function(){
 
-	};
+	};//constructor function
+	//================================//
+
+
+
 
 	//methods and properties.
 	content.prototype = {
 		constructor 	: content,
 		loadApp 		: loadApp,
 		loadPlaylists	: loadPlaylists,
-		loadLibrary 	: loadLibrary,
-		sortSong 		: sortSong,
-		sortArtist 		: sortArtist,
-		sortAlbum 		: sortAlbum
-
-
-
-
-
+		loadLibrary 	: loadLibrary
 	};
+
+
+
+
 
 	//return constructor
 	return content;
@@ -47,6 +47,86 @@ var Content = (function(window, document, $){
 //================================//
 //Class methods===================//
 //================================//
+
+	//Loads app template
+	function loadApp(){
+		var src 		= '/js/views/app.html',
+			id 			= '#app',
+			appendTo 	= '#appWrapper';
+
+			data 	 	= {
+				test	: ''
+			};
+
+
+		render(src, id, appendTo, data);
+	}
+
+
+
+
+
+
+
+
+
+	//Gets data & Loads playlist template
+	function loadPlaylists(){
+
+	}
+
+
+
+
+
+
+
+
+
+	//Gets data & Loads library template
+	function loadLibrary(){
+
+	}
+
+
+
+
+
+
+
+
+
+	function render(src, id, appendTo, data){
+
+		$.get(src, function(htmlArg){
+
+			//Finds and populates template
+			var source 		= $(htmlArg).find(id).html();
+			var template 	= Handlebars.compile(source);
+			var html 		= template(data);
+
+
+
+			//Appends template into Wrapper on DOM
+			$(appendTo).append(html);
+
+
+			//Fires a complete event after content has been appended
+			$.event.trigger({
+				type		: 'rendered',
+				template 	: id
+			});
+
+
+		});
+	}
+
+
+
+
+
+
+
 
 
 

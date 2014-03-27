@@ -1,23 +1,23 @@
 (function(window, document, $){
 
-//Application globals==========//
-var app 		= {};
-	app.ads 	= new Ads(),
-	app.content = new Content(),
-	app.library = new Library(),
-	app.log 	= new Log(),
-	app.player 	= new Player(),
-	app.user 	= new User(),
-	app.ui 		= new Ui();
+	//Instances==========//
+	var _app 			= {};
+		_app.ads 		= new Ads(),
+		_app.content 	= new Content(),
+		_app.library 	= new Library(),
+		_app.log 		= new Log(),
+		_app.player 	= new Player(),
+		_app.user 		= new User(),
+		_app.ui 		= new Ui();
 
 
 
 
-	//URI reference=============//
-	app.route 			= {},
-	app.route.protocol 	= window.location.protocol,
-	app.route.host 		= window.location.host,
-	app.route.path 		= window.location.pathname;
+		//URI reference=============//
+		_app.route 				= {},
+		_app.route.protocol 	= window.location.protocol,
+		_app.route.host 		= window.location.host,
+		_app.route.path 		= window.location.pathname;
 
 
 
@@ -42,14 +42,26 @@ var app 		= {};
 	//init functions
 	function init(){
 
-		//replaces SVGs in DOM w/ inline SVG
-		replaceSVG();
-
-		//Hide DOM nodes
-		hideNodes();
-
 		//Loads any scripts needing dynamic insertion
 		loadScripts();
+
+		//Load app template
+		_app.content.loadApp();
+
+		//Listens for content renderer completed app load
+		$(document).on('rendered', function(event){
+
+			if(event.template === '#app'){
+
+				//Hide DOM nodes
+				hideNodes();
+
+				//replaces SVGs in DOM w/ inline SVG
+				replaceSVG();
+			}
+		});//onRendered
+
+
 
 
 
