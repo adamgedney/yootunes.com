@@ -99,11 +99,13 @@ var Content = (function(window, document, $){
 			appendTo 	= '#libraryWrapper';
 
 			data 	 	= {
-				test	: ''
+				song	: [{id: '0', title: 'Black Dog', artist: 'Led Zeppelin', album: 'Led Zeppelin I', genre: 'rock', length: '7:01', desc: 'Lorem ipsum dolor sit amet', thumb: 'http://images.gs-cdn.net/static/albums/120_124599.jpg', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
+							{id: '1', title: 'Red Dog', artist: 'Led Starship', album: 'Led Zeppelin IVVV', genre: 'blues', length: '1:01', desc: 'Lorem ipsum dolor sit amet', thumb: 'http://images.gs-cdn.net/static/albums/120_124599.jpg', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
+							{id: '2', title: 'Long Dog', artist: 'Purple Zeppelin', album: 'Led IV', genre: 'folk', length: '3:00', desc: 'Lorem ipsum dolor sit amet', thumb: 'http://images.gs-cdn.net/static/albums/120_124599.jpg', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
+							{id: '3', title: 'Big Dog', artist: 'Lead Zebra', album: 'Zeppelin IV', genre: 'country', length: '6:52', desc: 'Lorem ipsum dolor sit amet', thumb: 'http://images.gs-cdn.net/static/albums/120_124599.jpg', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},]
 			};
 
-
-		render(src, id, appendTo, data);
+			render(src, id, appendTo, data);
 	}
 
 
@@ -134,7 +136,6 @@ var Content = (function(window, document, $){
 				type		: 'rendered',
 				template 	: id
 			});
-
 
 		});
 	}
