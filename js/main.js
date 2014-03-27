@@ -259,65 +259,65 @@ $(document).on('click', '#sign-in-btn', function(){
 //Player control===========================//
 
 // Inject YouTube API script
-var tag = document.createElement('script');
-tag.src = "http://www.youtube.com/player_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+// var tag = document.createElement('script');
+// tag.src = "http://www.youtube.com/player_api";
+// var firstScriptTag = document.getElementsByTagName('script')[0];
+// firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 
 var player;
-window.onYouTubePlayerAPIReady = function() {
-  // create the global player from the specific iframe (#video)
-  player = new YT.Player('video', {
-    events: {
-      // call this function when player is ready to use
-      'onStateChange': onPlayerStateChange,
-      'onReady': onPlayerReady
-    }
-  });
-}
+// window.onYouTubePlayerAPIReady = function() {
+//   // create the global player from the specific iframe (#video)
+//   player = new YT.Player('video', {
+//     events: {
+//       // call this function when player is ready to use
+//       'onStateChange': onPlayerStateChange,
+//       'onReady': onPlayerReady
+//     }
+//   });
+// }
 
 // 4. The API will call this function when the video player is ready.
-window.onPlayerReady = function(event) {
+// window.onPlayerReady = function(event) {
 
-	var t = false;
-	$(document).on('click', '#play-btn', function(){
+// 	var t = false;
+// 	$(document).on('click', '#play-btn', function(){
 
-		if(!t){
-			player.playVideo();
-			$('#play-btn').attr('src', 'images/icons/pause.png');
+// 		if(!t){
+// 			player.playVideo();
+// 			$('#play-btn').attr('src', 'images/icons/pause.png');
 
-			t= !t;
-		}else{
-			player.stopVideo();
-			$('#play-btn').attr('src', 'images/icons/play-wht.png');
+// 			t= !t;
+// 		}else{
+// 			player.stopVideo();
+// 			$('#play-btn').attr('src', 'images/icons/play-wht.png');
 
-			t = !t;
-		}
-	});
-};
+// 			t = !t;
+// 		}
+// 	});
+// };
 
 
-window.onPlayerStateChange = function(event){
+// window.onPlayerStateChange = function(event){
 
-	if (event.data == YT.PlayerState.PLAYING) {
+// 	if (event.data == YT.PlayerState.PLAYING) {
 
-      setInterval(updateTime, 100);
-      $('#play-btn').attr('src', 'images/icons/pause.png');
-    }else{
-    	$('#play-btn').attr('src', 'images/icons/play-wht.png');
-    }
-};
+//       setInterval(updateTime, 100);
+//       $('#play-btn').attr('src', 'images/icons/pause.png');
+//     }else{
+//     	$('#play-btn').attr('src', 'images/icons/play-wht.png');
+//     }
+// };
 
-function updateTime(){
-	var time = player.getCurrentTime();
+// function updateTime(){
+// 	var time = player.getCurrentTime();
 
-	var m = Math.floor(time / 60);
-	var secd = time % 60;
-	var s = Math.ceil(secd)
+// 	var m = Math.floor(time / 60);
+// 	var secd = time % 60;
+// 	var s = Math.ceil(secd)
 
-	$('#current-time').html(m + ':' + s);
-}
+// 	$('#current-time').html(m + ':' + s);
+// }
 
 
 

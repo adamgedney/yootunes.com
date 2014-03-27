@@ -16,8 +16,8 @@ var Ui = (function(window, document, $){
 	var _videoSize 			= {};
 		_videoSize.normal 	= false,
 		_videoSize.full 	= false,
-		_video.frame 	= $('.app iframe'),
-		_video.ctrls 	= $('.video-size-ctrl');
+		_video.frame 		= $('.app iframe'),
+		_video.ctrls 		= $('.video-size-ctrl');
 
 	var _key = new KeyHash();
 
@@ -313,6 +313,7 @@ var Ui = (function(window, document, $){
 
 
 
+
 	//Seek bar drag functionality====//
 	function moving(scrubber){
 
@@ -338,6 +339,8 @@ var Ui = (function(window, document, $){
 			};
 		});
 	};
+
+
 
 
 

@@ -48,6 +48,9 @@ var app 		= {};
 		//Hide DOM nodes
 		hideNodes();
 
+		//Loads any scripts needing dynamic insertion
+		loadScripts();
+
 
 
 
@@ -112,6 +115,25 @@ var app 		= {};
 		for(var i=0; i<selectors.length;i++){
 			$(selectors[i]).hide();
 		}
+	}
+
+
+
+
+
+
+
+
+	//Loads any scripts needing dynamic insertion
+	function loadScripts(){
+
+		//Load YouTube Player API scripts
+		var tag = document.createElement('script');
+			tag.src = "http://www.youtube.com/player_api";
+
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		//End YouTube Player API scripts
 	}
 
 
