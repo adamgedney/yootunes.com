@@ -48,16 +48,29 @@
 		//Load app template
 		_app.content.loadApp();
 
-		//Listens for content renderer completed app load
+		//Listens for loadApp content renderer complete
 		$(document).on('rendered', function(event){
 
 			if(event.template === '#app'){
 
-				//Hide DOM nodes
-				hideNodes();
+				//Load playlists
+				_app.content.loadPlaylists();
 
-				//replaces SVGs in DOM w/ inline SVG
-				replaceSVG();
+
+
+				//Listens for playlist renderer complete
+				$(document).on('rendered', function(event){
+
+					if(event.template === '#playlist'){
+
+						//Hide DOM nodes
+						hideNodes();
+
+						//replaces SVGs in DOM w/ inline SVG
+						replaceSVG();
+					}
+				});
+
 			}
 		});//onRendered
 

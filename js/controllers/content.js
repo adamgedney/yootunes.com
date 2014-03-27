@@ -72,7 +72,16 @@ var Content = (function(window, document, $){
 
 	//Gets data & Loads playlist template
 	function loadPlaylists(){
+		var src 		= '/js/views/playlist.html',
+			id 			= '#playlist',
+			appendTo 	= '#playlistWrapper';
 
+			data 	 	= {
+				test	: ''
+			};
+
+
+		render(src, id, appendTo, data);
 	}
 
 
@@ -85,7 +94,16 @@ var Content = (function(window, document, $){
 
 	//Gets data & Loads library template
 	function loadLibrary(){
+		var src 		= '/js/views/app.html',
+			id 			= '#app',
+			appendTo 	= '#appWrapper';
 
+			data 	 	= {
+				test	: ''
+			};
+
+
+		render(src, id, appendTo, data);
 	}
 
 
