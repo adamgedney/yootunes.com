@@ -116,7 +116,7 @@ aside.app{
 	}
 }
 
-iframe#video{
+#video{
 	// background: $black;//remove during tests. Placeholder bg color so video can be commented out
 	@include col(3);
 	position: fixed;

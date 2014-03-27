@@ -1,7 +1,7 @@
 var Player = (function(window, document, $){
 
 	//Instances
-	var _key = new KeyHash();
+	var _key 		= new KeyHash();
 
 
 	//private vars
@@ -26,6 +26,7 @@ var Player = (function(window, document, $){
 		window.onYouTubePlayerAPIReady = function() {
 			// create the global player from the specific iframe (#video)
 			_player = new YT.Player('video', {
+				videoId : 'idSQ3hSLZ8Q',
 			    events: {
 			      // call this function when player is ready to use
 			      'onStateChange'	: onPlayerStateChange,
@@ -56,6 +57,12 @@ var Player = (function(window, document, $){
 					pause();
 				}
 			});
+
+
+
+
+
+
 
 
 
@@ -126,6 +133,25 @@ var Player = (function(window, document, $){
 
 
 
+		//Play icon Click Handler=======//
+		$(document).on('click', '.play-icon', function(){
+			var id = $(this).attr('data-videoid');
+
+			// _player.videoId = id;
+			// play();
+			_player.loadVideoById(id);
+
+			console.log('play-icon clicked', id);
+		});
+
+
+
+
+
+
+
+
+
 
 
 	};//constructor
@@ -171,12 +197,14 @@ var Player = (function(window, document, $){
 
 
 	function play(){
+
 		_player.playVideo();
 
 		//Updates button ui
 		$('#play-btn').attr('src', 'images/icons/pause.png');
 
 		_player.playing= !_player.playing;
+
 	}
 
 

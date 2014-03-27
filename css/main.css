@@ -749,7 +749,7 @@ aside.app .video-size-ctrl svg:last-child {
   margin-left: 0;
 }
 
-iframe#video {
+#video {
   width: 25%;
   position: fixed;
   bottom: 72px;
