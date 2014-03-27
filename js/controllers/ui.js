@@ -1,5 +1,10 @@
 var Ui = (function(window, document, $){
 
+
+	//Instances
+	var _key = new KeyHash();
+
+
 	//private vars
 	var _seek 				= {};
 		_seek.drag,
@@ -19,14 +24,12 @@ var Ui = (function(window, document, $){
 		_video.frame 		= $('.app iframe'),
 		_video.ctrls 		= $('.video-size-ctrl');
 
-	var _key = new KeyHash();
 
 
 
 
 	//constructor method
 	var ui = function(){
-
 
 
 

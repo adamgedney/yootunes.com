@@ -1,16 +1,19 @@
 var Player = (function(window, document, $){
 
+	//Instances
+	var _key = new KeyHash();
+
+
 	//private vars
 	var _player 		= {};
 		_player.playing = false;
 
-	var _key = new KeyHash();
 
 
 
 
 
-	//constructor fuction
+	//constructor method
 	var player = function(){
 
 
@@ -49,7 +52,6 @@ var Player = (function(window, document, $){
 				}else{
 
 					pause();
-
 				}
 			});
 
@@ -58,6 +60,8 @@ var Player = (function(window, document, $){
 
 			//Keypress controls for play/pause etc.
 			$(document).on('keypress', function(event){
+
+				//If Spacebar pressed
 				if(_key.Space){
 					//Play if not already playing
 					if(!_player.playing){
@@ -68,7 +72,6 @@ var Player = (function(window, document, $){
 					}else{
 
 						pause();
-
 					}
 				}
 			});
