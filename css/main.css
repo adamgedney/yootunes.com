@@ -1027,8 +1027,7 @@ li.li-group.dropdown {
   min-height: 240px;
 }
 li.li-group.dropdown img {
-  width: 83.3333333%;
-  margin: 40% 0 0 9px;
+  margin: 40% 0;
 }
 li.li-group.dropdown .li-desc {
   line-height: 18px;

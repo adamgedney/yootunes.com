@@ -480,10 +480,8 @@ li.li-group.dropdown{
 	overflow: hidden;
 	min-height: 240px;
 
-	img{
-		@include col(10);
-		margin: 40% 0 0 9px;
-		// border-radius: 27px;
+	img{//youtube thumbnail
+		margin: 40% 0;
 	}
 
 	.li-desc{
