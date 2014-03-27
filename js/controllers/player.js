@@ -117,7 +117,9 @@ var Player = (function(window, document, $){
 
 	//methods and properties.
 	player.prototype = {
-		constructor  : player
+		constructor  : player,
+		play 		 : play,
+		pause 		 : pause
 	};
 
 	//return constructor
