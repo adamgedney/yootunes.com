@@ -724,16 +724,6 @@ aside.app {
   border-right: 1px solid #d6d6d6;
   overflow: hidden;
 }
-aside.app iframe {
-  background: #0f1010;
-  width: 25%;
-  position: fixed;
-  bottom: 72px;
-  left: 0;
-  z-index: 1000;
-  height: 27px;
-  border: none;
-}
 aside.app .video-size-ctrl {
   background: #0f1010;
   opacity: .9;
@@ -757,6 +747,16 @@ aside.app .video-size-ctrl svg:first-child {
 aside.app .video-size-ctrl svg:last-child {
   width: 36px;
   margin-left: 0;
+}
+
+iframe#video {
+  width: 25%;
+  position: fixed;
+  bottom: 72px;
+  left: 0;
+  z-index: 1000;
+  height: 27px;
+  border: none;
 }
 
 /*=====================================*/

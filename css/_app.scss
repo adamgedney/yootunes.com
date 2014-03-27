@@ -86,17 +86,6 @@ aside.app{
 	overflow: hidden;
 	// background: $black; /*experimenting with dark bg*/
 
-	iframe{
-		background: $black;//remove during tests. Placeholder bg color so video can be commented out
-		@include col(3);
-		position: fixed;
-		bottom: 72px;
-		left: 0;
-		z-index:1000;
-		height: 27px;
-		border: none;
-	}
-
 	.video-size-ctrl{
 		background: $black;
 		opacity: .9;
@@ -127,7 +116,16 @@ aside.app{
 	}
 }
 
-
+iframe#video{
+	// background: $black;//remove during tests. Placeholder bg color so video can be commented out
+	@include col(3);
+	position: fixed;
+	bottom: 72px;
+	left: 0;
+	z-index:1000;
+	height: 27px;
+	border: none;
+}
 
 /*=====================================*/
 /*Sidebar Settings=====================*/

@@ -14,15 +14,10 @@ var Ui = (function(window, document, $){
 		_seek.seekBarLeft,
 		_seek.seekBarRight;
 
-	var _video 				= {};
-		_video.frame,
-		_video.ctrls;
 
 	var _videoSize 			= {};
 		_videoSize.normal 	= false,
-		_videoSize.full 	= false,
-		_video.frame 		= $('.app iframe'),
-		_video.ctrls 		= $('.video-size-ctrl');
+		_videoSize.full 	= false;
 
 
 
@@ -172,9 +167,10 @@ var Ui = (function(window, document, $){
 		//Minimize or show Normal video size
 		$(document).on('click', '#video-min', function(){
 
+
 			//Sets video to normal size
 			if(!_videoSize.normal){
-
+				console.log("#video-min clicked --ShowNormal triggered");
 				showNormalSize();
 
 				_videoSize.normal = !_videoSize.normal;
@@ -356,7 +352,7 @@ var Ui = (function(window, document, $){
 	//Controls entering fullscreen iframe manipulation
 	function enterFullscreen(){
 
-		_video.frame.css({
+		$('iframe#video').css({
 			'position' : 'absolute',
 			'top'      : '0',
 			'bottom'   : '0',
@@ -367,7 +363,7 @@ var Ui = (function(window, document, $){
 			'display'  : 'block'
 		});
 
-		_video.ctrls.css({
+		$('.video-size-ctrl').css({
 			'bottom'     : '0',
 			'background' : 'none',
 			'textAlign'  : 'left'
@@ -386,7 +382,7 @@ var Ui = (function(window, document, $){
 	//Controls exiting fullscreen iframe manipulation
 	function leaveFullscreen(){
 
-		_video.frame.css({
+		$('iframe#video').css({
 				'position' : 'absolute',
 				'top'      : 'initial',
 				'bottom'   : '72px',
@@ -396,7 +392,7 @@ var Ui = (function(window, document, $){
 				'width'    : '25%'
 			});
 
-		_video.ctrls.css({
+		$('.video-size-ctrl').css({
 			'bottom'     : '72px',
 			'background' : '#0f1010',
 			'textAlign'  : 'right'
@@ -414,7 +410,7 @@ var Ui = (function(window, document, $){
 	//Controls minimizing the video
 	function showNormalSize(){
 
-		_video.frame.css({
+		$('iframe#video').css({
 			'height'   : '227px',
 			'display'  : 'block',
 			'position' : 'absolute',
@@ -437,7 +433,7 @@ var Ui = (function(window, document, $){
 	//Controls minimizing the video
 	function showMinSize(){
 
-		_video.frame.css({
+		$('iframe#video').css({
 			'position' : 'absolute',
 			'top'      : 'initial',
 			'bottom'   : '72px',
@@ -448,7 +444,7 @@ var Ui = (function(window, document, $){
 			'width'    : '25%'
 		});
 
-		_video.ctrls.css({
+		$('.video-size-ctrl').css({
 			'bottom'     : '72px',
 			'background' : '#0f1010',
 			'textAlign'  : 'right'
