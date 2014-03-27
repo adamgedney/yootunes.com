@@ -1,12 +1,26 @@
 var Player = (function(window, document, $){
 
 	//private vars
-	var _foo = 'bar';
+
+
+
+
 
 	//constructor fuction
 	var player = function(){
 
-	};
+
+
+
+
+
+
+
+
+
+
+	};//constructor
+	//=========================//
 
 	//methods and properties.
 	player.prototype = {
@@ -15,5 +29,30 @@ var Player = (function(window, document, $){
 
 	//return constructor
 	return player;
+
+
+
+
+
+
+
+
+
+//================================//
+//Class methods===================//
+//================================//
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 })(window, document,jQuery);

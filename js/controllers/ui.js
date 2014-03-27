@@ -1,13 +1,21 @@
 var Ui = (function(window, document, $){
 
 	//private vars
-	var _seek = {};
+	var _seek 				= {};
 		_seek.drag,
 		_seek.seekTime,
 		_seek.seekScrub,
 		_seek.seekBarWidth,
 		_seek.seekBarLeft,
 		_seek.seekBarRight;
+
+	var _videoSize 			= {};
+		_videoSize.toggle1 	= false,
+		_videoSize.toggle2 	= false,
+		_videoSize.frame 	= $('.app iframe'),
+		_videoSize.ctrls 	= $('.video-size-ctrl');
+
+	var _key = new KeyHash();
 
 
 
@@ -146,7 +154,55 @@ var Ui = (function(window, document, $){
 
 
 
-//
+
+
+
+
+
+
+		//Player Screensize Handlers===//
+		//================================//
+		//Minimize video
+		$(document).on('click', '#video-min', function(){
+
+			//Sets video to normal size
+			if(!_videoSize.toggle1){
+
+				showNormalSize();
+
+				_videoSize.toggle1 = !_videoSize.toggle1;
+				_videoSize.toggle2 = false;
+
+			//Sets video to minimized size
+			}else{
+				showMinSize();
+
+				_videoSize.toggle1 = !_videoSize.toggle1;
+				_videoSize.toggle2 = false;
+			}
+		});
+
+
+
+
+
+		//Fullscreen handlers
+		$(document).on('click', '#video-full', function(){
+
+			enterFullscreen();
+		});
+
+
+
+
+
+		//Esc fullscreen handler
+		$(document).on('keydown', function(){
+			if(_key.Esc){
+
+				leaveFullscreen();
+			}
+		});
 
 
 
@@ -182,7 +238,7 @@ var Ui = (function(window, document, $){
 //Class methods===================//
 //================================//
 
-
+	//Button/menu interaction controllers====//
 	//toggle Controller===========//
 	function toggleUi(toggle, selector, id){
 
@@ -191,7 +247,7 @@ var Ui = (function(window, document, $){
 		//clears previously open li in ul, if open
 		$(selector).fadeOut();
 
-		//if an id is set, get data-id else run without it
+		//Check for provided id
 		if(id === null || id === "" || id === undefined){
 
 			//Fade in
@@ -209,7 +265,7 @@ var Ui = (function(window, document, $){
 				$(selector).fadeOut();
 			}
 
-		//runs if proving event comes w/ a specific id
+		//runs if providing event comes w/ a specific id
 		}else{
 
 			//Fade in
@@ -264,6 +320,125 @@ var Ui = (function(window, document, $){
 			};
 		});
 	};
+
+
+
+
+
+
+
+
+	//Player screensize functions=======//
+	//Controls entering fullscreen iframe manipulation
+	function enterFullscreen(){
+		if(!_videoSize.toggle2){
+			_videoSize.frame.css({
+				'position' : 'absolute',
+				'top'      : '0',
+				'bottom'   : '0',
+				'left'     : '0',
+				'right'    : '0',
+				'height'   : '100%',
+				'width'    : '100%',
+				'display'  : 'block'
+			});
+
+			_videoSize.ctrls.css({
+				'bottom'     : '0',
+				'background' : 'none',
+				'textAlign'  : 'left'
+			});
+
+			_videoSize.toggle2 = !_videoSize.toggle2;
+			_videoSize.toggle1 = true;
+
+		}else{
+			leaveFullscreen();
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+	//Controls exiting fullscreen iframe manipulation
+	function leaveFullscreen(){
+		_videoSize.frame.css({
+				'position' : 'absolute',
+				'top'      : 'initial',
+				'bottom'   : '72px',
+				'left'     : '0',
+				'right'    : 'initial',
+				'height'   : '27px',
+				'width'    : '25%'
+			});
+
+		_videoSize.ctrls.css({
+			'bottom'     : '72px',
+			'background' : '#0f1010',
+			'textAlign'  : 'right'
+		});
+
+		_videoSize.toggle2 = !_videoSize.toggle2;
+		_videoSize.toggle1 = false;
+	};
+
+
+
+
+
+
+
+
+
+	//Controls minimizing the video
+	function showNormalSize(){
+
+		_videoSize.frame.css({
+			'height'   : '227px',
+			'display'  : 'block',
+			'position' : 'absolute',
+			'top'      : 'initial',
+			'bottom'   : '72px',
+			'left'     : '0',
+			'right'    : 'initial',
+			'width'    : '25%'
+		});
+	}
+
+
+
+
+
+
+
+
+
+	//Controls minimizing the video
+	function showMinSize(){
+
+		_videoSize.frame.css({
+			'position' : 'absolute',
+			'top'      : 'initial',
+			'bottom'   : '72px',
+			'left'     : '0',
+			'right'    : 'initial',
+			'height'   : '27px',
+			'display'  : 'none',
+			'width'    : '25%'
+		});
+
+		_videoSize.ctrls.css({
+			'bottom'     : '72px',
+			'background' : '#0f1010',
+			'textAlign'  : 'right'
+		});
+	}
 
 
 })(window, document,jQuery);
