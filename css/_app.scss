@@ -371,10 +371,14 @@ section.app{
 			padding: 0 2%;
 			overflow: hidden;
 
-			svg{
+			svg, .add-icon{
 				height: 12px;
-				// width: 18px;
 				vertical-align: middle;
+			}
+
+			.add-icon{
+				width: 12px;
+				margin-right: 31%;
 			}
 		}
 	}

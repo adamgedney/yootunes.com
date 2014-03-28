@@ -939,9 +939,13 @@ section.app {
   padding: 0 2%;
   overflow: hidden;
 }
-.main-container ul li svg {
+.main-container ul li svg, .main-container ul li .add-icon {
   height: 12px;
   vertical-align: middle;
+}
+.main-container ul li .add-icon {
+  width: 12px;
+  margin-right: 31%;
 }
 
 .scroll-container {
