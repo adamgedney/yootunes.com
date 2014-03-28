@@ -41,7 +41,7 @@ var Ui = (function(window, document, $){
 
 
 		//Playlist menu dropdown interaction==========//
-		$(document).on('click', '.li-playlist', function(event){
+		$(document).on('click', '.playlist-menu', function(event){
 
 			this.toggle;
 

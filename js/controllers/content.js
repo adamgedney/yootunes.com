@@ -63,6 +63,19 @@ var Content = (function(window, document, $){
 
 
 
+		//Playlist page load interaction=========//
+		$(document).on('click', '.playlistTitle', function(event){
+
+			//Grabs playlist id for specific loading
+			var id = $(this).attr('data-id');
+			console.log(id, 'this is the clicked playlist id');
+
+			loadLibrary();
+		});
+
+
+
+
 
 
 
