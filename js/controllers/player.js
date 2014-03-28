@@ -155,18 +155,26 @@ var Player = (function(window, document, $){
 
 		//Play icon Click Handler=======//
 		$(document).on('click', '.play-icon', function(event){
+
 			var id = $(this).attr('data-videoid');
+			var playerId = _player.getVideoData().video_id;
 
-			this.newVideo = _playerNewVideo;
+			this.newVideo;
 
-				//Checks if new video needs to be loaded
-				if(this.newVideo){
+			//Checks to see if loaded video matches this video
+			if(playerId !== id){
+				this.newVideo = false;
+			}
 
+
+				//Determines if new video needs to be loaded
+				if(!this.newVideo){
+					console.log("NEW video");
 					_player.loadVideoById(id);
 
 
 					//sets new video to false & playing to true
-					this.newVideo = !this.newVideo;
+					this.newVideo = true;
 					// _playerNewVideo = !_playerNewVideo;
 
 					_playerPlaying = true;
@@ -175,22 +183,17 @@ var Player = (function(window, document, $){
 
 				//Runs play w/out loading new video
 				}else{
-
+					console.log("NOT new video");
 					//Pause playback handler
 					if(_playerPlaying){
 						//Pause playback
 						pause();
 
-
-
 						_playerPlaying= false;
 
 					}else{
 
-						console.log(id, "NOT new video");
 						play();
-
-
 
 						//sets playing to true
 						_playerPlaying = true;

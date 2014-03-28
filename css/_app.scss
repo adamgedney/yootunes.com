@@ -802,14 +802,14 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	@include col(2);
 	float: left;
 	height: 100%;
-	padding-left: 1.5%;
-	margin-top: 8px;
+	padding-right: 10%;
 
 	.vol-icon{
 		height: 24px;
 		cursor: pointer;
-		display: block;
-		margin: 3px 0 0 27%;
+		float: right;
+		margin-left: 25%;
+		@include vertical-align;
 	}
 
 	.vol-icon:hover{

@@ -1304,14 +1304,20 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 16.6666667%;
   float: left;
   height: 100%;
-  padding-left: 1.5%;
-  margin-top: 8px;
+  padding-right: 10%;
 }
 .volume-ctrl .vol-icon {
   height: 24px;
   cursor: pointer;
-  display: block;
-  margin: 3px 0 0 27%;
+  float: right;
+  margin-left: 25%;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 .volume-ctrl .vol-icon:hover {
   opacity: .3;
