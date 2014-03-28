@@ -939,13 +939,17 @@ section.app {
   padding: 0 2%;
   overflow: hidden;
 }
-.main-container ul li svg, .main-container ul li .add-icon {
+.main-container ul li svg, .main-container ul li .add-icon, .main-container ul li .play-icon img {
   height: 12px;
   vertical-align: middle;
 }
 .main-container ul li .add-icon {
   width: 12px;
   margin-right: 31%;
+}
+.main-container ul li .play-icon img {
+  width: 10px;
+  margin-left: 23%;
 }
 
 .scroll-container {

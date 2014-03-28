@@ -173,7 +173,7 @@ var Ui = (function(window, document, $){
 
 			//Sets video to normal size
 			if(!_videoSize.normal){
-				console.log("#video-min clicked --ShowNormal triggered");
+
 				showNormalSize();
 
 				_videoSize.normal = !_videoSize.normal;

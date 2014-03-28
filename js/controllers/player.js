@@ -5,10 +5,12 @@ var Player = (function(window, document, $){
 
 
 	//private vars
-	var _player 		= {};
-		_player.playing = false;
+	var _player 			= {};
 
-	var _volume 		= 100;
+	var _playerPlaying      = false;
+	var	_playerNewVideo		= true;
+
+	var _volume = 100;
 
 
 
@@ -54,7 +56,7 @@ var Player = (function(window, document, $){
 			$(document).on('click', '#play-btn', function(){
 
 				//Play if not already playing
-				if(!_player.playing){
+				if(!_playerPlaying){
 
 					play();
 
@@ -80,7 +82,7 @@ var Player = (function(window, document, $){
 				//If Spacebar pressed
 				if(_key.Space){
 					//Play if not already playing
-					if(!_player.playing){
+					if(!_playerPlaying){
 
 						play();
 
@@ -118,6 +120,8 @@ var Player = (function(window, document, $){
 		//LIstens for Player API state change message
 		window.onPlayerStateChange = function(event){
 
+			var id = _player.getVideoData().video_id;
+
 			if (event.data == YT.PlayerState.PLAYING) {
 
 				//Calls updateTime() on regular intervals
@@ -125,10 +129,19 @@ var Player = (function(window, document, $){
 
 		      	//If user plays video from click on video, change play/pause
 		      	$('#play-btn').attr('src', 'images/icons/pause.png');
+
+		      	//Sets list icon play/pause img
+				$('.playIconImg').attr('src', 'images/icons/play-drk.png');
+				$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
+
+
 		    }else{
 
 		    	//If user plays video from click on video, change play/pause
 		    	$('#play-btn').attr('src', 'images/icons/play-wht.png');
+
+		    	//Sets list icon play/pause img
+		    	$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/play-drk.png');
 		    }
 		};
 
@@ -141,12 +154,51 @@ var Player = (function(window, document, $){
 
 
 		//Play icon Click Handler=======//
-		$(document).on('click', '.play-icon', function(){
+		$(document).on('click', '.play-icon', function(event){
 			var id = $(this).attr('data-videoid');
 
-			_player.loadVideoById(id);
+			this.newVideo = _playerNewVideo;
 
-			_player.playing= !_player.playing;
+				//Checks if new video needs to be loaded
+				if(this.newVideo){
+
+					_player.loadVideoById(id);
+
+
+					//sets new video to false & playing to true
+					this.newVideo = !this.newVideo;
+					// _playerNewVideo = !_playerNewVideo;
+
+					_playerPlaying = true;
+
+
+
+				//Runs play w/out loading new video
+				}else{
+
+					//Pause playback handler
+					if(_playerPlaying){
+						//Pause playback
+						pause();
+
+
+
+						_playerPlaying= false;
+
+					}else{
+
+						console.log(id, "NOT new video");
+						play();
+
+
+
+						//sets playing to true
+						_playerPlaying = true;
+					}
+				}
+
+
+
 
 		});
 
@@ -192,8 +244,14 @@ var Player = (function(window, document, $){
 	function updateTime(){
 		var time 	= _player.getCurrentTime();
 		var m 		= Math.floor(time / 60);
-		var secd 	= time % 60;
+		var secd 	= (time % 60) - 1;
 		var s 		= Math.ceil(secd)
+
+		if(s <= 0){
+			s = '00';
+		}else if(s < 10){
+			s = '0' + s;
+		}
 
 		$('#current-time').html(m + ':' + s);
 	}
@@ -205,11 +263,12 @@ var Player = (function(window, document, $){
 	function play(){
 
 		_player.playVideo();
+		// var id = _player.getVideoData().video_id;
 
 		//Updates button ui
 		$('#play-btn').attr('src', 'images/icons/pause.png');
 
-		_player.playing= !_player.playing;
+		_playerPlaying= !_playerPlaying;
 
 	}
 
@@ -222,7 +281,7 @@ var Player = (function(window, document, $){
 		//Updates button ui
 		$('#play-btn').attr('src', 'images/icons/play-wht.png');
 
-		_player.playing = !_player.playing;
+		_playerPlaying = !_playerPlaying;
 	}
 
 
