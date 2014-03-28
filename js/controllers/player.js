@@ -9,6 +9,7 @@ var Player = (function(window, document, $){
 
 	var _playerPlaying      = false;
 	var	_playerNewVideo		= true;
+	var _updateInterval;
 
 	var _volume = 100;
 
@@ -125,11 +126,11 @@ var Player = (function(window, document, $){
 		window.onPlayerStateChange = function(event){
 
 			var id = _player.getVideoData().video_id;
-
-			if (event.data == YT.PlayerState.PLAYING) {
+			console.log(event.data);
+			if (event.data === 1){//Playing code
 
 				//Calls updateTime() on regular intervals
-		      	setInterval(updateTime, 100);
+		      	_updateInterval = setInterval(updateTime, 100);
 
 		      	//If user plays video from click on video, change play/pause
 		      	$('#play-btn').attr('src', 'images/icons/pause.png');
@@ -139,7 +140,11 @@ var Player = (function(window, document, $){
 				$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
 
 
-		    }else{
+		    }else if(event.data < 1){//Paused code
+
+		    	//Clears above update interval
+		    	clearInterval(_updateInterval);
+		    	console.log("!playing called");
 
 		    	//If user plays video from click on video, change play/pause
 		    	$('#play-btn').attr('src', 'images/icons/play-wht.png');
@@ -252,7 +257,7 @@ var Player = (function(window, document, $){
 		var time 	= _player.getCurrentTime();
 		var m 		= Math.floor(time / 60);
 		var secd 	= (time % 60) - 1;
-		var s 		= Math.ceil(secd)
+		var s 		= Math.ceil(secd);
 
 		if(s <= 0){
 			s = '00';
@@ -261,6 +266,16 @@ var Player = (function(window, document, $){
 		}
 
 		$('#current-time').html(m + ':' + s);
+
+
+
+
+
+		var scrubX = Math.floor($('#seek-bar').offset().left + Math.ceil(secd));
+console.log(scrubX);
+
+		//Update scrubber position
+		$('#seek-dot').offset({left: scrubX});
 	}
 
 

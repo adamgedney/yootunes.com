@@ -1274,11 +1274,17 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   line-height: 0px;
 }
 
-.seek-line {
+.seek-line, .seek-fill {
   width: 83.3333333%;
   height: 0px;
-  border-bottom: 1px solid #494f4f;
+  border-bottom: 1px solid #272a2a;
   margin-top: 18px;
+}
+
+.seek-fill {
+  width: 0;
+  border-bottom: 1px solid #cf2425;
+  position: absolute;
 }
 
 #seek-dot {
@@ -1291,13 +1297,13 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   z-index: 10;
   opacity: .9;
   cursor: pointer;
-  border: 1px solid #cf2425;
+  border: 1px solid #494f4f;
 }
 
 #seek-dot:active {
-  width: 21px;
-  height: 21px;
-  top: 8px;
+  width: 18px;
+  height: 18px;
+  top: 10px;
 }
 
 .volume-ctrl {

@@ -14,7 +14,9 @@ var Ui = (function(window, document, $){
 		_seek.seekScrub,
 		_seek.seekBarWidth,
 		_seek.seekBarLeft,
-		_seek.seekBarRight;
+		_seek.seekBarRight
+		_seek.seekFillLeft,
+		_seek.seekFillWidth;
 
 	var _videoSize 			= {};
 		_videoSize.normal 	= false,
@@ -141,6 +143,7 @@ var Ui = (function(window, document, $){
 				_seek.seekBarWidth 	= $('.seek-line').width(),
 				_seek.seekBarLeft 	= $('.seek-line').offset().left,
 				_seek.seekBarRight 	= $('.seek-line').offset().left + _seek.seekBarWidth,
+				_seek.seekFill 		= $('.seek-fill'),
 				_seek.drag 			= true;
 
 			//required to prevent text selection on mouseout of seekBar
@@ -337,7 +340,10 @@ var Ui = (function(window, document, $){
 				}else if(_seek.seekScrub > (_seek.seekBarRight  - $(scrubber).width())){
 					$(scrubber).offset({left: (_seek.seekBarRight - $(scrubber).width())});
 
-				};
+				}
+
+				//Sets seek bar backfill bar width
+				_seek.seekFill.width($(scrubber).offset().left - _seek.seekBarLeft);
 			};
 		});
 	};
