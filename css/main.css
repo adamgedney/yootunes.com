@@ -733,6 +733,7 @@ aside.app .video-size-ctrl {
   z-index: 1001;
   height: 27px;
   text-align: right;
+  border-bottom: 1px solid #272a2a;
 }
 aside.app .video-size-ctrl svg {
   height: 27px;

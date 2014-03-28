@@ -131,7 +131,7 @@ var Content = (function(window, document, $){
 	function loadLibrary(){
 		var src 		= '/js/views/library.html',
 			id 			= '#libraryItem',
-			appendTo 	= '#libraryWrapper';
+			appendTo 	= '.scroll-container';
 
 			data 	 	= {
 				song	: [{id: '0', videoid: 'nAo7SyrTCmY', title: 'Black Dog', artist: 'Led Zeppelin', album: 'Led Zeppelin I', genre: 'rock', length: '7:01', desc: 'Lorem ipsum dolor sit amet', thumb: 'http://img.youtube.com/vi/nAo7SyrTCmY/default.jpg', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
@@ -161,6 +161,27 @@ var Content = (function(window, document, $){
 			};
 
 			render(src, id, appendTo, data);
+	}
+
+
+
+
+
+
+
+
+
+	function loadAcctSettings(){
+		var src 		= '/js/views/acctSettings.html',
+			id 			= '#acctSettings',
+			appendTo 	= '.scroll-container';
+
+			data 	 	= {
+				test	: ''
+			};
+
+
+		render(src, id, appendTo, data);
 	}
 
 

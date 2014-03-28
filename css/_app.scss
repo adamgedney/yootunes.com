@@ -96,6 +96,7 @@ aside.app{
 		z-index:1001;
 		height: 27px;
 		text-align: right;
+		border-bottom: 1px solid nth($grey, 1);
 
 		svg{
 			height: 27px;

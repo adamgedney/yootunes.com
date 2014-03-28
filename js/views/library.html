@@ -1,8 +1,10 @@
 <div>
 	<script id="libraryItem" type="text/x-handlebars-template">
 
-{{#each song}}
+	<ul id="libraryWrapper">
 
+
+		{{#each song}}
 
 		<li class="li-group"><!-- list item group-->
 			<span data-videoId="{{videoid}}" class="li-col1 play-icon" title="start playing from here">
@@ -118,11 +120,10 @@
 					</li>
 				</ul>
 		</li>
+	{{/each}}
 
 
-{{/each}}
-
-
+	</ul>
 
 
 
