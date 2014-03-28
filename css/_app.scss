@@ -348,16 +348,16 @@ section.app{
 	}
 
 	input[type="text"]::-webkit-input-placeholder { /* WebKit browsers */
-	    color: nth($grey, 5);
+	    color: nth($grey, 4);
 	}
 	input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	    color: nth($grey, 5);
+	    color: nth($grey, 4);
 	}
 	input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
-	    color: nth($grey, 5);
+	    color: nth($grey, 4);
 	}
 	input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
-	    color: nth($grey, 5);
+	    color: nth($grey, 4);
 	}
 }
 

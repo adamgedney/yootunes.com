@@ -914,19 +914,19 @@ section.app {
 }
 .search input[type="text"]::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #e2e2e2;
+  color: #d6d6d6;
 }
 .search input[type="text"]:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #e2e2e2;
+  color: #d6d6d6;
 }
 .search input[type="text"]::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #e2e2e2;
+  color: #d6d6d6;
 }
 .search input[type="text"]:-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #e2e2e2;
+  color: #d6d6d6;
 }
 
 .main-container ul {

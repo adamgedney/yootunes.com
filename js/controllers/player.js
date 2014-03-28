@@ -92,6 +92,10 @@ var Player = (function(window, document, $){
 						pause();
 					}
 				}
+
+				event.preventDefault();
+				return false;
+
 			});
 
 

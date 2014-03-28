@@ -1,5 +1,5 @@
 3.2.9 (Media Mark)
-f00f3783de7390273394ca852e1e1771dfe526b8
+39652535d404a74f53d34dbb08694ddd7c657ede
 o:Sass::Tree::RootNode
 :@template"2//*
 	Thanks for checking out my code!!
@@ -351,16 +351,16 @@ section.app{
 	}
 
 	input[type="text"]::-webkit-input-placeholder { /* WebKit browsers */
-	    color: nth($grey, 5);
+	    color: nth($grey, 4);
 	}
 	input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	    color: nth($grey, 5);
+	    color: nth($grey, 4);
 	}
 	input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
-	    color: nth($grey, 5);
+	    color: nth($grey, 4);
 	}
 	input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
-	    color: nth($grey, 5);
+	    color: nth($grey, 4);
 	}
 }
 
@@ -1094,29 +1094,25 @@ input; @w;iZ;)0o;*;["	type;[""submit"; @w;+0;iZ;)0;,"=o;-
 hover;	;.; @w;iZ;/0;0To;;i ;[o;
 ;	;
 ;[ ;["/* WebKit browsers */;@;i^o;;i ;["
-color;[ ;o;;"nth;@;{ ;i_;0;[o;	;"	grey;"	grey;@;i_o;2;i
-;@;3@ƒ;i_;4[ ;5"5;@;i_;;;@;["2input[type="text"]::-webkit-input-placeholder;i^;o;; " ;i^;![o;";![o;#
+color;[ ;o;;"nth;@;{ ;i_;0;[o;	;"	grey;"	grey;@;i_o;2;i	;@;3@ƒ;i_;4[ ;5"4;@;i_;;;@;["2input[type="text"]::-webkit-input-placeholder;i^;o;; " ;i^;![o;";![o;#
 ;$0; @¢;%o;&;'{ ;i^;![o;(	;["
 input; @¢;i^;)0o;*;["	type;[""text"; @¢;+0;i^;)0;,"=o;-
 ;["-webkit-input-placeholder;	;;; @¢;i^;/0;0To;;i ;[o;
 ;	;
 ;[ ;[""/* Mozilla Firefox 4 to 18 */;@;iao;;i ;["
-color;[ ;o;;"nth;@;{ ;ib;0;[o;	;"	grey;"	grey;@;ibo;2;i
-;@;3@ƒ;ib;4[ ;5"5;@;ib;;;@;["(input[type="text"]:-moz-placeholder;ia;o;; " ;ia;![o;";![o;#
+color;[ ;o;;"nth;@;{ ;ib;0;[o;	;"	grey;"	grey;@;ibo;2;i	;@;3@ƒ;ib;4[ ;5"4;@;ib;;;@;["(input[type="text"]:-moz-placeholder;ia;o;; " ;ia;![o;";![o;#
 ;$0; @Í;%o;&;'{ ;ia;![o;(	;["
 input; @Í;ia;)0o;*;["	type;[""text"; @Í;+0;ia;)0;,"=o;-
 ;["-moz-placeholder;	;.; @Í;ia;/0;0To;;i ;[o;
 ;	;
 ;[ ;["/* Mozilla Firefox 19+ */;@;ido;;i ;["
-color;[ ;o;;"nth;@;{ ;ie;0;[o;	;"	grey;"	grey;@;ieo;2;i
-;@;3@ƒ;ie;4[ ;5"5;@;ie;;;@;[")input[type="text"]::-moz-placeholder;id;o;; " ;id;![o;";![o;#
+color;[ ;o;;"nth;@;{ ;ie;0;[o;	;"	grey;"	grey;@;ieo;2;i	;@;3@ƒ;ie;4[ ;5"4;@;ie;;;@;[")input[type="text"]::-moz-placeholder;id;o;; " ;id;![o;";![o;#
 ;$0; @ø;%o;&;'{ ;id;![o;(	;["
 input; @ø;id;)0o;*;["	type;[""text"; @ø;+0;id;)0;,"=o;-
 ;["-moz-placeholder;	;;; @ø;id;/0;0To;;i ;[o;
 ;	;
 ;[ ;[" /* Internet Explorer 10+ */;@;igo;;i ;["
-color;[ ;o;;"nth;@;{ ;ih;0;[o;	;"	grey;"	grey;@;iho;2;i
-;@;3@ƒ;ih;4[ ;5"5;@;ih;;;@;["-input[type="text"]:-ms-input-placeholder;ig;o;; " ;ig;![o;";![o;#
+color;[ ;o;;"nth;@;{ ;ih;0;[o;	;"	grey;"	grey;@;iho;2;i	;@;3@ƒ;ih;4[ ;5"4;@;ih;;;@;["-input[type="text"]:-ms-input-placeholder;ig;o;; " ;ig;![o;";![o;#
 ;$0; @#;%o;&;'{ ;ig;![o;(	;["
 input; @#;ig;)0o;*;["	type;[""text"; @#;+0;ig;)0;,"=o;-
 ;["-ms-input-placeholder;	;.; @#;ig;/0;0T;@;[".search;i9;o;; " ;i9;![o;";![o;#
