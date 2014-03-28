@@ -2,8 +2,8 @@
 var Content = (function(window, document, $){
 
 	//Instances
-	var _library 	= new Library();
-	var _user		= new User();
+	// var _library 	= new Library();
+	// var _user		= new User();
 
 
 	//private vars
@@ -15,6 +15,61 @@ var Content = (function(window, document, $){
 	//constructor method
 	var content = function(){
 
+
+
+
+		//Acct Settings page load interaction=========//
+		$(document).on('click', '#acctSettings', function(event){
+
+			loadAcctSettings();
+		});
+
+
+
+
+		//Device Settings page load interaction=========//
+		$(document).on('click', '#deviceSettings', function(event){
+
+			loadDeviceSettings();
+		});
+
+
+
+
+		//Songs library page load interaction=========//
+		$(document).on('click', '#viewSongs', function(event){
+
+			loadLibrary();
+		});
+
+
+
+
+		//Artists library page load interaction=========//
+		$(document).on('click', '#viewArtists', function(event){
+
+			loadLibrary();
+		});
+
+
+
+
+		//Albums library page load interaction=========//
+		$(document).on('click', '#viewAlbums', function(event){
+
+			loadLibrary();
+		});
+
+
+
+
+
+
+
+
+
+
+
 	};//constructor function
 	//================================//
 
@@ -23,10 +78,10 @@ var Content = (function(window, document, $){
 
 	//methods and properties.
 	content.prototype = {
-		constructor 	: content,
-		loadApp 		: loadApp,
-		loadPlaylists	: loadPlaylists,
-		loadLibrary 	: loadLibrary
+		constructor 		: content,
+		loadApp 			: loadApp,
+		loadPlaylists		: loadPlaylists,
+		loadLibrary 		: loadLibrary
 	};
 
 
@@ -192,6 +247,26 @@ var Content = (function(window, document, $){
 
 
 
+	function loadDeviceSettings(){
+		var src 		= '/js/views/deviceSettings.html',
+			id 			= '#deviceSettings',
+			appendTo 	= '.scroll-container';
+
+			data 	 	= {
+				test	: ''
+			};
+
+
+		render(src, id, appendTo, data);
+	}
+
+
+
+
+
+
+
+
 
 
 	function render(src, id, appendTo, data){
@@ -204,6 +279,8 @@ var Content = (function(window, document, $){
 			var html 		= template(data);
 
 
+			//Clear append container
+			$(appendTo).empty();
 
 			//Appends template into Wrapper on DOM
 			$(appendTo).append(html);

@@ -2,7 +2,9 @@ var Ui = (function(window, document, $){
 
 
 	//Instances
-	var _key = new KeyHash();
+	var _key 		= new KeyHash();
+	var _content 	= new Content();
+
 
 
 	//private vars
@@ -13,7 +15,6 @@ var Ui = (function(window, document, $){
 		_seek.seekBarWidth,
 		_seek.seekBarLeft,
 		_seek.seekBarRight;
-
 
 	var _videoSize 			= {};
 		_videoSize.normal 	= false,
@@ -125,6 +126,8 @@ var Ui = (function(window, document, $){
 				}
 			});
 		});
+
+
 
 
 
