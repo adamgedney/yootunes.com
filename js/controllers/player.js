@@ -1,7 +1,7 @@
 var Player = (function(window, document, $){
 
 	//Instances
-	var _key 		= new KeyHash();
+	var _key = new KeyHash();
 
 
 	//private vars
@@ -10,8 +10,11 @@ var Player = (function(window, document, $){
 	var _playerPlaying      = false;
 	var	_playerNewVideo		= true;
 	var _updateInterval;
+	var _seek 				= {};
+		_seek.lastM			= 0,
+		_seek.scrubber		= '#seek-dot';
 
-	var _volume = 100;
+	var _volume 			= 100;
 
 
 
@@ -269,13 +272,21 @@ var Player = (function(window, document, $){
 
 
 
+		//Scrub incrementer
+		var incrementer = Math.ceil(secd);
 
+		if(_seek.lastM !== m){
+			incrementer += 60;
+		}
 
-		var scrubX = Math.floor($('#seek-bar').offset().left + Math.ceil(secd));
-console.log(scrubX);
+		var scrubX = Math.floor($('#seek-bar').offset().left + incrementer);
 
 		//Update scrubber position
 		$('#seek-dot').offset({left: scrubX});
+
+
+		//Sets seek bar backfill bar width
+		$('.seek-fill').width($('#seek-dot').offset().left - $('.seek-line').offset().left);
 	}
 
 
