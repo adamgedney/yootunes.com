@@ -183,6 +183,9 @@ var Content = (function(window, document, $){
 							{id: '3205', title: 'Analogue Bubblebath'}]
 			};
 
+			//Shows column headers
+			$('.li-header').show();
+
 
 		render(src, id, appendTo, data);
 	}
@@ -228,7 +231,10 @@ var Content = (function(window, document, $){
 							{id: '332', videoid: 'idSQ3hSLZ8Q', title: 'Big Dog', artist: 'Lead Zebra', album: 'Zeppelin IV', genre: 'country', length: '6:52', desc: 'Lorem ipsum dolor sit amet', thumb: 'https://i1.ytimg.com/vi_webp/x_VHwJWBorA/default.webp', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},]
 			};
 
-			render(src, id, appendTo, data);
+			//Shows column headers
+			$('.li-header').show();
+
+		render(src, id, appendTo, data);
 	}
 
 
@@ -248,6 +254,8 @@ var Content = (function(window, document, $){
 				test	: ''
 			};
 
+			//Hides column headers
+			$('.li-header').hide();
 
 		render(src, id, appendTo, data);
 	}
@@ -269,6 +277,8 @@ var Content = (function(window, document, $){
 				test	: ''
 			};
 
+			//Hides column headers
+			$('.li-header').hide();
 
 		render(src, id, appendTo, data);
 	}
