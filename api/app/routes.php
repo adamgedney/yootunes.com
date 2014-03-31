@@ -12,7 +12,18 @@
 */
 
 
-Route::get('welcome', 'HomeController@index');
+//User routes
+Route::get('register', 'UserController@registerUser');
+
+Route::get('get-user', 'UserController@getUser');
+
+Route::get('get-users', 'UserController@getUsers');
+
+Route::get('update-user', 'UserController@updateUser');
+
+Route::get('delete-user', 'UserController@deleteUser');
+
+Route::get('reset-user-password', 'UserController@resetUserPassword');
 
 
 //http://localhost/controller/method/arguments
