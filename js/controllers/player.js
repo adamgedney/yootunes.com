@@ -12,7 +12,8 @@ var Player = (function(window, document, $){
 	var _updateInterval;
 	var _seek 				= {};
 		_seek.lastM			= 0,
-		_seek.scrubber		= '#seek-dot';
+		_seek.scrubber		= '#seek-dot',
+		_seek.stepper		= 0;
 
 	var _volume 			= 100;
 
@@ -272,14 +273,26 @@ var Player = (function(window, document, $){
 
 
 
-		//Scrub incrementer
-		var incrementer = Math.ceil(secd);
 
-		if(_seek.lastM !== m){
-			incrementer += 60;
+var duration = _player.getDuration();
+
+var complete = (Math.floor(duration - time) / 60) / 60;
+
+		//Adds 60 to incrementer for each m
+		if(m !== 0 && _seek.lastM !== m){
+			_seek.stepper += 60;
+
+			_seek.lastM = m;
+
 		}
 
+		//Scrub incrementer
+		var incrementer = (Math.ceil(secd) + _seek.stepper);
+
+//Try bar left - scrub offset left divided by duration???
+		//Scrub position calculator
 		var scrubX = Math.floor($('#seek-bar').offset().left + incrementer);
+console.log(incrementer);
 
 		//Update scrubber position
 		$('#seek-dot').offset({left: scrubX});

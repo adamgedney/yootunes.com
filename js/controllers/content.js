@@ -63,6 +63,15 @@ var Content = (function(window, document, $){
 
 
 
+		//Genres library page load interaction=========//
+		$(document).on('click', '#viewGenres', function(event){
+
+			loadLibrary();
+		});
+
+
+
+
 		//Playlist page load interaction=========//
 		$(document).on('click', '.playlistTitle', function(event){
 

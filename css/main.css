@@ -1209,6 +1209,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 25%;
   float: left;
   overflow: hidden;
+  border-right: 1px solid #272a2a;
 }
 .info ul {
   float: left;
@@ -1229,7 +1230,13 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 8.33333333%;
   float: left;
   overflow: hidden;
-  height: 18px;
+  height: 100%;
+  border-right: 1px solid #272a2a;
+}
+.transport-ctrl svg, .transport-ctrl img {
+  width: 33.3333333%;
+  float: left;
+  cursor: pointer;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -1238,11 +1245,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.transport-ctrl svg, .transport-ctrl img {
-  width: 33.3333333%;
-  float: left;
-  cursor: pointer;
-}
 .transport-ctrl .play {
   max-height: 17px;
   max-width: 17px;
@@ -1250,7 +1252,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 .transport-ctrl .prev, .transport-ctrl .next {
   max-height: 12px;
-  margin-top: 3px;
+  margin-top: 1px;
 }
 
 .seek-ctrl {
@@ -1276,6 +1278,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 .seek-line, .seek-fill {
   width: 83.3333333%;
+  margin-left: 8.33333335%;
+  margin-right: 8.33333335%;
   height: 0px;
   border-bottom: 1px solid #272a2a;
   margin-top: 18px;
@@ -1307,10 +1311,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .volume-ctrl {
-  width: 16.6666667%;
+  width: 8.33333333%;
   float: left;
   height: 100%;
-  padding-right: 10%;
+  border-left: 1px solid #272a2a;
+  border-right: 1px solid #272a2a;
 }
 .volume-ctrl .vol-icon {
   height: 24px;
@@ -1332,13 +1337,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .playing-share-ctrl {
   width: 8.33333333%;
   float: left;
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  height: 100%;
+  border-right: 1px solid #272a2a;
+}
+.playing-share-ctrl svg {
+  margin-top: 18%;
 }
 
 .playon-ctrl {
