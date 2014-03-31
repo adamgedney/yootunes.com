@@ -49,7 +49,7 @@ Route::get('reset-client-password', 'ClientController@resetClientPassword');
 
 
 //Search routes===========================//
-Route::get('search', 'SearchController@search');
+Route::get('search/{willYou}', 'SearchController@search');
 
 
 

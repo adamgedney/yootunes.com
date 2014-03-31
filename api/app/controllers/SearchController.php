@@ -4,11 +4,20 @@ class SearchController extends BaseController {
 
 
 
-	public function search()
+	public function search($willYou)
 	{
 		$array = array(
-			"success"=>true,
-			"really?"=>'yes!');
+			"I love pickle"=>true,
+			"Pickle loves me?"=>'yes!',
+			"Will you marry me?"=>'false');
+
+		if($willYou == 'true'){
+
+			$array = "Hooray!!!";
+
+		}else{
+			$array = "This sucks!";
+		}
 
 		return json_encode($array);
 	}
