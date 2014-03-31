@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends BaseController {
+class DevicesController extends BaseController {
 
 
 	public function index()

@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/', function()
-{
 
-});
+Route::get('welcome', 'HomeController@index');
+
+
+//http://localhost/controller/method/arguments
+// Route::get('/', function()
+// {
+
+// });
