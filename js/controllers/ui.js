@@ -32,7 +32,6 @@ var Ui = (function(window, document, $){
 
 
 
-
 		//Stop propagation on children of main menu====//
 		$(document).on('click', 'li', function(event){
 			event.stopPropagation();

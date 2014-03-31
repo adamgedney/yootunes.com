@@ -3,7 +3,7 @@
 class UserController extends BaseController {
 
 
-	public function registerUser()
+	public function newUser()
 	{
 		return "register";
 	}
@@ -47,5 +47,48 @@ class UserController extends BaseController {
 	{
 		return "Testing route";
 	}
+
+
+
+
+
+	//Devices====================//
+	public function newDevice()
+	{
+		return "Testing route";
+	}
+
+
+
+
+	public function getDevice()
+	{
+		return "Testing route";
+	}
+
+
+
+
+	public function getDevices()
+	{
+		return "Testing route";
+	}
+
+
+
+
+	public function deleteDevice()
+	{
+		return "Testing route";
+	}
+
+
+
+
+
+
+
+
+
 
 }
