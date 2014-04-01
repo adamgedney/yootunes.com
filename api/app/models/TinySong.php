@@ -4,8 +4,6 @@
 
 class TinySong extends Eloquent{
 
-	//Table used by Model
-	protected $table = 'tinysong';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -19,18 +17,23 @@ class TinySong extends Eloquent{
 
 
 	//Set the query results to database
-	public function setResults($query, $url, $songId, $songName, $artistId, $artistName, $albumId, $albumName)
+	public static function setResults($query, $tinyResponse)
 	{
-		DB::table('name')->insert(array('query' => $query, 'url' => $url, 'song-id' => $songId, 'song_name' => $songName, 'artist_id' => $artistId, 'artist_name' => $artistName, 'album_id' => $albumId, 'album_name' => $albumName ));
 
 
-		return $this->getKey();
+		foreach(json_decode($tinyResponse) as $result){
+			$insert = DB::table('tinysong')->insert(array('query' => $query, 'url' => $result->Url, 'song_id' => $result->SongID, 'song_name' => $result->SongName, 'artist_id' => $result->ArtistID, 'artist_name' => $result->ArtistName, 'album_id' => $result->AlbumID, 'album_name' => $result->AlbumName ));
+
+		}
+
+
+		// return $insert;
 	}
 
 
 
 	//Get the results for a query form database
-	public function getResults($query)
+	public static function getResults($query)
 	{
 		return $this->getKey();
 	}

@@ -67,6 +67,11 @@ class SearchController extends BaseController {
 
 
 
+		//Insert query results into database for future searches
+		//$query, $url, $songId, $songName, $artistId, $artistName, $albumId, $albumName
+		$t = TinySong::setResults($query, $tinyResponse);
+
+		var_dump($t);
 
 
 		return $tinyResponse;
