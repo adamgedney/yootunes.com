@@ -4,22 +4,27 @@ class SearchController extends BaseController {
 
 
 
-	public function search($willYou)
+	public function search($q)
 	{
-		$array = array(
-			"I love pickle"=>true,
-			"Pickle loves me?"=>'yes!',
-			"Will you marry me?"=>'false');
 
-		if($willYou == 'true'){
+		//Build logic to check if search query was artist, album, or song title
+		$response = json_decode($this->getGrooveshark($q));
 
-			$array = "Hooray!!!";
+		$r = $response;
 
-		}else{
-			$array = "This sucks!";
+		//Check if query was an artist name, album, or song
+		if(strtolower($response[0]->ArtistName) == $q){
+			$r = $response[0]->ArtistName . "  artist";
+
+		}else if(strtolower($response[0]->AlbumName) == $q){
+			$r = $response[0]->AlbumName . "  album";
+
+		}else if(strtolower($response[0]->SongName) == $q){
+			$r = $response[0]->SongName . "  song";
 		}
 
-		return json_encode($array);
+		// return json_encode($response);
+		return $r;
 	}
 
 
@@ -45,7 +50,26 @@ class SearchController extends BaseController {
 
 
 
-	public function getGrooveshark(){
+	public function getGrooveshark($query){
+
+		//Grooveshark API key
+		$tinyAPIKey = '6ab1c1e7fdf25492f84948a6514238dc';
+
+		//Format string to strip spaces and add "+"
+		$queryExplode = explode(" ", $query);
+		$queryImplode = implode("+", $queryExplode);
+
+		//API Url
+		$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=30&key=" . (string)$tinyAPIKey;
+
+		//Query API -Returns JSON
+		$tinyResponse = file_get_contents($tinyQuery);
+
+
+
+
+
+		return $tinyResponse;
 
 	}
 
