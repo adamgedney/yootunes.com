@@ -5,8 +5,10 @@ class SearchController extends BaseController {
 
 
 
+
 	public function search($q)
 	{
+
 
 		//===================//
 		//Begin search cascade
@@ -17,7 +19,7 @@ class SearchController extends BaseController {
 		$queryLocalTinySong = $this->queryLocalTinySong($q);
 
 
-
+		//Write:  if querylocaltinysong null, getTinySong, then re run the query local.
 
 		//Local tinysong NULL
 		if($queryLocalTinySong == 'null tinysong response'){
@@ -25,30 +27,28 @@ class SearchController extends BaseController {
 			//If this is the first time query has been run, hit API
 			$response = json_decode($this->getTinySong($q));
 
-			//Determines query type -song, artist, album
-			$typedQuery = $this->checkTypeTinyAPI($q, $response);
+		}else{
 
-			//Fetches youtube results based on refined query
-			$youtubeResults = $this->fetchYouTube($typedQuery);
-
-		//=========================//
-		}else{//local tinysong !NULL
-		//=========================//
-
-			//Determines query type -song, artist, album
-			$typedQuery = $this->checkTypeTinyDB($q, $queryLocalTinySong);
-
-			//Fetches youtube results based on refined query
-			$youtubeResults = $this->fetchYouTube($typedQuery['typedQuery']);
-
-			//run only if song didn't already exist in song table
-			foreach($youtubeResults as $yt){
-				$insert = Library::setSong($queryLocalTinySong[0], $yt, $typedQuery['type']);
-			}
-
+			// $this->mergeData($q, $queryLocalTinySong);
+			return "successful data merge";
 		}
 
-		return $typedQuery;
+
+		// //Listen for tinysong results to exist in database
+		// Event::listen('tiny.saved', function(){
+
+		// 	//Run again to pull now local results
+		// 	// $queryLocalTinySong = $this->queryLocalTinySong($q);
+		// 	// $this->mergeData($q, $queryLocalTinySong);
+
+		// 	echo "successful event listener";
+
+		// });
+
+
+
+
+
 	}
 
 
@@ -66,9 +66,35 @@ class SearchController extends BaseController {
 	//================//
 
 
-	public function logSearch()
+	public static function tinySaved($query)
 	{
-		return "Testing route";
+		//Run again to pull now local results
+		// $queryLocalTinySong = SearchController::queryLocalTinySong($query);
+		// SearchController::mergeData($query, $queryLocalTinySong);
+
+		return "event triggered function";
+	}
+
+
+
+
+
+
+
+
+
+	public static function mergeData($q, $queryLocalTinySong){
+
+		//Determines query type -song, artist, album
+		$typedQuery = $this->checkTypeTinyDB($q, $queryLocalTinySong);
+
+		//Fetches youtube results based on refined query
+		$youtubeResults = $this->fetchYouTube($typedQuery['typedQuery']);
+
+		//*******************************************run only if song didn't already exist in song table
+		foreach($youtubeResults as $yt){
+			$insert = Library::setSong($queryLocalTinySong[0], $yt, $typedQuery['type']);
+		}
 	}
 
 
@@ -166,6 +192,7 @@ class SearchController extends BaseController {
 
 		//Error handling for insert
 		if($inserted){
+
 			return $tinyResponse;
 
 		}else{
@@ -184,7 +211,7 @@ class SearchController extends BaseController {
 
 
 
-	public function queryLocalTinySong($query){
+	public static function queryLocalTinySong($query){
 
 		//Calls Model to search DB for query
 		$results = TinySong::getResults($query);
@@ -322,7 +349,7 @@ class SearchController extends BaseController {
 
 		}else{//Failsafe assumes song title
 
-			$typedQuery = $response[0]->song_name;
+			$typedQuery = $response[0]->SongName;
 		}
 
 		return $typedQuery;

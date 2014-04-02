@@ -1,7 +1,10 @@
 <?php
 
 
+
 class TinySong extends Eloquent{
+
+
 
 
 
@@ -9,13 +12,14 @@ class TinySong extends Eloquent{
 	//Set the query results to database
 	public static function setResults($query, $tinyResponse)
 	{
-		$insert = null;
 
 		//Loop through tinysong reult json and insert into database
 		foreach(json_decode($tinyResponse) as $result){
 			$insert = DB::table('tinysong_results')->insert(array('query' => $query, 'url' => $result->Url, 'song_id' => $result->SongID, 'song_name' => $result->SongName, 'artist_id' => $result->ArtistID, 'artist_name' => $result->ArtistName, 'album_id' => $result->AlbumID, 'album_name' => $result->AlbumName ));
 
 		}
+
+		Event::fire('tiny.saved', $query);
 
 		//Return boolean for success/fail
 		return $insert;

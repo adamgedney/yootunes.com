@@ -79,3 +79,28 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+
+
+
+
+
+
+//Register events
+//Listen for tinysong results to exist in database
+Event::listen('tiny.saved', function($query){
+
+
+	SearchController::tinySaved($query);
+
+	echo "successful event listener";
+
+});
+
+
+
+
+
+
+
+

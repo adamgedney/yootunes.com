@@ -8,62 +8,70 @@ class Library extends Eloquent{
 	{
 
 
+		//** Create a loop to loop through ALL tinyData results on the query to check for song titles etc..
+
+
+		$songFilter = $tinyData->song_name;
+		$artistFilter = $tinyData->artist_name;
+		$albumFilter = $tinyData->album_name;
+
 		$song = '';
 		$artist = '';
 		$album = '';
 
-		//Determine accurate data where available
-		if($type == "artist"){
-
-			$artist = $tinyData->artist_name;
-
-		}else if($type == "album"){
-
-			$album = $tinyData->album_name;
-
-		}else{//type == song
-
-			$song = $tinyData->song_name;
-		}
 
 
-		//==============================================//
+		//=======================Assumptions Engine=======================//
 		//Searches title and description for additional metadata.
 		//Song titles and artists are not searched by description as
 		//Track lists could exist in descriptions. Album seems to be a
 		//safe search in desctiption.
+		$songCheckTitle = strpos(strtolower($ytResult->title), strtolower($songFilter));
+		$artistCheckTitle = strpos(strtolower($ytResult->title), strtolower($artistFilter));
+		$artistCheckDesc = strpos(strtolower($ytResult->description), strtolower($artistFilter));
+		$albumCheckTitle = strpos(strtolower($ytResult->title), strtolower($tinyData->album_name));
+		$albumCheckDesc = strpos(strtolower($ytResult->description), strtolower($tinyData->album_name));
 
 
-		//Search YouTube title for SONG name string
-		//Assume this is a result of that song
-		$songCheck = strpos($ytResult->title, $tinyData->song_name);
-		if($songCheck != false){
-			$song = $tinyData->song_name;
+
+		//**Song names check requires more to prove this result is the correct song
+		//Search YouTube TITLE for SONG name & ARTIST name
+		if($songCheckTitle != false && $artistCheckTitle != false){
+			$song = $songFilter;
+			$artist = $artistFilter;
+		}
+
+		//Search YouTube TITLE & DESC for SONG name & ARTIST name
+		if($songCheckTitle != false && $artistCheckDesc != false){
+			$song = $songFilter;
+			$artist = $artistFilter;
 		}
 
 
-		//Search YouTube title for ARTIST name string
-		//Assume this is a result form that artist
-		$artistCheck = strpos($ytResult->title, $tinyData->artist_name);
-		if($artistCheck != false){
-			$artist = $tinyData->artist_name;
+		//Search YouTube TITLE for ARTIST name string
+		if($artistCheckTitle != false){
+			$artist = $artistFilter;
 		}
 
 
-		//Search YouTube description & title for ALBUM name string
-		//Assume this is a result from that album
-		$albumCheckTitle = strpos($ytResult->title, $tinyData->album_name);
-		$albumCheckDesc = strpos($ytResult->description, $tinyData->album_name);
+		//Search YouTube DESC for ARTIST name string
+		if($artistCheckDesc != false){
+			$artist = $artistFilter;
+		}
+
+
+		//Search YouTube TITLE or DESC for ALBUM name string
 		if($albumCheckTitle != false || $albumCheckDesc != false){
-			$album = $tinyData->album_name;
+			$album = $albumFilter;
 		}
 
 
 
 
 
-
-		//Insert merged data into table
+		//===========================================//
+		//Insert merged data into table==============//
+		//===========================================//
 		$insert = DB::table('songs')->insert(array(
 			'query' => $ytResult->query,
 			'song_title' => $song,
