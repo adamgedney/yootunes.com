@@ -1,18 +1,7 @@
 <?php
 
-//Removed implements auth from here
 
 class TinySong extends Eloquent{
-
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	// protected $hidden = array('password');
-	//Might not need the above
-
 
 
 
@@ -20,22 +9,24 @@ class TinySong extends Eloquent{
 	public static function setResults($query, $tinyResponse)
 	{
 
-
+		//Loop through tinysong reult json and insert into database
 		foreach(json_decode($tinyResponse) as $result){
 			$insert = DB::table('tinysong')->insert(array('query' => $query, 'url' => $result->Url, 'song_id' => $result->SongID, 'song_name' => $result->SongName, 'artist_id' => $result->ArtistID, 'artist_name' => $result->ArtistName, 'album_id' => $result->AlbumID, 'album_name' => $result->AlbumName ));
 
 		}
 
-
-		// return $insert;
+		//Return boolean for success/fail
+		return $insert;
 	}
 
 
 
-	//Get the results for a query form database
+	//Get the results for a query from database
 	public static function getResults($query)
 	{
-		return $this->getKey();
+		$results = DB::table('tinysong')->where('query', '=', $query)->get();
+
+		return json_encode($results);
 	}
 
 

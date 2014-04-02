@@ -7,24 +7,33 @@ class SearchController extends BaseController {
 	public function search($q)
 	{
 
-		//Build logic to check if search query was artist, album, or song title
-		$response = json_decode($this->getGrooveshark($q));
+		//First checks the tinysong table in my DB for query.
+		//If found, display results, else hit the tinysong api & store result
+		$queryLocalTinySong = $this->queryLocalTinySong($q);
 
-		$r = $response;
+		if($queryLocalTinySong->response == 'null'){
 
-		//Check if query was an artist name, album, or song
-		if(strtolower($response[0]->ArtistName) == $q){
-			$r = $response[0]->ArtistName . "  artist";
+			//Logic to check if search query was artist, album, or song title
+			$response = json_decode($this->getGrooveshark($q));
 
-		}else if(strtolower($response[0]->AlbumName) == $q){
-			$r = $response[0]->AlbumName . "  album";
+			$what = $response;
 
-		}else if(strtolower($response[0]->SongName) == $q){
-			$r = $response[0]->SongName . "  song";
+			//Check if query was an artist name, album, or song
+			if(strtolower($response[0]->ArtistName) == $q){
+				$what = $response[0]->ArtistName . "  artist";
+
+			}else if(strtolower($response[0]->AlbumName) == $q){
+				$what = $response[0]->AlbumName . "  album";
+
+			}else if(strtolower($response[0]->SongName) == $q){
+				$what = $response[0]->SongName . "  song";
+			}
+
+			return $response;
+
+		}else{
+			return $queryLocalTinySong;
 		}
-
-		// return json_encode($response);
-		return $r;
 	}
 
 
@@ -60,7 +69,7 @@ class SearchController extends BaseController {
 		$queryImplode = implode("+", $queryExplode);
 
 		//API Url
-		$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=30&key=" . (string)$tinyAPIKey;
+		$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&key=" . (string)$tinyAPIKey;
 
 		//Query API -Returns JSON
 		$tinyResponse = file_get_contents($tinyQuery);
@@ -69,14 +78,42 @@ class SearchController extends BaseController {
 
 		//Insert query results into database for future searches
 		//$query, $url, $songId, $songName, $artistId, $artistName, $albumId, $albumName
-		$t = TinySong::setResults($query, $tinyResponse);
-
-		var_dump($t);
+		$inserted = TinySong::setResults($query, $tinyResponse);
 
 
-		return $tinyResponse;
+		//Error handling for insert
+		if($inserted){
+			return $tinyResponse;
+
+		}else{
+
+			$error = array('error'=>'failed to insert tinysong results into database');
+			return json_encode($error);
+		}
+
+
+
 
 	}
+
+
+
+
+	public function queryLocalTinySong($query){
+
+		//Calls Model to search DB for query
+		$results = TinySong::getResults($query);
+
+		//Handle NULL result or return response
+		if($results != NULL){
+			return $results;
+		}else{
+			$error = array('response'=>'null');
+			return json_encode($error);
+		}
+	}
+
+
 
 
 
