@@ -12,7 +12,7 @@ class TinySong extends Eloquent{
 
 		//Loop through tinysong reult json and insert into database
 		foreach(json_decode($tinyResponse) as $result){
-			$insert = DB::table('tinysong')->insert(array('query' => $query, 'url' => $result->Url, 'song_id' => $result->SongID, 'song_name' => $result->SongName, 'artist_id' => $result->ArtistID, 'artist_name' => $result->ArtistName, 'album_id' => $result->AlbumID, 'album_name' => $result->AlbumName ));
+			$insert = DB::table('tinysong_results')->insert(array('query' => $query, 'url' => $result->Url, 'song_id' => $result->SongID, 'song_name' => $result->SongName, 'artist_id' => $result->ArtistID, 'artist_name' => $result->ArtistName, 'album_id' => $result->AlbumID, 'album_name' => $result->AlbumName ));
 
 		}
 
@@ -30,7 +30,7 @@ class TinySong extends Eloquent{
 		$resultArray = array();
 
 		//Query DB on "query"
-		$results = DB::table('tinysong')->where('query', '=', $query)->get();
+		$results = DB::table('tinysong_results')->where('query', '=', $query)->get();
 
 		foreach($results as $r){
 			array_push($resultArray, $r);

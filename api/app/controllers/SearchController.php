@@ -8,7 +8,10 @@ class SearchController extends BaseController {
 	public function search($q)
 	{
 
-		//Step 1.
+		//===================//
+		//Begin search cascade
+		//===================//
+
 		//First checks the tinysong table in my DB for query.
 		//If found, display results, else hit the tinysong api & store result
 		$queryLocalTinySong = $this->queryLocalTinySong($q);
@@ -19,145 +22,34 @@ class SearchController extends BaseController {
 		//Local tinysong NULL
 		if($queryLocalTinySong == 'null tinysong response'){
 
+			//If this is the first time wuery has been run, hit API
 			$response = json_decode($this->getTinySong($q));
-			$type = $response;
 
-			//Check if query was an artist name, album, or song
-			//Query YOUTUBE on this refined TinySong data
-			if(strtolower($response[0]->ArtistName) == $q){
-				$type = $response[0]->ArtistName;
+			//Determines query type -song, artist, album
+			$typedQuery = $this->checkTypeTinyAPI($q, $response);
 
+			//Fetches youtube results based on type
+			$youtubeResults = $this->fetchYouTube($typedQuery);
 
-				//First QUERY LOCAL YOUTUBE database store, then if query
-				//found return results or fresh query
-				$queryLocalYouTube = $this->queryLocalYouTube($type);
-
-					//Check if in local youtube store
-					if($queryLocalYouTube == 'null youtube response'){
-						$ytResult = $this->getYoutube($type);
-
-						return $ytResult;
-					}else{
-						$ytResult = $queryLocalYouTube;
-
-						return $ytResult;
-					}
-
-
-
-			}else if(strtolower($response[0]->AlbumName) == $q){
-				$type = $response[0]->AlbumName;
-
-				//First QUERY LOCAL YOUTUBE database store, then if query
-				//found return results or fresh query
-				$queryLocalYouTube = $this->queryLocalYouTube($type);
-
-					//Check if in local youtube store
-					if($queryLocalYouTube == 'null youtube response'){
-						$ytResult = $this->getYoutube($type);
-
-						return $ytResult;
-					}else{
-						$ytResult = $queryLocalYouTube;
-
-						return $ytResult;
-					}
-
-
-
-			}else if(strtolower($response[0]->SongName) == $q){
-				$type = $response[0]->SongName;
-
-				//First QUERY LOCAL YOUTUBE database store, then if query
-				//found return results or fresh query
-				$queryLocalYouTube = $this->queryLocalYouTube($type);
-
-					//Check if in local youtube store
-					if($queryLocalYouTube == 'null youtube response'){
-						$ytResult = $this->getYoutube($type);
-
-						return $ytResult;
-					}else{
-						$ytResult = $queryLocalYouTube;
-
-						return $ytResult;
-					}
-			}
-
-
-
-
+		//=========================//
 		}else{//local tinysong !NULL
+		//=========================//
 
+			//Determines query type -song, artist, album
+			$typedQuery = $this->checkTypeTinyDB($q, $queryLocalTinySong);
 
+			//Fetches youtube results based on type
+			$youtubeResults = $this->fetchYouTube($typedQuery);
 
-
-			$response = $queryLocalTinySong;
-			$type = $response;
-
-			//If query was an artist name
-			if(strtolower($response[0]->artist_name) == $q){
-				$type = $response[0]->artist_name;
-
-				//First QUERY LOCAL YOUTUBE database store, then if query
-				//found return results or fresh query
-				$queryLocalYouTube = $this->queryLocalYouTube($type);
-
-					//Check if in local youtube store
-					if($queryLocalYouTube == 'null youtube response'){
-						$ytResult = $this->getYoutube($type);
-
-						return $ytResult;
-					}else{
-						$ytResult = $queryLocalYouTube;
-
-						return $ytResult;
-					}
-
-
-
-			//If query was an album title
-			}else if(strtolower($response[0]->album_name) == $q){
-				$type = $response[0]->album_name;
-
-				//First QUERY LOCAL YOUTUBE database store, then if query
-				//found return results or fresh query
-				$queryLocalYouTube = $this->queryLocalYouTube($type);
-
-					//Check if in local youtube store
-					if($queryLocalYouTube == 'null youtube response'){
-						$ytResult = $this->getYoutube($type);
-
-						return $ytResult;
-					}else{
-						$ytResult = $queryLocalYouTube;
-
-						return $ytResult;
-					}
-
-
-
-			//If query was a song title
-			}else if(strtolower($response[0]->song_name) == $q){
-				$type = $response[0]->song_name;
-
-				//First QUERY LOCAL YOUTUBE database store, then if query
-				//found return results or fresh query
-				$queryLocalYouTube = $this->queryLocalYouTube($type);
-
-					//Check if in local youtube store
-					if($queryLocalYouTube == 'null youtube response'){
-						$ytResult = $this->getYoutube($type);
-
-						return $ytResult;
-					}else{
-						$ytResult = $queryLocalYouTube;
-
-						return $ytResult;
-					}
-			}
 		}
+
+		return $youtubeResults;
 	}
+
+
+
+
+
 
 
 
@@ -217,6 +109,12 @@ class SearchController extends BaseController {
 
 
 
+
+
+
+
+
+
 	public function queryLocalYouTube($query){
 
 		//Calls Model to search DB for query
@@ -230,6 +128,7 @@ class SearchController extends BaseController {
 			return $results;
 		}
 	}
+
 
 
 
@@ -274,6 +173,12 @@ class SearchController extends BaseController {
 
 
 
+
+
+
+
+
+
 	public function queryLocalTinySong($query){
 
 		//Calls Model to search DB for query
@@ -286,6 +191,152 @@ class SearchController extends BaseController {
 		}else{
 			return $results;
 		}
+	}
+
+
+
+
+
+
+
+
+
+	public function checkTypeTinyDB($q, $response){
+
+		$song = strtolower($response[0]->song_name);
+		$artist = strtolower($response[0]->artist_name);
+		$album = strtolower($response[0]->album_name);
+		$artistSong = $artist . " " . $song;
+		$songArtist = $song . " " . $artist;
+		$artistAlbum = $artist . " " . $album;
+		$songAlbum = $song . " " . $album;
+
+		$query = strtolower($q);
+
+
+		//If query was an artist name
+		if($artist == $query){
+
+			$typedQuery = $response[0]->artist_name;
+
+		//If query was an album title
+		}else if($album == $query){
+
+			$typedQuery = $response[0]->album_name;
+
+		//If query was a song title
+		}else if($song == $query){
+
+			$typedQuery = $response[0]->song_name;
+
+		}else if($artistSong == $query){
+
+			$typedQuery = $response[0]->song_name;
+
+		}else if($songArtist == $query){
+
+			$typedQuery = $response[0]->song_name;
+
+		}else if($artistAlbum == $query){
+
+			$typedQuery = $response[0]->album_name;
+
+		}else if($songAlbum == $query){
+
+			$typedQuery = $response[0]->song_name;
+
+		}else{//Failsafe assumes song title
+
+			$typedQuery = $response[0]->song_name;
+		}
+
+		return $typedQuery;
+	}
+
+
+
+
+
+
+
+
+
+	public function checkTypeTinyAPI($q, $response){
+
+		$song = strtolower($response[0]->SongName);
+		$artist = strtolower($response[0]->ArtistName);
+		$album = strtolower($response[0]->AlbumName);
+		$artistSong = $artist . " " . $song;
+		$songArtist = $song . " " . $artist;
+		$artistAlbum = $artist . " " . $album;
+		$songAlbum = $song . " " . $album;
+
+		$query = strtolower($q);
+
+
+		//If query was an artist name
+		if($artist == $query){
+
+			$typedQuery = $response[0]->ArtistName;
+
+		//If query was an album title
+		}else if($album == $query){
+
+			$typedQuery = $response[0]->AlbumName;
+
+		//If query was a song title
+		}else if($song == $query){
+
+			$typedQuery = $response[0]->SongName;
+
+		}else if($artistSong == $query){
+
+			$typedQuery = $response[0]->SongName;
+
+		}else if($songArtist == $query){
+
+			$typedQuery = $response[0]->SongName;
+
+		}else if($artistAlbum == $query){
+
+			$typedQuery = $response[0]->AlbumName;
+
+		}else if($songAlbum == $query){
+
+			$typedQuery = $response[0]->SongName;
+
+		}else{//Failsafe assumes song title
+
+			$typedQuery = $response[0]->song_name;
+		}
+
+		return $typedQuery;
+	}
+
+
+
+
+
+
+
+
+
+	public function fetchYouTube($typedQuery){
+
+		//First QUERY LOCAL YOUTUBE database store, then if query
+		//found return results or fresh query
+		$queryLocalYouTube = $this->queryLocalYouTube($typedQuery);
+
+			//Check if in local youtube store
+			if($queryLocalYouTube == 'null youtube response'){
+				$ytResult = $this->getYoutube($typedQuery);
+
+				return $ytResult;
+			}else{
+				$ytResult = $queryLocalYouTube;
+
+				return $ytResult;
+			}
 	}
 
 
