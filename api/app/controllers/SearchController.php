@@ -22,13 +22,13 @@ class SearchController extends BaseController {
 		//Local tinysong NULL
 		if($queryLocalTinySong == 'null tinysong response'){
 
-			//If this is the first time wuery has been run, hit API
+			//If this is the first time query has been run, hit API
 			$response = json_decode($this->getTinySong($q));
 
 			//Determines query type -song, artist, album
 			$typedQuery = $this->checkTypeTinyAPI($q, $response);
 
-			//Fetches youtube results based on type
+			//Fetches youtube results based on refined query
 			$youtubeResults = $this->fetchYouTube($typedQuery);
 
 		//=========================//
@@ -38,12 +38,17 @@ class SearchController extends BaseController {
 			//Determines query type -song, artist, album
 			$typedQuery = $this->checkTypeTinyDB($q, $queryLocalTinySong);
 
-			//Fetches youtube results based on type
-			$youtubeResults = $this->fetchYouTube($typedQuery);
+			//Fetches youtube results based on refined query
+			$youtubeResults = $this->fetchYouTube($typedQuery['typedQuery']);
+
+			//run only if song didn't already exist in song table
+			foreach($youtubeResults as $yt){
+				$insert = Library::setSong($queryLocalTinySong[0], $yt, $typedQuery['type']);
+			}
 
 		}
 
-		return $youtubeResults;
+		return $typedQuery;
 	}
 
 
@@ -218,39 +223,49 @@ class SearchController extends BaseController {
 		if($artist == $query){
 
 			$typedQuery = $response[0]->artist_name;
+			$type = "artist";
 
 		//If query was an album title
 		}else if($album == $query){
 
 			$typedQuery = $response[0]->album_name;
+			$type = "album";
 
 		//If query was a song title
 		}else if($song == $query){
 
 			$typedQuery = $response[0]->song_name;
+			$type = "song";
 
 		}else if($artistSong == $query){
 
 			$typedQuery = $response[0]->song_name;
+			$type = "song";
 
 		}else if($songArtist == $query){
 
 			$typedQuery = $response[0]->song_name;
+			$type = "song";
 
 		}else if($artistAlbum == $query){
 
 			$typedQuery = $response[0]->album_name;
+			$type = "album";
 
 		}else if($songAlbum == $query){
 
 			$typedQuery = $response[0]->song_name;
+			$type = "song";
 
 		}else{//Failsafe assumes song title
 
 			$typedQuery = $response[0]->song_name;
+			$type = "song";
 		}
 
-		return $typedQuery;
+		$return = array('typedQuery'=>$typedQuery, 'type'=>$type);
+
+		return $return;
 	}
 
 

@@ -9,6 +9,7 @@ class TinySong extends Eloquent{
 	//Set the query results to database
 	public static function setResults($query, $tinyResponse)
 	{
+		$insert = null;
 
 		//Loop through tinysong reult json and insert into database
 		foreach(json_decode($tinyResponse) as $result){
