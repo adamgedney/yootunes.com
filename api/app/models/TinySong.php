@@ -5,6 +5,7 @@ class TinySong extends Eloquent{
 
 
 
+
 	//Set the query results to database
 	public static function setResults($query, $tinyResponse)
 	{
@@ -21,12 +22,21 @@ class TinySong extends Eloquent{
 
 
 
+
+
 	//Get the results for a query from database
 	public static function getResults($query)
 	{
+		$resultArray = array();
+
+		//Query DB on "query"
 		$results = DB::table('tinysong')->where('query', '=', $query)->get();
 
-		return json_encode($results);
+		foreach($results as $r){
+			array_push($resultArray, $r);
+		}
+
+		return $resultArray;
 	}
 
 
