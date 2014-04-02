@@ -1,5 +1,6 @@
 <?php
 
+
 class SearchController extends BaseController {
 
 
@@ -35,7 +36,11 @@ class SearchController extends BaseController {
 
 		// 	return $queryLocalTinySong;
 		// }
-		$getYoutube = $this->getYoutube();
+		$getYoutube = $this->getYoutube($q);
+
+
+
+
 		return $getYoutube;
 	}
 
@@ -55,12 +60,22 @@ class SearchController extends BaseController {
 
 
 
-	public function getYoutube(){
+	public function getYoutube($query){
+		//NOTE: using this -https://code.google.com/p/google-api-php-client/wiki/GettingStarted
 
-		$youtubeAPIKey = 'AIzaSyCukRpGoGeXcvHKEEPRLKg7-toFMhtkeYk';
+
+
+  		$YOUTUBE_API_KEY = 'AIzaSyCukRpGoGeXcvHKEEPRLKg7-toFMhtkeYk';
+  		$MAX_RESULTS = 50;
+
+
 
 		//returns the snippet and statistics part with only the id, desc, title, thumbnails fields
-		$youtubeResponse = file_get_contents('https://www.googleapis.com/youtube/v3/search?q=ledzeppelin&key=' . (string)$youtubeAPIKey . '&fields=items(id,snippet(title,categoryId,description,thumbnails),statistics)&part=snippet,contentDetails');
+		$youtubeResponse = file_get_contents('https://www.googleapis.com/youtube/v3/search?&maxResults=' . (string)$MAX_RESULTS . '&part=snippet&q=' . $query . '&regionCode=US&fields=items(id(videoId),snippet(title,description,thumbnails))&key=' . (string)$YOUTUBE_API_KEY);
+
+		https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=led+zeppelin&regionCode=US&key=
+
+
 
 		return $youtubeResponse;
 
@@ -72,14 +87,14 @@ class SearchController extends BaseController {
 	public function getGrooveshark($query){
 
 		//Grooveshark API key
-		$tinyAPIKey = '6ab1c1e7fdf25492f84948a6514238dc';
+		$TINY_API_KEY = '6ab1c1e7fdf25492f84948a6514238dc';
 
 		//Format string to strip spaces and add "+"
 		$queryExplode = explode(" ", $query);
 		$queryImplode = implode("+", $queryExplode);
 
 		//API Url
-		$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=32&key=" . (string)$tinyAPIKey;
+		$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=32&key=" . (string)$TINY_API_KEY;
 
 		//Query API -Returns JSON
 		$tinyResponse = file_get_contents($tinyQuery);
