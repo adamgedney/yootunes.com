@@ -1209,7 +1209,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 25%;
   float: left;
   overflow: hidden;
-  border-right: 1px solid #272a2a;
 }
 .info ul {
   float: left;
@@ -1231,7 +1230,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   float: left;
   overflow: hidden;
   height: 100%;
-  border-right: 1px solid #272a2a;
 }
 .transport-ctrl svg, .transport-ctrl img {
   width: 33.3333333%;
@@ -1301,7 +1299,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   z-index: 10;
   opacity: .9;
   cursor: pointer;
-  border: 1px solid #494f4f;
 }
 
 #seek-dot:active {
@@ -1314,8 +1311,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 8.33333333%;
   float: left;
   height: 100%;
-  border-left: 1px solid #272a2a;
-  border-right: 1px solid #272a2a;
 }
 .volume-ctrl .vol-icon {
   height: 24px;
@@ -1338,7 +1333,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 8.33333333%;
   float: left;
   height: 100%;
-  border-right: 1px solid #272a2a;
 }
 .playing-share-ctrl svg {
   margin-top: 18%;

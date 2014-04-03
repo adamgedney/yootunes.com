@@ -54,7 +54,7 @@ class SearchController extends BaseController {
 		//===============================================//
 		//Step 4. –Check local Youtube table
 		//===============================================//
-		$localYouTubeExists = YoutTube::where('query', '=', $q)->count();
+		$localYouTubeExists = YouTube::where('query', '=', $q)->count();
 
 
 		//Step 4a. –localYouTube NO RESULTS
@@ -123,83 +123,95 @@ class SearchController extends BaseController {
 	//Primary data analyzer & merger.
 	public function assumptionsEngine($getLocalTinySong, $youtubeItem){
 
-		$songFilter = $getLocalTinySong->song_name;
-		$artistFilter = $getLocalTinySong->artist_name;
-		$albumFilter = $getLocalTinySong->album_name;
 
-		$song = '';
-		$artist = '';
-		$album = '';
+		//Send each youtube result through each tinysong result
+		foreach($getLocalTinySong as $songItem){
 
+			$songFilter = $songItem->song_name;
+			$artistFilter = $songItem->artist_name;
+			$albumFilter = $songItem->album_name;
 
+			$song = '';
+			$artist = '';
+			$album = '';
 
-		//=======================Assumptions Engine=======================//
-		//Searches title and description for additional metadata.
-		//Song titles and artists are not searched by description as
-		//Track lists could exist in descriptions. Album seems to be a
-		//safe search in desctiption.
-		$songCheckTitle = strpos(strtolower($youtubeItem[0]->title), strtolower($songFilter));
-		$artistCheckTitle = strpos(strtolower($youtubeItem->title), strtolower($artistFilter));
-		$artistCheckDesc = strpos(strtolower($youtubeItem->description), strtolower($artistFilter));
-		$albumCheckTitle = strpos(strtolower($youtubeItem->title), strtolower($getLocalTinySong->album_name));
-		$albumCheckDesc = strpos(strtolower($youtubeItem->description), strtolower($getLocalTinySong->album_name));
+			if($albumFilter == ""){
+				$albumFilter = "http://adamgedney.com";
+			}
 
 
 
-		//**Song names check requires more to prove this result is the correct song
-		//Search YouTube TITLE for SONG name & ARTIST name
-		if($songCheckTitle != false && $artistCheckTitle != false){
-			$song = $songFilter;
-			$artist = $artistFilter;
-		}
+			//=======================Assumptions Engine=======================//
+			//Searches title and description for additional metadata.
+			//Song titles and artists are not searched by description as
+			//Track lists could exist in descriptions. Album seems to be a
+			//safe search in desctiption.
+			$songCheckTitle = strpos(strtolower($youtubeItem->title), strtolower($songFilter));
+			$artistCheckTitle = strpos(strtolower($youtubeItem->title), strtolower($artistFilter));
+			$artistCheckDesc = strpos(strtolower($youtubeItem->description), strtolower($artistFilter));
 
-		//Search YouTube TITLE & DESC for SONG name & ARTIST name
-		if($songCheckTitle != false && $artistCheckDesc != false){
-			$song = $songFilter;
-			$artist = $artistFilter;
-		}
+			$albumCheckTitle = strpos(strtolower($youtubeItem->title), strtolower($albumFilter));
+			$albumCheckDesc = strpos(strtolower($youtubeItem->description), strtolower($albumFilter));
 
-
-		//Search YouTube TITLE for ARTIST name string
-		if($artistCheckTitle != false){
-			$artist = $artistFilter;
-		}
-
-
-		//Search YouTube DESC for ARTIST name string
-		if($artistCheckDesc != false){
-			$artist = $artistFilter;
-		}
-
-
-		//Search YouTube TITLE or DESC for ALBUM name string
-		if($albumCheckTitle != false || $albumCheckDesc != false){
-			$album = $albumFilter;
-		}
+			var_dump($albumCheckDesc);
 
 
 
+			// //**Song names check requires more to prove this result is the correct song
+			// //Search YouTube TITLE for SONG name & ARTIST name
+			// if($songCheckTitle != false && $artistCheckTitle != false){
+			// 	$song = $songFilter;
+			// 	$artist = $artistFilter;
+			// }
+
+			// //Search YouTube TITLE & DESC for SONG name & ARTIST name
+			// if($songCheckTitle != false && $artistCheckDesc != false){
+			// 	$song = $songFilter;
+			// 	$artist = $artistFilter;
+			// }
 
 
-		//Define Library Model
-		$libraryModel = new Library();
+			// //Search YouTube TITLE for ARTIST name string
+			// if($artistCheckTitle != false){
+			// 	$artist = $artistFilter;
+			// }
 
-		//Insert merged data into DB if it doesn't already exist
-		$libraryModel->firstOrCreate(array(
-			'query' => $youtubeItem->query,
-			'song_title' => $song,
-			'youtube_title' => $youtubeItem->title,
-			'artist' => $artist,
-			'album' => $album,
-			'genre' => '',
-			'description' => $youtubeItem->description,
-			'youtube_id' => $youtubeItem->video_id,
-			'img_default' => $youtubeItem->img_default,
-			'img_medium' => $youtubeItem->img_medium,
-			'img_high' => $youtubeItem->img_high,
-			'length' => '',
-			'youtube_results_id' => $youtubeItem->id
-		));
+
+			// //Search YouTube DESC for ARTIST name string
+			// if($artistCheckDesc != false){
+			// 	$artist = $artistFilter;
+			// }
+
+
+			// //Search YouTube TITLE or DESC for ALBUM name string
+			// if($albumCheckTitle != false || $albumCheckDesc != false){
+			// 	$album = $albumFilter;
+			// }
+
+
+			// var_dump($album);
+
+
+			// //Define Library Model
+			// $libraryModel = new Library();
+
+			// //Insert merged data into DB if it doesn't already exist
+			// $libraryModel->firstOrCreate(array(
+			// 	'query' => $youtubeItem->query,
+			// 	'song_title' => $song,
+			// 	'youtube_title' => $youtubeItem->title,
+			// 	'artist' => $artist,
+			// 	'album' => $album,
+			// 	'genre' => '',
+			// 	'description' => $youtubeItem->description,
+			// 	'youtube_id' => $youtubeItem->video_id,
+			// 	'img_default' => $youtubeItem->img_default,
+			// 	'img_medium' => $youtubeItem->img_medium,
+			// 	'img_high' => $youtubeItem->img_high,
+			// 	'length' => '',
+			// 	'youtube_results_id' => $youtubeItem->id
+			// ));
+		}//foreach
 	}
 
 
@@ -248,7 +260,7 @@ class SearchController extends BaseController {
 
 	//Fetches results from YouTube Data API & stores in
 	//database if they don't already exist
-	public function getYoutube($query, $queryLocalTinySong){
+	public function getYoutube($query){
 		//NOTE: using this -https://code.google.com/p/google-api-php-client/wiki/GettingStarted
 
   		$YOUTUBE_API_KEY = 'AIzaSyCukRpGoGeXcvHKEEPRLKg7-toFMhtkeYk';
@@ -266,7 +278,6 @@ class SearchController extends BaseController {
 
 
 
-
 		//Insert query results into database for future searches
 		$youtubeModel = new YouTube();
 
@@ -274,13 +285,13 @@ class SearchController extends BaseController {
 
 			$youtubeModel->firstOrCreate(array(
 				'query' => $query,
-				'etag' => $result->etag,
-				'video_id' => $result->id->videoId,
-				'title' => $result->snippet->title,
-				'description' => $result->snippet->description,
-				'img_default' => $result->snippet->thumbnails->default->url,
-				'img_medium' => $result->snippet->thumbnails->medium->url,
-				'img_high' => $result->snippet->thumbnails->high->url
+				'etag' => $result[0]->etag,
+				'video_id' => $result[0]->id->videoId,
+				'title' => $result[0]->snippet->title,
+				'description' => $result[0]->snippet->description,
+				'img_default' => $result[0]->snippet->thumbnails->default->url,
+				'img_medium' => $result[0]->snippet->thumbnails->medium->url,
+				'img_high' => $result[0]->snippet->thumbnails->high->url
 			));
 		}
 	}

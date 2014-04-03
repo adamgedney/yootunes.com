@@ -711,7 +711,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	@include col(3);
 	float: left;
 	overflow: hidden;
-	border-right: 1px solid nth($grey, 1);
+	// border-right: 1px solid nth($grey, 1);
 
 	ul{
 		float: left;
@@ -737,7 +737,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	overflow: hidden;
 	// height: 18px;
 	height: 100%;
-	border-right: 1px solid nth($grey, 1);
+	// border-right: 1px solid nth($grey, 1);
 
 	svg, img{
 		@include col(4);
@@ -799,7 +799,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	z-index: 10;
 	opacity: .9;
 	cursor: pointer;
-	border: 1px solid nth($grey, 2);
+	// border: 1px solid nth($grey, 2);
 }
 
 #seek-dot:active{
@@ -813,8 +813,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	float: left;
 	height: 100%;
 	// padding-right: 10%;
-	border-left: 1px solid nth($grey, 1);
-	border-right: 1px solid nth($grey, 1);
+	// border-left: 1px solid nth($grey, 1);
+	// border-right: 1px solid nth($grey, 1);
 
 	.vol-icon{
 		height: 24px;
@@ -833,7 +833,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	@include col(1);
 	float: left;
 	height: 100%;
-	border-right: 1px solid nth($grey, 1);
+	// border-right: 1px solid nth($grey, 1);
 
 	svg{
 		margin-top: 18%;
