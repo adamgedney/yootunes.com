@@ -32,29 +32,15 @@ class SearchController extends BaseController {
 			// $this->mergeData($q, $queryLocalTinySong);
 			return "successful data merge";
 		}
-
-
-		// //Listen for tinysong results to exist in database
-		// Event::listen('tiny.saved', function(){
-
-		// 	//Run again to pull now local results
-		// 	// $queryLocalTinySong = $this->queryLocalTinySong($q);
-		// 	// $this->mergeData($q, $queryLocalTinySong);
-
-		// 	echo "successful event listener";
-
-		// });
-
-
-
-
-
 	}
 
 
 
 
 
+//=======*******Notes for tomorrow: Check youtube data population events.
+	//Make sure all data is hitting song insert loop in correct format.
+	//May need to fire an event picked up by merge data loop so insert into library is properly formatted.
 
 
 
@@ -65,14 +51,13 @@ class SearchController extends BaseController {
 	//Internal Methods//
 	//================//
 
-
-	public static function tinySaved($query)
+	//Triggered by event listener for when tinysong data is fetched and saved
+	public function tinySaved($query)
 	{
 		//Run again to pull now local results
-		// $queryLocalTinySong = SearchController::queryLocalTinySong($query);
-		// SearchController::mergeData($query, $queryLocalTinySong);
+		$queryLocalTinySong = $this->queryLocalTinySong($query);
+		$this->mergeData($query, $queryLocalTinySong);
 
-		return "event triggered function";
 	}
 
 
@@ -83,18 +68,19 @@ class SearchController extends BaseController {
 
 
 
-	public static function mergeData($q, $queryLocalTinySong){
+	public function mergeData($query, $queryLocalTinySong){
 
 		//Determines query type -song, artist, album
-		$typedQuery = $this->checkTypeTinyDB($q, $queryLocalTinySong);
+		$typedQuery = $this->checkTypeTinyDB($query, $queryLocalTinySong);
 
 		//Fetches youtube results based on refined query
 		$youtubeResults = $this->fetchYouTube($typedQuery['typedQuery']);
 
 		//*******************************************run only if song didn't already exist in song table
-		foreach($youtubeResults as $yt){
+		foreach(json_decode($youtubeResults) as $yt){
 			$insert = Library::setSong($queryLocalTinySong[0], $yt, $typedQuery['type']);
 		}
+
 	}
 
 
@@ -211,7 +197,7 @@ class SearchController extends BaseController {
 
 
 
-	public static function queryLocalTinySong($query){
+	public function queryLocalTinySong($query){
 
 		//Calls Model to search DB for query
 		$results = TinySong::getResults($query);
@@ -231,7 +217,7 @@ class SearchController extends BaseController {
 
 
 
-
+//******Note: May be able to combine the 2 check Tpe functions below. Later...
 
 	public function checkTypeTinyDB($q, $response){
 
@@ -379,6 +365,9 @@ class SearchController extends BaseController {
 
 				return $ytResult;
 			}
+
+
+
 	}
 
 

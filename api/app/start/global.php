@@ -88,14 +88,8 @@ require app_path().'/filters.php';
 
 //Register events
 //Listen for tinysong results to exist in database
-Event::listen('tiny.saved', function($query){
+Event::listen('tiny.saved', 'SearchController@tinySaved');
 
-
-	SearchController::tinySaved($query);
-
-	echo "successful event listener";
-
-});
 
 
 

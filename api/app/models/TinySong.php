@@ -19,7 +19,9 @@ class TinySong extends Eloquent{
 
 		}
 
-		Event::fire('tiny.saved', $query);
+		//Tells the Search OCntroller when merge is ok
+		Event::fire('tiny.saved', array($query));
+
 
 		//Return boolean for success/fail
 		return $insert;
