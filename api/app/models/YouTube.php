@@ -7,7 +7,7 @@ class YouTube extends Eloquent{
 
 
 	//Set the query results to database
-	public static function setResults($query, $ytResponse)
+	public static function setResults($query, $ytResponse, $queryLocalTinySong)
 	{
 
 		//Loop through tinysong result json and insert into database
@@ -28,6 +28,9 @@ class YouTube extends Eloquent{
 
 		}
 
+		//Tells the Search Controller when step 4 is ok
+		Event::fire('youtube.saved', array($query, $queryLocalTinySong));
+
 		//Return boolean for success/fail
 		return $insert;
 	}
@@ -47,6 +50,7 @@ class YouTube extends Eloquent{
 		foreach($results as $r){
 			array_push($resultArray, $r);
 		}
+
 
 		return $resultArray;
 	}

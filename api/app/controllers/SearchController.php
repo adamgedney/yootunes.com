@@ -13,24 +13,35 @@ class SearchController extends BaseController {
 		//===================//
 		//Begin search cascade
 		//===================//
+		//1. Search Query
+		//2. Check local Tinysong table
+		//	 –If no results, Get & add Tiny results to local DB. Move to step 3
+		//	 –If results already exist local, move to step 3
+		//3. Get local Tinysong results
+		//4. Check local YouTube results
+		//	 –If no results, Get & add YT results to local DB. Move to step 5
+		//	 –If results already exist local, move to step 5
+		//5. Get local YouTube results
+		//6. Merge data & store in local songs table
+		//7. Return to client the youtube results on query term, with merged data, from songs table
 
-		//First checks the tinysong table in my DB for query.
-		//If found, display results, else hit the tinysong api & store result
-		$queryLocalTinySong = $this->queryLocalTinySong($q);
+
+		//Query local Tinysong table
+		$localTinyExists = TinySong::where('query', '=', $q)->count();
 
 
-		//Write:  if querylocaltinysong null, getTinySong, then re run the query local.
+		//Local tinysong NO RESULTS
+		if($localTinyExists == 0){
 
-		//Local tinysong NULL
-		if($queryLocalTinySong == 'null tinysong response'){
-
-			//If this is the first time query has been run, hit API
+			//Get & add tinysong results to local DB
 			$response = json_decode($this->getTinySong($q));
+			return $response;
 
+		//Local tinysong RESULTS ALREADY EXIST
 		}else{
 
-			// $this->mergeData($q, $queryLocalTinySong);
-			return "successful data merge";
+			return $localTinyExists;
+
 		}
 	}
 
@@ -51,14 +62,15 @@ class SearchController extends BaseController {
 	//Internal Methods//
 	//================//
 
-	//Triggered by event listener for when tinysong data is fetched and saved
-	public function tinySaved($query)
-	{
-		//Run again to pull now local results
-		$queryLocalTinySong = $this->queryLocalTinySong($query);
-		$this->mergeData($query, $queryLocalTinySong);
+	//Event handler for tinysong results store complete
+	// public function localTinyExists($query)
+	// {
+	// 	//Step 2. Run again to pull data
+	// 	$queryLocalTinySong = $this->queryLocalTinySong($query);
 
-	}
+	// 	//Step 3. –Fetches youtube results based on ORIGINAL QUERY –passes tinysong for later merge
+	// 	$youtubeResults = $this->queryLocalYouTube($query, $queryLocalTinySong);
+	// }
 
 
 
@@ -66,126 +78,32 @@ class SearchController extends BaseController {
 
 
 
+	// //Event handler for youtube results store complete
+	// public function localYouTubeExists($query, $queryLocalTinySong)
+	// {
 
+	// 	//Step 4. –Fetches youtube results based on ORIGINAL QUERY –passes tinysong for later merge
+	// 	$youtubeResults = $this->queryLocalYouTube($query, $queryLocalTinySong);
 
-	public function mergeData($query, $queryLocalTinySong){
+	// 	var_dump($youtubeResults);
+	// }
 
-		//Determines query type -song, artist, album
-		$typedQuery = $this->checkTypeTinyDB($query, $queryLocalTinySong);
 
-		//Fetches youtube results based on refined query
-		$youtubeResults = $this->fetchYouTube($typedQuery['typedQuery']);
 
-		//*******************************************run only if song didn't already exist in song table
-		foreach(json_decode($youtubeResults) as $yt){
-			$insert = Library::setSong($queryLocalTinySong[0], $yt, $typedQuery['type']);
-		}
 
-	}
 
 
 
 
 
+	public function mergeData(){
 
+		// //*******************************************run only if song didn't already exist in song table
 
+		// foreach(json_decode($youtubeResults) as $yt){
+		// 	$insert = Library::setSong($queryLocalTinySong, $yt);
+		// }
 
-
-	public function getYoutube($query){
-		//NOTE: using this -https://code.google.com/p/google-api-php-client/wiki/GettingStarted
-
-
-
-  		$YOUTUBE_API_KEY = 'AIzaSyCukRpGoGeXcvHKEEPRLKg7-toFMhtkeYk';
-  		$MAX_RESULTS = 50;
-
-  		//Format string to strip spaces and add "+"
-		$queryExplode = explode(" ", $query);
-		$queryImplode = implode("+", $queryExplode);
-
-		$youtubeQuery = 'https://www.googleapis.com/youtube/v3/search?&maxResults=' . (string)$MAX_RESULTS . '&part=snippet&q=' . $queryImplode . '&regionCode=US&type=video&videoCategoryId=10&fields=items(etag,id(videoId),snippet(title,description,thumbnails))&key=' . (string)$YOUTUBE_API_KEY;
-
-		//returns the snippet and statistics part with only the id, desc, title, thumbnails fields
-		$youtubeResponse = file_get_contents($youtubeQuery);
-
-		//Insert query results into database for future searches
-		$inserted = YouTube::setResults($query, $youtubeResponse);
-
-		//Error handling for insert
-		if($inserted){
-			return $youtubeResponse;
-
-		}else{
-
-			$error = array('error'=>'failed to insert youtube results into database');
-			return json_encode($error);
-		}
-
-	}
-
-
-
-
-
-
-
-
-
-
-	public function queryLocalYouTube($query){
-
-		//Calls Model to search DB for query
-		$results = YouTube::getResults($query);
-
-		//Handle NULL result or return response
-		if(empty($results)){
-			$error = 'null youtube response';
-			return $error;
-		}else{
-			return $results;
-		}
-	}
-
-
-
-
-
-
-
-
-
-
-	public function getTinySong($query){
-
-		//Grooveshark API key
-		$TINY_API_KEY = '6ab1c1e7fdf25492f84948a6514238dc';
-
-		//Format string to strip spaces and add "+"
-		$queryExplode = explode(" ", $query);
-		$queryImplode = implode("+", $queryExplode);
-
-		//API Url
-		$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=32&key=" . (string)$TINY_API_KEY;
-
-		//Query API -Returns JSON
-		$tinyResponse = file_get_contents($tinyQuery);
-
-
-
-		//Insert query results into database for future searches
-		$inserted = TinySong::setResults($query, $tinyResponse);
-
-
-		//Error handling for insert
-		if($inserted){
-
-			return $tinyResponse;
-
-		}else{
-
-			$error = array('error'=>'failed to insert tinysong results into database');
-			return json_encode($error);
-		}
 	}
 
 
@@ -215,70 +133,106 @@ class SearchController extends BaseController {
 
 
 
+	public function queryLocalYouTube($query, $queryLocalTinySong){
+
+		//Calls Model to search DB for query
+		$results = YouTube::getResults($query);
+
+		//If local YouTube is empty
+		if(empty($results)){
+
+			//Get & add yt results to local store
+			$ytResult = $this->getYoutube($query, $queryLocalTinySong);
+
+		}else{
+
+			//Tells the Search Controller when step 4 is ok
+			Event::fire('youtube.saved', array($query, $queryLocalTinySong));
+		}
+	}
 
 
-//******Note: May be able to combine the 2 check Tpe functions below. Later...
-
-	public function checkTypeTinyDB($q, $response){
-
-		$song = strtolower($response[0]->song_name);
-		$artist = strtolower($response[0]->artist_name);
-		$album = strtolower($response[0]->album_name);
-		$artistSong = $artist . " " . $song;
-		$songArtist = $song . " " . $artist;
-		$artistAlbum = $artist . " " . $album;
-		$songAlbum = $song . " " . $album;
-
-		$query = strtolower($q);
 
 
-		//If query was an artist name
-		if($artist == $query){
 
-			$typedQuery = $response[0]->artist_name;
-			$type = "artist";
 
-		//If query was an album title
-		}else if($album == $query){
 
-			$typedQuery = $response[0]->album_name;
-			$type = "album";
 
-		//If query was a song title
-		}else if($song == $query){
 
-			$typedQuery = $response[0]->song_name;
-			$type = "song";
 
-		}else if($artistSong == $query){
 
-			$typedQuery = $response[0]->song_name;
-			$type = "song";
+	public function getYoutube($query, $queryLocalTinySong){
+		//NOTE: using this -https://code.google.com/p/google-api-php-client/wiki/GettingStarted
 
-		}else if($songArtist == $query){
+  		$YOUTUBE_API_KEY = 'AIzaSyCukRpGoGeXcvHKEEPRLKg7-toFMhtkeYk';
+  		$MAX_RESULTS = 50;
 
-			$typedQuery = $response[0]->song_name;
-			$type = "song";
+  		//Format string to strip spaces and add "+"
+		$queryExplode = explode(" ", $query);
+		$queryImplode = implode("+", $queryExplode);
 
-		}else if($artistAlbum == $query){
+		$youtubeQuery = 'https://www.googleapis.com/youtube/v3/search?&maxResults=' . (string)$MAX_RESULTS . '&part=snippet&q=' . $queryImplode . '&regionCode=US&type=video&videoCategoryId=10&fields=items(etag,id(videoId),snippet(title,description,thumbnails))&key=' . (string)$YOUTUBE_API_KEY;
 
-			$typedQuery = $response[0]->album_name;
-			$type = "album";
+		//returns the snippet and statistics part with only the id, desc, title, thumbnails fields
+		$youtubeResponse = file_get_contents($youtubeQuery);
 
-		}else if($songAlbum == $query){
+		//Insert query results into database for future searches
+		$inserted = YouTube::setResults($query, $youtubeResponse, $queryLocalTinySong);
 
-			$typedQuery = $response[0]->song_name;
-			$type = "song";
+		//Error handling for insert
+		if($inserted){
 
-		}else{//Failsafe assumes song title
+			return $youtubeResponse;
 
-			$typedQuery = $response[0]->song_name;
-			$type = "song";
+		}else{
+
+			$error = array('error'=>'failed to insert youtube results into database');
+			return json_encode($error);
+		}
+	}
+
+
+
+
+
+	public function getTinySong($query){
+
+		//Grooveshark API key
+		$TINY_API_KEY = '6ab1c1e7fdf25492f84948a6514238dc';
+
+		//Format string to strip spaces and add "+"
+		$queryExplode = explode(" ", $query);
+		$queryImplode = implode("+", $queryExplode);
+
+		//API Url
+		$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=32&key=" . (string)$TINY_API_KEY;
+
+		//Query API -Returns JSON
+		$tinyResponse = file_get_contents($tinyQuery);
+
+
+
+
+		//Insert query results into database for future searches
+		// $tinyModel = TinySong::setResults($query, $tinyResponse);
+		$tinyModel = new TinySong();
+
+		foreach(json_decode($tinyResponse) as $result){
+			$tinyModel->firstOrCreate(array('query' => $query, 'url' => $result->Url, 'song_id' => $result->SongID, 'song_name' => $result->SongName, 'artist_id' => $result->ArtistID, 'artist_name' => $result->ArtistName, 'album_id' => $result->AlbumID, 'album_name' => $result->AlbumName));
 		}
 
-		$return = array('typedQuery'=>$typedQuery, 'type'=>$type);
+		return $tinyModel;
 
-		return $return;
+		// //Error handling for insert
+		// if($inserted){
+
+		// 	return $tinyResponse;
+
+		// }else{
+
+		// 	$error = array('error'=>'failed to insert tinysong results into database');
+		// 	return json_encode($error);
+		// }
 	}
 
 
@@ -289,57 +243,6 @@ class SearchController extends BaseController {
 
 
 
-	public function checkTypeTinyAPI($q, $response){
-
-		$song = strtolower($response[0]->SongName);
-		$artist = strtolower($response[0]->ArtistName);
-		$album = strtolower($response[0]->AlbumName);
-		$artistSong = $artist . " " . $song;
-		$songArtist = $song . " " . $artist;
-		$artistAlbum = $artist . " " . $album;
-		$songAlbum = $song . " " . $album;
-
-		$query = strtolower($q);
-
-
-		//If query was an artist name
-		if($artist == $query){
-
-			$typedQuery = $response[0]->ArtistName;
-
-		//If query was an album title
-		}else if($album == $query){
-
-			$typedQuery = $response[0]->AlbumName;
-
-		//If query was a song title
-		}else if($song == $query){
-
-			$typedQuery = $response[0]->SongName;
-
-		}else if($artistSong == $query){
-
-			$typedQuery = $response[0]->SongName;
-
-		}else if($songArtist == $query){
-
-			$typedQuery = $response[0]->SongName;
-
-		}else if($artistAlbum == $query){
-
-			$typedQuery = $response[0]->AlbumName;
-
-		}else if($songAlbum == $query){
-
-			$typedQuery = $response[0]->SongName;
-
-		}else{//Failsafe assumes song title
-
-			$typedQuery = $response[0]->SongName;
-		}
-
-		return $typedQuery;
-	}
 
 
 
@@ -349,26 +252,13 @@ class SearchController extends BaseController {
 
 
 
-	public function fetchYouTube($typedQuery){
-
-		//First QUERY LOCAL YOUTUBE database store, then if query
-		//found return results or fresh query
-		$queryLocalYouTube = $this->queryLocalYouTube($typedQuery);
-
-			//Check if in local youtube store
-			if($queryLocalYouTube == 'null youtube response'){
-				$ytResult = $this->getYoutube($typedQuery);
-
-				return $ytResult;
-			}else{
-				$ytResult = $queryLocalYouTube;
-
-				return $ytResult;
-			}
 
 
 
-	}
+
+
+
+
 
 
 

@@ -4,7 +4,7 @@
 class Library extends Eloquent{
 
 	//Set the song data
-	public static function setSong($tinyData, $yt, $type)
+	public static function setSong($tinyData, $yt)
 	{
 
 		//** Create a loop to loop through ALL tinyData results on the query to check for song titles etc..
