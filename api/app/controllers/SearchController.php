@@ -164,12 +164,12 @@ class SearchController extends BaseController {
 			//Song titles and artists are not searched by description as
 			//Track lists could exist in descriptions. Album seems to be a
 			//safe search in description.
-			$songCheckTitle = strpos(strtolower($songItem->title), strtolower($songFilter));
-			$songCheckDesc = strpos(strtolower($songItem->description), strtolower($songFilter));
-			$artistCheckTitle = strpos(strtolower($songItem->title), strtolower($artistFilter));
-			$artistCheckDesc = strpos(strtolower($songItem->description), strtolower($artistFilter));
-			$albumCheckTitle = strpos(strtolower($songItem->title), strtolower($albumFilter));
-			$albumCheckDesc = strpos(strtolower($songItem->description), strtolower($albumFilter));
+			$songCheckTitle 	= strpos(strtolower($songItem->title), strtolower($songFilter));
+			$songCheckDesc 		= strpos(strtolower($songItem->description), strtolower($songFilter));
+			$artistCheckTitle 	= strpos(strtolower($songItem->title), strtolower($artistFilter));
+			$artistCheckDesc 	= strpos(strtolower($songItem->description), strtolower($artistFilter));
+			$albumCheckTitle 	= strpos(strtolower($songItem->title), strtolower($albumFilter));
+			$albumCheckDesc 	= strpos(strtolower($songItem->description), strtolower($albumFilter));
 
 
 			//==========================================//
@@ -178,38 +178,38 @@ class SearchController extends BaseController {
 
 			//Search YouTube TITLE for SONG name & ARTIST name
 			if($songCheckTitle !== false && $artistCheckTitle !== false){
-				$song = $songFilter;
+				$song 	= $songFilter;
 				$artist = $artistFilter;
 			}
 
 			//Search YouTube TITLE for SONG name & ALBUM name
 			if($songCheckTitle !== false && $albumCheckTitle !== false){
-				$song = $songFilter;
-				$album = $albumFilter;
+				$song 	= $songFilter;
+				$album 	= $albumFilter;
 			}
 
 			//Search YouTube DESC for SONG name & ARTIST name
 			if($songCheckDesc !== false && $artistCheckDesc !== false){
-				$song = $songFilter;
+				$song 	= $songFilter;
 				$artist = $artistFilter;
 			}
 
 			//Search YouTube DESC for SONG name & ALBUM name
 			if($songCheckDesc !== false && $albumCheckDesc !== false){
-				$song = $songFilter;
-				$album = $albumFilter;
+				$song 	= $songFilter;
+				$album 	= $albumFilter;
 			}
 
 			//Search YouTube TITLE for SONG name & DESC for ARTIST name
 			if($songCheckTitle !== false && $artistCheckDesc !== false){
-				$song = $songFilter;
+				$song 	= $songFilter;
 				$artist = $artistFilter;
 			}
 
 			//Search YouTube TITLE for SONG name & DESC for ALBUM name
 			if($songCheckTitle !== false && $albumCheckDesc !== false){
-				$song = $songFilter;
-				$album = $albumFilter;
+				$song 	= $songFilter;
+				$album 	= $albumFilter;
 			}
 
 
@@ -289,19 +289,19 @@ class SearchController extends BaseController {
 
 				//Insert
 				Songs::insert(array(
-					'query' => $songItem->query,
-					'song_title' => $song,
-					'youtube_title' => $songItem->title,
-					'artist' => $artist,
-					'album' => $album,
-					'genre' => $genre,
-					'description' => $songItem->description,
-					'youtube_id' => $songItem->video_id,
-					'img_default' => $songItem->img_default,
-					'img_medium' => $songItem->img_medium,
-					'img_high' => $songItem->img_high,
-					'length' => $length,
-					'youtube_results_id' => $songItem->id
+					'query' 			=> $songItem->query,
+					'song_title' 		=> $song,
+					'youtube_title' 	=> $songItem->title,
+					'artist' 			=> $artist,
+					'album' 			=> $album,
+					'genre' 			=> $genre,
+					'description' 		=> $songItem->description,
+					'youtube_id' 		=> $songItem->video_id,
+					'img_default' 		=> $songItem->img_default,
+					'img_medium' 		=> $songItem->img_medium,
+					'img_high' 			=> $songItem->img_high,
+					'length' 			=> $length,
+					'youtube_results_id'=> $songItem->id
 				));
 			}
 		}//foreach
@@ -381,14 +381,14 @@ class SearchController extends BaseController {
 		foreach($youtubeResponse['items'] as $key=>$response){
 
 			$youtubeModel->firstOrCreate(array(
-				'query' => $query,
-				'etag' => $response['etag'],
-				'video_id' => $response['id']['videoId'],
-				'title' => $response['snippet']['title'],
-				'description' => $response['snippet']['description'],
-				'img_default' => $response['snippet']['thumbnails']['default']['url'],
-				'img_medium' => $response['snippet']['thumbnails']['medium']['url'],
-				'img_high' => $response['snippet']['thumbnails']['high']['url']
+				'query' 		=> $query,
+				'etag' 			=> $response['etag'],
+				'video_id' 		=> $response['id']['videoId'],
+				'title' 		=> $response['snippet']['title'],
+				'description' 	=> $response['snippet']['description'],
+				'img_default' 	=> $response['snippet']['thumbnails']['default']['url'],
+				'img_medium' 	=> $response['snippet']['thumbnails']['medium']['url'],
+				'img_high' 		=> $response['snippet']['thumbnails']['high']['url']
 			));
 		}
 	}
@@ -430,14 +430,14 @@ class SearchController extends BaseController {
 		foreach(json_decode($tinyResponse) as $result){
 
 			$tinyModel->firstOrCreate(array(
-				'query' => $query,
-				'url' => $result->Url,
-				'song_id' => $result->SongID,
-				'song_name' => $result->SongName,
-				'artist_id' => $result->ArtistID,
-				'artist_name' => $result->ArtistName,
-				'album_id' => $result->AlbumID,
-				'album_name' => $result->AlbumName
+				'query' 		=> $query,
+				'url' 			=> $result->Url,
+				'song_id' 		=> $result->SongID,
+				'song_name'		=> $result->SongName,
+				'artist_id' 	=> $result->ArtistID,
+				'artist_name' 	=> $result->ArtistName,
+				'album_id' 		=> $result->AlbumID,
+				'album_name' 	=> $result->AlbumName
 			));
 		}
 	}
