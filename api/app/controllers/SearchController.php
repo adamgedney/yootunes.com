@@ -27,74 +27,75 @@ class SearchController extends BaseController {
 		$getLocalTinySong;
 		$getLocalYouTube;
 
-		//===============================================//
-		//Step 2. –Query local Tinysong table
-		//===============================================//
-		$localTinyExists = TinySong::where('query', '=', $q)->count();
+		return $this->getItunes($q);
+		// //===============================================//
+		// //Step 2. –Query local Tinysong table
+		// //===============================================//
+		// $localTinyExists = TinySong::where('query', '=', $q)->count();
 
 
-		//Step 2a. –Local tinysong NO RESULTS
-		if($localTinyExists == 0){
+		// //Step 2a. –Local tinysong NO RESULTS
+		// if($localTinyExists == 0){
 
-			//Get & add tinysong results to local DB
-			$this->getTinySong($q);
+		// 	//Get & add tinysong results to local DB
+		// 	$this->getTinySong($q);
 
-			//Step 3. –get local tinysong results
-			$getLocalTinySong = $this->getLocalTinySong($q);
+		// 	//Step 3. –get local tinysong results
+		// 	$getLocalTinySong = $this->getLocalTinySong($q);
 
-		}else{//Step 2b. –Local tinysong RESULTS ALREADY EXIST
+		// }else{//Step 2b. –Local tinysong RESULTS ALREADY EXIST
 
-			//Step 3. –get local tinysong results
-			$getLocalTinySong = $this->getLocalTinySong($q);
-		}
-
-
-
-
-		//===============================================//
-		//Step 4. –Check local Youtube table
-		//===============================================//
-		$localYouTubeExists = YouTube::where('query', '=', $q)->count();
-
-
-		//Step 4a. –localYouTube NO RESULTS
-		if($localYouTubeExists == 0){
-
-			//Get & add youtube results to local DB
-			$this->getYouTube($q);
-
-			//Step 5. –get local youtube results
-			$getLocalYouTube = $this->getLocalYouTube($q);
-
-		}else{//Step 4b. –Local youtube RESULTS ALREADY EXIST
-
-			//Step 5. –get local youtube results
-			$getLocalYouTube = $this->getLocalYouTube($q);
-
-		}
+		// 	//Step 3. –get local tinysong results
+		// 	$getLocalTinySong = $this->getLocalTinySong($q);
+		// }
 
 
 
 
-		//===============================================//
-		//Step 6. –Merge TinySong & youTube data into songs table
-		//===============================================//
-
-		$this->mergeData($getLocalTinySong, $getLocalYouTube);
-
+		// //===============================================//
+		// //Step 4. –Check local Youtube table
+		// //===============================================//
+		// $localYouTubeExists = YouTube::where('query', '=', $q)->count();
 
 
+		// //Step 4a. –localYouTube NO RESULTS
+		// if($localYouTubeExists == 0){
 
-		//===============================================//
-		//Step 7. –Return query results to client via song table
-		//===============================================//
+		// 	//Get & add youtube results to local DB
+		// 	$this->getYouTube($q);
 
-		$getSongs = $this->getSongs($q);
+		// 	//Step 5. –get local youtube results
+		// 	$getLocalYouTube = $this->getLocalYouTube($q);
+
+		// }else{//Step 4b. –Local youtube RESULTS ALREADY EXIST
+
+		// 	//Step 5. –get local youtube results
+		// 	$getLocalYouTube = $this->getLocalYouTube($q);
+
+		// }
 
 
 
 
-		return $getSongs;
+		// //===============================================//
+		// //Step 6. –Merge TinySong & youTube data into songs table
+		// //===============================================//
+
+		// $this->mergeData($getLocalTinySong, $getLocalYouTube);
+
+
+
+
+		// //===============================================//
+		// //Step 7. –Return query results to client via song table
+		// //===============================================//
+
+		// $getSongs = $this->getSongs($q);
+
+
+
+
+		// return $getSongs;
 	}//search
 
 
@@ -453,37 +454,58 @@ class SearchController extends BaseController {
 	//database if they don't already exist
 	public function getItunes($query){
 
-		//Grooveshark API key
-		$ITUNES_API_KEY = '6ab1c1e7fdf25492f84948a6514238dc';
-		$LIMIT = 300;
+		//Itunes API key
+		$ITUNES_API_KEY = '';
+		$LIMIT = 200;
 
 		//Format string to strip spaces and add "+"
 		$queryExplode = explode(" ", $query);
 		$queryImplode = implode("+", $queryExplode);
 
 		//API Url
-		$itunesQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=" . (string)$LIMIT . "&key=" . (string)$ITUNES_API_KEY;
+		$itunesQuery = "https://itunes.apple.com/search?term=" . $queryImplode . "&limit=" . (string)$LIMIT;
 
 		//Query API -Returns JSON
 		$itunesResponse = file_get_contents($itunesQuery);
+		$itunesResponse = json_decode($itunesResponse, true);
 
 
 
 
-		//Insert query results into database for future searches
-		$itunesModel = new Itunes();
+		foreach($itunesResponse["results"] as $result){
+			var_dump($result["wrapperType"]);
 
-		foreach(json_decode($itunesResponse) as $result){
 
-			$itunesModel->firstOrCreate(array(
-				'query' => $query,
-				'url' => $result->Url,
-				'song_id' => $result->SongID,
-				'song_name' => $result->SongName,
-				'artist_id' => $result->ArtistID,
-				'artist_name' => $result->ArtistName,
-				'album_id' => $result->AlbumID,
-				'album_name' => $result->AlbumName
+
+			Itunes::insert(array(
+					'wrapper_type'				=>(empty($result["wrapperType"]))				? " " : $result["wrapperType"],
+					'kind'						=>(empty($result["kind"]))						? " " : $result["kind"],
+					'artist_id'					=>(empty($result["artistId"]))					? " " : $result["artistId"],
+					'collection_id'				=>(empty($result["collectionId"]))				? " " : $result["collectionId"],
+					'track_id'					=>(empty($result["trackId"]))					? " " : $result["trackId"],
+					'artist_name'				=>(empty($result["artistName"]))				? " " : $result["artistName"],
+					'collection_name'			=>(empty($result["collectionName"]))			? " " : $result["collectionName"],
+					'track_name'				=>(empty($result["trackName"]))					? " " : $result["trackName"],
+					'artist_view_url'			=>(empty($result["artistViewUrl"]))				? " " : $result["artistViewUrl"],
+					'collection_view_url'		=>(empty($result["collectionViewUrl"]))			? " " : $result["collectionViewUrl"],
+					'track_view_url'			=>(empty($result["trackViewUrl"]))				? " " : $result["trackViewUrl"],
+					'img_30'					=>(empty($result["artworkUrl30"]))				? " " : $result["artworkUrl30"],
+					'img_60'					=>(empty($result["artworkUrl60"]))				? " " : $result["artworkUrl60"],
+					'img_100'					=>(empty($result["artworkUrl100"]))				? " " : $result["artworkUrl100"],
+					'collection_price'			=>(empty($result["collectionPrice"]))			? " " : $result["collectionPrice"],
+					'track_price'				=>(empty($result["trackPrice"]))				? " " : $result["trackPrice"],
+					'release_date'				=>(empty($result["releaseDate"]))				? " " : $result["releaseDate"],
+					'collection_explicitness'	=>(empty($result["collectionExplicitness"]))	? " " : $result["collectionExplicitness"],
+					'track_explicitness'		=>(empty($result["trackExplicitness"]))			? " " : $result["trackExplicitness"],
+					'disc_count'				=>(empty($result["discCount"]))					? " " : $result["discCount"],
+					'disc_number'				=>(empty($result["discNumber"]))				? " " : $result["discNumber"],
+					'track_count'				=>(empty($result["trackCount"]))				? " " : $result["trackCount"],
+					'track_number'				=>(empty($result["trackNumber"]))				? " " : $result["trackNumber"],
+					'length_ms'					=>(empty($result["trackTimeMillis"]))			? " " : $result["trackTimeMillis"],
+					'country'					=>(empty($result["country"]))					? " " : $result["country"],
+					'currency'					=>(empty($result["currency"]))					? " " : $result["currency"],
+					'primary_genre'				=>(empty($result["primaryGenreName"]))			? " " : $result["primaryGenreName"],
+					'station_url'				=>(empty($result["radioStationUrl"]))			? " " : $result["radioStationUrl"]
 			));
 		}
 	}
