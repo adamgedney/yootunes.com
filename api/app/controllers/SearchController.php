@@ -120,7 +120,7 @@ class SearchController extends BaseController {
 
 	public function mergeData($getLocalTinySong, $getLocalYouTube){
 
-		//Loop through each youtube video & passinto assumptions engine
+		//Loop through each TINYSONG RESULT & passinto assumptions engine
 		foreach(json_decode($getLocalTinySong) as $tinyItem){
 
 			$this->assumptionsEngine($getLocalYouTube, $tinyItem);
@@ -128,21 +128,22 @@ class SearchController extends BaseController {
 	}
 
 
+	//Passing ALL youtube videos through EACH tinysong result
+
 	//Primary data analyzer & merger.
 	public function assumptionsEngine($getLocalYouTube, $tinyItem){
 
 
-		//Loop through all tinysong results to see if the youtube
-		//result matches any of the track metadata
+		//Loop through all YOUTUBE RESULTS
 		foreach($getLocalYouTube as $songItem){
 
 			$songFilter = $tinyItem->song_name;
 			$artistFilter = $tinyItem->artist_name;
 			$albumFilter = $tinyItem->album_name;
 
-			$song = '';
-			$artist = '';
-			$album = '';
+			$song = ' ';
+			$artist = ' ';
+			$album = ' ';
 
 			//Failsafe to ensure strpos doesn't crash
 			//when no album name present
@@ -158,45 +159,63 @@ class SearchController extends BaseController {
 			//Track lists could exist in descriptions. Album seems to be a
 			//safe search in description.
 			$songCheckTitle = strpos(strtolower($songItem->title), strtolower($songFilter));
+			$songCheckDesc = strpos(strtolower($songItem->description), strtolower($songFilter));
 			$artistCheckTitle = strpos(strtolower($songItem->title), strtolower($artistFilter));
 			$artistCheckDesc = strpos(strtolower($songItem->description), strtolower($artistFilter));
 			$albumCheckTitle = strpos(strtolower($songItem->title), strtolower($albumFilter));
 			$albumCheckDesc = strpos(strtolower($songItem->description), strtolower($albumFilter));
 
 
+			//==========================================//
+			//Song Assumptions
+			//==========================================//
 
-
-
-			//**Song names check requires more to prove this result is the correct song
 			//Search YouTube TITLE for SONG name & ARTIST name
 			if($songCheckTitle !== false && $artistCheckTitle !== false){
 				$song = $songFilter;
 				$artist = $artistFilter;
 			}
 
-			//Search YouTube TITLE & DESC for SONG name & ARTIST name
+			//Search YouTube TITLE for SONG name & ALBUM name
+			if($songCheckTitle !== false && $albumCheckTitle !== false){
+				$song = $songFilter;
+				$album = $albumFilter;
+			}
+
+			//Search YouTube DESC for SONG name & ARTIST name
+			if($songCheckDesc !== false && $artistCheckDesc !== false){
+				$song = $songFilter;
+				$artist = $artistFilter;
+			}
+
+			//Search YouTube DESC for SONG name & ALBUM name
+			if($songCheckDesc !== false && $albumCheckDesc !== false){
+				$song = $songFilter;
+				$album = $albumFilter;
+			}
+
+			//Search YouTube TITLE for SONG name & DESC for ARTIST name
 			if($songCheckTitle !== false && $artistCheckDesc !== false){
 				$song = $songFilter;
 				$artist = $artistFilter;
 			}
 
-			// //Search YouTube TITLE for SONG name string
-			// if($songCheckTitle !== false){
-			// 	$song = $songFilter;
-			// }
+			//Search YouTube TITLE for SONG name & DESC for ALBUM name
+			if($songCheckTitle !== false && $albumCheckDesc !== false){
+				$song = $songFilter;
+				$album = $albumFilter;
+			}
 
+
+
+			//==========================================//
+			//Artist Assumptions
+			//==========================================//
 
 			//Search YouTube TITLE for ARTIST name string
 			if($artistCheckTitle !== false){
 				$artist = $artistFilter;
 			}
-
-			//Search YouTube TITLE for ARTIST & ALBUM name string
-			if($artistCheckTitle !== false && $albumCheckTitle !== false){
-				$artist = $artistFilter;
-				$album = $albumFilter;
-			}
-
 
 			//Search YouTube DESC for ARTIST name string
 			if($artistCheckDesc !== false){
@@ -204,8 +223,18 @@ class SearchController extends BaseController {
 			}
 
 
-			//Search YouTube TITLE or DESC for ALBUM name string
-			if($albumCheckTitle !== false || $albumCheckDesc !== false){
+
+
+			//==========================================//
+			//Album Assumptions
+			//==========================================//
+			//Search YouTube TITLE for ALBUM name string
+			if($albumCheckTitle !== false){
+				$album = $albumFilter;
+			}
+
+			//Search YouTube DESC for ALBUM name string
+			if($albumCheckDesc !== false){
 				$album = $albumFilter;
 			}
 
@@ -213,45 +242,49 @@ class SearchController extends BaseController {
 
 
 
+			//==========================================//
+			//Merge & Insert Song
+			//==========================================//
 
 			//Check for youtube_id in DB
-			$youtubeIdExists = Songs::where('youtube_id', '=', $songItem->video_id)->count();
+			$youtubeIdExists = Songs::where('youtube_id', '=', $songItem->video_id)->get();
+
+			$thisVideo = json_decode($youtubeIdExists, true);
+			// var_dump($thisVideo[0]['song_title']);
+			// break;
+			//Check if artist is null, then update artist.
+			//check if album is null then update album
+
+			if(isset($thisVideo[0])){
+
+				//Update SONG TITLE
+				if($thisVideo[0]["song_title"] == " " || $thisVideo[0]["song_title"] == NULL){
+
+					Songs::where('youtube_id', '=',$songItem->video_id)
+					->update(array('song_title' => $song));
+				}
+
+				//Update ARTIST NAME
+				if($thisVideo[0]["artist"] == " " || $thisVideo[0]["artist"] == NULL){
+
+					Songs::where('youtube_id', '=',$songItem->video_id)
+					->update(array('artist' => $artist));
+				}
+
+				//Update ALBUM NAME
+				if($thisVideo[0]["album"] == " " || $thisVideo[0]["album"] == NULL){
+
+					Songs::where('youtube_id', '=',$songItem->video_id)
+					->update(array('album' => $album));
+				}
 
 
-
-
-			if($youtubeIdExists == "1"){
-
-
-				//Update
-				$db = DB::table('songs')
-				->where('youtube_id', '=',$songItem->video_id)
-				->where('song_title','artist','album','=', 'NULL')
-				->update(array(
-					'query' => $songItem->query,
-					'song_title' => $song,
-					'youtube_title' => $songItem->title,
-					'artist' => $artist,
-					'album' => $album,
-					'genre' => '',
-					'description' => $songItem->description,
-					'img_default' => $songItem->img_default,
-					'img_medium' => $songItem->img_medium,
-					'img_high' => $songItem->img_high,
-					'length' => '',
-					'youtube_results_id' => $songItem->id));
-
-				//NOTE::: Figure out how to update column where null
-				var_dump($song);
-				break;
 
 			}else{
 
 
-
-				//Insert merged data into DB if it doesn't already exist
-				DB::table('songs')
-				->insert(array(
+				//Insert
+				Songs::insert(array(
 					'query' => $songItem->query,
 					'song_title' => $song,
 					'youtube_title' => $songItem->title,
