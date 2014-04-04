@@ -88,17 +88,10 @@ class SearchController extends BaseController {
 		//Step 7. –Return query results to client via song table
 		//===============================================//
 
-		//Instantiate Songs Model
-		// $songsModel = new Songs();
+		$getSongs = $this->getSongs($q);
 
-		// return $return;
-
-
-
-
-
-
-	}
+		return $getSongs;
+	}//search
 
 
 
@@ -111,11 +104,10 @@ class SearchController extends BaseController {
 
 
 
-	//================//
-	//Internal Methods//
-	//================//
 
-
+	//================================================//
+	//Internal Methods================================//
+	//================================================//
 
 
 	public function mergeData($getLocalTinySong, $getLocalYouTube){
@@ -128,7 +120,14 @@ class SearchController extends BaseController {
 	}
 
 
-	//Passing ALL youtube videos through EACH tinysong result
+
+
+
+
+
+
+
+
 
 	//Primary data analyzer & merger.
 	public function assumptionsEngine($getLocalYouTube, $tinyItem){
@@ -249,12 +248,10 @@ class SearchController extends BaseController {
 			//Check for youtube_id in DB
 			$youtubeIdExists = Songs::where('youtube_id', '=', $songItem->video_id)->get();
 
+			//Convert Model results to array
 			$thisVideo = json_decode($youtubeIdExists, true);
-			// var_dump($thisVideo[0]['song_title']);
-			// break;
-			//Check if artist is null, then update artist.
-			//check if album is null then update album
 
+			//If video has been inserted, update its info where available
 			if(isset($thisVideo[0])){
 
 				//Update SONG TITLE
@@ -279,7 +276,6 @@ class SearchController extends BaseController {
 				}
 
 
-
 			}else{
 
 
@@ -300,13 +296,6 @@ class SearchController extends BaseController {
 					'youtube_results_id' => $songItem->id
 				));
 			}
-
-
-
-
-
-
-
 		}//foreach
 	}
 
@@ -453,14 +442,18 @@ class SearchController extends BaseController {
 
 
 
+	public function getSongs($query){
 
+		//Get songs form songs table where artist, album,
+		//song_title, or genre match the client query
+		$getSongs = Songs::where('song_title', 'LIKE', $query)
+			->orWhere('artist', 'LIKE', $query)
+			->orWhere('album', 'LIKE', $query)
+			->orWhere('genre', 'LIKE', $query)
+			->get();
 
-
-
-
-
-
-
+		return $getSongs;
+	}
 
 
 
