@@ -68,6 +68,9 @@ class SearchController extends BaseController {
 			//Step 5. –get local youtube results
 			$getLocalYouTube = $this->getLocalYouTube($q);
 
+			//Step 6. –Merge TinySong & youTube data into songs table
+			$this->mergeData($getLocalItunes, $getLocalYouTube);
+
 		}else{//Step 4b. –Local youtube RESULTS ALREADY EXIST
 
 			//Step 5. –get local youtube results
@@ -82,9 +85,9 @@ class SearchController extends BaseController {
 		//Step 6. –Merge TinySong & youTube data into songs table
 		//===============================================//
 
-		$this->mergeData($getLocalItunes, $getLocalYouTube);
+		// $this->mergeData($getLocalItunes, $getLocalYouTube);
 
-
+		//If local results exist, don't run merge!
 
 
 		// //===============================================//
@@ -95,8 +98,8 @@ class SearchController extends BaseController {
 
 
 
-		echo $getSongs;
-		// return $getSongs;
+		// echo $getSongs . " ouch";
+		return $getSongs;
 	}//search
 
 
@@ -562,10 +565,10 @@ class SearchController extends BaseController {
 
 		//Get songs form songs table where artist, album,
 		//song_title, or genre match the client query
-		$getSongs = Songs::where('song_title', 'LIKE', $query)
-			->orWhere('artist', 'LIKE', $query)
-			->orWhere('album', 'LIKE', $query)
-			->orWhere('genre', 'LIKE', $query)
+		$getSongs = Songs::where('song_title', '=', $query)
+			->orWhere('artist', '=', $query)
+			->orWhere('album', '=', $query)
+			->orWhere('genre', '=', $query)
 			->get();
 
 		return $getSongs;
