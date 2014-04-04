@@ -117,16 +117,7 @@ class SearchController extends BaseController {
 
 
 
-	// public function mergeData($getLocalTinySong, $getLocalYouTube){
 
-	// 	//Loop through each youtube video & passinto assumptions engine
-	// 	foreach(json_decode($getLocalYouTube) as $youtubeItem){
-
-	// 		$this->assumptionsEngine($getLocalTinySong, $youtubeItem);
-	// 	}
-	// }
-
-	//alternate loop
 	public function mergeData($getLocalTinySong, $getLocalYouTube){
 
 		//Loop through each youtube video & passinto assumptions engine
@@ -137,7 +128,7 @@ class SearchController extends BaseController {
 	}
 
 
-	//ALTERNATE Primary data analyzer & merger.
+	//Primary data analyzer & merger.
 	public function assumptionsEngine($getLocalYouTube, $tinyItem){
 
 
@@ -200,6 +191,12 @@ class SearchController extends BaseController {
 				$artist = $artistFilter;
 			}
 
+			//Search YouTube TITLE for ARTIST & ALBUM name string
+			if($artistCheckTitle !== false && $albumCheckTitle !== false){
+				$artist = $artistFilter;
+				$album = $albumFilter;
+			}
+
 
 			//Search YouTube DESC for ARTIST name string
 			if($artistCheckDesc !== false){
@@ -222,6 +219,36 @@ class SearchController extends BaseController {
 
 
 
+
+			if($youtubeIdExists == "1"){
+
+
+				//Update
+				$db = DB::table('songs')
+				->where('youtube_id', '=',$songItem->video_id)
+				->where('song_title','artist','album','=', 'NULL')
+				->update(array(
+					'query' => $songItem->query,
+					'song_title' => $song,
+					'youtube_title' => $songItem->title,
+					'artist' => $artist,
+					'album' => $album,
+					'genre' => '',
+					'description' => $songItem->description,
+					'img_default' => $songItem->img_default,
+					'img_medium' => $songItem->img_medium,
+					'img_high' => $songItem->img_high,
+					'length' => '',
+					'youtube_results_id' => $songItem->id));
+
+				//NOTE::: Figure out how to update column where null
+				var_dump($song);
+				break;
+
+			}else{
+
+
+
 				//Insert merged data into DB if it doesn't already exist
 				DB::table('songs')
 				->insert(array(
@@ -239,133 +266,16 @@ class SearchController extends BaseController {
 					'length' => '',
 					'youtube_results_id' => $songItem->id
 				));
+			}
 
 
 
-				// //Update
-				// DB::table('songs')
-				// ->where('youtube_id', '=',$songItem->video_id)
-				// ->update(array(
-				// 	'query' => $songItem->query,
-				// 	'song_title' => $song,
-				// 	'youtube_title' => $songItem->title,
-				// 	'artist' => $artist,
-				// 	'album' => $album,
-				// 	'genre' => '',
-				// 	'description' => $songItem->description,
-				// 	'img_default' => $songItem->img_default,
-				// 	'img_medium' => $songItem->img_medium,
-				// 	'img_high' => $songItem->img_high,
-				// 	'length' => '',
-				// 	'youtube_results_id' => $songItem->id));
+
+
+
 
 		}//foreach
 	}
-
-
-
-
-
-	// //Primary data analyzer & merger.
-	// public function assumptionsEngine($getLocalTinySong, $youtubeItem){
-
-
-	// 	//Loop through all tinysong results to see if the youtube
-	// 	//result matches any of the track metadata
-	// 	foreach($getLocalTinySong as $songItem){
-
-	// 		$songFilter = $songItem->song_name;
-	// 		$artistFilter = $songItem->artist_name;
-	// 		$albumFilter = $songItem->album_name;
-
-	// 		$song = '';
-	// 		$artist = '';
-	// 		$album = '';
-
-	// 		//Failsafe to ensure strpos doesn't crash
-	// 		//when no album name present
-	// 		if($albumFilter == ""){
-	// 			$albumFilter = "http://adamgedney.com";
-	// 		}
-
-
-
-	// 		//=======================Assumptions Engine=======================//
-	// 		//Searches title and description of YouTbe result for additional metadata.
-	// 		//Song titles and artists are not searched by description as
-	// 		//Track lists could exist in descriptions. Album seems to be a
-	// 		//safe search in description.
-	// 		$songCheckTitle = strpos(strtolower($youtubeItem->title), strtolower($songFilter));
-	// 		$artistCheckTitle = strpos(strtolower($youtubeItem->title), strtolower($artistFilter));
-	// 		$artistCheckDesc = strpos(strtolower($youtubeItem->description), strtolower($artistFilter));
-	// 		$albumCheckTitle = strpos(strtolower($youtubeItem->title), strtolower($albumFilter));
-	// 		$albumCheckDesc = strpos(strtolower($youtubeItem->description), strtolower($albumFilter));
-
-
-
-
-
-	// 		//**Song names check requires more to prove this result is the correct song
-	// 		//Search YouTube TITLE for SONG name & ARTIST name
-	// 		if($songCheckTitle !== false && $artistCheckTitle !== false){
-	// 			$song = $songFilter;
-	// 			$artist = $artistFilter;
-	// 		}
-
-	// 		//Search YouTube TITLE & DESC for SONG name & ARTIST name
-	// 		if($songCheckTitle !== false && $artistCheckDesc !== false){
-	// 			$song = $songFilter;
-	// 			$artist = $artistFilter;
-	// 		}
-
-	// 		//Search YouTube TITLE for SONG name string
-	// 		if($songCheckTitle !== false){
-	// 			$song = $songFilter;
-	// 		}
-
-
-	// 		//Search YouTube TITLE for ARTIST name string
-	// 		if($artistCheckTitle !== false){
-	// 			$artist = $artistFilter;
-	// 		}
-
-
-	// 		//Search YouTube DESC for ARTIST name string
-	// 		if($artistCheckDesc !== false){
-	// 			$artist = $artistFilter;
-	// 		}
-
-
-	// 		//Search YouTube TITLE or DESC for ALBUM name string
-	// 		if($albumCheckTitle !== false || $albumCheckDesc !== false){
-	// 			$album = $albumFilter;
-	// 		}
-
-
-
-
-
-	// 		//INstantiate Songs Model
-	// 		$songsModel = new Songs();
-
-	// 		//Insert merged data into DB if it doesn't already exist
-	// 		$songsModel->create(array(
-	// 			'query' => $youtubeItem->query,
-	// 			'song_title' => $song,
-	// 			'youtube_title' => $youtubeItem->title,
-	// 			'artist' => $artist,
-	// 			'album' => $album,
-	// 			'genre' => '',
-	// 			'description' => $youtubeItem->description,
-	// 			'youtube_id' => $youtubeItem->video_id,
-	// 			'img_default' => $youtubeItem->img_default,
-	// 			'img_medium' => $youtubeItem->img_medium,
-	// 			'img_high' => $youtubeItem->img_high,
-	// 			'length' => '',
-	// 			'youtube_results_id' => $youtubeItem->id
-	// 		));
-	// 	}//foreach
-	// }
 
 
 
@@ -430,10 +340,8 @@ class SearchController extends BaseController {
 		$youtubeResponse = file_get_contents($youtubeQuery);
 		$youtubeResponse = json_decode($youtubeResponse, true);
 
-		//WORKING!
+		//Note: The below var_dump is the proper syntax for traversing results
 		//var_dump($youtubeResponse['items'][0]['snippet']['title']);
-
-
 
 
 
