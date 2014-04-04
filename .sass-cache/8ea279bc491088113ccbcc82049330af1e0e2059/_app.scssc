@@ -1,5 +1,5 @@
 3.2.9 (Media Mark)
-063b79229d41e83b9aefb46d89067eaab9a4360c
+e7c8a04f4d9e3200217fc9daa58ed174c7a05ca6
 o:Sass::Tree::RootNode
 :@template"¯0/*
 	Thanks for checking out my code!!
@@ -330,7 +330,7 @@ section.app{
 		border-bottom-right-radius: 0;
 		// border-right: none;
 		border: none;
-		font-size: 3.6em;
+		font-size: 2.7em;
 		font-weight: 100;
 		background: transparent;
 		padding-left: 3%;
@@ -1099,7 +1099,7 @@ input;i=;o;; " ;i=;![o;";![o;#
 ;$0; @Ô;%o;&;'{ ;i=;![o;(	;["
 input; @Ô;i=;)0;0To;;i ;[o;1;"col;[ ;@;{ ;iE;0;[o;2;i;@;3@ƒ;iE;4[ ;5"11o;;i ;["border-top-right-radius;[ ;o;;	;;"0;@;@;iF;;o;;i ;["border-bottom-right-radius;[ ;o;;	;;"0;@;@;iG;;o;
 ;	;;[ ;["/* border-right: none; */;@;iHo;;i ;["border;[ ;o;;	;;"	none;@;@;iI;;o;;i ;["font-size;[ ;o;;	;;"
-3.6em;@;@;iJ;;o;;i ;["font-weight;[ ;o;;	;;"100;@;@;iK;;o;;i ;["background;[ ;o;;	;;"transparent;@;@;iL;;o;;i ;["padding-left;[ ;o;;	;;"3%;@;@;iM;;o;;i ;["outline;[ ;o;;	;;"	none;@;@;iN;;;@;["input[type="text"];iD;o;; " ;iD;![o;";![o;#
+2.7em;@;@;iJ;;o;;i ;["font-weight;[ ;o;;	;;"100;@;@;iK;;o;;i ;["background;[ ;o;;	;;"transparent;@;@;iL;;o;;i ;["padding-left;[ ;o;;	;;"3%;@;@;iM;;o;;i ;["outline;[ ;o;;	;;"	none;@;@;iN;;;@;["input[type="text"];iD;o;; " ;iD;![o;";![o;#
 ;$0; @ ;%o;&;'{ ;iD;![o;(	;["
 input; @ ;iD;)0o;*;["	type;[""text"; @ ;+0;iD;)0;,"=;0To;;i ;[o;1;"col;[ ;@;{ ;iR;0;[o;2;i;@;3@ƒ;iR;4[ ;5"1o;;i ;["background;[ ;o;	;"red;"red;@;iS;@;iS;;o;;i ;["border-top-left-radius;[ ;o;;	;;"0;@;@;iT;;o;;i ;["border-bottom-left-radius;[ ;o;;	;;"0;@;@;iU;;o;
 ;	;;[ ;["+/* border: 1px solid nth($grey, 3); */;@;iVo;;i ;["border-left;[ ;o;;	;;"	none;@;@;iW;;;@;["input[type="submit"];iQ;o;; " ;iQ;![o;";![o;#

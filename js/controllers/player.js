@@ -80,28 +80,28 @@ var Player = (function(window, document, $){
 
 
 
-
+			//NOTE:: ** Only allow if serach is NOT in FOCUS
 			//Keypress controls for play/pause etc.
-			$(document).on('keypress', function(event){
+			// $(document).on('keypress', function(event){
 
-				//If Spacebar pressed
-				if(_key.Space){
-					//Play if not already playing
-					if(!_playerPlaying){
+			// 	//If Spacebar pressed
+			// 	if(_key.Space){
+			// 		//Play if not already playing
+			// 		if(!_playerPlaying){
 
-						play();
+			// 			play();
 
-					//Stop playing if already playing
-					}else{
+			// 		//Stop playing if already playing
+			// 		}else{
 
-						pause();
-					}
-				}
+			// 			pause();
+			// 		}
+			// 	}
 
-				event.preventDefault();
-				return false;
+			// 	event.preventDefault();
+			// 	return false;
 
-			});
+			// });
 
 
 

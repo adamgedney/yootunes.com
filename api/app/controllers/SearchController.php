@@ -23,9 +23,9 @@ class SearchController extends BaseController {
 		//6. Merge data & store in local songs table
 		//7. Return to client the youtube results on query term, with merged data, from songs table
 
+
 		$getLocalTinySong;
 		$getLocalYouTube;
-
 
 		//===============================================//
 		//Step 2. –Query local Tinysong table
@@ -37,7 +37,7 @@ class SearchController extends BaseController {
 		if($localTinyExists == 0){
 
 			//Get & add tinysong results to local DB
-			$getTinySong = json_decode($this->getTinySong($q));
+			$this->getTinySong($q);
 
 			//Step 3. –get local tinysong results
 			$getLocalTinySong = $this->getLocalTinySong($q);
@@ -61,7 +61,7 @@ class SearchController extends BaseController {
 		if($localYouTubeExists == 0){
 
 			//Get & add youtube results to local DB
-			$getYouTube = json_decode($this->getYouTube($q));
+			$this->getYouTube($q);
 
 			//Step 5. –get local youtube results
 			$getLocalYouTube = $this->getLocalYouTube($q);
@@ -80,7 +80,8 @@ class SearchController extends BaseController {
 		//Step 6. –Merge TinySong & youTube data into songs table
 		//===============================================//
 
-		$merge = $this->mergeData($getLocalTinySong, $getLocalYouTube);
+		$this->mergeData($getLocalTinySong, $getLocalYouTube);
+
 
 
 
@@ -89,6 +90,9 @@ class SearchController extends BaseController {
 		//===============================================//
 
 		$getSongs = $this->getSongs($q);
+
+
+
 
 		return $getSongs;
 	}//search
@@ -105,9 +109,9 @@ class SearchController extends BaseController {
 
 
 
-	//================================================//
-	//Internal Methods================================//
-	//================================================//
+	//========================================================================//
+	//Internal Methods========================================================//
+	//========================================================================//
 
 
 	public function mergeData($getLocalTinySong, $getLocalYouTube){
@@ -143,6 +147,8 @@ class SearchController extends BaseController {
 			$song = ' ';
 			$artist = ' ';
 			$album = ' ';
+			$genre = ' ';
+			$length = ' ';
 
 			//Failsafe to ensure strpos doesn't crash
 			//when no album name present
@@ -227,6 +233,7 @@ class SearchController extends BaseController {
 			//==========================================//
 			//Album Assumptions
 			//==========================================//
+
 			//Search YouTube TITLE for ALBUM name string
 			if($albumCheckTitle !== false){
 				$album = $albumFilter;
@@ -286,13 +293,13 @@ class SearchController extends BaseController {
 					'youtube_title' => $songItem->title,
 					'artist' => $artist,
 					'album' => $album,
-					'genre' => '',
+					'genre' => $genre,
 					'description' => $songItem->description,
 					'youtube_id' => $songItem->video_id,
 					'img_default' => $songItem->img_default,
 					'img_medium' => $songItem->img_medium,
 					'img_high' => $songItem->img_high,
-					'length' => '',
+					'length' => $length,
 					'youtube_results_id' => $songItem->id
 				));
 			}
@@ -422,6 +429,53 @@ class SearchController extends BaseController {
 		foreach(json_decode($tinyResponse) as $result){
 
 			$tinyModel->firstOrCreate(array(
+				'query' => $query,
+				'url' => $result->Url,
+				'song_id' => $result->SongID,
+				'song_name' => $result->SongName,
+				'artist_id' => $result->ArtistID,
+				'artist_name' => $result->ArtistName,
+				'album_id' => $result->AlbumID,
+				'album_name' => $result->AlbumName
+			));
+		}
+	}
+
+
+
+
+
+
+
+
+
+	//Fetches results from iTunes API & stores in
+	//database if they don't already exist
+	public function getItunes($query){
+
+		//Grooveshark API key
+		$ITUNES_API_KEY = '6ab1c1e7fdf25492f84948a6514238dc';
+		$LIMIT = 300;
+
+		//Format string to strip spaces and add "+"
+		$queryExplode = explode(" ", $query);
+		$queryImplode = implode("+", $queryExplode);
+
+		//API Url
+		$itunesQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=" . (string)$LIMIT . "&key=" . (string)$ITUNES_API_KEY;
+
+		//Query API -Returns JSON
+		$itunesResponse = file_get_contents($itunesQuery);
+
+
+
+
+		//Insert query results into database for future searches
+		$itunesModel = new Itunes();
+
+		foreach(json_decode($itunesResponse) as $result){
+
+			$itunesModel->firstOrCreate(array(
 				'query' => $query,
 				'url' => $result->Url,
 				'song_id' => $result->SongID,
