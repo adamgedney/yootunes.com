@@ -91,11 +91,11 @@ class SearchController extends BaseController {
 		// //Step 7. –Return query results to client via song table
 		// //===============================================//
 
-		// $getSongs = $this->getSongs($q);
+		$getSongs = $this->getSongs($q);
 
 
 
-
+		echo $getSongs;
 		// return $getSongs;
 	}//search
 
@@ -138,21 +138,19 @@ class SearchController extends BaseController {
 	//Primary data analyzer & merger.
 	public function assumptionsEngine($getLocalYouTube, $itunesItem){
 
-
-
-
 		//Loop through all YOUTUBE RESULTS
 		foreach($getLocalYouTube as $songItem){
 
 			$songFilter 	= $itunesItem->track_name;
 			$artistFilter 	= $itunesItem->artist_name;
-			$albumFilter 	= $itunesItem->album_name;
+			$albumFilter 	= $itunesItem->collection_name;
 			$genreFilter 	= $itunesItem->primary_genre;
 
 			$song 	= ' ';
 			$artist = ' ';
 			$album 	= ' ';
 			$genre 	= ' ';
+			$length = ' ';
 
 
 			//Failsafe to ensure strpos doesn't crash
