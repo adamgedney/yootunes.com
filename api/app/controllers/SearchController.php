@@ -35,6 +35,7 @@ class SearchController extends BaseController {
 		$localItunesExists = Itunes::where('query', '=', $q)->count();
 
 
+
 		//Step 2a. –Local Itunes NO RESULTS
 		if($localItunesExists == 0){
 
@@ -48,6 +49,7 @@ class SearchController extends BaseController {
 
 			//Step 3. –get local Itunes results
 			$getLocalItunes = $this->getLocalItunes($q);
+
 		}
 
 
@@ -68,8 +70,12 @@ class SearchController extends BaseController {
 			//Step 5. –get local youtube results
 			$getLocalYouTube = $this->getLocalYouTube($q);
 
+
+			//===============================================//
 			//Step 6. –Merge TinySong & youTube data into songs table
-			$this->mergeData($getLocalItunes, $getLocalYouTube);
+			//===============================================//
+			//–moved here to speed up app
+			// $this->mergeData($getLocalItunes, $getLocalYouTube);
 
 		}else{//Step 4b. –Local youtube RESULTS ALREADY EXIST
 
@@ -81,20 +87,12 @@ class SearchController extends BaseController {
 
 
 
-		//===============================================//
-		//Step 6. –Merge TinySong & youTube data into songs table
-		//===============================================//
-
-		// $this->mergeData($getLocalItunes, $getLocalYouTube);
-
-		//If local results exist, don't run merge!
-
 
 		// //===============================================//
 		// //Step 7. –Return query results to client via song table
 		// //===============================================//
 
-		$getSongs = $this->getSongs($q);
+		 $getSongs = $this->getSongs($q);
 
 
 
@@ -500,7 +498,7 @@ class SearchController extends BaseController {
 
 		//Itunes API key
 		$ITUNES_AFFILIATE_URL = '';
-		$LIMIT = 200;
+		$LIMIT = 50;
 
 		//Format string to strip spaces and add "+"
 		$queryExplode = explode(" ", $query);
