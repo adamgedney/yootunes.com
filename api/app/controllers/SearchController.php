@@ -189,10 +189,10 @@ class SearchController extends BaseController {
 				$artist = $artistFilter;
 			}
 
-			//Search YouTube TITLE for SONG name string
-			if($songCheckTitle !== false){
-				$song = $songFilter;
-			}
+			// //Search YouTube TITLE for SONG name string
+			// if($songCheckTitle !== false){
+			// 	$song = $songFilter;
+			// }
 
 
 			//Search YouTube TITLE for ARTIST name string
@@ -216,25 +216,49 @@ class SearchController extends BaseController {
 
 
 
-			//INstantiate Songs Model
-			$songsModel = new Songs();
 
-			//Insert merged data into DB if it doesn't already exist
-			$songsModel->create(array(
-				'query' => $songItem->query,
-				'song_title' => $song,
-				'youtube_title' => $songItem->title,
-				'artist' => $artist,
-				'album' => $album,
-				'genre' => '',
-				'description' => $songItem->description,
-				'youtube_id' => $songItem->video_id,
-				'img_default' => $songItem->img_default,
-				'img_medium' => $songItem->img_medium,
-				'img_high' => $songItem->img_high,
-				'length' => '',
-				'youtube_results_id' => $songItem->id
-			));
+			//Check for youtube_id in DB
+			$youtubeIdExists = Songs::where('youtube_id', '=', $songItem->video_id)->count();
+
+
+
+				//Insert merged data into DB if it doesn't already exist
+				DB::table('songs')
+				->insert(array(
+					'query' => $songItem->query,
+					'song_title' => $song,
+					'youtube_title' => $songItem->title,
+					'artist' => $artist,
+					'album' => $album,
+					'genre' => '',
+					'description' => $songItem->description,
+					'youtube_id' => $songItem->video_id,
+					'img_default' => $songItem->img_default,
+					'img_medium' => $songItem->img_medium,
+					'img_high' => $songItem->img_high,
+					'length' => '',
+					'youtube_results_id' => $songItem->id
+				));
+
+
+
+				// //Update
+				// DB::table('songs')
+				// ->where('youtube_id', '=',$songItem->video_id)
+				// ->update(array(
+				// 	'query' => $songItem->query,
+				// 	'song_title' => $song,
+				// 	'youtube_title' => $songItem->title,
+				// 	'artist' => $artist,
+				// 	'album' => $album,
+				// 	'genre' => '',
+				// 	'description' => $songItem->description,
+				// 	'img_default' => $songItem->img_default,
+				// 	'img_medium' => $songItem->img_medium,
+				// 	'img_high' => $songItem->img_high,
+				// 	'length' => '',
+				// 	'youtube_results_id' => $songItem->id));
+
 		}//foreach
 	}
 
@@ -404,23 +428,29 @@ class SearchController extends BaseController {
 
 		//returns the snippet and statistics part with only the id, desc, title, thumbnails fields
 		$youtubeResponse = file_get_contents($youtubeQuery);
+		$youtubeResponse = json_decode($youtubeResponse, true);
+
+		//WORKING!
+		//var_dump($youtubeResponse['items'][0]['snippet']['title']);
+
+
 
 
 
 		//Insert query results into database for future searches
 		$youtubeModel = new YouTube();
 
-		foreach(json_decode($youtubeResponse) as $result){
+		foreach($youtubeResponse['items'] as $key=>$response){
 
 			$youtubeModel->firstOrCreate(array(
 				'query' => $query,
-				'etag' => $result[0]->etag,
-				'video_id' => $result[0]->id->videoId,
-				'title' => $result[0]->snippet->title,
-				'description' => $result[0]->snippet->description,
-				'img_default' => $result[0]->snippet->thumbnails->default->url,
-				'img_medium' => $result[0]->snippet->thumbnails->medium->url,
-				'img_high' => $result[0]->snippet->thumbnails->high->url
+				'etag' => $response['etag'],
+				'video_id' => $response['id']['videoId'],
+				'title' => $response['snippet']['title'],
+				'description' => $response['snippet']['description'],
+				'img_default' => $response['snippet']['thumbnails']['default']['url'],
+				'img_medium' => $response['snippet']['thumbnails']['medium']['url'],
+				'img_high' => $response['snippet']['thumbnails']['high']['url']
 			));
 		}
 	}
