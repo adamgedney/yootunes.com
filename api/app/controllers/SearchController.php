@@ -24,64 +24,65 @@ class SearchController extends BaseController {
 		//7. Return to client the youtube results on query term, with merged data, from songs table
 
 
-		$getLocalTinySong;
+		$getLocalItunes;
 		$getLocalYouTube;
 
-		return $this->getItunes($q);
-		// //===============================================//
-		// //Step 2. –Query local Tinysong table
-		// //===============================================//
-		// $localTinyExists = TinySong::where('query', '=', $q)->count();
+
+		//===============================================//
+		//Step 2. –Query local Itunes table
+		//===============================================//
+
+		$localItunesExists = Itunes::where('query', '=', $q)->count();
 
 
-		// //Step 2a. –Local tinysong NO RESULTS
-		// if($localTinyExists == 0){
+		//Step 2a. –Local Itunes NO RESULTS
+		if($localItunesExists == 0){
 
-		// 	//Get & add tinysong results to local DB
-		// 	$this->getTinySong($q);
+			//Get & add Itunes results to local DB
+			$this->getItunes($q);
 
-		// 	//Step 3. –get local tinysong results
-		// 	$getLocalTinySong = $this->getLocalTinySong($q);
+			//Step 3. –get local Itunes results
+			$getLocalItunes = $this->getLocalItunes($q);
 
-		// }else{//Step 2b. –Local tinysong RESULTS ALREADY EXIST
+		}else{//Step 2b. –Local Itunes RESULTS ALREADY EXIST
 
-		// 	//Step 3. –get local tinysong results
-		// 	$getLocalTinySong = $this->getLocalTinySong($q);
-		// }
-
-
-
-
-		// //===============================================//
-		// //Step 4. –Check local Youtube table
-		// //===============================================//
-		// $localYouTubeExists = YouTube::where('query', '=', $q)->count();
-
-
-		// //Step 4a. –localYouTube NO RESULTS
-		// if($localYouTubeExists == 0){
-
-		// 	//Get & add youtube results to local DB
-		// 	$this->getYouTube($q);
-
-		// 	//Step 5. –get local youtube results
-		// 	$getLocalYouTube = $this->getLocalYouTube($q);
-
-		// }else{//Step 4b. –Local youtube RESULTS ALREADY EXIST
-
-		// 	//Step 5. –get local youtube results
-		// 	$getLocalYouTube = $this->getLocalYouTube($q);
-
-		// }
+			//Step 3. –get local Itunes results
+			$getLocalItunes = $this->getLocalItunes($q);
+		}
 
 
 
 
-		// //===============================================//
-		// //Step 6. –Merge TinySong & youTube data into songs table
-		// //===============================================//
+		//===============================================//
+		//Step 4. –Check local Youtube table
+		//===============================================//
+		$localYouTubeExists = YouTube::where('query', '=', $q)->count();
 
-		// $this->mergeData($getLocalTinySong, $getLocalYouTube);
+
+		//Step 4a. –localYouTube NO RESULTS
+		if($localYouTubeExists == 0){
+
+			//Get & add youtube results to local DB
+			$this->getYouTube($q);
+
+			//Step 5. –get local youtube results
+			$getLocalYouTube = $this->getLocalYouTube($q);
+
+		}else{//Step 4b. –Local youtube RESULTS ALREADY EXIST
+
+			//Step 5. –get local youtube results
+			$getLocalYouTube = $this->getLocalYouTube($q);
+
+		}
+
+
+
+
+		//===============================================//
+		//Step 6. –Merge TinySong & youTube data into songs table
+		//===============================================//
+
+		$this->mergeData($getLocalItunes, $getLocalYouTube);
 
 
 
@@ -115,12 +116,12 @@ class SearchController extends BaseController {
 	//========================================================================//
 
 
-	public function mergeData($getLocalTinySong, $getLocalYouTube){
+	public function mergeData($getLocalItunes, $getLocalYouTube){
 
 		//Loop through each TINYSONG RESULT & passinto assumptions engine
-		foreach(json_decode($getLocalTinySong) as $tinyItem){
+		foreach(json_decode($getLocalItunes) as $itunesItem){
 
-			$this->assumptionsEngine($getLocalYouTube, $tinyItem);
+			$this->assumptionsEngine($getLocalYouTube, $itunesItem);
 		}
 	}
 
@@ -135,21 +136,24 @@ class SearchController extends BaseController {
 
 
 	//Primary data analyzer & merger.
-	public function assumptionsEngine($getLocalYouTube, $tinyItem){
+	public function assumptionsEngine($getLocalYouTube, $itunesItem){
+
+
 
 
 		//Loop through all YOUTUBE RESULTS
 		foreach($getLocalYouTube as $songItem){
 
-			$songFilter = $tinyItem->song_name;
-			$artistFilter = $tinyItem->artist_name;
-			$albumFilter = $tinyItem->album_name;
+			$songFilter 	= $itunesItem->track_name;
+			$artistFilter 	= $itunesItem->artist_name;
+			$albumFilter 	= $itunesItem->album_name;
+			$genreFilter 	= $itunesItem->primary_genre;
 
-			$song = ' ';
+			$song 	= ' ';
 			$artist = ' ';
-			$album = ' ';
-			$genre = ' ';
-			$length = ' ';
+			$album 	= ' ';
+			$genre 	= ' ';
+
 
 			//Failsafe to ensure strpos doesn't crash
 			//when no album name present
@@ -180,36 +184,48 @@ class SearchController extends BaseController {
 			if($songCheckTitle !== false && $artistCheckTitle !== false){
 				$song 	= $songFilter;
 				$artist = $artistFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
 
 			//Search YouTube TITLE for SONG name & ALBUM name
 			if($songCheckTitle !== false && $albumCheckTitle !== false){
 				$song 	= $songFilter;
 				$album 	= $albumFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
 
 			//Search YouTube DESC for SONG name & ARTIST name
 			if($songCheckDesc !== false && $artistCheckDesc !== false){
 				$song 	= $songFilter;
 				$artist = $artistFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
 
 			//Search YouTube DESC for SONG name & ALBUM name
 			if($songCheckDesc !== false && $albumCheckDesc !== false){
 				$song 	= $songFilter;
 				$album 	= $albumFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
 
 			//Search YouTube TITLE for SONG name & DESC for ARTIST name
 			if($songCheckTitle !== false && $artistCheckDesc !== false){
 				$song 	= $songFilter;
 				$artist = $artistFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
 
 			//Search YouTube TITLE for SONG name & DESC for ALBUM name
 			if($songCheckTitle !== false && $albumCheckDesc !== false){
 				$song 	= $songFilter;
 				$album 	= $albumFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
 
 
@@ -221,11 +237,15 @@ class SearchController extends BaseController {
 			//Search YouTube TITLE for ARTIST name string
 			if($artistCheckTitle !== false){
 				$artist = $artistFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
 
 			//Search YouTube DESC for ARTIST name string
 			if($artistCheckDesc !== false){
 				$artist = $artistFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
 
 
@@ -238,12 +258,18 @@ class SearchController extends BaseController {
 			//Search YouTube TITLE for ALBUM name string
 			if($albumCheckTitle !== false){
 				$album = $albumFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
 
 			//Search YouTube DESC for ALBUM name string
 			if($albumCheckDesc !== false){
 				$album = $albumFilter;
+				//Assumes genre
+				$genre 	= $genreFilter;
 			}
+
+
 
 
 
@@ -283,6 +309,13 @@ class SearchController extends BaseController {
 					->update(array('album' => $album));
 				}
 
+				//Update GENRE
+				if($thisVideo[0]["genre"] == " " || $thisVideo[0]["genre"] == NULL){
+
+					Songs::where('youtube_id', '=',$songItem->video_id)
+					->update(array('genre' => $genre));
+				}
+
 
 			}else{
 
@@ -317,12 +350,22 @@ class SearchController extends BaseController {
 
 
 
-	public function getLocalTinySong($query){
+	// public function getLocalTinySong($query){
 
-		$tinyModel = new TinySong();
+	// 	$tinyModel = new TinySong();
+
+	// 	//Calls Model to search DB for query
+	// 	$results = $tinyModel->where('query', '=', $query)->get();
+
+	// 	return $results;
+	// }
+
+
+
+	public function getLocalItunes($query){
 
 		//Calls Model to search DB for query
-		$results = $tinyModel->where('query', '=', $query)->get();
+		$results = Itunes::where('query', '=', $query)->get();
 
 		return $results;
 	}
@@ -405,42 +448,42 @@ class SearchController extends BaseController {
 
 	//Fetches results from TinySong API & stores in
 	//database if they don't already exist
-	public function getTinySong($query){
+	// public function getTinySong($query){
 
-		//Grooveshark API key
-		$TINY_API_KEY = '6ab1c1e7fdf25492f84948a6514238dc';
-		$LIMIT = 32;
+	// 	//Grooveshark API key
+	// 	$TINY_API_KEY = '6ab1c1e7fdf25492f84948a6514238dc';
+	// 	$LIMIT = 32;
 
-		//Format string to strip spaces and add "+"
-		$queryExplode = explode(" ", $query);
-		$queryImplode = implode("+", $queryExplode);
+	// 	//Format string to strip spaces and add "+"
+	// 	$queryExplode = explode(" ", $query);
+	// 	$queryImplode = implode("+", $queryExplode);
 
-		//API Url
-		$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=" . (string)$LIMIT . "&key=" . (string)$TINY_API_KEY;
+	// 	//API Url
+	// 	$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=" . (string)$LIMIT . "&key=" . (string)$TINY_API_KEY;
 
-		//Query API -Returns JSON
-		$tinyResponse = file_get_contents($tinyQuery);
-
-
+	// 	//Query API -Returns JSON
+	// 	$tinyResponse = file_get_contents($tinyQuery);
 
 
-		//Insert query results into database for future searches
-		$tinyModel = new TinySong();
 
-		foreach(json_decode($tinyResponse) as $result){
 
-			$tinyModel->firstOrCreate(array(
-				'query' 		=> $query,
-				'url' 			=> $result->Url,
-				'song_id' 		=> $result->SongID,
-				'song_name'		=> $result->SongName,
-				'artist_id' 	=> $result->ArtistID,
-				'artist_name' 	=> $result->ArtistName,
-				'album_id' 		=> $result->AlbumID,
-				'album_name' 	=> $result->AlbumName
-			));
-		}
-	}
+	// 	//Insert query results into database for future searches
+	// 	$tinyModel = new TinySong();
+
+	// 	foreach(json_decode($tinyResponse) as $result){
+
+	// 		$tinyModel->firstOrCreate(array(
+	// 			'query' 		=> $query,
+	// 			'url' 			=> $result->Url,
+	// 			'song_id' 		=> $result->SongID,
+	// 			'song_name'		=> $result->SongName,
+	// 			'artist_id' 	=> $result->ArtistID,
+	// 			'artist_name' 	=> $result->ArtistName,
+	// 			'album_id' 		=> $result->AlbumID,
+	// 			'album_name' 	=> $result->AlbumName
+	// 		));
+	// 	}
+	// }
 
 
 
@@ -455,7 +498,7 @@ class SearchController extends BaseController {
 	public function getItunes($query){
 
 		//Itunes API key
-		$ITUNES_API_KEY = '';
+		$ITUNES_AFFILIATE_URL = '';
 		$LIMIT = 200;
 
 		//Format string to strip spaces and add "+"
@@ -473,11 +516,10 @@ class SearchController extends BaseController {
 
 
 		foreach($itunesResponse["results"] as $result){
-			var_dump($result["wrapperType"]);
-
 
 
 			Itunes::insert(array(
+					'query'						=> $query,
 					'wrapper_type'				=>(empty($result["wrapperType"]))				? " " : $result["wrapperType"],
 					'kind'						=>(empty($result["kind"]))						? " " : $result["kind"],
 					'artist_id'					=>(empty($result["artistId"]))					? " " : $result["artistId"],
