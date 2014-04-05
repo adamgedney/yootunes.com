@@ -85,6 +85,34 @@ var Content = (function(window, document, $){
 
 
 
+		//Search call and result looping=========//
+		$(document).on('submit', '#searchForm', function(event){
+			var query = $('#searchInput').val();
+			var API_URL = 'http://localhost:8887/search/' + query;
+
+			$.ajax({
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType	: 'json',
+				success 	: function(data){
+
+					console.log(data);
+				}
+
+			});
+
+
+
+
+
+			return false;
+			event.preventDefault();
+
+		});
+
+
+
+
 
 
 

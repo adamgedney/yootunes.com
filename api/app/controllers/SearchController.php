@@ -95,12 +95,12 @@ class SearchController extends BaseController {
 		//Step 7. –Return query results to client via song table
 		//===============================================//
 
-		 $getSongs = $this->getSongs($q);
+		$getSongs = $this->getSongs($q);
 
 
 
-
-		echo $getSongs;
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($getSongs);
 	}//search
 
 
