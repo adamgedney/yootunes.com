@@ -2,6 +2,8 @@ var User = (function(window, document, $, CryptoJS){
 
 
 
+	//instances
+	var _content 	= new Content();
 
 	//private vars
 	// var _foo = 'bar';
@@ -29,7 +31,7 @@ var User = (function(window, document, $, CryptoJS){
 			var password 		= CryptoJS.SHA3($('#signupPass').val(), { outputLength: 512 });
 			var passwordAgain 	= CryptoJS.SHA3($('#signupPassAgain').val(), { outputLength: 512 });
 			var pwString 		= '';
-			var API_URL			= 'http://localhost:8887/search/' + email + pwString;
+
 
 
 			//Produces 160 char string from pw
@@ -46,6 +48,9 @@ var User = (function(window, document, $, CryptoJS){
 				}
 			}
 
+
+			var API_URL			= 'http://localhost:8887/new-user/' + email + '/' +  pwString + '/' +  "email";
+
 			//Authenticate user
 			$.ajax({
 				url: API_URL,
@@ -53,12 +58,27 @@ var User = (function(window, document, $, CryptoJS){
 				dataType : 'json',
 				success: function(response){
 
+					if(response.response === true){
+						console.log("user is registered");
 
+						//load the application
+						_content.loadApp();
+
+						//fire event passing user data to listening class
+						$.event.trigger({
+							type 	: 'userloggedin',
+							email 	: response.email,
+							userId	: response.userId
+						});
+
+
+					}else{
+						console.log(response, "something went wrong");
+					}
 
 				}//success
 			});//ajax
 
-			console.log(email, password.words, passwordAgain.words, pwString);
 
 			event.preventDefault();
 		});

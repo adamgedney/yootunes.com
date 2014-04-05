@@ -46,7 +46,7 @@
 		loadScripts();
 
 		//Load app template
-		_app.content.loadApp();
+		_app.content.loadLanding();
 
 		//Makes synchronous
 		//Listens for loadApp content renderer complete

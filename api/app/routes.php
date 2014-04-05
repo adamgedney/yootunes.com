@@ -8,7 +8,7 @@
 
 
 //User routes==========================//
-Route::get('new-user', 'UserController@newUser');
+Route::get('new-user/{email}/{pw}/{with}', 'UserController@newUser');
 
 Route::get('get-user', 'UserController@getUser');
 

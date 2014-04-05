@@ -131,6 +131,15 @@ var Content = (function(window, document, $){
 
 
 
+		//Listens for user to log in to load library for user
+		$(document).on('userloggedin', function(event){
+
+			console.log(event.email, event.userId, "dataaaaaa");
+		});
+
+
+
+
 
 
 
@@ -147,9 +156,10 @@ var Content = (function(window, document, $){
 	//methods and properties.
 	content.prototype = {
 		constructor 		: content,
-		loadApp 			: loadApp,
+		loadLanding 		: loadLanding,
 		loadPlaylists		: loadPlaylists,
-		loadLibrary 		: loadLibrary
+		loadLibrary 		: loadLibrary,
+		loadApp				: loadApp
 	};
 
 
@@ -171,11 +181,33 @@ var Content = (function(window, document, $){
 //Class methods===================//
 //================================//
 
+	//Loads landing template
+	function loadLanding(){
+		var src 		= '/js/views/landing.html',
+			id 			= '#landing',
+			appendTo 	= '#wrapper';
+
+			data 	 	= {
+				test	: ''
+			};
+
+
+		render(src, id, appendTo, data);
+	}
+
+
+
+
+
+
+
+
+
 	//Loads app template
 	function loadApp(){
 		var src 		= '/js/views/app.html',
 			id 			= '#app',
-			appendTo 	= '#appWrapper';
+			appendTo 	= '#wrapper';
 
 			data 	 	= {
 				test	: ''
