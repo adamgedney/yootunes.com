@@ -71,7 +71,6 @@ class SearchController extends BaseController {
 			$getLocalYouTube = $this->getLocalYouTube($q);
 
 
-
 		}else{//Step 4b. –Local youtube RESULTS ALREADY EXIST
 
 			//Step 5. –get local youtube results
@@ -96,7 +95,7 @@ class SearchController extends BaseController {
 		}
 
 		//If we have youtube data from any source, but not itunes, then merge
-		if($localYouTubeExists == "0" || $$localYouTubeExists !== "0"){
+		if($localYouTubeExists == "0" || $localYouTubeExists !== "0"){
 
 			if($localItunesExists == "0"){
 
@@ -528,6 +527,7 @@ class SearchController extends BaseController {
 		//song_title, or genre match the client query
 		$getSongs = Songs::where('song_title', 'LIKE', '%' . $query . '%')
 			->orWhere('query', 'LIKE', '%' . $query . '%')
+			->orWhere('youtube_title', 'LIKE', '%' . $query . '%')
 			->orWhere('artist', 'LIKE', '%' . $query . '%')
 			->orWhere('album', 'LIKE', '%' . $query . '%')
 			->orWhere('genre', 'LIKE', '%' . $query . '%')

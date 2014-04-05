@@ -50,11 +50,11 @@
 				<h2>Create an account</h2>
 
 				<form>
-					<input type="email" placeholder="Email Address"/>
-					<input type="text" placeholder="Password"/>
-					<input type="text" placeholder="Password Again"/>
+					<input id="signupEmail" type="email" placeholder="Email Address"/>
+					<input id="signupPass" type="text" placeholder="Password"/>
+					<input id="signupPassAgain" type="text" placeholder="Password Again"/>
 
-					<input type="Submit" value="Sign up" />
+					<input id="signupSubmit" type="Submit" value="Sign up" />
 
 					<p class="or">-or-</p>
 
@@ -158,14 +158,20 @@
 
 
 
-		<script src="js/libraries/jquery-1.10.2.min.js"></script>
-		<!-- <script src=""></script>
-		// <script src=""></script>
-		// <script src=""></script>
-		// <script src=""></script>
-		// <script src=""></script>
-		// <script src=""></script>
-		// <script src=""></script> -->
+		<script src="js/libraries/jquery-1.11.0.min.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>
+		<script src="js/libraries/lightbox-2.6.min.js"></script>
+		<script src="js/libraries/handlebars-v1.3.0.js"></script>
+		<script src="js/libraries/keyHash.js"></script>
+		<script src="js/controllers/ads.js"></script>
+		<script src="js/controllers/library.js"></script>
+		<script src="js/controllers/log.js"></script>
+		<script src="js/controllers/user.js"></script>
+		<script src="js/controllers/content.js"></script>
+		<script src="js/controllers/ui.js"></script><!-- needs access: content, key, -->
+		<script src="js/controllers/player.js"></script><!-- needs access: content, -->
+		<script src="js/app.js"></script>
+
 		<script src="js/main.js"></script>
 	</body>
 </html>
