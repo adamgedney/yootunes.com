@@ -37,10 +37,10 @@ class SearchController extends BaseController {
 
 
 		//Step 2a. –Local Itunes NO RESULTS
-		if($localItunesExists == 0){
+		if($localItunesExists == "0"){
 
 			//Get & add Itunes results to local DB
-			$this->getItunes($q);
+			$getItunes = $this->getItunes($q);
 
 			//Step 3. –get local Itunes results
 			$getLocalItunes = $this->getLocalItunes($q);
@@ -62,7 +62,7 @@ class SearchController extends BaseController {
 
 
 		//Step 4a. –localYouTube NO RESULTS
-		if($localYouTubeExists == 0){
+		if($localYouTubeExists == "0"){
 
 			//Get & add youtube results to local DB
 			$this->getYouTube($q);
@@ -74,8 +74,11 @@ class SearchController extends BaseController {
 			//===============================================//
 			//Step 6. –Merge TinySong & youTube data into songs table
 			//===============================================//
-			//–moved here to speed up app
-			// $this->mergeData($getLocalItunes, $getLocalYouTube);
+
+			$this->mergeData($getLocalItunes, $getLocalYouTube);
+
+
+
 
 		}else{//Step 4b. –Local youtube RESULTS ALREADY EXIST
 
@@ -88,21 +91,23 @@ class SearchController extends BaseController {
 
 
 
-		// //===============================================//
-		// //Step 7. –Return query results to client via song table
-		// //===============================================//
+		//===============================================//
+		//Step 7. –Return query results to client via song table
+		//===============================================//
 
 		 $getSongs = $this->getSongs($q);
 
 
 
-		// echo $getSongs . " ouch";
-		return $getSongs;
+
+		echo $getSongs;
 	}//search
 
 
 
-
+//*********************** NOTE: May need to switch looping order.***********************//
+				//If no itunes data found, i still want youtube video
+//**************************************************************************************//
 
 
 
@@ -349,18 +354,6 @@ class SearchController extends BaseController {
 
 
 
-	// public function getLocalTinySong($query){
-
-	// 	$tinyModel = new TinySong();
-
-	// 	//Calls Model to search DB for query
-	// 	$results = $tinyModel->where('query', '=', $query)->get();
-
-	// 	return $results;
-	// }
-
-
-
 	public function getLocalItunes($query){
 
 		//Calls Model to search DB for query
@@ -445,53 +438,6 @@ class SearchController extends BaseController {
 
 
 
-	//Fetches results from TinySong API & stores in
-	//database if they don't already exist
-	// public function getTinySong($query){
-
-	// 	//Grooveshark API key
-	// 	$TINY_API_KEY = '6ab1c1e7fdf25492f84948a6514238dc';
-	// 	$LIMIT = 32;
-
-	// 	//Format string to strip spaces and add "+"
-	// 	$queryExplode = explode(" ", $query);
-	// 	$queryImplode = implode("+", $queryExplode);
-
-	// 	//API Url
-	// 	$tinyQuery = "http://tinysong.com/s/" . $queryImplode . "?format=json&limit=" . (string)$LIMIT . "&key=" . (string)$TINY_API_KEY;
-
-	// 	//Query API -Returns JSON
-	// 	$tinyResponse = file_get_contents($tinyQuery);
-
-
-
-
-	// 	//Insert query results into database for future searches
-	// 	$tinyModel = new TinySong();
-
-	// 	foreach(json_decode($tinyResponse) as $result){
-
-	// 		$tinyModel->firstOrCreate(array(
-	// 			'query' 		=> $query,
-	// 			'url' 			=> $result->Url,
-	// 			'song_id' 		=> $result->SongID,
-	// 			'song_name'		=> $result->SongName,
-	// 			'artist_id' 	=> $result->ArtistID,
-	// 			'artist_name' 	=> $result->ArtistName,
-	// 			'album_id' 		=> $result->AlbumID,
-	// 			'album_name' 	=> $result->AlbumName
-	// 		));
-	// 	}
-	// }
-
-
-
-
-
-
-
-
-
 	//Fetches results from iTunes API & stores in
 	//database if they don't already exist
 	public function getItunes($query){
@@ -510,7 +456,6 @@ class SearchController extends BaseController {
 		//Query API -Returns JSON
 		$itunesResponse = file_get_contents($itunesQuery);
 		$itunesResponse = json_decode($itunesResponse, true);
-
 
 
 
@@ -563,10 +508,10 @@ class SearchController extends BaseController {
 
 		//Get songs form songs table where artist, album,
 		//song_title, or genre match the client query
-		$getSongs = Songs::where('song_title', '=', $query)
-			->orWhere('artist', '=', $query)
-			->orWhere('album', '=', $query)
-			->orWhere('genre', '=', $query)
+		$getSongs = Songs::where('song_title', 'LIKE', '%' . $query . '%')
+			->orWhere('artist', 'LIKE', '%' . $query . '%')
+			->orWhere('album', 'LIKE', '%' . $query . '%')
+			->orWhere('genre', 'LIKE', '%' . $query . '%')
 			->get();
 
 		return $getSongs;
