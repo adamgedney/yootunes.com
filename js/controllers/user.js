@@ -56,13 +56,13 @@ var User = (function(window, document, $, CryptoJS){
 
 			//Register new user
 			$.ajax({
-				url: API_URL,
-				method : 'GET',
-				dataType : 'json',
-				success: function(response){
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType 	: 'json',
+				success		: function(response){
 
+					//Check to be sure new user made it into DB
 					if(response.response === true){
-						console.log("user is registered");
 
 						//load the application
 						_content.loadApp();
@@ -75,7 +75,7 @@ var User = (function(window, document, $, CryptoJS){
 						});
 
 
-					}else{
+					}else{//New user registration failed. Display why
 						console.log(response, "something went wrong");
 					}
 
@@ -84,7 +84,7 @@ var User = (function(window, document, $, CryptoJS){
 
 
 			event.preventDefault();
-		});
+		});//onclick
 
 
 
@@ -115,10 +115,10 @@ var User = (function(window, document, $, CryptoJS){
 
 			//Request auth form server
 			$.ajax({
-				url : API_URL,
-				method : 'GET',
-				dataType : 'json',
-				success : function(response){
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType 	: 'json',
+				success 	: function(response){
 
 					//If user was authenticated
 					if(response.success === true){

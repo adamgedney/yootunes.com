@@ -71,9 +71,9 @@ Route::get('share-playlist', 'PlaylistsController@sharePlaylist');
 
 
 //Library routes============================//
-Route::get('new-library', 'LibraryController@newLibrary');
+// Route::get('new-library', 'LibraryController@newLibrary');
 
-Route::get('get-library', 'LibraryController@getLibrary');
+Route::get('get-library/{id}', 'LibraryController@getLibrary');
 
 Route::get('update-library', 'LibraryController@updateLibrary');
 

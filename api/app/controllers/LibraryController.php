@@ -3,17 +3,23 @@
 class LibraryController extends BaseController {
 
 
-	public function newLibrary()
-	{
-		return "Testing route";
-	}
+
 
 
 
 	//add sorting parameters to URL for artist, album, song, and genre
-	public function getLibrary()
+	public function getLibrary($id)
 	{
-		return "Testing route";
+
+		$library = Library::where('user_id', '=', $id)
+							->join('library_songs', 'library.id', '=', 'library_songs.library_id')
+							->get(array('song_id'));
+
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($library);
 	}
 
 
