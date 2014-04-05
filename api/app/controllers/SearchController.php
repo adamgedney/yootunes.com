@@ -71,14 +71,6 @@ class SearchController extends BaseController {
 			$getLocalYouTube = $this->getLocalYouTube($q);
 
 
-			//===============================================//
-			//Step 6. –Merge TinySong & youTube data into songs table
-			//===============================================//
-
-			$this->mergeData($getLocalItunes, $getLocalYouTube);
-
-
-
 
 		}else{//Step 4b. –Local youtube RESULTS ALREADY EXIST
 
@@ -86,6 +78,32 @@ class SearchController extends BaseController {
 			$getLocalYouTube = $this->getLocalYouTube($q);
 
 		}
+
+
+
+
+
+		//===============================================//
+		//Step 6. –Merge TinySong & youTube data into songs table
+		//===============================================//
+		//If we have itunes data from any source, but not youtube, then merge
+		if($localItunesExists == "0" || $localItunesExists !== "0"){
+
+			if($localYouTubeExists == "0"){
+
+				$this->mergeData($getLocalItunes, $getLocalYouTube);
+			}
+		}
+
+		//If we have youtube data from any source, but not itunes, then merge
+		if($localYouTubeExists == "0" || $$localYouTubeExists !== "0"){
+
+			if($localItunesExists == "0"){
+
+				$this->mergeData($getLocalItunes, $getLocalYouTube);
+			}
+		}
+
 
 
 
@@ -509,6 +527,7 @@ class SearchController extends BaseController {
 		//Get songs form songs table where artist, album,
 		//song_title, or genre match the client query
 		$getSongs = Songs::where('song_title', 'LIKE', '%' . $query . '%')
+			->orWhere('query', 'LIKE', '%' . $query . '%')
 			->orWhere('artist', 'LIKE', '%' . $query . '%')
 			->orWhere('album', 'LIKE', '%' . $query . '%')
 			->orWhere('genre', 'LIKE', '%' . $query . '%')

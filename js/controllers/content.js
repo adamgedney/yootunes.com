@@ -7,7 +7,7 @@ var Content = (function(window, document, $){
 
 
 	//private vars
-	// var _foo = 'bar';
+	var _songs = [];
 
 
 
@@ -93,7 +93,6 @@ var Content = (function(window, document, $){
 			var API_URL = 'http://localhost:8887/search/' + query;
 			var songs = [];
 
-
 			$.ajax({
 				url 		: API_URL,
 				method 		: 'GET',
@@ -106,15 +105,28 @@ var Content = (function(window, document, $){
 
 						songs.push(data[i]);
 					}
-
+					console.log(_songs);
 					//Send results to renderer
 					loadQueryResults(songs);
 
-					console.log(data);
+					//pass data to private var
+					//after loading new results
+					_songs = songs;
 
 				}//success
 			});//ajax
 		});//click
+
+
+
+
+		//Reload previous search into main content view
+		$(document).on('click', '#returnToSearch', function(event){
+
+			//Send previous results back to renderer
+			loadQueryResults(_songs);
+
+		});
 
 
 
@@ -248,9 +260,9 @@ var Content = (function(window, document, $){
 			appendTo 	= '.scroll-container';
 
 			data 	 	= {
-				song	: [{id: '0', videoid: 'nAo7SyrTCmY', title: 'Black Dog', artist: 'Led Zeppelin', album: 'Led Zeppelin I', genre: 'rock', length: '7:01', desc: 'Lorem ipsum dolor sit amet', thumb: 'http://img.youtube.com/vi/nAo7SyrTCmY/default.jpg', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
-							{id: '1', videoid: 'idSQ3hSLZ8Q', title: 'Red Dog', artist: 'Led Starship', album: 'Led Zeppelin IVVV', genre: 'blues', length: '1:01', desc: 'Lorem ipsum dolor sit amet', thumb: 'https://i1.ytimg.com/vi_webp/x_VHwJWBorA/default.webp', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
-							{id: '2', videoid: 'idSQ3hSLZ8Q', title: 'Long Dog', artist: 'Purple Zeppelin', album: 'Led IV', genre: 'folk', length: '3:00', desc: 'Lorem ipsum dolor sit amet', thumb: 'https://i1.ytimg.com/vi_webp/x_VHwJWBorA/default.webp', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
+				song	: [{id: '0', videoid: 'ldhf30YtWkI', title: 'Black Dog', artist: 'Led Zeppelin', album: 'Led Zeppelin I', genre: 'rock', length: '7:01', desc: 'Lorem ipsum dolor sit amet', thumb: 'http://img.youtube.com/vi/nAo7SyrTCmY/default.jpg', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
+							{id: '1', videoid: 'ldhf30YtWkI', title: 'Red Dog', artist: 'Led Starship', album: 'Led Zeppelin IVVV', genre: 'blues', length: '1:01', desc: 'Lorem ipsum dolor sit amet', thumb: 'https://i1.ytimg.com/vi_webp/x_VHwJWBorA/default.webp', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
+							{id: '2', videoid: 'ldhf30YtWkI', title: 'Long Dog', artist: 'Purple Zeppelin', album: 'Led IV', genre: 'folk', length: '3:00', desc: 'Lorem ipsum dolor sit amet', thumb: 'https://i1.ytimg.com/vi_webp/x_VHwJWBorA/default.webp', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
 							{id: '3', videoid: 'idSQ3hSLZ8Q', title: 'Big Dog', artist: 'Lead Zebra', album: 'Zeppelin IV', genre: 'country', length: '6:52', desc: 'Lorem ipsum dolor sit amet', thumb: 'https://i1.ytimg.com/vi_webp/x_VHwJWBorA/default.webp', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
 							{id: '01', videoid: 'idSQ3hSLZ8Q', title: 'Black Dog', artist: 'Led Zeppelin', album: 'Led Zeppelin I', genre: 'rock', length: '7:01', desc: 'Lorem ipsum dolor sit amet', thumb: 'https://i1.ytimg.com/vi_webp/x_VHwJWBorA/default.webp', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},
 							{id: '11', videoid: 'idSQ3hSLZ8Q', title: 'Red Dog', artist: 'Led Starship', album: 'Led Zeppelin IVVV', genre: 'blues', length: '1:01', desc: 'Lorem ipsum dolor sit amet', thumb: 'https://i1.ytimg.com/vi_webp/x_VHwJWBorA/default.webp', imgFull: 'http://images.gs-cdn.net/static/albums/500_124599.jpg'},

@@ -33,7 +33,7 @@ var Player = (function(window, document, $){
 		window.onYouTubePlayerAPIReady = function() {
 			// create the global player from the specific iframe (#video)
 			_player = new YT.Player('video', {
-				videoId : 'idSQ3hSLZ8Q',
+				videoId : 'ldhf30YtWkI',
 				playerVars: {
 					controls 		: 0,
 					enablejsapi 	: 1,
@@ -165,7 +165,8 @@ var Player = (function(window, document, $){
 
 
 
-
+//NOTE: May need to add an event fired from the "return to search results
+//interaction" to reset the play button to a pause button
 		//Play icon Click Handler=======//
 		$(document).on('click', '.play-icon', function(event){
 
@@ -184,6 +185,11 @@ var Player = (function(window, document, $){
 				if(!this.newVideo){
 					console.log("NEW video");
 					_player.loadVideoById(id);
+
+
+					//Resets stepper for seekbar fill reset
+					_seek.stepper = 0;
+					_seek.lastM = 0;
 
 
 					//sets new video to false & playing to true
@@ -258,10 +264,15 @@ var Player = (function(window, document, $){
 
 	//Updates the time in the transport view
 	function updateTime(){
-		var time 	= _player.getCurrentTime();
-		var m 		= Math.floor(time / 60);
-		var secd 	= (time % 60) - 1;
-		var s 		= Math.ceil(secd);
+
+		var duration 	= _player.getDuration();
+
+		var time 		= _player.getCurrentTime();
+		var m 			= Math.floor(time / 60);
+		var secd 		= (time % 60) - 1;
+		var s 			= Math.ceil(secd);
+
+		var seek_time = ((300 / duration) * s) + _seek.stepper + $('.seek-line').offset().left;
 
 		if(s <= 0){
 			s = '00';
@@ -273,11 +284,6 @@ var Player = (function(window, document, $){
 
 
 
-
-var duration = _player.getDuration();
-
-var complete = (Math.floor(duration - time) / 60) / 60;
-
 		//Adds 60 to incrementer for each m
 		if(m !== 0 && _seek.lastM !== m){
 			_seek.stepper += 60;
@@ -286,16 +292,21 @@ var complete = (Math.floor(duration - time) / 60) / 60;
 
 		}
 
-		//Scrub incrementer
-		var incrementer = (Math.ceil(secd) + _seek.stepper);
 
-//Try bar left - scrub offset left divided by duration???
-		//Scrub position calculator
-		var scrubX = Math.floor($('#seek-bar').offset().left + incrementer);
-console.log(incrementer);
+		//global.xPos = (global.seek_time / global.duration) * global.seek_bar_right;
+
+		// var seek_time = Math.round($('.seek-line').offset().left) + (Math.floor(time) / duration );
+		// var set_time = ((e.pageX - global.seek_bar_left) / global.seek_bar_width) * global.duration;
+		// var seek_time = $('.seek-line').offset().left / $('.seek-line').width() * duration;
+
+
+
+		console.log(duration, Math.floor(time), seek_time, (Math.floor(time) / duration ));
+
+
 
 		//Update scrubber position
-		$('#seek-dot').offset({left: scrubX});
+		$('#seek-dot').offset({left: seek_time});
 
 
 		//Sets seek bar backfill bar width
@@ -315,6 +326,16 @@ console.log(incrementer);
 		$('#play-btn').attr('src', 'images/icons/pause.png');
 
 		_playerPlaying= !_playerPlaying;
+
+
+		//UI Changes
+		var song 	= $('infoTitle');
+		var artist 	= $('infoArtist');
+		var album 	= $('infoAlbum');
+
+		song.innerHtml("balls");
+		artist.innerHtml("balls");
+		album.innerHtml("balls");
 
 	}
 

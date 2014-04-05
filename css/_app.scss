@@ -405,6 +405,11 @@ section.app{
 }
 
 /*Column widths & floats*/
+
+.li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col6, .li-col7{
+	max-height: 48px; //matches li line height
+}
+
 .li-col1{
 	float: left;
 }
@@ -431,6 +436,10 @@ section.app{
 	@include col(1);
 	float: right;
 	display: inline-block;
+}
+
+.li-col6{
+	min-width: 8.33333333%;
 }
 
 .li-col7{
@@ -784,8 +793,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .seek-line, .seek-fill{
-	@include col(10);
-	@include col-ctr(10);
+	@include col(12);
+	@include col-ctr(12);
 	height: 0px;
 	border-bottom: 1px solid nth($grey, 1);
 	// @include vertical-align;
@@ -799,8 +808,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 #seek-dot{
-	width: 12px;
-	height: 12px;
+	// width: 12px;
+	// height: 12px;
+	width: 0px;
+	height: 0px;
 	background: $black;
 	border-radius: 50%;
 	position: absolute;
