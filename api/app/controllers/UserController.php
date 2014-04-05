@@ -47,9 +47,37 @@ class UserController extends BaseController {
 
 
 
-	public function getUser()
+	public function getUser($email, $pw)
 	{
-		return "get user";
+
+
+		//Fetch current user to begin building their acct
+		$user = User::where('email', "=", $email)
+					->where('password', "=", $pw)
+					->where('deleted_at', '=', NULL)
+					->get();
+
+		$userId = $user[0]->id;
+
+
+		//Return authentication value
+		$success = false;
+
+		if($userId !== "" || $userId !== NULL){
+			$success = true;
+		}
+
+
+		//Return object
+		$obj = array(
+			'success'	=>$success,
+			'userId'	=>$userId,
+			'email'		=>$email
+		);
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($obj);
 	}
 
 

@@ -49,9 +49,12 @@ var User = (function(window, document, $, CryptoJS){
 			}
 
 
+
+
+			//Build API request
 			var API_URL			= 'http://localhost:8887/new-user/' + email + '/' +  pwString + '/' +  "email";
 
-			//Authenticate user
+			//Register new user
 			$.ajax({
 				url: API_URL,
 				method : 'GET',
@@ -82,6 +85,59 @@ var User = (function(window, document, $, CryptoJS){
 
 			event.preventDefault();
 		});
+
+
+
+
+
+
+
+
+		//User authentication
+		$(document).on('click', '#popdownSubmit', function(event){
+			var email 		= $('#popdownEmail').val();
+			var password 	= CryptoJS.SHA3($('#popdownPass').val(), { outputLength: 512 });
+			var pwString 	= '';
+
+			console.log("click picked up");
+			//Produces 160 char string from pw
+			for(var i=0;i<password.words.length;i++){
+
+					//Concat array parts into pwString
+					pwString += password.words[i].toString();
+			}
+
+
+
+
+			//Build API request
+			var API_URL 	= 'http://localhost:8887/get-user/' + email + '/' + pwString;
+
+			//Request auth form server
+			$.ajax({
+				url : API_URL,
+				method : 'GET',
+				dataType : 'json',
+				success : function(response){
+
+					//If user was authenticated
+					if(response.success === true){
+
+						//load the application
+						_content.loadApp();
+
+						//fire event passing user data to listening class
+						$.event.trigger({
+							type 	: 'userloggedin',
+							email 	: response.email,
+							userId	: response.userId
+						});
+					}//if
+				}//success
+			});//ajax
+
+			event.preventDefault();
+		});//onclick
 
 
 
