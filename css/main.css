@@ -711,6 +711,13 @@ svg:hover {
   opacity: .5;
 }
 
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 #app {
   background: #ebebeb;
@@ -977,6 +984,7 @@ section.app {
   width: 16.6666667%;
   display: inline-block;
   float: left;
+  overflow: hidden;
 }
 
 .li-col6, .li-col5 {

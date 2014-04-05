@@ -69,6 +69,14 @@ svg:hover{
 	opacity: .5;
 }
 
+//Borowed from CSS-Tricks
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 
@@ -416,6 +424,7 @@ section.app{
 	@include col(2);
 	display: inline-block;
 	float: left;
+	overflow: hidden;
 }
 
 .li-col6, .li-col5{

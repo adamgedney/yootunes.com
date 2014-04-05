@@ -85,10 +85,14 @@ var Content = (function(window, document, $){
 
 
 
+		//Note:*** Click registering TWICE - Needs a fixin
 		//Search call and result looping=========//
-		$(document).on('submit', '#searchForm', function(event){
+		$(document).on('click', '#searchSubmit', function(event){
+			event.preventDefault();
 			var query = $('#searchInput').val();
 			var API_URL = 'http://localhost:8887/search/' + query;
+			var songs = [];
+
 
 			$.ajax({
 				url 		: API_URL,
@@ -96,19 +100,21 @@ var Content = (function(window, document, $){
 				dataType	: 'json',
 				success 	: function(data){
 
+					//Loop through response & push into array
+					//for delivery to renderer
+					for(var i=0;i<data.length;i++){
+
+						songs.push(data[i]);
+					}
+
+					//Send results to renderer
+					loadQueryResults(songs);
+
 					console.log(data);
-				}
 
-			});
-
-
-
-
-
-			return false;
-			event.preventDefault();
-
-		});
+				}//success
+			});//ajax
+		});//click
 
 
 
@@ -295,6 +301,10 @@ var Content = (function(window, document, $){
 			$('.li-header').hide();
 
 		render(src, id, appendTo, data);
+
+		//Note: This is the data returned from API
+		//album, artist, created_at, description, genre, id, img_default, img_high, img_medium
+		//length, query, song_title, updated_at, youtube_id, youtube_results_id, youtube_title
 	}
 
 
@@ -316,6 +326,30 @@ var Content = (function(window, document, $){
 
 			//Hides column headers
 			$('.li-header').hide();
+
+		render(src, id, appendTo, data);
+	}
+
+
+
+
+
+
+
+
+
+	//Gets data from API & displays in list
+	function loadQueryResults(songs){
+		var src 		= '/js/views/library.html',
+			id 			= '#libraryItem',
+			appendTo 	= '.scroll-container';
+
+			data 	 	= {
+				song	: songs
+			};
+
+			//Shows column headers
+			$('.li-header').show();
 
 		render(src, id, appendTo, data);
 	}
