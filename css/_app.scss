@@ -272,6 +272,7 @@ aside.app{
 
 .playlist-dropdown{
 	background: #fff;
+	display: none;//added to help jquery show/hide on load
 }
 
 li.playlist-dropdown:hover{
@@ -525,6 +526,7 @@ li.li-group.dropdown{
 	padding: 18px 18px 18px 9px;
 	overflow: hidden;
 	min-height: 240px;
+	display: none;//Added to experiment with jquery show/hide on dropdowns
 
 	img{//youtube thumbnail
 		margin: 40% 0;

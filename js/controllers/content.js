@@ -163,11 +163,11 @@ var Content = (function(window, document, $){
 
 			if(event.template === '#app'){
 
-				//Load playlists
-				loadPlaylists();
-
 				//Load library items
 				loadLibrary();
+
+				//Load playlists
+				loadPlaylists();
 
 
 
@@ -177,7 +177,8 @@ var Content = (function(window, document, $){
 					if(event.template === '#libraryItem'){
 
 						//replaces SVGs in DOM w/ inline SVG
-						replaceSVG();
+//*******Note!!! THis is slowing load
+replaceSVG();
 
 						//Hide DOM nodes
 						hideNodes();

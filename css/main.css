@@ -824,6 +824,7 @@ aside.app .video-size-ctrl svg:last-child {
 /*=====================================*/
 .playlist-dropdown {
   background: #fff;
+  display: none;
 }
 
 li.playlist-dropdown:hover {
@@ -1036,6 +1037,7 @@ li.li-group.dropdown {
   padding: 18px 18px 18px 9px;
   overflow: hidden;
   min-height: 240px;
+  display: none;
 }
 li.li-group.dropdown img {
   margin: 40% 0;
