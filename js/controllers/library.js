@@ -21,14 +21,27 @@ var Library = (function(window, document, $){
 
 			//Handles adding and removing functions and button image swap
 			if(!this.toggle){
-				console.log(id, 'song id -song added to lib');
 
+				//retrieve clicked song id
+				var userId = $(this).attr('data-user');
+
+				//Mark song in result list as "in library"
+				$(this).attr('data-in-library', 'true');
+
+				addSongToLibrary(id, userId);
+
+				console.log(userId);
+
+
+				//Swaps out icon
 				$(this).find('.add-icon').attr('src', 'images/icons/check.png');
 
 				this.toggle = !this.toggle;
-			}else{
-				console.log(id, 'song id -song REMOVED from lib');
 
+			}else{//Remove song form library
+
+
+				//Swaps out icon
 				$(this).find('.add-icon').attr('src', 'images/icons/add.png');
 
 				this.toggle = !this.toggle;
@@ -36,6 +49,13 @@ var Library = (function(window, document, $){
 
 
 		});
+
+
+
+
+
+
+
 
 
 
@@ -76,6 +96,45 @@ var Library = (function(window, document, $){
 //================================//
 //Class methods===================//
 //================================//
+
+
+
+
+
+	function addSongToLibrary(id, userId){
+
+		//Build API url
+		var API_URL = 'http://localhost:8887/add-to-library/' + id + '/' + userId;
+
+		//Call API to add song to library
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+				console.log(response, "add song to library response");
+			}//success
+		});//ajax
+
+
+	}
+
+
+
+
+
+
+
+
+
+	function removeSongFromLibrary(){
+
+
+
+	}
+
+
+
 
 
 

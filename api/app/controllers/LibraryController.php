@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
 class LibraryController extends BaseController {
 
@@ -26,10 +27,25 @@ class LibraryController extends BaseController {
 
 
 
-	//Remove song
-	public function updateLibrary()
+	//Add song to library
+	public function addToLibrary($songId, $userId)
 	{
-		return "Testing route";
+
+		//Fetch library id based on user id
+		$libraryId = Library::where('user_id', '=', $userId)
+		->get(array('id'));
+
+
+		//Insert song id into user songs paired to library id
+		$librarySongs = LibrarySongs::insert(array(
+			'song_id'=>$songId,
+			'library_id'=>$libraryId));
+
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($librarySongs);
 	}
 
 

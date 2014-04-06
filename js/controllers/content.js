@@ -99,6 +99,7 @@ var Content = (function(window, document, $){
 			var API_URL = 'http://localhost:8887/search/' + query;
 			var songs = [];
 
+			//Search query call
 			$.ajax({
 				url 		: API_URL,
 				method 		: 'GET',
@@ -145,6 +146,8 @@ var Content = (function(window, document, $){
 			_userId 	= event.userId;
 			_userEmail 	= event.email;
 		});
+
+
 
 
 
@@ -458,11 +461,14 @@ var Content = (function(window, document, $){
 			appendTo 	= '.scroll-container';
 
 			data 	 	= {
-				song	: songs
+				song	: songs,
+				user 	: {userId : _userId}
 			};
 
 			//Shows column headers
 			$('.li-header').show();
+
+			console.log(_userId, "user id");
 
 		render(src, id, appendTo, data);
 	}
