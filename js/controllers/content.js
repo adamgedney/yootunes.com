@@ -413,6 +413,8 @@ var Content = (function(window, document, $){
 						user : {userId : _userId}
 					};
 
+					console.log(response[0].library_id);
+
 					//Store the users library for library functions
 					_userLibrary = response;
 

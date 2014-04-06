@@ -2,6 +2,7 @@ var Library = (function(window, document, $){
 
 	//private vars
 	var _addedToLibrary = false;
+	var _libraryId 		= '';
 
 
 
@@ -17,21 +18,29 @@ var Library = (function(window, document, $){
 		//Add/Remove song to/from library========//
 		$(document).on('click', '.addToLibrary', function(event){
 			var id = $(this).attr('data-id');
-				this.toggle;
-
-
-			//Determines library state of item
+			var libraryId = $(this).attr('data-libid');
 			var check = $(this).find('.add-icon').attr('src', 'images/icons/check.png');
-			//Ensures false as first click
-			if(check){
 
+			this.toggle;
+
+			//Ensures add song run if library check mark
+			if(check){
+				this.toggle = this.toggle;
+			}
+
+			//Check to see if library id exists. If not, then this is a search result list
+			//Ensure click adds to library via this.toggle true
+			if(!libraryId || libraryId == " " || libraryId == null || libraryId == undefined){
 				this.toggle = !this.toggle;
 			}
 
 
 
+
+
+
 			//Handles adding and removing functions and button image swap
-			if(!this.toggle){
+			if(this.toggle){
 
 				//retrieve clicked song user id
 				var userId = $(this).attr('data-user');
@@ -49,7 +58,10 @@ var Library = (function(window, document, $){
 
 				this.toggle = !this.toggle;
 
+
+
 			}else{//Remove song from library
+
 
 
 				//retrieve clicked song user id
@@ -67,8 +79,6 @@ var Library = (function(window, document, $){
 
 				this.toggle = !this.toggle;
 			}
-
-
 		});
 
 
@@ -139,6 +149,7 @@ var Library = (function(window, document, $){
 
 
 	}
+
 
 
 

@@ -20,6 +20,14 @@ class LibraryController extends BaseController {
 							->get();
 
 
+		// //Fetch library id based on user id
+		// $libraryId = Library::where('user_id', '=', $id)
+		// ->get();
+
+
+		// $obj = array(
+		// 	'library'=>$library,
+		// 	'libraryId'=>$libraryId[0]->id);
 
 
 		header('Access-Control-Allow-Origin: *');
