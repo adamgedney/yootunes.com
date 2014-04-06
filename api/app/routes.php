@@ -77,6 +77,8 @@ Route::get('get-library/{id}', 'LibraryController@getLibrary');
 
 Route::get('add-to-library/{songId}/{userId}', 'LibraryController@addToLibrary');
 
+Route::get('remove-from-library/{songId}/{userId}', 'LibraryController@removeFromLibrary');
+
 // Route::get('delete-library', 'LibraryController@deleteLibrary');
 
 

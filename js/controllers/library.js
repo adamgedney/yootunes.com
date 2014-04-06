@@ -14,20 +14,32 @@ var Library = (function(window, document, $){
 
 
 
-		//Add song to library========//
+		//Add/Remove song to/from library========//
 		$(document).on('click', '.addToLibrary', function(event){
 			var id = $(this).attr('data-id');
-				this.toggle
+				this.toggle;
+
+
+			//Determines library state of item
+			var check = $(this).find('.add-icon').attr('src', 'images/icons/check.png');
+			//Ensures false as first click
+			if(check){
+
+				this.toggle = !this.toggle;
+			}
+
+
 
 			//Handles adding and removing functions and button image swap
 			if(!this.toggle){
 
-				//retrieve clicked song id
+				//retrieve clicked song user id
 				var userId = $(this).attr('data-user');
 
 				//Mark song in result list as "in library"
 				$(this).attr('data-in-library', 'true');
 
+				//Adds song to library
 				addSongToLibrary(id, userId);
 
 
@@ -37,7 +49,17 @@ var Library = (function(window, document, $){
 
 				this.toggle = !this.toggle;
 
-			}else{//Remove song form library
+			}else{//Remove song from library
+
+
+				//retrieve clicked song user id
+				var userId = $(this).attr('data-user');
+
+				//Mark song in result list as "in library"
+				$(this).attr('data-in-library', 'false');
+
+				//Removes song fom library
+				removeSongFromLibrary(id, userId);
 
 
 				//Swaps out icon
@@ -126,8 +148,25 @@ var Library = (function(window, document, $){
 
 
 
-	function removeSongFromLibrary(){
+	function removeSongFromLibrary(id, userId){
 
+		//Build API url
+		var API_URL = 'http://localhost:8887/remove-from-library/' + id + '/' + userId;
+
+		//Call API to add song to library
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+				console.log(response, "remove song to library response");
+
+				//Dispatches event to application for library reloading in content controller
+				$.event.trigger({
+					type : 'songremoved'
+				});
+			}//success
+		});//ajax
 
 
 	}

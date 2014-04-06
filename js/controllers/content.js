@@ -92,7 +92,7 @@ var Content = (function(window, document, $){
 
 
 
-		//Note:*** Click registering TWICE - Needs a fixin
+
 		//Search call and result looping=========//
 		$(document).on('click', '#searchSubmit', function(event){
 			event.preventDefault();
@@ -202,13 +202,20 @@ var Content = (function(window, document, $){
 
 
 				//data-in-library="false"
-
-
-
 			}//#libraryItem event
-
-
 		});//onRendered
+
+
+
+
+
+
+		//Reload library when song removed form library
+		$(document).on('songremoved', function(){
+
+			//Load library items
+			loadLibrary();
+		});
 
 
 
@@ -402,7 +409,8 @@ var Content = (function(window, document, $){
 				success 	: function(response){
 
 					data 	 	= {
-						song : response
+						song : response,
+						user : {userId : _userId}
 					};
 
 					//Store the users library for library functions
