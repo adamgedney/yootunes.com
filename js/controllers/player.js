@@ -170,8 +170,24 @@ var Player = (function(window, document, $){
 		//Play icon Click Handler=======//
 		$(document).on('click', '.play-icon', function(event){
 
-			var id = $(this).attr('data-videoid');
 			var playerId = _player.getVideoData().video_id;
+			var id = $(this).attr('data-videoid');
+
+			//UI Changes
+			var song 	= $('#infoTitle');
+			var artist 	= $('#infoArtist');
+			var album 	= $('#infoAlbum');
+
+			var dataSong = $(this).attr('data-song');
+			var dataArtist = $(this).attr('data-artist');
+			var dataAlbum = $(this).attr('data-album');
+
+			song.html(dataSong);
+			artist.html(dataArtist);
+			album.html(dataAlbum);
+
+			console.log(song, artist, album);
+
 
 			this.newVideo;
 
@@ -315,16 +331,6 @@ var Player = (function(window, document, $){
 		$('#play-btn').attr('src', 'images/icons/pause.png');
 
 		_playerPlaying= !_playerPlaying;
-
-
-		//UI Changes
-		var song 	= $('infoTitle');
-		var artist 	= $('infoArtist');
-		var album 	= $('infoAlbum');
-
-		song.innerHtml("balls");
-		artist.innerHtml("balls");
-		album.innerHtml("balls");
 
 	}
 

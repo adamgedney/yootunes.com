@@ -527,6 +527,7 @@ class SearchController extends BaseController {
 
 	public function getSongs($query){
 
+
 		//Get songs form songs table where artist, album,
 		//song_title, or genre match the client query
 		$getSongs = Songs::where('song_title', 'LIKE', '%' . $query . '%')

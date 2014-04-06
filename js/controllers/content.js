@@ -158,7 +158,7 @@ var Content = (function(window, document, $){
 		//Makes synchronous
 		//Listens for loadApp content renderer complete
 		$(document).on('rendered', function(event){
-console.log("rendered fired", event.template);
+
 
 			if(event.template === '#app'){
 
@@ -177,12 +177,35 @@ console.log("rendered fired", event.template);
 				// });//onRendered
 			if(event.template === '#libraryItem'){
 
+
+				//Loop through li items to see if song is in library
+				for(var i=0;i<_userLibrary.length;i++){
+
+					//Gets the song_id from the displayed result item
+					var itemId = $('li.resultItems:eq(' + i + ')').find('.addToLibrary').attr('data-id');
+
+					//Checks result item against user's library stored locally
+					//Sets check/add icon accordingly
+					if(_userLibrary[i].song_id === itemId){
+						//Swaps out icon
+						$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/check.png');
+
+					}else{
+
+						//Swaps out icon
+						$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
+					}
+				}//for
+
 				//Hide DOM nodes
 				hideNodes();
 
-				//Loop through li items to see if song is in library
-				console.log(event.template, _userLibrary);
-			}
+
+				//data-in-library="false"
+
+
+
+			}//#libraryItem event
 
 
 		});//onRendered

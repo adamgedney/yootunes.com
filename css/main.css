@@ -1222,6 +1222,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 .info ul li {
   font-size: .8em;
+  overflow: hidden;
 }
 .info svg, .info img {
   display: block;
