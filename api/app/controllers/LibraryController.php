@@ -13,7 +13,8 @@ class LibraryController extends BaseController {
 
 		$library = Library::where('user_id', '=', $id)
 							->join('library_songs', 'library.id', '=', 'library_songs.library_id')
-							->get(array('song_id'));
+							->join('songs', 'songs.id', '=', 'library_songs.song_id')
+							->get();
 
 
 
