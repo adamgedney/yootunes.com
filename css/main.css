@@ -822,6 +822,12 @@ aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-c
 /*=====================================*/
 /*Base popout & Playlist popout========*/
 /*=====================================*/
+.popout {
+  position: absolute;
+  right: 14.5%;
+  top: 0px;
+}
+
 .playlist-dropdown {
   background: #fff;
   display: none;

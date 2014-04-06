@@ -1,11 +1,40 @@
 <?php
-
+header('Access-Control-Allow-Origin: *');
 class PlaylistsController extends BaseController {
 
 
-	public function newPlaylist()
+	public function newPlaylist($userId, $songId, $playlistName)
 	{
-		return "Testing route";
+
+		//Create a new playlist for user
+		$newPlaylist = Playlists::insert(array(
+			'name'=>$playlistName,
+			'user_id'=>$userId
+			));
+
+
+
+		//Get inserted playlist to retrieve id
+		$getPlaylistId = Playlists::
+			where('name', '=', $playlistName)
+			->where('user_id', '=', $userId)
+			->get();
+
+		//Store new playlist id
+		$playlistId= $getPlaylistId[0]->id;
+
+
+
+
+		//Insert new playlist song on playlist id
+		$newplaylistSong = PlaylistSongs::insert(array(
+			'playlist_id'=>$playlistId,
+			'song_id'=>$songId));
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($newplaylistSong);
 	}
 
 

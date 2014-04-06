@@ -60,9 +60,9 @@
 											<p class="bold">Create new playlist <img class="svg" src="images/icons/more-arrow.svg" alt="more arrow"/></p>
 
 											<form>
-												<input type="text" class="main-menu-new-playlist-input" placeholder="New playlist name"/>
+												<input type="text" class="main-menu-new-playlist-input newPlaylistInput" placeholder="New playlist name"/>
 
-												<input type="submit" value="Save"/>
+												<input data-id="{{this.id}}" data-user="{{../user.userId}}" class="newPlaylistSubmit" type="submit" value="Save"/>
 											</form>
 										</li>
 

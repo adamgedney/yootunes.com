@@ -55,7 +55,7 @@ Route::get('search/{q}', 'SearchController@search');
 
 
 //Playlist routes==========================//
-Route::get('new-playlist', 'PlaylistsController@newPlaylist');
+Route::get('new-playlist/{userId}/{songId}/{playlistName}', 'PlaylistsController@newPlaylist');
 
 Route::get('get-playlist', 'PlaylistsController@getPlaylist');
 

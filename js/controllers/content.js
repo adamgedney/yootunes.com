@@ -84,7 +84,7 @@ var Content = (function(window, document, $){
 
 			//Grabs playlist id for specific loading
 			var id = $(this).attr('data-id');
-			console.log(id, 'this is the clicked playlist id');
+			// console.log(id, 'this is the clicked playlist id');
 
 			loadLibrary();
 		});
@@ -413,7 +413,7 @@ var Content = (function(window, document, $){
 						user : {userId : _userId}
 					};
 
-					console.log(response[0].library_id);
+					// console.log(response[0].library_id);
 
 					//Store the users library for library functions
 					_userLibrary = response;

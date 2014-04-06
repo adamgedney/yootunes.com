@@ -88,6 +88,26 @@ var Library = (function(window, document, $){
 
 
 
+		//Create new playlist form
+		$(document).on('click', '.newPlaylistSubmit', function(event){
+
+			var userId 			= $(this).attr('data-user');
+			var songId 			= $(this).attr('data-id');
+			var playlistName 	= $(this).prev().val();//Previous li sibling in form = text input
+
+
+			createNewPlaylist(userId, songId, playlistName);
+
+			event.preventDefault();
+		});
+
+
+
+
+
+
+
+
 
 
 
@@ -143,7 +163,7 @@ var Library = (function(window, document, $){
 			method : 'GET',
 			dataType : 'json',
 			success : function(response){
-				console.log(response, "add song to library response");
+				// console.log(response, "add song to library response");
 			}//success
 		});//ajax
 
@@ -170,7 +190,7 @@ var Library = (function(window, document, $){
 			method : 'GET',
 			dataType : 'json',
 			success : function(response){
-				console.log(response, "remove song to library response");
+				// console.log(response, "remove song to library response");
 
 				//Dispatches event to application for library reloading in content controller
 				$.event.trigger({
@@ -178,8 +198,35 @@ var Library = (function(window, document, $){
 				});
 			}//success
 		});//ajax
+	}
 
 
+
+
+
+
+
+
+
+	function createNewPlaylist(userId, songId, playlistName){
+
+		//Build API url
+		var API_URL = 'http://localhost:8887/new-playlist/' + userId + '/' + songId + '/' + playlistName;
+
+		//Call API to add song to library
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+				console.log(response, "new playlist created");
+
+				//Dispatches event to application for library reloading in content controller
+				// $.event.trigger({
+				// 	type : 'songremoved'
+				// });
+			}//success
+		});//ajax
 	}
 
 
