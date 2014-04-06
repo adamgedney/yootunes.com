@@ -683,7 +683,7 @@ footer .col-3 ul li .svg {
 .share-strip {
   overflow: hidden;
 }
-.share-strip svg {
+.share-strip svg, .share-strip img {
   width: 25%;
   display: block;
   float: left;
@@ -694,7 +694,7 @@ footer .col-3 ul li .svg {
   background: #e2e2e2;
 }
 
-svg:hover {
+svg:hover, img:hover {
   opacity: .5;
 }
 
@@ -729,16 +729,16 @@ aside.app .video-size-ctrl {
   text-align: right;
   border-bottom: 1px solid #272a2a;
 }
-aside.app .video-size-ctrl svg {
+aside.app .video-size-ctrl svg, aside.app .video-size-ctrl img {
   height: 27px;
   width: 27px;
   margin-left: 3px;
   cursor: pointer;
 }
-aside.app .video-size-ctrl svg:first-child {
+aside.app .video-size-ctrl svg:first-child, aside.app .video-size-ctrl img:first-child {
   width: 18px;
 }
-aside.app .video-size-ctrl svg:last-child {
+aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-child {
   width: 36px;
   margin-left: 0;
 }
@@ -801,7 +801,7 @@ aside.app .video-size-ctrl svg:last-child {
   width: 8.33333333%;
   float: right;
 }
-.playlist-menu svg {
+.playlist-menu svg, .playlist-menu img {
   height: 12px;
   vertical-align: middle;
 }
@@ -847,7 +847,7 @@ li.playlist-dropdown:hover {
   padding-top: 12px;
   cursor: pointer;
 }
-.playlist-popout svg {
+.playlist-popout svg, .playlist-popout img {
   cursor: pointer;
   height: 36px;
   width: 36px;
@@ -934,7 +934,7 @@ section.app {
   padding: 0 2%;
   overflow: hidden;
 }
-.main-container ul li svg, .main-container ul li .add-icon, .main-container ul li .play-icon img {
+.main-container ul li svg, .main-container ul li img, .main-container ul li .add-icon, .main-container ul li .play-icon img {
   height: 12px;
   vertical-align: middle;
 }
@@ -993,7 +993,7 @@ section.app {
   float: right;
   margin-top: 18px;
 }
-.li-col7 svg {
+.li-col7 svg, .li-col7 img {
   height: 12px;
   width: 12px;
   margin-right: 30%;
@@ -1011,7 +1011,7 @@ section.app {
   padding-top: 19px;
   color: #949494;
 }
-.li-header .li-col1 svg {
+.li-header .li-col1 svg, .li-header .li-col1 img {
   display: block;
 }
 .li-header .li-col7 {
@@ -1039,8 +1039,9 @@ li.li-group.dropdown {
   min-height: 240px;
   display: none;
 }
-li.li-group.dropdown img {
-  margin: 40% 0;
+li.li-group.dropdown .youtube-img {
+  width: 100%;
+  height: 100%;
 }
 li.li-group.dropdown .li-desc {
   line-height: 18px;
@@ -1061,7 +1062,7 @@ ul.dropdown-main-menu li {
 ul.dropdown-main-menu li.li-share {
   margin: 36px 0 0 18px;
 }
-ul.dropdown-main-menu li.li-share svg {
+ul.dropdown-main-menu li.li-share svg, ul.dropdown-main-menu li.li-share img {
   height: 21px;
 }
 
@@ -1116,7 +1117,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   padding-right: 0;
   /*orig: 6% Removed to allow right arrow to hit edge*/
 }
-.add-to-playlist-menu svg {
+.add-to-playlist-menu svg, .add-to-playlist-menu img {
   /*more arrow right*/
   float: right;
 }
@@ -1147,7 +1148,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   line-height: 9px;
   margin-bottom: 18px;
 }
-.improve-meta-menu-form svg {
+.improve-meta-menu-form svg, .improve-meta-menu-form img {
   float: right;
 }
 
@@ -1222,7 +1223,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .info ul li {
   font-size: .8em;
 }
-.info svg {
+.info svg, .info img {
   display: block;
   float: left;
   height: 36px;
@@ -1339,7 +1340,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   float: left;
   height: 100%;
 }
-.playing-share-ctrl svg {
+.playing-share-ctrl svg, .playing-share-ctrl img {
   margin-top: 18%;
 }
 

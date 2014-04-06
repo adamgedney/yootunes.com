@@ -178,7 +178,7 @@ var Content = (function(window, document, $){
 
 						//replaces SVGs in DOM w/ inline SVG
 //*******Note!!! THis is slowing load
-replaceSVG();
+// replaceSVG();
 
 						//Hide DOM nodes
 						hideNodes();
