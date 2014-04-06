@@ -122,9 +122,6 @@ class SearchController extends BaseController {
 
 
 
-//*********************** NOTE: May need to switch looping order.***********************//
-				//If no itunes data found, i still want youtube video
-//**************************************************************************************//
 
 
 
@@ -139,12 +136,14 @@ class SearchController extends BaseController {
 	//========================================================================//
 
 
+
+
 	public function mergeData($getLocalItunes, $getLocalYouTube){
 
-		//Loop through each TINYSONG RESULT & passinto assumptions engine
-		foreach(json_decode($getLocalItunes) as $itunesItem){
+		//Loop through each YOUTUBE RESULT & passinto assumptions engine
+		foreach(json_decode($getLocalYouTube) as $youtubeItem){
 
-			$this->assumptionsEngine($getLocalYouTube, $itunesItem);
+			$this->assumptionsEngine($getLocalItunes, $youtubeItem);
 		}
 	}
 
@@ -153,21 +152,26 @@ class SearchController extends BaseController {
 
 
 
-
-
-
-
-
 	//Primary data analyzer & merger.
-	public function assumptionsEngine($getLocalYouTube, $itunesItem){
+	public function assumptionsEngine($getLocalItunes, $youtubeItem){
 
-		//Loop through all YOUTUBE RESULTS
-		foreach($getLocalYouTube as $songItem){
 
-			$songFilter 	= $itunesItem->track_name;
-			$artistFilter 	= $itunesItem->artist_name;
-			$albumFilter 	= $itunesItem->collection_name;
-			$genreFilter 	= $itunesItem->primary_genre;
+
+		//=========================//
+		//Try writing a for loop. If itunes results length != to youtube results
+		//run for loop for itunes length, then just insert remaining youtube results
+		//into DB w/out enhanced data
+
+
+
+		//Loop through all ITUNES RESULTS
+		foreach($getLocalItunes as $songItem){
+
+			$songFilter 	= $songItem->track_name;
+			$artistFilter 	= $songItem->artist_name;
+			$albumFilter 	= $songItem->collection_name;
+			$genreFilter 	= $songItem->primary_genre;
+
 
 			$song 	= ' ';
 			$artist = ' ';
@@ -189,12 +193,12 @@ class SearchController extends BaseController {
 			//Song titles and artists are not searched by description as
 			//Track lists could exist in descriptions. Album seems to be a
 			//safe search in description.
-			$songCheckTitle 	= strpos(strtolower($songItem->title), strtolower($songFilter));
-			$songCheckDesc 		= strpos(strtolower($songItem->description), strtolower($songFilter));
-			$artistCheckTitle 	= strpos(strtolower($songItem->title), strtolower($artistFilter));
-			$artistCheckDesc 	= strpos(strtolower($songItem->description), strtolower($artistFilter));
-			$albumCheckTitle 	= strpos(strtolower($songItem->title), strtolower($albumFilter));
-			$albumCheckDesc 	= strpos(strtolower($songItem->description), strtolower($albumFilter));
+			$songCheckTitle 	= strpos(strtolower($youtubeItem->title), strtolower($songFilter));
+			$songCheckDesc 		= strpos(strtolower($youtubeItem->description), strtolower($songFilter));
+			$artistCheckTitle 	= strpos(strtolower($youtubeItem->title), strtolower($artistFilter));
+			$artistCheckDesc 	= strpos(strtolower($youtubeItem->description), strtolower($artistFilter));
+			$albumCheckTitle 	= strpos(strtolower($youtubeItem->title), strtolower($albumFilter));
+			$albumCheckDesc 	= strpos(strtolower($youtubeItem->description), strtolower($albumFilter));
 
 
 			//==========================================//
@@ -301,7 +305,7 @@ class SearchController extends BaseController {
 			//==========================================//
 
 			//Check for youtube_id in DB
-			$youtubeIdExists = Songs::where('youtube_id', '=', $songItem->video_id)->get();
+			$youtubeIdExists = Songs::where('youtube_id', '=', $youtubeItem->video_id)->get();
 
 			//Convert Model results to array
 			$thisVideo = json_decode($youtubeIdExists, true);
@@ -312,28 +316,28 @@ class SearchController extends BaseController {
 				//Update SONG TITLE
 				if($thisVideo[0]["song_title"] == " " || $thisVideo[0]["song_title"] == NULL){
 
-					Songs::where('youtube_id', '=',$songItem->video_id)
+					Songs::where('youtube_id', '=',$youtubeItem->video_id)
 					->update(array('song_title' => $song));
 				}
 
 				//Update ARTIST NAME
 				if($thisVideo[0]["artist"] == " " || $thisVideo[0]["artist"] == NULL){
 
-					Songs::where('youtube_id', '=',$songItem->video_id)
+					Songs::where('youtube_id', '=',$youtubeItem->video_id)
 					->update(array('artist' => $artist));
 				}
 
 				//Update ALBUM NAME
 				if($thisVideo[0]["album"] == " " || $thisVideo[0]["album"] == NULL){
 
-					Songs::where('youtube_id', '=',$songItem->video_id)
+					Songs::where('youtube_id', '=',$youtubeItem->video_id)
 					->update(array('album' => $album));
 				}
 
 				//Update GENRE
 				if($thisVideo[0]["genre"] == " " || $thisVideo[0]["genre"] == NULL){
 
-					Songs::where('youtube_id', '=',$songItem->video_id)
+					Songs::where('youtube_id', '=',$youtubeItem->video_id)
 					->update(array('genre' => $genre));
 				}
 
@@ -343,19 +347,19 @@ class SearchController extends BaseController {
 
 				//Insert
 				Songs::insert(array(
-					'query' 			=> $songItem->query,
+					'query' 			=> $youtubeItem->query,
 					'song_title' 		=> $song,
-					'youtube_title' 	=> $songItem->title,
+					'youtube_title' 	=> $youtubeItem->title,
 					'artist' 			=> $artist,
 					'album' 			=> $album,
 					'genre' 			=> $genre,
-					'description' 		=> $songItem->description,
-					'youtube_id' 		=> $songItem->video_id,
-					'img_default' 		=> $songItem->img_default,
-					'img_medium' 		=> $songItem->img_medium,
-					'img_high' 			=> $songItem->img_high,
+					'description' 		=> $youtubeItem->description,
+					'youtube_id' 		=> $youtubeItem->video_id,
+					'img_default' 		=> $youtubeItem->img_default,
+					'img_medium' 		=> $youtubeItem->img_medium,
+					'img_high' 			=> $youtubeItem->img_high,
 					'length' 			=> $length,
-					'youtube_results_id'=> $songItem->id
+					'youtube_results_id'=> $youtubeItem->id
 				));
 			}
 		}//foreach
