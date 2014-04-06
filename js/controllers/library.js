@@ -30,7 +30,6 @@ var Library = (function(window, document, $){
 
 				addSongToLibrary(id, userId);
 
-				console.log(userId);
 
 
 				//Swaps out icon

@@ -10,6 +10,7 @@ var Content = (function(window, document, $){
 	var _songs 		= [];
 	var	_userId		= '';
 	var	_userEmail 	= '';
+	var _userLibrary;
 
 
 
@@ -112,7 +113,7 @@ var Content = (function(window, document, $){
 
 						songs.push(data[i]);
 					}
-					console.log(_songs);
+
 					//Send results to renderer
 					loadQueryResults(songs);
 
@@ -141,8 +142,6 @@ var Content = (function(window, document, $){
 		//Listens for user to log in to load library for user
 		$(document).on('userloggedin', function(event){
 
-			console.log(event.email, event.userId, "dataaaaaa");
-
 			_userId 	= event.userId;
 			_userEmail 	= event.email;
 		});
@@ -156,10 +155,10 @@ var Content = (function(window, document, $){
 
 
 
-
 		//Makes synchronous
 		//Listens for loadApp content renderer complete
 		$(document).on('rendered', function(event){
+console.log("rendered fired", event.template);
 
 			if(event.template === '#app'){
 
@@ -171,23 +170,22 @@ var Content = (function(window, document, $){
 
 
 
-				//Listens for library renderer complete
-				$(document).on('rendered', function(event){
-
-					if(event.template === '#libraryItem'){
-
-						//replaces SVGs in DOM w/ inline SVG
-//*******Note!!! THis is slowing load
-// replaceSVG();
-
-						//Hide DOM nodes
-						hideNodes();
-					}
-				});//onRendered
+				// //Listens for library renderer complete
+				// $(document).on('rendered', function(event){
 
 			}
-		});//onRendered
+				// });//onRendered
+			if(event.template === '#libraryItem'){
 
+				//Hide DOM nodes
+				hideNodes();
+
+				//Loop through li items to see if song is in library
+				console.log(event.template, _userLibrary);
+			}
+
+
+		});//onRendered
 
 
 
@@ -243,6 +241,7 @@ var Content = (function(window, document, $){
 			};
 
 
+
 		render(src, id, appendTo, data);
 	}
 
@@ -265,8 +264,8 @@ var Content = (function(window, document, $){
 			};
 
 
-		render(src, id, appendTo, data);
 
+		render(src, id, appendTo, data);
 
 		//Loads any scripts needing dynamic insertion
 		loadScripts();
@@ -348,8 +347,8 @@ var Content = (function(window, document, $){
 			//Shows column headers
 			$('.li-header').show();
 
-
-		render(src, id, appendTo, data);
+			//Render playlist items w/ playlist data
+			render(src, id, appendTo, data);
 	}
 
 
@@ -378,19 +377,19 @@ var Content = (function(window, document, $){
 				method 		: 'GET',
 				dataType 	: 'json',
 				success 	: function(response){
-					console.log(response, "library response");
-
 
 					data 	 	= {
 						song : response
 					};
+
+					//Store the users library for library functions
+					_userLibrary = response;
 
 					//Shows column headers
 					$('.li-header').show();
 
 					//Render library items with user data
 					render(src, id, appendTo, data);
-
 				}//success
 			});//ajax
 
@@ -482,43 +481,6 @@ var Content = (function(window, document, $){
 
 
 
-	//Replace all SVG images with inline SVG===//
-	//Source: http://stackoverflow.com/questions/11978995/how-to-change-color-of-svg-image-using-css-jquery-svg-image-replacement
-	function replaceSVG(){
-
-		$('img.svg').each(function(){
-		    var img = $(this);
-		    var imgID = img.attr('id');
-		    var imgClass = img.attr('class');
-		    var imgURL = img.attr('src');
-
-		    $.get(imgURL, function(data) {
-		        // Get the SVG tag, ignore the rest
-		        var svg = $(data).find('svg');
-
-		        // Add replaced image's ID to the new SVG
-		        if(typeof imgID !== 'undefined') {
-		            svg = svg.attr('id', imgID);
-		        }
-		        // Add replaced image's classes to the new SVG
-		        if(typeof imgClass !== 'undefined') {
-		            svg = svg.attr('class', imgClass+' replaced-svg');
-		        }
-
-		        // Remove any invalid XML tags as per http://validator.w3.org
-		        svg = svg.removeAttr('xmlns:a');
-
-		        // Replace image with new SVG
-		        img.replaceWith(svg);
-
-		    }, 'xml');
-		});
-	}//replaceSVG()
-
-
-
-
-
 
 
 
@@ -560,11 +522,10 @@ var Content = (function(window, document, $){
 
 
 			//Fires a complete event after content has been appended
-			$.event.trigger({
+			$(document).trigger({
 				type		: 'rendered',
 				template 	: id
 			});
-
 		});
 	}
 

@@ -293,17 +293,6 @@ var Player = (function(window, document, $){
 		}
 
 
-		//global.xPos = (global.seek_time / global.duration) * global.seek_bar_right;
-
-		// var seek_time = Math.round($('.seek-line').offset().left) + (Math.floor(time) / duration );
-		// var set_time = ((e.pageX - global.seek_bar_left) / global.seek_bar_width) * global.duration;
-		// var seek_time = $('.seek-line').offset().left / $('.seek-line').width() * duration;
-
-
-
-		console.log(duration, Math.floor(time), seek_time, (Math.floor(time) / duration ));
-
-
 
 		//Update scrubber position
 		$('#seek-dot').offset({left: seek_time});

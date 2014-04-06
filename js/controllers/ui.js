@@ -3,7 +3,7 @@ var Ui = (function(window, document, $){
 
 	//Instances
 	var _key 		= new KeyHash();
-	var _content 	= new Content();
+	// var _content 	= new Content();
 
 
 
