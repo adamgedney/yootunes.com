@@ -33,13 +33,13 @@ class LibraryController extends BaseController {
 
 		//Fetch library id based on user id
 		$libraryId = Library::where('user_id', '=', $userId)
-		->get(array('id'));
+		->get();
 
 
 		//Insert song id into user songs paired to library id
 		$librarySongs = LibrarySongs::insert(array(
 			'song_id'=>$songId,
-			'library_id'=>$libraryId));
+			'library_id'=>$libraryId[0]->id));
 
 
 

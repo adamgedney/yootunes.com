@@ -42,16 +42,10 @@
 	//init functions
 	function init(){
 
-		//Loads any scripts needing dynamic insertion
-		loadScripts();
+
 
 		//Load app template
 		_app.content.loadLanding();
-
-
-		//End Synchronous
-
-
 
 
 
@@ -76,17 +70,7 @@
 
 
 
-	//Loads any scripts needing dynamic insertion
-	function loadScripts(){
 
-		//Load YouTube Player API scripts
-		var tag = document.createElement('script');
-			tag.src = "http://www.youtube.com/player_api";
-
-		var firstScriptTag = document.getElementsByTagName('script')[0];
-			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-		//End YouTube Player API scripts
-	}
 
 
 
