@@ -680,19 +680,6 @@ footer .col-3 ul li .svg {
 
 ----------------SASS------------------*/
 /*title attrib hover effect-- work on this later*/
-a[title]:hover:after {
-  content: attr(title);
-  padding: 4px 8px;
-  color: #0f1010;
-  position: absolute;
-  top: 0;
-  right: 0;
-  white-space: nowrap;
-  z-index: 200px;
-  border-radius: 2px;
-  background: #ebebeb;
-}
-
 .share-strip {
   overflow: hidden;
 }
@@ -960,7 +947,7 @@ section.app {
 }
 
 .scroll-container {
-  height: 75.25vh;
+  height: 70vh;
   overflow: scroll;
 }
 

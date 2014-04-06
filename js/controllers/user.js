@@ -99,7 +99,7 @@ var User = (function(window, document, $, CryptoJS){
 			var password 	= CryptoJS.SHA3($('#popdownPass').val(), { outputLength: 512 });
 			var pwString 	= '';
 
-			console.log("click picked up");
+
 			//Produces 160 char string from pw
 			for(var i=0;i<password.words.length;i++){
 
@@ -132,6 +132,10 @@ var User = (function(window, document, $, CryptoJS){
 							email 	: response.email,
 							userId	: response.userId
 						});
+
+
+						//Set a cookie in the browser to store user id for "sessioning"
+						document.cookie = "uid=" + response.userId;
 					}//if
 				}//success
 			});//ajax

@@ -42,10 +42,27 @@
 	//init functions
 	function init(){
 
+		//Check for the stored cookie in the browser
+		var cookie = document.cookie;
+		var userId = cookie.slice(4);
+
+		if(userId !== "" || userId !== undefined || userId !== null){
+
+			//Load app template
+			_app.content.loadApp();
+
+			//fire event passing user data to listening class
+			$.event.trigger({
+				type 	: 'userloggedin',
+				userId	: userId
+			});
+
+		}else{
+			//Load app template
+			_app.content.loadLanding();
+		}
 
 
-		//Load app template
-		_app.content.loadLanding();
 
 
 
