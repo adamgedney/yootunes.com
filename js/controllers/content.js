@@ -221,6 +221,17 @@ var Content = (function(window, document, $){
 
 
 
+		//Reload playlists when new playlist added
+		$(document).on('playlistadded', function(){
+
+			//Load playlist items
+			loadPlaylists();
+		});
+
+
+
+
+
 
 
 
@@ -335,50 +346,35 @@ var Content = (function(window, document, $){
 			id 			= '#playlist',
 			appendTo 	= '#playlistWrapper';
 
-			data 	 	= {
-				playlist: [{id: '0', title: 'Jazz mix'},
-							{id: '01', title: 'Blues'},
-							{id: '02', title: 'Aphex twin'},
-							{id: '03', title: 'Richard James'},
-							{id: '04', title: 'Richard David James'},
-							{id: '05', title: 'Analogue Bubblebath'},
-							{id: '10', title: 'Jazz mix'},
-							{id: '101', title: 'Blues'},
-							{id: '102', title: 'Aphex twin'},
-							{id: '103', title: 'Richard James'},
-							{id: '104', title: 'Richard David James'},
-							{id: '105', title: 'Analogue Bubblebath'},
-							{id: '20', title: 'Jazz mix'},
-							{id: '201', title: 'Blues'},
-							{id: '202', title: 'Aphex twin'},
-							{id: '203', title: 'Richard James'},
-							{id: '204', title: 'Richard David James'},
-							{id: '205', title: 'Analogue Bubblebath'},
-							{id: '30', title: 'Jazz mix'},
-							{id: '301', title: 'Blues'},
-							{id: '302', title: 'Aphex twin'},
-							{id: '303', title: 'Richard James'},
-							{id: '304', title: 'Richard David James'},
-							{id: '305', title: 'Analogue Bubblebath'},
-							{id: '310', title: 'Jazz mix'},
-							{id: '3101', title: 'Blues'},
-							{id: '3102', title: 'Aphex twin'},
-							{id: '3103', title: 'Richard James'},
-							{id: '3104', title: 'Richard David James'},
-							{id: '3105', title: 'Analogue Bubblebath'},
-							{id: '320', title: 'Jazz mix'},
-							{id: '3201', title: 'Blues'},
-							{id: '3202', title: 'Aphex twin'},
-							{id: '3203', title: 'Richard James'},
-							{id: '3204', title: 'Richard David James'},
-							{id: '3205', title: 'Analogue Bubblebath'}]
-			};
 
-			//Shows column headers
-			$('.li-header').show();
+		//Build API request
+		var API_URL = 'http://localhost:8887/get-playlists/' + _userId;
 
-			//Render playlist items w/ playlist data
-			render(src, id, appendTo, data);
+
+		//Call API for user's playlist
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success 	: function(response){
+
+
+				data 	 	= {
+					playlist: response
+				};
+
+				console.log(response[1].name, "playlists response");
+
+				//Shows column headers
+				$('.li-header').show();
+
+				//Render playlist items w/ playlist data
+				render(src, id, appendTo, data);
+
+			}//success
+		});//ajax
+
+
 	}
 
 

@@ -221,10 +221,10 @@ var Library = (function(window, document, $){
 			success : function(response){
 				console.log(response, "new playlist created");
 
-				//Dispatches event to application for library reloading in content controller
-				// $.event.trigger({
-				// 	type : 'songremoved'
-				// });
+				//Dispatches event to application for playlist reloading in content controller
+				$.event.trigger({
+					type : 'playlistadded'
+				});
 			}//success
 		});//ajax
 	}

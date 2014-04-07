@@ -3,7 +3,7 @@
 
 
 {{#each playlist}}
-		<li class="li-playlist"><a data-id="{{this.id}}" class="playlistTitle" href="#">{{this.title}}</a>
+		<li class="li-playlist"><a data-id="{{this.id}}" data-userid="{{this.user_id}}" class="playlistTitle" href="#">{{this.name}}</a>
 			<span data-id="{{this.id}}" class="playlist-menu"><img class="svg" src="images/icons/menu.svg" alt="menu icon" />
 			</span>
 		</li>

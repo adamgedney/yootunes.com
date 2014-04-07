@@ -40,18 +40,63 @@ class PlaylistsController extends BaseController {
 
 
 
-	public function getPlaylist()
+
+
+
+
+
+
+
+
+
+
+	public function getPlaylist($userId, $playlistId)
 	{
-		return "Testing route";
+		//Get playlists on userId
+		$playlist = Playlists::where('user_id', '=', $userId)
+								->where('id', '=', $playlistId)
+								->join('playlist_songs', 'playlists.id', '=', 'playlist_songs.playlist_id')
+								->join('songs', 'songs.id', '=', 'playlist_songs.song_id')
+								->orderBy('songs.youtube_title', 'ASC')
+								->get();
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($playlist);
 	}
 
 
 
 
-	public function getPlaylists()
+
+
+
+
+
+
+	public function getPlaylists($userId)
 	{
-		return "Testing route";
+		//Get playlists songs on userId
+		$playlists = Playlists::where('user_id', '=', $userId)
+								->get();
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($playlists);
 	}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
