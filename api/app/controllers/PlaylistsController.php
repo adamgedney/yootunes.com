@@ -3,6 +3,13 @@ header('Access-Control-Allow-Origin: *');
 class PlaylistsController extends BaseController {
 
 
+
+
+
+
+
+
+
 	public function newPlaylist($userId, $songId, $playlistName)
 	{
 
@@ -97,13 +104,27 @@ class PlaylistsController extends BaseController {
 
 
 
-
-
-
-	public function updatePlaylist()
+	public function addToPlaylist($songId, $playlistId)
 	{
-		return "Testing route";
+
+		//Insert new song into playlist
+		$addToPlaylist = PlaylistSongs::insert(array(
+			'playlist_id'=>$playlistId,
+			'song_id'=>$songId));
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($addToPlaylist);
 	}
+
+
+
+
+
+
+
+
 
 
 

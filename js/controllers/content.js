@@ -421,7 +421,7 @@ var Content = (function(window, document, $){
 					playlist: response
 				};
 
-				console.log(response[1].name, "sub Playlists response");
+				console.log(response, "sub Playlists response");
 
 				//Shows column headers
 				$('.li-header').show();
