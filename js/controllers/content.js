@@ -200,6 +200,9 @@ var Content = (function(window, document, $){
 				//Hide DOM nodes
 				hideNodes();
 
+				//Load sub menu playlists
+				loadSubPlaylists();
+
 
 				//data-in-library="false"
 			}//#libraryItem event
@@ -226,6 +229,9 @@ var Content = (function(window, document, $){
 
 			//Load playlist items
 			loadPlaylists();
+
+			//Load menu playlists
+			loadSubPlaylists();
 		});
 
 
@@ -376,6 +382,52 @@ var Content = (function(window, document, $){
 
 
 	}
+
+
+
+
+
+
+
+
+
+	//Gets data & Loads playlist template
+	function loadSubPlaylists(){
+		var src 		= '/js/views/subPlaylist.html',
+			id 			= '#subPlaylist',
+			appendTo 	= '.playlistSubScrollContainer';
+
+
+		//Build API request
+		var API_URL = 'http://localhost:8887/get-playlists/' + _userId;
+
+
+		//Call API for user's playlist
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success 	: function(response){
+
+
+				data 	 	= {
+					playlist: response
+				};
+
+				console.log(response[1].name, "sub Playlists response");
+
+				//Shows column headers
+				$('.li-header').show();
+
+				//Render playlist items w/ playlist data
+				render(src, id, appendTo, data);
+
+			}//success
+		});//ajax
+
+
+	}
+
 
 
 
