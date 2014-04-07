@@ -10,7 +10,7 @@ var Content = (function(window, document, $){
 	var _songs 			= [];
 	var	_userId			= '';
 	var	_userEmail 		= '';
-	var _userLibrary;
+	var _userSongs;
 	var _sortBy			= 'def';
 	var _sortOrder		= 'def';
 	var _currentContent = '';
@@ -173,7 +173,6 @@ var Content = (function(window, document, $){
 		//Listens for loadApp content renderer complete
 		$(document).on('rendered', function(event){
 
-
 			if(event.template === '#app'){
 
 				//Load library items
@@ -182,33 +181,30 @@ var Content = (function(window, document, $){
 				//Load playlists
 				loadPlaylists();
 
+			}//if #app
 
 
-				// //Listens for library renderer complete
-				// $(document).on('rendered', function(event){
 
-			}
-				// });//onRendered
+
 			if(event.template === '#libraryItem'){
 
-
 				//Loop through li items to see if song is in library
-				for(var i=0;i<_userLibrary.length;i++){
+				for(var i=0;i<_userSongs.length;i++){
 
 					//Gets the song_id from the displayed result item
 					var itemId = $('li.resultItems:eq(' + i + ')').find('.addToLibrary').attr('data-id');
 
-					//Checks result item against user's library stored locally
-					//Sets trash/add icon accordingly
-					if(_userLibrary[i].song_id === itemId){
-						//Swaps out icon for trash icon
-						$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+						//Checks result item against user's library stored locally
+						//Sets trash/add icon accordingly
+						if(_userSongs[i].song_id === itemId){
+							//Swaps out icon for trash icon
+							$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
-					}else{
+						}else{
 
-						//Swaps out icon for add icon
-						$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
-					}
+							//Swaps out icon for add icon
+							$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
+						}
 				}//for
 
 				//Hide DOM nodes
@@ -489,7 +485,10 @@ var Content = (function(window, document, $){
 						user : {userId : _userId}
 					};
 
-					console.log(response, "playlist songs");
+
+					//Store the users songs for list functions
+					_userSongs = response;
+
 					//Shows column headers
 					$('.li-header').show();
 
@@ -539,10 +538,9 @@ var Content = (function(window, document, $){
 						user : {userId : _userId}
 					};
 
-					// console.log(response[0].library_id);
 
-					//Store the users library for library functions
-					_userLibrary = response;
+					//Store the users songs for list functions
+					_userSongs = response;
 
 					//Shows column headers
 					$('.li-header').show();
