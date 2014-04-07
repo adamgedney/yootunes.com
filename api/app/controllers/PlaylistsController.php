@@ -63,7 +63,6 @@ class PlaylistsController extends BaseController {
 		$playlist = Playlists::where('playlists.id', '=', $playlistId)
 								->join('playlist_songs', 'playlists.id', '=', 'playlist_songs.playlist_id')
 								->join('songs', 'songs.id', '=', 'playlist_songs.song_id')
-								// ->orderBy('songs.youtube_title', 'ASC')
 								->get();
 
 
@@ -85,6 +84,7 @@ class PlaylistsController extends BaseController {
 	{
 		//Get playlists songs on userId
 		$playlists = Playlists::where('user_id', '=', $userId)
+								->orderBy('name', 'ASC')
 								->get();
 
 

@@ -113,10 +113,11 @@ var Library = (function(window, document, $){
 		$(document).on('click', '.playlist-menu-sub-list', function(event){
 			var songId 		= $(this).parent().attr('data-id');
 			var playlistId 	= $(this).attr('data-playlistId');
+			var userId 		= $(this).attr('data-user');
 
-
+			console.log(userId);
 			//Add song to playlist
-			addSongToPlaylist(songId, playlistId);
+			addSongToPlaylist(songId, playlistId, userId);
 		});
 
 
@@ -245,6 +246,10 @@ var Library = (function(window, document, $){
 				});
 			}//success
 		});//ajax
+
+
+		//Adds this new song to user's library
+		addSongToLibrary(songId, userId);
 	}
 
 
@@ -255,7 +260,7 @@ var Library = (function(window, document, $){
 
 
 
-		function addSongToPlaylist(songId, playlistId){
+		function addSongToPlaylist(songId, playlistId, userId){
 
 			//Build API url
 			var API_URL = 'http://localhost:8887/add-to-playlist/' + songId + '/' + playlistId;
@@ -272,6 +277,8 @@ var Library = (function(window, document, $){
 			});//ajax
 
 
+			//Adds this new song to user's library
+			addSongToLibrary(songId, userId);
 		}
 
 
