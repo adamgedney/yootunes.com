@@ -1,7 +1,7 @@
 3.2.9 (Media Mark)
-1ad0c88546b649dbe7b34d4aca00ed625098e6d0
+98b7b64796c27a09fa5c146c523f3649604cd28f
 o:Sass::Tree::RootNode
-:@template"‰4/*
+:@template"†4/*
 	Thanks for checking out my code!!
 
 
@@ -231,7 +231,7 @@ aside.app{
 }
 
 .playlist-scroll-container{
-	height: 65.25vh;
+	height: 47vh;
 	overflow: scroll;
 }
 
@@ -1105,7 +1105,7 @@ float;[ ;o;;	;;"
 right;@;@;iß;;;@;[".add-icon;iÞ; o;!;"" ;iÞ;#[o;$;#[o;%
 ;&0;"@;'o;(;){ ;iÞ;#[o;-;["add-icon;"@;iÞ;,To;;i ;[o;;i ;["display;[ ;o;;	;;"	none;@;@;iã;;;@;["2.playlist-scroll-container::-webkit-scrollbar;iâ; o;!;"" ;iâ;#[o;$;#[o;%
 ;&0;"@);'o;(;){ ;iâ;#[o;-;["playlist-scroll-container;"@);iâo;1
-;["-webkit-scrollbar;	:element;"@);iâ;30;,To;;i ;[o;;i ;["height;[ ;o;;	;;"65.25vh;@;@;iç;;o;;i ;["overflow;[ ;o;;	;;"scroll;@;@;iè;;;@;[".playlist-scroll-container;iæ; o;!;"" ;iæ;#[o;$;#[o;%
+;["-webkit-scrollbar;	:element;"@);iâ;30;,To;;i ;[o;;i ;["height;[ ;o;;	;;"	47vh;@;@;iç;;o;;i ;["overflow;[ ;o;;	;;"scroll;@;@;iè;;;@;[".playlist-scroll-container;iæ; o;!;"" ;iæ;#[o;$;#[o;%
 ;&0;"@H;'o;(;){ ;iæ;#[o;-;["playlist-scroll-container;"@H;iæ;,To;
 ;	;
 ;[ ;["./*=====================================*/;@;iðo;
