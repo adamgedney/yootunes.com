@@ -11,6 +11,8 @@ var Content = (function(window, document, $){
 	var	_userId		= '';
 	var	_userEmail 	= '';
 	var _userLibrary;
+	var _sortBy		= 'def';
+	var _sortOrder	= 'def';
 
 
 
@@ -44,36 +46,112 @@ var Content = (function(window, document, $){
 
 
 		//Songs library page load interaction=========//
-		$(document).on('click', '#viewSongs', function(event){
+		$(document).on('click', '.viewSongs', function(event){
 
-			loadLibrary();
+			this.toggle;
+
+			if(this.toggle){
+				//Set the sort order
+				_sortBy 	= "youtube_title";
+				_sortOrder 	= "ASC";
+
+				loadLibrary();
+
+				this.toggle = !this.toggle;
+
+			}else{
+				//Set the sort order
+				_sortBy 	= "youtube_title";
+				_sortOrder 	= "DESC";
+
+				loadLibrary();
+
+				this.toggle = !this.toggle;
+			}
+
 		});
 
 
 
 
 		//Artists library page load interaction=========//
-		$(document).on('click', '#viewArtists', function(event){
+		$(document).on('click', '.viewArtists', function(event){
 
-			loadLibrary();
+			this.toggle;
+
+			if(this.toggle){
+				//Set the sort order
+				_sortBy 	= "artist";
+				_sortOrder 	= "ASC";
+
+				loadLibrary();
+
+				this.toggle = !this.toggle;
+
+			}else{
+				//Set the sort order
+				_sortBy 	= "artist";
+				_sortOrder 	= "DESC";
+
+				loadLibrary();
+
+				this.toggle = !this.toggle;
+			}
 		});
 
 
 
 
 		//Albums library page load interaction=========//
-		$(document).on('click', '#viewAlbums', function(event){
+		$(document).on('click', '.viewAlbums', function(event){
 
-			loadLibrary();
+			this.toggle;
+
+			if(this.toggle){
+				//Set the sort order
+				_sortBy 	= "album";
+				_sortOrder 	= "ASC";
+
+				loadLibrary();
+
+				this.toggle = !this.toggle;
+			}else{
+				//Set the sort order
+				_sortBy 	= "album";
+				_sortOrder 	= "DESC";
+
+				loadLibrary();
+
+				this.toggle = !this.toggle;
+			}
 		});
 
 
 
 
 		//Genres library page load interaction=========//
-		$(document).on('click', '#viewGenres', function(event){
+		$(document).on('click', '.viewGenres', function(event){
 
-			loadLibrary();
+			this.toggle;
+
+			if(this.toggle){
+				//Set the sort order
+				_sortBy 	= "genre";
+				_sortOrder 	= "ASC";
+
+				loadLibrary();
+
+				this.toggle = !this.toggle;
+			}else{
+				//Set the sort order
+				_sortBy 	= "genre";
+				_sortOrder 	= "DESC";
+
+				loadLibrary();
+
+				this.toggle = !this.toggle;
+			}
+
 		});
 
 
@@ -495,7 +573,7 @@ var Content = (function(window, document, $){
 			appendTo 	= '.scroll-container';
 
 			//Build API request
-			var API_URL = 'http://localhost:8887/get-library/' + _userId;
+			var API_URL = 'http://localhost:8887/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder;
 
 
 

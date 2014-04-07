@@ -500,6 +500,10 @@ section.app{
 		text-align: right;
 		margin-top: 0;
 	}
+
+	.viewSongs, .viewArtists, .viewAlbums, .viewGenres{
+		cursor: pointer;
+	}
 }
 
 .li-group{

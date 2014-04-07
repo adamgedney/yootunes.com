@@ -1024,6 +1024,9 @@ section.app {
   text-align: right;
   margin-top: 0;
 }
+.li-header .viewSongs, .li-header .viewArtists, .li-header .viewAlbums, .li-header .viewGenres {
+  cursor: pointer;
+}
 
 .li-group {
   color: #494f4f;

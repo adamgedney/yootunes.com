@@ -8,15 +8,20 @@ class LibraryController extends BaseController {
 
 
 
-	//add sorting parameters to URL for artist, album, song, and genre
-	public function getLibrary($id)
+	public function getLibrary($id, $sortBy, $sortOrder)
 	{
+		//Defaults sort order if none present
+		if($sortBy === 'def' || $sortOrder === 'def'){
+			$sortBy 	= 'library_songs.created_at';
+			$sortOrder 	= 'DESC';
+		}
 
+		//Fetches user library
 		$library = Library::where('user_id', '=', $id)
 							->where('is_deleted', '=', NULL)
 							->join('library_songs', 'library.id', '=', 'library_songs.library_id')
 							->join('songs', 'songs.id', '=', 'library_songs.song_id')
-							->orderBy('library_songs.created_at', 'DESC')
+							->orderBy($sortBy, $sortOrder)
 							->get();
 
 
