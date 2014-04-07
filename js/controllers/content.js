@@ -199,14 +199,14 @@ var Content = (function(window, document, $){
 					var itemId = $('li.resultItems:eq(' + i + ')').find('.addToLibrary').attr('data-id');
 
 					//Checks result item against user's library stored locally
-					//Sets check/add icon accordingly
+					//Sets trash/add icon accordingly
 					if(_userLibrary[i].song_id === itemId){
-						//Swaps out icon
-						$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/check.png');
+						//Swaps out icon for trash icon
+						$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
 					}else{
 
-						//Swaps out icon
+						//Swaps out icon for add icon
 						$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
 					}
 				}//for
@@ -486,6 +486,11 @@ var Content = (function(window, document, $){
 
 					//Render library items with user data
 					render(src, id, appendTo, data);
+
+
+					//Change last column to remove
+					$('.sourceTitle').html('Remove');
+
 				}//success
 			});//ajax
 
@@ -535,6 +540,9 @@ var Content = (function(window, document, $){
 
 					//Render library items with user data
 					render(src, id, appendTo, data);
+
+					//Change last column to remove
+					$('.sourceTitle').html('Remove');
 				}//success
 			});//ajax
 
@@ -615,6 +623,10 @@ var Content = (function(window, document, $){
 
 
 		render(src, id, appendTo, data);
+
+
+		//Change last column to remove
+		$('.sourceTitle').html('Add');
 	}
 
 
