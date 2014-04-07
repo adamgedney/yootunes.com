@@ -83,10 +83,11 @@ var Content = (function(window, document, $){
 		$(document).on('click', '.playlistTitle', function(event){
 
 			//Grabs playlist id for specific loading
-			var id = $(this).attr('data-id');
+			var playlistId = $(this).attr('data-id');
 			// console.log(id, 'this is the clicked playlist id');
 
-			loadLibrary();
+			//Get & load playlist songs
+			loadPlaylistSongs(playlistId);
 		});
 
 
@@ -233,6 +234,12 @@ var Content = (function(window, document, $){
 			//Load menu playlists
 			loadSubPlaylists();
 		});
+
+
+
+
+
+
 
 
 
@@ -424,6 +431,50 @@ var Content = (function(window, document, $){
 
 			}//success
 		});//ajax
+
+
+	}
+
+
+
+
+
+
+
+
+
+	//Gets data & Loads playlist songs
+	function loadPlaylistSongs(playlistId){
+		var src 		= '/js/views/library.html',
+			id 			= '#libraryItem',
+			appendTo 	= '.scroll-container';
+
+			//Build API request
+			var API_URL = 'http://localhost:8887/get-playlist-songs/' + playlistId;
+
+
+
+
+			//Call API for user's library
+			$.ajax({
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType 	: 'json',
+				success 	: function(response){
+
+					data 	 	= {
+						song : response,
+						user : {userId : _userId}
+					};
+
+					console.log(response, "playlist songs");
+					//Shows column headers
+					$('.li-header').show();
+
+					//Render library items with user data
+					render(src, id, appendTo, data);
+				}//success
+			});//ajax
 
 
 	}

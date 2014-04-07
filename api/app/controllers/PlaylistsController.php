@@ -50,14 +50,13 @@ class PlaylistsController extends BaseController {
 
 
 
-	public function getPlaylist($userId, $playlistId)
+	public function getPlaylistSongs($playlistId)
 	{
 		//Get playlists on userId
-		$playlist = Playlists::where('user_id', '=', $userId)
-								->where('id', '=', $playlistId)
+		$playlist = Playlists::where('playlists.id', '=', $playlistId)
 								->join('playlist_songs', 'playlists.id', '=', 'playlist_songs.playlist_id')
 								->join('songs', 'songs.id', '=', 'playlist_songs.song_id')
-								->orderBy('songs.youtube_title', 'ASC')
+								// ->orderBy('songs.youtube_title', 'ASC')
 								->get();
 
 
