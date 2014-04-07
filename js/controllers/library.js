@@ -128,6 +128,21 @@ var Library = (function(window, document, $){
 
 
 
+		//Delete playlist
+		$(document).on('click', '.deletePlaylist', function(event){
+			var playlistId 	= $(this).attr('data-id');
+
+			deletePlaylist(playlistId);
+		});
+
+
+
+
+
+
+
+
+
 
 
 
@@ -279,6 +294,37 @@ var Library = (function(window, document, $){
 
 			//Adds this new song to user's library
 			addSongToLibrary(songId, userId);
+		}
+
+
+
+
+
+
+
+
+
+		function deletePlaylist(playlistId){
+
+			//Build API url
+			var API_URL = 'http://localhost:8887/delete-playlist/' + playlistId;
+
+			//Call API to add song to library
+			$.ajax({
+				url : API_URL,
+				method : 'GET',
+				dataType : 'json',
+				success : function(response){
+					console.log(response, "delete playlist success response");
+
+				}//success
+			});//ajax
+
+
+			//Triggers playlist added just so a playlist reload occurs
+			$.event.trigger({
+				type : 'playlistadded'
+			});
 		}
 
 

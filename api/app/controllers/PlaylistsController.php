@@ -84,6 +84,7 @@ class PlaylistsController extends BaseController {
 	{
 		//Get playlists songs on userId
 		$playlists = Playlists::where('user_id', '=', $userId)
+								->where('is_deleted', '=', NULL)
 								->orderBy('name', 'ASC')
 								->get();
 
@@ -129,10 +130,29 @@ class PlaylistsController extends BaseController {
 
 
 
-	public function deletePlaylist()
+	public function deletePlaylist($playlistId)
 	{
-		return "Testing route";
+
+		//Marks playlist as deleted
+		$deletePlaylist = Playlists::where('id', '=', $playlistId)
+									->update(array(
+										'is_deleted'=>'true'));
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($deletePlaylist);
 	}
+
+
+
+
+
+
+
+
+
+
 
 
 

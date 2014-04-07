@@ -63,7 +63,7 @@ Route::get('get-playlists/{userId}', 'PlaylistsController@getPlaylists');
 
 Route::get('add-to-playlist/{songId}/{playlistId}', 'PlaylistsController@addToPlaylist');
 
-// Route::get('delete-playlist', 'PlaylistsController@deletePlaylist');
+Route::get('delete-playlist/{playlistId}', 'PlaylistsController@deletePlaylist');
 
 // Route::get('share-playlist', 'PlaylistsController@sharePlaylist');
 
