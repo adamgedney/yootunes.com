@@ -251,6 +251,16 @@ var Content = (function(window, document, $){
 
 
 
+		//Reload playlist after song removal
+		$(document).on('playlistsongremoved', function(event){
+			console.log("playlist song removed triggered", event.id);
+			//Reload playlist songs after song removed
+			loadPlaylistSongs(event.id)
+		});
+
+
+
+
 
 
 
@@ -389,7 +399,7 @@ var Content = (function(window, document, $){
 					playlist: response
 				};
 
-				console.log(response[1].name, "playlists response");
+				console.log(response[1], "playlists response");
 
 				//Shows column headers
 				$('.li-header').show();
@@ -434,7 +444,6 @@ var Content = (function(window, document, $){
 					playlist: response
 				};
 
-				console.log(response, "sub Playlists response");
 
 				//Shows column headers
 				$('.li-header').show();

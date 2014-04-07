@@ -19,67 +19,78 @@ var Library = (function(window, document, $){
 		$(document).on('click', '.addToLibrary', function(event){
 			var id = $(this).attr('data-id');
 			var libraryId = $(this).attr('data-libid');
+			var playlistId = $(this).attr('data-playlistId');
 			var check = $(this).find('.add-icon').attr('src', 'images/icons/check.png');
 
-			this.toggle;
 
-			//Ensures add song run if library check mark
-			if(check){
-				this.toggle = this.toggle;
-			}
+			//Currently displaying playlist if playlistId exists
+			if(playlistId !== ""){
 
-			//Check to see if library id exists. If not, then this is a search result list
-			//Ensure click adds to library via this.toggle true
-			if(!libraryId || libraryId == " " || libraryId == null || libraryId == undefined){
-				this.toggle = !this.toggle;
-			}
+				//DELETES song from playlist
+				deleteSongFromPlaylist(id, playlistId);
+
+			}else{//NOT currently displayling a playlist
+
+				this.toggle;
 
 
 
+				//Ensures add song run if library check mark
+				if(check){
+					this.toggle = this.toggle;
+				}
+
+				//Check to see if library id exists. If not, then this is a search result list
+				//Ensure click adds to library via this.toggle true
+				if(!libraryId || libraryId == " " || libraryId == null || libraryId == undefined){
+					this.toggle = !this.toggle;
+				}
 
 
 
-			//Handles adding and removing functions and button image swap
-			if(this.toggle){
 
-				//retrieve clicked song user id
-				var userId = $(this).attr('data-user');
+				//Handles adding and removing functions and button image swap
+				if(this.toggle){
 
-				//Mark song in result list as "in library"
-				$(this).attr('data-in-library', 'true');
+					//retrieve clicked song user id
+					var userId = $(this).attr('data-user');
 
-				//Adds song to library
-				addSongToLibrary(id, userId);
+					//Mark song in result list as "in library"
+					$(this).attr('data-in-library', 'true');
 
-
-
-				//Swaps out icon
-				$(this).find('.add-icon').attr('src', 'images/icons/check.png');
-
-				this.toggle = !this.toggle;
+					//Adds song to library
+					addSongToLibrary(id, userId);
 
 
 
-			}else{//Remove song from library
+					//Swaps out icon
+					$(this).find('.add-icon').attr('src', 'images/icons/check.png');
+
+					this.toggle = !this.toggle;
 
 
 
-				//retrieve clicked song user id
-				var userId = $(this).attr('data-user');
-
-				//Mark song in result list as "in library"
-				$(this).attr('data-in-library', 'false');
-
-				//Removes song fom library
-				removeSongFromLibrary(id, userId);
+				}else{//Remove song from library
 
 
-				//Swaps out icon
-				$(this).find('.add-icon').attr('src', 'images/icons/add.png');
 
-				this.toggle = !this.toggle;
-			}
-		});
+					//retrieve clicked song user id
+					var userId = $(this).attr('data-user');
+
+					//Mark song in result list as "in library"
+					$(this).attr('data-in-library', 'false');
+
+					//Removes song fom library
+					removeSongFromLibrary(id, userId);
+
+
+					//Swaps out icon
+					$(this).find('.add-icon').attr('src', 'images/icons/add.png');
+
+					this.toggle = !this.toggle;
+				}//this.toggle
+			}//if playlistId
+		});//on click
 
 
 
@@ -134,6 +145,12 @@ var Library = (function(window, document, $){
 
 			deletePlaylist(playlistId);
 		});
+
+
+
+
+
+
 
 
 
@@ -294,6 +311,38 @@ var Library = (function(window, document, $){
 
 			//Adds this new song to user's library
 			addSongToLibrary(songId, userId);
+		}
+
+
+
+
+
+
+
+
+
+		function deleteSongFromPlaylist(songId, playlistId){
+
+			//Build API url
+			var API_URL = 'http://localhost:8887/delete-from-playlist/' + songId + '/' + playlistId;
+
+			//Call API to add song to library
+			$.ajax({
+				url : API_URL,
+				method : 'GET',
+				dataType : 'json',
+				success : function(response){
+					console.log(response, "remove from playlist success response");
+
+					//Triggers playlist song deleted to trigger a playlist refresh
+					$.event.trigger({
+						type 	: 'playlistsongremoved',
+						id 		: playlistId
+					});
+				}//success
+			});//ajax
+
+
 		}
 
 

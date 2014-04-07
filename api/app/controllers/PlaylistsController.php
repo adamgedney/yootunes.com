@@ -61,6 +61,7 @@ class PlaylistsController extends BaseController {
 	{
 		//Get playlists on userId
 		$playlist = Playlists::where('playlists.id', '=', $playlistId)
+								->where('playlist_songs.is_deleted', '=', NULL)
 								->join('playlist_songs', 'playlists.id', '=', 'playlist_songs.playlist_id')
 								->join('songs', 'songs.id', '=', 'playlist_songs.song_id')
 								->get();
@@ -127,6 +128,29 @@ class PlaylistsController extends BaseController {
 
 
 
+	public function deleteFromPlaylist($songId, $playlistId)
+	{
+
+		//Marks playlist song as deleted
+		$deleteFromPlaylist = PlaylistSongs::where('playlist_id', '=', $playlistId)
+											->where('song_id', '=', $songId)
+											->update(array(
+											'is_deleted'=>"true"));
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($deleteFromPlaylist);
+	}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -136,7 +160,7 @@ class PlaylistsController extends BaseController {
 		//Marks playlist as deleted
 		$deletePlaylist = Playlists::where('id', '=', $playlistId)
 									->update(array(
-										'is_deleted'=>'true'));
+									'is_deleted'=>'true'));
 
 
 
