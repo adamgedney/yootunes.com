@@ -173,21 +173,6 @@ var Player = (function(window, document, $){
 			var playerId = _player.getVideoData().video_id;
 			var id = $(this).attr('data-videoid');
 
-			//UI Changes
-			var song 	= $('#infoTitle');
-			var artist 	= $('#infoArtist');
-			var album 	= $('#infoAlbum');
-
-			var dataSong = $(this).attr('data-song');
-			var dataArtist = $(this).attr('data-artist');
-			var dataAlbum = $(this).attr('data-album');
-
-			song.html(dataSong);
-			artist.html(dataArtist);
-			album.html(dataAlbum);
-
-			console.log(song, artist, album);
-
 
 			this.newVideo;
 
@@ -216,9 +201,38 @@ var Player = (function(window, document, $){
 
 
 
+
+					//UI Changes
+					var song 				= $('#infoTitle');
+					var artist 				= $('#infoArtist');
+					var album 				= $('#infoAlbum');
+					var dataSong 			= $(this).attr('data-song');
+					var dataArtist 			= $(this).attr('data-artist');
+					var dataAlbum 			= $(this).attr('data-album');
+					var fbShareMain 		= $('#fbShareMain');
+					var googleShareMain 	= $('#googleShareMain');
+					var twitterShareMain 	= $('#twitterShareMain');
+					var linkShareMain 		= $('#linkShareMain');
+					var youtubeUrl 			= 'https://www.youtube.com/watch?v=' + id;
+
+					song.html(dataSong);
+					artist.html(dataArtist);
+					album.html(dataAlbum);
+					fbShareMain.attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + youtubeUrl);
+					googleShareMain.attr('href', 'https://plus.google.com/share?url=' + youtubeUrl);
+					twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl);
+					linkShareMain.attr('href', youtubeUrl);
+
+
+
+
+
 				//Runs play w/out loading new video
 				}else{
-					console.log("NOT new video");
+
+
+
+
 					//Pause playback handler
 					if(_playerPlaying){
 						//Pause playback
