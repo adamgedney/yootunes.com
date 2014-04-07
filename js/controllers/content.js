@@ -7,12 +7,13 @@ var Content = (function(window, document, $){
 
 
 	//private vars
-	var _songs 		= [];
-	var	_userId		= '';
-	var	_userEmail 	= '';
+	var _songs 			= [];
+	var	_userId			= '';
+	var	_userEmail 		= '';
 	var _userLibrary;
-	var _sortBy		= 'def';
-	var _sortOrder	= 'def';
+	var _sortBy			= 'def';
+	var _sortOrder		= 'def';
+	var _currentContent = '';
 
 
 
@@ -48,26 +49,9 @@ var Content = (function(window, document, $){
 		//Songs library page load interaction=========//
 		$(document).on('click', '.viewSongs', function(event){
 
-			this.toggle;
+			var by = "youtube_title";
 
-			if(this.toggle){
-				//Set the sort order
-				_sortBy 	= "youtube_title";
-				_sortOrder 	= "ASC";
-
-				loadLibrary();
-
-				this.toggle = !this.toggle;
-
-			}else{
-				//Set the sort order
-				_sortBy 	= "youtube_title";
-				_sortOrder 	= "DESC";
-
-				loadLibrary();
-
-				this.toggle = !this.toggle;
-			}
+			sortList(by);
 
 		});
 
@@ -77,26 +61,9 @@ var Content = (function(window, document, $){
 		//Artists library page load interaction=========//
 		$(document).on('click', '.viewArtists', function(event){
 
-			this.toggle;
+			var by = "artist";
 
-			if(this.toggle){
-				//Set the sort order
-				_sortBy 	= "artist";
-				_sortOrder 	= "ASC";
-
-				loadLibrary();
-
-				this.toggle = !this.toggle;
-
-			}else{
-				//Set the sort order
-				_sortBy 	= "artist";
-				_sortOrder 	= "DESC";
-
-				loadLibrary();
-
-				this.toggle = !this.toggle;
-			}
+			sortList(by);
 		});
 
 
@@ -105,25 +72,9 @@ var Content = (function(window, document, $){
 		//Albums library page load interaction=========//
 		$(document).on('click', '.viewAlbums', function(event){
 
-			this.toggle;
+			var by = "album";
 
-			if(this.toggle){
-				//Set the sort order
-				_sortBy 	= "album";
-				_sortOrder 	= "ASC";
-
-				loadLibrary();
-
-				this.toggle = !this.toggle;
-			}else{
-				//Set the sort order
-				_sortBy 	= "album";
-				_sortOrder 	= "DESC";
-
-				loadLibrary();
-
-				this.toggle = !this.toggle;
-			}
+			sortList(by);
 		});
 
 
@@ -132,25 +83,9 @@ var Content = (function(window, document, $){
 		//Genres library page load interaction=========//
 		$(document).on('click', '.viewGenres', function(event){
 
-			this.toggle;
+			var by = "genre";
 
-			if(this.toggle){
-				//Set the sort order
-				_sortBy 	= "genre";
-				_sortOrder 	= "ASC";
-
-				loadLibrary();
-
-				this.toggle = !this.toggle;
-			}else{
-				//Set the sort order
-				_sortBy 	= "genre";
-				_sortOrder 	= "DESC";
-
-				loadLibrary();
-
-				this.toggle = !this.toggle;
-			}
+			sortList(by);
 
 		});
 
@@ -737,6 +672,40 @@ var Content = (function(window, document, $){
 				template 	: id
 			});
 		});
+	}
+
+
+
+
+
+
+
+
+
+	function sortList(by){
+
+		this.toggle;
+
+		if(this.toggle){
+			//Set the sort order
+			_sortBy 	= by;
+			_sortOrder 	= "ASC";
+
+			//Load library
+			loadLibrary();
+
+			this.toggle = !this.toggle;
+
+		}else{
+			//Set the sort order
+			_sortBy 	= by;
+			_sortOrder 	= "DESC";
+
+			//Load library
+			loadLibrary();
+
+			this.toggle = !this.toggle;
+		}
 	}
 
 
