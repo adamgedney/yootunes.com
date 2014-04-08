@@ -473,7 +473,7 @@ var Content = (function(window, document, $){
 
 
 
-			//Call API for user's library
+			//Call API for user's playlist songs
 			$.ajax({
 				url 		: API_URL,
 				method 		: 'GET',

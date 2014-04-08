@@ -706,6 +706,10 @@ svg:hover, img:hover {
 }
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
+html {
+  background: #ebebeb;
+}
+
 #app {
   background: #ebebeb;
   overflow: hidden;
@@ -983,6 +987,15 @@ section.app {
   display: inline-block;
   float: left;
   overflow: hidden;
+}
+
+.li-col3 {
+  width: 200px;
+}
+
+.li-col3:before {
+  content: " ";
+  width: 200px;
 }
 
 .li-col6, .li-col5 {

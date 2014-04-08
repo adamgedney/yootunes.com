@@ -87,10 +87,8 @@ require app_path().'/filters.php';
 
 
 //Register events
-//Listen for tinysong results to exist in database
-// Event::listen('tiny.saved', 'SearchController@localTinyExists');
+// Event::listen('fetchMoreResults', 'SearchController@fetchMoreResults');
 
-// Event::listen('youtube.saved', 'SearchController@localYouTubeExists');
 
 
 

@@ -26,6 +26,9 @@ class SearchController extends BaseController {
 
 		$getLocalItunes;
 		$getLocalYouTube;
+		$maxiTunesResults = 50;
+		$maxYoutubeResults = 50;
+
 
 
 		//===============================================//
@@ -40,7 +43,7 @@ class SearchController extends BaseController {
 		if($localItunesExists == "0"){
 
 			//Get & add Itunes results to local DB
-			$getItunes = $this->getItunes($q);
+			$getItunes = $this->getItunes($q, $maxiTunesResults);
 
 			//Step 3. –get local Itunes results
 			$getLocalItunes = $this->getLocalItunes($q);
@@ -65,7 +68,7 @@ class SearchController extends BaseController {
 		if($localYouTubeExists == "0"){
 
 			//Get & add youtube results to local DB
-			$this->getYouTube($q);
+			$this->getYouTube($q, $maxYoutubeResults);
 
 			//Step 5. –get local youtube results
 			$getLocalYouTube = $this->getLocalYouTube($q);
@@ -83,7 +86,7 @@ class SearchController extends BaseController {
 
 
 		//===============================================//
-		//Step 6. –Merge TinySong & youTube data into songs table
+		//Step 6. –Merge ITunes & youTube data into songs table
 		//===============================================//
 		//If we have itunes data from any source, but not youtube, then merge
 		if($localItunesExists == "0" || $localItunesExists !== "0"){
@@ -104,7 +107,10 @@ class SearchController extends BaseController {
 		}
 
 
-
+		//===============================================//
+		//Fire event to start behind the scenes DL of additional query results
+		//===============================================//
+		// $fetchMore = Event::fire('fetchMoreResults', array($q));
 
 
 
@@ -115,7 +121,6 @@ class SearchController extends BaseController {
 		$getSongs = $this->getSongs($q);
 
 
-
 		header('Access-Control-Allow-Origin: *');
 		return Response::json($getSongs);
 	}//search
@@ -124,6 +129,12 @@ class SearchController extends BaseController {
 
 
 
+//NOTES: ****  encapsulate getYoutube and getItunes in callbacks.
+	//once they've completed, fetch both local results simulataneously
+	//once we have local itunes and youtube data available, run the merge function & return results.
+	//This should speed up the return
+	//itunes API call for 200 results is taking 1 second. Youtube max 50 results takes less.
+	//THis will improve my data as well making my engine smarter
 
 
 
@@ -134,6 +145,15 @@ class SearchController extends BaseController {
 	//========================================================================//
 	//Internal Methods========================================================//
 	//========================================================================//
+
+
+
+
+
+
+
+
+
 
 
 
@@ -409,11 +429,11 @@ class SearchController extends BaseController {
 
 	//Fetches results from YouTube Data API & stores in
 	//database if they don't already exist
-	public function getYoutube($query){
+	public function getYoutube($query, $maxResults, $callback = null){
 		//NOTE: using this -https://code.google.com/p/google-api-php-client/wiki/GettingStarted
 
   		$YOUTUBE_API_KEY = 'AIzaSyCukRpGoGeXcvHKEEPRLKg7-toFMhtkeYk';
-  		$MAX_RESULTS = 50;
+  		$MAX_RESULTS = $maxResults;
 
   		//Format string to strip spaces and add "+"
 		$queryExplode = explode(" ", $query);
@@ -447,6 +467,13 @@ class SearchController extends BaseController {
 				'img_high' 		=> $response['snippet']['thumbnails']['high']['url']
 			));
 		}
+
+
+		// check if the callback is valid
+        // if (is_callable($callback)) {
+        //     // callback is valid - call it with given arguments
+        //     call_user_func($callback, $site, $data);
+        // }
 	}
 
 
@@ -461,11 +488,11 @@ class SearchController extends BaseController {
 
 	//Fetches results from iTunes API & stores in
 	//database if they don't already exist
-	public function getItunes($query){
+	public function getItunes($query, $maxResults, $callback = null){
 
 		//Itunes API key
 		$ITUNES_AFFILIATE_URL = '';
-		$LIMIT = 50;
+		$LIMIT = $maxResults;
 
 		//Format string to strip spaces and add "+"
 		$queryExplode = explode(" ", $query);
@@ -540,6 +567,95 @@ class SearchController extends BaseController {
 
 		return $getSongs;
 	}
+
+
+
+
+
+
+
+
+
+	 // define a fictional class used for the callback
+	//Borrowed form http://www.phpriot.com/articles/php-callbacks
+    // class downloadCallback{
+
+    //     // this is the callback method
+    //     public static function downloadComplete($site, $data)
+    //     {
+    //         echo sprintf("Finished downloading from %s\n", $site);
+    //     }
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//Behind the scenes fetch to improve results for next person
+	// public function fetchMoreResults($q){
+
+	// 	var_dump($q);
+
+
+
+
+	// 	$getLocalItunes;
+	// 	$getLocalYouTube;
+	// 	$youtubeMaxResults = 50;
+	// 	$iTunesMaxResults  = 200;
+
+
+	// 	//===============================================//
+	// 	//Step 2. –Query Itunes
+	// 	//===============================================//
+
+
+	// 		//Get & add Itunes results to local DB
+	// 		$getItunes = $this->getItunes($q, $iTunesMaxResults);
+
+	// 		//Step 3. –get local Itunes results
+	// 		$getLocalItunes = $this->getLocalItunes($q);
+
+
+
+
+
+	// 	//===============================================//
+	// 	//Step 4. –Check Youtube
+	// 	//===============================================//
+
+
+	// 		//Get & add youtube results to local DB
+	// 		$this->getYouTube($q, $youtubeMaxResults);
+
+	// 		//Step 5. –get local youtube results
+	// 		$getLocalYouTube = $this->getLocalYouTube($q);
+
+
+
+
+
+
+	// 	//===============================================//
+	// 	//Step 6. –Merge ITunes & youTube data into songs table
+	// 	//===============================================//
+
+	// 		$this->mergeData($getLocalItunes, $getLocalYouTube);
+
+
+
+
+
+	// }//fetchMoreResults
 
 
 

@@ -96,6 +96,9 @@ svg:hover, img:hover{
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
+html{
+	background: $white;
+}
 
 //body#app
 #app{
@@ -455,6 +458,15 @@ section.app{
 	display: inline-block;
 	float: left;
 	overflow: hidden;
+}
+
+.li-col3{
+	width: 200px;//Testing float fix where content is empty
+}
+
+.li-col3:before{
+	content: " ";
+	width: 200px;
 }
 
 .li-col6, .li-col5{
