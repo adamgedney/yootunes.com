@@ -757,6 +757,17 @@ aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-c
   border: none;
 }
 
+.loading {
+  background: url("../images/icons/loading.GIF") no-repeat;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 1%;
+  right: 6%;
+  display: none;
+  opacity: .6;
+}
+
 /*=====================================*/
 /*Sidebar Settings=====================*/
 /*=====================================*/
@@ -909,10 +920,10 @@ section.app {
 }
 .search input[type="submit"] {
   width: 8.33333333%;
-  background: #cf2425;
+  background: transparent;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border-left: none;
+  border-left: 1px solid #d6d6d6;
 }
 .search input[type="submit"]:hover {
   opacity: .8;
@@ -1032,6 +1043,7 @@ section.app {
 }
 .li-header .li-col1 svg, .li-header .li-col1 img {
   display: block;
+  margin-left: 24%;
 }
 .li-header .li-col7 {
   text-align: right;

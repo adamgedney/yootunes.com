@@ -144,6 +144,9 @@ var Player = (function(window, document, $){
 				$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
 
 
+				//Set info section animation to playling wave animation
+				$('.playingAnimation').attr('src', 'images/icons/wave-animated.gif');
+
 		    }else if(event.data < 1){//Paused code
 
 		    	//Clears above update interval
@@ -155,6 +158,9 @@ var Player = (function(window, document, $){
 
 		    	//Sets list icon play/pause img
 		    	$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/play-drk.png');
+
+		    	//Set info section animation to noto logomark
+				$('.playingAnimation').attr('src', 'images/icons/note.svg');
 		    }
 		};
 

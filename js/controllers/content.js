@@ -114,6 +114,9 @@ var Content = (function(window, document, $){
 			var API_URL = 'http://localhost:8887/search/' + query;
 			var songs = [];
 
+			//Show loading icon
+			$('.loading').fadeIn();
+
 			//Search query call
 			$.ajax({
 				url 		: API_URL,
@@ -130,6 +133,9 @@ var Content = (function(window, document, $){
 
 					//Send results to renderer
 					loadQueryResults(songs);
+
+					//Hide loading icon
+					$('.loading').fadeOut();
 
 					//pass data to private var
 					//after loading new results
