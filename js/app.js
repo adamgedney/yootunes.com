@@ -267,18 +267,24 @@
 
 
 //http://www.googleplusdaily.com/2013/03/add-google-sign-in-in-6-easy-steps.html
+$(document).on('click', '#gPlusSignIn', function(){
+	gapi.auth.signIn(additionalParams); // Will use page level configuration
+});
 
-$(document).on('click', 'logoutGoogle', function(){
-	disconnectUser(_user.access_token);
+$(document).on('click', '#logoutPlus', function(event){
+	event.preventDefault();
+
+	disconnectUser(_auth.access_token);
+
+	 console.log(_auth.access_token);
 });
 
 
 
 function disconnectUser(access_token) {
-  var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' +
-      access_token;
+  var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + access_token;
 
-      console.log("discpnnect");
+
   // Perform an asynchronous GET request.
   $.ajax({
     type: 'GET',
@@ -289,10 +295,12 @@ function disconnectUser(access_token) {
     success: function(nullResponse) {
       // Do something now that user is disconnected
       // The response is always undefined.
+      console.log(nullResponse);
     },
     error: function(e) {
+
       // Handle the error
-      // console.log(e);
+      console.log(e, "error");
       // You could point users to manually disconnect if unsuccessful
       // https://plus.google.com/apps
     }
@@ -303,9 +311,7 @@ function disconnectUser(access_token) {
 
 
 
-$(document).on('click', '#gPlusSignIn', function(){
-	gapi.auth.signIn(additionalParams); // Will use page level configuration
-});
+
 
 
 

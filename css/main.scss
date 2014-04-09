@@ -155,7 +155,7 @@ header {
   	margin-top: 6px;
   }
 
-  button{
+  #sign-in-btn{
   	background: none;
   	float: right;
   	color: $white;
@@ -164,7 +164,14 @@ header {
   	font-weight: 100;
   	margin-top: 15px;
   }
+
+
 }
+
+
+#logoutPlus{
+  	margin-top: 100px;
+  }
 
 
 
