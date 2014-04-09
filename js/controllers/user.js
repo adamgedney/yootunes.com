@@ -1,4 +1,4 @@
-var User = (function(window, document, $, CryptoJS){
+var User = (function(window, document, $){
 
 
 
@@ -95,4 +95,4 @@ var User = (function(window, document, $, CryptoJS){
 
 
 
-})(window, document, jQuery, CryptoJS);
+})(window, document, jQuery);

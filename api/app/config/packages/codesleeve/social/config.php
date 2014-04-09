@@ -28,7 +28,7 @@ return array(
 		'key' => '598120876944497',
 		'secret' => '0ea69eef16452cc977df6a0c5135b881',
 		'scopes' => array('email'),
-		'redirect_url' => '/',
+		'redirect_url' => 'http://yootunes.dev',
 	),
 
 	/*
@@ -56,9 +56,9 @@ return array(
 	|
 	*/
 	'google' => array(
-		'key' => '',
+		'key' => '25005213504.apps.googleusercontent.com',
 		'secret' => '',
-		'scopes' => array(),
+		'scopes' => array(''),
 		'redirect_url' => '/',
 	),
 

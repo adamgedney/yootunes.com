@@ -28,6 +28,17 @@ var Content = (function(window, document, $){
 		// });
 
 
+
+
+
+
+
+
+
+
+
+
+
 		//Acct Settings page load interaction=========//
 		$(document).on('click', '#acctSettings', function(event){
 
@@ -309,6 +320,18 @@ var Content = (function(window, document, $){
 //Class methods===================//
 //================================//
 
+
+
+
+
+
+
+
+
+
+
+
+
 	//Loads landing template
 	function loadLanding(){
 		var src 		= '/js/views/landing.html',
@@ -368,6 +391,16 @@ var Content = (function(window, document, $){
 		var firstScriptTag = document.getElementsByTagName('script')[0];
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 		//End YouTube Player API scripts
+
+
+		//Google+ Auth script
+		// var po = document.createElement('script');
+		//    po.type = 'text/javascript'; po.async = true;
+		//    po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+
+	 //   	var s = document.getElementsByTagName('script')[0];
+	 //   		s.parentNode.insertBefore(po, s);
+	   	//End Google+ auth script
 	}
 
 
@@ -732,6 +765,16 @@ var Content = (function(window, document, $){
 			this.toggle = !this.toggle;
 		}
 	}
+
+
+
+
+
+
+
+
+
+
 
 
 

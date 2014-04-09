@@ -1,4 +1,4 @@
-(function(window, document, $){
+(function(document, window, $){
 
 	//Instances==========//
 	var _app 			= {};
@@ -10,7 +10,8 @@
 		_app.user 		= new User(),
 		_app.ui 		= new Ui();
 
-
+	var _auth 			= {};
+	var _user 			= {};
 
 
 		//URI reference=============//
@@ -41,7 +42,7 @@
 
 	//init functions
 	function init(){
-
+	_app.content.loadLanding();
 		//Check for the stored cookie in the browser
 		var cookie = document.cookie;
 		var userId = cookie.indexOf("uid");
@@ -50,30 +51,34 @@
 		var id = cookie.substr(userId + 4);
 
 
-		//If uid cookie exists
-		if(userId === -1){
+		// //If uid cookie exists
+		// if(userId === -1){
 
-			//Load app template
-			_app.content.loadLanding();
+		// 	//Load app template
+		// 	_app.content.loadLanding();
 
-		}else{
+		// }else{
 
-			//Load app template
-			_app.content.loadApp();
+		// 	//Load app template
+		// 	_app.content.loadApp();
 
-			//fire event passing user data to listening class
-			$.event.trigger({
-				type 	: 'userloggedin',
-				userId	: id
-			});
-		}
-
-
-
+		// 	//fire event passing user data to listening class
+		// 	$.event.trigger({
+		// 		type 	: 'userloggedin',
+		// 		userId	: id
+		// 	});
+		// }
 
 
 
 	}//init
+
+
+
+
+
+
+
 
 
 
@@ -205,43 +210,41 @@
 
 
 
-	//load the application
-					// _app.content.loadLanding();
-	//FB button auth call
-// 	$(document).on('click', '#fbSignIn', function(){
 
-// 		var API_URL = 'http://localhost:8887/login-facebook'
-// console.log("running");
-// 		$.ajax({
-// 			url 	: API_URL,
-// 			method 	: 'GET',
-// 			dataType: 'json',
-// 			success : function(response){
+	//Check the state of the G+ user
+	window.authCallback = function(authResult) {
 
+		//Stores the auth for later access to token, etc.
+		_auth = authResult;
 
+			//If user is logged in
+			if (authResult.status.signed_in) {
+		    // Update the app to reflect a signed in user
 
-// 				console.log(response, "fb login");
+		    //Once client has laoded, implement plus features
+	  		gapi.client.load('plus','v1', function(data){
 
+				var user = gapi.client.plus.people.get({'userId' : 'me'});
 
-// 			},
-// 			error : function(data){
-// 				console.log(data, "fb login ERROR");
-// 			}
-// 		});
-// 	});
+				//Request the profile defined above
+				user.execute(function(profile){
 
+					//Store useful user info in database
+				    _user.displayName 	= profile.displayName,
+				    _user.id 			= profile.id,
+				    _user.gender 		= profile.gender,
+				    _user.image 		= profile.image.url,
+				    _user.etag 			= profile.etag;
 
-
-
-
-
+			   });//user.execute
+			});//gapi.client.laod
 
 
+		  } else {
 
-
-
-
-
+		    console.log('Sign-in state: ' + authResult['error']);
+		  }//else
+	};//AuthCallback
 
 
 
@@ -253,4 +256,73 @@
 
 
 
-})(window, document, jQuery);
+
+
+
+
+
+
+
+
+
+
+//http://www.googleplusdaily.com/2013/03/add-google-sign-in-in-6-easy-steps.html
+
+$(document).on('click', 'logoutGoogle', function(){
+	disconnectUser(_user.access_token);
+});
+
+
+
+function disconnectUser(access_token) {
+  var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' +
+      access_token;
+
+      console.log("discpnnect");
+  // Perform an asynchronous GET request.
+  $.ajax({
+    type: 'GET',
+    url: revokeUrl,
+    async: false,
+    contentType: "application/json",
+    dataType: 'jsonp',
+    success: function(nullResponse) {
+      // Do something now that user is disconnected
+      // The response is always undefined.
+    },
+    error: function(e) {
+      // Handle the error
+      // console.log(e);
+      // You could point users to manually disconnect if unsuccessful
+      // https://plus.google.com/apps
+    }
+  });
+}
+
+
+
+
+
+$(document).on('click', '#gPlusSignIn', function(){
+	gapi.auth.signIn(additionalParams); // Will use page level configuration
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+})(document, window, jQuery);
