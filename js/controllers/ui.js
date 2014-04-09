@@ -233,6 +233,24 @@ var Ui = (function(window, document, $){
 
 
 
+		//CLick handler for share link alert box
+		$(document).on('click', '.linkShare', function(event){
+			var link = $(this).attr('href');
+
+			//Send link text to alert window
+			copyToClipboard(link);
+
+			event.preventDefault();
+			return false;
+		});
+
+
+
+
+
+
+
+
 
 
 
@@ -457,6 +475,19 @@ var Ui = (function(window, document, $){
 			'background' : '#0f1010',
 			'textAlign'  : 'right'
 		});
+	}
+
+
+
+
+
+
+
+
+
+	//Notify user of link to be copied
+	function copyToClipboard(link){
+	  window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
 	}
 
 

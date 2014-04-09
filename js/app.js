@@ -44,9 +44,14 @@
 
 		//Check for the stored cookie in the browser
 		var cookie = document.cookie;
-		var userId = cookie.slice(4);
+		var userId = cookie.indexOf("uid");
 
-		if(!userId || userId == " " || userId == undefined || userId == null){
+		//Stored user id
+		var id = cookie.substr(userId + 4);
+
+
+		//If uid cookie exists
+		if(userId === -1){
 
 			//Load app template
 			_app.content.loadLanding();
@@ -59,7 +64,7 @@
 			//fire event passing user data to listening class
 			$.event.trigger({
 				type 	: 'userloggedin',
-				userId	: userId
+				userId	: id
 			});
 		}
 
@@ -200,8 +205,30 @@
 
 
 
+	//load the application
+					// _app.content.loadLanding();
+	//FB button auth call
+// 	$(document).on('click', '#fbSignIn', function(){
+
+// 		var API_URL = 'http://localhost:8887/login-facebook'
+// console.log("running");
+// 		$.ajax({
+// 			url 	: API_URL,
+// 			method 	: 'GET',
+// 			dataType: 'json',
+// 			success : function(response){
 
 
+
+// 				console.log(response, "fb login");
+
+
+// 			},
+// 			error : function(data){
+// 				console.log(data, "fb login ERROR");
+// 			}
+// 		});
+// 	});
 
 
 

@@ -12,7 +12,7 @@ Route::get('new-user/{email}/{pw}/{with}', 'UserController@newUser');
 
 Route::get('get-user/{email}/{pw}', 'UserController@getUser');
 
-// Route::get('get-users', 'UserController@getUsers');
+Route::get('login-facebook', 'UserController@loginFacebook');
 
 // Route::get('update-user', 'UserController@updateUser');
 

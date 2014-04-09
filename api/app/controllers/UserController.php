@@ -84,10 +84,36 @@ class UserController extends BaseController {
 
 
 
-	public function getUsers()
+
+
+
+
+
+	public function loginFacebook()
 	{
-		return "get users";
+
+		//Auth through facebook
+		$login = Social::login('facebook');
+
+	  	// $user = Social::facebook('user');
+		// var_dump($login);
+		// header('Access-Control-Allow-Origin: *');
+		// return Response::json($login);
+
+		// if(Social::check('facebook')){
+  //     		 print_r( Social::facebook('/120500222/feed'));
+  //     	}
+		// return $login;
+		return Redirect::to($login);
+		// header("'Location:" . (string)$login . "'");
+		// echo urldecode($login);
 	}
+
+
+
+
+
+
 
 
 
