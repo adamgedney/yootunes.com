@@ -1205,12 +1205,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .profile-edit-menu {
-  width: 30%;
-  height: auto;
-  right: 1%;
-  top: initial;
-  bottom: 81px;
-  padding: 1%;
+  position: relative;
+  overflow: hidden;
 }
 .profile-edit-menu:before {
   border-top: 9px solid  #fff;
@@ -1225,7 +1221,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 83.3333333%;
   margin-left: 8.33333335%;
   margin-right: 8.33333335%;
-  height: 45px;
+  height: 36px;
 }
 .profile-edit-menu input[type="submit"] {
   background: #cf2425;
@@ -1244,6 +1240,29 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 .profile-edit-menu-heading {
   margin: 36px 0 9px 8.45%;
+}
+
+.profile-form {
+  float: left;
+  height: 100%;
+  width: 33.3333333%;
+}
+
+.profile-links {
+  float: right;
+  height: 100%;
+  width: 120px;
+  text-align: right;
+  margin-top: 3%;
+  padding: 0 1% 0 0;
+}
+.profile-links a.delete-account-link {
+  display: block;
+  position: absolute;
+  right: 1%;
+  bottom: 3%;
+  padding: 0;
+  z-index: 1000;
 }
 
 /*=====================================*/

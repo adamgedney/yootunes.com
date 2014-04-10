@@ -193,7 +193,8 @@ var Content = (function(window, document, $){
 			if(event.template === '#app'){
 
 				//Load library items
-				loadLibrary();
+				// loadLibrary();
+				loadAcctSettings();
 
 				//Load playlists
 				loadPlaylists();

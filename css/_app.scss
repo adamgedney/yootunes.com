@@ -705,12 +705,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 //footer popout for profile
 .profile-edit-menu{
-	width: 30%;
-	height: auto;
-	right: 1%;
-	top: initial;
-	bottom: 81px;
-	padding: 1%;
+	position: relative;
+	overflow: hidden;
 
 	&:before{
 		border-top: 9px solid  #fff;
@@ -726,7 +722,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	input{
 		@include col(10);
 		@include col-ctr(10);
-		height: 45px;
+		height: 36px;
 	}
 
 	input[type="submit"]{
@@ -750,6 +746,30 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 .profile-edit-menu-heading{
 	margin: 36px 0 9px 8.45%;
+}
+
+.profile-form{
+	float: left;
+	height: 100%;
+	@include col(4);
+}
+
+.profile-links{
+	float: right;
+	height: 100%;
+	width: 120px;
+	text-align: right;
+	margin-top: 3%;
+	padding: 0 1% 0 0;
+
+	a.delete-account-link{
+		display: block;
+		position: absolute;
+		right: 1%;
+		bottom: 3%;
+		padding: 0;
+		z-index: 1000;
+	}
 }
 
 
