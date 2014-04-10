@@ -177,6 +177,10 @@ input, button, textarea {
   color: #3b578a;
 }
 
+.green {
+  color: #2f7c2f;
+}
+
 .light-gray {
   color: #949494;
 }
@@ -672,6 +676,10 @@ footer .col-3 ul li .svg {
   margin-left: 37.5%;
   margin-right: 37.5%;
   padding: 18% 0 50%;
+}
+
+#error, #success {
+  display: none;
 }
 
 /*----Sass import application stylesheet----*/

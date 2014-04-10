@@ -402,6 +402,9 @@
 	$(document).on('click', '#forgotSubmit', function(event){
 		event.preventDefault();
 
+		//Hides error message if this isn't the first attempt
+		$('#error').hide();
+
 		var email = $('#forgotInput').val();
 		var API_URL = _baseUrl + '/forgot/' + email;
 
@@ -411,6 +414,19 @@
 			dataType : 'json',
 			success : function(response){
 				console.log(response, 'forgot pass response');
+
+				if(response === "User null"){
+
+					//Show error message if no user was found
+					$('#error').fadeIn();
+				}else{
+
+					$('#success').fadeIn();
+
+					//reload the landing page
+					setTimeout(_app.content.loadLanding, 5000);
+
+				}
 
 			}
 		});

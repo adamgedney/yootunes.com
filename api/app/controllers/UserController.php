@@ -173,9 +173,9 @@ class UserController extends BaseController {
 
 		$message;
 
-		$userExists = User::where('email', '=', $email)->get();
+		$userExists = User::where('email', '=', $email)->count();
 
-		if(!empty($userExists[0]->email)){
+		if($userExists !== "0"){
 
 
 			$mail = $this->sendEmail($email);

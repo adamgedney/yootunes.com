@@ -238,6 +238,9 @@ var Content = (function(window, document, $){
 
 
 			if(event.template === '#landing'){
+
+
+
 				//Hide DOM nodes
 				hideNodes();
 			}//#landing event
