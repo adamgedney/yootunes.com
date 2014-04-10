@@ -411,22 +411,22 @@ var player;
 
 
 //profile edit menu popout==============//
-$('.profile-edit-menu').hide();
-var toggle7 = false;
-$(document).on('click', '.profile-display', function(){
+// $('.profile-edit-menu').hide();
+// var toggle7 = false;
+// $(document).on('click', '.profile-display', function(){
 
 
-	if(!toggle7){
+// 	if(!toggle7){
 
-		$('.profile-edit-menu').fadeIn();
+// 		$('.profile-edit-menu').fadeIn();
 
-		toggle7 = !toggle7;
-	}else{
-		$('.profile-edit-menu').fadeOut();
+// 		toggle7 = !toggle7;
+// 	}else{
+// 		$('.profile-edit-menu').fadeOut();
 
-		toggle7 = !toggle7;
-	}
-});
+// 		toggle7 = !toggle7;
+// 	}
+// });
 
 
 // //li group dropdown==============================//

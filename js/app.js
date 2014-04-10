@@ -17,13 +17,6 @@
 
 
 
-		//URI reference=============//
-		// _app.route 				= {},
-		// _app.route.protocol 	= window.location.protocol,
-		// _app.route.host 		= window.location.host,
-		// _app.route.path 		= window.location.pathname;
-
-
 
 
 	//initializes application
@@ -45,7 +38,7 @@
 
 	//init functions
 	function init(){
-	_app.content.loadLanding();
+
 		//Check for the stored cookie in the browser
 		var cookie = document.cookie;
 		var userId = cookie.indexOf("uid");
@@ -71,9 +64,6 @@
 				userId	: id
 			});
 		}
-
-
-
 	}//init
 
 
@@ -85,7 +75,12 @@
 
 
 
+
+
+
+	//==========================================//
 	//User Registration handler
+	//==========================================//
 	$(document).on('click', '#signupSubmit', function(event){
 
 		var email 			= $('#signupEmail').val();
@@ -160,8 +155,9 @@
 
 
 
-
+	//==========================================//
 	//User authentication
+	//==========================================//
 	$(document).on('click', '#popdownSubmit', function(event){
 		var email 		= $('#popdownEmail').val();
 		var password 	= CryptoJS.SHA3($('#popdownPass').val(), { outputLength: 512 });
@@ -221,11 +217,18 @@
 
 
 
+
+
+
+
+	//==========================================//
 	//Check the state of the G+ user
+	//==========================================//
 	window.authCallback = function(authResult) {
 
 		//Stores the auth for later access to token, etc.
 		_auth = authResult;
+
 
 			//If user is logged in
 			if (authResult.status.signed_in) {
@@ -294,6 +297,9 @@
 
 
 	//http://www.googleplusdaily.com/2013/03/add-google-sign-in-in-6-easy-steps.html
+	//==========================================//
+	//Plus Signin
+	//==========================================//
 	$(document).on('click', '#gPlusSignIn', function(){
 		gapi.auth.signIn(additionalParams); // Will use page level configuration
 	});
@@ -306,7 +312,10 @@
 
 	//When logout is clicked, check if user is google or email based user
 	//logout out accordingly
-	$(document).on('click', '#logoutPlus', function(event){
+	//==========================================//
+	//Logout clicked
+	//==========================================//
+	$(document).on('click', '#logoutLink', function(event){
 		event.preventDefault();
 
 		disconnectUser(_auth.access_token);
@@ -324,7 +333,9 @@
 
 
 
-
+	//==========================================//
+	//Disconnect user from Plus
+	//==========================================//
 	function disconnectUser(access_token) {
 		var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + access_token;
 
@@ -341,9 +352,15 @@
 				console.log("plus user logged out");
 
 				//Expire cookie & load landing page
-				document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+				deleteUIDCookie();
 
+				//Reload landing page
 				_app.content.loadLanding();
+
+				//Forces a page reload to relaod the plus signin button
+				//Unnoticeable by user who is logging out anyway
+				location.reload();
+
 		    },
 
 		    error: function(e) {
@@ -364,6 +381,13 @@
 
 
 
+
+
+	function deleteUIDCookie(){
+
+		//Expires uid cookie for logout funcitonality
+		document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+	};
 
 
 

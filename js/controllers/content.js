@@ -233,6 +233,16 @@ var Content = (function(window, document, $){
 
 				//data-in-library="false"
 			}//#libraryItem event
+
+
+
+
+			if(event.template === '#landing'){
+				//Hide DOM nodes
+				hideNodes();
+
+
+			}//#landing event
 		});//onRendered
 
 
@@ -691,12 +701,16 @@ var Content = (function(window, document, $){
 	function hideNodes(){
 
 		var selectors = ['.playlist-dropdown', 'li.main-dropdown',
-		'.add-to-playlist-menu', '.improve-meta-sub-menu'];
+		'.add-to-playlist-menu', '.improve-meta-sub-menu', '.signin'];
 
 		for(var i=0; i<selectors.length;i++){
 			$(selectors[i]).hide();
 		}
 	}
+
+
+
+
 
 
 
@@ -731,6 +745,10 @@ var Content = (function(window, document, $){
 			});
 		});
 	}
+
+
+
+
 
 
 

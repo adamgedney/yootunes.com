@@ -31,6 +31,24 @@ var Ui = (function(window, document, $){
 
 
 
+		//Sign up button interaction handler=======//
+		$(document).on('click', '#sign-in-btn', function(){
+
+			this.toggle;
+
+			var selector = '.signin';
+			var id = $(this).attr('data-id');
+
+			//returns the opposite boolean toggle value
+			this.toggle = toggleUi(this.toggle, selector, id);
+
+		});//sing-in-button click
+
+
+
+
+
+
 
 		//Stop propagation on children of main menu====//
 		$(document).on('click', 'li', function(event){
@@ -103,30 +121,6 @@ var Ui = (function(window, document, $){
 
 
 
-		//Improve data sub menu interaction=========//
-		$(document).on('click', '.improve-meta-menu-trigger', function(event){
-
-			var that = this;
-			that.toggle;
-
-			var selector = '.improve-meta-sub-menu';
-			var id = null;
-
-			//returns the opposite boolean toggle value
-			that.toggle = toggleUi(that.toggle, selector);
-
-
-
-			//listens for other sub menu events to fire
-			//to close this and flip toggle.
-			$(document).on('subOpen', function(event){
-				if(event.selector !== selector && that.toggle){
-
-					that.toggle = false;
-					$(selector).fadeOut();
-				}
-			});
-		});
 
 
 

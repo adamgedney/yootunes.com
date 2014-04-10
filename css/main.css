@@ -198,15 +198,9 @@ input, button, textarea {
   font-weight: 700;
 }
 
-input[type="email"], input[type="text"], input[type="submit"], .fb-signup, .copy-signup {
+input[type="email"], input[type="text"], input[type="submit"], .copy-signup {
   height: 48px;
   width: 100%;
-}
-
-.fb-signup {
-  border: none;
-  background: #3b578a;
-  color: #ebebeb;
 }
 
 input[type="submit"], .copy-signup {
@@ -269,10 +263,6 @@ header #sign-in-btn {
   font-size: 1.5em;
   font-weight: 100;
   margin-top: 15px;
-}
-
-#logoutPlus {
-  margin-top: 100px;
 }
 
 .hero {
@@ -431,6 +421,11 @@ header #sign-in-btn {
   .signup form .or {
     color: #ebebeb;
   }
+}
+.signup form #heroPlusBtn {
+  display: block;
+  width: 244px;
+  margin: 0 auto;
 }
 
 .howto {

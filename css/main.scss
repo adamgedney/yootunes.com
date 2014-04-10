@@ -82,16 +82,11 @@ $green: #2f7c2f;
 	font-weight: 700;
 }
 
-input[type="email"], input[type="text"], input[type="submit"], .fb-signup, .copy-signup{
+input[type="email"], input[type="text"], input[type="submit"], .copy-signup{
 	height: 48px;
 	@include col(12);
 }
 
-.fb-signup{
-	border: none;
-	background: $blue;
-	color: $white;
-}
 
 input[type="submit"], .copy-signup{
 	border: none;
@@ -167,11 +162,6 @@ header {
 
 
 }
-
-
-#logoutPlus{
-  	margin-top: 100px;
-  }
 
 
 
@@ -314,8 +304,15 @@ header {
 				color: $white;
 			}
 		}
+
+		#heroPlusBtn{
+			display: block;
+			width: 244px;
+			margin: 0 auto;
+		}
 	}
 }
+
 
 
 
