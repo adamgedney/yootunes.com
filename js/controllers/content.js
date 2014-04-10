@@ -322,7 +322,8 @@ var Content = (function(window, document, $){
 		loadLanding 		: loadLanding,
 		loadPlaylists		: loadPlaylists,
 		loadLibrary 		: loadLibrary,
-		loadApp				: loadApp
+		loadApp				: loadApp,
+		loadReset 			: loadReset
 	};
 
 
@@ -405,10 +406,33 @@ var Content = (function(window, document, $){
 
 
 
-	//Loads landing template
+	//Loads forgot password template
 	function loadForgotPass(){
 		var src 		= '/js/views/forgotPassword.html',
 			id 			= '#forgot',
+			appendTo 	= '#wrapper';
+
+			data 	 	= {
+				test	: ''
+			};
+
+
+
+		render(src, id, appendTo, data);
+	}
+
+
+
+
+
+
+
+
+
+	//Loads reset password template
+	function loadReset(){
+		var src 		= '/js/views/resetPassword.html',
+			id 			= '#reset',
 			appendTo 	= '#wrapper';
 
 			data 	 	= {

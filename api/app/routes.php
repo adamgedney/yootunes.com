@@ -22,6 +22,8 @@ Route::get('forgot/{email}', 'UserController@forgotPassword');
 
 Route::get('check-reset-token/{token}', 'UserController@checkResetToken');
 
+Route::get('reset-pass/{userId}/{password}', 'UserController@resetPassword');
+
 
 
 

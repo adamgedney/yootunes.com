@@ -232,6 +232,36 @@ class UserController extends BaseController {
 
 
 
+	public function resetPassword($userId, $password){
+
+		$message;
+
+		//update user table with new password
+		$updateUser = User::where('id', '=', $userId)
+							->update(array('password' => $password));
+
+
+		//Handle fails
+		if($updateUser){
+			$message = "Password reset success";
+		}else{
+			$message = "Failed password reset";
+		}
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($message);
+	}
+
+
+
+
+
+
+
+
+
 
 
 	//Devices====================//
@@ -274,6 +304,7 @@ class UserController extends BaseController {
 	public function checkResetToken($token){
 
 		$message;
+		$userId = '';
 
 		//Check validity of token
 		$tokenExists = UserLog::where('reset_token', '=', $token)->count();
@@ -283,13 +314,25 @@ class UserController extends BaseController {
 
 			$message = "Token valid";
 
+			//Get user id to append to response
+			$userLog = UserLog::where('reset_token', '=', $token)->get();
+			$userId = $userLog[0]->user_id;
+
 		}else{
 
 			$message = "Invalid token";
 		}
 
+
+
+		//build return object
+		$obj = array(
+			'message' => $message,
+			'userId' => $userId);
+
+
 		header('Access-Control-Allow-Origin: *');
-		return Response::json($message);
+		return Response::json($obj);
 	}
 
 

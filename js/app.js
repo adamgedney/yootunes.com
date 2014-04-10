@@ -57,7 +57,19 @@
 					method : 'GET',
 					dataType : 'json',
 					success : function(response){
-						console.log(response, "token check response");
+
+						//Token validity conditions
+						if(response.message === "Token valid"){
+
+							//Load the reset password view
+							_app.content.loadReset();
+
+							//Store the userId associated with the token
+							_user.tokenResponseId = response.userId;
+
+						}else{
+							console.log(response, "token check response");
+						}
 					}
 				});
 			}
@@ -462,6 +474,60 @@
 
 
 
+
+
+	//==========================================//
+	//Reset user password
+	//==========================================//
+	$(document).on('click', '#resetSubmit', function(event){
+		event.preventDefault();
+
+		var userId 		= _user.tokenResponseId;
+		var password 	= CryptoJS.SHA3($('#resetInput').val(), { outputLength: 512 });
+		var pwString 	= '';
+
+
+		//Produces 160 char string from pw
+		for(var i=0;i<password.words.length;i++){
+
+				//Concat array parts into pwString
+				pwString += password.words[i].toString();
+		}
+
+
+
+		//Build API request
+		var API_URL 	= _baseUrl + '/reset-pass/' + userId + '/' + pwString;
+
+
+
+		//Send new password to server for update
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success 	: function(response){
+
+
+				if(response === "Password reset success"){
+
+					$('#success').fadeIn();
+
+					//redirect user to root so they can log in with their new password
+					setTimeout(rootRedirect, 5000);
+				}
+			}
+		});//ajax
+
+
+
+	});//click resetSubmit
+
+
+
+
+
+
 	function reloadLanding(){
 
 		//Load landing page
@@ -469,6 +535,15 @@
 
 		//force reload to force google button reload
 		location.reload();
+	}
+
+
+
+
+	function rootRedirect(){
+
+		//redirects to root of application
+		window.location.href = '/';
 	}
 
 
