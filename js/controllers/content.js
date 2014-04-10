@@ -240,9 +240,9 @@ var Content = (function(window, document, $){
 			if(event.template === '#landing'){
 				//Hide DOM nodes
 				hideNodes();
-
-
 			}//#landing event
+
+
 		});//onRendered
 
 
@@ -279,6 +279,17 @@ var Content = (function(window, document, $){
 			console.log("playlist song removed triggered", event.id);
 			//Reload playlist songs after song removed
 			loadPlaylistSongs(event.id)
+		});
+
+
+
+
+
+		//Forgot Password view renderer
+		$(document).on('click', '#forgotPassword', function(event){
+			event.preventDefault();
+
+			loadForgotPass();
 		});
 
 
@@ -381,6 +392,29 @@ var Content = (function(window, document, $){
 
 		//Loads any scripts needing dynamic insertion
 		loadScripts();
+	}
+
+
+
+
+
+
+
+
+
+	//Loads landing template
+	function loadForgotPass(){
+		var src 		= '/js/views/forgotPassword.html',
+			id 			= '#forgot',
+			appendTo 	= '#wrapper';
+
+			data 	 	= {
+				test	: ''
+			};
+
+
+
+		render(src, id, appendTo, data);
 	}
 
 

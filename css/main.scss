@@ -97,6 +97,10 @@ input[type="submit"], .copy-signup{
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 
+#wrapper{
+	background: $white;
+}
+
 
 .popdown{
 	@include col(10);
@@ -557,6 +561,14 @@ footer{
 			}
 		}
 	}
+}
+
+
+
+#forgotFormContainer{
+	@include col(3);
+	@include col_ctr(3);
+	padding: 18% 0 50%;
 }
 
 
