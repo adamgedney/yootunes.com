@@ -90,15 +90,57 @@ class UserController extends BaseController {
 
 
 
-	public function plusUser($name, $id, $gender, $avatar, $etag){
+	public function plusUser($name, $id, $gender){
+
+		$signup;
+		$userId;
+
+		//Does user already exist?
+		$exists = User::where('plus_id', '=', $id)->count();
+
+
+			//If Plus user does NOT already exist
+			if($exists === "0"){
+
+				//Create new Plus user
+				$signup = User::insert(array(
+					'display_name'		=> $name,
+					'plus_id'			=> $id,
+					'gender'			=> $gender,
+					'registered_with'	=> 'plus'
+				));
 
 
 
+				//Fetch current user to begin building their acct
+				$user = User::where('plus_id', '=', $id)->get();
+				$userId = $user[0]->id;
 
 
+
+				//Create a new library for the user
+				Library::insert(array('user_id'=>$userId));
+
+
+
+			}else{//If Plus user DOES exist
+
+
+				//return the user to client so user library/acct can be loaded
+				$user = User::where('plus_id', '=', $id)->get();
+				$userId = $user[0]->id;
+
+			}
+
+
+			//Build return object
+			$obj = array(
+				'response'	=> (empty($signup)) ? "User Exists" : $signup,
+				'userId'	=> $userId
+			);
 
 		header('Access-Control-Allow-Origin: *');
-		return Response::json("hi");
+		return Response::json($obj);
 	}
 
 

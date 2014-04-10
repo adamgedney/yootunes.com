@@ -241,9 +241,9 @@
 
 					//Build URL w/ data to send to API
 					var API_URL = _baseUrl + '/plus-user/' +
-								profile.displayName + '/' + profile.id + '/' +
-								profile.gender + '/' + profile.image.url + '/' +
-								profile.etag;
+								profile.displayName + '/' +
+								profile.id + '/' +
+								profile.gender;
 
 
 
