@@ -215,7 +215,7 @@
 
 
 		//Build API request
-		var API_URL 	= _baseUrl + '/get-user/' + email + '/' + pwString;
+		var API_URL 	= _baseUrl + '/check-user/' + email + '/' + pwString;
 
 		//Request auth form server
 		$.ajax({

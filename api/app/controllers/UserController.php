@@ -48,7 +48,7 @@ class UserController extends BaseController {
 
 
 
-	public function getUser($email, $pw)
+	public function checkUser($email, $pw)
 	{
 
 
@@ -79,6 +79,28 @@ class UserController extends BaseController {
 
 		header('Access-Control-Allow-Origin: *');
 		return Response::json($obj);
+	}
+
+
+
+
+
+
+
+
+
+	public function getUser($userId)
+	{
+
+
+		//Fetch current user
+		$user = User::where('id', "=", $userId)->get();
+
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($user);
 	}
 
 

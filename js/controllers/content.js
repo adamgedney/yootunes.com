@@ -14,6 +14,7 @@ var Content = (function(window, document, $){
 	var _sortBy			= 'def';
 	var _sortOrder		= 'def';
 	var _currentContent = '';
+	var _baseUrl 		= 'http://localhost:8887';
 
 
 
@@ -42,8 +43,32 @@ var Content = (function(window, document, $){
 		//Acct Settings page load interaction=========//
 		$(document).on('click', '#acctSettings', function(event){
 
+			//load account settings page
 			loadAcctSettings();
-		});
+
+			var API_URL = _baseUrl + '/get-user/' + _userId;
+
+
+			//Get current user's data where available
+			$.ajax({
+				url : API_URL,
+				method : 'GET',
+				dataType : 'json',
+				success : function(response){
+					console.log(response[0].display_name, "acct settings call response");
+
+					$('.profile-edit-name').val(response[0].display_name);
+					$('.profile-edit-email').val(response[0].email);
+
+				}//success
+			});//ajax
+		});//click acctSettings
+
+
+
+
+
+
 
 
 
@@ -53,6 +78,12 @@ var Content = (function(window, document, $){
 
 			loadDeviceSettings();
 		});
+
+
+
+
+
+
 
 
 
@@ -69,6 +100,12 @@ var Content = (function(window, document, $){
 
 
 
+
+
+
+
+
+
 		//Artists library page load interaction=========//
 		$(document).on('click', '.viewArtists', function(event){
 
@@ -76,6 +113,12 @@ var Content = (function(window, document, $){
 
 			sortList(by);
 		});
+
+
+
+
+
+
 
 
 
@@ -91,6 +134,12 @@ var Content = (function(window, document, $){
 
 
 
+
+
+
+
+
+
 		//Genres library page load interaction=========//
 		$(document).on('click', '.viewGenres', function(event){
 
@@ -99,6 +148,12 @@ var Content = (function(window, document, $){
 			sortList(by);
 
 		});
+
+
+
+
+
+
 
 
 
@@ -118,11 +173,17 @@ var Content = (function(window, document, $){
 
 
 
+
+
+
+
+
+
 		//Search call and result looping=========//
 		$(document).on('click', '#searchSubmit', function(event){
 			event.preventDefault();
 			var query = $('#searchInput').val();
-			var API_URL = 'http://localhost:8887/search/' + query;
+			var API_URL = _baseUrl + '/search/' + query;
 			var songs = [];
 
 			//Show loading icon
@@ -159,6 +220,12 @@ var Content = (function(window, document, $){
 
 
 
+
+
+
+
+
+
 		//Reload previous search into main content view
 		$(document).on('click', '#returnToSearch', function(event){
 
@@ -166,6 +233,12 @@ var Content = (function(window, document, $){
 			loadQueryResults(_songs);
 
 		});
+
+
+
+
+
+
 
 
 
@@ -254,12 +327,24 @@ var Content = (function(window, document, $){
 
 
 
+
+
+
+
+
+
 		//Reload library when song removed form library
 		$(document).on('songremoved', function(){
 
 			//Load library items
 			loadLibrary();
 		});
+
+
+
+
+
+
 
 
 
@@ -278,12 +363,24 @@ var Content = (function(window, document, $){
 
 
 
+
+
+
+
+
+
 		//Reload playlist after song removal
 		$(document).on('playlistsongremoved', function(event){
 			console.log("playlist song removed triggered", event.id);
 			//Reload playlist songs after song removed
 			loadPlaylistSongs(event.id)
 		});
+
+
+
+
+
+
 
 
 
@@ -491,7 +588,7 @@ var Content = (function(window, document, $){
 
 
 		//Build API request
-		var API_URL = 'http://localhost:8887/get-playlists/' + _userId;
+		var API_URL = _baseUrl + '/get-playlists/' + _userId;
 
 
 		//Call API for user's playlist
@@ -536,7 +633,7 @@ var Content = (function(window, document, $){
 
 
 		//Build API request
-		var API_URL = 'http://localhost:8887/get-playlists/' + _userId;
+		var API_URL = _baseUrl + '/get-playlists/' + _userId;
 
 
 		//Call API for user's playlist
@@ -579,7 +676,7 @@ var Content = (function(window, document, $){
 			appendTo 	= '.scroll-container';
 
 			//Build API request
-			var API_URL = 'http://localhost:8887/get-playlist-songs/' + playlistId;
+			var API_URL = _baseUrl + '/get-playlist-songs/' + playlistId;
 
 
 
@@ -632,7 +729,7 @@ var Content = (function(window, document, $){
 			appendTo 	= '.scroll-container';
 
 			//Build API request
-			var API_URL = 'http://localhost:8887/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder;
+			var API_URL = _baseUrl + '/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder;
 
 
 

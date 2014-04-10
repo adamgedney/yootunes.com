@@ -10,7 +10,9 @@
 //User routes==========================//
 Route::get('new-user/{email}/{pw}/{with}', 'UserController@newUser');
 
-Route::get('get-user/{email}/{pw}', 'UserController@getUser');
+Route::get('check-user/{email}/{pw}', 'UserController@checkUser');
+
+Route::get('get-user/{userId}', 'UserController@getUser');
 
 Route::get('plus-user/{name}/{id}/{gender}', 'UserController@plusUser');
 
