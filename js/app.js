@@ -587,6 +587,10 @@
 			success : function(response){
 
 				console.log(response, "update user info response");
+
+
+				//Reload acct settings view
+				_app.content.loadAcctSettings();
 			}
 		});
 	});//click updateInfo

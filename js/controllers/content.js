@@ -46,22 +46,6 @@ var Content = (function(window, document, $){
 			//load account settings page
 			loadAcctSettings();
 
-			var API_URL = _baseUrl + '/get-user/' + _userId;
-
-
-			//Get current user's data where available
-			$.ajax({
-				url : API_URL,
-				method : 'GET',
-				dataType : 'json',
-				success : function(response){
-					console.log(response[0].display_name, "acct settings call response");
-
-					$('.profile-edit-name').val(response[0].display_name);
-					$('.profile-edit-email').val(response[0].email);
-
-				}//success
-			});//ajax
 		});//click acctSettings
 
 
@@ -315,12 +299,32 @@ var Content = (function(window, document, $){
 
 
 			if(event.template === '#landing'){
-
-
-
 				//Hide DOM nodes
 				hideNodes();
 			}//#landing event
+
+
+
+			//Listen for acctSettings view render
+			if(event.template === '#acctSettings'){
+
+				var API_URL = _baseUrl + '/get-user/' + _userId;
+
+
+				//Get current user's data where available
+				$.ajax({
+					url : API_URL,
+					method : 'GET',
+					dataType : 'json',
+					success : function(response){
+						console.log(response[0].display_name, "acct settings call response");
+
+						$('.profile-edit-name').val(response[0].display_name);
+						$('.profile-edit-email').val(response[0].email);
+
+					}//success
+				});//ajax
+			}//acctSettings
 
 
 		});//onRendered
@@ -424,7 +428,8 @@ var Content = (function(window, document, $){
 		loadPlaylists		: loadPlaylists,
 		loadLibrary 		: loadLibrary,
 		loadApp				: loadApp,
-		loadReset 			: loadReset
+		loadReset 			: loadReset,
+		loadAcctSettings    : loadAcctSettings
 	};
 
 
