@@ -39,6 +39,34 @@
 	//init functions
 	function init(){
 
+		//Check for URL parameters
+		var params = window.location.search;
+		if(params !== ""){
+
+			//Reset password flow
+			if(params.substr(1,5) === "reset"){
+
+				//strip token from url
+				var resetToken = params.substr(7);
+				var API_URL = _baseUrl + '/check-reset-token/' + resetToken;
+
+
+				//Call API with token to see if it exists
+				$.ajax({
+					url : API_URL,
+					method : 'GET',
+					dataType : 'json',
+					success : function(response){
+						console.log(response, "token check response");
+					}
+				});
+			}
+		}//if params
+
+
+
+
+
 		//Check for the stored cookie in the browser
 		var cookie = document.cookie;
 		var userId = cookie.indexOf("uid");

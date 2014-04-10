@@ -20,6 +20,8 @@ Route::get('plus-user/{name}/{id}/{gender}', 'UserController@plusUser');
 
 Route::get('forgot/{email}', 'UserController@forgotPassword');
 
+Route::get('check-reset-token/{token}', 'UserController@checkResetToken');
+
 
 
 

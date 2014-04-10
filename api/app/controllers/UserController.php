@@ -168,18 +168,43 @@ class UserController extends BaseController {
 
 
 
+
+
+
+
+
+
 	public function forgotPassword($email)
 	{
 
 		$message;
-
 		$userExists = User::where('email', '=', $email)->count();
 
+
+		//If we have the user
 		if($userExists !== "0"){
 
+			//Get the user/user id
+			$user = User::where('email', '=', $email)->get();
+			$userId = $user[0]->id;
 
-			$mail = $this->sendEmail($email);
 
+
+			//generate a "random" token for this request
+			$token = md5(uniqid($userId, true));
+
+			//Insert token into log for later verification of request
+			$logToken = UserLog::insert(array(
+				'user_id'		=>$userId,
+				'reset_token'	=>$token
+			));
+
+
+
+			//Send the user an email with the token in url
+			$mail = $this->sendEmail($email, $token);
+
+			//Determine mail status
 			if($mail){
 				$message = "Email sent";
 			}else{
@@ -187,7 +212,8 @@ class UserController extends BaseController {
 			}
 
 
-		}else{
+
+		}else{//If user is not in system
 
 			$message = "User null";
 		}
@@ -197,6 +223,12 @@ class UserController extends BaseController {
 		header('Access-Control-Allow-Origin: *');
 		return Response::json($message);
 	}
+
+
+
+
+
+
 
 
 
@@ -239,12 +271,40 @@ class UserController extends BaseController {
 
 
 
+	public function checkResetToken($token){
 
-	public function sendEmail($email){
+		$message;
+
+		//Check validity of token
+		$tokenExists = UserLog::where('reset_token', '=', $token)->count();
+
+		//Build message according to token validity
+		if($tokenExists !== "0"){
+
+			$message = "Token valid";
+
+		}else{
+
+			$message = "Invalid token";
+		}
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($message);
+	}
+
+
+
+
+
+
+
+
+
+	public function sendEmail($email, $token){
 
 		$from 		= 'no-reply@yootunes.com';
 		$support 	= 'support@yootunes.com';
-		$link 		= 'http://localhost:9000';
+		$link 		= 'http://localhost:9000/?reset=' . $token;
 
 		//MAIL password reset email
 		$header  = 'MIME-Version: 1.0' . "\r\n";
