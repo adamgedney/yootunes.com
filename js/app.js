@@ -396,6 +396,33 @@
 
 
 
+	//==========================================//
+	//Forgot Password form handler
+	//==========================================//
+	$(document).on('click', '#forgotSubmit', function(event){
+		event.preventDefault();
+
+		var email = $('#forgotInput').val();
+		var API_URL = _baseUrl + '/forgot/' + email;
+
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+				console.log(response, 'forgot pass response');
+
+			}
+		});
+	});
+
+
+
+
+
+
+
+
 
 
 

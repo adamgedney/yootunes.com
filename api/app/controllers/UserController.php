@@ -168,9 +168,34 @@ class UserController extends BaseController {
 
 
 
-	public function resetUserPassword()
+	public function forgotPassword($email)
 	{
-		return "Testing route";
+
+		$message;
+
+		$userExists = User::where('email', '=', $email)->get();
+
+		if(!empty($userExists[0]->email)){
+
+
+			$mail = $this->sendEmail($email);
+
+			if($mail){
+				$message = "Email sent";
+			}else{
+				$message = "Email failed";
+			}
+
+
+		}else{
+
+			$message = "User null";
+		}
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($message);
 	}
 
 
@@ -205,6 +230,43 @@ class UserController extends BaseController {
 	public function deleteDevice()
 	{
 		return "Testing route";
+	}
+
+
+
+
+
+
+
+
+
+	public function sendEmail($email){
+
+		$from 		= 'no-reply@yootunes.com';
+		$support 	= 'support@yootunes.com';
+		$link 		= 'http://localhost:9000';
+
+		//MAIL password reset email
+		$header  = 'MIME-Version: 1.0' . "\r\n";
+		$header .= "Reply-To: " . $from . "\r\n";
+		$header .= "Return-Path: " . $from . "\r\n";
+		$header .= 'From: Yootunes.com <' . $from . '>' . "\r\n";
+
+		$to = $email;
+		$subject = "Reset your YooTunes password";
+
+		$message = "YooTunes received a request to reset your password. Please click on the link below to reset it. \r\n \r\n" .
+		"(copy & paste it into your address bar if it's not clickable) \r\n \r\n" .
+		"\r\n \r\n" .
+		$link . "\r\n \r\n" .
+		"If you feel you received this message in error, please email support at " . $support . " \r\n \r\n" .
+		"Thanks! \r\n" .
+		"YooTunes support";
+
+		//send email
+		$mail = mail($to,$subject,$message,$header);
+
+		return $mail;
 	}
 
 
