@@ -44,16 +44,25 @@ class LibraryController extends BaseController {
 	//Add song to library
 	public function addToLibrary($songId, $userId)
 	{
+		$librarySongs = 'Song already exists';
 
 		//Fetch library id based on user id
 		$libraryId = Library::where('user_id', '=', $userId)
 		->get();
 
+		//Check library for current song
+		$inLibrary = LibrarySongs::where('song_id', '=', $songId)
+									->where('library_id', '=', $libraryId[0]->id)
+									->count();
 
-		//Insert song id into user songs paired to library id
-		$librarySongs = LibrarySongs::insert(array(
-			'song_id'=>$songId,
-			'library_id'=>$libraryId[0]->id));
+		//If song is NOT in THIS USER'S library already, insert
+		if($inLibrary === "0"){
+
+			//Insert song id into user songs paired to library id
+			$librarySongs = LibrarySongs::insert(array(
+				'song_id'	=>$songId,
+				'library_id'=>$libraryId[0]->id));
+		}
 
 
 

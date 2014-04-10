@@ -214,7 +214,7 @@ var Library = (function(window, document, $){
 			method : 'GET',
 			dataType : 'json',
 			success : function(response){
-				// console.log(response, "add song to library response");
+				console.log(response, "add song to library response");
 			}//success
 		});//ajax
 
