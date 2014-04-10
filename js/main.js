@@ -415,7 +415,6 @@ $('.profile-edit-menu').hide();
 var toggle7 = false;
 $(document).on('click', '.profile-display', function(){
 
-	console.log($(this));
 
 	if(!toggle7){
 

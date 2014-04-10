@@ -434,7 +434,7 @@ var Content = (function(window, document, $){
 					playlist: response
 				};
 
-				console.log(response[1], "playlists response");
+
 
 				//Shows column headers
 				$('.li-header').show();

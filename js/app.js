@@ -54,23 +54,23 @@
 		var id = cookie.substr(userId + 4);
 
 
-		// //If uid cookie exists
-		// if(userId === -1){
+		//If uid cookie exists
+		if(userId === -1){
 
-		// 	//Load app template
-		// 	_app.content.loadLanding();
+			//Load landing page
+			_app.content.loadLanding();
 
-		// }else{
+		}else{
 
-		// 	//Load app template
-		// 	_app.content.loadApp();
+			//Load app template
+			_app.content.loadApp();
 
-		// 	//fire event passing user data to listening class
-		// 	$.event.trigger({
-		// 		type 	: 'userloggedin',
-		// 		userId	: id
-		// 	});
-		// }
+			//fire event passing user data to listening class
+			$.event.trigger({
+				type 	: 'userloggedin',
+				userId	: id
+			});
+		}
 
 
 
@@ -254,10 +254,27 @@
 				    	dataType : 'json',
 				    	success : function(response){
 				    		console.log(response, "plus-user response");
-				    	}
 
-				    });
+				    		//If response success
+				    		if(response.userId !== null || response.userId !== "" || response.userId !== undefined){
 
+				    			//Set a cookie in the browser to store user id for "sessioning"
+								document.cookie = "uid=" + response.userId;
+
+				    			//Load app template
+								_app.content.loadApp();
+
+								//fire event passing user data to listening class
+								$.event.trigger({
+									type 	: 'userloggedin',
+									userId	: response.userId
+								});//event
+
+
+
+				    		}//if response success
+				    	}//success
+				    });//ajax
 			   });//user.execute
 			});//gapi.client.laod
 
@@ -321,7 +338,12 @@
 		    success: function(nullResponse) {
 
 		      //If no error below is caught, logout was successful
+				console.log("plus user logged out");
 
+				//Expire cookie & load landing page
+				document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+
+				_app.content.loadLanding();
 		    },
 
 		    error: function(e) {
