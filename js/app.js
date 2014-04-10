@@ -354,12 +354,8 @@
 				//Expire cookie & load landing page
 				deleteUIDCookie();
 
-				//Reload landing page
-				_app.content.loadLanding();
-
-				//Forces a page reload to relaod the plus signin button
-				//Unnoticeable by user who is logging out anyway
-				location.reload();
+				//relaod landing page
+				reloadLanding()
 
 		    },
 
@@ -424,7 +420,7 @@
 					$('#success').fadeIn();
 
 					//reload the landing page
-					setTimeout(_app.content.loadLanding, 5000);
+					setTimeout(reloadLanding, 5000);
 
 				}
 
@@ -435,6 +431,17 @@
 
 
 
+
+
+
+	function reloadLanding(){
+
+		//Load landing page
+		_app.content.loadLanding();
+
+		//force reload to force google button reload
+		location.reload();
+	}
 
 
 
