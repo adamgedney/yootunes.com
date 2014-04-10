@@ -73,6 +73,9 @@ var Content = (function(window, document, $){
 
 
 
+
+
+
 		//Device Settings page load interaction=========//
 		$(document).on('click', '#deviceSettings', function(event){
 
@@ -266,8 +269,8 @@ var Content = (function(window, document, $){
 			if(event.template === '#app'){
 
 				//Load library items
-				// loadLibrary();
-				loadAcctSettings();
+				loadLibrary();
+				// loadAcctSettings();
 
 				//Load playlists
 				loadPlaylists();

@@ -174,10 +174,48 @@ class UserController extends BaseController {
 
 
 
-	public function updateUser()
+	public function updateUser($id, $name, $email, $password)
 	{
-		return "Testing route";
+
+		//A SHA3 encrypted null password field
+		$nullPassword = "2461047981279060882905744812-1620302-167499142117233198221315423334-211139836-1072715318-103253642-1169777717-530115660904958447661256982215659325913336334";
+
+		//Fetch user data
+		$user = User::where('id', '=', $id)->get();
+
+
+			//Check for null values coming in fom client.
+			//If null replace with data already in DB
+			if($name == "0"){
+				$name = $user[0]->display_name;
+			}
+
+			if($password == "0"){
+				$password = $user[0]->password;
+			}
+
+
+			//Update user data
+			$updateUser = User::where('id', '=', $id)
+								->update(array(
+									'display_name'=>$name,
+									'email'=>$email,
+									'password'=>$password
+								));
+
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($updateUser);
 	}
+
+
+
+
+
+
+
 
 
 

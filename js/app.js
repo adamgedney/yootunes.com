@@ -14,6 +14,7 @@
 
 	var _auth 			= {};
 	var _user 			= {};
+	var _userId;
 
 
 
@@ -103,6 +104,9 @@
 				type 	: 'userloggedin',
 				userId	: id
 			});
+
+			//store user id for later use
+			_userId = id;
 		}
 	}//init
 
@@ -518,10 +522,80 @@
 				}
 			}
 		});//ajax
-
-
-
 	});//click resetSubmit
+
+
+
+
+
+
+
+
+
+	//Update user acct info ffrom account settings page form
+	$(document).on('click', '#updateInfo', function(event){
+		event.preventDefault();
+
+		var displayName 	= $('#infoName').val();
+		var email 			= $('#infoEmail').val();
+		var password 		= CryptoJS.SHA3($('#infoPass').val(), { outputLength: 512 });
+		var passwordAgain 	= CryptoJS.SHA3($('#infoPassAgain').val(), { outputLength: 512 });
+		var pwString 		= ' ';
+
+		//sets default on display name so call won't crash
+		if(displayName === ""){
+			displayName = "0";
+		}
+
+		//sets default on password so call won't receive empty sha3
+		if($('#infoPass').val() === "" || $('#infoPassAgain').val() === ""){
+
+			pwString = "0";
+
+		}else{
+
+			//Produces 160 char string from pw
+			for(var i=0;i<password.words.length;i++){
+
+				//Compare array of sha3 strings to make sure they match
+				if(password.words[i] == passwordAgain.words[i]){
+
+					//Concat array parts into pwString
+					pwString += password.words[i].toString();
+
+				}else{
+					console.log("not same");
+				}
+			}//for
+
+		}//if/else password val
+
+
+
+
+
+
+
+		//Build API URL
+		var API_URL = _baseUrl + '/update-user/' + _userId + '/' + displayName + '/' + email + '/' + pwString;
+
+		//Call API to update user data
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+
+				console.log(response, "update user info response");
+			}
+		});
+	});//click updateInfo
+
+
+
+
+
+
 
 
 
