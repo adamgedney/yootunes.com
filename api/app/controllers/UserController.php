@@ -89,31 +89,16 @@ class UserController extends BaseController {
 
 
 
-	public function loginFacebook()
-	{
+
+	public function plusUser($name, $id, $gender, $avatar, $etag){
 
 
 
 
-		//Auth through facebook
-		$login = Social::login('google');
-
-	 //  	$user = Social::facebook('user');
-		// // header('Access-Control-Allow-Origin: *');
 
 
-		// return Redirect::to('https://www.facebook.com/dialog/oauth?type=web_server&client_id=598120876944497&redirect_uri=http%3A%2F%2Fyootunes.dev%2Fsocial%2Ffacebook%2Fconnect&response_type=code&scope=email');
-
-		return Redirect::to($login);
-
-		// return $user;
-		// if(Social::check('facebook')){
-  //     		 print_r( Social::facebook('/120500222/feed'));
-  //     	}
-
-
-
-
+		header('Access-Control-Allow-Origin: *');
+		return Response::json("hi");
 	}
 
 

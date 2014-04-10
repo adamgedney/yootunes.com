@@ -12,13 +12,18 @@ Route::get('new-user/{email}/{pw}/{with}', 'UserController@newUser');
 
 Route::get('get-user/{email}/{pw}', 'UserController@getUser');
 
-Route::get('login-facebook', 'UserController@loginFacebook');
+Route::get('plus-user/{name}/{id}/{gender}/{avatar}/{etag}', 'UserController@plusUser');
 
 // Route::get('update-user', 'UserController@updateUser');
 
 // Route::get('delete-user', 'UserController@deleteUser');
 
 // Route::get('reset-user-password', 'UserController@resetUserPassword');
+
+
+
+
+
 
 //Devices
 // Route::get('new-device', 'UserController@newDevice');

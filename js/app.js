@@ -1,6 +1,8 @@
 (function(document, window, $){
 
 	//Instances==========//
+	var _baseUrl 		= 'http://localhost:8887';
+
 	var _app 			= {};
 		// _app.ads 		= new Ads(),
 		_app.content 	= new Content();
@@ -12,6 +14,7 @@
 
 	var _auth 			= {};
 	var _user 			= {};
+
 
 
 		//URI reference=============//
@@ -110,7 +113,7 @@
 
 
 		//Build API request
-		var API_URL			= 'http://localhost:8887/new-user/' + email + '/' +  pwString + '/' +  "email";
+		var API_URL			= _baseUrl + '/new-user/' + email + '/' +  pwString + '/' +  "email";
 
 		//Register new user
 		$.ajax({
@@ -151,6 +154,13 @@
 
 
 
+
+
+
+
+
+
+
 	//User authentication
 	$(document).on('click', '#popdownSubmit', function(event){
 		var email 		= $('#popdownEmail').val();
@@ -169,7 +179,7 @@
 
 
 		//Build API request
-		var API_URL 	= 'http://localhost:8887/get-user/' + email + '/' + pwString;
+		var API_URL 	= _baseUrl + '/get-user/' + email + '/' + pwString;
 
 		//Request auth form server
 		$.ajax({
@@ -229,12 +239,24 @@
 				//Request the profile defined above
 				user.execute(function(profile){
 
-					//Store useful user info in database
-				    _user.displayName 	= profile.displayName,
-				    _user.id 			= profile.id,
-				    _user.gender 		= profile.gender,
-				    _user.image 		= profile.image.url,
-				    _user.etag 			= profile.etag;
+					//Build URL w/ data to send to API
+					var API_URL = _baseUrl + '/plus-user/' +
+								profile.displayName + '/' + profile.id + '/' +
+								profile.gender + '/' + profile.image.url + '/' +
+								profile.etag;
+
+
+
+				    //Call API to create or get Plus user
+				    $.ajax({
+				    	url : API_URL,
+				    	method : 'GET',
+				    	dataType : 'json',
+				    	success : function(response){
+				    		console.log(response, "plus-user response");
+				    	}
+
+				    });
 
 			   });//user.execute
 			});//gapi.client.laod
@@ -254,6 +276,25 @@
 
 
 
+	//http://www.googleplusdaily.com/2013/03/add-google-sign-in-in-6-easy-steps.html
+	$(document).on('click', '#gPlusSignIn', function(){
+		gapi.auth.signIn(additionalParams); // Will use page level configuration
+	});
+
+
+
+
+
+
+
+	//When logout is clicked, check if user is google or email based user
+	//logout out accordingly
+	$(document).on('click', '#logoutPlus', function(event){
+		event.preventDefault();
+
+		disconnectUser(_auth.access_token);
+
+	});
 
 
 
@@ -266,46 +307,32 @@
 
 
 
-//http://www.googleplusdaily.com/2013/03/add-google-sign-in-in-6-easy-steps.html
-$(document).on('click', '#gPlusSignIn', function(){
-	gapi.auth.signIn(additionalParams); // Will use page level configuration
-});
 
-$(document).on('click', '#logoutPlus', function(event){
-	event.preventDefault();
+	function disconnectUser(access_token) {
+		var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + access_token;
 
-	disconnectUser(_auth.access_token);
+		//Notify Google Plus user has signed out
+		$.ajax({
+		    type: 'GET',
+		    url: revokeUrl,
+		    async: false,
+		    contentType: "application/json",
+		    dataType: 'jsonp',
+		    success: function(nullResponse) {
 
-	 console.log(_auth.access_token);
-});
+		      //If no error below is caught, logout was successful
+
+		    },
+
+		    error: function(e) {
 
 
-
-function disconnectUser(access_token) {
-  var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + access_token;
-
-
-  // Perform an asynchronous GET request.
-  $.ajax({
-    type: 'GET',
-    url: revokeUrl,
-    async: false,
-    contentType: "application/json",
-    dataType: 'jsonp',
-    success: function(nullResponse) {
-      // Do something now that user is disconnected
-      // The response is always undefined.
-      console.log(nullResponse);
-    },
-    error: function(e) {
-
-      // Handle the error
-      console.log(e, "error");
-      // You could point users to manually disconnect if unsuccessful
-      // https://plus.google.com/apps
-    }
-  });
-}
+		      console.log(e, "error");
+		      // You could point users to manually disconnect if unsuccessful
+		      // https://plus.google.com/apps
+		    }
+		});//ajax
+	}//disconnectUser
 
 
 
