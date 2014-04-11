@@ -203,6 +203,7 @@
 	//User authentication
 	//==========================================//
 	$(document).on('click', '#popdownSubmit', function(event){
+
 		var email 		= $('#popdownEmail').val();
 		var password 	= CryptoJS.SHA1($('#popdownPass').val());
 		var pwString 	= '';
@@ -214,8 +215,6 @@
 				//Concat array parts into pwString
 				pwString += password.words[i].toString();
 		}
-
-
 
 
 		//Build API request
@@ -246,7 +245,17 @@
 
 					//Set a cookie in the browser to store user id for "sessioning"
 					document.cookie = "uid=" + response.userId;
-				}//if
+
+
+				}else{//response failure. User may have been deleted
+
+
+					//Determine if we need to prompt user to restore account
+					if(response.restorable == true){
+						console.log('woohoo! restorable');
+					}
+
+				}//if/else
 			}//success
 		});//ajax
 

@@ -52,8 +52,9 @@ class UserController extends BaseController {
 	public function checkUser($email, $pw)
 	{
 
-		$userId = "";
-		$success = false;
+		$userId 	= "";
+		$success 	= false;
+		$restorable = false;
 
 
 		//First check to see if this user exists
@@ -73,6 +74,22 @@ class UserController extends BaseController {
 
 			$userId = $userObj[0]->id;
 			$success = true;
+
+
+
+		}else{//If user check failed, check to see if user is deleted
+
+
+			$restoreUser = User::where('email', "=", $email)
+					->where('password', "=", $pw)
+					->where('is_deleted', '=', 'true')
+					->count();
+
+			//If user exists, but has previously deleted
+			//account, announce user as restorable
+			if($restoreUser !== "0"){
+				$restorable = true;
+			}
 		}
 
 
@@ -80,7 +97,8 @@ class UserController extends BaseController {
 		$obj = array(
 			'success'	=>$success,
 			'userId'	=>$userId,
-			'email'		=>$email
+			'email'		=>$email,
+			'restorable'=> $restorable
 		);
 
 
