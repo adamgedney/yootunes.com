@@ -26,6 +26,12 @@ var Player = (function(window, document, $){
 	var player = function(){
 
 
+		//Play sequence logic notes:
+		//When PLAY ALL is clicked...
+		//When li-groups load, store their index (or youtube id?) in an array.
+		//When player state change is = END, load the next array item.
+
+		//For shuffle, when clicked randomly pull youtube id from list when END is called
 
 
 
@@ -130,7 +136,9 @@ var Player = (function(window, document, $){
 		window.onPlayerStateChange = function(event){
 
 			var id = _player.getVideoData().video_id;
-			console.log(event.data);
+			// console.log(event.data);
+
+
 			if (event.data === 1){//Playing code
 
 				//Calls updateTime() on regular intervals
@@ -144,14 +152,18 @@ var Player = (function(window, document, $){
 				$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
 
 
-				//Set info section animation to playling wave animation
+				//Set info section animation to playing wave animation
 				$('.playingAnimation').attr('src', 'images/icons/wave-animated.gif');
+
+
 
 		    }else if(event.data < 1){//Paused code
 
+
+
 		    	//Clears above update interval
 		    	clearInterval(_updateInterval);
-		    	console.log("!playing called");
+		    	// console.log("!playing called");
 
 		    	//If user plays video from click on video, change play/pause
 		    	$('#play-btn').attr('src', 'images/icons/play-wht.png');
