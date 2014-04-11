@@ -360,6 +360,62 @@ class UserController extends BaseController {
 
 
 
+	public function restoreUser($email, $pw)
+	{
+
+		$userId = "";
+		$message = "User account restored";
+
+		//First check to see if this user exists as DELETED
+		$user = User::where('email', "=", $email)
+					->where('password', "=", $pw)
+					->where('is_deleted', '=', 'true')
+					->count();
+
+		//If user exists, get id
+		if($user !== "0"){
+
+			//Update user status
+			$userObj = User::where('email', "=", $email)
+					->where('password', "=", $pw)
+					->where('is_deleted', '=', 'true')
+					->update(array('is_deleted'=>'false'));
+
+
+			//Fetch userId for application reloading
+			$userRow = User::where('email', "=", $email)
+					->where('password', "=", $pw)
+					->get();
+
+			$userId = $userRow[0]->id;
+
+
+		}else{//If user check failed
+
+			$message = "User does not exist. Possible hack attempt.";
+		}
+
+
+		//Return object
+		$obj = array(
+			'message'	=>$message,
+			'userId'	=>$userId,
+			'email'     =>$email
+		);
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($obj);
+	}
+
+
+
+
+
+
+
+
+
 
 
 	//Devices====================//

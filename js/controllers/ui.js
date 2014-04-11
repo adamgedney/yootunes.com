@@ -246,6 +246,22 @@ var Ui = (function(window, document, $){
 
 
 
+		//Modal close funcitonality
+		$(document).on('click', '.modalCloseIcon', function(){
+
+			//Hide modal window nodes
+			$('#restoreAcctModal').fadeOut();
+			$('#deleteAcctModal').fadeOut();
+		});
+
+
+
+
+
+
+
+
+
 
 
 	};//constructor function

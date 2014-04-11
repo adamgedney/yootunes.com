@@ -1265,7 +1265,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   z-index: 1000;
 }
 
-#deleteAcctModal {
+/*==================================*/
+/*Modal windows*/
+/*==================================*/
+#deleteAcctModal, #restoreAcctModal {
   display: none;
 }
 
@@ -1283,6 +1286,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 25%;
   margin-left: 37.5%;
   margin-right: 37.5%;
+  position: relative;
   background: #ebebeb;
   border-radius: 2px;
   margin-top: 18%;
@@ -1297,7 +1301,13 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   font-size: 1.2em;
 }
 
-#deleteAccountButton {
+.modalCloseIcon {
+  position: absolute;
+  bottom: 102%;
+  left: 102%;
+}
+
+#deleteAccountButton, #newAccountButton, #restoreAccountButton {
   width: 66.6666666%;
   margin-left: 16.6666667%;
   margin-right: 16.6666667%;
@@ -1305,6 +1315,14 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   color: #ebebeb;
   background: #cf2425;
   border: none;
+}
+
+#restoreAccountButton {
+  background: #2f7c2f;
+}
+
+#restoreAcctModal .modal {
+  text-align: left;
 }
 
 /*=====================================*/
