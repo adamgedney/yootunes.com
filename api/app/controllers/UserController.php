@@ -10,7 +10,8 @@ class UserController extends BaseController {
 		$signup = User::insert(array(
 			'email'				=>$email,
 			'password'			=>$pw,
-			'registered_with'	=>$with
+			'registered_with'	=>$with,
+			'is_deleted'		=>'false'
 		));
 
 
@@ -51,20 +52,26 @@ class UserController extends BaseController {
 	public function checkUser($email, $pw)
 	{
 
-
-		//Fetch current user to begin building their acct
-		$user = User::where('email', "=", $email)
-					->where('password', "=", $pw)
-					->where('is_deleted', '=', NULL)
-					->get();
-
-		$userId = $user[0]->id;
-
-
-		//Return authentication value
+		$userId = "";
 		$success = false;
 
-		if($userId !== "" || $userId !== NULL){
+
+		//First check to see if this user exists
+		$user = User::where('email', "=", $email)
+					->where('password', "=", $pw)
+					->where('is_deleted', '=', 'false')
+					->count();
+
+		//If user exists, get id
+		if($user !== "0"){
+
+			//Fetch current user to begin building their acct
+			$userObj = User::where('email', "=", $email)
+					->where('password', "=", $pw)
+					->where('is_deleted', '=', 'false')
+					->get();
+
+			$userId = $userObj[0]->id;
 			$success = true;
 		}
 
@@ -89,13 +96,12 @@ class UserController extends BaseController {
 
 
 
-	public function getUser($userId)
-	{
+	public function getUser($userId){
 
 
 		//Fetch current user
 		$user = User::where('id', "=", $userId)
-						->where('is_deleted', '=', NULL)
+						->where('is_deleted', '=', 'false')
 						->get();
 
 
@@ -224,8 +230,7 @@ class UserController extends BaseController {
 
 
 
-	public function deleteUser($userId)
-	{
+	public function deleteUser($userId){
 
 		//Sets is_deleted column to true
 		$deleteUser = User::where('id', '=', $userId)
@@ -233,9 +238,12 @@ class UserController extends BaseController {
 							'is_deleted'=>'true'));
 
 
+		$obj = array(
+			'deleteUser'=>$deleteUser,
+			'userId'=>$userId);
 
 		header('Access-Control-Allow-Origin: *');
-		return Response::json($deleteUser);
+		return Response::json($obj);
 	}
 
 
@@ -247,8 +255,7 @@ class UserController extends BaseController {
 
 
 
-	public function forgotPassword($email)
-	{
+	public function forgotPassword($email){
 
 		$message;
 		$userExists = User::where('email', '=', $email)->count();

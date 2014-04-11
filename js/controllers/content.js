@@ -317,7 +317,7 @@ var Content = (function(window, document, $){
 					method : 'GET',
 					dataType : 'json',
 					success : function(response){
-						console.log(response[0].display_name, "acct settings call response");
+						console.log(response, "acct settings call response");
 
 						$('.profile-edit-name').val(response[0].display_name);
 						$('.profile-edit-email').val(response[0].email);

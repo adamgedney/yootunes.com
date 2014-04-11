@@ -1,11 +1,6 @@
 <?php
 
 
-//Application Routes===================//
-
-
-//http://localhost/controller/method/arguments
-
 
 //User routes==========================//
 Route::get('new-user/{email}/{pw}/{with}', 'UserController@newUser');
@@ -84,7 +79,6 @@ Route::get('delete-playlist/{playlistId}', 'PlaylistsController@deletePlaylist')
 
 
 //Library routes============================//
-// Route::get('new-library', 'LibraryController@newLibrary');
 
 Route::get('get-library/{id}/{sortBy}/{sortOrder}', 'LibraryController@getLibrary');
 
@@ -92,17 +86,7 @@ Route::get('add-to-library/{songId}/{userId}', 'LibraryController@addToLibrary')
 
 Route::get('remove-from-library/{songId}/{userId}', 'LibraryController@removeFromLibrary');
 
-// Route::get('delete-library', 'LibraryController@deleteLibrary');
 
-
-
-
-//Song routes==============================//
-// Route::get('get-song', 'SongController@getSong');
-
-// Route::get('update-song', 'SongController@updateSong');
-
-// Route::get('share-song', 'SongController@shareSong');
 
 
 

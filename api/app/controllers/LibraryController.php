@@ -109,26 +109,4 @@ class LibraryController extends BaseController {
 
 
 
-
-
-
-
-
-	public function deleteLibrary()
-	{
-		return "Testing route";
-	}
-
-
-
-
-
-
-
-
-
-	//================//
-	//Internal Methods//
-	//================//
-
 }

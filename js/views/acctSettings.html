@@ -1,41 +1,46 @@
 <div>
 	<script id="acctSettings" type="text/x-handlebars-template">
 
-	<!-- Profile edit popout -->
+
+	<!-- Modal overlay  -->
+	<div id="deleteAcctModal" class="modal-container">
+		<div class="modal">
+			<h2 class="">Some things are forever...</h2>
+			<p>Are you sure you'd like to delete your account?</p>
+
+			<button id="deleteAccountButton">Delete My Account</button>
+
+		</div><!-- /.modal -->
+	</div><!-- /.modal-container -->
+
+
+
 	<div class="profile-edit-menu">
+		<div class="profile-form">
+
+			<p class="bold profile-edit-menu-heading">Account info </p>
+
+				<form>
+					<input id="infoName" type="text" class="profile-edit-name" value="" placeholder="Display Name"/>
+					<input id="infoEmail" type="text" class="profile-edit-email" value="" placeholder="Email"/>
+
+
+					<p class="bold profile-edit-menu-heading">Change your password</p>
+
+					<input id="infoPass" type="text" class="profile-edit-password" placeholder="Password"/>
+					<input id="infoPassAgain" type="text" class="profile-edit-password again" placeholder="Password again"/>
+
+					<input id="updateInfo" type="submit" value="Save"/>
+				</form>
+
+		</div><!-- /.profile-form -->
 
 
 
-	<div class="profile-form">
-		<p class="bold profile-edit-menu-heading">Account info </p>
-
-			<form>
-				<input id="infoName" type="text" class="profile-edit-name" value="" placeholder="Display Name"/>
-
-				<input id="infoEmail" type="text" class="profile-edit-email" value="" placeholder="Email"/>
-
-
-				<p class="bold profile-edit-menu-heading">Change your password</p>
-
-				<input id="infoPass" type="text" class="profile-edit-password" placeholder="Password"/>
-
-				<input id="infoPassAgain" type="text" class="profile-edit-password again" placeholder="Password again"/>
-
-				<input id="updateInfo" type="submit" value="Save"/>
-			</form>
-
-	</div><!-- /.profile-form -->
-
-
-
-
-
-
-
-	<div class="profile-links">
-		<a href="#" id="logoutLink" class="logout-link">Log out</a>
-		<a href="#" id="deleteAccount" class="red delete-account-link">Delete account</a>
-	</div><!-- /.profile-links -->
+			<div class="profile-links">
+				<a href="#" id="logoutLink" class="logout-link">Log out</a>
+				<a href="#" id="deleteAccount" class="red delete-account-link">Delete account</a>
+			</div><!-- /.profile-links -->
 
 	</div><!-- /.profile-edit-menu -->
 

@@ -128,8 +128,8 @@
 	$(document).on('click', '#signupSubmit', function(event){
 
 		var email 			= $('#signupEmail').val();
-		var password 		= CryptoJS.SHA3($('#signupPass').val(), { outputLength: 512 });
-		var passwordAgain 	= CryptoJS.SHA3($('#signupPassAgain').val(), { outputLength: 512 });
+		var password 		= CryptoJS.SHA1($('#signupPass').val());
+		var passwordAgain 	= CryptoJS.SHA1($('#signupPassAgain').val());
 		var pwString 		= '';
 
 
@@ -204,7 +204,7 @@
 	//==========================================//
 	$(document).on('click', '#popdownSubmit', function(event){
 		var email 		= $('#popdownEmail').val();
-		var password 	= CryptoJS.SHA3($('#popdownPass').val(), { outputLength: 512 });
+		var password 	= CryptoJS.SHA1($('#popdownPass').val());
 		var pwString 	= '';
 
 
@@ -227,6 +227,8 @@
 			method 		: 'GET',
 			dataType 	: 'json',
 			success 	: function(response){
+
+				console.log(response, "login wth email response");
 
 				//If user was authenticated
 				if(response.success === true){
@@ -423,17 +425,6 @@
 
 
 
-	function deleteUIDCookie(){
-
-		//Expires uid cookie for logout funcitonality
-		document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-	};
-
-
-
-
-
-
 
 
 	//==========================================//
@@ -487,7 +478,7 @@
 		event.preventDefault();
 
 		var userId 		= _user.tokenResponseId;
-		var password 	= CryptoJS.SHA3($('#resetInput').val(), { outputLength: 512 });
+		var password 	= CryptoJS.SHA1($('#resetInput').val());
 		var pwString 	= '';
 
 
@@ -538,8 +529,8 @@
 
 		var displayName 	= $('#infoName').val();
 		var email 			= $('#infoEmail').val();
-		var password 		= CryptoJS.SHA3($('#infoPass').val(), { outputLength: 512 });
-		var passwordAgain 	= CryptoJS.SHA3($('#infoPassAgain').val(), { outputLength: 512 });
+		var password 		= CryptoJS.SHA1($('#infoPass').val());
+		var passwordAgain 	= CryptoJS.SHA1($('#infoPassAgain').val());
 		var pwString 		= ' ';
 
 		//sets default on display name so call won't crash
@@ -605,7 +596,8 @@
 	$(document).on('click', '#deleteAccount', function(event){
 		event.preventDefault();
 
-
+		//fade in modal window
+		$('#deleteAcctModal').fadeIn();
 
 	});
 
@@ -613,11 +605,18 @@
 
 
 	//Delete account link
-	$(document).on('click', '#deleteAccountConfirmed', function(event){
-		event.preventefault();
+	$(document).on('click', '#deleteAccountButton', function(event){
+		event.preventDefault();
+
+		//Check for the stored cookie in the browser
+		var cookie = document.cookie;
+		var userId = cookie.indexOf("uid");
+
+		//Stored user id
+		var id = cookie.substr(userId + 4);
 
 		//Build API URL
-		var API_URL = _baseUrl + '/delete-user/' + _userId;
+		var API_URL = _baseUrl + '/delete-user/' + id;
 
 		//Call API to delete user account
 		$.ajax({
@@ -628,13 +627,26 @@
 
 				console.log(response, "delete account response");
 
+				//Fade out modal window
+				$('#deleteAcctModal').fadeOut();
+
+
+				//================================//
+				//Account delete/reset sequence
+				//================================//
+				//If user was logged in via Google Plus, log them out
+				disconnectUser(_auth.access_token);
+
+				//Delete cookie so landing page won't pick it up if refreshed
+				deleteUIDCookie();
+
+				//reload landing page
+				reloadLanding();
 
 
 			}//success
 		});//ajax
-
-
-	});
+	});//deleteAccountButton
 
 
 
@@ -665,6 +677,14 @@
 		window.location.href = '/';
 	}
 
+
+
+
+	function deleteUIDCookie(){
+
+		//Expires uid cookie for logout funcitonality
+		document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+	};
 
 
 
