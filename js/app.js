@@ -140,57 +140,9 @@
 		var email 			= $('#signupEmail').val();
 		var password 		= CryptoJS.SHA1($('#signupPass').val());
 		var passwordAgain 	= CryptoJS.SHA1($('#signupPassAgain').val());
-		var pwString 		= '';
 
-
-
-		//Produces 160 char string from pw
-		for(var i=0;i<password.words.length;i++){
-
-			//Compare array of sha3 strings
-			if(password.words[i] == passwordAgain.words[i]){
-
-				//Concat array parts into pwString
-				pwString += password.words[i].toString();
-
-			}else{
-				console.log("not same");
-			}
-		}
-
-
-
-
-		//Build API request
-		var API_URL			= _baseUrl + '/new-user/' + email + '/' +  pwString + '/' +  "email";
-
-		//Register new user
-		$.ajax({
-			url 		: API_URL,
-			method 		: 'GET',
-			dataType 	: 'json',
-			success		: function(response){
-
-				//Check to be sure new user made it into DB
-				if(response.response === true){
-
-					//load the application
-					_app.content.loadApp();
-
-					//fire event passing user data to listening class
-					$.event.trigger({
-						type 	: 'userloggedin',
-						email 	: response.email,
-						userId	: response.userId
-					});
-
-
-				}else{//New user registration failed. Display why
-					console.log(response, "something went wrong");
-				}
-
-			}//success
-		});//ajax
+		//Run create user function
+		createNewUser(email, password, passwordAgain);
 
 
 		event.preventDefault();
@@ -259,28 +211,46 @@
 						//Fade in restore acct modal window
 						$('#restoreAcctModal').fadeIn();
 
-							//Restore the user's old account
-							$(document).on('click', '#restoreAccountButton', function(event){
 
-								//build API URL
-								var API_URL 	= _baseUrl + '/restore-user/' + email + '/' + pwString;
 
-								//Call API to update user account status
-								//Request auth form server
-								$.ajax({
-									url 		: API_URL,
-									method 		: 'GET',
-									dataType 	: 'json',
-									success 	: function(response){
+						//Restore User Account Handler
+						$(document).on('click', '#restoreAccountButton', function(event){
 
-										// console.log(response, "restore account success response");
+							//build API URL
+							var API_URL 	= _baseUrl + '/restore-user/' + email + '/' + pwString;
 
-										//Load app, set cookie, fire event
-										loadApplication(response);
+							//Call API to update user account status
+							//Request auth form server
+							$.ajax({
+								url 		: API_URL,
+								method 		: 'GET',
+								dataType 	: 'json',
+								success 	: function(response){
 
-									}//success
-								});//ajax
-							});//onclick restorAccount
+									// console.log(response, "restore account success response");
+
+									//Load app, set cookie, fire event
+									loadApplication(response);
+
+								}//success
+							});//ajax
+						});//onclick restorAccount
+
+
+
+
+						//New Account Button Handler
+						$(document).on('click', '#newAccountButton', function(event){
+
+							var email 		= $('#popdownEmail').val();
+							var password 	= CryptoJS.SHA1($('#popdownPass').val());
+							var passwordAgain 	= CryptoJS.SHA1($('#popdownPass').val());
+
+							//Run create user function
+							createNewUser(email, password, passwordAgain);
+
+
+						});//onclick new account
 					}//if restorable
 				}//if/else response
 			}//success
@@ -681,6 +651,71 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+	function createNewUser(email, password, passwordAgain){
+
+		var pwString 		= '';
+
+
+
+		//Produces 160 char string from pw
+		for(var i=0;i<password.words.length;i++){
+
+			//Compare array of sha3 strings
+			if(password.words[i] == passwordAgain.words[i]){
+
+				//Concat array parts into pwString
+				pwString += password.words[i].toString();
+
+			}else{
+				console.log("not same");
+			}
+		}
+
+
+
+		//Build API request
+		var API_URL			= _baseUrl + '/new-user/' + email + '/' +  pwString + '/' +  "email";
+
+
+
+		//Register new user
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success		: function(response){
+
+				//Check to be sure new user made it into DB
+				if(response.response === true){
+
+					//Delete the current user id cookie
+					deleteUIDCookie();
+
+					//Load the application, fire event, set new cookie
+					loadApplication(response);
+
+					console.log(response, "create new user response");
+
+
+				}else{//New user registration failed. Display why
+
+					console.log(response, "something went wrong");
+				}
+
+			}//success
+		});//ajax
+	}
 
 
 

@@ -17,7 +17,10 @@ class UserController extends BaseController {
 
 
 		//Fetch current user to begin building their acct
-		$user = User::where('email', "=", $email)->get();
+		$user = User::where('email', "=", $email)
+						->where('is_deleted', '=', 'false')
+						->get();
+
 		$userId = $user[0]->id;
 
 
