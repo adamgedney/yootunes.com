@@ -55,7 +55,7 @@ class UserController extends BaseController {
 		//Fetch current user to begin building their acct
 		$user = User::where('email', "=", $email)
 					->where('password', "=", $pw)
-					->where('deleted_at', '=', NULL)
+					->where('is_deleted', '=', NULL)
 					->get();
 
 		$userId = $user[0]->id;
@@ -94,7 +94,9 @@ class UserController extends BaseController {
 
 
 		//Fetch current user
-		$user = User::where('id', "=", $userId)->get();
+		$user = User::where('id', "=", $userId)
+						->where('is_deleted', '=', NULL)
+						->get();
 
 
 
@@ -177,14 +179,12 @@ class UserController extends BaseController {
 	public function updateUser($id, $name, $email, $password)
 	{
 
-		//A SHA3 encrypted null password field
-		$nullPassword = "2461047981279060882905744812-1620302-167499142117233198221315423334-211139836-1072715318-103253642-1169777717-530115660904958447661256982215659325913336334";
 
 		//Fetch user data
 		$user = User::where('id', '=', $id)->get();
 
 
-			//Check for null values coming in fom client.
+			//Check for null values coming in from client.
 			//If null replace with data already in DB
 			if($name == "0"){
 				$name = $user[0]->display_name;
@@ -192,6 +192,10 @@ class UserController extends BaseController {
 
 			if($password == "0"){
 				$password = $user[0]->password;
+			}
+
+			if($email == "0"){
+				$email = $user[0]->email;
 			}
 
 
@@ -220,9 +224,18 @@ class UserController extends BaseController {
 
 
 
-	public function deleteUser()
+	public function deleteUser($userId)
 	{
-		return "Testing route";
+
+		//Sets is_deleted column to true
+		$deleteUser = User::where('id', '=', $userId)
+							->update(array(
+							'is_deleted'=>'true'));
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($deleteUser);
 	}
 
 

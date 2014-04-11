@@ -532,7 +532,7 @@
 
 
 
-	//Update user acct info ffrom account settings page form
+	//Update user acct info from account settings page form
 	$(document).on('click', '#updateInfo', function(event){
 		event.preventDefault();
 
@@ -545,6 +545,11 @@
 		//sets default on display name so call won't crash
 		if(displayName === ""){
 			displayName = "0";
+		}
+
+		//Set default on email in case user is from Google plus
+		if(email === ""){
+			email = "0";
 		}
 
 		//sets default on password so call won't receive empty sha3
@@ -567,12 +572,7 @@
 					console.log("not same");
 				}
 			}//for
-
 		}//if/else password val
-
-
-
-
 
 
 
@@ -588,12 +588,53 @@
 
 				console.log(response, "update user info response");
 
-
 				//Reload acct settings view
 				_app.content.loadAcctSettings();
-			}
-		});
+
+			}//success
+		});//ajax
 	});//click updateInfo
+
+
+
+
+
+
+
+	//Dlete account link pops up confirmation modal
+	$(document).on('click', '#deleteAccount', function(event){
+		event.preventDefault();
+
+
+
+	});
+
+
+
+
+	//Delete account link
+	$(document).on('click', '#deleteAccountConfirmed', function(event){
+		event.preventefault();
+
+		//Build API URL
+		var API_URL = _baseUrl + '/delete-user/' + _userId;
+
+		//Call API to delete user account
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+
+				console.log(response, "delete account response");
+
+
+
+			}//success
+		});//ajax
+
+
+	});
 
 
 

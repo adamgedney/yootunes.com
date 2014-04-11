@@ -18,7 +18,7 @@ Route::get('plus-user/{name}/{id}/{gender}', 'UserController@plusUser');
 
 Route::get('update-user/{id}/{name}/{email}/{password}', 'UserController@updateUser');
 
-// Route::get('delete-user', 'UserController@deleteUser');
+Route::get('delete-user/{userId}', 'UserController@deleteUser');
 
 Route::get('forgot/{email}', 'UserController@forgotPassword');
 
