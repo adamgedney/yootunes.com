@@ -121,7 +121,7 @@ aside.app{
 		position: fixed;
 		bottom: 72px;
 		left: 0;
-		z-index:1001;
+		z-index:1002;
 		height: 27px;
 		text-align: right;
 		border-bottom: 1px solid nth($grey, 1);
@@ -853,13 +853,14 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	bottom: 0;
 	left: 0;
 	right: 0;
+	z-index: 1001;
 	padding: 0 2%;
 	color: $white;
 	// overflow: hidden;
 
-	-webkit-box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);//$white
-	   -moz-box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);
-			box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);
+	// -webkit-box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);//$white
+	//    -moz-box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);
+	// 		box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);
 }
 
 

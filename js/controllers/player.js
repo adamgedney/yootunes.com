@@ -68,6 +68,9 @@ var Player = (function(window, document, $){
 
 		$(document).on('click', '#playAll', function(event){
 
+			//Flip icon to pause icon
+			// $('#playAllIcon').attr('src', 'images/icons/pause-drk.png');
+
 			var firstVideo = $('.resultItems[data-index="0"]').attr('data-videoId');
 
 			//set current index
@@ -190,8 +193,8 @@ var Player = (function(window, document, $){
 		window.onPlayerStateChange = function(event){
 
 			var id = _player.getVideoData().video_id;
-			// console.log(event.data);
-			console.log(event.data, "event.data");
+
+
 
 			if (event.data === 1){//Playing code
 
@@ -235,6 +238,7 @@ var Player = (function(window, document, $){
 
 
 
+
 		    }
 
 
@@ -264,7 +268,7 @@ var Player = (function(window, document, $){
 
 
 
-
+//NOTEEE:*** Move into "on player ready"
 //NOTE: May need to add an event fired from the "return to search results
 //interaction" to reset the play button to a pause button
 		//Play icon Click Handler=======//
@@ -337,6 +341,9 @@ var Player = (function(window, document, $){
 					if(_playerPlaying){
 						//Pause playback
 						pause();
+
+						//Set playAll icon to play icon if it wasn't already
+						// $('#playAllIcon').attr('src', 'images/icons/play-drk.png');
 
 						_playerPlaying= false;
 
