@@ -669,6 +669,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	}
 }
 
+ .addedToPlaylistCheck{
+ 	display: none;
+ }
+
 
 .playlist-menu-header{
 	border-bottom: 1px solid nth($grey, 6);

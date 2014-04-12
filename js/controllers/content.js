@@ -868,7 +868,8 @@ var Content = (function(window, document, $){
 	function hideNodes(){
 
 		var selectors = ['.playlist-dropdown', 'li.main-dropdown',
-		'.add-to-playlist-menu', '.improve-meta-sub-menu', '.signin', '#restoreAcctModal'];
+		'.add-to-playlist-menu', '.improve-meta-sub-menu', '.signin',
+		'#restoreAcctModal'];
 
 		for(var i=0; i<selectors.length;i++){
 			$(selectors[i]).hide();
