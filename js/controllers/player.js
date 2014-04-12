@@ -346,13 +346,49 @@ var Player = (function(window, document, $){
 
 						//sets playing to true
 						_playerPlaying = true;
-					}
-				}
+					}//else
+				}//else
+		});//onclick play icon
 
 
 
+
+
+
+
+
+
+		//Prev/Next Click Handler=======//
+		$(document).on('click', '#prev-btn', function(){
+
+	    	//set current index
+			_currentIndex = _currentIndex - 1;
+
+	    	var prevVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+
+			//Start playing
+			_player.loadVideoById(prevVideo);
 
 		});
+
+
+		//Volume Down Click Handler=======//
+		$(document).on('click', '#next-btn', function(){
+
+			//set current index
+			_currentIndex = _currentIndex + 1;
+
+	    	var nextVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+
+			//Start playing
+			_player.loadVideoById(nextVideo);
+
+		});
+
+
+
+
+
 
 
 
