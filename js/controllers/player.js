@@ -16,6 +16,7 @@ var Player = (function(window, document, $){
 		_seek.stepper		= 0;
 
 	var _volume 			= 100;
+	var _currentIndex 		= 0;
 
 
 
@@ -32,6 +33,53 @@ var Player = (function(window, document, $){
 		//When player state change is = END, load the next array item.
 
 		//For shuffle, when clicked randomly pull youtube id from list when END is called
+
+
+		//Listen for library to be rendered
+		$(document).on('rendered', function(event){
+
+			//When libary item have loaded
+			if(event.template === '#libraryItem'){
+
+				//Loop through all list items to assign an index number
+				$('.resultItems').each(function(index, value){
+
+					//Sets an index number to each li item
+					$('.resultItems:eq(' + index + ')').attr('data-index', index);
+
+
+				});//each
+			};//#libraryItem
+		});//on rendered
+
+
+
+
+
+
+
+
+
+		$(document).on('click', '#playAll', function(event){
+
+			var firstVideo = $('.resultItems[data-index="0"]').attr('data-videoId');
+
+			//set current index
+			_currentIndex = 0;
+
+			//Start playing
+			_player.loadVideoById(firstVideo);
+
+		});
+
+
+
+
+
+
+
+
+
 
 
 
@@ -137,7 +185,7 @@ var Player = (function(window, document, $){
 
 			var id = _player.getVideoData().video_id;
 			// console.log(event.data);
-
+			console.log(event.data, "event.data");
 
 			if (event.data === 1){//Playing code
 
@@ -173,6 +221,29 @@ var Player = (function(window, document, $){
 
 		    	//Set info section animation to noto logomark
 				$('.playingAnimation').attr('src', 'images/icons/note.svg');
+
+
+
+		    }
+
+
+
+
+
+		    //If video has ended
+		    if(event.data === 0){//video ended
+
+		    	console.log("triggered zero");
+
+		    	//Handles autoplaying next video
+		    	//set current index
+				_currentIndex = _currentIndex + 1;
+
+		    	var currentVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+
+				//Start playing
+				_player.loadVideoById(currentVideo);
+
 		    }
 		};
 

@@ -383,6 +383,7 @@ header #sign-in-btn {
   color: #0f1010;
   padding-left: 6%;
   text-align: center;
+  font-size: 2.7em;
 }
 @media only screen and (min-width: 480px) {
   .signup h2 {

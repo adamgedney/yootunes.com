@@ -932,7 +932,7 @@ var Content = (function(window, document, $){
 		if(this.toggle){
 			//Set the sort order
 			_sortBy 	= by;
-			_sortOrder 	= "ASC";
+			_sortOrder 	= "DESC";
 
 			//Load library
 			loadLibrary();
@@ -942,7 +942,7 @@ var Content = (function(window, document, $){
 		}else{
 			//Set the sort order
 			_sortBy 	= by;
-			_sortOrder 	= "DESC";
+			_sortOrder 	= "ASC";
 
 			//Load library
 			loadLibrary();

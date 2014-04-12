@@ -272,6 +272,7 @@ header {
 		color: $black;
 		padding-left: 6%;
 		text-align: center;
+		font-size: 2.7em;
 
 		@include break-sm{
 			color: $white;
