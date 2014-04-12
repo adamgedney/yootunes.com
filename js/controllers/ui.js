@@ -198,7 +198,8 @@ var Ui = (function(window, document, $){
 				_videoSize.full = !_videoSize.full;
 				_videoSize.normal = true;
 			}else{
-				leaveFullscreen();
+
+				showNormalSize();
 
 				_videoSize.full = !_videoSize.full;
 				_videoSize.normal = false;
@@ -213,7 +214,7 @@ var Ui = (function(window, document, $){
 		$(document).on('keydown', function(){
 			if(_key.Esc){
 
-				leaveFullscreen();
+				showNormalSize();
 
 				_videoSize.full = !_videoSize.full;
 				_videoSize.normal = false;
@@ -415,32 +416,6 @@ var Ui = (function(window, document, $){
 
 
 
-	//Controls exiting fullscreen iframe manipulation
-	function leaveFullscreen(){
-
-		$('iframe#video').css({
-				'position' : 'absolute',
-				'top'      : 'initial',
-				'bottom'   : '72px',
-				'left'     : '0',
-				'right'    : 'initial',
-				'height'   : '27px',
-				'width'    : '25%'
-			});
-
-		$('.video-size-ctrl').css({
-			'bottom'     : '72px',
-			'background' : '#0f1010',
-			'textAlign'  : 'right'
-		});
-	};
-
-
-
-
-
-
-
 
 
 	//Controls minimizing the video
@@ -455,6 +430,12 @@ var Ui = (function(window, document, $){
 			'left'     : '0',
 			'right'    : 'initial',
 			'width'    : '25%'
+		});
+
+		$('.video-size-ctrl').css({
+			'bottom'     : '72px',
+			'background' : '#0f1010',
+			'textAlign'  : 'right'
 		});
 	}
 
