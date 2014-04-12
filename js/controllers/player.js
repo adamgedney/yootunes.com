@@ -17,6 +17,7 @@ var Player = (function(window, document, $){
 
 	var _volume 			= 100;
 	var _currentIndex 		= 0;
+	var _playingVideo     	= '';
 
 
 
@@ -38,8 +39,13 @@ var Player = (function(window, document, $){
 		//Listen for library to be rendered
 		$(document).on('rendered', function(event){
 
-			//When libary item have loaded
+			//When libary items have loaded
 			if(event.template === '#libraryItem'){
+
+				//When list is loaded, if list item video is playing, set icon to pause
+
+				$('.playIconImg[data-videoid=' + _playingVideo + ']').attr('src', 'images/icons/pause-drk.png');
+
 
 				//Loop through all list items to assign an index number
 				$('.resultItems').each(function(index, value){
@@ -189,11 +195,16 @@ var Player = (function(window, document, $){
 
 			if (event.data === 1){//Playing code
 
+				//Set playing variable for use by the onrendered event
+				_playingVideo = id;
+
 				//Calls updateTime() on regular intervals
 		      	_updateInterval = setInterval(updateTime, 100);
 
 		      	//If user plays video from click on video, change play/pause
 		      	$('#play-btn').attr('src', 'images/icons/pause.png');
+
+
 
 		      	//Sets list icon play/pause img
 				$('.playIconImg').attr('src', 'images/icons/play-drk.png');
