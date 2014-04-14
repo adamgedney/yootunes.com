@@ -400,10 +400,16 @@ var Ui = (function(window, document, $){
 			'display'  : 'block'
 		});
 
+
 		$('.video-size-ctrl').css({
 			'bottom'     : '0',
 			'background' : 'none',
 			'textAlign'  : 'left'
+		});
+
+
+		$('.footer').css({
+			'opacity' : '.8'
 		});
 	}
 
@@ -437,6 +443,10 @@ var Ui = (function(window, document, $){
 			'background' : '#0f1010',
 			'textAlign'  : 'right'
 		});
+
+		$('.footer').css({
+			'opacity' : '1'
+		});
 	}
 
 
@@ -465,6 +475,10 @@ var Ui = (function(window, document, $){
 			'bottom'     : '72px',
 			'background' : '#0f1010',
 			'textAlign'  : 'right'
+		});
+
+		$('.footer').css({
+			'opacity' : '1'
 		});
 	}
 
