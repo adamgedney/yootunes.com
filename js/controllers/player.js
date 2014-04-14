@@ -16,8 +16,10 @@ var Player = (function(window, document, $){
 		_seek.stepper		= 0;
 
 	var _volume 			= 100;
+	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
 	var _playingVideo     	= '';
+	var _playMode 			={};
 
 
 
@@ -78,6 +80,47 @@ var Player = (function(window, document, $){
 
 			//Start playing
 			_player.loadVideoById(firstVideo);
+
+		});
+
+
+
+
+
+
+
+
+
+		$(document).on('click', '#loopSong', function(event){
+
+			this.toggle;
+
+
+
+			if(this.toggle){
+
+				_playMode.loop = this.toggle;
+
+				this.toggle =  !this.toggle;
+			}else{
+				_playMode.loop = !this.toggle;
+
+				this.toggle =  !this.toggle;
+			}
+
+		});
+
+
+
+
+
+
+
+
+
+		$(document).on('click', '#shuffleResults', function(event){
+
+
 
 		});
 
@@ -248,16 +291,36 @@ var Player = (function(window, document, $){
 		    //If video has ended
 		    if(event.data === 0){//video ended
 
-		    	console.log("triggered zero");
+		    	//If loop is enabled
+		    	if(_playMode.loop){
 
-		    	//Handles autoplaying next video
-		    	//set current index
-				_currentIndex = _currentIndex + 1;
+		    		//Start playing same video again
+					_player.loadVideoById(_currentIndex);
 
-		    	var currentVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+				//if shuffle enabled
+		    	}else if(_playMode.shuffle){
 
-				//Start playing
-				_player.loadVideoById(currentVideo);
+		    		//random index for shuffle mode.
+		    		var randomIndex = Math.random() * _resultLength;
+
+		    		//Start playing same video again
+					_player.loadVideoById(_currentIndex);
+
+				//Autoplay
+		    	}else{
+
+		    		//Handles autoplaying next video
+			    	//set current index
+					_currentIndex = _currentIndex + 1;
+
+			    	var currentVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+
+					//Start playing
+					_player.loadVideoById(currentVideo);
+
+		    	}
+
+
 
 		    }
 		};
@@ -269,6 +332,7 @@ var Player = (function(window, document, $){
 
 
 //NOTEEE:*** Move into "on player ready"
+
 //NOTE: May need to add an event fired from the "return to search results
 //interaction" to reset the play button to a pause button
 		//Play icon Click Handler=======//

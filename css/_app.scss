@@ -972,6 +972,23 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	top: 10px;
 }
 
+
+.playmode-ctrl{
+	@include col(1);
+	float: left;
+	height: 100%;
+
+	img{
+		@include vertical-align;
+		margin-left: 10%;
+		cursor: pointer;
+	}
+
+	img:hover{
+		opacity: .5;
+	}
+}
+
 .volume-ctrl{
 	@include col(1);
 	float: left;

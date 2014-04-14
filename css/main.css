@@ -1448,6 +1448,26 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   top: 10px;
 }
 
+.playmode-ctrl {
+  width: 8.33333333%;
+  float: left;
+  height: 100%;
+}
+.playmode-ctrl img {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  margin-left: 10%;
+  cursor: pointer;
+}
+.playmode-ctrl img:hover {
+  opacity: .5;
+}
+
 .volume-ctrl {
   width: 8.33333333%;
   float: left;
