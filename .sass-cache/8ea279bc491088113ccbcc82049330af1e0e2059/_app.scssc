@@ -1,7 +1,7 @@
 3.2.9 (Media Mark)
-2d596dfc22e9a75c28db3787e8fbbccda56d87ae
+0dd8ec5dd074ba075fa87ecdff7ae22a345279f9
 o:Sass::Tree::RootNode
-:@template"¸=/*
+:@template"¶=/*
 	Thanks for checking out my code!!
 
 
@@ -1028,8 +1028,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 	input[type='range']::-webkit-slider-thumb {
 	    -webkit-appearance: none;
-	    width: 12px;
-	    height: 12px;
+	    width: 6px;
+	    height: 6px;
 	    -webkit-border-radius: 10px;
 	    border-radius: 10px;
 	    background: $white;
@@ -1717,7 +1717,7 @@ input;"@v;iò;+0;,To;;i ;[
 o;;i ;["-webkit-appearance;[ ;o;;	;;"	none;@;@;iû;;o;;i ;["border;[ ;o;;	;;"0;@;@;iü;;o;;i ;["background-color;[ ;o;.;"nth;@;{ ;iý;0;[o;/	;0"	grey;"	grey;@;iýo;;i;@;@9;iý;[ ;"2;@;iý;;o;;i ;["height;[ ;o;;	;;"1px;@;@;iþ;;o;;i ;["padding;[ ;o;;	;;"0;@;@;iÿ;;;@;["input[type='range'];iú; o;!;"" ;iú;#[o;$;#[o;%
 ;&0;"@¬;'o;(;){ ;iú;#[o;*	;["
 input;"@¬;iú;+0o;:;["	type;["'range';"@¬;;0;iú;+0;<"=;,To;;i ;[o;;i ;["-webkit-appearance;[ ;o;;	;;"	none;@;@;i;;o;;i ;["
-width;[ ;o;;	;;"	12px;@;@;i;;o;;i ;["height;[ ;o;;	;;"	12px;@;@;i;;o;;i ;["-webkit-border-radius;[ ;o;;	;;"	10px;@;@;i;;o;;i ;["border-radius;[ ;o;;	;;"	10px;@;@;i;;o;;i ;["background;[ ;o;/	;0"
+width;[ ;o;;	;;"6px;@;@;i;;o;;i ;["height;[ ;o;;	;;"6px;@;@;i;;o;;i ;["-webkit-border-radius;[ ;o;;	;;"	10px;@;@;i;;o;;i ;["border-radius;[ ;o;;	;;"	10px;@;@;i;;o;;i ;["background;[ ;o;/	;0"
 white;"
 white;@;i;@;i;;o;;i ;["background-repeat;[ ;o;;	;;"no-repeat;@;@;i	;;o;;i ;["background-position;[ ;o;;	;;"50%;@;@;i
 ;;;@;[".input[type='range']::-webkit-slider-thumb;i; o;!;"" ;i;#[o;$;#[o;%

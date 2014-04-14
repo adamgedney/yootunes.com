@@ -10,6 +10,7 @@ var Player = (function(window, document, $){
 	var _playerPlaying      = false;
 	var	_playerNewVideo		= true;
 	var _updateInterval;
+
 	var _seek 				= {};
 		_seek.lastM			= 0,
 		_seek.scrubber		= '#seek-dot',
@@ -17,7 +18,10 @@ var Player = (function(window, document, $){
 
 	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
+	var _prevIndex 			= 0;
+	var _prevIndexes 		= [];
 	var _playingVideo     	= '';
+
 	var _playMode 			= {};
 		_playMode.loop 		= false;
 		_playMode.shuffle 	= false;
@@ -97,7 +101,7 @@ var Player = (function(window, document, $){
 
 			if(!_playMode.loop){
 
-				_playMode.loop 		= !_playMode.loop;
+				_playMode.loop = !_playMode.loop;
 
 				//Reset shuffle button and boolean val
 				_playMode.shuffle 	= false;
@@ -111,6 +115,7 @@ var Player = (function(window, document, $){
 				});
 
 			}else{
+
 				_playMode.loop = !_playMode.loop;
 
 				//Change opacity to full visibility
@@ -147,6 +152,7 @@ var Player = (function(window, document, $){
 				});
 
 			}else{
+
 				_playMode.shuffle = !_playMode.shuffle;
 
 				//Change opacity to full visibility
@@ -155,6 +161,68 @@ var Player = (function(window, document, $){
 				});
 			}
 
+		});
+
+
+
+
+
+
+
+
+
+		//Prev/Next Click Handler=======//
+		$(document).on('click', '#prev-btn', function(){
+
+			//If shuffle is enabled, load a new random song
+			if(_playMode.shuffle){
+
+
+				_prevIndex = (_prevIndexes.length - 1);
+				_prevIndex -= 1;
+				console.log(_currentIndex, _prevIndex, _prevIndexes.length, _prevIndexes[_prevIndex]);
+
+		    	var prevVideo = $('.resultItems[data-index="' + _prevIndexes[_prevIndex] + '"]').attr('data-videoId');
+
+				//Start playing
+				_player.loadVideoById(prevVideo);
+
+
+			}else{//Normal prev button behavior
+
+				//set current index
+				_currentIndex = parseInt(_currentIndex, 10) - 1;
+
+		    	var prevVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+
+				//Start playing
+				_player.loadVideoById(prevVideo);
+			}
+
+
+
+		});
+
+
+		//Next btn  Click Handler=======//
+		$(document).on('click', '#next-btn', function(){
+
+			//If shuffle is enabled, load a new random song
+			if(_playMode.shuffle){
+
+				playRandom();
+
+
+			}else{//Normal next button behavior
+
+				//set current index
+				_currentIndex = parseInt(_currentIndex, 10) + 1;
+
+		    	var nextVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+
+				//Start playing
+				_player.loadVideoById(nextVideo);
+			}
 		});
 
 
@@ -244,14 +312,13 @@ var Player = (function(window, document, $){
 
 
 
-			//Volume Up Click Handler=======//
+			//Volume Handler=======//
 			$(document).on('mousemove', '#volumeRange', function(){
 
 				var rangeVolume = $('#volumeRange').val();
 
 				_player.setVolume(rangeVolume);
 
-				console.log(rangeVolume, "vol working");
 			});
 
 
@@ -275,6 +342,36 @@ var Player = (function(window, document, $){
 			//================================//
 			if (event.data === 1){
 
+
+				//Set song data & UI Changes
+				var playing 			= $('.play-icon[data-videoId=' + id + ']');
+				var song 				= $('#infoTitle');
+				var artist 				= $('#infoArtist');
+				var album 				= $('#infoAlbum');
+				var dataSong 			= $(playing).attr('data-song');
+				var dataArtist 			= $(playing).attr('data-artist');
+				var dataAlbum 			= $(playing).attr('data-album');
+				var fbShareMain 		= $('#fbShareMain');
+				var googleShareMain 	= $('#googleShareMain');
+				var twitterShareMain 	= $('#twitterShareMain');
+				var linkShareMain 		= $('#linkShareMain');
+				var youtubeUrl 			= 'https://www.youtube.com/watch?v=' + id;
+
+				song.html(dataSong);
+				artist.html(dataArtist);
+				album.html(dataAlbum);
+				fbShareMain.attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + youtubeUrl);
+				googleShareMain.attr('href', 'https://plus.google.com/share?url=' + youtubeUrl);
+				twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl);
+				linkShareMain.attr('href', youtubeUrl);
+
+
+				//NOTE:*****
+				//This is actually the current index. Clean up possible duplicate setting of this value later.
+				//This is the ideal place to set current index
+				_currentIndex = playing.parent().attr('data-index');
+
+
 				//Set playing variable for use by the onrendered event
 				_playingVideo = id;
 
@@ -295,6 +392,8 @@ var Player = (function(window, document, $){
 				$('.playingAnimation').attr('src', 'images/icons/wave-animated.gif');
 
 
+				//Set the previous index for use in the previous button funcitonality
+				_prevIndexes.push(_currentIndex);
 
 			//================================//
 			//Paused code
@@ -341,16 +440,7 @@ var Player = (function(window, document, $){
 				//======================//
 		    	}else if(_playMode.shuffle){
 
-		    		//get list items length
-		    		var resultLength = $('li.resultItems:eq(' + 0 + ')').attr('data-resultLength');
-
-		    		//random index for shuffle mode.
-		    		var randomIndex = Math.floor(Math.random() * resultLength);
-
-		    		var getVideo = $('.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
-
-		    		//Start playing next video in shuffle
-					_player.loadVideoById(getVideo);
+		    		playRandom();
 
 
 
@@ -419,32 +509,6 @@ var Player = (function(window, document, $){
 
 
 
-
-					//UI Changes
-					var song 				= $('#infoTitle');
-					var artist 				= $('#infoArtist');
-					var album 				= $('#infoAlbum');
-					var dataSong 			= $(this).attr('data-song');
-					var dataArtist 			= $(this).attr('data-artist');
-					var dataAlbum 			= $(this).attr('data-album');
-					var fbShareMain 		= $('#fbShareMain');
-					var googleShareMain 	= $('#googleShareMain');
-					var twitterShareMain 	= $('#twitterShareMain');
-					var linkShareMain 		= $('#linkShareMain');
-					var youtubeUrl 			= 'https://www.youtube.com/watch?v=' + id;
-
-					song.html(dataSong);
-					artist.html(dataArtist);
-					album.html(dataAlbum);
-					fbShareMain.attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + youtubeUrl);
-					googleShareMain.attr('href', 'https://plus.google.com/share?url=' + youtubeUrl);
-					twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl);
-					linkShareMain.attr('href', youtubeUrl);
-
-
-
-
-
 				//Runs play w/out loading new video
 				}else{
 
@@ -479,32 +543,7 @@ var Player = (function(window, document, $){
 
 
 
-		//Prev/Next Click Handler=======//
-		$(document).on('click', '#prev-btn', function(){
 
-	    	//set current index
-			_currentIndex = _currentIndex - 1;
-
-	    	var prevVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
-
-			//Start playing
-			_player.loadVideoById(prevVideo);
-
-		});
-
-
-		//Volume Down Click Handler=======//
-		$(document).on('click', '#next-btn', function(){
-
-			//set current index
-			_currentIndex = _currentIndex + 1;
-
-	    	var nextVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
-
-			//Start playing
-			_player.loadVideoById(nextVideo);
-
-		});
 
 
 
@@ -613,6 +652,23 @@ var Player = (function(window, document, $){
 		$('#play-btn').attr('src', 'images/icons/play-wht.png');
 
 		_playerPlaying = !_playerPlaying;
+	}
+
+
+
+
+	function playRandom(){
+
+		//get list items length
+		var resultLength = $('li.resultItems:eq(' + 0 + ')').attr('data-resultLength');
+
+		//random index for shuffle mode.
+		var randomIndex = Math.floor(Math.random() * resultLength);
+
+		var getVideo = $('.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
+
+		//Start playing next video in shuffle
+		_player.loadVideoById(getVideo);
 	}
 
 

@@ -1509,8 +1509,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 .volume-ctrl input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
+  width: 6px;
+  height: 6px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   background: #ebebeb;
