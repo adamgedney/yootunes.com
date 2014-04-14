@@ -15,7 +15,6 @@ var Player = (function(window, document, $){
 		_seek.scrubber		= '#seek-dot',
 		_seek.stepper		= 0;
 
-	var _volume 			= 100;
 	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
 	var _playingVideo     	= '';
@@ -246,15 +245,15 @@ var Player = (function(window, document, $){
 
 
 			//Volume Up Click Handler=======//
-			$(document).on('click', '.volume-up', function(){
-				volumeUp();
+			$(document).on('mousemove', '#volumeRange', function(){
+
+				var rangeVolume = $('#volumeRange').val();
+
+				_player.setVolume(rangeVolume);
+
+				console.log(rangeVolume, "vol working");
 			});
 
-
-			//Volume Down Click Handler=======//
-			$(document).on('click', '.volume-down', function(){
-				volumeDown();
-			});
 
 
 
@@ -529,9 +528,7 @@ var Player = (function(window, document, $){
 	player.prototype 	= {
 		constructor  	: player,
 		play 		 	: play,
-		pause 		 	: pause,
-		volumeUp 		: volumeUp,
-		volumeDown 		: volumeDown
+		pause 		 	: pause
 	};
 
 	//return constructor
@@ -621,32 +618,7 @@ var Player = (function(window, document, $){
 
 
 
-	function volumeUp(){
-		_volume += 5;
 
-		if(_volume >= 100){
-			_volume = 100;
-		}
-
-		_player.setVolume(_volume);
-
-		console.log(_volume);
-	}
-
-
-
-
-	function volumeDown(){
-		_volume -= 5;
-
-		if(_volume <= 0){
-			_volume = 0;
-		}
-
-		_player.setVolume(_volume);
-
-		console.log(_volume);
-	}
 
 
 
