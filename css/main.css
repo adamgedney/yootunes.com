@@ -1476,10 +1476,9 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   height: 100%;
 }
 .volume-ctrl .vol-icon {
-  height: 24px;
+  height: 15px;
   cursor: pointer;
-  float: right;
-  margin-left: 25%;
+  float: left;
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -1488,17 +1487,46 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.volume-ctrl .vol-icon:hover {
-  opacity: .3;
+.volume-ctrl input {
+  width: 75%;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  display: inline-block;
+  margin: 0;
+  float: right;
+}
+.volume-ctrl input[type='range'] {
+  -webkit-appearance: none;
+  border: 0;
+  background-color: #494f4f;
+  height: 1px;
+  padding: 0;
+}
+.volume-ctrl input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #ebebeb;
+  background-repeat: no-repeat;
+  background-position: 50%;
 }
 
 .playing-share-ctrl {
-  width: 8.33333333%;
+  width: 16.6666667%;
   float: left;
   height: 100%;
+  padding: 0 4%;
 }
 .playing-share-ctrl svg, .playing-share-ctrl img {
-  margin-top: 18%;
+  height: 18px;
+  margin-top: 25%;
 }
 
 .playon-ctrl {

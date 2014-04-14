@@ -173,7 +173,6 @@ var Player = (function(window, document, $){
 		window.onYouTubePlayerAPIReady = function() {
 			// create the global player from the specific iframe (#video)
 			_player = new YT.Player('video', {
-				videoId : 'ldhf30YtWkI',
 				playerVars: {
 					controls 		: 0,
 					enablejsapi 	: 1,

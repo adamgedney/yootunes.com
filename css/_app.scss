@@ -1000,26 +1000,54 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	// border-right: 1px solid nth($grey, 1);
 
 	.vol-icon{
-		height: 24px;
+		height: 15px;
 		cursor: pointer;
-		float: right;
-		margin-left: 25%;
+		float: left;
+		// margin-left: 25%;
 		@include vertical-align;
 	}
 
-	.vol-icon:hover{
-		opacity: .3;
+	input{
+		@include col(9);
+		@include vertical-align;
+		display: inline-block;
+		margin: 0;
+		float: right;
 	}
+
+	input[type='range'] {
+	    -webkit-appearance: none;
+	    border: 0;
+	    background-color: nth($grey, 2);
+	    height: 1px;
+	    padding: 0;
+	}
+
+	input[type='range']::-webkit-slider-thumb {
+	    -webkit-appearance: none;
+	    width: 12px;
+	    height: 12px;
+	    -webkit-border-radius: 10px;
+	    border-radius: 10px;
+	    background: $white;
+	    background-repeat: no-repeat;
+	    background-position: 50%;
+	}
+
+
+
 }
 
 .playing-share-ctrl{
-	@include col(1);
+	@include col(2);
 	float: left;
 	height: 100%;
+	padding: 0 4%;
 	// border-right: 1px solid nth($grey, 1);
 
 	svg, img{
-		margin-top: 18%;
+		height: 18px;
+		margin-top: 25%;
 	}
 }
 
