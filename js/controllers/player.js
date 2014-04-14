@@ -18,8 +18,8 @@ var Player = (function(window, document, $){
 
 	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
+	var _shuffleIndexes 	= [];
 	var _prevIndex 			= 0;
-	var _prevIndexes 		= [];
 	var _playingVideo     	= '';
 
 	var _playMode 			= {};
@@ -178,11 +178,10 @@ var Player = (function(window, document, $){
 			if(_playMode.shuffle){
 
 
-				_prevIndex = (_prevIndexes.length - 1);
-				_prevIndex -= 1;
-				console.log(_currentIndex, _prevIndex, _prevIndexes.length, _prevIndexes[_prevIndex]);
+				_prevIndex -= 1 ;
 
-		    	var prevVideo = $('.resultItems[data-index="' + _prevIndexes[_prevIndex] + '"]').attr('data-videoId');
+				//Gets index number of previous shuffle videos stored in shuffleIndex array
+		    	var prevVideo = $('.resultItems[data-index="' + _shuffleIndexes[_prevIndex + _shuffleIndexes.length] + '"]').attr('data-videoId');
 
 				//Start playing
 				_player.loadVideoById(prevVideo);
@@ -392,8 +391,8 @@ var Player = (function(window, document, $){
 				$('.playingAnimation').attr('src', 'images/icons/wave-animated.gif');
 
 
-				//Set the previous index for use in the previous button funcitonality
-				_prevIndexes.push(_currentIndex);
+
+
 
 			//================================//
 			//Paused code
@@ -669,6 +668,11 @@ var Player = (function(window, document, $){
 
 		//Start playing next video in shuffle
 		_player.loadVideoById(getVideo);
+
+
+		//Set the previous index for use in the previous button functionality
+		//Only push when the song being pushed is a new shuffle song
+		_shuffleIndexes.push(_currentIndex);
 	}
 
 
