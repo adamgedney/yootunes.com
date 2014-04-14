@@ -105,23 +105,16 @@ var Player = (function(window, document, $){
 
 				//Reset shuffle button and boolean val
 				_playMode.shuffle 	= false;
-				$('#shuffleResults').css({
-					'opacity' : '1'
-				});
+				$('#shuffleResults').attr('src', 'images/icons/shuffle-icon.png');
 
-				//Change opacity to indicate selection
-				$(this).css({
-					'opacity' : '.5'
-				});
-
+				//Change icon to indicate selection
+				$(this).attr('src', 'images/icons/loop-icon-red.png');
 			}else{
 
 				_playMode.loop = !_playMode.loop;
 
-				//Change opacity to full visibility
-				$(this).css({
-					'opacity' : '1'
-				});
+
+				$(this).attr('src', 'images/icons/loop-icon.png');
 			}
 
 		});
@@ -142,23 +135,17 @@ var Player = (function(window, document, $){
 
 				//Reset loop button and boolean val
 				_playMode.loop 		= false;
-				$('#loopSong').css({
-					'opacity' : '1'
-				});
+				$('#loopSong').attr('src', 'images/icons/loop-icon.png');
 
 				//Change opacity to indicate selection
-				$(this).css({
-					'opacity' : '.5'
-				});
+				$(this).attr('src', 'images/icons/shuffle-icon-red.png');
 
 			}else{
 
 				_playMode.shuffle = !_playMode.shuffle;
 
 				//Change opacity to full visibility
-				$(this).css({
-					'opacity' : '1'
-				});
+				$(this).attr('src', 'images/icons/shuffle-icon.png');
 			}
 
 		});

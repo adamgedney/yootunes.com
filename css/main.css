@@ -1466,9 +1466,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   cursor: pointer;
   height: 12px;
 }
-.playmode-ctrl img:hover {
-  opacity: .5;
-}
 
 .volume-ctrl {
   width: 8.33333333%;
