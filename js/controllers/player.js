@@ -19,7 +19,9 @@ var Player = (function(window, document, $){
 	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
 	var _playingVideo     	= '';
-	var _playMode 			={};
+	var _playMode 			= {};
+		_playMode.loop 		= false;
+		_playMode.shuffle 	= false;
 
 
 
@@ -93,19 +95,29 @@ var Player = (function(window, document, $){
 
 		$(document).on('click', '#loopSong', function(event){
 
-			this.toggle;
 
+			if(!_playMode.loop){
 
+				_playMode.loop 		= !_playMode.loop;
 
-			if(this.toggle){
+				//Reset shuffle button and boolean val
+				_playMode.shuffle 	= false;
+				$('#shuffleResults').css({
+					'opacity' : '1'
+				});
 
-				_playMode.loop = this.toggle;
+				//Change opacity to indicate selection
+				$(this).css({
+					'opacity' : '.5'
+				});
 
-				this.toggle =  !this.toggle;
 			}else{
-				_playMode.loop = !this.toggle;
+				_playMode.loop = !_playMode.loop;
 
-				this.toggle =  !this.toggle;
+				//Change opacity to full visibility
+				$(this).css({
+					'opacity' : '1'
+				});
 			}
 
 		});
@@ -120,7 +132,29 @@ var Player = (function(window, document, $){
 
 		$(document).on('click', '#shuffleResults', function(event){
 
+			if(!_playMode.shuffle){
 
+				_playMode.shuffle 	= !_playMode.shuffle;
+
+				//Reset loop button and boolean val
+				_playMode.loop 		= false;
+				$('#loopSong').css({
+					'opacity' : '1'
+				});
+
+				//Change opacity to indicate selection
+				$(this).css({
+					'opacity' : '.5'
+				});
+
+			}else{
+				_playMode.shuffle = !_playMode.shuffle;
+
+				//Change opacity to full visibility
+				$(this).css({
+					'opacity' : '1'
+				});
+			}
 
 		});
 
@@ -238,8 +272,10 @@ var Player = (function(window, document, $){
 			var id = _player.getVideoData().video_id;
 
 
-
-			if (event.data === 1){//Playing code
+			//================================//
+			//Playing code
+			//================================//
+			if (event.data === 1){
 
 				//Set playing variable for use by the onrendered event
 				_playingVideo = id;
@@ -262,7 +298,10 @@ var Player = (function(window, document, $){
 
 
 
-		    }else if(event.data < 1){//Paused code
+			//================================//
+			//Paused code
+			//================================//
+		    }else if(event.data < 1){
 
 
 
@@ -279,49 +318,60 @@ var Player = (function(window, document, $){
 		    	//Set info section animation to noto logomark
 				$('.playingAnimation').attr('src', 'images/icons/note.svg');
 
-
-
-
 		    }
 
 
 
 
-
+		    //================================//
 		    //If video has ended
+		    //================================//
 		    if(event.data === 0){//video ended
 
+		    	//======================//
 		    	//If loop is enabled
+		    	//======================//
 		    	if(_playMode.loop){
 
 		    		//Start playing same video again
-					_player.loadVideoById(_currentIndex);
+					_player.loadVideoById(id);
 
+
+
+				//======================//
 				//if shuffle enabled
+				//======================//
 		    	}else if(_playMode.shuffle){
 
+		    		//get list items length
+		    		var resultLength = $('li.resultItems:eq(' + 0 + ')').attr('data-resultLength');
+
 		    		//random index for shuffle mode.
-		    		var randomIndex = Math.random() * _resultLength;
+		    		var randomIndex = Math.floor(Math.random() * resultLength);
 
-		    		//Start playing same video again
-					_player.loadVideoById(_currentIndex);
+		    		var getVideo = $('.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
 
+		    		//Start playing next video in shuffle
+					_player.loadVideoById(getVideo);
+
+
+
+				//======================//
 				//Autoplay
+				//======================//
 		    	}else{
 
 		    		//Handles autoplaying next video
-			    	//set current index
-					_currentIndex = _currentIndex + 1;
+			    	//set current index converted from string to int
+					_currentIndex = parseInt(_currentIndex, 10) + 1;
 
 			    	var currentVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 					//Start playing
 					_player.loadVideoById(currentVideo);
 
+
 		    	}
-
-
-
 		    }
 		};
 
@@ -341,6 +391,8 @@ var Player = (function(window, document, $){
 			var playerId = _player.getVideoData().video_id;
 			var id = $(this).attr('data-videoid');
 
+			//Sets the current index to enable autoplay feature funcitonality
+			_currentIndex = $(this).parent().attr('data-index');
 
 			this.newVideo;
 

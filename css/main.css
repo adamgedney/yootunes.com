@@ -1452,6 +1452,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 8.33333333%;
   float: left;
   height: 100%;
+  padding-left: 2%;
 }
 .playmode-ctrl img {
   position: relative;
@@ -1463,6 +1464,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   transform: translateY(-50%);
   margin-left: 10%;
   cursor: pointer;
+  height: 12px;
 }
 .playmode-ctrl img:hover {
   opacity: .5;

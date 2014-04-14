@@ -269,6 +269,10 @@ var Content = (function(window, document, $){
 				//Remove search input value
 				$('#searchInput').val('');
 
+				//Set list item length to DOM for shuffle function in player controller
+				$('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
+
+
 				//Loop through li items to see if song is in library
 				for(var i=0;i<_userSongs.length;i++){
 
