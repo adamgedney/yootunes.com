@@ -266,6 +266,9 @@ var Content = (function(window, document, $){
 
 			if(event.template === '#libraryItem'){
 
+				//Remove search input value
+				$('#searchInput').val('');
+
 				//Loop through li items to see if song is in library
 				for(var i=0;i<_userSongs.length;i++){
 

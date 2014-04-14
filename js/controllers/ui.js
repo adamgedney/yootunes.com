@@ -211,15 +211,15 @@ var Ui = (function(window, document, $){
 
 
 		//Esc fullscreen handler
-		$(document).on('keydown', function(){
-			if(_key.Esc){
+		// $(document).on('keydown', function(){
+		// 	if(_key.Esc){
 
-				showNormalSize();
+		// 		showNormalSize();
 
-				_videoSize.full = !_videoSize.full;
-				_videoSize.normal = false;
-			}
-		});
+		// 		_videoSize.full = !_videoSize.full;
+		// 		_videoSize.normal = false;
+		// 	}
+		// });
 
 
 
