@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-    	"codesleeve/social": "dev-master"
+    	"codesleeve/social": "dev-master",
+    	"cboden/Ratchet": "0.3.*"
 	},
 	"autoload": {
 		"classmap": [
