@@ -1,7 +1,7 @@
 3.2.9 (Media Mark)
-a58ed8372c27737ab71aa8bce8d46b01153ffb9b
+c3d19da5b0752e6c8446d59d07efa703cdee005b
 o:Sass::Tree::RootNode
-:@template"¦=/*
+:@template"¨=/*
 	Thanks for checking out my code!!
 
 
@@ -163,8 +163,8 @@ aside.app{
 	position: absolute;
 	width: 60px;
 	height: 60px;
-	top: 1%;
-	right: 6%;
+	top: 45%;
+	right: 37%;
 	display: none;
 	opacity: .6;
 }
@@ -1234,8 +1234,8 @@ aside;"@T;ir;+0o;-;["app;"@T;ir;,To;;i ;[o;
 fixed;@;@;i–;;o;;i ;["bottom;[ ;o;;	;;"	72px;@;@;i—;;o;;i ;["	left;[ ;o;;	;;"0;@;@;i˜;;o;;i ;["z-index;[ ;o;;	;;"	1000;@;@;i™;;o;;i ;["height;[ ;o;;	;;"	27px;@;@;iš;;o;;i ;["border;[ ;o;;	;;"	none;@;@;i›;;;@;["#video;i“; o;!;"" ;i“;#[o;$;#[o;%
 ;&0;"@—;'o;(;){ ;i“;#[o;4;["
 video;"@—;i“;,To;;i ;[o;;i ;["background;[ ;o;5	;6;7;[o;.;"url;@;{ ;iŸ;0;[o;	;	:string;" ../images/icons/loading.GIF;@;iŸo;	;	;;"no-repeat;@;iŸ;@;iŸ;@;iŸ;;o;;i ;["position;[ ;o;;	;;"absolute;@;@;i ;;o;;i ;["
-width;[ ;o;;	;;"	60px;@;@;i¡;;o;;i ;["height;[ ;o;;	;;"	60px;@;@;i¢;;o;;i ;["top;[ ;o;;	;;"1%;@;@;i£;;o;;i ;["
-right;[ ;o;;	;;"6%;@;@;i¤;;o;;i ;["display;[ ;o;;	;;"	none;@;@;i¥;;o;;i ;["opacity;[ ;o;;	;;".6;@;@;i¦;;;@;[".loading;iž; o;!;"" ;iž;#[o;$;#[o;%
+width;[ ;o;;	;;"	60px;@;@;i¡;;o;;i ;["height;[ ;o;;	;;"	60px;@;@;i¢;;o;;i ;["top;[ ;o;;	;;"45%;@;@;i£;;o;;i ;["
+right;[ ;o;;	;;"37%;@;@;i¤;;o;;i ;["display;[ ;o;;	;;"	none;@;@;i¥;;o;;i ;["opacity;[ ;o;;	;;".6;@;@;i¦;;;@;[".loading;iž; o;!;"" ;iž;#[o;$;#[o;%
 ;&0;"@ß;'o;(;){ ;iž;#[o;-;["loading;"@ß;iž;,To;
 ;	;
 ;[ ;["./*=====================================*/;@;i©o;

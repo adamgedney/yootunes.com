@@ -402,9 +402,11 @@ var Ui = (function(window, document, $){
 
 
 		$('.video-size-ctrl').css({
-			'bottom'     : '0',
+			'top'     	 : '9px',
+			'left' 		 : '9px',
 			'background' : 'none',
-			'textAlign'  : 'left'
+			'textAlign'  : 'left',
+			'border'     : 'none'
 		});
 
 
@@ -441,7 +443,9 @@ var Ui = (function(window, document, $){
 		$('.video-size-ctrl').css({
 			'bottom'     : '72px',
 			'background' : '#0f1010',
-			'textAlign'  : 'right'
+			'textAlign'  : 'right',
+			'top'     	 : 'initial',
+			'left' 		 : 'initial',
 		});
 
 		$('.footer').css({
@@ -471,10 +475,13 @@ var Ui = (function(window, document, $){
 			'width'    : '25%'
 		});
 
+
 		$('.video-size-ctrl').css({
 			'bottom'     : '72px',
 			'background' : '#0f1010',
-			'textAlign'  : 'right'
+			'textAlign'  : 'right',
+			'top'     	 : 'initial',
+			'left' 		 : 'initial',
 		});
 
 		$('.footer').css({

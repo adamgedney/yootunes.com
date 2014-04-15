@@ -781,8 +781,8 @@ aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-c
   position: absolute;
   width: 60px;
   height: 60px;
-  top: 1%;
-  right: 6%;
+  top: 45%;
+  right: 37%;
   display: none;
   opacity: .6;
 }

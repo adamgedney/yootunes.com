@@ -173,6 +173,9 @@ var Content = (function(window, document, $){
 			var API_URL = _baseUrl + '/search/' + query;
 			var songs = [];
 
+			//Empty results list while srarch results load
+			$('.scroll-container').empty();
+
 			//Show loading icon
 			$('.loading').fadeIn();
 
