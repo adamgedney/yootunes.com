@@ -109,6 +109,9 @@ var Library = (function(window, document, $){
 
 			createNewPlaylist(userId, songId, playlistName);
 
+			//Clear form on submit
+			$('.newPlaylistInput').val('');
+
 			event.preventDefault();
 		});
 
@@ -376,14 +379,16 @@ var Library = (function(window, document, $){
 				success : function(response){
 					console.log(response, "delete playlist success response");
 
+					//Triggers playlist added just so a playlist reload occurs
+					$.event.trigger({
+						type : 'playlistadded'
+					});
+
 				}//success
 			});//ajax
 
 
-			//Triggers playlist added just so a playlist reload occurs
-			$.event.trigger({
-				type : 'playlistadded'
-			});
+
 		}
 
 
