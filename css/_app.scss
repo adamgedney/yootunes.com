@@ -909,13 +909,13 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	}
 
 	.play{
-		max-height: 17px;
-		max-width: 17px;
+		max-height: 12px;
+		max-width: 12px;
 		margin: 0 6px 0 9px;
 	}
 
 	.prev, .next{
-		max-height: 12px;
+		max-height: 9px;
 		margin-top: 1px;
 	}
 }
@@ -936,9 +936,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	}
 }
 
-.seek-line, .seek-fill{
-	@include col(12);
-	@include col-ctr(12);
+
+
+.seek-line, .seek-fill, #seek-bar{
+	@include col(10);
+	// @include col-ctr(10);
 	height: 0px;
 	border-bottom: 1px solid nth($grey, 1);
 	// @include vertical-align;

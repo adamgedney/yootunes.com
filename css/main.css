@@ -1385,12 +1385,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   transform: translateY(-50%);
 }
 .transport-ctrl .play {
-  max-height: 17px;
-  max-width: 17px;
+  max-height: 12px;
+  max-width: 12px;
   margin: 0 6px 0 9px;
 }
 .transport-ctrl .prev, .transport-ctrl .next {
-  max-height: 12px;
+  max-height: 9px;
   margin-top: 1px;
 }
 
@@ -1415,10 +1415,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   line-height: 0px;
 }
 
-.seek-line, .seek-fill {
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
+.seek-line, .seek-fill, #seek-bar {
+  width: 83.3333333%;
   height: 0px;
   border-bottom: 1px solid #272a2a;
   margin-top: 18px;
