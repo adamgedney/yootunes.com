@@ -88,7 +88,6 @@ svg:hover, img:hover{
 
 //Borowed from CSS-Tricks
 .truncate {
-  width: 250px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -881,6 +880,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		li{
 			font-size: .8em;
 			overflow: hidden;
+			font-size: .5em;
 		}
 	}
 

@@ -47,22 +47,22 @@ $(window).on('scroll', function(){
 
 
 
-//Sign up button interaction handler=======//
-$('.signin').hide();
-var toggle = false;
+// //Sign up button interaction handler=======//
+// $('.signin').hide();
+// var toggle = false;
 
-$(document).on('click', '#sign-in-btn', function(){
+// $(document).on('click', '#sign-in-btn', function(){
 
-	if(!toggle){
-		$('.signin').fadeIn();
-		toggle = !toggle;
-	}else{
-		$('.signin').fadeOut();
-		toggle = !toggle;
-	}
+// 	if(!toggle){
+// 		$('.signin').fadeIn();
+// 		toggle = !toggle;
+// 	}else{
+// 		$('.signin').fadeOut();
+// 		toggle = !toggle;
+// 	}
 
 
-});
+// });
 
 
 
@@ -265,7 +265,7 @@ $(document).on('click', '#sign-in-btn', function(){
 // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 
-var player;
+// var player;
 // window.onYouTubePlayerAPIReady = function() {
 //   // create the global player from the specific iframe (#video)
 //   player = new YT.Player('video', {
