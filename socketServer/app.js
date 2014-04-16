@@ -3,16 +3,26 @@
 //=======================================================//
 
 var express         = require('express');
-var fs              = require('fs');
-var http            = require('http');
-var path            = require('path');
-var favicon         = require('static-favicon');
-var logger          = require('morgan');
-var cookieParser    = require('cookie-parser');
-var bodyParser      = require('body-parser');
+    fs              = require('fs'),
+    http            = require('http'),
+    path            = require('path'),
+    favicon         = require('static-favicon'),
+    logger          = require('morgan'),
+    cookieParser    = require('cookie-parser'),
+    bodyParser      = require('body-parser'),
+    io              = require('socket.io');
 
 //App instance
-var app             = express();
+var app             = express(),
+    server          = http.createServer(app);
+
+    //Global server instance
+    ioServer        = io.listen(server);
+
+    //Socket.io listen port
+    server.listen(3001);
+
+
 
 
 
@@ -90,6 +100,8 @@ fs.readdirSync('./controllers').forEach(function(file){
         route.controller(app);
     }
 });
+
+
 
 
 

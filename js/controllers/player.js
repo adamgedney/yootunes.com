@@ -26,6 +26,9 @@ var Player = (function(window, document, $){
 		_playMode.loop 		= false;
 		_playMode.shuffle 	= false;
 
+	//Connection to node socket server
+	var socket 				= io.connect('http://localhost:3001');
+
 
 
 
@@ -35,12 +38,17 @@ var Player = (function(window, document, $){
 	var player = function(){
 
 
-		//Play sequence logic notes:
-		//When PLAY ALL is clicked...
-		//When li-groups load, store their index (or youtube id?) in an array.
-		//When player state change is = END, load the next array item.
 
-		//For shuffle, when clicked randomly pull youtube id from list when END is called
+		//Listen for socket event
+		socket.on('testto', function (data) {
+			console.log("socket event received", data);
+
+			//Emit event back to server
+			socket.emit('testfrom', { my: 'data' });
+		});
+
+
+
 
 
 		//Listen for library to be rendered
