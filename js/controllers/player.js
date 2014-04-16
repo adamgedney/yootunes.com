@@ -39,14 +39,6 @@ var Player = (function(window, document, $){
 
 
 
-		//Listen for socket event
-		socket.on('testto', function (data) {
-			console.log("socket event received", data);
-
-			//Emit event back to server
-			socket.emit('testfrom', { my: 'data' });
-		});
-
 
 
 
@@ -92,7 +84,9 @@ var Player = (function(window, document, $){
 			_currentIndex = 0;
 
 			//Start playing
-			_player.loadVideoById(firstVideo);
+			// _player.loadVideoById(firstVideo);
+
+			play(firstVideo);
 
 		});
 
@@ -179,7 +173,9 @@ var Player = (function(window, document, $){
 		    	var prevVideo = $('.resultItems[data-index="' + _shuffleIndexes[_prevIndex + _shuffleIndexes.length] + '"]').attr('data-videoId');
 
 				//Start playing
-				_player.loadVideoById(prevVideo);
+				// _player.loadVideoById(prevVideo);
+
+				play(prevVideo);
 
 
 			}else{//Normal prev button behavior
@@ -190,7 +186,9 @@ var Player = (function(window, document, $){
 		    	var prevVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 				//Start playing
-				_player.loadVideoById(prevVideo);
+				// _player.loadVideoById(prevVideo);
+
+				play(prevVideo);
 			}
 
 
@@ -215,7 +213,9 @@ var Player = (function(window, document, $){
 		    	var nextVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 				//Start playing
-				_player.loadVideoById(nextVideo);
+				// _player.loadVideoById(nextVideo);
+
+				play(nextVideo);
 			}
 		});
 
@@ -257,13 +257,15 @@ var Player = (function(window, document, $){
 		//Fires when player returns ready
 		window.onPlayerReady = function(event) {
 
+			var youtubeId = "";
+
 			//Play Button Click Handler=======//
 			$(document).on('click', '#play-btn', function(){
 
 				//Play if not already playing
 				if(!_playerPlaying){
 
-					play();
+					play(youtubeId);
 
 				//Stop playing if already playing
 				}else{
@@ -284,12 +286,14 @@ var Player = (function(window, document, $){
 			//Keypress controls for play/pause etc.
 			// $(document).on('keypress', function(event){
 
+				//var youtubeId = "";
+
 			// 	//If Spacebar pressed
 			// 	if(_key.Space){
 			// 		//Play if not already playing
 			// 		if(!_playerPlaying){
 
-			// 			play();
+			// 			play(youtubeId);
 
 			// 		//Stop playing if already playing
 			// 		}else{
@@ -425,7 +429,9 @@ var Player = (function(window, document, $){
 		    	if(_playMode.loop){
 
 		    		//Start playing same video again
-					_player.loadVideoById(id);
+					// _player.loadVideoById(id);
+
+					play(id);
 
 
 
@@ -450,7 +456,9 @@ var Player = (function(window, document, $){
 			    	var currentVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 					//Start playing
-					_player.loadVideoById(currentVideo);
+					// _player.loadVideoById(currentVideo);
+
+					play(currentVideo);
 
 
 		    	}
@@ -487,7 +495,8 @@ var Player = (function(window, document, $){
 				//Determines if new video needs to be loaded
 				if(!this.newVideo){
 					console.log("NEW video");
-					_player.loadVideoById(id);
+					// _player.loadVideoById(id);
+					play(id);
 
 
 					//Resets stepper for seekbar fill reset
@@ -520,8 +529,9 @@ var Player = (function(window, document, $){
 						_playerPlaying= false;
 
 					}else{
+						var youtubeId = "";
 
-						play();
+						play(youtubeId);
 
 						//sets playing to true
 						_playerPlaying = true;
@@ -624,17 +634,98 @@ var Player = (function(window, document, $){
 
 
 
-	function play(){
 
-		_player.playVideo();
-		// var id = _player.getVideoData().video_id;
 
-		//Updates button ui
-		$('#play-btn').attr('src', 'images/icons/pause.png');
 
-		_playerPlaying= !_playerPlaying;
 
-	}
+
+
+
+
+
+
+	function play(youtubeId){
+
+
+
+
+		var data = {
+			'device' 	: 'my mac',
+			'youtubeId' : youtubeId,
+			'newVideo'  : 'false'
+		}
+
+
+		var device = "my mac";
+
+
+
+
+		//If "" just toggles play/pause & new video loading
+		if(youtubeId === ""){
+
+			//Change data.newVideo accordingly
+			data.newVideo = 'false';
+
+			//Emit event back to server
+			socket.emit('play', data);
+
+		}else{
+
+			//Change data.newVideo accordingly
+			data.newVideo = 'true';
+
+			//Emit event back to server
+			socket.emit('play', data);
+		}
+
+
+
+
+
+		//Listen for socket to return
+		socket.on('playOn', function (response) {
+			console.log("socket play return event received", response);
+
+			//Check to see if this client matches the playOn command
+			if(data.device === device){
+
+				//Check to see if this is a new video
+				if(response.newVideo === "false"){
+
+					_player.playVideo();
+					// var id = _player.getVideoData().video_id;
+
+					//Updates button ui
+					$('#play-btn').attr('src', 'images/icons/pause.png');
+
+					_playerPlaying= !_playerPlaying;
+
+				}else{
+
+					_player.loadVideoById(response.youtubeId);
+				}
+
+			}
+
+
+
+		});
+
+
+
+
+	}//play
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -651,6 +742,16 @@ var Player = (function(window, document, $){
 
 
 
+
+
+
+
+
+
+
+
+
+
 	function playRandom(){
 
 		//get list items length
@@ -662,7 +763,8 @@ var Player = (function(window, document, $){
 		var getVideo = $('.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
 
 		//Start playing next video in shuffle
-		_player.loadVideoById(getVideo);
+		// _player.loadVideoById(getVideo);
+		play(getVideo);
 
 
 		//Set the previous index for use in the previous button functionality
