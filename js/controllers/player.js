@@ -26,13 +26,12 @@ var Player = (function(window, document, $){
 		_playMode.loop 		= false;
 		_playMode.shuffle 	= false;
 
-	//Connection to node socket server
-	var socket 				= io.connect('http://localhost:3001');
+	var socketServer 		= 'http://localhost:3001';
+	var socket;
 
 	//Testing. Get this data from cookie
-	var thisDevice = "my mac";
-
-
+	var thisDevice 		= 'my mac';
+	var playOnDevice 	= 'my mac';
 
 
 
@@ -40,6 +39,16 @@ var Player = (function(window, document, $){
 	//constructor method
 	var player = function(){
 
+
+		//Connection to node socket server opened if playOn is enabled
+		if(thisDevice !== playOnDevice){
+
+			socket = io.connect(socketServer);
+
+		}else{
+
+			socket = null;
+		}
 
 
 
@@ -318,15 +327,133 @@ var Player = (function(window, document, $){
 
 				var rangeVolume = $('#volumeRange').val();
 
-				_player.setVolume(rangeVolume);
+				//No need for sockets if this is the device we're playing on
+				if(socket === null){
 
-			});
-
-
-
+					_player.setVolume(rangeVolume);
 
 
+				}else{//PlayOn
+
+
+					//Build obj for socket transmission
+					var data = {
+						'device' 			: playOnDevice,
+						'volume' 			: rangeVolume,
+						'controllerDevice' 	: thisDevice
+					}
+
+
+					//=============================//
+					//Socket EMIT volume stream
+					//=============================//
+					socket.emit('volume', data);
+
+
+
+						//=============================//
+						//Listen for socket ON
+						//=============================//
+						socket.on('volumeOn', function(response){
+
+							//Check to see if this client matches the volumeOn command
+							if(data.device === thisDevice || data.controllerDevice === thisDevice){
+
+								//Sets the controlling device volume to 0.
+								//Most efficient way of setting up controller/slave
+								if(data.controllerDevice === thisDevice){
+									_player.mute();
+
+								}
+
+								//set volume
+								_player.setVolume(response.volume);
+
+							}//if
+						});//socket.on
+				}//else
+			});//volume mousemove
+
+
+
+
+
+
+
+
+
+			//NOTE: May need to add an event fired from the "return to search results
+			//interaction" to reset the play button to a pause button
+			//Play icon Click Handler=======//
+			$(document).on('click', '.play-icon', function(event){
+
+				var playerId = _player.getVideoData().video_id;
+				var id = $(this).attr('data-videoid');
+
+				//Sets the current index to enable autoplay feature funcitonality
+				_currentIndex = $(this).parent().attr('data-index');
+
+				this.newVideo;
+
+				//Checks to see if loaded video matches this video
+				if(playerId !== id){
+					this.newVideo = false;
+				}
+
+
+					//Determines if new video needs to be loaded
+					if(!this.newVideo){
+						console.log("NEW video");
+						// _player.loadVideoById(id);
+						play(id);
+
+
+						//Resets stepper for seekbar fill reset
+						_seek.stepper = 0;
+						_seek.lastM = 0;
+
+
+						//sets new video to false & playing to true
+						this.newVideo = true;
+						// _playerNewVideo = !_playerNewVideo;
+
+						_playerPlaying = true;
+
+
+
+					//Runs play w/out loading new video
+					}else{
+
+
+
+
+						//Pause playback handler
+						if(_playerPlaying){
+							//Pause playback
+							pause();
+
+							//Set playAll icon to play icon if it wasn't already
+							// $('#playAllIcon').attr('src', 'images/icons/play-drk.png');
+
+							_playerPlaying= false;
+
+						}else{
+							var youtubeId = "";
+
+							play(youtubeId);
+
+							//sets playing to true
+							_playerPlaying = true;
+						}//else
+					}//else
+			});//onclick play icon
+
+
+
+
+		//================================//
 		};//On Player Ready
+		//================================//
 
 
 
@@ -474,74 +601,6 @@ var Player = (function(window, document, $){
 
 
 
-//NOTEEE:*** Move into "on player ready"
-
-//NOTE: May need to add an event fired from the "return to search results
-//interaction" to reset the play button to a pause button
-		//Play icon Click Handler=======//
-		$(document).on('click', '.play-icon', function(event){
-
-			var playerId = _player.getVideoData().video_id;
-			var id = $(this).attr('data-videoid');
-
-			//Sets the current index to enable autoplay feature funcitonality
-			_currentIndex = $(this).parent().attr('data-index');
-
-			this.newVideo;
-
-			//Checks to see if loaded video matches this video
-			if(playerId !== id){
-				this.newVideo = false;
-			}
-
-
-				//Determines if new video needs to be loaded
-				if(!this.newVideo){
-					console.log("NEW video");
-					// _player.loadVideoById(id);
-					play(id);
-
-
-					//Resets stepper for seekbar fill reset
-					_seek.stepper = 0;
-					_seek.lastM = 0;
-
-
-					//sets new video to false & playing to true
-					this.newVideo = true;
-					// _playerNewVideo = !_playerNewVideo;
-
-					_playerPlaying = true;
-
-
-
-				//Runs play w/out loading new video
-				}else{
-
-
-
-
-					//Pause playback handler
-					if(_playerPlaying){
-						//Pause playback
-						pause();
-
-						//Set playAll icon to play icon if it wasn't already
-						// $('#playAllIcon').attr('src', 'images/icons/play-drk.png');
-
-						_playerPlaying= false;
-
-					}else{
-						var youtubeId = "";
-
-						play(youtubeId);
-
-						//sets playing to true
-						_playerPlaying = true;
-					}//else
-				}//else
-		});//onclick play icon
-
 
 
 
@@ -649,80 +708,105 @@ var Player = (function(window, document, $){
 
 	function play(youtubeId){
 
-		//Build obj for socket transmission
-		var data = {
-			'device' 			: 'my mac',
-			'youtubeId' 		: youtubeId,
-			'newVideo'  		: 'false',
-			'controllerDevice' 	: thisDevice
-		}
+
+		//No need for sockets if this is the device we're playing on
+		if(socket === null){
+
+			//Signifies we're in play/pause loop
+			if(youtubeId === ""){
+
+				_player.playVideo();
+
+				//Updates button ui
+				$('#play-btn').attr('src', 'images/icons/pause.png');
+
+				_playerPlaying= !_playerPlaying;
+
+			}else{//New Video
+
+				_player.loadVideoById(youtubeId);
+
+			}//else youtubeId
 
 
 
+		//==========================//
+		}else{//PlayOn
+		//==========================//
 
 
 
-			//=============================//
-			//Socket EMIT
-			//=============================//
-			if(youtubeId === ""){//Signifies we're in play/pause loop
-
-				//Change data.newVideo accordingly
-				data.newVideo = 'false';
-
-				//EMIT event back to server
-				socket.emit('play', data);
-				console.log(socket);
-
-			}else{
-
-				//Change data.newVideo accordingly
-				data.newVideo = 'true';
-
-				//EMIT event back to server
-				socket.emit('play', data);
-				console.log(socket);
+			//Build obj for socket transmission
+			var data = {
+				'device' 			: playOnDevice,
+				'youtubeId' 		: youtubeId,
+				'newVideo'  		: 'false',
+				'controllerDevice' 	: thisDevice
 			}
 
 
 
-
 				//=============================//
-				//Listen for socket ON
+				//Socket EMIT
 				//=============================//
-				socket.on('playOn', function (response) {
+				if(youtubeId === ""){//Signifies we're in play/pause loop
 
-					console.log("socket play return event received", response);
+					//Change data.newVideo accordingly
+					data.newVideo = 'false';
 
-					//Check to see if this client matches the playOn command
-					if(data.device === thisDevice || data.controllerDevice === thisDevice){
+					//EMIT event back to server
+					socket.emit('play', data);
+					console.log(socket);
+
+				}else{
+
+					//Change data.newVideo accordingly
+					data.newVideo = 'true';
+
+					//EMIT event back to server
+					socket.emit('play', data);
+					console.log(socket);
+				}
 
 
-						//Sets the controlling device volume to 0.
-						//Most efficient way of setting up controller/slave
-						if(data.controllerDevice === thisDevice){
-							_player.setVolume(0);
-							$('#volumeRange').val('0');
-						}
 
 
-						//Check to see if this is a new video
-						if(response.newVideo === "false"){
+					//=============================//
+					//Listen for socket ON
+					//=============================//
+					socket.on('playOn', function (response) {
 
-							_player.playVideo();
-							// var id = _player.getVideoData().video_id;
+						console.log("socket play return event received", response);
 
-							//Updates button ui
-							$('#play-btn').attr('src', 'images/icons/pause.png');
+						//Check to see if this client matches the playOn command
+						if(data.device === thisDevice || data.controllerDevice === thisDevice){
 
-							_playerPlaying= !_playerPlaying;
 
-						}else{
+							//Sets the controlling device to MUTE.
+							//Most efficient way of setting up controller/slave
+							if(data.controllerDevice === thisDevice){
+								_player.mute();
+							}
 
-							_player.loadVideoById(response.youtubeId);
-						}//else
-					}//if device
-				});//socket.on
+
+							//Check to see if this is a new video
+							if(response.newVideo === "false"){
+
+								_player.playVideo();
+								// var id = _player.getVideoData().video_id;
+
+								//Updates button ui
+								$('#play-btn').attr('src', 'images/icons/pause.png');
+
+								_playerPlaying= !_playerPlaying;
+
+							}else{
+
+								_player.loadVideoById(response.youtubeId);
+							}//else
+						}//if device
+					});//socket.on
+		}//else playOn
 	}//play
 
 
@@ -740,45 +824,66 @@ var Player = (function(window, document, $){
 
 	function pause(){
 
-		//Build obj for socket transmission
-		var data = {
-			'device' 			: 'my mac',
-			'controllerDevice' 	: thisDevice
-		}
+
+		//No need for sockets if this is the device we're playing on
+		if(socket === null){
+
+			_player.stopVideo();
+
+			//Updates button ui
+			$('#play-btn').attr('src', 'images/icons/play-wht.png');
+
+			_playerPlaying = !_playerPlaying;
 
 
-		//=============================//
-		//Socket EMIT pause
-		//=============================//
-		socket.emit('pause', data);
 
+
+		//==========================//
+		}else{//PlayOn
+		//==========================//
+
+
+
+
+			//Build obj for socket transmission
+			var data = {
+				'device' 			: playOnDevice,
+				'controllerDevice' 	: thisDevice
+			}
 
 
 			//=============================//
-			//Listen for socket ON
+			//Socket EMIT pause
 			//=============================//
-			socket.on('pauseOn', function(response){
-
-				//Check to see if this client matches the pauseOn command
-				if(data.device === thisDevice || data.controllerDevice === thisDevice){
-
-					//Sets the controlling device volume to 0.
-					//Most efficient way of setting up controller/slave
-					if(data.controllerDevice === thisDevice){
-						_player.setVolume(0);
-						$('#volumeRange').val('0');
-					}
+			socket.emit('pause', data);
 
 
 
-					_player.stopVideo();
+				//=============================//
+				//Listen for socket ON
+				//=============================//
+				socket.on('pauseOn', function(response){
 
-					//Updates button ui
-					$('#play-btn').attr('src', 'images/icons/play-wht.png');
+					//Check to see if this client matches the pauseOn command
+					if(data.device === thisDevice || data.controllerDevice === thisDevice){
 
-					_playerPlaying = !_playerPlaying;
-				}//if
-			});//socket.on
+						//Sets the controlling device to MUTE.
+						//Most efficient way of setting up controller/slave
+						if(data.controllerDevice === thisDevice){
+							_player.mute();
+						}
+
+
+
+						_player.stopVideo();
+
+						//Updates button ui
+						$('#play-btn').attr('src', 'images/icons/play-wht.png');
+
+						_playerPlaying = !_playerPlaying;
+					}//if
+				});//socket.on
+		}//else
 	}//pause()
 
 

@@ -44,6 +44,24 @@ module.exports.controller = function(app){
 
 
 
+			//========================================//
+			//Receives VOLUME commands from client emit
+			//========================================//
+			socket.on('volume', function (data) {
+			  console.log("pauseOn", data);
+
+			  //Broadcast message to listening clients
+			  socket.emit('volumeOn', data);
+			});
+
+
+
+
+
+
+
+
+
 
 		});//ioServer
 	});//.get
