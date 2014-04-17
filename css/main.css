@@ -1218,26 +1218,26 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   border: 1px solid black;
 }
 
-.settings-wrapper {
+.info-wrapper {
   overflow: hidden;
 }
 
-.settings-col1, .settings-col2, .settings-col3 {
+.info-col1, .info-col2, .info-col3 {
   width: 33.3333333%;
   height: 100%;
   float: left;
   padding-left: 2%;
 }
 
-.settings-col1 {
+.info-col1 {
   background: red;
 }
 
-.settings-col2 {
+.info-col2 {
   background: white;
 }
 
-.settings-col3 {
+.info-col3 {
   background: green;
 }
 

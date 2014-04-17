@@ -18,41 +18,98 @@
 
 <div id="test-frame">
 
-		<div class="settings-wrapper">
-			<div class="settings-col1">
+		<div class="info-wrapper">
 
-				<p class="bold">Basic info </p>
+			<div class="info-col1">
+
+				<p class="">Basic info </p>
 
 					<form>
+						<label for="infoName">Display Name</label>
 						<input id="infoName" type="text" class="" value="" placeholder="Display Name"/>
+
+						<label for="infoEmail">Email</label>
 						<input id="infoEmail" type="text" class="" value="" placeholder="Email"/>
 
+						<label for="infoBirthdate">Birthdate</label>
+						<input id="infoBirthdate" type="text" class="" value="" placeholder="03/08/1979"/>
 
-						<p class="bold">Change your password</p>
-
-						<input id="infoCurrentPass" type="text" class="" placeholder="Current Password"/>
-						<input id="infoPass" type="text" class="" placeholder="Password"/>
-						<input id="infoPassAgain" type="text" class="" placeholder="Password again"/>
+						<label for="infoTitle">Title</label>
+						<select id="infoTitle">
+							<option>Mr.</option>
+							<option>Mrs.</option>
+							<option>Ms.</option>
+						</select>
 
 						<input id="updateInfo" type="submit" value="Save"/>
 					</form>
 
-			</div><!-- /.settings-col1 -->
+				<p class="">Change your password</p>
 
-			<div class="settings-col2">
-			</div><!-- /.settings-col2 -->
+					<form>
 
-			<div class="settings-col3">
-			</div><!-- /.settings-col3 -->
+						<label for="infoCurrentPass">Current Password</label>
+						<input id="infoCurrentPass" type="text" class="" placeholder="Current Password"/>
+
+						<label for="infoPass">New Password</label>
+						<input id="infoPass" type="text" class="" placeholder="Password"/>
+
+						<label for="infoPassAgain">New Password Again</label>
+						<input id="infoPassAgain" type="text" class="" placeholder="Password again"/>
+
+						<input id="resetPasswordInfo" type="submit" value="Change Password"/>
+					</form>
+
+			</div><!-- /.info-col1 -->
+
+			<div class="info-col2">
+
+				<p class="">Upgrade to ad free <span class="small">$5/month</span></p>
+
+					<form>
+						<label for="infoCardName">Name on Card</label>
+						<input id="infoCardName" type="text" class="" value="" placeholder="Name on Card"/>
+
+						<label for="infoCardNum">Card #</label>
+						<input id="infoCardNum" type="text" class="" value="" placeholder="Card #"/>
+
+						<label for="infoExpir">Expiration</label>
+						<input id="infoExpir" type="text" class="" value="" placeholder="Expiration"/>
+
+						<label for="infoCSC">CSC</label>
+						<input id="infoCSC" type="text" class="" value="" placeholder="CSC"/>
+
+						<input id="upgradeInfo" type="submit" value="Upgrade"/>
+					</form>
 
 
-<!--
-			<div class="profile-links">
-				<a href="#" id="logoutLink" class="logout-link">Log out</a>
-				<a href="#" id="deleteAccount" class="red delete-account-link">Delete account</a>
-			</div><!-- /.profile-links -->
+				<p class="">Account Options</p>
 
-	</div><!-- /.settings-wrapper -->
+					<label for="emailUpdatesInfo">Receive email updates</label>
+					<input id="emailUpdatesInfo" type="checkbox" value=""/>
+
+					<a href="#" id="logoutLink" class="logout-link">Log out</a>
+					<a href="#" id="deleteAccount" class="red delete-account-link">Delete account</a>
+
+			</div><!-- /.info-col2 -->
+
+			<div class="info-col3">
+
+				<p class="">Your Devices</p>
+
+					<form>
+						<label for="infoDeviceName">Name this device</label>
+						<input id="infoDeviceName" type="text" value="" placeholder="Name this device"/>
+
+						<input id="updateDeviceName" type="submit" value="Save"/>
+					</form>
+
+					<ul>
+						<li>My device <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
+					</ul>
+
+			</div><!-- /.info-col3 -->
+	</div><!-- /.info-wrapper -->
 
 
 

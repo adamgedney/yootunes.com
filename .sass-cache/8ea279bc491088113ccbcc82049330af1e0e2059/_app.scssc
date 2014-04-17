@@ -1,7 +1,7 @@
 3.2.9 (Media Mark)
-bff171e5362fc0197fbc2e1c55c227e23c0305a7
+14cbd94a8192a65fd5f6dcf96c07877bee4f8b10
 o:Sass::Tree::RootNode
-:@template"G@/*
+:@template"+@/*
 	Thanks for checking out my code!!
 
 
@@ -790,26 +790,26 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	border: 1px solid black;
 }
 
-.settings-wrapper{
+.info-wrapper{
 	overflow: hidden;
 }
 
-.settings-col1, .settings-col2, .settings-col3{
+.info-col1, .info-col2, .info-col3{
 	@include col(4);
 	height: 100%;
 	float: left;
 	padding-left: 2%;
 }
 
-.settings-col1{
+.info-col1{
 	background: red;
 }
 
-.settings-col2{
+.info-col2{
 	background: white;
 }
 
-.settings-col3{
+.info-col3{
 	background: green;
 }
 
@@ -1664,17 +1664,17 @@ right;@;@;i¸;;;@;["svg, img;i·; o;!;"" ;i·;#[o;$;#[o;%
 ;[ ;["+/*==================================*/;@;io;;i ;[o;;i ;["
 width;[ ;o;;	;;"1000px;@;@;i;;o;;i ;["height;[ ;o;;	;;"
 590px;@;@;i;;o;;i ;["border;[ ;o;;	;;"1px solid black;@;@;i;;;@;["#test-frame;i; o;!;"" ;i;#[o;$;#[o;%
-;&0;"@ß;'o;(;){ ;i;#[o;4;["test-frame;"@ß;i;,To;;i ;[o;;i ;["overflow;[ ;o;;	;;"hidden;@;@;i;;;@;[".settings-wrapper;i; o;!;"" ;i;#[o;$;#[o;%
-;&0;"@õ;'o;(;){ ;i;#[o;-;["settings-wrapper;"@õ;i;,To;;i ;[	o;;"col;[ ;@;{ ;i;0;[o;;i	;@;@9;i;[ ;"4o;;i ;["height;[ ;o;;	;;"	100%;@;@;i;;o;;i ;["
-float;[ ;o;;	;;"	left;@;@;i;;o;;i ;["padding-left;[ ;o;;	;;"2%;@;@;i;;;@;["3.settings-col1, .settings-col2, .settings-col3;i; o;!;"" ;i;#[o;$;#[o;%
-;&0;"@;'o;(;){ ;i;#[o;-;["settings-col1;"@;io;$;#[o;%
-;&0;"@;'o;(;){ ;i;#[o;-;["settings-col2;"@;io;$;#[o;%
-;&0;"@;'o;(;){ ;i;#[o;-;["settings-col3;"@;i;,To;;i ;[o;;i ;["background;[ ;o;;	;;"red;@;@;i";;;@;[".settings-col1;i!; o;!;"" ;i!;#[o;$;#[o;%
-;&0;"@G;'o;(;){ ;i!;#[o;-;["settings-col1;"@G;i!;,To;;i ;[o;;i ;["background;[ ;o;;	;;"
-white;@;@;i&;;;@;[".settings-col2;i%; o;!;"" ;i%;#[o;$;#[o;%
-;&0;"@];'o;(;){ ;i%;#[o;-;["settings-col2;"@];i%;,To;;i ;[o;;i ;["background;[ ;o;;	;;"
-green;@;@;i*;;;@;[".settings-col3;i); o;!;"" ;i);#[o;$;#[o;%
-;&0;"@s;'o;(;){ ;i);#[o;-;["settings-col3;"@s;i);,To;
+;&0;"@ß;'o;(;){ ;i;#[o;4;["test-frame;"@ß;i;,To;;i ;[o;;i ;["overflow;[ ;o;;	;;"hidden;@;@;i;;;@;[".info-wrapper;i; o;!;"" ;i;#[o;$;#[o;%
+;&0;"@õ;'o;(;){ ;i;#[o;-;["info-wrapper;"@õ;i;,To;;i ;[	o;;"col;[ ;@;{ ;i;0;[o;;i	;@;@9;i;[ ;"4o;;i ;["height;[ ;o;;	;;"	100%;@;@;i;;o;;i ;["
+float;[ ;o;;	;;"	left;@;@;i;;o;;i ;["padding-left;[ ;o;;	;;"2%;@;@;i;;;@;["'.info-col1, .info-col2, .info-col3;i; o;!;"" ;i;#[o;$;#[o;%
+;&0;"@;'o;(;){ ;i;#[o;-;["info-col1;"@;io;$;#[o;%
+;&0;"@;'o;(;){ ;i;#[o;-;["info-col2;"@;io;$;#[o;%
+;&0;"@;'o;(;){ ;i;#[o;-;["info-col3;"@;i;,To;;i ;[o;;i ;["background;[ ;o;;	;;"red;@;@;i";;;@;[".info-col1;i!; o;!;"" ;i!;#[o;$;#[o;%
+;&0;"@G;'o;(;){ ;i!;#[o;-;["info-col1;"@G;i!;,To;;i ;[o;;i ;["background;[ ;o;;	;;"
+white;@;@;i&;;;@;[".info-col2;i%; o;!;"" ;i%;#[o;$;#[o;%
+;&0;"@];'o;(;){ ;i%;#[o;-;["info-col2;"@];i%;,To;;i ;[o;;i ;["background;[ ;o;;	;;"
+green;@;@;i*;;;@;[".info-col3;i); o;!;"" ;i);#[o;$;#[o;%
+;&0;"@s;'o;(;){ ;i);#[o;-;["info-col3;"@s;i);,To;
 ;	;
 ;[ ;["+/*==================================*/;@;i6o;
 ;	;
