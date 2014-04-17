@@ -1252,6 +1252,9 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   border-bottom: 1px solid #e2e2e2;
 }
 
+.info-col1 {
+  overflow: hidden;
+}
 .info-col1 select {
   background: #fff;
   width: 100%;
@@ -1264,6 +1267,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   -webkit-appearance: none;
   border: 1px solid #949494;
   margin-bottom: 9px;
+}
+
+#infoId {
+  float: right;
 }
 
 .info-col2 {

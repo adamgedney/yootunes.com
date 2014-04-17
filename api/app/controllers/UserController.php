@@ -422,10 +422,57 @@ class UserController extends BaseController {
 
 
 	//Devices====================//
-	public function newDevice()
+	public function newDevice($userId, $name)
 	{
-		return "Testing route";
+		$insertDevice = NULL;
+
+		$deviceExists = Devices::where('user_id', '=', $userId)
+									->where('name', '=', $name)
+									->count();
+
+
+		//If this is a new device, insert
+		if($deviceExists === 0){
+
+			$insertDevice = Devices::insert(array(
+				'user_id' => $userId,
+				'name'=> $name
+			));
+		}
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($insertDevice);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+	public function getDevices($userId)
+	{
+
+		$devices = Devices::where('user_id', '=', $userId)
+							->get();
+
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($devices);
+	}
+
+
+
+
+
 
 
 
@@ -438,10 +485,7 @@ class UserController extends BaseController {
 
 
 
-	public function getDevices()
-	{
-		return "Testing route";
-	}
+
 
 
 

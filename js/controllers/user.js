@@ -3,10 +3,11 @@ var User = (function(window, document, $){
 
 
 	//instances
-	// var _content 	= new Content();
+
 
 	//private vars
-	// var _foo = 'bar';
+	var _baseUrl 	= 'http://localhost:8887';
+	var _userId 	= '';
 
 
 
@@ -21,9 +22,44 @@ var User = (function(window, document, $){
 	//constructor function
 	var user = function(){
 
+		//When instance loads, listen for user to sign in then store id
+		$(document).on('userLoggedIn', function(event){
+			_userId = event.userId;
+		});
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+		//Name this device
+		$(document).on('click', '#updateDeviceName', function(event){
+			event.preventDefault();
+
+			var name 	= $('#infoDeviceName').val();
+				_userId = $('#infoId').html();
+
+			var API_URL = _baseUrl + '/new-device/' + _userId + '/' + name;
+
+			$.ajax({
+				url : API_URL,
+				method : 'GET',
+				dataType : 'json',
+				success : function(response){
+					console.log(response, "new device name response");
+
+
+				}//success
+			});//ajax
+		});//updateDeviceName
 
 
 

@@ -756,6 +756,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .info-col1{
+	overflow: hidden;
 
 	select{
 		background: #fff;
@@ -770,6 +771,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		border: 1px solid nth($grey, 3);
 		margin-bottom: 9px;
 	}
+}
+
+#infoId{
+	float: right;
 }
 
 .info-col2{

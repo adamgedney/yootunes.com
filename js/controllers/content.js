@@ -15,6 +15,7 @@ var Content = (function(window, document, $){
 	var _sortOrder		= 'def';
 	var _currentContent = '';
 	var _baseUrl 		= 'http://localhost:8887';
+	var _thisDevice 	= 'Macbook Pro';
 
 
 
@@ -53,18 +54,6 @@ var Content = (function(window, document, $){
 
 
 
-
-
-
-
-
-
-
-		//Device Settings page load interaction=========//
-		$(document).on('click', '#deviceSettings', function(event){
-
-			loadDeviceSettings();
-		});
 
 
 
@@ -317,6 +306,7 @@ var Content = (function(window, document, $){
 
 			//Listen for acctSettings view render
 			if(event.template === '#acctSettings'){
+				$('#infoDeviceList').empty();
 
 				var API_URL = _baseUrl + '/get-user/' + _userId;
 
@@ -331,12 +321,41 @@ var Content = (function(window, document, $){
 
 						$('#infoName').val(response[0].display_name);
 						$('#infoEmail').val(response[0].email);
+						$('#infoId').html(response[0].id);
 
 					}//success
 				});//ajax
+
+
+
+				var API_URL_2 = _baseUrl + '/get-devices/' + _userId;
+
+				//Get current user's devices
+				$.ajax({
+					url : API_URL_2,
+					method : 'GET',
+					dataType : 'json',
+					success : function(response){
+						console.log(response[0].name, "get devices call response");
+
+						//Loop through device list
+						for(var j=0;j<response.length;j++){
+
+							//If device is this device, set name
+							if(response[j].name === _thisDevice){
+								//Set the current device if it matches the cookie
+								$('#infoDeviceName').val(response[j].name);
+
+							}else{
+
+								//Populate list
+								var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
+								$('#infoDeviceList').append(li);
+							}//else
+						}//for
+					}//success
+				});//ajax
 			}//acctSettings
-
-
 		});//onRendered
 
 

@@ -29,11 +29,11 @@ Route::get('restore-user/{email}/{pw}', 'UserController@restoreUser');
 
 
 //Devices
-// Route::get('new-device', 'UserController@newDevice');
+Route::get('new-device/{userId}/{name}', 'UserController@newDevice');
 
 // Route::get('get-device', 'UserController@getDevice');
 
-// Route::get('get-devices', 'UserController@getDevices');
+Route::get('get-devices/{userId}', 'UserController@getDevices');
 
 // Route::get('delete-device', 'UserController@deleteDevice');
 

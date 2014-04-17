@@ -21,7 +21,7 @@
 
 			<div class="info-col1">
 
-				<p class="">Basic info </p>
+				<p class="">Basic info <span class="small" id="infoId"></span></p>
 
 					<form>
 						<label for="infoTitle">Title</label>
@@ -99,7 +99,7 @@
 				<p class="">Your Devices</p>
 
 					<form>
-						<label for="infoDeviceName">Name this device</label>
+						<label for="infoDeviceName">This device</label>
 						<input id="infoDeviceName" type="text" value="" placeholder="Name this device"/>
 
 						<input id="updateDeviceName" type="submit" value="Save"/>
@@ -107,9 +107,7 @@
 
 					<label for="infoDeviceList">Your devices</label>
 					<ul id="infoDeviceList">
-						<li>My MacPro <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
-						<li>My Android <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
-						<li>Julie's Macbook <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
+						<!-- dynamically inserted li-->
 					</ul>
 
 			</div><!-- /.info-col3 -->
