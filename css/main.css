@@ -1220,25 +1220,80 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 .info-wrapper {
   overflow: hidden;
+  padding: 2%;
+  position: relative;
+}
+.info-wrapper input[type="text"], .info-wrapper input[type="password"], .info-wrapper input[type="submit"], .info-wrapper select, .info-wrapper button {
+  height: 36px;
+}
+.info-wrapper input[type="submit"], .info-wrapper button {
+  width: 100%;
+  height: 45px;
+  background: #3b578a;
+  color: #ebebeb;
+  line-height: 16px;
+  border: none;
+}
+.info-wrapper label {
+  display: block;
+  font-size: 1.2em;
+  color: #494f4f;
+}
+.info-wrapper .second-form {
+  margin-top: 36px;
 }
 
 .info-col1, .info-col2, .info-col3 {
   width: 33.3333333%;
   height: 100%;
   float: left;
-  padding-left: 2%;
+}
+.info-col1 p, .info-col2 p, .info-col3 p {
+  border-bottom: 1px solid #e2e2e2;
 }
 
-.info-col1 {
-  background: red;
+.info-col1 select {
+  background: #fff;
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  line-height: 1;
+  border: 0;
+  border-radius: 2px;
+  height: 36px;
+  -webkit-appearance: none;
+  border: 1px solid #949494;
+  margin-bottom: 9px;
 }
 
 .info-col2 {
-  background: white;
+  padding-left: 2%;
+}
+.info-col2 label[for="emailUpdatesInfo"], .info-col2 input[type="checkbox"] {
+  display: inline;
+  vertical-align: middle;
+}
+
+#logoutLink {
+  margin-top: 36px;
+}
+
+#deleteAccount {
+  background: #cf2425;
 }
 
 .info-col3 {
-  background: green;
+  padding-left: 2%;
+}
+.info-col3 ul li {
+  overflow: hidden;
+  border-top: 1px solid #949494;
+  line-height: 36px;
+}
+.info-col3 ul li img {
+  height: 12px;
+  float: right;
+  margin-top: 10px;
 }
 
 /*==================================*/

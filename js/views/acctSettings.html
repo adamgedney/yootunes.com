@@ -17,35 +17,103 @@
 
 
 
-	<div class="profile-edit-menu">
-		<div class="profile-form">
+	<div class="info-wrapper">
 
-			<p class="bold profile-edit-menu-heading">Basic info </p>
+			<div class="info-col1">
 
-				<form>
-					<input id="infoName" type="text" class="profile-edit-name" value="" placeholder="Display Name"/>
-					<input id="infoEmail" type="text" class="profile-edit-email" value="" placeholder="Email"/>
+				<p class="">Basic info </p>
+
+					<form>
+						<label for="infoTitle">Title</label>
+						<select id="infoTitle">
+							<option>Mr.</option>
+							<option>Mrs.</option>
+							<option>Ms.</option>
+						</select>
+
+						<label for="infoName">Full Name</label>
+						<input id="infoName" type="text" class="" value="" placeholder="Full Name"/>
+
+						<label for="infoEmail">Email</label>
+						<input id="infoEmail" type="text" class="" value="" placeholder="Email"/>
+
+						<label for="infoBirthdate">Birthdate</label>
+						<input id="infoBirthdate" type="text" class="" value="" placeholder="03/08/1979"/>
+
+						<input id="updateInfo" type="submit" value="Save"/>
+					</form>
+
+				<p class="second-form">Change your password</p>
+
+					<form>
+
+						<label for="infoCurrentPass">Current Password</label>
+						<input id="infoCurrentPass" type="text" class="" placeholder="Current Password"/>
+
+						<label for="infoPass">New Password</label>
+						<input id="infoPass" type="text" class="" placeholder="Password"/>
+
+						<label for="infoPassAgain">New Password Again</label>
+						<input id="infoPassAgain" type="text" class="" placeholder="Password again"/>
+
+						<input id="resetPasswordInfo" type="submit" value="Change Password"/>
+					</form>
+
+			</div><!-- /.info-col1 -->
+
+			<div class="info-col2">
+
+				<p class="">Upgrade to ad free <span class="small">$5/month</span></p>
+
+					<form>
+						<label for="infoCardName">Name on Card</label>
+						<input id="infoCardName" type="text" class="" value="" placeholder="Name on Card"/>
+
+						<label for="infoCardNum">Card #</label>
+						<input id="infoCardNum" type="text" class="" value="" placeholder="Card #"/>
+
+						<label for="infoExpir">Expiration</label>
+						<input id="infoExpir" type="text" class="" value="" placeholder="Expiration"/>
+
+						<label for="infoCSC">CSC</label>
+						<input id="infoCSC" type="text" class="" value="" placeholder="CSC"/>
+
+						<input id="upgradeInfo" type="submit" value="Upgrade"/>
+					</form>
 
 
-					<p class="bold profile-edit-menu-heading">Change your password</p>
+				<p class="second-form">Account Options</p>
 
-					<input id="infoCurrentPass" type="text" class="profile-edit-password" placeholder="Current Password"/>
-					<input id="infoPass" type="text" class="profile-edit-password" placeholder="Password"/>
-					<input id="infoPassAgain" type="text" class="profile-edit-password again" placeholder="Password again"/>
+					<input id="emailUpdatesInfo" type="checkbox" value="receiveEmails" checked/>
+					<label for="emailUpdatesInfo">Receive email updates</label>
 
-					<input id="updateInfo" type="submit" value="Save"/>
-				</form>
-
-		</div><!-- /.profile-form -->
+					<button id="logoutLink">Log out of YooTunes</button>
+					<button id="deleteAccount" >Delete Account</button>
 
 
 
-			<div class="profile-links">
-				<a href="#" id="logoutLink" class="logout-link">Log out</a>
-				<a href="#" id="deleteAccount" class="red delete-account-link">Delete account</a>
-			</div><!-- /.profile-links -->
+			</div><!-- /.info-col2 -->
 
-	</div><!-- /.profile-edit-menu -->
+			<div class="info-col3">
+
+				<p class="">Your Devices</p>
+
+					<form>
+						<label for="infoDeviceName">Name this device</label>
+						<input id="infoDeviceName" type="text" value="" placeholder="Name this device"/>
+
+						<input id="updateDeviceName" type="submit" value="Save"/>
+					</form>
+
+					<label for="infoDeviceList">Your devices</label>
+					<ul id="infoDeviceList">
+						<li>My MacPro <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
+						<li>My Android <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
+						<li>Julie's Macbook <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
+					</ul>
+
+			</div><!-- /.info-col3 -->
+	</div><!-- /.info-wrapper -->
 
 
 	</script>

@@ -25,15 +25,6 @@
 				<p class="">Basic info </p>
 
 					<form>
-						<label for="infoName">Display Name</label>
-						<input id="infoName" type="text" class="" value="" placeholder="Display Name"/>
-
-						<label for="infoEmail">Email</label>
-						<input id="infoEmail" type="text" class="" value="" placeholder="Email"/>
-
-						<label for="infoBirthdate">Birthdate</label>
-						<input id="infoBirthdate" type="text" class="" value="" placeholder="03/08/1979"/>
-
 						<label for="infoTitle">Title</label>
 						<select id="infoTitle">
 							<option>Mr.</option>
@@ -41,10 +32,19 @@
 							<option>Ms.</option>
 						</select>
 
+						<label for="infoName">Full Name</label>
+						<input id="infoName" type="text" class="" value="" placeholder="Full Name"/>
+
+						<label for="infoEmail">Email</label>
+						<input id="infoEmail" type="text" class="" value="" placeholder="Email"/>
+
+						<label for="infoBirthdate">Birthdate</label>
+						<input id="infoBirthdate" type="text" class="" value="" placeholder="03/08/1979"/>
+
 						<input id="updateInfo" type="submit" value="Save"/>
 					</form>
 
-				<p class="">Change your password</p>
+				<p class="second-form">Change your password</p>
 
 					<form>
 
@@ -83,13 +83,15 @@
 					</form>
 
 
-				<p class="">Account Options</p>
+				<p class="second-form">Account Options</p>
 
-					<label for="emailUpdatesInfo">Receive email updates</label>
 					<input id="emailUpdatesInfo" type="checkbox" value=""/>
+					<label for="emailUpdatesInfo">Receive email updates</label>
 
-					<a href="#" id="logoutLink" class="logout-link">Log out</a>
-					<a href="#" id="deleteAccount" class="red delete-account-link">Delete account</a>
+					<button id="logoutLink">Log out of YooTunes</button>
+					<button id="deleteAccount" >Delete Account</button>
+
+
 
 			</div><!-- /.info-col2 -->
 
@@ -104,8 +106,11 @@
 						<input id="updateDeviceName" type="submit" value="Save"/>
 					</form>
 
-					<ul>
-						<li>My device <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
+					<label for="infoDeviceList">Your devices</label>
+					<ul id="infoDeviceList">
+						<li>My MacPro <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
+						<li>My Android <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
+						<li>Julie's Macbook <img id="deleteDevice" src="images/icons/trash-icon.svg"/></li>
 					</ul>
 
 			</div><!-- /.info-col3 -->

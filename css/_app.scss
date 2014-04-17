@@ -707,77 +707,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 
-
-//footer popout for profile
-// .profile-edit-menu{
-// 	position: relative;
-// 	overflow: hidden;
-
-// 	&:before{
-// 		border-top: 9px solid  #fff;
-// 		border-right: 3px solid transparent;
-// 		border-left: 3px solid transparent;
-// 		position: absolute;
-// 		top: initial;
-// 		bottom: -12px;
-// 		right: 6.5%;
-
-// 	}
-
-// 	input{
-// 		@include col(10);
-// 		@include col-ctr(10);
-// 		height: 36px;
-// 	}
-
-// 	input[type="submit"]{
-// 		background: $red;
-// 		color: $white;
-// 	}
-
-// 	form{
-// 		margin-bottom: 72px;
-// 	}
-
-// 	a{
-// 		text-decoration: underline;
-// 		padding: 0 8.45% 9px;
-// 	}
-
-// 	a:nth-of-type(2){
-// 		float: right;
-// 	}
-// }
-
-// .profile-edit-menu-heading{
-// 	margin: 36px 0 9px 8.45%;
-// }
-
-// .profile-form{
-// 	float: left;
-// 	height: 100%;
-// 	@include col(4);
-// }
-
-// .profile-links{
-// 	float: right;
-// 	height: 100%;
-// 	width: 120px;
-// 	text-align: right;
-// 	margin-top: 3%;
-// 	padding: 0 1% 0 0;
-
-// 	a.delete-account-link{
-// 		display: block;
-// 		position: absolute;
-// 		right: 1%;
-// 		bottom: 3%;
-// 		padding: 0;
-// 		z-index: 1000;
-// 	}
-// }
-
-
 /*==================================*/
 /*Account Settings Page*/
 /*==================================*/
@@ -789,25 +718,95 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 .info-wrapper{
 	overflow: hidden;
+	padding: 2%;
+	position: relative;
+
+	input[type="text"], input[type="password"], input[type="submit"], select, button{
+		height: 36px;
+	}
+
+	input[type="submit"], button{
+		@include col(12);
+		height: 45px;
+		background: $blue;
+		color: $white;
+		line-height: 16px;
+		border: none;
+	}
+
+	label{
+		display: block;
+		font-size: 1.2em;
+		color: nth($grey, 2);
+	}
+
+	.second-form{
+		margin-top: 36px;
+	}
 }
 
 .info-col1, .info-col2, .info-col3{
 	@include col(4);
 	height: 100%;
 	float: left;
-	padding-left: 2%;
+
+	p{
+		border-bottom: 1px solid nth($grey, 5);
+	}
 }
 
 .info-col1{
-	background: red;
+
+	select{
+		background: #fff;
+		@include col(12);
+		padding: 5px;
+		font-size: 16px;
+		line-height: 1;
+		border: 0;
+		border-radius: 2px;
+		height: 36px;
+		-webkit-appearance: none;
+		border: 1px solid nth($grey, 3);
+		margin-bottom: 9px;
+	}
 }
 
 .info-col2{
-	background: white;
+	padding-left: 2%;
+
+
+	label[for="emailUpdatesInfo"], input[type="checkbox"]{
+		display: inline;
+		vertical-align: middle;
+	}
 }
 
+#logoutLink{
+	margin-top: 36px;
+}
+
+#deleteAccount{
+	background: $red;
+}
+
+
 .info-col3{
-	background: green;
+	padding-left: 2%;
+
+	ul{
+		li{
+			overflow: hidden;
+			border-top: 1px solid nth($grey, 3);
+			line-height: 36px;
+
+			img{
+				height: 12px;
+				float: right;
+				margin-top: 10px;
+			}
+		}
+	}
 }
 
 

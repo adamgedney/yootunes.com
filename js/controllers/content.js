@@ -329,8 +329,8 @@ var Content = (function(window, document, $){
 					success : function(response){
 						console.log(response, "acct settings call response");
 
-						$('.profile-edit-name').val(response[0].display_name);
-						$('.profile-edit-email').val(response[0].email);
+						$('#infoName').val(response[0].display_name);
+						$('#infoEmail').val(response[0].email);
 
 					}//success
 				});//ajax
