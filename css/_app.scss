@@ -445,6 +445,7 @@ section.app{
 
 .li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col6, .li-col7{
 	max-height: 48px; //matches li line height
+	@extend .truncate;
 }
 
 .li-col1{
@@ -460,13 +461,14 @@ section.app{
 	display: inline-block;
 	@include col(4);
 	float: left;
+	padding-right: 2%;
+	margin-right: 2%;
 }
 
 .li-col3, .li-col4{
 	@include col(2);
 	display: inline-block;
 	float: left;
-	overflow: hidden;
 }
 
 .li-col3{
@@ -707,73 +709,113 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 //footer popout for profile
-.profile-edit-menu{
-	position: relative;
+// .profile-edit-menu{
+// 	position: relative;
+// 	overflow: hidden;
+
+// 	&:before{
+// 		border-top: 9px solid  #fff;
+// 		border-right: 3px solid transparent;
+// 		border-left: 3px solid transparent;
+// 		position: absolute;
+// 		top: initial;
+// 		bottom: -12px;
+// 		right: 6.5%;
+
+// 	}
+
+// 	input{
+// 		@include col(10);
+// 		@include col-ctr(10);
+// 		height: 36px;
+// 	}
+
+// 	input[type="submit"]{
+// 		background: $red;
+// 		color: $white;
+// 	}
+
+// 	form{
+// 		margin-bottom: 72px;
+// 	}
+
+// 	a{
+// 		text-decoration: underline;
+// 		padding: 0 8.45% 9px;
+// 	}
+
+// 	a:nth-of-type(2){
+// 		float: right;
+// 	}
+// }
+
+// .profile-edit-menu-heading{
+// 	margin: 36px 0 9px 8.45%;
+// }
+
+// .profile-form{
+// 	float: left;
+// 	height: 100%;
+// 	@include col(4);
+// }
+
+// .profile-links{
+// 	float: right;
+// 	height: 100%;
+// 	width: 120px;
+// 	text-align: right;
+// 	margin-top: 3%;
+// 	padding: 0 1% 0 0;
+
+// 	a.delete-account-link{
+// 		display: block;
+// 		position: absolute;
+// 		right: 1%;
+// 		bottom: 3%;
+// 		padding: 0;
+// 		z-index: 1000;
+// 	}
+// }
+
+
+/*==================================*/
+/*Account Settings Page*/
+/*==================================*/
+#test-frame{
+	width: 1000px;
+	height: 590px;
+	border: 1px solid black;
+}
+
+.settings-wrapper{
 	overflow: hidden;
-
-	&:before{
-		border-top: 9px solid  #fff;
-		border-right: 3px solid transparent;
-		border-left: 3px solid transparent;
-		position: absolute;
-		top: initial;
-		bottom: -12px;
-		right: 6.5%;
-
-	}
-
-	input{
-		@include col(10);
-		@include col-ctr(10);
-		height: 36px;
-	}
-
-	input[type="submit"]{
-		background: $red;
-		color: $white;
-	}
-
-	form{
-		margin-bottom: 72px;
-	}
-
-	a{
-		text-decoration: underline;
-		padding: 0 8.45% 9px;
-	}
-
-	a:nth-of-type(2){
-		float: right;
-	}
 }
 
-.profile-edit-menu-heading{
-	margin: 36px 0 9px 8.45%;
-}
-
-.profile-form{
-	float: left;
-	height: 100%;
+.settings-col1, .settings-col2, .settings-col3{
 	@include col(4);
-}
-
-.profile-links{
-	float: right;
 	height: 100%;
-	width: 120px;
-	text-align: right;
-	margin-top: 3%;
-	padding: 0 1% 0 0;
-
-	a.delete-account-link{
-		display: block;
-		position: absolute;
-		right: 1%;
-		bottom: 3%;
-		padding: 0;
-		z-index: 1000;
-	}
+	float: left;
+	padding-left: 2%;
 }
+
+.settings-col1{
+	background: red;
+}
+
+.settings-col2{
+	background: white;
+}
+
+.settings-col3{
+	background: green;
+}
+
+
+
+
+
+
+
 
 
 

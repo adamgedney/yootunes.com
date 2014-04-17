@@ -717,7 +717,7 @@ svg:hover, img:hover {
   opacity: .5;
 }
 
-.truncate {
+.truncate, .li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col6, .li-col7 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1009,13 +1009,14 @@ section.app {
   display: inline-block;
   width: 33.3333333%;
   float: left;
+  padding-right: 2%;
+  margin-right: 2%;
 }
 
 .li-col3, .li-col4 {
   width: 16.6666667%;
   display: inline-block;
   float: left;
-  overflow: hidden;
 }
 
 .li-col3 {
@@ -1208,65 +1209,36 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   float: right;
 }
 
-.profile-edit-menu {
-  position: relative;
+/*==================================*/
+/*Account Settings Page*/
+/*==================================*/
+#test-frame {
+  width: 1000px;
+  height: 590px;
+  border: 1px solid black;
+}
+
+.settings-wrapper {
   overflow: hidden;
 }
-.profile-edit-menu:before {
-  border-top: 9px solid  #fff;
-  border-right: 3px solid transparent;
-  border-left: 3px solid transparent;
-  position: absolute;
-  top: initial;
-  bottom: -12px;
-  right: 6.5%;
-}
-.profile-edit-menu input {
-  width: 83.3333333%;
-  margin-left: 8.33333335%;
-  margin-right: 8.33333335%;
-  height: 36px;
-}
-.profile-edit-menu input[type="submit"] {
-  background: #cf2425;
-  color: #ebebeb;
-}
-.profile-edit-menu form {
-  margin-bottom: 72px;
-}
-.profile-edit-menu a {
-  text-decoration: underline;
-  padding: 0 8.45% 9px;
-}
-.profile-edit-menu a:nth-of-type(2) {
-  float: right;
-}
 
-.profile-edit-menu-heading {
-  margin: 36px 0 9px 8.45%;
-}
-
-.profile-form {
-  float: left;
-  height: 100%;
+.settings-col1, .settings-col2, .settings-col3 {
   width: 33.3333333%;
+  height: 100%;
+  float: left;
+  padding-left: 2%;
 }
 
-.profile-links {
-  float: right;
-  height: 100%;
-  width: 120px;
-  text-align: right;
-  margin-top: 3%;
-  padding: 0 1% 0 0;
+.settings-col1 {
+  background: red;
 }
-.profile-links a.delete-account-link {
-  display: block;
-  position: absolute;
-  right: 1%;
-  bottom: 3%;
-  padding: 0;
-  z-index: 1000;
+
+.settings-col2 {
+  background: white;
+}
+
+.settings-col3 {
+  background: green;
 }
 
 /*==================================*/
