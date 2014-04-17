@@ -35,7 +35,7 @@ Route::get('new-device/{userId}/{name}', 'UserController@newDevice');
 
 Route::get('get-devices/{userId}', 'UserController@getDevices');
 
-// Route::get('delete-device', 'UserController@deleteDevice');
+Route::get('delete-device/{deviceId}', 'UserController@deleteDevice');
 
 
 

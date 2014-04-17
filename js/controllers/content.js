@@ -251,6 +251,9 @@ var Content = (function(window, document, $){
 				//Load playlists
 				loadPlaylists();
 
+				//Get Devices
+				getDevices();
+
 			}//if #app
 
 
@@ -306,7 +309,6 @@ var Content = (function(window, document, $){
 
 			//Listen for acctSettings view render
 			if(event.template === '#acctSettings'){
-				$('#infoDeviceList').empty();
 
 				var API_URL = _baseUrl + '/get-user/' + _userId;
 
@@ -328,35 +330,60 @@ var Content = (function(window, document, $){
 
 
 
-				var API_URL_2 = _baseUrl + '/get-devices/' + _userId;
+				//Get Devices
+				getDevices();
 
-				//Get current user's devices
-				$.ajax({
-					url : API_URL_2,
-					method : 'GET',
-					dataType : 'json',
-					success : function(response){
-						console.log(response[0].name, "get devices call response");
-
-						//Loop through device list
-						for(var j=0;j<response.length;j++){
-
-							//If device is this device, set name
-							if(response[j].name === _thisDevice){
-								//Set the current device if it matches the cookie
-								$('#infoDeviceName').val(response[j].name);
-
-							}else{
-
-								//Populate list
-								var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
-								$('#infoDeviceList').append(li);
-							}//else
-						}//for
-					}//success
-				});//ajax
 			}//acctSettings
 		});//onRendered
+
+
+
+
+
+
+
+
+
+		//Pickup return event
+		$(document).on('getDevices', function(data){
+			$('#play-on').empty();
+			$('#infoDeviceList').empty();
+
+
+			//Loop through device list
+			for(var j=0;j<data.response.length;j++){
+
+				//===================================//
+				//Settings page & app footer list
+				//===================================//
+				//If device is this device, set name
+				if(data.response[j].name === _thisDevice){
+					//Set the current device if it matches the cookie
+					$('#infoDeviceName').val(data.response[j].name);
+
+					//set footer list items first reult to the current device
+					var option = '<option data-id="' + data.response[j].id + '">' + data.response[j].name + '</option>';
+					$('#play-on').prepend(option);
+
+
+
+				}else{
+
+
+
+					//Populate SETTINGS PAGE list
+					var li = '<li>' + data.response[j].name + ' <img id="deleteDevice" data-id="' + data.response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
+					$('#infoDeviceList').append(li);
+
+
+
+					//Populate APP FOOTER list
+					var option = '<option data-id="' + data.response[j].id + '">' + data.response[j].name + '</option>';
+					$('#play-on').append(option);
+
+				}//else
+			}//for
+		});//on getDevices
 
 
 
@@ -427,6 +454,20 @@ var Content = (function(window, document, $){
 			event.preventDefault();
 
 			loadForgotPass();
+		});
+
+
+
+
+
+
+
+
+		//Reload devices when one was deleted
+		$(document).on('deviceDeleted', function(){
+
+			//Load devices
+			getDevices();
 		});
 
 
@@ -592,7 +633,7 @@ var Content = (function(window, document, $){
 
 		//Load YouTube Player API scripts
 		var tag = document.createElement('script');
-			tag.src = "http://www.youtube.com/player_api";
+			tag.src = "https://www.youtube.com/player_api";
 
 		var firstScriptTag = document.getElementsByTagName('script')[0];
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -903,6 +944,39 @@ var Content = (function(window, document, $){
 		for(var i=0; i<selectors.length;i++){
 			$(selectors[i]).hide();
 		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	function getDevices(){
+		var API_URL = _baseUrl + '/get-devices/' + _userId;
+
+		//Get current user's devices
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+
+				//Broadcast response
+				$(document).trigger({
+					type		: 'getDevices',
+					response 	: response
+				});
+
+			}//success
+		});//ajax
 	}
 
 

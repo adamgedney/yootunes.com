@@ -428,6 +428,7 @@ class UserController extends BaseController {
 
 		$deviceExists = Devices::where('user_id', '=', $userId)
 									->where('name', '=', $name)
+									->where('is_deleted', '!=', 'true')
 									->count();
 
 
@@ -435,8 +436,9 @@ class UserController extends BaseController {
 		if($deviceExists === 0){
 
 			$insertDevice = Devices::insert(array(
-				'user_id' => $userId,
-				'name'=> $name
+				'user_id' 	=> $userId,
+				'name'		=> $name,
+				'is_deleted'=>'false'
 			));
 		}
 
@@ -461,6 +463,7 @@ class UserController extends BaseController {
 	{
 
 		$devices = Devices::where('user_id', '=', $userId)
+							->where('is_deleted', '=', 'false')
 							->get();
 
 
@@ -490,9 +493,15 @@ class UserController extends BaseController {
 
 
 
-	public function deleteDevice()
+	public function deleteDevice($deviceId)
 	{
-		return "Testing route";
+
+		$deleteDevice = Devices::where('id', '=', $deviceId)
+							->update(array('is_deleted' => 'true'));
+
+
+		header('Access-Control-Allow-Origin: *');
+		return Response::json($deleteDevice);
 	}
 
 
