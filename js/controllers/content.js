@@ -15,7 +15,7 @@ var Content = (function(window, document, $){
 	var _sortOrder		= 'def';
 	var _currentContent = '';
 	var _baseUrl 		= 'http://localhost:8887';
-	var _thisDevice 	= 'Macbook Pro';
+	var _thisDevice;
 
 
 
@@ -24,10 +24,27 @@ var Content = (function(window, document, $){
 	var content = function(){
 
 
-		//NOTE: add click unbinds
-		// $(".bet").unbind().click(function() {
-		// //Stuff
-		// });
+		//=========================================//
+		//Check for the stored device cookie in the browser
+		//=========================================//
+		var cookie = document.cookie;
+		var deviceCookie = cookie.indexOf("device");
+		console.log(deviceCookie, "devi e coolkie");
+		//If device cookie exists
+		if(deviceCookie === -1){
+
+			//set the cookie to default
+			//Set a device cookie for socket server control
+			document.cookie = "device=default";
+
+			_thisDevice = "0";
+
+
+		}else{
+
+			//Stored device name
+			_thisDevice = cookie.substr(deviceCookie + 7);
+		}
 
 
 
@@ -360,6 +377,7 @@ var Content = (function(window, document, $){
 				if(data.response[j].name === _thisDevice){
 					//Set the current device if it matches the cookie
 					$('#infoDeviceName').val(data.response[j].name);
+					$('#infoDeviceName').attr('data-id', data.response[j].id);
 
 					//set footer list items first reult to the current device
 					var option = '<option data-id="' + data.response[j].id + '">' + data.response[j].name + '</option>';
@@ -464,7 +482,7 @@ var Content = (function(window, document, $){
 
 
 		//Reload devices when one was deleted
-		$(document).on('deviceDeleted', function(){
+		$(document).on('reloadDevices', function(){
 
 			//Load devices
 			getDevices();

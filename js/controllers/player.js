@@ -30,8 +30,8 @@ var Player = (function(window, document, $){
 	var socket;
 
 	//Testing. Get this data from cookie
-	var thisDevice 		= 'my mac';
-	var playOnDevice 	= 'my mac';
+	var _thisDevice;
+	var _playOnDevice 		= '0';
 
 
 
@@ -39,9 +39,38 @@ var Player = (function(window, document, $){
 	//constructor method
 	var player = function(){
 
+		document.cookie = "device=0";
+		//=========================================//
+		//Check for the stored device cookie in the browser
+		//=========================================//
+		var cookie = document.cookie;
+		var deviceCookie = cookie.indexOf("device");
+		console.log(deviceCookie, "device cookie");
+
+		//If device cookie doesn't/does exist
+		if(deviceCookie === -1){//Does not exist
+
+			//set the cookie to default
+			//Set a device cookie for socket server control
+			document.cookie = "device=0";
+
+			_thisDevice = "0";
+
+
+		}else{//Cookie exists
+
+			//Stored device name
+			_thisDevice = cookie.substr(deviceCookie + 7);
+		}
+
+
+
+
+
+
 
 		//Connection to node socket server opened if playOn is enabled
-		if(thisDevice !== playOnDevice){
+		if(_thisDevice !== _playOnDevice){
 
 			socket = io.connect(socketServer);
 
@@ -338,9 +367,9 @@ var Player = (function(window, document, $){
 
 					//Build obj for socket transmission
 					var data = {
-						'device' 			: playOnDevice,
+						'device' 			: _playOnDevice,
 						'volume' 			: rangeVolume,
-						'controllerDevice' 	: thisDevice
+						'controllerDevice' 	: _thisDevice
 					}
 
 
@@ -357,11 +386,11 @@ var Player = (function(window, document, $){
 						socket.on('volumeOn', function(response){
 
 							//Check to see if this client matches the volumeOn command
-							if(data.device === thisDevice || data.controllerDevice === thisDevice){
+							if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
 
 								//Sets the controlling device volume to 0.
 								//Most efficient way of setting up controller/slave
-								if(data.controllerDevice === thisDevice){
+								if(data.controllerDevice === _thisDevice){
 									_player.mute();
 
 								}
@@ -738,10 +767,10 @@ var Player = (function(window, document, $){
 
 			//Build obj for socket transmission
 			var data = {
-				'device' 			: playOnDevice,
+				'device' 			: _playOnDevice,
 				'youtubeId' 		: youtubeId,
 				'newVideo'  		: 'false',
-				'controllerDevice' 	: thisDevice
+				'controllerDevice' 	: _thisDevice
 			}
 
 
@@ -779,12 +808,12 @@ var Player = (function(window, document, $){
 						console.log("socket play return event received", response);
 
 						//Check to see if this client matches the playOn command
-						if(data.device === thisDevice || data.controllerDevice === thisDevice){
+						if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
 
 
 							//Sets the controlling device to MUTE.
 							//Most efficient way of setting up controller/slave
-							if(data.controllerDevice === thisDevice){
+							if(data.controllerDevice === _thisDevice){
 								_player.mute();
 							}
 
@@ -847,8 +876,8 @@ var Player = (function(window, document, $){
 
 			//Build obj for socket transmission
 			var data = {
-				'device' 			: playOnDevice,
-				'controllerDevice' 	: thisDevice
+				'device' 			: _playOnDevice,
+				'controllerDevice' 	: _thisDevice
 			}
 
 
@@ -865,11 +894,11 @@ var Player = (function(window, document, $){
 				socket.on('pauseOn', function(response){
 
 					//Check to see if this client matches the pauseOn command
-					if(data.device === thisDevice || data.controllerDevice === thisDevice){
+					if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
 
 						//Sets the controlling device to MUTE.
 						//Most efficient way of setting up controller/slave
-						if(data.controllerDevice === thisDevice){
+						if(data.controllerDevice === _thisDevice){
 							_player.mute();
 						}
 

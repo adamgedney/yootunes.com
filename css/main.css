@@ -1271,6 +1271,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 #infoId {
   float: right;
+  margin-top: 9px;
 }
 
 .info-col2 {

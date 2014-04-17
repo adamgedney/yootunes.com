@@ -29,7 +29,7 @@ Route::get('restore-user/{email}/{pw}', 'UserController@restoreUser');
 
 
 //Devices
-Route::get('new-device/{userId}/{name}', 'UserController@newDevice');
+Route::get('device/{userId}/{name}/{currentDeviceId}', 'UserController@device');
 
 // Route::get('get-device', 'UserController@getDevice');
 

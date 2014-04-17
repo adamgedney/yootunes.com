@@ -702,6 +702,9 @@
 					//Delete the current user id cookie
 					deleteUIDCookie();
 
+					//Set user default device
+					setDeviceCookie('0');
+
 					//Load the application, fire event, set new cookie
 					loadApplication(response);
 
@@ -764,6 +767,20 @@
 		//redirects to root of application
 		window.location.href = '/';
 	}
+
+
+
+
+
+
+	function setDeviceCookie(deviceId){
+
+		//Set a device cookie for socket server control
+		document.cookie = "device=" + deviceId;
+	}
+
+
+
 
 
 

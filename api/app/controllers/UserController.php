@@ -28,6 +28,9 @@ class UserController extends BaseController {
 		//Create a new library for the user
 		Library::insert(array('user_id'=>$userId));
 
+		//Create a new default device for the user
+		$this->device($userId, 'default', '0');
+
 
 
 		//Return object
@@ -422,30 +425,52 @@ class UserController extends BaseController {
 
 
 	//Devices====================//
-	public function newDevice($userId, $name)
+	public function device($userId, $name, $currentDeviceId)
 	{
 		$insertDevice = NULL;
+		$updateDevice = NULL;
 
-		$deviceExists = Devices::where('user_id', '=', $userId)
+		$newDeviceExists = Devices::where('user_id', '=', $userId)
 									->where('name', '=', $name)
+									->where('is_deleted', '!=', 'true')
+									->count();
+
+		$currentDeviceExists = Devices::where('user_id', '=', $userId)
+									->where('name', '=', $currentDeviceId)
 									->where('is_deleted', '!=', 'true')
 									->count();
 
 
 		//If this is a new device, insert
-		if($deviceExists === 0){
+		if($newDeviceExists === 0 && $currentDeviceExists === 0){
 
 			$insertDevice = Devices::insert(array(
 				'user_id' 	=> $userId,
 				'name'		=> $name,
 				'is_deleted'=>'false'
 			));
+
+		//If new device name doesnt exist & the current device DOES EXIST
+		//That means this is an update
+		}else if($newDeviceExists === 0 && $currentDeviceExists !== 0){
+
+			$updateDevice = Devices::where('user_id', '=', $userId)
+									->where('name', '=', $currentDeviceId)
+									->update(array(
+										'name' => $name,
+									));
 		}
 
 
 
+		//return object
+		$obj = array(
+			'insertDevice' => $insertDevice,
+			'updateDevice' => $updateDevice
+		);
+
 		header('Access-Control-Allow-Origin: *');
-		return Response::json($insertDevice);
+		return Response::json($obj);
 	}
 
 

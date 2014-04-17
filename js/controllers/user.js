@@ -44,19 +44,30 @@ var User = (function(window, document, $){
 		$(document).on('click', '#updateDeviceName', function(event){
 			event.preventDefault();
 
-			var name 	= $('#infoDeviceName').val();
-				_userId = $('#infoId').html();
+			var currentDeviceId = "0";//default
+			var name 		= $('#infoDeviceName').val();
+				_userId 	= $('#infoId').html();
 
-			var API_URL = _baseUrl + '/new-device/' + _userId + '/' + name;
+			//If a device name already exists for this device, get it
+			if(!$('#infoDeviceName').attr('data-id') === ''){
+
+				 currentDeviceId = $('#infoDeviceName').attr('data-id');
+
+			}
+
+			var API_URL = _baseUrl + '/device/' + _userId + '/' + name + '/' + currentDeviceId;
 
 			$.ajax({
 				url : API_URL,
 				method : 'GET',
 				dataType : 'json',
 				success : function(response){
-					console.log(response, "new device name response");
+					console.log(response, "device response");
 
-
+					//Fires a complete event after  device has been added
+					$(document).trigger({
+						type : 'reloadDevices'
+					});
 				}//success
 			});//ajax
 		});//updateDeviceName
@@ -86,7 +97,7 @@ var User = (function(window, document, $){
 
 					//Fires a complete event after  device has been deleted
 					$(document).trigger({
-						type		: 'deviceDeleted'
+						type : 'reloadDevices'
 					});
 
 
