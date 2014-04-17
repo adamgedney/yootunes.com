@@ -86,7 +86,7 @@ $green: #2f7c2f;
 	font-weight: 700;
 }
 
-input[type="email"], input[type="text"], input[type="submit"], .copy-signup{
+input[type="email"], input[type="text"], input[type="submit"], input[type="password"], .copy-signup{
 	height: 48px;
 	@include col(12);
 }

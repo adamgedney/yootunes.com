@@ -202,7 +202,7 @@ input, button, textarea {
   font-weight: 700;
 }
 
-input[type="email"], input[type="text"], input[type="submit"], .copy-signup {
+input[type="email"], input[type="text"], input[type="submit"], input[type="password"], .copy-signup {
   height: 48px;
   width: 100%;
 }
@@ -721,6 +721,10 @@ svg:hover, img:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+input[type="password"] {
+  line-height: 16px;
 }
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
