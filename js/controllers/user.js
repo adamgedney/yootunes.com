@@ -24,12 +24,14 @@ var User = (function(window, document, $){
 	var user = function(){
 
 
-		//Retrieve cookies
-		getCookies();
+		//Retrieve cookies & set device & userId
+		var userCookies = getCookies();
+			_thisDevice = userCookies.thisDevice;
+			_userId 	= userCookies.userId;
 
 
 
-
+			console.log(app.content, "app content");
 
 
 
@@ -194,7 +196,7 @@ var User = (function(window, document, $){
 			if(cookieArray[c].indexOf("uid") !== -1){
 
 				//Set Class level userId
-				_userId = cookieArray[c].substr(4);
+				obj.userId = cookieArray[c].substr(4);
 			}
 
 
@@ -202,7 +204,7 @@ var User = (function(window, document, $){
 			if(cookieArray[c].indexOf("device") !== -1){
 
 				//Set class level device id
-				_thisDevice = cookieArray[c].substr(7);
+				obj.thisDevice = cookieArray[c].substr(7);
 			}
 		}//for
 

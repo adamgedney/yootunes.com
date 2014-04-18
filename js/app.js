@@ -3,14 +3,15 @@
 	//Instances==========//
 	var _baseUrl 		= 'http://localhost:8887';
 
-	var _app 			= {};
-		// _app.ads 		= new Ads(),
-		_app.content 	= new Content();
-		_app.library 	= new Library(),
-		// _app.log 		= new Log(),
-		_app.player 	= new Player(),
-		_app.user 		= new User(),
-		_app.ui 		= new Ui();
+	//Global object of app
+	window.app 			= {};
+		// app.ads 		= new Ads(),
+		app.content 	= new Content();
+		app.library 	= new Library(),
+		// app.log 		= new Log(),
+		app.player 	= new Player(),
+		app.user 		= new User(),
+		app.ui 		= new Ui();
 
 	var _auth 			= {};
 	var _user 			= {};
@@ -63,7 +64,7 @@
 						if(response.message === "Token valid"){
 
 							//Load the reset password view
-							_app.content.loadReset();
+							app.content.loadReset();
 
 							//Store the userId associated with the token
 							_user.tokenResponseId = response.userId;
@@ -83,14 +84,14 @@
 		//==========================================//
 		//Get cookies function from user class
 		//==========================================//
-		var cookies = _app.user.getCookies();
+		var cookies = app.user.getCookies();
 
 
 		//If uid cookie does not exist
 		if(cookies.userId === -1){
 
 			//Load landing page
-			_app.content.loadLanding();
+			app.content.loadLanding();
 
 		}else{//exists
 
@@ -564,7 +565,7 @@
 				console.log(response, "update user info response");
 
 				//Reload acct settings view
-				_app.content.loadAcctSettings();
+				app.content.loadAcctSettings();
 
 			}//success
 		});//ajax
@@ -720,7 +721,7 @@
 
 	function loadApplication(response){
 		//load the application
-		_app.content.loadApp();
+		app.content.loadApp();
 
 		//fire event passing user data to listening class
 		$.event.trigger({
@@ -740,7 +741,7 @@
 	function reloadLanding(){
 
 		//Load landing page
-		_app.content.loadLanding();
+		app.content.loadLanding();
 
 		//force reload to force google button reload
 		location.reload();
