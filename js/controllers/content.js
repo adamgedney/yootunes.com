@@ -24,28 +24,6 @@ var Content = (function(window, document, $){
 	var content = function(){
 
 
-		//=========================================//
-		//Check for the stored device cookie in the browser
-		//=========================================//
-		var cookie = document.cookie;
-		var deviceCookie = cookie.indexOf("device");
-		console.log(deviceCookie, "devi e coolkie");
-		//If device cookie exists
-		if(deviceCookie === -1){
-
-			//set the cookie to default
-			//Set a device cookie for socket server control
-			document.cookie = "device=default";
-
-			_thisDevice = "0";
-
-
-		}else{
-
-			//Stored device name
-			_thisDevice = cookie.substr(deviceCookie + 7);
-		}
-
 
 
 
@@ -310,8 +288,6 @@ var Content = (function(window, document, $){
 				//Load sub menu playlists
 				loadSubPlaylists();
 
-
-				//data-in-library="false"
 			}//#libraryItem event
 
 

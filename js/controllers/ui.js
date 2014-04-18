@@ -253,6 +253,7 @@ var Ui = (function(window, document, $){
 			//Hide modal window nodes
 			$('#restoreAcctModal').fadeOut();
 			$('#deleteAcctModal').fadeOut();
+			$('#nameDeviceModal').fadeOut();
 		});
 
 

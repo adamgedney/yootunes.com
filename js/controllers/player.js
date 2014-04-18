@@ -39,29 +39,7 @@ var Player = (function(window, document, $){
 	//constructor method
 	var player = function(){
 
-		document.cookie = "device=0";
-		//=========================================//
-		//Check for the stored device cookie in the browser
-		//=========================================//
-		var cookie = document.cookie;
-		var deviceCookie = cookie.indexOf("device");
-		console.log(deviceCookie, "device cookie");
 
-		//If device cookie doesn't/does exist
-		if(deviceCookie === -1){//Does not exist
-
-			//set the cookie to default
-			//Set a device cookie for socket server control
-			document.cookie = "device=0";
-
-			_thisDevice = "0";
-
-
-		}else{//Cookie exists
-
-			//Stored device name
-			_thisDevice = cookie.substr(deviceCookie + 7);
-		}
 
 
 
@@ -77,6 +55,7 @@ var Player = (function(window, document, $){
 		}else{
 
 			socket = null;
+
 		}
 
 
@@ -86,6 +65,44 @@ var Player = (function(window, document, $){
 
 		//Listen for library to be rendered
 		$(document).on('rendered', function(event){
+
+			//When app has loaded
+			if(event.template === '#app'){
+				// document.cookie = "device=0";
+				//=========================================//
+				//Check for the stored device cookie in the browser
+				//=========================================//
+				var cookie = document.cookie;
+				var deviceCookie = cookie.indexOf("device");
+
+				console.log(deviceCookie, "device cookie");
+
+				//If device cookie doesn't/does exist
+				if(deviceCookie === -1){//Does not exist
+
+					//Fade in modal to instruct user to name this device
+					$('#nameDeviceModal').fadeIn();
+
+					//set the cookie to default
+					//Set a device cookie for socket server control
+					document.cookie = "device=0";
+
+					_thisDevice = "0";
+
+					console.log("cookie monster DOESNT exists");
+				}else{//Cookie exists
+
+					//Stored device name
+					_thisDevice = cookie.substr(deviceCookie + 7);
+
+					console.log("cookie monster exists");
+
+
+				}
+			}//#app
+
+
+
 
 			//When libary items have loaded
 			if(event.template === '#libraryItem'){

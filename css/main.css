@@ -1311,7 +1311,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 /*==================================*/
 /*Modal windows*/
 /*==================================*/
-#deleteAcctModal, #restoreAcctModal {
+#deleteAcctModal, #restoreAcctModal, #nameDeviceModal {
   display: none;
 }
 
