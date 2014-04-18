@@ -80,24 +80,22 @@
 
 
 
-		//Check for the stored cookie in the browser
-		var cookie = document.cookie;
-		var userId = cookie.indexOf("uid");
-
-		//Stored user id
-		var id = cookie.substr(userId + 4);
+		//==========================================//
+		//Get cookies function from user class
+		//==========================================//
+		var cookies = _app.user.getCookies();
 
 
-		//If uid cookie exists
-		if(userId === -1){
+		//If uid cookie does not exist
+		if(cookies.userId === -1){
 
 			//Load landing page
 			_app.content.loadLanding();
 
-		}else{
+		}else{//exists
 
 			var response = {
-				'userId' : id,
+				'userId' : cookies.userId,
 				'email'  : ''
 			};
 
@@ -106,18 +104,9 @@
 			//Prevents duplicate code.
 			loadApplication(response);
 
-			// //Load app template
-			// _app.content.loadApp();
-
-			// //fire event passing user data to listening class
-			// $.event.trigger({
-			// 	type 	: 'userloggedin',
-			// 	userId	: id
-			// });
-
 			//store user id for later use
-			_userId = id;
-		}
+			_userId = cookies.userId;
+		}//else
 	}//init
 
 
@@ -702,8 +691,6 @@
 					//Delete the current user id cookie
 					deleteUIDCookie();
 
-					//Set user default device
-					setDeviceCookie('0');
 
 					//Load the application, fire event, set new cookie
 					loadApplication(response);
@@ -768,16 +755,6 @@
 		window.location.href = '/';
 	}
 
-
-
-
-
-
-	function setDeviceCookie(deviceId){
-
-		//Set a device cookie for socket server control
-		document.cookie = "device=" + deviceId;
-	}
 
 
 

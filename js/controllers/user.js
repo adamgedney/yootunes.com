@@ -7,7 +7,8 @@ var User = (function(window, document, $){
 
 	//private vars
 	var _baseUrl 	= 'http://localhost:8887';
-	var _userId 	= '';
+	var _userId;
+	var _thisDevice;
 
 
 
@@ -22,10 +23,9 @@ var User = (function(window, document, $){
 	//constructor function
 	var user = function(){
 
-		//When instance loads, listen for user to sign in then store id
-		$(document).on('userLoggedIn', function(event){
-			_userId = event.userId;
-		});
+
+		//Retrieve cookies
+		getCookies();
 
 
 
@@ -41,12 +41,13 @@ var User = (function(window, document, $){
 
 
 		//Name this device
-		$(document).on('click', '#updateDeviceName', function(event){
+		$(document).on('click', '#submitDeviceName', function(event){
 			event.preventDefault();
 
 			var currentDeviceId = "0";//default
 			var name 		= $('#infoDeviceName').val();
-				_userId 	= $('#infoId').html();
+
+
 
 			//If a device name already exists for this device, get it
 			if(!$('#infoDeviceName').attr('data-id') === ''){
@@ -55,8 +56,11 @@ var User = (function(window, document, $){
 
 			}
 
+
+			//Build API URL
 			var API_URL = _baseUrl + '/device/' + _userId + '/' + name + '/' + currentDeviceId;
 
+			//Call API to set new device or update current device
 			$.ajax({
 				url : API_URL,
 				method : 'GET',
@@ -130,14 +134,7 @@ var User = (function(window, document, $){
 	//methods and properties.
 	user.prototype = {
 		constructor : user,
-		getUser 	: function(){
-			var obj = {
-				name: 'adam',
-				email : 'adam.gedney@gmail.com',
-				tel : '845.216.5030'
-			}
-			return obj;
-		}
+		getCookies 	: getCookies
 	};
 
 
@@ -164,6 +161,56 @@ var User = (function(window, document, $){
 //================================//
 //Class methods===================//
 //================================//
+
+
+
+
+	function setDeviceCookie(deviceId){
+
+		//Set a device cookie for socket server control
+		document.cookie = "device=" + deviceId;
+	}
+
+
+
+
+
+	function getCookies(){
+
+		var obj = {
+			'userId' 	: _userId,
+			'thisDevice': _thisDevice
+		};
+
+
+		//Check for the stored cookie in the browser
+		var cookie = document.cookie;
+		var cookieArray = cookie.split("; ");
+
+		//loop through cookie array
+		for(var c=0;c<cookieArray.length;c++){
+
+			//Retrieve userid cookie
+			if(cookieArray[c].indexOf("uid") !== -1){
+
+				//Set Class level userId
+				_userId = cookieArray[c].substr(4);
+			}
+
+
+			//Retrieve user device cookie
+			if(cookieArray[c].indexOf("device") !== -1){
+
+				//Set class level device id
+				_thisDevice = cookieArray[c].substr(7);
+			}
+		}//for
+
+		return obj;
+	}
+
+
+
 
 
 
