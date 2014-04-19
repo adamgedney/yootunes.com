@@ -26,6 +26,11 @@ var Content = (function(window, document, $){
 
 
 
+		//Retrieve cookies & set device & userId
+		var userCookies = app.getCookies;
+
+		_thisDevice = userCookies.thisDevice;
+		_userId 	= userCookies.userId;
 
 
 
@@ -211,18 +216,6 @@ var Content = (function(window, document, $){
 
 
 
-
-
-
-
-
-
-		//Listens for user to log in to load library for user
-		$(document).on('userloggedin', function(event){
-
-			_userId 	= event.userId;
-			_userEmail 	= event.email;
-		});
 
 
 

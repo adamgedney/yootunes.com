@@ -25,15 +25,16 @@ var User = (function(window, document, $){
 
 
 		//Retrieve cookies & set device & userId
-		var userCookies = getCookies();
+		var userCookies = app.getCookies;
+
 			_thisDevice = userCookies.thisDevice;
 			_userId 	= userCookies.userId;
 
 
 
-			console.log(app.content, "app content");
 
 
+console.log(_thisDevice, _userId, "app.content in user");
 
 
 
@@ -135,8 +136,7 @@ var User = (function(window, document, $){
 
 	//methods and properties.
 	user.prototype = {
-		constructor : user,
-		getCookies 	: getCookies
+		constructor : user
 	};
 
 
@@ -167,49 +167,6 @@ var User = (function(window, document, $){
 
 
 
-	function setDeviceCookie(deviceId){
-
-		//Set a device cookie for socket server control
-		document.cookie = "device=" + deviceId;
-	}
-
-
-
-
-
-	function getCookies(){
-
-		var obj = {
-			'userId' 	: _userId,
-			'thisDevice': _thisDevice
-		};
-
-
-		//Check for the stored cookie in the browser
-		var cookie = document.cookie;
-		var cookieArray = cookie.split("; ");
-
-		//loop through cookie array
-		for(var c=0;c<cookieArray.length;c++){
-
-			//Retrieve userid cookie
-			if(cookieArray[c].indexOf("uid") !== -1){
-
-				//Set Class level userId
-				obj.userId = cookieArray[c].substr(4);
-			}
-
-
-			//Retrieve user device cookie
-			if(cookieArray[c].indexOf("device") !== -1){
-
-				//Set class level device id
-				obj.thisDevice = cookieArray[c].substr(7);
-			}
-		}//for
-
-		return obj;
-	}
 
 
 

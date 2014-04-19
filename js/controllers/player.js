@@ -42,24 +42,14 @@ var Player = (function(window, document, $){
 
 
 
+		//Retrieve cookies & set device & userId
+		var userCookies = app.getCookies;
+
+		_thisDevice = userCookies.thisDevice;
+		_userId 	= userCookies.userId;
 
 
-		// //Pickup device event from content controller
-		// $(document).on('getDevices', function(event){
-		// 	console.log(event.response[0].id, event.response[0].user_id, "getDevices picked up");
-
-		// 	// _userId 	= event.response[0].user_id;
-		// 	// _thisDevice = event.response[0].id;
-
-		// 	//set the userId to the infoId span for new device
-		// 	//ajax call in user controller
-		// 	$('#infoId').html(_userId);
-
-		// });
-
-
-
-
+		console.log(_thisDevice, "this device in player module");
 
 
 
@@ -68,36 +58,30 @@ var Player = (function(window, document, $){
 
 			//When app has loaded
 			if(event.template === '#app'){
-				// document.cookie = "device=0";
-				//=========================================//
-				//Check for the stored device cookie in the browser
-				//=========================================//
-				// var cookie = document.cookie;
-				// var deviceCookie = cookie.indexOf("device") + 7;
-
-				// console.log(deviceCookie, "device cookie");
-
-				// //If device cookie doesn't/does exist
-				// if(deviceCookie === -1){//Does not exist
-
-				// 	//Fade in modal to instruct user to name this device
-				// 	$('#nameDeviceModal').fadeIn();
 
 
 
-				// 	//set the cookie to default
-				// 	//Set a device cookie for socket server control
-				// 	document.cookie = "device=0";
+				//If device cookie doesn't/does exist
+				if(_thisDevice === undefined){//Does not exist
 
-				// 	_thisDevice = "0";
+					//Fade in modal to instruct user to name this device
+					$('#nameDeviceModal').fadeIn();
 
 
-				// }else{//Cookie exists
 
-				// 	//Stored device name
-				// 	_thisDevice = cookie.substr(deviceCookie);
+					//set the cookie to default
+					//Set a device cookie for socket server control
+					document.cookie = "device=0";
 
-				// }
+					_thisDevice = "0";
+
+
+				}else{//Cookie exists
+
+					//Stored device name
+					_thisDevice = cookie.substr(deviceCookie);
+
+				}
 
 
 				//Connection to node socket server opened if playOn is enabled

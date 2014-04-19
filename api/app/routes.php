@@ -31,8 +31,6 @@ Route::get('restore-user/{email}/{pw}', 'UserController@restoreUser');
 //Devices
 Route::get('device/{userId}/{name}/{currentDeviceId}', 'UserController@device');
 
-// Route::get('get-device', 'UserController@getDevice');
-
 Route::get('get-devices/{userId}', 'UserController@getDevices');
 
 Route::get('delete-device/{deviceId}', 'UserController@deleteDevice');

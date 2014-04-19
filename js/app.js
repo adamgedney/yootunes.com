@@ -1,21 +1,22 @@
 (function(document, window, $){
 
-	//Instances==========//
 	var _baseUrl 		= 'http://localhost:8887';
 
 	//Global object of app
 	window.app 			= {};
+		app.getCookies 	= getCookies();
 		// app.ads 		= new Ads(),
 		app.content 	= new Content();
 		app.library 	= new Library(),
 		// app.log 		= new Log(),
-		app.player 	= new Player(),
+		app.player 		= new Player(),
 		app.user 		= new User(),
-		app.ui 		= new Ui();
+		app.ui 			= new Ui();
 
 	var _auth 			= {};
 	var _user 			= {};
 	var _userId;
+	var _thisDevice;
 
 
 
@@ -45,7 +46,7 @@
 		var params = window.location.search;
 		if(params !== ""){
 
-			//Reset password flow
+			//RESET PASSWORD flow
 			if(params.substr(1,5) === "reset"){
 
 				//strip token from url
@@ -53,7 +54,7 @@
 				var API_URL = _baseUrl + '/check-reset-token/' + resetToken;
 
 
-				//Call API with token to see if it exists
+				//Call API with token to see if token exists
 				$.ajax({
 					url : API_URL,
 					method : 'GET',
@@ -84,7 +85,7 @@
 		//==========================================//
 		//Get cookies function from user class
 		//==========================================//
-		var cookies = app.user.getCookies();
+		var cookies = getCookies();
 
 
 		//If uid cookie does not exist
@@ -755,6 +756,57 @@
 		//redirects to root of application
 		window.location.href = '/';
 	}
+
+
+
+
+
+	function setDeviceCookie(deviceId){
+
+		//Set a device cookie for socket server control
+		document.cookie = "device=" + deviceId;
+	}
+
+
+
+
+
+	function getCookies(){
+
+		var obj = {
+			'userId' 	: _userId,
+			'thisDevice': _thisDevice
+		};
+
+
+		//Check for the stored cookie in the browser
+		var cookie = document.cookie;
+		var cookieArray = cookie.split("; ");
+
+		//loop through cookie array
+		for(var c=0;c<cookieArray.length;c++){
+
+			//Retrieve userid cookie
+			if(cookieArray[c].indexOf("uid") !== -1){
+
+				//Set Class level userId
+				obj.userId = cookieArray[c].substr(4);
+			}
+
+
+			//Retrieve user device cookie
+			if(cookieArray[c].indexOf("device") !== -1){
+
+				//Set class level device id
+				obj.thisDevice = cookieArray[c].substr(7);
+			}
+		}//for
+
+		return obj;
+	}
+
+
+
 
 
 
