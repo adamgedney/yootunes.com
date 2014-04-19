@@ -95,18 +95,8 @@ var Player = (function(window, document, $){
 
 		$(document).on('click', '#playAll', function(event){
 
-			//Flip icon to pause icon
-			// $('#playAllIcon').attr('src', 'images/icons/pause-drk.png');
 
-			var firstVideo = $('.resultItems[data-index="0"]').attr('data-videoId');
-
-			//set current index
-			_currentIndex = 0;
-
-			//Start playing
-			// _player.loadVideoById(firstVideo);
-
-			play(firstVideo);
+			playAll();
 
 		});
 
@@ -282,16 +272,26 @@ var Player = (function(window, document, $){
 			//Play Button Click Handler=======//
 			$(document).on('click', '#play-btn', function(){
 
-				//Play if not already playing
-				if(!_playerPlaying){
+				//Check if a video is loaded. If not, playall
+				if($('#fbShareMain').attr('href') === ""){
 
-					play(youtubeId);
+					playAll();
+					_playerPlaying = !_playerPlaying;
 
-				//Stop playing if already playing
+
 				}else{
 
-					pause();
-				}
+					//Play if not already playing
+					if(!_playerPlaying){
+
+						play(youtubeId);
+
+					//Stop playing if already playing
+					}else{
+
+						pause();
+					}
+				}//playAll else
 			});
 
 
@@ -841,6 +841,24 @@ var Player = (function(window, document, $){
 					});//socket.on
 		}//else playOn
 	}//play
+
+
+
+
+
+
+
+
+
+	function playAll(){
+		var firstVideo = $('.resultItems[data-index="0"]').attr('data-videoId');
+
+		//set current index
+		_currentIndex = 0;
+
+
+		play(firstVideo);
+	};
 
 
 
