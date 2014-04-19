@@ -31,7 +31,7 @@ var Player = (function(window, document, $){
 
 	//Testing. Get this data from cookie
 	var _thisDevice;
-	var _playOnDevice;
+	var _playOnDevice;//default
 	var _userId 			=  '';
 
 
@@ -45,8 +45,9 @@ var Player = (function(window, document, $){
 		//Retrieve cookies & set device & userId
 		var userCookies = app.getCookies;
 
-		_thisDevice = userCookies.thisDevice;
-		_userId 	= userCookies.userId;
+		_thisDevice 	= userCookies.thisDevice;
+		_playOnDevice 	= userCookies.thisDevice;//default device
+		_userId 		= userCookies.userId;
 
 
 
@@ -59,18 +60,6 @@ var Player = (function(window, document, $){
 			//When app has loaded
 			if(event.template === '#app'){
 
-
-				//Connection to node socket server opened if playOn is enabled
-				console.log(_thisDevice, "this device");
-				if(_thisDevice !== _playOnDevice){
-
-					socket = io.connect(socketServer);
-
-				}else{
-
-					socket = null;
-
-				}
 
 			}//#app
 
@@ -726,6 +715,24 @@ var Player = (function(window, document, $){
 
 
 	function play(youtubeId){
+
+		//Get device id of current play on device selection
+		_playOnDevice =  $('#play-on option:selected').attr('data-id');
+
+		console.log(_thisDevice, _playOnDevice, "testing socket-this/playon");
+			//Connection to node socket server opened if playOn is enabled
+			if(_thisDevice !== _playOnDevice){
+
+				socket = io.connect(socketServer);
+
+			}else{
+
+				socket = null;
+
+				//unmute the controller
+				_player.unMute();
+
+			}
 
 
 		//No need for sockets if this is the device we're playing on
