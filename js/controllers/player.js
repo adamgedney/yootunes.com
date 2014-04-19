@@ -329,7 +329,7 @@ var Player = (function(window, document, $){
 
 
 
-
+			var prevVolume;
 			//Volume Handler=======//
 			$(document).on('mousemove', '#volumeRange', function(){
 
@@ -355,7 +355,15 @@ var Player = (function(window, document, $){
 					//=============================//
 					//Socket EMIT volume stream
 					//=============================//
-					socket.emit('volume', data);
+
+
+					if(rangeVolume !== prevVolume){
+
+						socket.emit('volume', data);
+
+						prevVolume = rangeVolume;
+					}
+
 
 
 
@@ -719,7 +727,6 @@ var Player = (function(window, document, $){
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');
 
-		console.log(_thisDevice, _playOnDevice, "testing socket-this/playon");
 			//Connection to node socket server opened if playOn is enabled
 			if(_thisDevice !== _playOnDevice){
 
