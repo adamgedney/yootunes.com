@@ -463,10 +463,19 @@ class UserController extends BaseController {
 
 
 
+		$newDevice = Devices::where('user_id', '=', $userId)
+							->where('name', '=', $name)
+							->where('is_deleted', '!=', 'true')
+							->get();
+
+
+
 		//return object
 		$obj = array(
-			'insertDevice' => $insertDevice,
-			'updateDevice' => $updateDevice
+			'insertDevice' 	=> $insertDevice,
+			'updateDevice' 	=> $updateDevice,
+			'newDeviceId'   => $newDevice[0]->id,
+			'newDeviceName'	=> $newDevice[0]->name
 		);
 
 		header('Access-Control-Allow-Origin: *');

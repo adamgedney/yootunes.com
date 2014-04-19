@@ -49,39 +49,15 @@ var Player = (function(window, document, $){
 		_userId 	= userCookies.userId;
 
 
-		console.log(_thisDevice, "this device in player module");
 
 
 
-		//Listen for library to be rendered
+
+		//Listen for rendered
 		$(document).on('rendered', function(event){
 
 			//When app has loaded
 			if(event.template === '#app'){
-
-
-
-				//If device cookie doesn't/does exist
-				if(_thisDevice === undefined){//Does not exist
-
-					//Fade in modal to instruct user to name this device
-					$('#nameDeviceModal').fadeIn();
-
-
-
-					//set the cookie to default
-					//Set a device cookie for socket server control
-					document.cookie = "device=0";
-
-					_thisDevice = "0";
-
-
-				}else{//Cookie exists
-
-					//Stored device name
-					_thisDevice = cookie.substr(deviceCookie);
-
-				}
 
 
 				//Connection to node socket server opened if playOn is enabled

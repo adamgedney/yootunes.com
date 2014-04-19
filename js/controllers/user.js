@@ -34,7 +34,30 @@ var User = (function(window, document, $){
 
 
 
-console.log(_thisDevice, _userId, "app.content in user");
+
+		//If device cookie doesn't/does exist
+		if(_thisDevice === undefined){//Does not exist
+
+			//Fade in modal to instruct user to name this device
+			$('#nameDeviceModal').fadeIn();
+
+
+			//Set device on new device creation
+			$(document).on('reloadDevices', function(event){
+				console.log(event.newDeviceId, "reload picked up in user");
+
+				//Fade in modal to instruct user to name this device
+				$('#nameDeviceModal').fadeOut();
+
+				//Set this device once a new one is created
+				_thisDevice = event.newDeviceId;
+
+				//Set a device cookie for socket server control
+				document.cookie = "device=" + _thisDevice;
+
+			});//on reloadDevices
+		}
+
 
 
 
@@ -48,7 +71,7 @@ console.log(_thisDevice, _userId, "app.content in user");
 			event.preventDefault();
 
 			var currentDeviceId = "0";//default
-			var name 		= $('#infoDeviceName').val();
+			var name 			= $('#infoDeviceName').val();
 
 
 
@@ -69,11 +92,14 @@ console.log(_thisDevice, _userId, "app.content in user");
 				method : 'GET',
 				dataType : 'json',
 				success : function(response){
-					console.log(response, "device response");
+
+					console.log(response, "new device response");
 
 					//Fires a complete event after  device has been added
 					$(document).trigger({
-						type : 'reloadDevices'
+						type 		: 'reloadDevices',
+						newDeviceId 	: response.newDeviceId,
+						newDeviceName 	: response.newDeviceName
 					});
 				}//success
 			});//ajax

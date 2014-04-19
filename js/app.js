@@ -3,18 +3,22 @@
 	var _baseUrl 		= 'http://localhost:8887';
 
 	//Global object of app
-	window.app 			= {};
-		app.getCookies 	= getCookies();
-		// app.ads 		= new Ads(),
-		app.content 	= new Content();
-		app.library 	= new Library(),
-		// app.log 		= new Log(),
-		app.player 		= new Player(),
-		app.user 		= new User(),
-		app.ui 			= new Ui();
+	window.app 				= {};
+		app.getCookies 		= getCookies();
 
-	var _auth 			= {};
-	var _user 			= {};
+		//Instances
+		// app.ads 			= new Ads(),
+		app.content 		= new Content();
+		app.library 		= new Library(),
+		// app.log 			= new Log(),
+		app.player 			= new Player(),
+		app.user 			= new User(),
+		app.ui 				= new Ui();
+
+
+	//Private variables
+	var _auth 				= {};
+	var _user 				= {};
 	var _userId;
 	var _thisDevice;
 
@@ -758,14 +762,6 @@
 	}
 
 
-
-
-
-	function setDeviceCookie(deviceId){
-
-		//Set a device cookie for socket server control
-		document.cookie = "device=" + deviceId;
-	}
 
 
 
