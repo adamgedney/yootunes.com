@@ -1224,7 +1224,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 .info-wrapper {
   overflow: hidden;
-  padding: 2%;
+  padding: 6%;
   position: relative;
 }
 .info-wrapper input[type="text"], .info-wrapper input[type="password"], .info-wrapper input[type="submit"], .info-wrapper select, .info-wrapper button {
@@ -1279,7 +1279,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .info-col3 {
-  padding-left: 2%;
+  padding-left: 6%;
 }
 .info-col3 label[for="emailUpdatesInfo"], .info-col3 input[type="checkbox"] {
   display: inline;
@@ -1295,7 +1295,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .info-col2 {
-  padding-left: 2%;
+  padding-left: 6%;
 }
 .info-col2 ul li {
   overflow: hidden;

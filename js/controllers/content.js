@@ -249,6 +249,7 @@ var Content = (function(window, document, $){
 
 			if(event.template === '#libraryItem'){
 
+
 				//Remove search input value
 				$('#searchInput').val('');
 
@@ -295,6 +296,7 @@ var Content = (function(window, document, $){
 
 			//Listen for acctSettings view render
 			if(event.template === '#acctSettings'){
+				$('.section-header').hide();
 
 				var API_URL = _baseUrl + '/get-user/' + _userId;
 
@@ -789,6 +791,11 @@ var Content = (function(window, document, $){
 
 	//Gets data & Loads library template
 	function loadLibrary(){
+		//Ensures search bar is visible & container is
+		//emptied quickly before a reload
+		$('.section-header').show();
+		$('.scroll-container').empty();
+
 		var src 		= '/js/views/library.html',
 			id 			= '#libraryItem',
 			appendTo 	= '.scroll-container';

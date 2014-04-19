@@ -1,5 +1,5 @@
 3.2.9 (Media Mark)
-67df996a8498879574a9949b757ed09056d04cfd
+ac15609189d87273a998b2275eff88c901019d6d
 o:Sass::Tree::RootNode
 :@template"P@/*
 	Thanks for checking out my code!!
@@ -725,7 +725,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 .info-wrapper{
 	overflow: hidden;
-	padding: 2%;
+	padding: 6%;
 	position: relative;
 
 	input[type="text"], input[type="password"], input[type="submit"], select, button{
@@ -786,7 +786,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .info-col3{
-	padding-left: 2%;
+	padding-left: 6%;
 
 
 	label[for="emailUpdatesInfo"], input[type="checkbox"]{
@@ -805,7 +805,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 .info-col2{
-	padding-left: 2%;
+	padding-left: 6%;
 
 	ul{
 		li{
@@ -1621,7 +1621,7 @@ right;@;@;i¼;;;@;["svg, img;i»; o;!;"" ;i»;#[o;$;#[o;%
 ;[ ;["+/*==================================*/;@;iÌo;;i ;[o;;i ;["
 width;[ ;o;;	;;"1000px;@;@;iÎ;;o;;i ;["height;[ ;o;;	;;"
 590px;@;@;iÏ;;o;;i ;["border;[ ;o;;	;;"1px solid black;@;@;iÐ;;;@;["#test-frame;iÍ; o;!;"" ;iÍ;#[o;$;#[o;%
-;&0;"@Ë;'o;(;){ ;iÍ;#[o;7;["test-frame;"@Ë;iÍ;,To;;i ;[o;;i ;["overflow;[ ;o;;	;;"hidden;@;@;iÔ;;o;;i ;["padding;[ ;o;;	;;"2%;@;@;iÕ;;o;;i ;["position;[ ;o;;	;;"relative;@;@;iÖ;;o;;i ;[o;;i ;["height;[ ;o;;	;;"	36px;@;@;iÙ;;;@;["Uinput[type="text"], input[type="password"], input[type="submit"], select, button;iØ; o;!;"" ;iØ;#[
+;&0;"@Ë;'o;(;){ ;iÍ;#[o;7;["test-frame;"@Ë;iÍ;,To;;i ;[o;;i ;["overflow;[ ;o;;	;;"hidden;@;@;iÔ;;o;;i ;["padding;[ ;o;;	;;"6%;@;@;iÕ;;o;;i ;["position;[ ;o;;	;;"relative;@;@;iÖ;;o;;i ;[o;;i ;["height;[ ;o;;	;;"	36px;@;@;iÙ;;;@;["Uinput[type="text"], input[type="password"], input[type="submit"], select, button;iØ; o;!;"" ;iØ;#[
 o;$;#[o;%
 ;&0;"@õ;'o;(;){ ;iØ;#[o;*	;["
 input;"@õ;iØ;+0o;4;["	type;[""text";"@õ;50;iØ;+0;6"=o;$;#[o;%
@@ -1657,14 +1657,14 @@ solid;@;io;.;"nth;@;{ ;i;0;[o;/	;0"	grey;"	grey;@;io;
 ;&0;"@˜;'o;(;){ ;iú;#[o;-;["info-col1;"@˜;iú;,To;;i ;[o;;i ;["
 float;[ ;o;;	;;"
 right;@;@;i;;o;;i ;["margin-top;[ ;o;;	;;"9px;@;@;i;;;@;["#infoId;i; o;!;"" ;i;#[o;$;#[o;%
-;&0;"@´;'o;(;){ ;i;#[o;7;["infoId;"@´;i;,To;;i ;[o;;i ;["padding-left;[ ;o;;	;;"2%;@;@;i;;o;;i ;[o;;i ;["display;[ ;o;;	;;"inline;@;@;i;;o;;i ;["vertical-align;[ ;o;;	;;"middle;@;@;i;;;@;[":label[for="emailUpdatesInfo"], input[type="checkbox"];i; o;!;"" ;i;#[o;$;#[o;%
+;&0;"@´;'o;(;){ ;i;#[o;7;["infoId;"@´;i;,To;;i ;[o;;i ;["padding-left;[ ;o;;	;;"6%;@;@;i;;o;;i ;[o;;i ;["display;[ ;o;;	;;"inline;@;@;i;;o;;i ;["vertical-align;[ ;o;;	;;"middle;@;@;i;;;@;[":label[for="emailUpdatesInfo"], input[type="checkbox"];i; o;!;"" ;i;#[o;$;#[o;%
 ;&0;"@Ø;'o;(;){ ;i;#[o;*	;["
 label;"@Ø;i;+0o;4;["for;[""emailUpdatesInfo";"@Ø;50;i;+0;6"=o;$;#[o;%
 ;&0;"@Ø;'o;(;){ ;i;#[o;*	;["
 input;"@Ø;i;+0o;4;["	type;[""checkbox";"@Ø;50;i;+0;6"=;,T;@;[".info-col3;i; o;!;"" ;i;#[o;$;#[o;%
 ;&0;"@û;'o;(;){ ;i;#[o;-;["info-col3;"@û;i;,To;;i ;[o;;i ;["margin-top;[ ;o;;	;;"	36px;@;@;i;;;@;["#logoutLink;i; o;!;"" ;i;#[o;$;#[o;%
 ;&0;"@;'o;(;){ ;i;#[o;7;["logoutLink;"@;i;,To;;i ;[o;;i ;["background;[ ;o;/	;0"red;"red;@;i ;@;i ;;;@;["#deleteAccount;i; o;!;"" ;i;#[o;$;#[o;%
-;&0;"@(;'o;(;){ ;i;#[o;7;["deleteAccount;"@(;i;,To;;i ;[o;;i ;["padding-left;[ ;o;;	;;"2%;@;@;i%;;o;;i ;[o;;i ;[	o;;i ;["overflow;[ ;o;;	;;"hidden;@;@;i);;o;;i ;["border-top;[ ;o;8	;9;:;[o;;i;@;[ ;i*;["px;"1pxo;	;	;;"
+;&0;"@(;'o;(;){ ;i;#[o;7;["deleteAccount;"@(;i;,To;;i ;[o;;i ;["padding-left;[ ;o;;	;;"6%;@;@;i%;;o;;i ;[o;;i ;[	o;;i ;["overflow;[ ;o;;	;;"hidden;@;@;i);;o;;i ;["border-top;[ ;o;8	;9;:;[o;;i;@;[ ;i*;["px;"1pxo;	;	;;"
 solid;@;i*o;.;"nth;@;{ ;i*;0;[o;/	;0"	grey;"	grey;@;i*o;;i;@;@9;i*;[ ;"3;@;i*;@;i*;;o;;i ;["line-height;[ ;o;;	;;"	36px;@;@;i+;;o;;i ;[o;;i ;["height;[ ;o;;	;;"	12px;@;@;i.;;o;;i ;["
 float;[ ;o;;	;;"
 right;@;@;i/;;o;;i ;["margin-top;[ ;o;;	;;"	10px;@;@;i0;;;@;["img;i-; o;!;"" ;i-;#[o;$;#[o;%
