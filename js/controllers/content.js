@@ -343,10 +343,10 @@ var Content = (function(window, document, $){
 				//Settings page & app footer list
 				//===================================//
 				//If device is this device, set name
-				if(data.response[j].name === _thisDevice){
+				if(data.response[j].id === _thisDevice){
 					//Set the current device if it matches the cookie
-					$('#infoDeviceName').val(data.response[j].name);
-					$('#infoDeviceName').attr('data-id', data.response[j].id);
+					$('.infoDeviceName').val(data.response[j].name);
+					$('.infoDeviceName').attr('data-id', data.response[j].id);
 
 					//set footer list items first reult to the current device
 					var option = '<option data-id="' + data.response[j].id + '">' + data.response[j].name + '</option>';

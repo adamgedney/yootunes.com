@@ -1278,10 +1278,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   margin-top: 9px;
 }
 
-.info-col2 {
+.info-col3 {
   padding-left: 2%;
 }
-.info-col2 label[for="emailUpdatesInfo"], .info-col2 input[type="checkbox"] {
+.info-col3 label[for="emailUpdatesInfo"], .info-col3 input[type="checkbox"] {
   display: inline;
   vertical-align: middle;
 }
@@ -1294,15 +1294,15 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   background: #cf2425;
 }
 
-.info-col3 {
+.info-col2 {
   padding-left: 2%;
 }
-.info-col3 ul li {
+.info-col2 ul li {
   overflow: hidden;
   border-top: 1px solid #949494;
   line-height: 36px;
 }
-.info-col3 ul li img {
+.info-col2 ul li img {
   height: 12px;
   float: right;
   margin-top: 10px;
