@@ -139,6 +139,8 @@ var Ui = (function(window, document, $){
 				_seek.seekFill 		= $('.seek-fill'),
 				_seek.drag 			= true;
 
+				app.player.dragging(true);
+
 			//required to prevent text selection on mouseout of seekBar
 			event.preventDefault();
 
@@ -149,7 +151,14 @@ var Ui = (function(window, document, $){
 
 		//mouseup to stop drag
 		$(document).on('mouseup', function(e){
-			_seek.drag = false;
+
+			if(_seek.drag === true){
+
+				app.player.dragging(false, _seek.seekScrub);
+				_seek.drag = false;
+			}
+
+
 		});
 
 

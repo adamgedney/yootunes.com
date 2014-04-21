@@ -14,7 +14,8 @@ var Player = (function(window, document, $){
 	var _seek 				= {};
 		_seek.lastM			= 0,
 		_seek.scrubber		= '#seek-dot',
-		_seek.stepper		= 0;
+		_seek.stepper		= 0,
+		_dragging 			= false;
 
 	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
@@ -520,10 +521,8 @@ var Player = (function(window, document, $){
 				_playingVideo = id;
 
 				//Calls updateTime() on regular intervals
-		      	_updateInterval = setInterval(updateTime, 100);
+				_updateInterval = setInterval(updateTime, 1000);
 
-		      	//Resets seek fill to zero
-				$('.seek-fill').width(0);
 
 		      	//If user plays video from click on video, change play/pause
 		      	$('#play-btn').attr('src', 'images/icons/pause.png');
@@ -645,6 +644,12 @@ var Player = (function(window, document, $){
 
 
 
+
+
+
+
+
+
 	};//constructor
 	//=========================//
 
@@ -652,7 +657,9 @@ var Player = (function(window, document, $){
 	player.prototype 	= {
 		constructor  	: player,
 		play 		 	: play,
-		pause 		 	: pause
+		pause 		 	: pause,
+		seekTo 	 		: seekTo,
+		dragging 		: dragging
 	};
 
 	//return constructor
@@ -670,45 +677,83 @@ var Player = (function(window, document, $){
 //Class methods===================//
 //================================//
 
+	function dragging(val, scrubPos){
+		_dragging = val;
+		console.log(val, "dragging");
+
+		//Seek bar dragging
+		if(val === true){
+			//clear update interval to release control to seekTo function
+			clearInterval(_updateInterval);
+		}else if(val === false){
+
+			//Set video position
+			seekTo(scrubPos);
+
+			if(_playerPlaying){
+				//Calls updateTime() on regular intervals
+				_updateInterval = setInterval(updateTime, 100);
+			}
+		}
+
+		console.log(_dragging);
+
+	}
 
 	//Updates the time in the transport view
 	function updateTime(){
 
-		var duration 	= _player.getDuration();
 
-		var time 		= _player.getCurrentTime();
-		var m 			= Math.floor(time / 60);
-		var secd 		= (time % 60) - 1;
-		var s 			= Math.ceil(secd);
+			var duration 	= _player.getDuration();
 
-		var seek_time = ((300 / duration) * s) + _seek.stepper + $('.seek-line').offset().left;
+			var time 		= _player.getCurrentTime();
+			var m 			= Math.floor(time / 60);
+			var secd 		= (time % 60) - 1;
+			var s 			= Math.ceil(secd);
 
-		if(s <= 0){
-			s = '00';
-		}else if(s < 10){
-			s = '0' + s;
-		}
+			var seek_time = ((300 / duration) * s) + _seek.stepper + $('.seek-line').offset().left;
 
-		$('#current-time').html(m + ':' + s);
+			if(s <= 0){
+				s = '00';
+			}else if(s < 10){
+				s = '0' + s;
+			}
 
-
-
-		//Adds 60 to incrementer for each m
-		if(m !== 0 && _seek.lastM !== m){
-			_seek.stepper += 60;
-
-			_seek.lastM = m;
-
-		}
+			$('#current-time').html(m + ':' + s);
 
 
 
-		//Update scrubber position
-		$('#seek-dot').offset({left: seek_time});
+			//Adds 60 to incrementer for each m
+			if(m !== 0 && _seek.lastM !== m){
+				_seek.stepper += 60;
+
+				_seek.lastM = m;
+
+			}
 
 
-		//Sets seek bar backfill bar width
-		$('.seek-fill').width($('#seek-dot').offset().left - $('.seek-line').offset().left);
+
+			//Update scrubber position
+			$('#seek-dot').offset({left: seek_time});
+
+
+			//Sets seek bar backfill bar width
+			$('.seek-fill').width($('#seek-dot').offset().left - $('.seek-line').offset().left);
+	}
+
+
+
+
+
+
+
+
+
+	function seekTo(scrubberOffset){
+		var s = Math.floor(scrubberOffset - $('.seek-line').offset().left);
+		// var s = ;
+		_player.seekTo(s, true);
+		console.log(s,"scrubber seekto");
 	}
 
 
@@ -726,6 +771,7 @@ var Player = (function(window, document, $){
 
 
 	function play(youtubeId){
+
 
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');
@@ -759,6 +805,10 @@ var Player = (function(window, document, $){
 				_playerPlaying= !_playerPlaying;
 
 			}else{//New Video
+
+				//reset seek stepper for each new video
+				//to conrol seek bar fill
+				_seek.stepper = 0;
 
 				_player.loadVideoById(youtubeId);
 

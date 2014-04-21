@@ -56,7 +56,7 @@ class LibraryController extends BaseController {
 									->count();
 
 		//If song is NOT in THIS USER'S library already, insert
-		if($inLibrary === "0"){
+		if($inLibrary === 0){
 
 			//Insert song id into user songs paired to library id
 			$librarySongs = LibrarySongs::insert(array(

@@ -1,5 +1,5 @@
 3.2.9 (Media Mark)
-ac15609189d87273a998b2275eff88c901019d6d
+3d858fceefa8836762df4944c4ed8789b831f466
 o:Sass::Tree::RootNode
 :@template"P@/*
 	Thanks for checking out my code!!
@@ -1008,11 +1008,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 #seek-dot{
-	// width: 12px;
-	// height: 12px;
-	width: 0px;
-	height: 0px;
-	background: $black;
+	width: 12px;
+	height: 12px;
+	// width: 0px;
+	// height: 0px;
+	background: $white;
 	border-radius: 50%;
 	position: absolute;
 	top: 13px;
@@ -1763,12 +1763,12 @@ solid;@;iäo;.;"nth;@;{ ;iä;0;[o;/	;0"	grey;"	grey;@;iäo;
 ;&0;"@Š;'o;(;){ ;ià;#[o;7;["seek-bar;"@Š;ià;,To;;i ;[o;;i ;["
 width;[ ;o;;	;;"0;@;@;iê;;o;;i ;["border-bottom;[ ;o;8	;9;:;[o;;i;@;[ ;ië;["px;"1pxo;	;	;;"
 solid;@;iëo;/	;0"red;"red;@;ië;@;ië;@;ië;;o;;i ;["position;[ ;o;;	;;"absolute;@;@;iì;;;@;[".seek-fill;ié; o;!;"" ;ié;#[o;$;#[o;%
-;&0;"@È;'o;(;){ ;ié;#[o;-;["seek-fill;"@È;ié;,To;;i ;[o;
-;	;;[ ;["(/* width: 12px;
- * height: 12px; */;@;iðo;;i ;["
-width;[ ;o;;	;;"0px;@;@;iò;;o;;i ;["height;[ ;o;;	;;"0px;@;@;ió;;o;;i ;["background;[ ;o;/	;0"
-black;"
-black;@;iô;@;iô;;o;;i ;["border-radius;[ ;o;;	;;"50%;@;@;iõ;;o;;i ;["position;[ ;o;;	;;"absolute;@;@;iö;;o;;i ;["top;[ ;o;;	;;"	13px;@;@;i÷;;o;;i ;["z-index;[ ;o;;	;;"10;@;@;iø;;o;;i ;["opacity;[ ;o;;	;;".9;@;@;iù;;o;;i ;["cursor;[ ;o;;	;;"pointer;@;@;iú;;o;
+;&0;"@È;'o;(;){ ;ié;#[o;-;["seek-fill;"@È;ié;,To;;i ;[o;;i ;["
+width;[ ;o;;	;;"	12px;@;@;ið;;o;;i ;["height;[ ;o;;	;;"	12px;@;@;iñ;;o;
+;	;;[ ;["&/* width: 0px;
+ * height: 0px; */;@;iòo;;i ;["background;[ ;o;/	;0"
+white;"
+white;@;iô;@;iô;;o;;i ;["border-radius;[ ;o;;	;;"50%;@;@;iõ;;o;;i ;["position;[ ;o;;	;;"absolute;@;@;iö;;o;;i ;["top;[ ;o;;	;;"	13px;@;@;i÷;;o;;i ;["z-index;[ ;o;;	;;"10;@;@;iø;;o;;i ;["opacity;[ ;o;;	;;".9;@;@;iù;;o;;i ;["cursor;[ ;o;;	;;"pointer;@;@;iú;;o;
 ;	;;[ ;["+/* border: 1px solid nth($grey, 2); */;@;iû;@;["#seek-dot;iï; o;!;"" ;iï;#[o;$;#[o;%
 ;&0;"@;'o;(;){ ;iï;#[o;7;["seek-dot;"@;iï;,To;;i ;[o;;i ;["
 width;[ ;o;;	;;"	18px;@;@;iÿ;;o;;i ;["height;[ ;o;;	;;"	18px;@;@;i ;;o;;i ;["top;[ ;o;;	;;"	10px;@;@;i;;;@;["#seek-dot:active;iþ; o;!;"" ;iþ;#[o;$;#[o;%
