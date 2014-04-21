@@ -522,6 +522,9 @@ var Player = (function(window, document, $){
 				//Calls updateTime() on regular intervals
 		      	_updateInterval = setInterval(updateTime, 100);
 
+		      	//Resets seek fill to zero
+				$('.seek-fill').width(0);
+
 		      	//If user plays video from click on video, change play/pause
 		      	$('#play-btn').attr('src', 'images/icons/pause.png');
 
