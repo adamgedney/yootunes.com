@@ -13,6 +13,8 @@ var Player = (function(window, document, $){
 
 	var _seek 				= {};
 		_seek.scrubber		= '#seek-dot',
+		_seek.seekPos 		= 0,
+		_seek.duration 		= 0,
 		_dragging 			= false;
 
 	var _resultLength 		= 0;
@@ -670,17 +672,17 @@ var Player = (function(window, document, $){
 //Class methods===================//
 //================================//
 
-	function dragging(val, scrubPos){
-		_dragging = val;
-		console.log(val, "dragging");
+	function dragging(drag, scrubPos){
+		_dragging = drag;
+		console.log(drag, "dragging");
 
 		//Seek bar dragging
-		if(val === true){
+		if(drag === true){
 			//clear update interval to release control to seekTo function
 			clearInterval(_updateInterval);
-		}else if(val === false){
+		}else if(drag === false){
 
-			//Set video position
+			//Set video position based on scrubPos(x pos)
 			seekTo(scrubPos);
 
 			if(_playerPlaying){
@@ -688,9 +690,22 @@ var Player = (function(window, document, $){
 				_updateInterval = setInterval(updateTime, 100);
 			}
 		}
+	}
 
-		console.log(_dragging);
 
+
+
+
+
+
+
+
+	function seekTo(scrubberOffset){
+
+		//Set video time: ((scrubber x - bar left) / bar width) * duration
+		var s = ((scrubberOffset - $('#seek-bar').offset().left) / $('#seek-bar').width()) *_seek.duration;
+
+		_player.seekTo(s, true);
 	}
 
 
@@ -708,7 +723,7 @@ var Player = (function(window, document, $){
 
 		if(_dragging === false){
 
-			var duration 	= _player.getDuration();
+			_seek.duration 	= _player.getDuration();
 
 			var time 		= _player.getCurrentTime();
 			var m 			= Math.floor(time / 60);
@@ -730,11 +745,11 @@ var Player = (function(window, document, $){
 
 
 			//(bar width / video duration) * time = xPos of scrubber + seekbar left
-			var seekPos = (($('#seek-bar').width() / duration) * time)  + $('#seek-bar').offset().left;
+			_seek.seekPos = (($('#seek-bar').width() / _seek.duration) * time)  + $('#seek-bar').offset().left;
 
 
 			//Update scrubber position
-			$('#seek-dot').offset({left: seekPos});
+			$('#seek-dot').offset({left: _seek.seekPos});
 
 
 			//Sets seek bar colored backfill bar width
@@ -745,22 +760,11 @@ var Player = (function(window, document, $){
 			var buffered = _player.getVideoLoadedFraction();
 			$('.seek-buffered').width(($('#seek-dot').offset().left - $('#seek-bar').offset().left) + (buffered * 100));
 
+			//DOn't allow buffered indicator to exceed seek bar width
+			if($('.seek-buffered').width() >= $('#seek-bar').width()){
+				$('.seek-buffered').width($('#seek-bar').width());
+			}
 		}//if draggin false
-	}
-
-
-
-
-
-
-
-
-
-	function seekTo(scrubberOffset){
-		var s = Math.floor(scrubberOffset - $('.seek-line').offset().left);
-		// var s = ;
-		_player.seekTo(s, true);
-		console.log(s,"scrubber seekto");
 	}
 
 

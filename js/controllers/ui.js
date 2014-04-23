@@ -133,9 +133,9 @@ var Ui = (function(window, document, $){
 		$(document).on('mousedown', '#seek-dot', function(event){
 
 			var scrubber 			= '#seek-dot';
-				_seek.seekBarWidth 	= $('.seek-line').width(),
-				_seek.seekBarLeft 	= $('.seek-line').offset().left,
-				_seek.seekBarRight 	= $('.seek-line').offset().left + _seek.seekBarWidth,
+				_seek.seekBarWidth 	= $('#seek-bar').width(),
+				_seek.seekBarLeft 	= $('#seek-bar').offset().left,
+				_seek.seekBarRight 	= $('#seek-bar').offset().left + _seek.seekBarWidth,
 				_seek.seekFill 		= $('.seek-fill'),
 				_seek.drag 			= true;
 
