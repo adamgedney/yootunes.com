@@ -216,9 +216,9 @@ class SearchController extends BaseController {
 			$genre 	= ' ';
 			$length = ' ';
 
-			$songLink 	= ' ';
-			$artistLink = ' ';
-			$albumLink 	= ' ';
+			$songLink 	= null;
+			$artistLink = null;
+			$albumLink 	= null;
 
 
 			//Failsafe to ensure strpos doesn't crash

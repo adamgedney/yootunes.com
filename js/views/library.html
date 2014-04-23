@@ -82,7 +82,18 @@
 
 					<!-- Main Menu Buy on iTunes-->
 					<li>
-						<a href="https://itunes.apple.com/us/album/orange-minus-1/id787408052?i=787408069&uo=4" target="itunes_store">Buy on itunes</a>
+					{{#if this.itunes_song}}
+						<a href="{{this.itunes_song}}" target="itunes_store">Find song on itunes</a>
+					{{/if}}
+
+					{{#if this.itunes_artist}}
+						<a href="{{this.itunes_artist}}" target="itunes_store">Find artist on itunes</a>
+					{{/if}}
+
+					{{#if this.itunes_album}}
+						<a href="{{this.itunes_album}}" target="itunes_store">Find album on itunes</a>
+					{{/if}}
+
 					</li>
 
 					<!-- Main Menu **li Share-->
