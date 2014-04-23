@@ -154,7 +154,7 @@ class UserController extends BaseController {
 
 
 			//If Plus user does NOT already exist
-			if($exists === "0"){
+			if($exists == "0"){
 
 				//Create new Plus user
 				$signup = User::insert(array(

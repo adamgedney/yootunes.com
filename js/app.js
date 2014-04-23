@@ -107,7 +107,7 @@
 
 
 		//If uid cookie does not exist
-		if(cookies.userId === -1){
+		if(cookies.userId === -1 || cookies.userId === undefined){
 
 
 			//Load landing page
@@ -391,6 +391,9 @@
 	function disconnectUser(access_token) {
 		var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + access_token;
 
+		//Expire cookie & load landing page
+		deleteUIDCookie();
+
 		//Notify Google Plus user has signed out
 		$.ajax({
 		    type: 'GET',
@@ -403,11 +406,10 @@
 		      //If no error below is caught, logout was successful
 				console.log("plus user logged out");
 
-				//Expire cookie & load landing page
-				deleteUIDCookie();
+
 
 				//relaod landing page
-				reloadLanding()
+				reloadLanding();
 
 		    },
 
@@ -753,7 +755,7 @@
 		});
 
 
-		//Set a cookie in the browser to store user id
+		// //Set a cookie in the browser to store user id
 		document.cookie = "uid=" + response.userId;
 	}
 

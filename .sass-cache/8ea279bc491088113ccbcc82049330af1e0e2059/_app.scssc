@@ -1,5 +1,5 @@
 3.2.9 (Media Mark)
-eb492c3193cf698cf56ac3a90b353b8413e5f31b
+24b1b50d9b511adb28e5a28401b921a27e081a0d
 o:Sass::Tree::RootNode
 :@template"ÏA/*
 	Thanks for checking out my code!!
@@ -561,7 +561,7 @@ li.li-group.dropdown{
 	background: #fff;
 	padding: 18px 18px 18px 9px;
 	overflow: hidden;
-	min-height: 150px;
+	min-height: 240px;
 	display: none;//Added to experiment with jquery show/hide on dropdowns
 
 	.youtube-img{//youtube thumbnail
@@ -1559,7 +1559,7 @@ color;[ ;o;.;"nth;@;{ ;i;0;[o;/	;0"	grey;"	grey;@;io;;i
 ;[ ;["./*li dropdown==========================*/;@;i*o;
 ;	;
 ;[ ;["./*=====================================*/;@;i+o;;i ;[o;;i ;["background;[ ;o;;	;;"	#fff;@;@;i.;;o;;i ;["padding;[ ;o;;	;;"18px 18px 18px 9px;@;@;i/;;o;;i ;["overflow;[ ;o;;	;;"hidden;@;@;i0;;o;;i ;["min-height;[ ;o;;	;;"
-150px;@;@;i1;;o;;i ;["display;[ ;o;;	;;"	none;@;@;i2;;o;
+240px;@;@;i1;;o;;i ;["display;[ ;o;;	;;"	none;@;@;i2;;o;
 ;	;;[ ;["@/*Added to experiment with jquery show/hide on dropdowns */;@;i2o;;i ;[o;
 ;	;;[ ;["/*youtube thumbnail */;@;i4o;;i ;["
 width;[ ;o;;	;;"	100%;@;@;i5;;o;;i ;["height;[ ;o;;	;;"	100%;@;@;i6;;;@;[".youtube-img;i4; o;!;"" ;i4;#[o;$;#[o;%

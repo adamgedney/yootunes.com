@@ -6,7 +6,7 @@ class SearchController extends BaseController {
 
 
 
-	public function search($q){
+	public function search($searchQuery){
 
 		//===================//
 		//Begin search cascade
@@ -23,12 +23,36 @@ class SearchController extends BaseController {
 		//6. Merge data & store in local songs table
 		//7. Return to client the youtube results on query term, with merged data, from songs table
 
-
+		$q = 0;
+		$queryExists;
 		$getLocalItunes;
 		$getLocalYouTube;
 		$maxiTunesResults = 50;
 		$maxYoutubeResults = 50;
 
+
+		//=======================//
+		//Generate a query entry
+		//=======================//
+		$queryExists = Queries::where('query', '=', $searchQuery)
+								->count();
+
+		//If this is the first time query has been run
+		if($queryExists == "0"){
+			$newQuery = Queries::insert(array('query'=>$searchQuery));
+
+			$getQuery = Queries::where('query', '=', $searchQuery)
+								->get();
+
+			$q = $getQuery[0]->id;
+
+		}else{
+
+			$getQuery = Queries::where('query', '=', $searchQuery)
+								->get();
+
+			$q = $getQuery[0]->id;
+		}
 
 
 		//===============================================//
@@ -43,7 +67,7 @@ class SearchController extends BaseController {
 		if($localItunesExists == "0"){
 
 			//Get & add Itunes results to local DB
-			$getItunes = $this->getItunes($q, $maxiTunesResults);
+			$getItunes = $this->getItunes($q, $searchQuery, $maxiTunesResults);
 
 			//Step 3. –get local Itunes results
 			$getLocalItunes = $this->getLocalItunes($q);
@@ -71,7 +95,7 @@ class SearchController extends BaseController {
 		if($localYouTubeExists == "0"){
 
 			//Get & add youtube results to local DB
-			$this->getYouTube($q, $maxYoutubeResults);
+			$this->getYouTube($q, $searchQuery, $maxYoutubeResults);
 
 			//Step 5. –get local youtube results
 			$getLocalYouTube = $this->getLocalYouTube($q);
@@ -93,7 +117,7 @@ class SearchController extends BaseController {
 
 		if($localYouTubeExists == "0" || $localItunesExists == "0"){
 
-			$this->mergeData($getLocalItunes, $getLocalYouTube);
+			$this->mergeData($getLocalItunes, $getLocalYouTube, $q);
 		}
 
 
@@ -109,7 +133,7 @@ class SearchController extends BaseController {
 		//Step 7. –Return query results to client via song table
 		//===============================================//
 
-		$getSongs = $this->getSongs($q);
+		$getSongs = $this->getSongs($searchQuery);
 
 
 		header('Access-Control-Allow-Origin: *');
@@ -147,12 +171,12 @@ class SearchController extends BaseController {
 
 
 
-	public function mergeData($getLocalItunes, $getLocalYouTube){
+	public function mergeData($getLocalItunes, $getLocalYouTube, $q){
 
 		//Loop through each YOUTUBE RESULT & passinto assumptions engine
 		foreach(json_decode($getLocalYouTube) as $youtubeItem){
 
-			$this->assumptionsEngine($getLocalItunes, $youtubeItem);
+			$this->assumptionsEngine($getLocalItunes, $youtubeItem, $q);
 		}
 	}
 
@@ -162,7 +186,7 @@ class SearchController extends BaseController {
 
 
 	//Primary data analyzer & merger.
-	public function assumptionsEngine($getLocalItunes, $youtubeItem){
+	public function assumptionsEngine($getLocalItunes, $youtubeItem, $q){
 
 
 
@@ -181,6 +205,10 @@ class SearchController extends BaseController {
 			$albumFilter 	= $songItem->collection_name;
 			$genreFilter 	= $songItem->primary_genre;
 
+			$itunesSongLink 	= $songItem->track_view_url;
+			$itunesArtistLink 	= $songItem->artist_view_url;
+			$itunesAlbumLink 	= $songItem->collection_view_url;
+
 
 			$song 	= ' ';
 			$artist = ' ';
@@ -188,11 +216,15 @@ class SearchController extends BaseController {
 			$genre 	= ' ';
 			$length = ' ';
 
+			$songLink 	= ' ';
+			$artistLink = ' ';
+			$albumLink 	= ' ';
+
 
 			//Failsafe to ensure strpos doesn't crash
 			//when no album name present
 			if($albumFilter == ""){
-				$albumFilter = "http://adamgedney.com";
+				$albumFilter = "http://yootunes.com";
 			}
 
 
@@ -220,6 +252,9 @@ class SearchController extends BaseController {
 				$artist = $artistFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to song
+				$songLink = $itunesSongLink;
 			}
 
 			//Search YouTube TITLE for SONG name & ALBUM name
@@ -228,6 +263,9 @@ class SearchController extends BaseController {
 				$album 	= $albumFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to song
+				$songLink = $itunesSongLink;
 			}
 
 			//Search YouTube DESC for SONG name & ARTIST name
@@ -236,6 +274,9 @@ class SearchController extends BaseController {
 				$artist = $artistFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to song
+				$songLink = $itunesSongLink;
 			}
 
 			//Search YouTube DESC for SONG name & ALBUM name
@@ -244,6 +285,9 @@ class SearchController extends BaseController {
 				$album 	= $albumFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to song
+				$songLink = $itunesSongLink;
 			}
 
 			//Search YouTube TITLE for SONG name & DESC for ARTIST name
@@ -252,6 +296,9 @@ class SearchController extends BaseController {
 				$artist = $artistFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to song
+				$songLink = $itunesSongLink;
 			}
 
 			//Search YouTube TITLE for SONG name & DESC for ALBUM name
@@ -260,6 +307,9 @@ class SearchController extends BaseController {
 				$album 	= $albumFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to song
+				$songLink = $itunesSongLink;
 			}
 
 
@@ -273,6 +323,9 @@ class SearchController extends BaseController {
 				$artist = $artistFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to artist
+				$artistLink = $itunesArtistLink;
 			}
 
 			//Search YouTube DESC for ARTIST name string
@@ -280,6 +333,9 @@ class SearchController extends BaseController {
 				$artist = $artistFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to artist
+				$artistLink = $itunesArtistLink;
 			}
 
 
@@ -294,6 +350,9 @@ class SearchController extends BaseController {
 				$album = $albumFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to album
+				$albumLink = $itunesAlbumLink;
 			}
 
 			//Search YouTube DESC for ALBUM name string
@@ -301,6 +360,9 @@ class SearchController extends BaseController {
 				$album = $albumFilter;
 				//Assumes genre
 				$genre 	= $genreFilter;
+
+				//Set the itunes link to album
+				$albumLink = $itunesAlbumLink;
 			}
 
 
@@ -356,7 +418,7 @@ class SearchController extends BaseController {
 
 				//Insert
 				Songs::insert(array(
-					'query' 			=> $youtubeItem->query,
+					'query' 			=> $q,
 					'song_title' 		=> $song,
 					'youtube_title' 	=> $youtubeItem->title,
 					'artist' 			=> $artist,
@@ -368,7 +430,10 @@ class SearchController extends BaseController {
 					'img_medium' 		=> $youtubeItem->img_medium,
 					'img_high' 			=> $youtubeItem->img_high,
 					'length' 			=> $length,
-					'youtube_results_id'=> $youtubeItem->id
+					'youtube_results_id'=> $youtubeItem->id,
+					'itunes_song' 		=> $songLink,
+					'itunes_artist' 	=> $artistLink,
+					'itunes_album' 		=> $albumLink
 				));
 			}
 		}//foreach
@@ -418,7 +483,7 @@ class SearchController extends BaseController {
 
 	//Fetches results from YouTube Data API & stores in
 	//database if they don't already exist
-	public function getYoutube($query, $maxResults){
+	public function getYoutube($q, $query, $maxResults){
 		//NOTE: using this -https://code.google.com/p/google-api-php-client/wiki/GettingStarted
 
   		$YOUTUBE_API_KEY = 'AIzaSyCukRpGoGeXcvHKEEPRLKg7-toFMhtkeYk';
@@ -446,7 +511,7 @@ class SearchController extends BaseController {
 		foreach($youtubeResponse['items'] as $key=>$response){
 
 			$youtubeModel->firstOrCreate(array(
-				'query' 		=> $query,
+				'query' 		=> $q,
 				'etag' 			=> $response['etag'],
 				'video_id' 		=> $response['id']['videoId'],
 				'title' 		=> $response['snippet']['title'],
@@ -470,7 +535,7 @@ class SearchController extends BaseController {
 
 	//Fetches results from iTunes API & stores in
 	//database if they don't already exist
-	public function getItunes($query, $maxResults){
+	public function getItunes($q, $query, $maxResults){
 
 		//Itunes API key
 		$ITUNES_AFFILIATE_URL = '';
@@ -493,7 +558,7 @@ class SearchController extends BaseController {
 
 
 			Itunes::insert(array(
-					'query'						=> $query,
+					'query'						=> $q,
 					'wrapper_type'				=>(empty($result["wrapperType"]))				? " " : $result["wrapperType"],
 					'kind'						=>(empty($result["kind"]))						? " " : $result["kind"],
 					'artist_id'					=>(empty($result["artistId"]))					? " " : $result["artistId"],
@@ -540,7 +605,6 @@ class SearchController extends BaseController {
 		//Get songs form songs table where artist, album,
 		//song_title, or genre match the client query
 		$getSongs = Songs::where('song_title', 'LIKE', '%' . $query . '%')
-			->orWhere('query', 'LIKE', '%' . $query . '%')
 			->orWhere('youtube_title', 'LIKE', '%' . $query . '%')
 			->orWhere('artist', 'LIKE', '%' . $query . '%')
 			->orWhere('album', 'LIKE', '%' . $query . '%')
