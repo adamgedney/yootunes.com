@@ -780,14 +780,19 @@ aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-c
 }
 
 .loading {
-  background: url("../images/icons/loading.GIF") no-repeat;
+  background: url("../images/icons/loading.GIF") no-repeat center;
   position: absolute;
-  width: 60px;
+  width: 75%;
   height: 60px;
   top: 45%;
-  right: 37%;
+  right: 0;
   display: none;
   opacity: .6;
+}
+.loading h2 {
+  margin-top: 63px;
+  font-size: 1.5em;
+  text-align: center;
 }
 
 /*=====================================*/
@@ -990,6 +995,10 @@ section.app {
   margin-left: 23%;
 }
 
+.playIconImg {
+  opacity: .1;
+}
+
 .scroll-container {
   height: 75vh;
   overflow: scroll;
@@ -1121,6 +1130,12 @@ ul.dropdown-main-menu li.li-share {
 }
 ul.dropdown-main-menu li.li-share svg, ul.dropdown-main-menu li.li-share img {
   height: 21px;
+}
+ul.dropdown-main-menu li.li-buy {
+  margin: 9px 0 0 18px;
+}
+ul.dropdown-main-menu li.li-buy svg, ul.dropdown-main-menu li.li-buy img {
+  height: 36px;
 }
 
 /*=====================================*/

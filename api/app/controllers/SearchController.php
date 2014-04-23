@@ -27,7 +27,7 @@ class SearchController extends BaseController {
 		$queryExists;
 		$getLocalItunes;
 		$getLocalYouTube;
-		$maxiTunesResults = 50;
+		$maxiTunesResults = 100;
 		$maxYoutubeResults = 50;
 
 

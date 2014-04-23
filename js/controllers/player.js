@@ -290,8 +290,10 @@ var Player = (function(window, document, $){
 		//Fires when player returns ready
 		window.onPlayerReady = function(event) {
 
-			//Hides app loading blackout
-			$('#appLoading').fadeOut();
+			//Makes play icons visible on ready
+			$('.playIconImg').css({
+				'opacity' : '1'
+			});
 
 			var youtubeId = "";
 

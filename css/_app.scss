@@ -153,14 +153,21 @@ aside.app{
 }
 
 .loading{
-	background: url('../images/icons/loading.GIF') no-repeat;
+	background: url('../images/icons/loading.GIF') no-repeat center;
 	position: absolute;
-	width: 60px;
+	@include col(9);
 	height: 60px;
 	top: 45%;
-	right: 37%;
+	right: 0;
 	display: none;
 	opacity: .6;
+
+	h2{
+		margin-top: 63px;
+		font-size: 1.5em;
+		text-align: center;
+
+	}
 }
 
 /*=====================================*/
@@ -434,6 +441,10 @@ section.app{
 	}
 }
 
+.playIconImg{
+	opacity: .1;
+}
+
 .scroll-container{
 	height: 75vh;
 	overflow: scroll;
@@ -590,6 +601,13 @@ ul.dropdown-main-menu{
 		svg, img{
 			height: 21px;
 		}
+	}
+
+	li.li-buy{
+		svg, img{
+			height: 36px;
+		}
+		margin:9px 0 0 18px;
 	}
 }
 
