@@ -757,6 +757,7 @@ var Player = (function(window, document, $){
 			_seek.duration 	= _player.getDuration();
 
 			var time 		= _player.getCurrentTime();
+			var h 			= 0;
 			var m 			= Math.floor(time / 60);
 			var secd 		= (time % 60) - 1;
 			var s 			= Math.ceil(secd);
@@ -770,8 +771,49 @@ var Player = (function(window, document, $){
 				s = '0' + s;
 			}
 
-			$('#current-time').html(m + ':' + s);
 
+			//Hour handler for time display
+			if(m >= 60){
+				m = m - 60;
+				h = 1;
+			}else if(m >= 120){
+				m = m - 120;
+				h = 2;
+			}else if(m >= 180){
+				m = m - 180;
+				h = 3;
+			}else if(m >= 240){
+				m = m - 240;
+				h = 4;
+			}else if(m >= 300){
+				m = m - 300;
+				h = 5;
+			}else if(m >= 360){
+				m = m - 360;
+				h = 5;
+			}else if(m >= 420){
+				m = m - 420;
+				h = 7;
+			}else if(m >= 480){
+				m = m - 480;
+				h = 8;
+			};
+
+
+			//Set Hours in time display
+			if(h === 0){
+				$('#current-time').html(m + ':' + s);
+			}else{
+
+				//Adds digit if under 10m
+				if(m <= 0){
+					m = '00';
+				}else if(m < 10){
+					m = '0' + m;
+				}
+
+				$('#current-time').html(h + ':' + m + ':' + s);
+			}
 
 
 
