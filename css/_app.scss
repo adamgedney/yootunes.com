@@ -985,11 +985,15 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		float: right;
 		line-height: 0px; //important for lining up seek-line
 	}
+
+	#seek-bar{
+		@include col(10);
+	}
 }
 
 
 
-.seek-line, .seek-fill, #seek-bar{
+.seek-line, .seek-fill, #seek-bar, .seek-buffered{
 	@include col(10);
 	// @include col-ctr(10);
 	height: 0px;
@@ -998,9 +1002,17 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	margin-top:18px;
 }
 
+
+
 .seek-fill{
 	width: 0;
 	border-bottom: 1px solid $red;
+	position: absolute;
+}
+
+.seek-buffered{
+	width: 0;
+	border-bottom: 1px solid nth($grey, 2);
 	position: absolute;
 }
 

@@ -1453,8 +1453,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   float: right;
   line-height: 0px;
 }
+.seek-ctrl #seek-bar {
+  width: 83.3333333%;
+}
 
-.seek-line, .seek-fill, #seek-bar {
+.seek-line, .seek-fill, #seek-bar, .seek-buffered {
   width: 83.3333333%;
   height: 0px;
   border-bottom: 1px solid #272a2a;
@@ -1464,6 +1467,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .seek-fill {
   width: 0;
   border-bottom: 1px solid #cf2425;
+  position: absolute;
+}
+
+.seek-buffered {
+  width: 0;
+  border-bottom: 1px solid #494f4f;
   position: absolute;
 }
 

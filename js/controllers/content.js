@@ -232,6 +232,29 @@ var Content = (function(window, document, $){
 
 			if(event.template === '#app'){
 
+				//If device cookie doesn't/does exist
+				if(_thisDevice === undefined){//Does not exist
+
+					//Fade in modal to instruct user to name this device
+					$('#nameDeviceModal').fadeIn();
+		console.log(_thisDevice, "this device user js");
+
+					//Set device on new device creation
+					$(document).on('reloadDevices', function(event){
+						console.log(event.newDeviceId, "reload picked up in user");
+
+						//Fade in modal to instruct user to name this device
+						$('#nameDeviceModal').fadeOut();
+
+						//Set this device once a new one is created
+						_thisDevice = event.newDeviceId;
+
+						//Set a device cookie for socket server control
+						document.cookie = "device=" + _thisDevice;
+
+					});//on reloadDevices
+				}
+
 				//Load library items
 				loadLibrary();
 				// loadAcctSettings();

@@ -12,9 +12,7 @@ var Player = (function(window, document, $){
 	var _updateInterval;
 
 	var _seek 				= {};
-		_seek.lastM			= 0,
 		_seek.scrubber		= '#seek-dot',
-		_seek.stepper		= 0,
 		_dragging 			= false;
 
 	var _resultLength 		= 0;
@@ -425,11 +423,6 @@ var Player = (function(window, document, $){
 						play(id);
 
 
-						//Resets stepper for seekbar fill reset
-						_seek.stepper = 0;
-						_seek.lastM = 0;
-
-
 						//sets new video to false & playing to true
 						this.newVideo = true;
 						// _playerNewVideo = !_playerNewVideo;
@@ -521,7 +514,7 @@ var Player = (function(window, document, $){
 				_playingVideo = id;
 
 				//Calls updateTime() on regular intervals
-				_updateInterval = setInterval(updateTime, 1000);
+				_updateInterval = setInterval(updateTime, 100);
 
 
 		      	//If user plays video from click on video, change play/pause
@@ -700,9 +693,20 @@ var Player = (function(window, document, $){
 
 	}
 
+
+
+
+
+
+
+
+
+
+
 	//Updates the time in the transport view
 	function updateTime(){
 
+		if(_dragging === false){
 
 			var duration 	= _player.getDuration();
 
@@ -711,8 +715,9 @@ var Player = (function(window, document, $){
 			var secd 		= (time % 60) - 1;
 			var s 			= Math.ceil(secd);
 
-			var seek_time = ((300 / duration) * s) + _seek.stepper + $('.seek-line').offset().left;
+			// var seek_time = ((300 / duration) * s) + _seek.stepper + $('.seek-line').offset().left;
 
+			//Adds digit if under 10s
 			if(s <= 0){
 				s = '00';
 			}else if(s < 10){
@@ -723,22 +728,24 @@ var Player = (function(window, document, $){
 
 
 
-			//Adds 60 to incrementer for each m
-			if(m !== 0 && _seek.lastM !== m){
-				_seek.stepper += 60;
 
-				_seek.lastM = m;
-
-			}
-
+			//(bar width / video duration) * time = xPos of scrubber + seekbar left
+			var seekPos = (($('#seek-bar').width() / duration) * time)  + $('#seek-bar').offset().left;
 
 
 			//Update scrubber position
-			$('#seek-dot').offset({left: seek_time});
+			$('#seek-dot').offset({left: seekPos});
 
 
-			//Sets seek bar backfill bar width
-			$('.seek-fill').width($('#seek-dot').offset().left - $('.seek-line').offset().left);
+			//Sets seek bar colored backfill bar width
+			$('.seek-fill').width($('#seek-dot').offset().left - $('#seek-bar').offset().left);
+
+
+			//Set Buffered stream indicator in seek bar
+			var buffered = _player.getVideoLoadedFraction();
+			$('.seek-buffered').width(($('#seek-dot').offset().left - $('#seek-bar').offset().left) + (buffered * 100));
+
+		}//if draggin false
 	}
 
 
