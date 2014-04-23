@@ -232,12 +232,16 @@ var Content = (function(window, document, $){
 
 			if(event.template === '#app'){
 
+
+
+
 				//If device cookie doesn't/does exist
 				if(_thisDevice === undefined){//Does not exist
 
 					//Fade in modal to instruct user to name this device
 					$('#nameDeviceModal').fadeIn();
-		console.log(_thisDevice, "this device user js");
+
+					//console.log(_thisDevice, "this device user js");
 
 					//Set device on new device creation
 					$(document).on('reloadDevices', function(event){
@@ -254,6 +258,9 @@ var Content = (function(window, document, $){
 
 					});//on reloadDevices
 				}
+
+
+
 
 				//Load library items
 				loadLibrary();

@@ -53,6 +53,28 @@ var Player = (function(window, document, $){
 
 
 
+		//If a reload was picked up from conten.js app rendered
+		//_thisDevice needs to be set for the first time
+		$(document).on('reloadDevices', function(event){
+
+			//Set this device once a new one is created
+			_thisDevice = event.newDeviceId;
+		});
+
+
+
+		//on playOn change, pause video to enable transition
+		$(document).on('change', '#play-on', function(){
+
+			pause();
+
+		});
+
+
+
+
+
+
 
 
 		//Listen for rendered
@@ -859,6 +881,7 @@ var Player = (function(window, document, $){
 
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');
+		console.log(_thisDevice, _playOnDevice, "this/playon devices");
 
 			//Connection to node socket server opened if playOn is enabled
 			if(_thisDevice !== _playOnDevice){
@@ -926,7 +949,7 @@ var Player = (function(window, document, $){
 
 					//EMIT event back to server
 					socket.emit('play', data);
-					console.log(socket);
+
 
 				}else{
 
@@ -935,7 +958,7 @@ var Player = (function(window, document, $){
 
 					//EMIT event back to server
 					socket.emit('play', data);
-					console.log(socket);
+
 				}
 
 

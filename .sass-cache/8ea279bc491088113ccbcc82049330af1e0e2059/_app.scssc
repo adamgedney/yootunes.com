@@ -1,5 +1,5 @@
 3.2.9 (Media Mark)
-e514eb92925c63f510b1914cdcea41a0dc667fad
+a7b93a6b6929b808a3144290dda3196ee1c9986e
 o:Sass::Tree::RootNode
 :@template"‚@/*
 	Thanks for checking out my code!!
@@ -444,7 +444,7 @@ section.app{
 }
 
 .scroll-container{
-	height: 76vh;
+	height: 75vh;
 	overflow: scroll;
 }
 
@@ -1458,7 +1458,7 @@ width;[ ;o;;	;;"	10px;@;@;i≥;;o;;i ;["margin-left;[ ;o;
 ;&0;"@∫;'o;(;){ ;i±;#[o;-;["play-icon;"@∫;i±;,T;@;["li;i¢; o;!;"" ;i¢;#[o;$;#[o;%
 ;&0;"@»;'o;(;){ ;i¢;#[o;*	;["li;"@»;i¢;+0;,T;@;["ul;iû; o;!;"" ;iû;#[o;$;#[o;%
 ;&0;"@÷;'o;(;){ ;iû;#[o;*	;["ul;"@÷;iû;+0;,T;@;[".main-container;iù; o;!;"" ;iù;#[o;$;#[o;%
-;&0;"@‰;'o;(;){ ;iù;#[o;-;["main-container;"@‰;iù;,To;;i ;[o;;i ;["height;[ ;o;;	;;"	76vh;@;@;iº;;o;;i ;["overflow;[ ;o;;	;;"scroll;@;@;iΩ;;;@;[".scroll-container;iª; o;!;"" ;iª;#[o;$;#[o;%
+;&0;"@‰;'o;(;){ ;iù;#[o;-;["main-container;"@‰;iù;,To;;i ;[o;;i ;["height;[ ;o;;	;;"	75vh;@;@;iº;;o;;i ;["overflow;[ ;o;;	;;"scroll;@;@;iΩ;;;@;[".scroll-container;iª; o;!;"" ;iª;#[o;$;#[o;%
 ;&0;"@ 	;'o;(;){ ;iª;#[o;-;["scroll-container;"@ 	;iª;,To;
 ;	;
 ;[ ;["/*Column widths & floats*/;@;i¿o;;i ;[o;;i ;["max-height;[ ;o;;	;;"	48px;@;@;i√;;o;

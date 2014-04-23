@@ -71,14 +71,14 @@ var User = (function(window, document, $){
 			event.preventDefault();
 
 			var currentDeviceId = "0";//default
-			var name 			= $('#infoDeviceName').val();
+			var name 			= $('.infoDeviceName').val();
 
 
 
 			//If a device name already exists for this device, get it
 			if(!$('#infoDeviceName').attr('data-id') === ''){
 
-				 currentDeviceId = $('#infoDeviceName').attr('data-id');
+				 currentDeviceId = $('.infoDeviceName').attr('data-id');
 
 			}
 
