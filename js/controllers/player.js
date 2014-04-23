@@ -330,8 +330,9 @@ var Player = (function(window, document, $){
 
 
 
-			var prevVolume;
+
 			//Volume Handler=======//
+			var prevVolume;
 			$(document).on('mousemove', '#volumeRange', function(){
 
 				var rangeVolume = $('#volumeRange').val();
@@ -607,6 +608,36 @@ var Player = (function(window, document, $){
 		    	}
 		    }
 		};
+
+
+
+
+
+
+
+
+		//Mute/unmute on volume icon click
+		$(document).on('click', '.vol-icon', function(event){
+
+			if($(this).attr('src') === 'images/icons/volume-icon.svg'){
+
+				//mute player
+				_player.mute();
+
+				//Set icon to muted icon
+				$(this).attr('src', 'images/icons/volume-icon-mute.svg');
+
+			}else{
+
+				//unmute player
+				_player.unMute();
+
+				//Set icon back to non muted icon
+				$(this).attr('src', 'images/icons/volume-icon.svg');
+			}
+
+
+		});
 
 
 
