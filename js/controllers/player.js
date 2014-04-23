@@ -20,6 +20,7 @@ var Player = (function(window, document, $){
 	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
 	var _shuffleIndexes 	= [];
+	// var _shuffleList 		= [];
 	var _prevIndex 			= 0;
 	var _playingVideo     	= '';
 
@@ -30,7 +31,7 @@ var Player = (function(window, document, $){
 	var socketServer 		= 'http://localhost:3001';
 	var socket;
 
-	//Testing. Get this data from cookie
+
 	var _thisDevice;
 	var _playOnDevice;//default
 	var _userId 			=  '';
@@ -67,7 +68,6 @@ var Player = (function(window, document, $){
 		$(document).on('change', '#play-on', function(){
 
 			pause();
-
 		});
 
 
@@ -172,14 +172,14 @@ var Player = (function(window, document, $){
 				_playMode.loop 		= false;
 				$('#loopSong').attr('src', 'images/icons/loop-icon.png');
 
-				//Change opacity to indicate selection
+				//Change icon to indicate selection
 				$(this).attr('src', 'images/icons/shuffle-icon-red.png');
 
 			}else{
 
 				_playMode.shuffle = !_playMode.shuffle;
 
-				//Change opacity to full visibility
+				//Change oicon back
 				$(this).attr('src', 'images/icons/shuffle-icon.png');
 			}
 
@@ -289,6 +289,9 @@ var Player = (function(window, document, $){
 
 		//Fires when player returns ready
 		window.onPlayerReady = function(event) {
+
+			//Hides app loading blackout
+			$('#appLoading').fadeOut();
 
 			var youtubeId = "";
 
@@ -1119,6 +1122,15 @@ var Player = (function(window, document, $){
 		var randomIndex = Math.floor(Math.random() * resultLength);
 
 		var getVideo = $('.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
+
+
+		// $('.resultItems').each(function(){
+		// 	var vid = $(this).attr('data-videoId');
+		// 	_shuffleList.push(vid);
+		// });
+
+
+		// var getVideo = Math.floor(Math.random() * _shuffleList.length);
 
 		//Start playing next video in shuffle
 		// _player.loadVideoById(getVideo);

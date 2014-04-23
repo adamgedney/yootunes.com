@@ -835,7 +835,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	display: none;
 }
 
-.modal-container{
+.modal-container, #appLoading{
 	background: rgba(0,0,0,.9);
 	position: absolute;
 	top: 0;
@@ -887,6 +887,18 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 #restoreAcctModal{
 	.modal{
 		text-align: left;
+	}
+}
+
+
+
+
+
+#appLoading{
+	h3{
+		color: $white;
+		margin-top: 20%;
+		text-align: center;
 	}
 }
 
