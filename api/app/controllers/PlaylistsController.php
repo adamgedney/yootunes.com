@@ -13,10 +13,11 @@ class PlaylistsController extends BaseController {
 	public function newPlaylist($userId, $songId, $playlistName)
 	{
 
+
 		//Create a new playlist for user
 		$newPlaylist = Playlists::insert(array(
-			'name'=>$playlistName,
-			'user_id'=>$userId
+			'name'		=>$playlistName,
+			'user_id'	=>$userId
 			));
 
 
@@ -30,6 +31,14 @@ class PlaylistsController extends BaseController {
 		//Store new playlist id
 		$playlistId= $getPlaylistId[0]->id;
 
+		//Generate share url
+		$shareUrl = $userId . '83027179269257243' . $playlistId;
+
+		//Add share url to new playlist entry
+		$addShareUrl = Playlists::where('id', '=', $playlistId)
+			->update(array(
+				'share_url'=>$shareUrl
+			));
 
 
 

@@ -56,13 +56,7 @@
 // 	background: $white;
 // }
 
-// .adsbygoogle{
-// 	background: nth($grey, 4);
-// 	@include col(12);
-// 	position: relative;
-// 	z-index: 300;
-// 	bottom: 67px;
-// }
+
 
 
 .share-strip{
@@ -564,7 +558,7 @@ li.li-group.dropdown{
 	background: #fff;
 	padding: 18px 18px 18px 9px;
 	overflow: hidden;
-	min-height: 240px;
+	min-height: 150px;
 	display: none;//Added to experiment with jquery show/hide on dropdowns
 
 	.youtube-img{//youtube thumbnail
@@ -904,6 +898,23 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 
+// #banner-ads{
+// 	position: absolute;
+// 	width: 800px;
+// 	height: 75px;
+// 	bottom: 67px;
+// 	right: 0;
+// 	background: $red;
+// }
+
+
+// .adsbygoogle{
+// 	background: nth($grey, 4);
+// 	@include col(12);
+// 	position: relative;
+// 	z-index: 300;
+// 	bottom: 67px;
+// }
 
 
 

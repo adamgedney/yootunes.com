@@ -21,6 +21,7 @@
 	var _user 				= {};
 	var _userId;
 	var _thisDevice;
+	var _playlistId 		= 0;
 
 
 
@@ -79,6 +80,19 @@
 						}
 					}
 				});
+			}//if reset
+
+
+			//if share
+			if(params.substr(1,5) === "share"){
+
+				var shareToken 	= params.substr(7);
+				var tokenArray 	= shareToken.split('83027179269257243');
+
+				//store the playlist that brought user to yootunes
+				setPlaylistCookie(tokenArray[1]);
+
+				_playlistId = tokenArray[1];
 			}
 		}//if params
 
@@ -95,8 +109,10 @@
 		//If uid cookie does not exist
 		if(cookies.userId === -1){
 
+
 			//Load landing page
 			app.content.loadLanding();
+
 
 		}else{//exists
 
@@ -730,13 +746,14 @@
 
 		//fire event passing user data to listening class
 		$.event.trigger({
-			type 	: 'userloggedin',
-			email 	: response.email,
-			userId	: response.userId
+			type 			: 'userloggedin',
+			email 			: response.email,
+			userId			: response.userId,
+			playlistId 		: _playlistId
 		});
 
 
-		//Set a cookie in the browser to store user id for "sessioning"
+		//Set a cookie in the browser to store user id
 		document.cookie = "uid=" + response.userId;
 	}
 
@@ -771,7 +788,8 @@
 
 		var obj = {
 			'userId' 	: _userId,
-			'thisDevice': _thisDevice
+			'thisDevice': _thisDevice,
+			'share' 	: _playlistId
 		};
 
 
@@ -796,6 +814,15 @@
 				//Set class level device id
 				obj.thisDevice = cookieArray[c].substr(7);
 			}
+
+
+			//Retrieve shared playlist cookie
+			if(cookieArray[c].indexOf("share") !== -1){
+
+				//Set playlist share value
+				obj.share = cookieArray[c].substr(6);
+			}
+
 		}//for
 
 		return obj;
@@ -816,6 +843,24 @@
 		//Expires uid cookie for logout funcitonality
 		document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 	};
+
+
+
+
+
+
+
+
+
+
+	function setPlaylistCookie(playlistId){
+		//Set a cookie in the browser to store
+		//shared playlist if user not logged in
+		document.cookie = "share=" + playlistId;
+
+		_playlistId = 0;
+
+	}
 
 
 

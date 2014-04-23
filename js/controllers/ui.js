@@ -509,6 +509,7 @@ var Ui = (function(window, document, $){
 
 	//Notify user of link to be copied
 	function copyToClipboard(link){
+
 	  window.prompt("Copy to clipboard: Ctrl+C, Enter", link);
 	}
 

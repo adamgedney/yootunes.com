@@ -16,6 +16,7 @@ var Content = (function(window, document, $){
 	var _currentContent = '';
 	var _baseUrl 		= 'http://localhost:8887';
 	var _thisDevice;
+	var _playlistShared = 0;
 
 
 
@@ -26,11 +27,14 @@ var Content = (function(window, document, $){
 
 
 
-		//Retrieve cookies & set device & userId
-		var userCookies = app.getCookies;
 
-		_thisDevice = userCookies.thisDevice;
-		_userId 	= userCookies.userId;
+
+
+
+
+
+
+
 
 
 
@@ -220,6 +224,16 @@ var Content = (function(window, document, $){
 
 
 
+		//on reload set shared playlist id for use in app rendered event
+		$(document).on('userloggedin', function(event){
+			_playlistShared = event.playlistId;
+
+		});
+
+
+
+
+
 
 
 
@@ -233,6 +247,12 @@ var Content = (function(window, document, $){
 			if(event.template === '#app'){
 
 
+				//Retrieve cookies & set device & userId
+				var userCookies = app.getCookies;
+
+				_thisDevice 	= userCookies.thisDevice;
+				_userId 		= userCookies.userId;
+
 
 
 				//If device cookie doesn't/does exist
@@ -241,11 +261,9 @@ var Content = (function(window, document, $){
 					//Fade in modal to instruct user to name this device
 					$('#nameDeviceModal').fadeIn();
 
-					//console.log(_thisDevice, "this device user js");
 
 					//Set device on new device creation
 					$(document).on('reloadDevices', function(event){
-						console.log(event.newDeviceId, "reload picked up in user");
 
 						//Fade in modal to instruct user to name this device
 						$('#nameDeviceModal').fadeOut();
@@ -262,9 +280,24 @@ var Content = (function(window, document, $){
 
 
 
-				//Load library items
-				loadLibrary();
-				// loadAcctSettings();
+				//if playlistId cookie exists load playlist, else load library
+				if(_playlistShared === 0 || _playlistShared === undefined|| _playlistShared === ""){
+
+					//Load library items
+					loadLibrary();
+
+				}else{
+
+
+					//load the playlist songs if this was a shared playlist
+					loadPlaylistSongs(_playlistShared);
+
+					//Expires share cookie once it has been used
+					document.cookie = 'share=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+
+				}
+
+
 
 				//Load playlists
 				loadPlaylists();
@@ -789,7 +822,6 @@ var Content = (function(window, document, $){
 						song : response,
 						user : {userId : _userId}
 					};
-
 
 					//Store the users songs for list functions
 					_userSongs = response;
