@@ -200,7 +200,7 @@
 			dataType 	: 'json',
 			success 	: function(response){
 
-				console.log(response, "login wth email response");
+				// console.log(response, "login wth email response");
 
 				//If user was authenticated
 				if(response.success === true){
@@ -404,11 +404,8 @@
 		    success: function(nullResponse) {
 
 		      //If no error below is caught, logout was successful
-				console.log("plus user logged out");
 
-
-
-				//relaod landing page
+				//reload landing page
 				reloadLanding();
 
 		    },

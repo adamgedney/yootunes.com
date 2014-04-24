@@ -28,7 +28,7 @@ var Player = (function(window, document, $){
 		_playMode.loop 		= false;
 		_playMode.shuffle 	= false;
 
-	var socketServer 		= 'http://localhost:3001';
+	var socketServer 		= 'http://yooss.pw:3998';
 	var socket;
 
 

@@ -370,7 +370,7 @@ var Content = (function(window, document, $){
 					method : 'GET',
 					dataType : 'json',
 					success : function(response){
-						console.log(response, "acct settings call response");
+						// console.log(response, "acct settings call response");
 
 						$('#infoName').val(response[0].display_name);
 						$('#infoEmail').val(response[0].email);
