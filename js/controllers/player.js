@@ -892,6 +892,7 @@ var Player = (function(window, document, $){
 			if(_thisDevice !== _playOnDevice){
 
 				socket = io.connect(socketServer);
+				console.log(socket, "in playon");
 
 			}else{
 
