@@ -51,8 +51,8 @@ var Player = (function(window, document, $){
 		_playOnDevice 	= userCookies.thisDevice;//default device
 		_userId 		= userCookies.userId;
 
-
-
+		//testing socket
+		// socket = io.connect(socketServer);
 
 		//If a reload was picked up from conten.js app rendered
 		//_thisDevice needs to be set for the first time
@@ -892,7 +892,7 @@ var Player = (function(window, document, $){
 			if(_thisDevice !== _playOnDevice){
 
 				socket = io.connect(socketServer);
-				console.log(socket, "in playon");
+
 
 			}else{
 
@@ -964,6 +964,7 @@ var Player = (function(window, document, $){
 
 					//EMIT event back to server
 					socket.emit('play', data);
+
 
 				}
 
