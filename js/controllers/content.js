@@ -312,6 +312,11 @@ var Content = (function(window, document, $){
 
 			if(event.template === '#libraryItem'){
 
+				//Makes play icons visible
+				$('.playIconImg').css({
+					'opacity' : '1'
+				});
+
 
 				//Remove search input value
 				$('#searchInput').val('');

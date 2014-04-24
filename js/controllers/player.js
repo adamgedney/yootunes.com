@@ -290,10 +290,10 @@ var Player = (function(window, document, $){
 		//Fires when player returns ready
 		window.onPlayerReady = function(event) {
 
-			//Makes play icons visible on ready
-			$('.playIconImg').css({
-				'opacity' : '1'
-			});
+			// //Makes play icons visible on ready
+			// $('.playIconImg').css({
+			// 	'opacity' : '1'
+			// });
 
 			var youtubeId = "";
 

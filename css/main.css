@@ -714,7 +714,7 @@ footer .col-3 ul li .svg {
 }
 
 svg:hover, img:hover {
-  opacity: .5;
+  opacity: .8;
 }
 
 .truncate, .li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col6, .li-col7 {
@@ -809,8 +809,13 @@ aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-c
   color: #494f4f;
 }
 
-.settings-menu {
-  margin-top: 72px;
+#returnToSearch {
+  margin-top: 18px;
+  text-align: right;
+}
+
+#returnToSearch:hover {
+  background: none;
 }
 
 .library-menu {
@@ -928,6 +933,7 @@ section.app {
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  position: relative;
 }
 .search input {
   float: left;
@@ -972,6 +978,12 @@ section.app {
   color: #d6d6d6;
 }
 
+#search-icon {
+  position: absolute;
+  right: 21px;
+  top: 21px;
+}
+
 .main-container ul {
   margin-bottom: 0;
   position: relative;
@@ -993,10 +1005,6 @@ section.app {
 .main-container ul li .play-icon img {
   width: 10px;
   margin-left: 23%;
-}
-
-.playIconImg {
-  opacity: .1;
 }
 
 .scroll-container {

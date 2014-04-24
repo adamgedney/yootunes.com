@@ -195,6 +195,15 @@ class SearchController extends BaseController {
 		//run for loop for itunes length, then just insert remaining youtube results
 		//into DB w/out enhanced data
 
+		$song 	= ' ';
+		$artist = ' ';
+		$album 	= ' ';
+		$genre 	= ' ';
+		$length = ' ';
+
+		$songLink 	= null;
+		$artistLink = null;
+		$albumLink 	= null;
 
 
 		//Loop through all ITUNES RESULTS
@@ -208,17 +217,6 @@ class SearchController extends BaseController {
 			$itunesSongLink 	= $songItem->track_view_url;
 			$itunesArtistLink 	= $songItem->artist_view_url;
 			$itunesAlbumLink 	= $songItem->collection_view_url;
-
-
-			$song 	= ' ';
-			$artist = ' ';
-			$album 	= ' ';
-			$genre 	= ' ';
-			$length = ' ';
-
-			$songLink 	= null;
-			$artistLink = null;
-			$albumLink 	= null;
 
 
 			//Failsafe to ensure strpos doesn't crash
@@ -437,6 +435,37 @@ class SearchController extends BaseController {
 				));
 			}
 		}//foreach
+
+
+
+		//if get local itunes is empty
+		//add youtube results to songs list anyway
+		//this improves the uniqueness of songs in DB
+
+		$queryExists = Queries::where('id', '=', $q)
+								->count();
+
+		if(count($getLocalItunes) == "0" && $queryExists == "0"){
+			//Insert
+			Songs::insert(array(
+				'query' 			=> $q,
+				'song_title' 		=> $song,
+				'youtube_title' 	=> $youtubeItem->title,
+				'artist' 			=> $artist,
+				'album' 			=> $album,
+				'genre' 			=> $genre,
+				'description' 		=> $youtubeItem->description,
+				'youtube_id' 		=> $youtubeItem->video_id,
+				'img_default' 		=> $youtubeItem->img_default,
+				'img_medium' 		=> $youtubeItem->img_medium,
+				'img_high' 			=> $youtubeItem->img_high,
+				'length' 			=> $length,
+				'youtube_results_id'=> $youtubeItem->id,
+				'itunes_song' 		=> $songLink,
+				'itunes_artist' 	=> $artistLink,
+				'itunes_album' 		=> $albumLink
+			));
+		}
 	}
 
 
