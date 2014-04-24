@@ -170,6 +170,11 @@ aside.app{
 	}
 }
 
+
+
+
+
+
 /*=====================================*/
 /*Sidebar Settings=====================*/
 /*=====================================*/
@@ -189,8 +194,12 @@ aside.app{
 }
 
 #returnToSearch{
-	margin-top: 18px;
+	margin-top: 27px;
 	text-align: right;
+
+	img{
+		height: 18px;
+	}
 }
 
 #returnToSearch:hover{
@@ -216,6 +225,7 @@ aside.app{
 /*=====================================*/
 .playlist-nav{
 	font-size: .8em;
+	margin-top: 33px;
 
 	h3{
 		display: inline;
@@ -225,7 +235,7 @@ aside.app{
 
 	ul{
 		li{
-			line-height: 42px;
+			line-height: 48px;
 			cursor: pointer;
 			padding: 0 6%;
 			position: relative;
@@ -426,8 +436,9 @@ section.app{
 
 #search-icon{
 	position: absolute;
-	right: 21px;
-	top: 21px;
+	right: 3.15%;
+	top: 39%;
+	height: 18px;
 }
 
 .main-container{
