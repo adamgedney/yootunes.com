@@ -6,7 +6,7 @@ var User = (function(window, document, $){
 
 
 	//private vars
-	var _baseUrl 	= 'http://localhost:8887';
+	var _baseUrl 	= 'http://yooapi.pw';
 	var _userId;
 	var _thisDevice;
 

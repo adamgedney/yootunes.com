@@ -14,7 +14,7 @@ var Content = (function(window, document, $){
 	var _sortBy			= 'def';
 	var _sortOrder		= 'def';
 	var _currentContent = '';
-	var _baseUrl 		= 'http://localhost:8887';
+	var _baseUrl 		= 'http://yooapi.pw';
 	var _thisDevice;
 	var _playlistShared = 0;
 
@@ -311,11 +311,6 @@ var Content = (function(window, document, $){
 
 
 			if(event.template === '#libraryItem'){
-
-				//Makes play icons visible
-				$('.playIconImg').css({
-					'opacity' : '1'
-				});
 
 
 				//Remove search input value

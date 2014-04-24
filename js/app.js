@@ -1,6 +1,6 @@
 (function(document, window, $){
 
-	var _baseUrl 		= 'http://localhost:8887';
+	var _baseUrl 		= 'http://yooapi.pw';
 
 	//Global object of app
 	window.app 				= {};

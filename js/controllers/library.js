@@ -3,6 +3,7 @@ var Library = (function(window, document, $){
 	//private vars
 	var _addedToLibrary = false;
 	var _libraryId 		= '';
+	var _baseUrl 		= 'http://yooapi.pw';
 
 
 
@@ -219,7 +220,7 @@ var Library = (function(window, document, $){
 	function addSongToLibrary(id, userId){
 
 		//Build API url
-		var API_URL = 'http://localhost:8887/add-to-library/' + id + '/' + userId;
+		var API_URL = _baseUrl + '/add-to-library/' + id + '/' + userId;
 
 		//Call API to add song to library
 		$.ajax({
@@ -246,7 +247,7 @@ var Library = (function(window, document, $){
 	function removeSongFromLibrary(id, userId){
 
 		//Build API url
-		var API_URL = 'http://localhost:8887/remove-from-library/' + id + '/' + userId;
+		var API_URL = _baseUrl + '/remove-from-library/' + id + '/' + userId;
 
 		//Call API to add song to library
 		$.ajax({
@@ -275,7 +276,7 @@ var Library = (function(window, document, $){
 	function createNewPlaylist(userId, songId, playlistName){
 
 		//Build API url
-		var API_URL = 'http://localhost:8887/new-playlist/' + userId + '/' + songId + '/' + playlistName;
+		var API_URL = _baseUrl + '/new-playlist/' + userId + '/' + songId + '/' + playlistName;
 
 		//Call API to add song to library
 		$.ajax({
@@ -308,7 +309,7 @@ var Library = (function(window, document, $){
 		function addSongToPlaylist(songId, playlistId, userId){
 
 			//Build API url
-			var API_URL = 'http://localhost:8887/add-to-playlist/' + songId + '/' + playlistId;
+			var API_URL = _baseUrl + '/add-to-playlist/' + songId + '/' + playlistId;
 
 			//Call API to add song to library
 			$.ajax({
@@ -337,7 +338,7 @@ var Library = (function(window, document, $){
 		function deleteSongFromPlaylist(songId, playlistId){
 
 			//Build API url
-			var API_URL = 'http://localhost:8887/delete-from-playlist/' + songId + '/' + playlistId;
+			var API_URL = _baseUrl + '/delete-from-playlist/' + songId + '/' + playlistId;
 
 			//Call API to add song to library
 			$.ajax({
@@ -369,7 +370,7 @@ var Library = (function(window, document, $){
 		function deletePlaylist(playlistId){
 
 			//Build API url
-			var API_URL = 'http://localhost:8887/delete-playlist/' + playlistId;
+			var API_URL = _baseUrl + '/delete-playlist/' + playlistId;
 
 			//Call API to add song to library
 			$.ajax({
