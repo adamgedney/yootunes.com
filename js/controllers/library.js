@@ -1,4 +1,9 @@
-var Library = (function(window, document, $){
+define(['jquery'], function($){
+
+
+
+
+// var Library = (function(window, document, $){
 
 	//private vars
 	var _addedToLibrary = false;
@@ -140,7 +145,6 @@ var Library = (function(window, document, $){
 
 
 
-			console.log(userId);
 			//Add song to playlist
 			addSongToPlaylist(songId, playlistId, userId);
 		});
@@ -420,4 +424,5 @@ var Library = (function(window, document, $){
 
 
 
-})(window, document,jQuery);
+// })(window, document,jQuery);
+});//define()

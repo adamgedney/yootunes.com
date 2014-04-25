@@ -1,4 +1,4 @@
-define(['jquery', '/js/libs/keyHash.js'], function($, Key){
+define(['jquery', 'js/libs/keyHash.js'], function($, Key){
 
 
 

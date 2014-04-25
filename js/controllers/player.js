@@ -1,7 +1,10 @@
-var Player = (function(window, document, $){
+define(['jquery', 'js/libs/keyHash.js', 'socketio'], function($, Key, io){
+
+
+// var Player = (function(window, document, $){
 
 	//Instances
-	var _key = new KeyHash();
+	var _key = Key;
 
 
 	//private vars
@@ -41,7 +44,6 @@ var Player = (function(window, document, $){
 
 	//constructor method
 	var player = function(){
-
 
 
 		//Retrieve cookies & set device & userId
@@ -879,7 +881,7 @@ var Player = (function(window, document, $){
 
 
 	function play(youtubeId){
-		console.log(socket, "play triggered");
+
 
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');
@@ -890,6 +892,7 @@ var Player = (function(window, document, $){
 
 				socket = io.connect(socketServer);
 
+				console.log(socket, "play triggered");
 
 			}else{
 
@@ -1153,4 +1156,5 @@ var Player = (function(window, document, $){
 
 
 
-})(window, document,jQuery);
+// })(window, document,jQuery);
+});//define()

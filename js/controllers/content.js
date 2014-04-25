@@ -1,4 +1,4 @@
-define(['jquery', '/js/libs/handlebars.js'], function($, handlebars){
+define(['jquery', 'js/libs/handlebars.js'], function($, handlebars){
 
 
 
@@ -250,6 +250,9 @@ console.log("test contentjs");
 
 					//Fade in modal to instruct user to name this device
 					$('#nameDeviceModal').fadeIn();
+
+
+					//**Check user module for new device ajax call
 
 
 					//Set device on new device creation

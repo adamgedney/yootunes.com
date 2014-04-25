@@ -1,15 +1,20 @@
 require.config({
-	baseUrl : "../js",
+	baseUrl : "./js",
 	optimize: "none",
 	packages: [{
-		name : "jquery",
-		location : "/js/libs",
-		main : "jquery"
+		name 		: "jquery",
+		location 	: "/js/libs",
+		main 		: "jquery"
 	},
 	{
-		name : "Handlebars",
-		location : "/js/libs",
-		main : "handlebars"
+		name 		: "Handlebars",
+		location 	: "/js/libs",
+		main 		: "handlebars"
+	},
+	{
+		name 		: "socketio",
+		location 	: "http://yooss.pw:3998/socket.io",
+		main 		: "socket.io"
 	}]
 });
 
@@ -17,7 +22,7 @@ require.config({
 
 
 
-require(['jquery', '/js/controllers/content.js', '/js/controllers/ui.js'], function($, Content, Ui){
+require(['jquery', 'js/controllers/content.js', 'js/controllers/ui.js', 'js/controllers/library.js', 'js/controllers/player.js', 'js/controllers/user.js'], function($, Content, Ui, Library, Player, User){
 
 
 
@@ -34,10 +39,10 @@ require(['jquery', '/js/controllers/content.js', '/js/controllers/ui.js'], funct
 		//Instances
 		// app.ads 			= new Ads(),
 		app.content 		= new Content();
-		// app.library 		= new Library(),
+		app.library 		= new Library(),
 		// // app.log 			= new Log(),
-		// app.player 			= new Player(),
-		// app.user 			= new User(),
+		app.player 			= new Player(),
+		app.user 			= new User(),
 		app.ui 				= new Ui();
 
 
@@ -52,26 +57,17 @@ require(['jquery', '/js/controllers/content.js', '/js/controllers/ui.js'], funct
 
 
 
-	//initializes application
-	init();
+// console.log(CryptoJS);
 
 
 
 
 
-
-//================================//
-//Class methods===================//
-//================================//
-
-
-
-
-
+init();
 
 	//init functions
 	function init(){
-
+console.log("init running");
 		//Check for URL parameters
 		var params = window.location.search;
 		if(params !== ""){

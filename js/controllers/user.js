@@ -1,4 +1,7 @@
-var User = (function(window, document, $){
+define(['jquery'], function($){
+
+
+// var User = (function(window, document, $){
 
 
 
@@ -207,4 +210,5 @@ var User = (function(window, document, $){
 
 
 
-})(window, document, jQuery);
+// })(window, document, jQuery);
+});//define()
