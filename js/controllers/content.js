@@ -1,6 +1,10 @@
-//Content is essentially a view controller
-var Content = (function(window, document, $){
+define(['jquery', '/js/libs/handlebars.js'], function($, handlebars){
 
+
+
+//Content is essentially a view controller
+// var Content = (function(window, document, $){
+// var Content = (function(){
 	//Instances
 	// var _library 	= new Library();
 	// var _user		= new User();
@@ -26,21 +30,7 @@ var Content = (function(window, document, $){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+console.log("test contentjs");
 
 
 
@@ -1139,4 +1129,6 @@ var Content = (function(window, document, $){
 
 
 
-})(window, document,jQuery);
+// })(window, document,jQuery);
+// })();//content
+});//define()

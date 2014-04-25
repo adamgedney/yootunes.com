@@ -51,8 +51,6 @@ var Player = (function(window, document, $){
 		_playOnDevice 	= userCookies.thisDevice;//default device
 		_userId 		= userCookies.userId;
 
-		//testing socket
-		// socket = io.connect(socketServer);
 
 		//If a reload was picked up from conten.js app rendered
 		//_thisDevice needs to be set for the first time
@@ -69,7 +67,6 @@ var Player = (function(window, document, $){
 
 			pause();
 		});
-
 
 
 
@@ -882,7 +879,7 @@ var Player = (function(window, document, $){
 
 
 	function play(youtubeId){
-
+		console.log(socket, "play triggered");
 
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');
@@ -965,7 +962,7 @@ var Player = (function(window, document, $){
 					//EMIT event back to server
 					socket.emit('play', data);
 
-
+					console.log(socket,"test emit");
 				}
 
 

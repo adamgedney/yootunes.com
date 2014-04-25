@@ -1,4 +1,29 @@
-(function(document, window, $){
+require.config({
+	baseUrl : "../js",
+	optimize: "none",
+	packages: [{
+		name : "jquery",
+		location : "/js/libs",
+		main : "jquery"
+	},
+	{
+		name : "Handlebars",
+		location : "/js/libs",
+		main : "handlebars"
+	}]
+});
+
+
+
+
+
+require(['jquery', '/js/controllers/content.js', '/js/controllers/ui.js'], function($, Content, Ui){
+
+
+
+
+
+// (function(document, window, $){
 
 	var _baseUrl 		= 'http://yooapi.pw';
 
@@ -9,10 +34,10 @@
 		//Instances
 		// app.ads 			= new Ads(),
 		app.content 		= new Content();
-		app.library 		= new Library(),
-		// app.log 			= new Log(),
-		app.player 			= new Player(),
-		app.user 			= new User(),
+		// app.library 		= new Library(),
+		// // app.log 			= new Log(),
+		// app.player 			= new Player(),
+		// app.user 			= new User(),
 		app.ui 				= new Ui();
 
 
@@ -871,4 +896,5 @@
 
 
 
-})(document, window, jQuery);
+// })(document, window, jQuery);
+});//define()

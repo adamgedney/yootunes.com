@@ -1,8 +1,13 @@
-var Ui = (function(window, document, $){
+define(['jquery', '/js/libs/keyHash.js'], function($, Key){
+
+
+
+
+// var Ui = (function(window, document, $){
 
 
 	//Instances
-	var _key 		= new KeyHash();
+	var _key 		= Key;
 	// var _content 	= new Content();
 
 
@@ -29,7 +34,7 @@ var Ui = (function(window, document, $){
 	//constructor method
 	var ui = function(){
 
-
+		// console.log(ui, "test");
 
 		//Sign up button interaction handler=======//
 		$(document).on('click', '#sign-in-btn', function(){
@@ -514,8 +519,8 @@ var Ui = (function(window, document, $){
 	}
 
 
-})(window, document,jQuery);
-
+// })(window, document,jQuery);
+});//define()
 
 
 
