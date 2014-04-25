@@ -27,15 +27,6 @@ define(['jquery'], function($){
 	var user = function(){
 
 
-		//Retrieve cookies & set device & userId
-		var userCookies = app.getCookies;
-
-			_thisDevice = userCookies.thisDevice;
-			_userId 	= userCookies.userId;
-
-
-
-
 
 
 // 		//If device cookie doesn't/does exist
@@ -72,6 +63,13 @@ define(['jquery'], function($){
 		//Name this device
 		$(document).on('click', '#submitDeviceName', function(event){
 			event.preventDefault();
+
+			//Retrieve cookies & set device & userId
+			var userCookies = app.getCookies;
+
+			// _thisDevice = userCookies.thisDevice;
+			_userId = userCookies.userId;
+
 
 			var currentDeviceId = "0";//default
 			var name 			= $('.infoDeviceName').val();
