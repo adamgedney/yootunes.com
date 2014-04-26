@@ -2,16 +2,6 @@
 define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
-// 'Ui', 'Library', 'Player', 'User'
-//  Ui, Library, Player, User
-
-
-	//Instances
-	var content = new Content();
-
-
-
-
 	//Private variables
 	var _auth 				= {};
 	var _user 				= {};
@@ -22,105 +12,6 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 	var Login = function(){
-
-
-
-
-
-
-	// init();
-
-	//init functions
-	// (function init(){
-
-		//Check for URL parameters
-		var params = window.location.search;
-		if(params !== ""){
-
-			//RESET PASSWORD flow
-			if(params.substr(1,5) === "reset"){
-
-				//strip token from url
-				var resetToken = params.substr(7);
-				var API_URL = _baseUrl + '/check-reset-token/' + resetToken;
-
-
-				//Call API with token to see if token exists
-				$.ajax({
-					url : API_URL,
-					method : 'GET',
-					dataType : 'json',
-					success : function(response){
-
-						//Token validity conditions
-						if(response.message === "Token valid"){
-
-							//Load the reset password view
-							content.prototype.loadReset();
-
-							//Store the userId associated with the token
-							_user.tokenResponseId = response.userId;
-
-						}else{
-							console.log(response, "token check response");
-						}
-					}
-				});
-			}//if reset
-
-
-			//if share
-			if(params.substr(1,5) === "share"){
-
-				var shareToken 	= params.substr(7);
-				var tokenArray 	= shareToken.split('83027179269257243');
-
-				//store the playlist that brought user to yootunes
-				setPlaylistCookie(tokenArray[1]);
-
-				_playlistId = tokenArray[1];
-			}
-		}//if params
-
-
-
-
-
-		//==========================================//
-		//Get cookies function from user class
-		//==========================================//
-		var cookies = getCookies;
-		console.log(cookies);
-
-
-		//If uid cookie does not exist
-		if(cookies.userId === -1 || cookies.userId === undefined){
-
-
-			//Load landing page
-			content.prototype.loadLanding();
-
-
-		}else{//exists
-
-			var response = {
-				'userId' : cookies.userId,
-				'email'  : ''
-			};
-
-			//Load app, set cookie, fire event
-			//Cookie setting here is redundant but harmless
-			//Prevents duplicate code.
-			loadApplication(response);
-
-			//store user id for later use
-			_userId = cookies.userId;
-		}//else
-	// })();//init
-
-
-
-
 
 
 
@@ -572,7 +463,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 				console.log(response, "update user info response");
 
 				//Reload acct settings view
-				content.prototype.loadAcctSettings();
+				Content.loadAcctSettings();
 
 			}//success
 		});//ajax
@@ -584,7 +475,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 
-	//Dlete account link pops up confirmation modal
+	//Delete account link pops up confirmation modal
 	$(document).on('click', '#deleteAccount', function(event){
 		event.preventDefault();
 
@@ -689,7 +580,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 	function createNewUser(email, password, passwordAgain){
 
-		var pwString 		= '';
+		var pwString = '';
 
 
 
@@ -755,17 +646,13 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 	function loadApplication(response){
 
+		//Ensures userId is always available across the app
+		window.userId = response.userId;
+
+		console.log(_userId, "loadapp uid in login");
+
 		//load the application
-		content.loadApp();
-
-		//fire event passing user data to listening class
-		$.event.trigger({
-			type 			: 'userloggedin',
-			email 			: response.email,
-			userId			: response.userId,
-			playlistId 		: _playlistId
-		});
-
+		Content.loadApp();
 
 		// //Set a cookie in the browser to store user id
 		document.cookie = "uid=" + response.userId;
@@ -777,7 +664,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 	function reloadLanding(){
 
 		//Load landing page
-		content.prototype.loadLanding();
+		Content.loadLanding();
 
 		//force reload to force google button reload
 		location.reload();
@@ -797,12 +684,6 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 
-
-
-
-
-
-
 	function deleteUIDCookie(){
 
 		//Expires uid cookie for logout funcitonality
@@ -816,30 +697,5 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 
-
-
-	function setPlaylistCookie(playlistId){
-		//Set a cookie in the browser to store
-		//shared playlist if user not logged in
-		document.cookie = "share=" + playlistId;
-
-		_playlistId = 0;
-
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// })(document, window, jQuery);
 });//define()
 })();//function

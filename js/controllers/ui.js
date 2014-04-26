@@ -35,7 +35,7 @@ define(['jquery', 'js/libs/keyHash.js'], function($, Key){
 	//constructor method
 	var ui = function(){
 
-		// console.log(ui, "test");
+		console.log("ui running");
 
 		//Sign up button interaction handler=======//
 		$(document).on('click', '#sign-in-btn', function(){

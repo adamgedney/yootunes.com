@@ -6,6 +6,7 @@ require.config({
 		modernizr 	: 'libs/modernizr',
 		Handlebars 	: 'libs/handlebars',
 		socketio 	: 'http://yooss.pw:3998/socket.io/socket.io',
+		Init 		: 'controllers/init',
 		Login 		: 'controllers/login',
 		Content 	: 'controllers/content',
 		Ui 			: 'controllers/ui',
@@ -26,13 +27,16 @@ require.config({
 
 
 // //Instantiate Controllers
-require(['Login', 'Content', 'Ui', 'Library', 'Player', 'User'], function(Login, Content, Ui, Library, Player, User){
-	var login = new Login();
-	var vontent = new Content();
-	var ui = new Ui();
-	var library = new Library();
-	var player = new Player();
-	var user = new User();
+require(['Init', 'Login', 'Content', 'Ui', 'Library', 'Player', 'User'],
+	function(Init, Login, Content, Ui, Library, Player, User){
+
+		var init 	= new Init();
+		var login 	= new Login();
+		// var content = new Content();
+		var ui 		= new Ui();
+		var library = new Library();
+		var player 	= new Player();
+		var user 	= new User();
 });
 
 

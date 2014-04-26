@@ -1,20 +1,14 @@
 (function(){
-define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, Login, getCookies){
+define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, getCookies, Init){
 
 
-
-//Content is essentially a view controller
-// var Content = (function(window, document, $){
-// var Content = (function(){
-	//Instances
-	// var login = new Login();
 
 
 
 
 	//private vars
 	var _songs 			= [];
-	var	_userId			= '';
+	var	_userId			= window.userId;
 	var	_userEmail 		= '';
 	var _userSongs;
 	var _sortBy			= 'def';
@@ -25,10 +19,8 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 	var _playlistShared = 0;
 
 
-	//constructor method
-	var Content = function(){
-
-
+	// //constructor method
+	// (function Content(){
 
 
 
@@ -40,10 +32,6 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 			loadAcctSettings();
 
 		});//click acctSettings
-
-
-
-
 
 
 
@@ -232,16 +220,15 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 		//Makes synchronous
 		//Listens for loadApp content renderer complete
 		$(document).on('rendered', function(event){
-			// console.log("hello?");
+
+
+
 			if(event.template === '#app'){
 
-				console.log("app rendered");
 
 				//Retrieve cookies & set device & userId
 				var userCookies = getCookies;
-
 				_thisDevice = userCookies.thisDevice;
-				_userId 	= userCookies.userId;
 
 
 
@@ -272,9 +259,9 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 
 
 
-
 				//if playlistId cookie exists load playlist, else load library
 				if(_playlistShared === 0 || _playlistShared === undefined|| _playlistShared === ""){
+
 
 					//Load library items
 					loadLibrary();
@@ -291,7 +278,6 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 				}
 
 
-
 				//Load playlists
 				loadPlaylists();
 
@@ -304,7 +290,6 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 
 
 			if(event.template === '#libraryItem'){
-
 
 				//Remove search input value
 				$('#searchInput').val('');
@@ -522,17 +507,17 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 
 
 
+//=========================================//
+//End event logic
+//========================================//
 
 
-};//constructor function
-//================================//
 
 
 
 
-	// //methods and properties.
-	Content.prototype = {
-		constructor 		: Content,
+	//methods and properties.
+	var obj = {
 		loadLanding 		: loadLanding,
 		loadPlaylists		: loadPlaylists,
 		loadLibrary 		: loadLibrary,
@@ -546,7 +531,7 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 
 
 	//return constructor
-	return Content;
+	return obj;
 
 
 
@@ -612,12 +597,12 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 			};
 
 
-
 		render(src, id, appendTo, data);
 
 		//Loads any scripts needing dynamic insertion
 		loadScripts();
-		console.log("load app called");
+
+
 	}
 
 
@@ -847,6 +832,10 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 
 	//Gets data & Loads library template
 	function loadLibrary(){
+
+		//Ensures userId is always available
+		_userId = window.userId;
+
 		//Ensures search bar is visible & container is
 		//emptied quickly before a reload
 		$('.section-header').show();
@@ -858,7 +847,6 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 
 			//Build API request
 			var API_URL = _baseUrl + '/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder;
-
 
 
 
@@ -880,7 +868,7 @@ define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, 
 
 					//Shows column headers
 					$('.li-header').show();
-
+console.log(_userId, data);
 					//Render library items with user data
 					render(src, id, appendTo, data);
 
