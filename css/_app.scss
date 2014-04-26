@@ -183,6 +183,8 @@ aside.app{
 	font-size: .8em;
 
 	ul{
+		margin-bottom: 0;
+
 		li{
 			padding: 0 6%;
 
@@ -208,11 +210,16 @@ aside.app{
 
 
 .settings-menu{
-	// margin-top: 0;
+	margin-top: 33px;
 }
 
 .library-menu{
 	margin-top: 18px;
+	@include col(12);
+}
+
+#collectionCount{
+	float: right;
 }
 
 
@@ -225,7 +232,7 @@ aside.app{
 /*=====================================*/
 .playlist-nav{
 	font-size: .8em;
-	margin-top: 33px;
+	margin-top: 9px;
 
 	h3{
 		display: inline;
@@ -235,7 +242,7 @@ aside.app{
 
 	ul{
 		li{
-			line-height: 48px;
+			line-height: 24px;
 			cursor: pointer;
 			padding: 0 6%;
 			position: relative;

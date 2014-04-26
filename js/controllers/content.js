@@ -37,22 +37,22 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 			var loadRange 	= [ (20 * _onPage) - 3 + "",
 								(20 * _onPage) - 2 + "",
 								(20 * _onPage) - 1 + "",
-								(20 * _onPage) + "",
+								(20 * _onPage)     + "",
 								(20 * _onPage) + 1 + "",
 								(20 * _onPage) + 2 + "",
 								(20 * _onPage) + 3 + ""];
 
-
+			var index = $(this).attr('data-index');
 
 				//If we are hovering over the load range we are
 				//close enough to load the next group
-				if(	$(this).attr('data-index') === loadRange[0] ||
-				   	$(this).attr('data-index') === loadRange[1] ||
-				   	$(this).attr('data-index') === loadRange[2] ||
-				   	$(this).attr('data-index') === loadRange[3] ||
-				   	$(this).attr('data-index') === loadRange[4] ||
-				   	$(this).attr('data-index') === loadRange[5] ||
-				   	$(this).attr('data-index') === loadRange[6]
+				if(	index === loadRange[0] ||
+				   	index === loadRange[1] ||
+				   	index === loadRange[2] ||
+				   	index === loadRange[3] ||
+				   	index === loadRange[4] ||
+				   	index === loadRange[5] ||
+				   	index === loadRange[6]
 			   	){
 
 						//Only load pages if we haven't reached max results yet
@@ -995,6 +995,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 					//Set the number of pages available to pagination
 					_numPages = Math.ceil(response.count / response.limit);
+
+					//Display total songs in library in interface
+					$('#collectionTotal').html(response.count);
 
 
 

@@ -234,6 +234,12 @@ define(['jquery'], function($){
 			dataType : 'json',
 			success : function(response){
 				console.log(response, "add song to library response");
+
+				if(response === true){
+					//Display total songs in library in interface
+					var currentNumber = $('#collectionTotal').html();
+					$('#collectionTotal').html(parseInt(currentNumber) + 1);
+				}
 			}//success
 		});//ajax
 
@@ -266,6 +272,15 @@ define(['jquery'], function($){
 				$.event.trigger({
 					type : 'songremoved'
 				});
+
+				//Indicate song was removed in Library songs display in sidebar
+				if(response === true){
+
+					//Display total songs in library in interface
+					var currentNumber = $('#collectionTotal').html();
+					$('#collectionTotal').html(parseInt(currentNumber) - 1);
+				}
+
 			}//success
 		});//ajax
 	}
