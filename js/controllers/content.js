@@ -83,6 +83,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 			//load account settings page
 			loadAcctSettings();
 
+			activeLibraryItem('#acctSettings');
+
 		});//click acctSettings
 
 
@@ -105,6 +107,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 			sortList(by);
 
+			activeLibraryItem('.viewSongs');
+
 		});
 
 
@@ -124,6 +128,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 			resetPagination();
 
 			sortList(by);
+
+			activeLibraryItem('.viewArtists');
 		});
 
 
@@ -143,6 +149,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 			resetPagination();
 
 			sortList(by);
+
+			activeLibraryItem('.viewAlbums');
 		});
 
 
@@ -162,6 +170,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 			resetPagination();
 
 			sortList(by);
+
+			activeLibraryItem('.viewGenres');
 
 		});
 
@@ -183,6 +193,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 			//Get & load playlist songs
 			loadPlaylistSongs(playlistId);
+
+			activeLibraryItem(playlistId);
 		});
 
 
@@ -1237,6 +1249,103 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 	function resetPagination(){
 		_currentSkip 	= 0;
 		_onPage 		= 1;
+	}
+
+
+
+
+
+
+
+
+	function activeLibraryItem(active){
+
+		var songs 		= '.viewSongs';
+		var artists 	= '.viewArtists';
+		var albums 		= '.viewAlbums';
+		var genres 		= '.viewGenres';
+		var settings 	= '#acctSettings';
+		var playlists 	= '.playlistTitle';
+
+			if(active === songs){
+				$(songs).find('a').addClass('red');
+				$(songs).addClass('red');
+
+				$(artists).removeClass('red');
+				$(albums).removeClass('red');
+				$(genres).removeClass('red');
+				$(artists).find('a').removeClass('red');
+				$(albums).find('a').removeClass('red');
+				$(genres).find('a').removeClass('red');
+				$(settings).find('a').removeClass('red');
+				$(playlists).removeClass('red');
+
+			}else if(active === artists){
+				$(artists).find('a').addClass('red');
+				$(artists).addClass('red');
+
+				$(songs).removeClass('red');
+				$(albums).removeClass('red');
+				$(genres).removeClass('red');
+				$(songs).find('a').removeClass('red');
+				$(albums).find('a').removeClass('red');
+				$(genres).find('a').removeClass('red');
+				$(settings).find('a').removeClass('red');
+				$(playlists).removeClass('red');
+
+			}else if(active === albums){
+				$(albums).find('a').addClass('red');
+				$(albums).addClass('red');
+
+				$(artists).removeClass('red');
+				$(songs).removeClass('red');
+				$(genres).removeClass('red');
+				$(songs).find('a').removeClass('red');
+				$(artists).find('a').removeClass('red');
+				$(genres).find('a').removeClass('red');
+				$(settings).find('a').removeClass('red');
+				$(playlists).removeClass('red');
+
+			}else if(active === genres){
+				$(genres).find('a').addClass('red');
+				$(genres).addClass('red');
+
+				$(artists).removeClass('red');
+				$(albums).removeClass('red');
+				$(songs).removeClass('red');
+				$(songs).find('a').removeClass('red');
+				$(artists).find('a').removeClass('red');
+				$(albums).find('a').removeClass('red');
+				$(settings).find('a').removeClass('red');
+				$(playlists).removeClass('red');
+
+			}else if(active === settings){
+				$(settings).find('a').addClass('red');
+
+				$(artists).removeClass('red');
+				$(albums).removeClass('red');
+				$(songs).removeClass('red');
+				$(genres).removeClass('red');
+				$(songs).find('a').removeClass('red');
+				$(artists).find('a').removeClass('red');
+				$(albums).find('a').removeClass('red');
+				$(genres).find('a').removeClass('red');
+				$(playlists).removeClass('red');
+
+			}else{//if active is a playlist id
+				$(playlists).removeClass('red');
+				$(playlists + '[data-id=' + active + ']').addClass('red');
+
+				$(artists).removeClass('red');
+				$(albums).removeClass('red');
+				$(songs).removeClass('red');
+				$(genres).removeClass('red');
+				$(songs).find('a').removeClass('red');
+				$(artists).find('a').removeClass('red');
+				$(albums).find('a').removeClass('red');
+				$(genres).find('a').removeClass('red');
+				$(settings).find('a').removeClass('red');
+			}
 	}
 
 

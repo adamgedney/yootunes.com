@@ -36,8 +36,8 @@ $green: #2f7c2f;
 
 
 
-
 /*--------------------------------------End General / Start Objects------------------------------------*/
+
 
 .hide-text {
   text-indent: 200%;
@@ -54,7 +54,8 @@ $green: #2f7c2f;
 }
 
 .red {
-  color: $red;
+  color: $red !important;//assigned ! for overriding specificity through jquery operations
+  @include duration;
 }
 
 .blue {
@@ -67,6 +68,10 @@ $green: #2f7c2f;
 
 .light-gray {
   color: nth($grey, 3);
+}
+
+.mid-gray{
+	color: nth($grey, 2);
 }
 
 .dark-gray {

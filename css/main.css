@@ -170,7 +170,9 @@ input, button, textarea {
 }
 
 .red {
-  color: #cf2425;
+  color: #cf2425 !important;
+  transition-duration: 0.7s;
+  -webkit-transition-duration: 0.7s;
 }
 
 .blue {
@@ -183,6 +185,10 @@ input, button, textarea {
 
 .light-gray {
   color: #949494;
+}
+
+.mid-gray {
+  color: #494f4f;
 }
 
 .dark-gray {
@@ -688,20 +694,6 @@ footer .col-3 ul li .svg {
 }
 
 /*----Sass import application stylesheet----*/
-/*
-	Thanks for checking out my code!!
-
-
-	Copyright Adam Gedney 3/22/14
-	contact: adam.gedney@gmail.com
-	http://adamgedney.com
-
-"Good UI design is humble.” – Jono DiCarlo
-*/
-/*
-
-
-----------------SASS------------------*/
 /*title attrib hover effect-- work on this later*/
 .share-strip {
   overflow: hidden;
@@ -732,6 +724,14 @@ input[type="password"] {
 }
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
+.no-select, * {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
 html {
   background: #ebebeb;
 }

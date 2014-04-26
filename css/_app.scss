@@ -1,29 +1,3 @@
-/*
-	Thanks for checking out my code!!
-
-
-	Copyright Adam Gedney 3/22/14
-	contact: adam.gedney@gmail.com
-	http://adamgedney.com
-
-"Good UI design is humble.” – Jono DiCarlo
-*/
-
-/*
-
-
-----------------SASS------------------*/
-
-// $white: #ebebeb;
-// $grey: #272a2a,
-// #494F4F,
-// #949494,
-// #d6d6d6;
-// $black: #0f1010;
-// $blue: #3b578a;
-// $red: #cf2425;
-// $yellow: #e5a539;
-
 
 /*title attrib hover effect-- work on this later*/
 // a[title]:hover:after{
@@ -92,6 +66,28 @@ input[type="password"]{
 }
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
+
+.no-select{
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+*{
+	@extend .no-select;
+}
+
+
+// p {
+//     -webkit-user-select: text;
+//     -khtml-user-select: text;
+//     -moz-user-select: text;
+//     -o-user-select: text;
+//     user-select: text;
+// }
+
 
 html{
 	background: $white;
@@ -296,37 +292,6 @@ aside.app{
 	right: 14.5%;
 	top: 0px;
 }
-
-
-// .popout{
-// 	width: 41%;
-// 	height: 111px;
-// 	background: #fff;
-// 	position: absolute;
-// 	right: 14.5%;
-// 	top: 0px;
-// 	border-radius: 2px;
-// 	padding: 6%;
-// 	z-index: 100;
-
-// 	-webkit-box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
-// 	   -moz-box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
-// 			box-shadow: 7px 7px 11px -5px rgba(24, 26, 26, 0.05);
-
-// 	&:before{
-// 		content:"";
-// 		width: 0;
-// 		height: 0;
-// 		border-top: 3px solid transparent;
-// 		border-bottom: 3px solid transparent;
-// 		border-left: 9px solid #fff;
-// 		position: absolute;
-// 		top: 18px;
-// 		right: -9px;
-// 		z-index: 99;
-// 	}
-
-// }
 
 .playlist-dropdown{
 	background: #fff;
