@@ -417,6 +417,9 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 		var pwString 		= ' ';
 			_userId 		= $('#infoId').html();
 
+		//Splite birthday into month/day/year
+		var birthArray = birthdate.split('/');
+
 				//sets default on display name so call won't crash
 				if(displayName === ""){
 					displayName = "0";
@@ -429,8 +432,9 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 				//Set default on birthdate in case user is from Google plus
 				if(birthdate === ""){
-					birthdate = "0";
+					birthArray = ['0','0','0'];
 				}
+
 
 
 		//sets default on password so call won't receive empty sha3
@@ -458,7 +462,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 		//Build API URL
-		var API_URL = _baseUrl + '/update-user/' + _userId + '/' + title + '/' + displayName + '/' + email + '/' + birthdate  + '/' + pwString;
+		var API_URL = _baseUrl + '/update-user/' + _userId + '/' + title + '/' + displayName + '/' + email + '/' + birthArray[0] + '/' + birthArray[1] + '/' + birthArray[2] + '/' + pwString;
 
 		//Call API to update user data
 		$.ajax({

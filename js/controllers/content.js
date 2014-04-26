@@ -354,10 +354,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 						$('#infoName').val(response[0].display_name);
 						$('#infoEmail').val(response[0].email);
 						$('#infoId').html(response[0].id);
-						$('#infoBirthdate').val(response[0].birthdate);
 						$('#infoTitle').val(response[0].title);
 
-						//Prepend selected option
+						//Format birthdate for display
+						var birthdate = response[0].birthMonth + '/' + response[0].birthDay + '/' + response[0].birthYear;
+						$('#infoBirthdate').val(birthdate);
+
+
+						//Prepend selected TITLE option
 						var option1 = '<option >' + response[0].title + '</option>';
 						$('#infoTitle').prepend(option1);
 
