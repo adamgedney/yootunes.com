@@ -11,7 +11,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 	var _baseUrl 			= 'http://yooapi.pw';
 
 
-	var Login = function(){
+	var Auth = function(){
 
 
 
@@ -550,12 +550,12 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 	// //methods and properties.
-	Login.prototype = {
-		constructor 		: Login
+	Auth.prototype = {
+		constructor 		: Auth
 	};
 
 
-	return Login;
+	return Auth;
 
 
 

@@ -7,7 +7,7 @@ require.config({
 		Handlebars 	: 'libs/handlebars',
 		socketio 	: 'http://yooss.pw:3998/socket.io/socket.io',
 		Init 		: 'controllers/init',
-		Login 		: 'controllers/login',
+		Auth 		: 'controllers/auth',
 		Content 	: 'controllers/content',
 		Ui 			: 'controllers/ui',
 		Library 	: 'controllers/library',
@@ -27,11 +27,11 @@ require.config({
 
 
 // //Instantiate Controllers
-require(['Init', 'Login', 'Content', 'Ui', 'Library', 'Player', 'User'],
-	function(Init, Login, Content, Ui, Library, Player, User){
+require(['Init', 'Auth', 'Content', 'Ui', 'Library', 'Player', 'User'],
+	function(Init, Auth, Content, Ui, Library, Player, User){
 
 		var init 	= new Init();
-		var login 	= new Login();
+		var auth 	= new Auth();
 		// var content = new Content();
 		var ui 		= new Ui();
 		var library = new Library();
