@@ -197,10 +197,14 @@ aside.app{
 
 #returnToSearch{
 	margin-top: 27px;
-	text-align: right;
+	vertical-align: top;
+	line-height: 18px;
+	overflow: hidden;
+	cursor: pointer;
 
 	img{
 		height: 18px;
+		float: right;
 	}
 }
 

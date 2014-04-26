@@ -818,10 +818,14 @@ aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-c
 
 #returnToSearch {
   margin-top: 27px;
-  text-align: right;
+  vertical-align: top;
+  line-height: 18px;
+  overflow: hidden;
+  cursor: pointer;
 }
 #returnToSearch img {
   height: 18px;
+  float: right;
 }
 
 #returnToSearch:hover {

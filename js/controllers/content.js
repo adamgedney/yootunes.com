@@ -249,9 +249,19 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 		//Reload previous search into main content view
 		$(document).on('click', '#returnToSearch', function(event){
 
-			//Send previous results back to renderer
-			loadQueryResults(_songs);
+			//If no prev search exists, reload
+			//library resetting pagination
+			if(_songs.length === 0){
 
+				resetPagination();
+
+				//Load library items
+				loadLibrary(_currentSkip);
+
+			}else{
+				//Send previous results back to renderer
+				loadQueryResults(_songs);
+			}
 		});
 
 
