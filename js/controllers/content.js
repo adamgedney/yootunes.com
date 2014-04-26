@@ -18,9 +18,51 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 	var _thisDevice;
 	var _playlistShared = 0;
 
+	var _libraryCount;
+	// var _pageLimit;
+	// var _lastPageSkip;
+	var _currentSkip 	= 0;
+	var _numPages;
+	var _onPage 		= 1;
+	var _loadOver;
 
-	// //constructor method
-	// (function Content(){
+
+
+		//==============================//
+		//PAGINATION handler
+		//==============================//
+		$(document).on('mouseover', '.li-group', function(){
+			// console.log($(this));
+
+			//Determines when to begin loading next result group
+				_loadOver 	= 20 * _onPage + "";
+			var loadPlus 	= (20 * _onPage) + 1 + "";
+			var loadMinus 	= (20 * _onPage) - 1 + "";
+
+
+
+				//If we are hovering over _loadOver we are
+				//close enough to load the next group
+				if(	$(this).attr('data-index') === _loadOver ||
+				   	$(this).attr('data-index') === loadPlus ||
+				   	$(this).attr('data-index') === loadMinus){
+
+						//Only load pages if we haven't reached max results yet
+						if((_currentSkip + 30) <= _libraryCount){
+
+							_onPage 		+= 1;
+							_currentSkip 	+= 30;
+
+							//Load the next page
+							loadLibrary(_currentSkip);
+						}//if
+				}//if
+		});//mouseover li results
+
+
+
+
+
 
 
 
@@ -265,7 +307,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 
 					//Load library items
-					loadLibrary();
+					loadLibrary(_currentSkip);
+
 
 				}else{
 
@@ -385,8 +428,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 					}//success
 				});//ajax
 
-
-
 				//Get Devices
 				getDevices();
 
@@ -458,7 +499,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 		$(document).on('songremoved', function(){
 
 			//Load library items
-			loadLibrary();
+			loadLibrary(_currentSkip);
 		});
 
 
@@ -544,7 +585,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 
 
-	//methods and properties.
+	//public methods.
 	var obj = {
 		loadLanding 		: loadLanding,
 		loadPlaylists		: loadPlaylists,
@@ -601,9 +642,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 				test	: ''
 			};
 
-
+			//Clear append container
+			$(appendTo).empty();
 
 		render(src, id, appendTo, data);
+
+			resetPagination();
 	}
 
 
@@ -624,12 +668,16 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 				test	: ''
 			};
 
+			//Clear append container
+			$(appendTo).empty();
+
 
 		render(src, id, appendTo, data);
 
-		//Loads any scripts needing dynamic insertion
-		loadScripts();
+			//Loads any scripts needing dynamic insertion
+			loadScripts();
 
+			resetPagination();
 
 	}
 
@@ -651,9 +699,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 				test	: ''
 			};
 
+			//Clear append container
+			$(appendTo).empty();
+
 
 
 		render(src, id, appendTo, data);
+
+			resetPagination();
 	}
 
 
@@ -674,9 +727,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 				test	: ''
 			};
 
+			//Clear append container
+			$(appendTo).empty();
+
 
 
 		render(src, id, appendTo, data);
+
+			resetPagination();
 	}
 
 
@@ -745,6 +803,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 				//Shows column headers
 				$('.li-header').show();
 
+				//Clear append container
+				$(appendTo).empty();
+
 				//Render playlist items w/ playlist data
 				render(src, id, appendTo, data);
 
@@ -788,6 +849,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 				//Shows column headers
 				$('.li-header').show();
+
+				//Clear append container
+				$(appendTo).empty();
 
 				//Render playlist items w/ playlist data
 				render(src, id, appendTo, data);
@@ -836,8 +900,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 					//Shows column headers
 					$('.li-header').show();
 
+					//Clear append container
+					$(appendTo).empty();
+
 					//Render library items with user data
 					render(src, id, appendTo, data);
+
+					resetPagination();
 
 
 					//Change last column to remove
@@ -859,22 +928,32 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 
 	//Gets data & Loads library template
-	function loadLibrary(){
+	function loadLibrary(page){
 
 		//Ensures userId is always available
 		_userId = window.userId;
 
 		//Ensures search bar is visible & container is
 		//emptied quickly before a reload
-		$('.section-header').show();
-		$('.scroll-container').empty();
+		console.log(page, "is page zero?");
+		if(page === 0){
+			$('.section-header').show();
+			$('.scroll-container').empty();
+
+			//Shows column headers
+			$('.li-header').show();
+
+			//Change last column to remove
+			$('.sourceTitle').html('Remove');
+		}
+
 
 		var src 		= '/js/views/library.html',
 			id 			= '#libraryItem',
 			appendTo 	= '.scroll-container';
 
 			//Build API request
-			var API_URL = _baseUrl + '/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder;
+			var API_URL = _baseUrl + '/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder + '/' + page;
 
 
 
@@ -886,22 +965,32 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 				success 	: function(response){
 
 					data 	 	= {
-						song : response,
+						song : response[0],
 						user : {userId : _userId}
 					};
 
-
-					//Store the users songs for list functions
-					_userSongs = response;
-
-					//Shows column headers
-					$('.li-header').show();
-console.log(_userId, data);
 					//Render library items with user data
 					render(src, id, appendTo, data);
 
-					//Change last column to remove
-					$('.sourceTitle').html('Remove');
+
+					//Pagination vars
+					_libraryCount 	= response.count;
+					// _pageLimit 		= response.limit;
+					// _lastPageSkip 	= response.skip;
+
+					_numPages = Math.ceil(response.count / response.limit);
+
+					console.log(response.count, response.limit, response.skip, "count/limit/skip library response");
+
+
+					//Store the users songs for list functions
+					_userSongs = response[0];
+
+					// //Shows column headers
+					// $('.li-header').show();
+
+					// //Change last column to remove
+					// $('.sourceTitle').html('Remove');
 				}//success
 			});//ajax
 
@@ -931,32 +1020,18 @@ console.log(_userId, data);
 			//Hides column headers
 			$('.li-header').hide();
 
+			//Clear append container
+			$(appendTo).empty();
+
 		render(src, id, appendTo, data);
+
+			resetPagination();
 
 	}
 
 
 
 
-
-
-
-
-
-	function loadDeviceSettings(){
-		var src 		= '/js/views/deviceSettings.html',
-			id 			= '#deviceSettings',
-			appendTo 	= '.scroll-container';
-
-			data 	 	= {
-				test	: ''
-			};
-
-			//Hides column headers
-			$('.li-header').hide();
-
-		render(src, id, appendTo, data);
-	}
 
 
 
@@ -980,8 +1055,14 @@ console.log(_userId, data);
 			//Shows column headers
 			$('.li-header').show();
 
+			//Clear append container
+			$(appendTo).empty();
+
 
 		render(src, id, appendTo, data);
+
+
+			resetPagination();
 
 
 		//Change last column to remove
@@ -1069,7 +1150,7 @@ console.log(_userId, data);
 
 
 			//Clear append container
-			$(appendTo).empty();
+			// $(appendTo).empty();
 
 			//Appends template into Wrapper on DOM
 			$(appendTo).append(html);
@@ -1105,7 +1186,7 @@ console.log(_userId, data);
 			_sortOrder 	= "DESC";
 
 			//Load library
-			loadLibrary();
+			loadLibrary(_currentSkip);
 
 			this.toggle = !this.toggle;
 
@@ -1115,10 +1196,24 @@ console.log(_userId, data);
 			_sortOrder 	= "ASC";
 
 			//Load library
-			loadLibrary();
+			loadLibrary(_currentSkip);
 
 			this.toggle = !this.toggle;
 		}
+	}
+
+
+
+
+
+
+
+	//Resets PAGINATION variables for transitioning
+	//back to library fom another screen
+	function resetPagination(){
+		_currentSkip 	= 0;
+		_loadOver 		= 0;
+		_onPage 		= 1;
 	}
 
 
@@ -1141,12 +1236,5 @@ console.log(_userId, data);
 
 
 
-
-
-
-
-
-// })(window, document,jQuery);
-// })();//content
 });//define()
 })();//function

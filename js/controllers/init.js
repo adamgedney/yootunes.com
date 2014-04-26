@@ -21,7 +21,6 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 	var Init = function(){
 
 
-
 		//=============================//
 		//Check for URL parameters
 		//=============================//

@@ -5,6 +5,7 @@ require.config({
 		jquery 		: 'libs/jquery',
 		modernizr 	: 'libs/modernizr',
 		Handlebars 	: 'libs/handlebars',
+		lightbox 	: 'libs/lightbox-2.6.min',
 		socketio 	: 'http://yooss.pw:3998/socket.io/socket.io',
 		Init 		: 'controllers/init',
 		Auth 		: 'controllers/auth',
@@ -27,8 +28,8 @@ require.config({
 
 
 // //Instantiate Controllers
-require(['Init', 'Auth', 'Content', 'Ui', 'Library', 'Player', 'User'],
-	function(Init, Auth, Content, Ui, Library, Player, User){
+require(['jquery', 'Init', 'Auth', 'Content', 'Ui', 'Library', 'Player', 'User', 'lightbox'],
+	function(jquery, Init, Auth, Content, Ui, Library, Player, User, lightbox){
 
 		var init 	= new Init();
 		var auth 	= new Auth();
