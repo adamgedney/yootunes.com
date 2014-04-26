@@ -91,6 +91,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 			var by = "youtube_title";
 
+			resetPagination();
+
 			sortList(by);
 
 		});
@@ -109,6 +111,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 			var by = "artist";
 
+			resetPagination();
+
 			sortList(by);
 		});
 
@@ -126,6 +130,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 			var by = "album";
 
+			resetPagination();
+
 			sortList(by);
 		});
 
@@ -142,6 +148,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 		$(document).on('click', '.viewGenres', function(event){
 
 			var by = "genre";
+
+			resetPagination();
 
 			sortList(by);
 
