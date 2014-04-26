@@ -56,10 +56,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 			   	){
 
 						//Only load pages if we haven't reached max results yet
-						if((_currentSkip + 30) <= _libraryCount){
+						if((_currentSkip + 50) <= _libraryCount){
 
 							_onPage 		+= 1;
-							_currentSkip 	+= 30;
+							_currentSkip 	+= 50;
 
 							//Load the next page
 							loadLibrary(_currentSkip);
