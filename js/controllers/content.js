@@ -228,7 +228,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 				//Retrieve cookies & set device & userId
 				var userCookies = getCookies;
-				_thisDevice = userCookies.thisDevice;
+					_thisDevice = userCookies.thisDevice;
+
 
 
 
@@ -353,7 +354,30 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 						$('#infoName').val(response[0].display_name);
 						$('#infoEmail').val(response[0].email);
 						$('#infoId').html(response[0].id);
+						$('#infoBirthdate').val(response[0].birthdate);
+						$('#infoTitle').val(response[0].title);
 
+						//Prepend selected option
+						var option1 = '<option >' + response[0].title + '</option>';
+						$('#infoTitle').prepend(option1);
+
+							//Handle title options list
+							if(response[0].title == "Mr."){
+								var option2 = '<option >Mrs.</option>';
+								var option3 = '<option >Ms.</option>';
+								$('#infoTitle').append(option2);
+								$('#infoTitle').append(option3);
+							}else if(response[0].title == "Mrs."){
+								var option2 = '<option >Mr.</option>';
+								var option3 = '<option >Ms.</option>';
+								$('#infoTitle').append(option2);
+								$('#infoTitle').append(option3);
+							}else if(response[0].title == "Ms."){
+								var option2 = '<option >Mrs.</option>';
+								var option3 = '<option >Mr.</option>';
+								$('#infoTitle').append(option2);
+								$('#infoTitle').append(option3);
+							}
 					}//success
 				});//ajax
 

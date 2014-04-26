@@ -35,7 +35,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 	//constructor method
 	var ui = function(){
 
-		console.log("ui running");
 
 		//Sign up button interaction handler=======//
 		$(document).on('click', '#sign-in-btn', function(){

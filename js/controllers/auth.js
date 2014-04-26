@@ -19,8 +19,6 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 
-
-
 	//==========================================//
 	//User Registration handler
 	//==========================================//
@@ -412,19 +410,28 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 		var displayName 	= $('#infoName').val();
 		var email 			= $('#infoEmail').val();
+		var birthdate 		= $('#infoBirthdate').val();
+		var title 			= $('#infoTitle').val();
 		var password 		= CryptoJS.SHA1($('#infoPass').val());
 		var passwordAgain 	= CryptoJS.SHA1($('#infoPassAgain').val());
 		var pwString 		= ' ';
+			_userId 		= $('#infoId').html();
 
-		//sets default on display name so call won't crash
-		if(displayName === ""){
-			displayName = "0";
-		}
+				//sets default on display name so call won't crash
+				if(displayName === ""){
+					displayName = "0";
+				}
 
-		//Set default on email in case user is from Google plus
-		if(email === ""){
-			email = "0";
-		}
+				//Set default on email in case user is from Google plus
+				if(email === ""){
+					email = "0";
+				}
+
+				//Set default on birthdate in case user is from Google plus
+				if(birthdate === ""){
+					birthdate = "0";
+				}
+
 
 		//sets default on password so call won't receive empty sha3
 		if($('#infoPass').val() === "" || $('#infoPassAgain').val() === ""){
@@ -451,7 +458,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 		//Build API URL
-		var API_URL = _baseUrl + '/update-user/' + _userId + '/' + displayName + '/' + email + '/' + pwString;
+		var API_URL = _baseUrl + '/update-user/' + _userId + '/' + title + '/' + displayName + '/' + email + '/' + birthdate  + '/' + pwString;
 
 		//Call API to update user data
 		$.ajax({
@@ -624,6 +631,8 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 					console.log(response, "create new user response");
 
+					//Show device namer to new user
+					$('#nameDeviceModal').fadeIn();
 
 				}else{//New user registration failed. Display why
 
@@ -647,15 +656,16 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 	function loadApplication(response){
 
 		//Ensures userId is always available across the app
-		window.userId = response.userId;
-
-		console.log(_userId, "loadapp uid in login");
+		//DO NOT REMOVE ** Library will fail to load on login
+		window.userId 	= response.userId;
+		_userId 		= response.userId;
 
 		//load the application
 		Content.loadApp();
 
 		// //Set a cookie in the browser to store user id
 		document.cookie = "uid=" + response.userId;
+
 	}
 
 
