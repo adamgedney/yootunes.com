@@ -24,7 +24,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 	var _currentSkip 	= 0;
 	var _numPages;
 	var _onPage 		= 1;
-	var _loadOver;
 
 
 
@@ -35,17 +34,26 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 			// console.log($(this));
 
 			//Determines when to begin loading next result group
-				_loadOver 	= 20 * _onPage + "";
-			var loadPlus 	= (20 * _onPage) + 1 + "";
-			var loadMinus 	= (20 * _onPage) - 1 + "";
+			var loadRange 	= [ (20 * _onPage) - 3 + "",
+								(20 * _onPage) - 2 + "",
+								(20 * _onPage) - 1 + "",
+								(20 * _onPage) + "",
+								(20 * _onPage) + 1 + "",
+								(20 * _onPage) + 2 + "",
+								(20 * _onPage) + 3 + ""];
 
 
 
-				//If we are hovering over _loadOver we are
+				//If we are hovering over the load range we are
 				//close enough to load the next group
-				if(	$(this).attr('data-index') === _loadOver ||
-				   	$(this).attr('data-index') === loadPlus ||
-				   	$(this).attr('data-index') === loadMinus){
+				if(	$(this).attr('data-index') === loadRange[0] ||
+				   	$(this).attr('data-index') === loadRange[1] ||
+				   	$(this).attr('data-index') === loadRange[2] ||
+				   	$(this).attr('data-index') === loadRange[3] ||
+				   	$(this).attr('data-index') === loadRange[4] ||
+				   	$(this).attr('data-index') === loadRange[5] ||
+				   	$(this).attr('data-index') === loadRange[6]
+			   	){
 
 						//Only load pages if we haven't reached max results yet
 						if((_currentSkip + 30) <= _libraryCount){
@@ -56,6 +64,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 							//Load the next page
 							loadLibrary(_currentSkip);
 						}//if
+
+						console.log(_currentSkip);
 				}//if
 		});//mouseover li results
 
@@ -943,7 +953,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 		//Ensures search bar is visible & container is
 		//emptied quickly before a reload
-		console.log(page, "is page zero?");
 		if(page === 0){
 			$('.section-header').show();
 			$('.scroll-container').empty();
@@ -983,22 +992,16 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 					//Pagination vars
 					_libraryCount 	= response.count;
-					// _pageLimit 		= response.limit;
-					// _lastPageSkip 	= response.skip;
 
+					//Set the number of pages available to pagination
 					_numPages = Math.ceil(response.count / response.limit);
 
-					console.log(response.count, response.limit, response.skip, "count/limit/skip library response");
+
 
 
 					//Store the users songs for list functions
 					_userSongs = response[0];
 
-					// //Shows column headers
-					// $('.li-header').show();
-
-					// //Change last column to remove
-					// $('.sourceTitle').html('Remove');
 				}//success
 			});//ajax
 
@@ -1220,7 +1223,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 	//back to library fom another screen
 	function resetPagination(){
 		_currentSkip 	= 0;
-		_loadOver 		= 0;
 		_onPage 		= 1;
 	}
 

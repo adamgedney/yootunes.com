@@ -33,7 +33,6 @@ require(['jquery', 'Init', 'Auth', 'Content', 'Ui', 'Library', 'Player', 'User',
 
 		var init 	= new Init();
 		var auth 	= new Auth();
-		// var content = new Content();
 		var ui 		= new Ui();
 		var library = new Library();
 		var player 	= new Player();
