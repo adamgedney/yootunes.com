@@ -8,7 +8,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 	var _userId;
 	var _thisDevice;
 	var _playlistId 		= 0;
-	var _baseUrl 		= 'http://yooapi.pw';
+	var _baseUrl 			= 'http://yooapi.pw';
 
 
 	var Login = function(){

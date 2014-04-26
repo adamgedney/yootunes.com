@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js'], function($, Key){
+define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 
 
 
@@ -145,7 +145,7 @@ define(['jquery', 'js/libs/keyHash.js'], function($, Key){
 				_seek.seekFill 		= $('.seek-fill'),
 				_seek.drag 			= true;
 
-				app.player.dragging(true);
+				Player.prototype.dragging(true);
 
 			//required to prevent text selection on mouseout of seekBar
 			event.preventDefault();
@@ -160,7 +160,7 @@ define(['jquery', 'js/libs/keyHash.js'], function($, Key){
 
 			if(_seek.drag === true){
 
-				app.player.dragging(false, _seek.seekScrub);
+				Player.prototype.dragging(false, _seek.seekScrub);
 				_seek.drag = false;
 			}
 
