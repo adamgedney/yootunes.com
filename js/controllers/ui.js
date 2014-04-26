@@ -84,6 +84,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 		//Main menu dropdown interaction=============//
 		$(document).on('click', '.dropdown-trigger', function(event){
 
+			//Ensures form is hidden at start
+			$('.newPlaylistForm').hide();
+
 			this.toggle;
 
 			var selector = '.main-dropdown';
@@ -97,29 +100,37 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 
 
 
-		//Add to playlist sub menu interaction=========//
-		$(document).on('click', '.add-to-playlist-menu-trigger', function(event){
+
+
+
+		//Add create playlist show/hide interaction=========//
+		$(document).on('click', '.createNewPlaylistLink', function(event){
 
 			var that = this;
 			that.toggle;
 
-			var selector = '.add-to-playlist-menu';
+			var selector = '.newPlaylistForm';
 			var id = null;
 
 			//returns the opposite boolean toggle value
 			that.toggle = toggleUi(that.toggle, selector);
 
+		});
 
 
-			//listens for other sub menu events to fire
-			//to close this and flip toggle.
-			$(document).on('subOpen', function(event){
-				if(event.selector !== selector && that.toggle){
 
-					that.toggle = false;
-					$(selector).fadeOut();
-				}
-			});
+
+
+
+
+
+		//Prevents parent div from scrolling while reaching end of scroll in child
+		$(document).on('mouseover', '.playlistSubScrollContainer', function(){
+			$('.scroll-container').css({'overflow':'hidden'});
+		});
+
+		$(document).on('mouseout', '.playlistSubScrollContainer', function(){
+			$('.scroll-container').css({'overflow':'scroll'});
 		});
 
 
@@ -269,6 +280,13 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 			$('#deleteAcctModal').fadeOut();
 			$('#nameDeviceModal').fadeOut();
 		});
+
+
+
+
+
+
+
 
 
 

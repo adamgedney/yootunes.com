@@ -1024,12 +1024,21 @@ section.app {
   vertical-align: middle;
 }
 .main-container ul li .add-icon {
-  width: 12px;
+  width: 9px;
   margin-right: 31%;
 }
 .main-container ul li .play-icon img {
   width: 10px;
   margin-left: 23%;
+}
+.main-container ul li .createNewPlaylistLink {
+  font-size: 1.5em;
+  line-height: 9px;
+}
+.main-container ul li .createNewPlaylistLink img {
+  float: left;
+  margin: 0px 6px 0 0;
+  height: 9px;
 }
 
 .scroll-container {
@@ -1178,7 +1187,7 @@ ul.dropdown-main-menu li {
   /*do not write styles here. Write them in the above ul.dropdown-main-menu li*/
 }
 ul.dropdown-main-menu li ul {
-  width: 110%;
+  width: 130%;
   position: absolute;
   right: 105%;
   height: 200px;
@@ -1240,25 +1249,16 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   background: #e7e7e7;
 }
 
+.add-to-playlist-menu-trigger img {
+  height: 9px !important;
+}
+
 .addedToPlaylistCheck {
   display: none;
 }
 
 .playlist-menu-header {
   border-bottom: 1px solid #e7e7e7;
-}
-
-.improve-meta-sub-menu {
-  box-shadow: none;
-}
-
-.improve-meta-menu-form p {
-  margin-top: 27px;
-  line-height: 9px;
-  margin-bottom: 18px;
-}
-.improve-meta-menu-form svg, .improve-meta-menu-form img {
-  float: right;
 }
 
 /*==================================*/

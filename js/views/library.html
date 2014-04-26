@@ -51,17 +51,16 @@
 							<!-- <img class="svg" src="images/icons/more-arrow-left.svg" alt="more arrow"/> -->
 						</span>
 
-							<img class="svg" src="images/icons/add.svg" alt="add icon" />
-								Add to playlist
 
 									<!-- Sub Main Menu li-->
 									<ul class="popout add-to-playlist-menu">
 										<li class="playlist-menu-form">
-											<p class="bold">Create new playlist
-											<!-- <img class="svg" src="images/icons/more-arrow.svg" alt="more arrow"/>-->
+											<p class="bold createNewPlaylistLink"><img class="svg" src="images/icons/add.svg" alt="add icon" />
+													Create new playlist
+
 											</p>
 
-											<form>
+											<form class="newPlaylistForm">
 												<input type="text" class="main-menu-new-playlist-input newPlaylistInput" placeholder="New playlist name"/>
 
 												<input data-id="{{this.id}}" data-user="{{../user.userId}}" class="newPlaylistSubmit" type="submit" value="Save"/>
