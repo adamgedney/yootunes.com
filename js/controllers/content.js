@@ -1,4 +1,5 @@
-define(['jquery', 'js/libs/handlebars.js'], function($, handlebars){
+(function(){
+define(['jquery', 'Handlebars', 'Login', 'getCookies'], function($, handlebars, Login, getCookies){
 
 
 
@@ -6,8 +7,9 @@ define(['jquery', 'js/libs/handlebars.js'], function($, handlebars){
 // var Content = (function(window, document, $){
 // var Content = (function(){
 	//Instances
-	// var _library 	= new Library();
-	// var _user		= new User();
+	// var login = new Login();
+
+
 
 
 	//private vars
@@ -23,14 +25,10 @@ define(['jquery', 'js/libs/handlebars.js'], function($, handlebars){
 	var _playlistShared = 0;
 
 
-
-
 	//constructor method
-	var content = function(){
+	var Content = function(){
 
 
-
-console.log("test contentjs");
 
 
 
@@ -155,6 +153,7 @@ console.log("test contentjs");
 			var query = $('#searchInput').val();
 			var API_URL = _baseUrl + '/search/' + query;
 			var songs = [];
+			console.log("search", query);
 
 			//Empty results list while srarch results load
 			$('.scroll-container').empty();
@@ -233,15 +232,16 @@ console.log("test contentjs");
 		//Makes synchronous
 		//Listens for loadApp content renderer complete
 		$(document).on('rendered', function(event){
-
+			// console.log("hello?");
 			if(event.template === '#app'){
 
+				console.log("app rendered");
 
 				//Retrieve cookies & set device & userId
-				var userCookies = app.getCookies;
+				var userCookies = getCookies;
 
-				_thisDevice 	= userCookies.thisDevice;
-				_userId 		= userCookies.userId;
+				_thisDevice = userCookies.thisDevice;
+				_userId 	= userCookies.userId;
 
 
 
@@ -524,21 +524,15 @@ console.log("test contentjs");
 
 
 
+};//constructor function
+//================================//
 
 
 
 
-
-
-	};//constructor function
-	//================================//
-
-
-
-
-	//methods and properties.
-	content.prototype = {
-		constructor 		: content,
+	// //methods and properties.
+	Content.prototype = {
+		constructor 		: Content,
 		loadLanding 		: loadLanding,
 		loadPlaylists		: loadPlaylists,
 		loadLibrary 		: loadLibrary,
@@ -552,7 +546,13 @@ console.log("test contentjs");
 
 
 	//return constructor
-	return content;
+	return Content;
+
+
+
+
+
+
 
 
 
@@ -617,6 +617,7 @@ console.log("test contentjs");
 
 		//Loads any scripts needing dynamic insertion
 		loadScripts();
+		console.log("load app called");
 	}
 
 
@@ -1129,9 +1130,7 @@ console.log("test contentjs");
 
 
 
-
-
-
 // })(window, document,jQuery);
 // })();//content
 });//define()
+})();//function

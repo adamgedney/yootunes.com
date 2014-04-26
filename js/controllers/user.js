@@ -1,4 +1,5 @@
-define(['jquery'], function($){
+(function(){
+define(['jquery', 'getCookies'], function($, getCookies){
 
 
 // var User = (function(window, document, $){
@@ -65,7 +66,7 @@ define(['jquery'], function($){
 			event.preventDefault();
 
 			//Retrieve cookies & set device & userId
-			var userCookies = app.getCookies;
+			var userCookies = getCookies;
 
 			// _thisDevice = userCookies.thisDevice;
 			_userId = userCookies.userId;
@@ -210,3 +211,4 @@ define(['jquery'], function($){
 
 // })(window, document, jQuery);
 });//define()
+})();//function

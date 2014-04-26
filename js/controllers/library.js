@@ -1,3 +1,4 @@
+(function(){
 define(['jquery'], function($){
 
 
@@ -426,3 +427,4 @@ define(['jquery'], function($){
 
 // })(window, document,jQuery);
 });//define()
+})();//function

@@ -1,4 +1,5 @@
-define(['jquery', 'js/libs/keyHash.js', 'socketio'], function($, Key, io){
+(function(){
+define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, Key, io, getCookies){
 
 
 // var Player = (function(window, document, $){
@@ -47,7 +48,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio'], function($, Key, io){
 
 
 		//Retrieve cookies & set device & userId
-		var userCookies = app.getCookies;
+		var userCookies = getCookies;
 
 		_thisDevice 	= userCookies.thisDevice;
 		_playOnDevice 	= userCookies.thisDevice;//default device
@@ -1158,3 +1159,4 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio'], function($, Key, io){
 
 // })(window, document,jQuery);
 });//define()
+})();//function
