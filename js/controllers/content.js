@@ -313,8 +313,17 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 				var userCookies = getCookies;
 					_thisDevice = userCookies.thisDevice;
 
-					if(!userCookies.theme === undefined){
-						_theme = userCookies.theme;
+					//Ensures theme is always available on load
+					if(_theme === undefined){
+						if(window.theme !== undefined){
+							_theme = window.theme;
+						}else if(getCookies.theme !== undefined){
+							_theme = getCookies.theme;
+							window.theme = _theme;
+						}
+						console.log(_theme, "_theme failsafe running in contentjs app load");
+					}else{
+						window.theme = _theme;
 					}
 
 
@@ -391,13 +400,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 				//Set the application theme colors
 				//again to ensure lib items are styled
 				//once they hit the DOM
-				if(theme === 'light'){
+				if(_theme === 'light'){
 					Ui.prototype.themeLight;
 				}else{
 					Ui.prototype.themeDark;
 				}
 
-				console.log(theme, "library loading");
+				console.log(_theme, window.theme,  "library loading");
 
 
 				//Remove search input value
@@ -1002,7 +1011,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 			}else if(getCookies.userId !== undefined){
 				_userId = getCookies.userId;
 			}
-			console.log(_userId, "_userId running in loadLib");
+			console.log(_userId, "_userId failsafe running in loadLib");
 		}
 
 

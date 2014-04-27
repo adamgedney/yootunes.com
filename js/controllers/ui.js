@@ -318,6 +318,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 			//Store theme choice as dark
 			if($('#themeDark').is(':checked')){
 
+				window.theme = 'dark';
+				document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+				document.cookie = "theme=dark";
+
 				themeDark();
 
 				var theme = 'dark';
@@ -339,6 +343,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 
 			}else{//Store theme as light
+
+				window.theme = 'light';
+				document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+				document.cookie = "theme=light";
 
 				themeLight();
 
@@ -639,7 +647,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 
 			$('#app').css({
-				'background': '#343838'}
+				'background': '#272a2a'}
 			);
 
 			$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('dark-fonts');

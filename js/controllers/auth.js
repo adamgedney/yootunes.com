@@ -664,7 +664,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 		window.userId 	= response.userId;
 		window.theme 	= response.theme;
 		_userId 		= response.userId;
-
+console.log(window.theme, response.theme, "auth theme");
 		//load the application
 		Content.loadApp();
 
