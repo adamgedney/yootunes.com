@@ -971,7 +971,16 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 	function loadLibrary(page){
 
 		//Ensures userId is always available
-		_userId = window.userId;
+		if(_userId === undefined){
+			if(window.userId !== undefined){
+				_userId = window.userId;
+			}else if(getCookies.userId !== undefined){
+				_userId = getCookies.userId;
+			}
+			console.log(_userId, "_userId running in loadLib");
+		}
+
+
 
 		//Ensures search bar is visible & container is
 		//emptied quickly before a reload
