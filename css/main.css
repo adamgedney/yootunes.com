@@ -1155,7 +1155,11 @@ li.li-group.dropdown .li-desc {
   line-height: 18px;
   margin-left: 9px;
   display: inline-block;
-  width: 50%;
+  width: 41.6666666%;
+}
+li.li-group.dropdown .li-col1 {
+  width: 16.6666667%;
+  max-height: 100%;
 }
 
 /*Right side menu in dropdown*/
@@ -1167,11 +1171,20 @@ ul.dropdown-main-menu li {
   font-size: .7em;
   line-height: 27px;
 }
+ul.dropdown-main-menu li .addedToPlaylistCheck {
+  height: 12px !important;
+}
 ul.dropdown-main-menu li.li-share {
-  margin: 36px 0 0 18px;
+  margin: 9px 0 0 24px;
+  font-size: .6em;
+}
+ul.dropdown-main-menu li.li-share .share-strip img.svg:first-child {
+  padding-left: 0;
+  width: 21px;
 }
 ul.dropdown-main-menu li.li-share svg, ul.dropdown-main-menu li.li-share img {
   height: 21px;
+  margin-right: 6px;
 }
 ul.dropdown-main-menu li.li-buy {
   margin: 9px 0 0 18px;
@@ -1206,7 +1219,7 @@ ul.dropdown-main-menu li ul li form {
 }
 ul.dropdown-main-menu li ul li form input {
   height: 24px;
-  font-size: .6em;
+  font-size: 1.5em;
   margin: 0;
   margin-bottom: 3px;
 }
@@ -1363,8 +1376,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   display: none;
 }
 
-.modal-container, #appLoading {
-  background: rgba(0, 0, 0, 0.9);
+.modal-container {
+  background: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   bottom: 0;

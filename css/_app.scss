@@ -598,8 +598,14 @@ li.li-group.dropdown{
 		line-height: 18px;
 		margin-left: 9px;
 		display: inline-block;
-		@include col(6);
+		@include col(5);
 	}
+
+	.li-col1{
+		@include col(2);
+		max-height: 100%;
+	}
+
 }
 
 /*Right side menu in dropdown*/
@@ -610,13 +616,26 @@ ul.dropdown-main-menu{
 	li{
 		font-size: .7em;
 		line-height: 27px;
+
+		.addedToPlaylistCheck{
+			height: 12px !important;//overrides main li specificity. Used in jquery affordance
+		}
 	}
 
 	li.li-share{
-		margin: 36px 0 0 18px;
+		margin: 9px 0 0 24px;
+		font-size: .6em;
+
+		.share-strip{
+			img.svg:first-child{
+				padding-left: 0;
+				width: 21px;
+			}
+		}
 
 		svg, img{
 			height: 21px;
+			margin-right: 6px;
 		}
 	}
 
@@ -652,7 +671,7 @@ ul.dropdown-main-menu{
 
 					input{
 						height: 24px;
-						font-size: .6em;
+						font-size: 1.5em;
 						margin: 0;
 						margin-bottom: 3px;
 					}
@@ -854,8 +873,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	display: none;
 }
 
-.modal-container, #appLoading{
-	background: rgba(0,0,0,.9);
+.modal-container{
+	background: rgba(0,0,0,.5);
 	position: absolute;
 	top: 0;
 	bottom: 0;
