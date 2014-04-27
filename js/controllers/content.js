@@ -430,7 +430,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 						//Sets trash/add icon accordingly
 						if(_userSongs[i].song_id === itemId){
 							//Swaps out icon for trash icon
-							$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+							// $('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
 						}else{
 

@@ -66,6 +66,7 @@ html{
 #app{
 	background: $white;
 	overflow: hidden;
+	letter-spacing: 1px;/*give gothic font some space*/
 }
 
 aside.app{
@@ -104,6 +105,10 @@ aside.app{
 			margin-left: 0;
 		}
 	}
+}
+
+#collectionCount{
+	font-size: .8em;
 }
 
 #video{

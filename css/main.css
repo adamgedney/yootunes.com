@@ -740,6 +740,8 @@ html {
 #app {
   background: #ebebeb;
   overflow: hidden;
+  letter-spacing: 1px;
+  /*give gothic font some space*/
 }
 
 aside.app {
@@ -772,6 +774,10 @@ aside.app .video-size-ctrl svg:first-child, aside.app .video-size-ctrl img:first
 aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-child {
   width: 36px;
   margin-left: 0;
+}
+
+#collectionCount {
+  font-size: .8em;
 }
 
 #video {
