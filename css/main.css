@@ -710,14 +710,6 @@ footer .col-3 ul li .svg {
   padding-left: 6px;
 }
 
-.li-group:hover, .li-playlist:hover, .library-nav li:hover {
-  background: #e2e2e2;
-}
-
-.li-group.hidden:hover {
-  background: none !important;
-}
-
 svg:hover, img:hover {
   opacity: .8;
 }
@@ -1720,6 +1712,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .dark-placeholder:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: #494F4F !important;
+}
+
+.dark-input-bg {
+  background: #494F4F !important;
+  border: none !important;
 }
 
 /* --END-- Dark Theme Overrides======================================*/

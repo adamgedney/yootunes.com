@@ -450,6 +450,15 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 					$('#themeDark').prop('checked', false);
 				}
 
+				//Set the application theme colors
+				//again to ensure settings items are styled
+				//once they hit the DOM
+				if(window.theme === 'light'){
+					Ui.prototype.themeLight();
+				}else{
+					Ui.prototype.themeDark();
+				}
+
 
 				//Hide the entire section header (search bar)
 				$('.section-header').hide();
@@ -469,7 +478,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 						$('#infoName').val(response[0].display_name);
 						$('#infoEmail').val(response[0].email);
 						$('#infoId').html(response[0].id);
-						$('#infoTitle').val(response[0].title);
+						$('#infoTitleGender').val(response[0].title);
 
 						//Format birthdate for display
 						var birthdate = response[0].birthMonth + '/' + response[0].birthDay + '/' + response[0].birthYear;
@@ -478,24 +487,24 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 						//Prepend selected TITLE option
 						var option1 = '<option >' + response[0].title + '</option>';
-						$('#infoTitle').prepend(option1);
+						$('#infoTitleGender').prepend(option1);
 
 							//Handle title options list
 							if(response[0].title == "Mr."){
 								var option2 = '<option >Mrs.</option>';
 								var option3 = '<option >Ms.</option>';
-								$('#infoTitle').append(option2);
-								$('#infoTitle').append(option3);
+								$('#infoTitleGender').append(option2);
+								$('#infoTitleGender').append(option3);
 							}else if(response[0].title == "Mrs."){
 								var option2 = '<option >Mr.</option>';
 								var option3 = '<option >Ms.</option>';
-								$('#infoTitle').append(option2);
-								$('#infoTitle').append(option3);
+								$('#infoTitleGender').append(option2);
+								$('#infoTitleGender').append(option3);
 							}else if(response[0].title == "Ms."){
 								var option2 = '<option >Mrs.</option>';
 								var option3 = '<option >Mr.</option>';
-								$('#infoTitle').append(option2);
-								$('#infoTitle').append(option3);
+								$('#infoTitleGender').append(option2);
+								$('#infoTitleGender').append(option3);
 							}
 					}//success
 				});//ajax

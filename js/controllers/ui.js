@@ -31,6 +31,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		_videoSize.full 	= false;
 
 	var _userId 			= window.userId;
+	var _dropdownOpen 		= false;
+	var _dropdownId 		= '';
 
 
 
@@ -68,6 +70,75 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 
 
+
+		//HOVER EFFECTS over li items -necessary to use JS.
+		//Trouble overriding CSS :hover on theme change.
+		if(window.theme === 'light'){
+
+			//MOUSEOVER hover effect for LIGHT theme.
+			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
+
+				var resultId = $(this).attr('data-id');
+
+				//If dropdown is open or closed set hover color accordingly
+				if(!_dropdownOpen){
+					$(this).css({'background': '#e7e7e7'});
+				}else if(_dropdownOpen && resultId === _dropdownId){
+					$(this).css({'background': '#ffffff'});
+				}
+			});
+
+
+			//MOUSEOUT hover effect for LIGHT theme.
+			$(document).on('mouseout', '.resultItems, .li-playlist, .library-nav ul li', function(){
+
+				//If dropdown is open or closed set hover color accordingly
+				if(!_dropdownOpen){
+					$(this).css({'background': 'none'});
+				}else if(_dropdownOpen && resultId === _dropdownId){
+					$(this).css({'background': '#ffffff'});
+				}
+			});
+
+
+		}else{//DARK theme hover handlers
+
+
+			//MOUSEOVER hover effect for DARK theme.
+			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
+
+				var resultId = $(this).attr('data-id');
+
+				//If dropdown is open or closed set hover color accordingly
+				if(!_dropdownOpen){
+					$(this).css({'background': '#494f4f'});
+				}else if(_dropdownOpen && resultId === _dropdownId){
+					console.log("running", resultId, _dropdownId);
+					$(this).css({'background': '#ffffff'});
+				}
+			});
+
+
+			//MOUSEOUT hover effect for DARK theme.
+			$(document).on('mouseout', '.resultItems, .li-playlist, .library-nav ul li', function(){
+				var resultId = $(this).attr('data-id');
+
+				//If dropdown is open or closed set hover color accordingly
+				if(!_dropdownOpen){
+					$(this).css({'background': 'none'});
+				}else if(_dropdownOpen && resultId === _dropdownId){
+					$(this).css({'background': '#ffffff'});
+				}
+			});
+		}//HOVER EFECTS
+
+
+
+
+
+
+
+
 		//Playlist menu dropdown interaction==========//
 		$(document).on('click', '.playlist-menu', function(event){
 
@@ -93,24 +164,33 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 			this.toggle;
 
-			var selector = '.main-dropdown';
-			var id = $(this).attr('data-id');
+			var selector 	= '.main-dropdown';
+			var id 			= $(this).attr('data-id');
+			_dropdownId 	= id;
 
 
 			//returns the opposite boolean toggle value
 			this.toggle = toggleUi(this.toggle, selector, id);
 
 			if(this.toggle){
+
+				_dropdownOpen = true;
+
 				$('.resultItems').removeClass('bg-white');
 				$('.resultItems').removeClass('bold');
 				$('.resultItems').css({'borderBottom':'none'});
 
+				//Set the li item that triggered dropdown to white bg
 				$(this).parent().addClass('bg-white');
 				$(this).parent().addClass('bold');
 				$(this).parent().css({'borderBottom':'1px solid #ebebeb'});
 
 
 			}else{
+
+				_dropdownOpen = false;
+
+				$('.resultItems').css({'background':'none'});
 				$(this).parent().removeClass('bg-white');
 				$(this).parent().removeClass('bold');
 				$(this).parent().css({'borderBottom':'none'});
@@ -659,7 +739,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 			$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
 
-
+			$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('dark-input-bg');
 		}
 
 
@@ -682,7 +762,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 			$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
-
+			$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('dark-input-bg');
 		}
 
 
