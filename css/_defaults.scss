@@ -14,7 +14,8 @@
 
 body{
 	color: nth($grey, 1);
-	font: 62.5% 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+	// font: 62.5% 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+	font:  62.5% "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	background: $black;
 }
@@ -86,7 +87,8 @@ input, button, textarea{
 	font-size: 1.6em;
 	font-weight: 100;
 	outline: none;
-	font-family: 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+	// font-family: 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+	font-family : "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */

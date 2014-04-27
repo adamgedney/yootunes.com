@@ -57,7 +57,7 @@ ul {
 
 body {
   color: #272a2a;
-  font: 62.5% 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+  font: 62.5% "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   -webkit-font-smoothing: antialiased;
   background: #0f1010;
 }
@@ -131,7 +131,7 @@ input, button, textarea {
   font-size: 1.6em;
   font-weight: 100;
   outline: none;
-  font-family: 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 ::-webkit-input-placeholder {

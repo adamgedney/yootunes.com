@@ -108,7 +108,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 					//If dropdown is open or closed set hover color accordingly
 					if(!_dropdownOpen){
-						$(this).css({'background': '#494f4f'});
+						$(this).css({'background': '#2a2d2d'});
 					}else if(_dropdownOpen && resultId === _dropdownId){
 
 						$(this).css({'background': '#ffffff'});
