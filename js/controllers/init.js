@@ -102,7 +102,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 		//If uid cookie does not exist
-		if(cookies.userId === -1 || cookies.userId === undefined){
+		if(cookies.userId === -1 || cookies.userId === undefined || cookies.userId === 'undefined'){
 
 
 			//Load landing page
@@ -115,10 +115,12 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 			_userId = cookies.userId;
 			window.userId = _userId;
 
-			//Load app, set cookie, fire event
-			//Cookie setting here is redundant but harmless
-			//Prevents duplicate code.
-			loadApplication(cookies.userId);
+			//get the user data for stored id
+			//then load the app on success
+			getUser(cookies.userId);
+
+			console.log(_userId, "init.js cookie check");
+
 
 		}//else
 
@@ -140,7 +142,9 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 //========================//
 
 
-
+	Init.prototype = {
+		getUser : getUser
+	}
 
 
 	return Init;
@@ -173,7 +177,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 
 
-	function loadApplication(userId){
+	function loadApplication(){
 
 		//load the application
 		Content.loadApp();
@@ -184,9 +188,6 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 			playlistId 		: _playlistId
 		});
 
-
-		// //Set a cookie in the browser to store user id
-		document.cookie = "uid=" + userId;
 	}
 
 
@@ -205,6 +206,45 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 		_playlistId = 0;
 
+	}
+
+
+
+
+
+
+
+
+
+	function getUser(userId){
+
+		//Build API request
+		var API_URL = _baseUrl + '/get-user/' + userId;
+
+		//Request auth form server
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success 	: function(response){
+
+
+				//store theme info for app-wide use
+				window.theme = response[0].theme;
+				document.cookie = "theme=" + response[0].theme;
+
+				//Set a cookie in the browser to store user id
+				document.cookie = "uid=" + response[0].id;
+				window.userId 	= response[0].id;
+
+
+				//Load app, set cookie, fire event
+				//Cookie setting here is redundant but harmless
+				//Prevents duplicate code.
+				loadApplication();
+
+			}
+		});//ajax
 	}
 
 

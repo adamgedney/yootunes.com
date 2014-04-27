@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
+define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCookies, Init){
 
 
 	//Private variables
@@ -84,7 +84,7 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 					//Load app, set cookie, fire event
 					loadApplication(response);
 
-
+					console.log(response, "check-user in auth response");
 
 
 				}else{//response failure. User may have been deleted
@@ -664,13 +664,15 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 		window.userId 	= response.userId;
 		window.theme 	= response.theme;
 		_userId 		= response.userId;
-console.log(window.theme, response.theme, "auth theme");
+
 		//load the application
 		Content.loadApp();
 
 		// //Set a cookie in the browser to store user id
 		document.cookie = "uid=" 	+ response.userId;
 		document.cookie = "theme=" 	+ response.theme;
+
+		console.log(response, "load application in auth.js");
 
 	}
 

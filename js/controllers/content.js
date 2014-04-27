@@ -7,7 +7,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 
 	//private vars
-	var _theme 			= window.theme;
 	var _songs 			= [];
 	var	_userId			= window.userId;
 	var	_userEmail 		= '';
@@ -313,26 +312,15 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 				var userCookies = getCookies;
 					_thisDevice = userCookies.thisDevice;
 
-					//Ensures theme is always available on load
-					if(_theme === undefined){
-						if(window.theme !== undefined){
-							_theme = window.theme;
-						}else if(getCookies.theme !== undefined){
-							_theme = getCookies.theme;
-							window.theme = _theme;
-						}
-						console.log(_theme, "_theme failsafe running in contentjs app load");
-					}else{
-						window.theme = _theme;
-					}
-
 
 
 				//Set the application theme colors
-				if(_theme === 'light'){
-					Ui.prototype.themeLight;
+				if(window.theme === 'light'){
+					console.log("loading light from app render");
+					Ui.prototype.themeLight();
 				}else{
-					Ui.prototype.themeDark;
+					console.log("loading dark from app render");
+					Ui.prototype.themeDark();
 				}
 
 
@@ -400,13 +388,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 				//Set the application theme colors
 				//again to ensure lib items are styled
 				//once they hit the DOM
-				if(_theme === 'light'){
-					Ui.prototype.themeLight;
+				if(window.theme === 'light'){
+					Ui.prototype.themeLight();
 				}else{
-					Ui.prototype.themeDark;
+					Ui.prototype.themeDark();
 				}
 
-				console.log(_theme, window.theme,  "library loading");
 
 
 				//Remove search input value
@@ -455,10 +442,21 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 			//Listen for acctSettings view render
 			if(event.template === '#acctSettings'){
+
+				//Check/uncheck theme option based on current setting
+				if(window.theme === "dark"){
+					$('#themeDark').prop('checked', true);
+				}else{
+					$('#themeDark').prop('checked', false);
+				}
+
+
+				//Hide the entire section header (search bar)
 				$('.section-header').hide();
 
-				var API_URL = _baseUrl + '/get-user/' + _userId;
 
+				//Buil API URL
+				var API_URL = _baseUrl + '/get-user/' + _userId;
 
 				//Get current user's data where available
 				$.ajax({

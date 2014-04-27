@@ -642,9 +642,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 	function themeDark(){
 
-			//add the checked attr if database set theme
-			$('#themeDark').attr('checked', 'checked');
-
 
 			$('#app').css({
 				'background': '#272a2a'}
@@ -668,8 +665,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 		function themeLight(){
 
-			//add the false checked attr if database set theme
-			$('#themeDark').attr('checked', 'false');
 
 			$('#app').css({
 				'background': '#ebebeb'}
