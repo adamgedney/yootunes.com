@@ -413,10 +413,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 			//Store theme choice as dark
 			if($('#themeDark').is(':checked')){
 
-				window.theme = 'dark';
-				document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-				document.cookie = "theme=dark";
-
 				_currentTheme = "dark";
 
 				themeDark();
@@ -438,11 +434,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 			}else{//Store theme as light
 
-				window.theme = 'light';
-				document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-				document.cookie = "theme=light";
 
-				_currentTheme = "dark";
+				_currentTheme = "light";
 
 				themeLight();
 
@@ -735,48 +728,63 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 	function themeDark(){
 
-
-			$('#app').css({
-				'background': '#272a2a'}
-			);
-
-			$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('dark-fonts');
+		//Set global and cookie to dark
+		window.theme = 'dark';
+		document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+		document.cookie = "theme=dark";
 
 
-			$('.li-header').addClass('dark-border-bottom');
-			$('.section-header').addClass('dark-border-bottom');
-			$('#searchSubmit').addClass('dark-border-left');
+		$('#app').css({
+			'background': '#272a2a'}
+		);
 
-			$('aside.app').addClass('dark-border-right');
-			$('input[type=text]').addClass('dark-placeholder');
-
-			$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
-
-			$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('dark-input-bg');
-		}
+		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('dark-fonts');
 
 
-		function themeLight(){
+		$('.li-header').addClass('dark-border-bottom');
+		$('.section-header').addClass('dark-border-bottom');
+		$('#searchSubmit').addClass('dark-border-left');
+
+		$('aside.app').addClass('dark-border-right');
+		$('input[type=text]').addClass('dark-placeholder');
+
+		$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
+
+		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('dark-input-bg');
+	}
 
 
-			$('#app').css({
-				'background': '#ebebeb'}
-			);
-
-			$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('dark-fonts');
 
 
-			$('.li-header').removeClass('dark-border-bottom');
-			$('.section-header').removeClass('dark-border-bottom');
-			$('#searchSubmit').removeClass('dark-border-left');
 
-			$('aside.app').removeClass('dark-border-right');
-			$('input[type=text]').removeClass('dark-placeholder');
 
-			$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
-			$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('dark-input-bg');
-		}
+	function themeLight(){
+
+		//set global & cookie to light
+		window.theme = 'light';
+		document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+		document.cookie = "theme=light";
+
+
+		$('#app').css({
+			'background': '#ebebeb'}
+		);
+
+		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('dark-fonts');
+
+
+		$('.li-header').removeClass('dark-border-bottom');
+		$('.section-header').removeClass('dark-border-bottom');
+		$('#searchSubmit').removeClass('dark-border-left');
+
+		$('aside.app').removeClass('dark-border-right');
+		$('input[type=text]').removeClass('dark-placeholder');
+
+		$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+
+		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('dark-input-bg');
+	}
 
 
 
