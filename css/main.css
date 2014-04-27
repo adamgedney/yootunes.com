@@ -169,6 +169,12 @@ input, button, textarea {
   vertical-align: top;
 }
 
+.bg-white {
+  background: #fff;
+  transition-duration: 0.7s;
+  -webkit-transition-duration: 0.7s;
+}
+
 .red {
   color: #cf2425 !important;
   transition-duration: 0.7s;
@@ -709,6 +715,10 @@ footer .col-3 ul li .svg {
   background: #e2e2e2;
 }
 
+.li-group.hidden:hover {
+  background: none !important;
+}
+
 svg:hover, img:hover {
   opacity: .8;
 }
@@ -755,7 +765,7 @@ aside.app .video-size-ctrl {
   bottom: 72px;
   left: 0;
   z-index: 1002;
-  height: 27px;
+  height: 33px;
   text-align: right;
   border-bottom: 1px solid #272a2a;
 }
@@ -779,7 +789,7 @@ aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-c
   bottom: 72px;
   left: 0;
   z-index: 1000;
-  height: 27px;
+  height: 33px;
   border: none;
 }
 
@@ -1024,21 +1034,27 @@ section.app {
   vertical-align: middle;
 }
 .main-container ul li .add-icon {
-  width: 9px;
-  margin-right: 31%;
+  width: 12px;
 }
 .main-container ul li .play-icon img {
   width: 10px;
   margin-left: 23%;
 }
-.main-container ul li .createNewPlaylistLink {
+.main-container ul li .createNewPlaylistLink, .main-container ul li .addToPlaylistTitle {
   font-size: 1.5em;
   line-height: 9px;
 }
-.main-container ul li .createNewPlaylistLink img {
+.main-container ul li .createNewPlaylistLink img, .main-container ul li .addToPlaylistTitle img {
   float: left;
   margin: 0px 6px 0 0;
   height: 9px;
+}
+
+.addToPlaylistTitle {
+  padding-bottom: 18px;
+}
+.addToPlaylistTitle img.more-arrow-down {
+  width: 9px;
 }
 
 .scroll-container {

@@ -49,6 +49,10 @@
 	background: nth($grey, 5);
 }
 
+.li-group.hidden:hover{
+	background: none !important;
+}
+
 
 svg:hover, img:hover{
 	opacity: .8;
@@ -115,7 +119,7 @@ aside.app{
 		bottom: 72px;
 		left: 0;
 		z-index:1002;
-		height: 27px;
+		height: 33px;
 		text-align: right;
 		border-bottom: 1px solid nth($grey, 1);
 
@@ -144,7 +148,7 @@ aside.app{
 	bottom: 72px;
 	left: 0;
 	z-index:1000;
-	height: 27px;
+	height: 33px;
 	border: none;
 }
 
@@ -165,6 +169,7 @@ aside.app{
 
 	}
 }
+
 
 
 
@@ -433,8 +438,9 @@ section.app{
 			}
 
 			.add-icon{
-				width: 9px;
-				margin-right: 31%;
+				width: 12px;
+				// margin-right: 31%;
+
 			}
 
 			.play-icon{
@@ -444,7 +450,7 @@ section.app{
 				}
 			}
 
-			.createNewPlaylistLink{
+			.createNewPlaylistLink, .addToPlaylistTitle{
 				font-size: 1.5em;
 				line-height: 9px;
 
@@ -455,6 +461,14 @@ section.app{
 				}
 			}
 		}
+	}
+}
+
+.addToPlaylistTitle{
+	padding-bottom: 18px;
+
+	img.more-arrow-down{
+		width: 9px;
 	}
 }
 

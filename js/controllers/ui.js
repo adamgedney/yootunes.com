@@ -92,8 +92,25 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 			var selector = '.main-dropdown';
 			var id = $(this).attr('data-id');
 
+
 			//returns the opposite boolean toggle value
 			this.toggle = toggleUi(this.toggle, selector, id);
+
+			if(this.toggle){
+				$('.resultItems').removeClass('bg-white');
+				$('.resultItems').removeClass('bold');
+				$('.resultItems').css({'borderBottom':'none'});
+
+				$(this).parent().addClass('bg-white');
+				$(this).parent().addClass('bold');
+				$(this).parent().css({'borderBottom':'1px solid #ebebeb'});
+
+
+			}else{
+				$(this).parent().removeClass('bg-white');
+				$(this).parent().removeClass('bold');
+				$(this).parent().css({'borderBottom':'none'});
+			}
 		});
 
 
@@ -272,7 +289,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 
 
 
-		//Modal close funcitonality
+		//Modal close functionality
 		$(document).on('click', '.modalCloseIcon', function(){
 
 			//Hide modal window nodes
@@ -507,7 +524,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 			'bottom'   : '72px',
 			'left'     : '0',
 			'right'    : 'initial',
-			'height'   : '27px',
+			'height'   : '33px',
 			'display'  : 'none',
 			'width'    : '25%'
 		});

@@ -53,6 +53,11 @@ $green: #2f7c2f;
 	vertical-align: top;
 }
 
+.bg-white{
+	background: #fff;
+	@include duration();
+}
+
 .red {
   color: $red !important;//assigned ! for overriding specificity through jquery operations
   @include duration;

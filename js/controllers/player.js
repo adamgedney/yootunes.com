@@ -435,6 +435,9 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 				var playerId = _player.getVideoData().video_id;
 				var id = $(this).attr('data-videoid');
 
+				//Makes video ctrl transparent so user can see youtube loading gif
+				$('.video-size-ctrl').css({'opacity':'.5'});
+
 				//Sets the current index to enable autoplay feature funcitonality
 				_currentIndex = $(this).parent().attr('data-index');
 
@@ -533,6 +536,11 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 				twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl);
 				linkShareMain.attr('href', youtubeUrl);
 
+				//Resets video ctrl container to opaque (hides loading icon)
+				$('.video-size-ctrl').css({'opacity':'1'});
+
+				//Dynamically add video url to play on icon in video ctrl box
+				$('#watchOnYoutube').attr('href', 'http://youtube.com/watch?v=' + id);
 
 				//NOTE:*****
 				//This is actually the current index. Clean up possible duplicate setting of this value later.
@@ -664,6 +672,17 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 			}
 
 
+		});
+
+
+
+
+
+
+
+		//Pause video when user clicks watch on youtube link in video cntrls
+		$(document).on('click', '#watchOnYoutube', function(){
+			pause();
 		});
 
 
