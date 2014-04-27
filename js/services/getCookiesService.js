@@ -16,6 +16,8 @@ define([], function(){
 	//loop through cookie array
 	for(var c=0;c<cookieArray.length;c++){
 
+
+
 		//Retrieve userid cookie
 		if(cookieArray[c].indexOf("uid") !== -1){
 
@@ -37,6 +39,13 @@ define([], function(){
 
 			//Set playlist share value
 			obj.share = cookieArray[c].substr(6);
+		}
+
+		//Retrieve theme cookie
+		if(cookieArray[c].indexOf("theme") !== -1){
+
+			//Set theme value
+			obj.theme = cookieArray[c].substr(6);
 		}
 	}//for
 

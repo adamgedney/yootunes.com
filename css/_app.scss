@@ -1,36 +1,4 @@
 
-/*title attrib hover effect-- work on this later*/
-// a[title]:hover:after{
-// 	content: attr(title);
-// 	padding: 4px 8px;
-// 	color: $black;
-// 	position: absolute;
-// 	top: 0;
-// 	right: 0;
-// 	white-space: nowrap;
-// 	z-index: 200px;
-// 	border-radius:2px;
-// 	background: $white;
-// }
-
-// span{
-// 	position: relative;
-// }
-
-// span[title]:hover:after{
-// 	content: attr(title);
-// 	padding: 4px 8px;
-// 	color: $black;
-// 	position: absolute;
-// 	top: 0;
-// 	right: 0;
-// 	white-space: nowrap;
-// 	z-index: 200px;
-// 	border-radius:2px;
-// 	background: $white;
-// }
-
-
 
 
 .share-strip{
@@ -838,7 +806,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	padding-left: 6%;
 
 
-	label[for="emailUpdatesInfo"], input[type="checkbox"]{
+	label[for="emailUpdatesInfo"], label[for="themeDark"], input[type="checkbox"]{
 		display: inline;
 		vertical-align: middle;
 	}
@@ -1223,6 +1191,48 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 
+
+
+
+
+
+
+
+
+
+/*Dark Theme Overrides==============================================*/
+.dark-fonts{
+	color: #949494 !important;/*nth($grey, 3)*/
+}
+
+.dark-border-bottom{
+	border-bottom: 1px solid #494F4F !important;/*nth($grey, 3)*/
+}
+
+.dark-border-right{
+	border-right: 1px solid #494F4F !important;/*nth($grey, 3)*/
+}
+
+.dark-border-left{
+	border-left: 1px solid #494F4F !important;/*nth($grey, 3)*/
+}
+
+.dark-placeholder::-webkit-input-placeholder { /* WebKit browsers */
+    color: #494F4F !important;
+}
+.dark-placeholder:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #494F4F !important;
+}
+.dark-placeholder::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #494F4F !important;
+}
+.dark-placeholder:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #494F4F !important;
+}
+
+
+
+/* --END-- Dark Theme Overrides======================================*/
 
 
 

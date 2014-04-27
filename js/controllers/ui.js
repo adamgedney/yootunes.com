@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
+define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key, Player, getCookies){
 
 
 
@@ -14,6 +14,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 
 
 	//private vars
+	var _baseUrl 		= 'http://yooapi.pw';
+
 	var _seek 				= {};
 		_seek.drag,
 		_seek.seekTime,
@@ -27,6 +29,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 	var _videoSize 			= {};
 		_videoSize.normal 	= false,
 		_videoSize.full 	= false;
+
+	var _userId 			= window.userId;
 
 
 
@@ -306,6 +310,59 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 
 
 
+		//Dark theme set
+		$(document).on('change', '#themeDark', function(){
+
+			_userId = window.userId;
+
+			//Store theme choice as dark
+			if($('#themeDark').is(':checked')){
+
+				themeDark();
+
+				var theme = 'dark';
+
+				//Build API url
+				var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + theme;
+
+				//Call API to add song to library
+				$.ajax({
+					url : API_URL,
+					method : 'GET',
+					dataType : 'json',
+					success : function(response){
+						console.log(response, "set theme dark");
+
+					}//success
+				});//ajax
+
+
+
+			}else{//Store theme as light
+
+				themeLight();
+
+				var theme = 'light';
+
+				//Build API url
+				var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + theme;
+
+				//Call API to add song to library
+				$.ajax({
+					url : API_URL,
+					method : 'GET',
+					dataType : 'json',
+					success : function(response){
+						console.log(response, "set theme light");
+
+					}//success
+				});//ajax
+
+			}//else
+
+		});
+
+
 
 
 
@@ -324,7 +381,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 
 	//methods and properties.
 	ui.prototype = {
-		constructor : ui
+		constructor : ui,
+		themeDark 	: themeDark,
+		themeLight 	: themeLight
 	};
 
 	//return constructor
@@ -551,6 +610,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 
 
 
+
+
+
+
 	//Notify user of link to be copied
 	function copyToClipboard(link){
 
@@ -558,8 +621,72 @@ define(['jquery', 'js/libs/keyHash.js', 'Player'], function($, Key, Player){
 	}
 
 
-// })(window, document,jQuery);
+
+
+
+
+
+
+
+
+
+
+
+	function themeDark(){
+
+			//add the checked attr if database set theme
+			$('#themeDark').attr('checked', 'checked');
+
+
+			$('#app').css({
+				'background': '#343838'}
+			);
+
+			$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('dark-fonts');
+
+
+			$('.li-header').addClass('dark-border-bottom');
+			$('.section-header').addClass('dark-border-bottom');
+			$('#searchSubmit').addClass('dark-border-left');
+
+			$('aside.app').addClass('dark-border-right');
+			$('input[type=text]').addClass('dark-placeholder');
+
+			$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
+
+
+		}
+
+
+		function themeLight(){
+
+			//add the false checked attr if database set theme
+			$('#themeDark').attr('checked', 'false');
+
+			$('#app').css({
+				'background': '#ebebeb'}
+			);
+
+			$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('dark-fonts');
+
+
+			$('.li-header').removeClass('dark-border-bottom');
+			$('.section-header').removeClass('dark-border-bottom');
+			$('#searchSubmit').removeClass('dark-border-left');
+
+			$('aside.app').removeClass('dark-border-right');
+			$('input[type=text]').removeClass('dark-placeholder');
+
+			$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+
+
+		}
+
+
+
+
+
+
+
 });//define()
 })();//function
-
-

@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, getCookies, Init){
+define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handlebars, getCookies, Init, Ui){
 
 
 
@@ -7,6 +7,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 
 	//private vars
+	var _theme 			= window.theme;
 	var _songs 			= [];
 	var	_userId			= window.userId;
 	var	_userEmail 		= '';
@@ -312,6 +313,18 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 				var userCookies = getCookies;
 					_thisDevice = userCookies.thisDevice;
 
+					if(!userCookies.theme === undefined){
+						_theme = userCookies.theme;
+					}
+
+
+
+				//Set the application theme colors
+				if(_theme === 'light'){
+					Ui.prototype.themeLight;
+				}else{
+					Ui.prototype.themeDark;
+				}
 
 
 
@@ -374,6 +387,18 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init'], function($, handlebars, g
 
 
 			if(event.template === '#libraryItem'){
+
+				//Set the application theme colors
+				//again to ensure lib items are styled
+				//once they hit the DOM
+				if(theme === 'light'){
+					Ui.prototype.themeLight;
+				}else{
+					Ui.prototype.themeDark;
+				}
+
+				console.log(theme, "library loading");
+
 
 				//Remove search input value
 				$('#searchInput').val('');

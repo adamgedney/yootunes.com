@@ -700,7 +700,6 @@ footer .col-3 ul li .svg {
 }
 
 /*----Sass import application stylesheet----*/
-/*title attrib hover effect-- work on this later*/
 .share-strip {
   overflow: hidden;
 }
@@ -1358,7 +1357,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .info-col3 {
   padding-left: 6%;
 }
-.info-col3 label[for="emailUpdatesInfo"], .info-col3 input[type="checkbox"] {
+.info-col3 label[for="emailUpdatesInfo"], .info-col3 label[for="themeDark"], .info-col3 input[type="checkbox"] {
   display: inline;
   vertical-align: middle;
 }
@@ -1682,6 +1681,48 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   outline: none;
 }
 
+/*Dark Theme Overrides==============================================*/
+.dark-fonts {
+  color: #949494 !important;
+  /*nth($grey, 3)*/
+}
+
+.dark-border-bottom {
+  border-bottom: 1px solid #494F4F !important;
+  /*nth($grey, 3)*/
+}
+
+.dark-border-right {
+  border-right: 1px solid #494F4F !important;
+  /*nth($grey, 3)*/
+}
+
+.dark-border-left {
+  border-left: 1px solid #494F4F !important;
+  /*nth($grey, 3)*/
+}
+
+.dark-placeholder::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #494F4F !important;
+}
+
+.dark-placeholder:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #494F4F !important;
+}
+
+.dark-placeholder::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #494F4F !important;
+}
+
+.dark-placeholder:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #494F4F !important;
+}
+
+/* --END-- Dark Theme Overrides======================================*/
 /* line 7, ../sass/lightbox.sass */
 body:after {
   content: url(../images/close.png) url(../images/loading.gif) url(../images/prev.png) url(../images/next.png);

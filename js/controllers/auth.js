@@ -662,13 +662,15 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 		//Ensures userId is always available across the app
 		//DO NOT REMOVE ** Library will fail to load on login
 		window.userId 	= response.userId;
+		window.theme 	= response.theme;
 		_userId 		= response.userId;
 
 		//load the application
 		Content.loadApp();
 
 		// //Set a cookie in the browser to store user id
-		document.cookie = "uid=" + response.userId;
+		document.cookie = "uid=" 	+ response.userId;
+		document.cookie = "theme=" 	+ response.theme;
 
 	}
 
