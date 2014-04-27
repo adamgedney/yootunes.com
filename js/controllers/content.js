@@ -30,7 +30,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 		//==============================//
 		//PAGINATION handler
 		//==============================//
-		$(document).on('mouseover', '.li-group', function(){
+		$(document).on('mouseover', '.resultItems', function(){
 
 
 			//Determines when to begin loading next result group
@@ -419,6 +419,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 				//Loop through li items to see if song is in library
 				for(var i=0;i<_userSongs.length;i++){
+
+					//Sets an index number to each li item
+					$('li.resultItems:eq(' + i + ')').attr('data-index', i);
 
 					//Gets the song_id from the displayed result item
 					var itemId = $('li.resultItems:eq(' + i + ')').find('.addToLibrary').attr('data-id');
