@@ -76,15 +76,11 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 			dataType 	: 'json',
 			success 	: function(response){
 
-				// console.log(response, "login wth email response");
-
 				//If user was authenticated
 				if(response.success === true){
 
 					//Load app, set cookie, fire event
 					loadApplication(response);
-
-					console.log(response, "check-user in auth response");
 
 
 				}else{//response failure. User may have been deleted
@@ -114,7 +110,6 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 								dataType 	: 'json',
 								success 	: function(response){
 
-									// console.log(response, "restore account success response");
 
 									//Load app, set cookie, fire event
 									loadApplication(response);
@@ -195,7 +190,6 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 				    	method : 'GET',
 				    	dataType : 'json',
 				    	success : function(response){
-				    		console.log(response, "plus-user response");
 
 				    		//If response success
 				    		if(response.userId !== null || response.userId !== "" || response.userId !== undefined){
@@ -210,10 +204,7 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 			});//gapi.client.laod
 
 
-		  } else {
-
-		    console.log('Sign-in state: ' + authResult['error']);
-		  }//else
+		  }//if
 	};//AuthCallback
 
 
@@ -325,7 +316,6 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 			method : 'GET',
 			dataType : 'json',
 			success : function(response){
-				console.log(response, 'forgot pass response');
 
 				if(response === "User null"){
 
@@ -471,7 +461,6 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 			dataType : 'json',
 			success : function(response){
 
-				console.log(response, "update user info response");
 
 				//Reload acct settings view
 				Content.loadAcctSettings();
@@ -519,7 +508,6 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 			dataType : 'json',
 			success : function(response){
 
-				console.log(response, "delete account response");
 
 				//Fade out modal window
 				$('#deleteAcctModal').fadeOut();
@@ -633,7 +621,6 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 					//Load the application, fire event, set new cookie
 					loadApplication(response);
 
-					console.log(response, "create new user response");
 
 					//Show device namer to new user
 					$('#nameDeviceModal').fadeIn();
@@ -671,9 +658,6 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 		// //Set a cookie in the browser to store user id
 		document.cookie = "uid=" 	+ response.userId;
 		document.cookie = "theme=" 	+ response.theme;
-
-		console.log(response, "load application in auth.js");
-
 	}
 
 

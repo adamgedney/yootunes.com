@@ -233,7 +233,6 @@ define(['jquery'], function($){
 			method : 'GET',
 			dataType : 'json',
 			success : function(response){
-				console.log(response, "add song to library response");
 
 				if(response === true){
 					//Display total songs in library in interface
@@ -266,7 +265,6 @@ define(['jquery'], function($){
 			method : 'GET',
 			dataType : 'json',
 			success : function(response){
-				// console.log(response, "remove song to library response");
 
 				//Dispatches event to application for library reloading in content controller
 				$.event.trigger({
@@ -304,7 +302,6 @@ define(['jquery'], function($){
 			method : 'GET',
 			dataType : 'json',
 			success : function(response){
-				console.log(response, "new playlist created");
 
 				//Dispatches event to application for playlist reloading in content controller
 				$.event.trigger({
@@ -337,7 +334,6 @@ define(['jquery'], function($){
 				method : 'GET',
 				dataType : 'json',
 				success : function(response){
-					console.log(response, "add song to playlist success response");
 
 				}//success
 			});//ajax
@@ -366,7 +362,6 @@ define(['jquery'], function($){
 				method : 'GET',
 				dataType : 'json',
 				success : function(response){
-					console.log(response, "remove from playlist success response");
 
 					//Triggers playlist song deleted to trigger a playlist refresh
 					$.event.trigger({
@@ -398,7 +393,6 @@ define(['jquery'], function($){
 				method : 'GET',
 				dataType : 'json',
 				success : function(response){
-					console.log(response, "delete playlist success response");
 
 					//Triggers playlist added just so a playlist reload occurs
 					$.event.trigger({

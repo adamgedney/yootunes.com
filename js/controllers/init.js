@@ -58,11 +58,9 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 							//Store the userId associated with the token
 							_user.tokenResponseId = response.userId;
 
-						}else{
-							console.log(response, "token check response");
-						}
-					}
-				});
+						}//if
+					}//success
+				});//ajax
 			}//if reset
 
 
@@ -118,10 +116,6 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 			//get the user data for stored id
 			//then load the app on success
 			getUser(cookies.userId);
-
-			console.log(_userId, "init.js cookie check");
-
-
 		}//else
 
 

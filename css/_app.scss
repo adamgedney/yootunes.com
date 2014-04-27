@@ -322,6 +322,7 @@ li.playlist-dropdown:hover{
 section.app{
 	@include col(9);
 	float: left;
+	height: 100%;
 }
 
 .section-header{
@@ -443,6 +444,7 @@ section.app{
 
 .scroll-container{
 	height: 74vh;
+	min-height: 500px;
 	overflow: scroll;
 }
 
@@ -731,16 +733,13 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 /*==================================*/
 /*Account Settings Page*/
 /*==================================*/
-#test-frame{
-	width: 1000px;
-	height: 590px;
-	border: 1px solid black;
-}
 
 .info-wrapper{
 	overflow: hidden;
-	padding: 6%;
+	padding: 6% 6% 12%;
 	position: relative;
+	min-height: 600px;
+
 
 	input[type="text"], input[type="password"], input[type="submit"], select, button{
 		height: 36px;

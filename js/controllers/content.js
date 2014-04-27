@@ -31,7 +31,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 		//PAGINATION handler
 		//==============================//
 		$(document).on('mouseover', '.li-group', function(){
-			// console.log($(this));
+
 
 			//Determines when to begin loading next result group
 			var loadRange 	= [ (20 * _onPage) - 3 + "",
@@ -64,8 +64,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 							//Load the next page
 							loadLibrary(_currentSkip);
 						}//if
-
-						console.log(_currentSkip);
 				}//if
 		});//mouseover li results
 
@@ -84,6 +82,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 			loadAcctSettings();
 
 			activeLibraryItem('#acctSettings');
+
+			//Set correct container height
+			$('.scroll-container').css('height', '100vh');
 
 		});//click acctSettings
 
@@ -109,6 +110,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 			activeLibraryItem('.viewSongs');
 
+			//Set correct container height
+			$('.scroll-container').css('height', '74vh');
+
 		});
 
 
@@ -130,6 +134,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 			sortList(by);
 
 			activeLibraryItem('.viewArtists');
+
+			//Set correct container height
+			$('.scroll-container').css('height', '74vh');
 		});
 
 
@@ -151,6 +158,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 			sortList(by);
 
 			activeLibraryItem('.viewAlbums');
+
+			//Set correct container height
+			$('.scroll-container').css('height', '74vh');
 		});
 
 
@@ -173,6 +183,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 			activeLibraryItem('.viewGenres');
 
+			//Set correct container height
+			$('.scroll-container').css('height', '74vh');
+
 		});
 
 
@@ -189,12 +202,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 			//Grabs playlist id for specific loading
 			var playlistId = $(this).attr('data-id');
-			// console.log(id, 'this is the clicked playlist id');
 
 			//Get & load playlist songs
 			loadPlaylistSongs(playlistId);
 
 			activeLibraryItem(playlistId);
+
+			//Set correct container height
+			$('.scroll-container').css('height', '74vh');
 		});
 
 
@@ -213,7 +228,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 			var query = $('#searchInput').val();
 			var API_URL = _baseUrl + '/search/' + query;
 			var songs = [];
-			console.log("search", query);
 
 			//Empty results list while srarch results load
 			$('.scroll-container').empty();
@@ -316,10 +330,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 				//Set the application theme colors
 				if(window.theme === 'light'){
-					console.log("loading light from app render");
+
 					Ui.prototype.themeLight();
 				}else{
-					console.log("loading dark from app render");
+
 					Ui.prototype.themeDark();
 				}
 
@@ -473,7 +487,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 					method : 'GET',
 					dataType : 'json',
 					success : function(response){
-						// console.log(response, "acct settings call response");
+
 
 						$('#infoName').val(response[0].display_name);
 						$('#infoEmail').val(response[0].email);
@@ -614,7 +628,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 		//Reload playlist after song removal
 		$(document).on('playlistsongremoved', function(event){
-			console.log("playlist song removed triggered", event.id);
+
 			//Reload playlist songs after song removed
 			loadPlaylistSongs(event.id)
 		});
@@ -1018,7 +1032,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 			}else if(getCookies.userId !== undefined){
 				_userId = getCookies.userId;
 			}
-			console.log(_userId, "_userId failsafe running in loadLib");
+
 		}
 
 

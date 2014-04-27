@@ -34,12 +34,27 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	var _dropdownOpen 		= false;
 	var _dropdownId 		= '';
 
+	var _currentTheme 		= '';
+
 
 
 
 
 	//constructor method
 	var ui = function(){
+
+
+
+		//Title/tooltip handler. Write function to display pre designed modal
+		//taht starts at the offset left of the hovered over item.
+		//use for tooltips, feedback, validation, error messages, and upgrade acct encouragement.
+
+
+
+
+
+
+
 
 
 		//Sign up button interaction handler=======//
@@ -73,64 +88,64 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 		//HOVER EFFECTS over li items -necessary to use JS.
 		//Trouble overriding CSS :hover on theme change.
-		if(window.theme === 'light'){
+
 
 			//MOUSEOVER hover effect for LIGHT theme.
 			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
 				var resultId = $(this).attr('data-id');
 
-				//If dropdown is open or closed set hover color accordingly
-				if(!_dropdownOpen){
-					$(this).css({'background': '#e7e7e7'});
-				}else if(_dropdownOpen && resultId === _dropdownId){
-					$(this).css({'background': '#ffffff'});
+				if(window.theme === 'light' || _currentTheme === 'light'){
+
+					//If dropdown is open or closed set hover color accordingly
+					if(!_dropdownOpen){
+						$(this).css({'background': '#e7e7e7'});
+					}else if(_dropdownOpen && resultId === _dropdownId){
+						$(this).css({'background': '#ffffff'});
+					}
+
+				}else if(window.theme === 'dark' || _currentTheme === 'dark'){
+
+					//If dropdown is open or closed set hover color accordingly
+					if(!_dropdownOpen){
+						$(this).css({'background': '#494f4f'});
+					}else if(_dropdownOpen && resultId === _dropdownId){
+
+						$(this).css({'background': '#ffffff'});
+					}
 				}
-			});
+			});//MOUSEOVER
+
+
+
 
 
 			//MOUSEOUT hover effect for LIGHT theme.
 			$(document).on('mouseout', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
-				//If dropdown is open or closed set hover color accordingly
-				if(!_dropdownOpen){
-					$(this).css({'background': 'none'});
-				}else if(_dropdownOpen && resultId === _dropdownId){
-					$(this).css({'background': '#ffffff'});
-				}
-			});
-
-
-		}else{//DARK theme hover handlers
-
-
-			//MOUSEOVER hover effect for DARK theme.
-			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
-
 				var resultId = $(this).attr('data-id');
 
-				//If dropdown is open or closed set hover color accordingly
-				if(!_dropdownOpen){
-					$(this).css({'background': '#494f4f'});
-				}else if(_dropdownOpen && resultId === _dropdownId){
-					console.log("running", resultId, _dropdownId);
-					$(this).css({'background': '#ffffff'});
+				if(window.theme === 'light' || _currentTheme === 'light'){
+
+					//If dropdown is open or closed set hover color accordingly
+					if(!_dropdownOpen){
+						$(this).css({'background': 'none'});
+					}else if(_dropdownOpen && resultId === _dropdownId){
+						$(this).css({'background': '#ffffff'});
+					}
+
+				}else if(window.theme === 'dark' || _currentTheme === 'dark'){
+
+					//If dropdown is open or closed set hover color accordingly
+					if(!_dropdownOpen){
+						$(this).css({'background': 'none'});
+					}else if(_dropdownOpen && resultId === _dropdownId){
+						$(this).css({'background': '#ffffff'});
+					}
 				}
 			});
 
 
-			//MOUSEOUT hover effect for DARK theme.
-			$(document).on('mouseout', '.resultItems, .li-playlist, .library-nav ul li', function(){
-				var resultId = $(this).attr('data-id');
-
-				//If dropdown is open or closed set hover color accordingly
-				if(!_dropdownOpen){
-					$(this).css({'background': 'none'});
-				}else if(_dropdownOpen && resultId === _dropdownId){
-					$(this).css({'background': '#ffffff'});
-				}
-			});
-		}//HOVER EFECTS
 
 
 
@@ -402,12 +417,12 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 				document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 				document.cookie = "theme=dark";
 
+				_currentTheme = "dark";
+
 				themeDark();
 
-				var theme = 'dark';
-
 				//Build API url
-				var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + theme;
+				var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + _currentTheme;
 
 				//Call API to add song to library
 				$.ajax({
@@ -415,7 +430,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 					method : 'GET',
 					dataType : 'json',
 					success : function(response){
-						console.log(response, "set theme dark");
 
 					}//success
 				});//ajax
@@ -428,12 +442,12 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 				document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 				document.cookie = "theme=light";
 
+				_currentTheme = "dark";
+
 				themeLight();
 
-				var theme = 'light';
-
 				//Build API url
-				var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + theme;
+				var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + _currentTheme;
 
 				//Call API to add song to library
 				$.ajax({
@@ -441,7 +455,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 					method : 'GET',
 					dataType : 'json',
 					success : function(response){
-						console.log(response, "set theme light");
 
 					}//success
 				});//ajax

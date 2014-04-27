@@ -80,15 +80,6 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 		//Listen for rendered
 		$(document).on('rendered', function(event){
 
-			//When app has loaded
-			if(event.template === '#app'){
-
-
-			}//#app
-
-
-
-
 			//When libary items have loaded
 			if(event.template === '#libraryItem'){
 
@@ -97,14 +88,15 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 				$('.playIconImg[data-videoid=' + _playingVideo + ']').attr('src', 'images/icons/pause-drk.png');
 
 
-				//Loop through all list items to assign an index number
-				$('.resultItems').each(function(index, value){
+				//NOTE:*** Moved to library rendered in content-----
+				// //Loop through all list items to assign an index number
+				// $('.resultItems').each(function(index, value){
 
-					//Sets an index number to each li item
-					$('.resultItems:eq(' + index + ')').attr('data-index', index);
+				// 	//Sets an index number to each li item
+				// 	$('.resultItems:eq(' + index + ')').attr('data-index', index);
 
 
-				});//each
+				// });//each
 			};//#libraryItem
 		});//on rendered
 
@@ -117,7 +109,6 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 
 
 		$(document).on('click', '#playAll', function(event){
-
 
 			playAll();
 
@@ -272,7 +263,8 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 					enablejsapi 	: 1,
 					rel 			: 0,
 					showinfo		: 0,
-					modestbranding 	: 1
+					modestbranding 	: 1,
+					origin 			: 'http://yootunes.com'
 				},
 			    events: {
 			      // call this function when player is ready to use
@@ -451,8 +443,8 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 
 					//Determines if new video needs to be loaded
 					if(!this.newVideo){
-						console.log("NEW video");
-						// _player.loadVideoById(id);
+
+
 						play(id);
 
 
@@ -581,7 +573,6 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 
 		    	//Clears above update interval
 		    	clearInterval(_updateInterval);
-		    	// console.log("!playing called");
 
 		    	//If user plays video from click on video, change play/pause
 		    	$('#play-btn').attr('src', 'images/icons/play-wht.png');
@@ -751,7 +742,6 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 
 	function dragging(drag, scrubPos){
 		_dragging = drag;
-		console.log(drag, "dragging");
 
 		//Seek bar dragging
 		if(drag === true){
