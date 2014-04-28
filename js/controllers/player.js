@@ -90,7 +90,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 		//If this was a page refresh make sure server removes previous connections to room
-		_socketConnect.disconnectRoom(getCookies.userId);
+		// _socketConnect.disconnectRoom(getCookies.userId);
 
 
 
