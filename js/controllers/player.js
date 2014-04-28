@@ -81,7 +81,7 @@ console.log(_socketConnect);
 
 
 		//If this was a page refresh make sure server removes previous connections
-		_socketConnect.emit('disconnect', getCookies.userId);
+		_socketConnect.emit('discon', getCookies.userId);
 
 
 
