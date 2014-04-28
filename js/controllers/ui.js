@@ -468,6 +468,12 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		});
 
 
+		//Event triggered by pauseOn socket. Applies to slave device
+		$(document).on('showMinSize', function(){
+			showMinSize();
+		});
+
+
 
 
 

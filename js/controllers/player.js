@@ -773,6 +773,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui','Content', 'socketSer
 			if(_thisDevice === response.device){
 				_player.stopVideo();
 
+
+				//Set slave to minscreen
+				$(document).trigger({
+					type : 'showMinSize'
+				});
+
+
 				//Updates button ui
 				$('#play-btn').attr('src', 'images/icons/play-wht.png');
 
