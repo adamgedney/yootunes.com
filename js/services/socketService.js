@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'getCookies', ], function($, getCookies){
+define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
