@@ -685,7 +685,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 		//=============================//
-		//Listen for socket ON PLAYON
+		//Listen for socket ON PLAY
 		//=============================//
 		_socketConnect.on('playOn', function (response) {
 
@@ -716,7 +716,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 		//=============================//
-		//Listen for socket ON
+		//Listen for socket ON PAUSE
 		//=============================//
 		_socketConnect.on('pauseOn', function(response){
 
@@ -738,7 +738,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 		//=============================//
-		//Listen for socket ON
+		//Listen for socket ON VOLUME
 		//=============================//
 		_socketConnect.on('volumeOn', function(response){
 
@@ -747,6 +747,21 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 			//Set the range slider value to match assigned value
 			$('#volumeRange').val(response.volume);
+		});//_socketConnect.on
+
+
+
+
+
+
+
+
+		//=============================//
+		//Listen for socket ON SETTIME
+		//=============================//
+		_socketConnect.on('seekToOn', function(response){
+
+			_player.seekTo(response.seconds, true);
 		});//_socketConnect.on
 
 
@@ -844,6 +859,24 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		//Set video time: ((scrubber x - bar left) / bar width) * duration
 		var s = ((scrubberOffset - $('#seek-bar').offset().left) / $('#seek-bar').width()) *_seek.duration;
 
+
+		//Build obj for socket transmission
+		var data = {
+			'device' 			: _playOnDevice,
+			'controllerDevice' 	: _thisDevice,
+			'userId' 			: _userId,
+			'seconds' 			: s
+		}
+
+
+		if(_socket === 'open'){
+
+			//EMIT seekTo event back to server
+			_socketConnect.emit('seekTo', data);
+		}
+
+
+		//seekTo normally
 		_player.seekTo(s, true);
 	}
 
