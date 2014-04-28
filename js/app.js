@@ -6,7 +6,7 @@ require.config({
 		modernizr 	: 'libs/modernizr',
 		Handlebars 	: 'libs/handlebars',
 		lightbox 	: 'libs/lightbox-2.6.min',
-		socketio 	: 'http://yooss.pw:3998/socket.io/socket.io',
+		socketio 	: 'http://yooss.pw:41795/socket.io/socket.io',
 		Init 		: 'controllers/init',
 		Auth 		: 'controllers/auth',
 		Content 	: 'controllers/content',

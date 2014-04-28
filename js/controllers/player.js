@@ -32,8 +32,9 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 		_playMode.loop 		= false;
 		_playMode.shuffle 	= false;
 
-	var socketServer 		= 'http://yooss.pw:3998';
-	var socket;
+	var socketServer 		= 'http://yooss.pw:41795/';
+	var _socketConnect 		= io.connect();
+	var _socket;
 
 
 	var _thisDevice;
@@ -46,7 +47,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 	//constructor method
 	var player = function(){
 
-
+console.log(_socketConnect);
 		//Retrieve cookies & set device & userId
 		var userCookies = getCookies;
 
@@ -380,7 +381,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 
 					if(rangeVolume !== prevVolume){
 
-						socket.emit('volume', data);
+						_socket.emit('volume', data);
 
 						prevVolume = rangeVolume;
 					}
@@ -391,7 +392,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 						//=============================//
 						//Listen for socket ON
 						//=============================//
-						socket.on('volumeOn', function(response){
+						_socket.on('volumeOn', function(response){
 
 							//Check to see if this client matches the volumeOn command
 							if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
@@ -407,7 +408,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 								_player.setVolume(response.volume);
 
 							}//if
-						});//socket.on
+						});//_socket.on
 				}//else
 			});//volume mousemove
 
@@ -900,13 +901,13 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 			//Connection to node socket server opened if playOn is enabled
 			if(_thisDevice !== _playOnDevice){
 
-				socket = io.connect(socketServer);
+				_socket = _socketConnect;
 
-				console.log(socket, "play triggered");
+				console.log(_socket, "play triggered");
 
 			}else{
 
-				socket = null;
+				_socket = null;
 
 				//unmute the controller
 				_player.unMute();
@@ -915,7 +916,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 
 
 		//No need for sockets if this is the device we're playing on
-		if(socket === null){
+		if(_socket === null){
 
 			//Signifies we're in play/pause loop
 			if(youtubeId === ""){
@@ -964,7 +965,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 					data.newVideo = 'false';
 
 					//EMIT event back to server
-					socket.emit('play', data);
+					_socket.emit('play', data);
 
 
 				}else{
@@ -973,9 +974,9 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 					data.newVideo = 'true';
 
 					//EMIT event back to server
-					socket.emit('play', data);
+					_socket.emit('play', data);
 
-					console.log(socket,"test emit");
+					console.log(_socket,"test emit");
 				}
 
 
@@ -984,7 +985,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 					//=============================//
 					//Listen for socket ON
 					//=============================//
-					socket.on('playOn', function (response) {
+					_socket.on('playOn', function (response) {
 
 						console.log("socket play return event received", response);
 
@@ -1015,7 +1016,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 								_player.loadVideoById(response.youtubeId);
 							}//else
 						}//if device
-					});//socket.on
+					});//_socket.on
 		}//else playOn
 	}//play
 
@@ -1054,7 +1055,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 
 
 		//No need for sockets if this is the device we're playing on
-		if(socket === null){
+		if(_socket === null){
 
 			_player.stopVideo();
 
@@ -1083,14 +1084,14 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 			//=============================//
 			//Socket EMIT pause
 			//=============================//
-			socket.emit('pause', data);
+			_socket.emit('pause', data);
 
 
 
 				//=============================//
 				//Listen for socket ON
 				//=============================//
-				socket.on('pauseOn', function(response){
+				_socket.on('pauseOn', function(response){
 
 					//Check to see if this client matches the pauseOn command
 					if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
@@ -1110,7 +1111,7 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 
 						_playerPlaying = !_playerPlaying;
 					}//if
-				});//socket.on
+				});//_socket.on
 		}//else
 	}//pause()
 
