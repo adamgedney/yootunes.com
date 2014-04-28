@@ -49,6 +49,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 
+
 	//constructor method
 	var player = function(){
 
@@ -97,6 +98,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 		//Listen for rendered
 		$(document).on('rendered', function(event){
+
+			if(event.template === '#app'){
+
+				//Ensure shuffle icon is visible if previously hidden by playOn mode
+				$('#shuffleResults').css('opacity' : '1');
+			}
+
 
 			//When libary items have loaded
 			if(event.template === '#libraryItem'){
@@ -184,29 +192,35 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 		$(document).on('click', '#shuffleResults', function(event){
 
-			//Register click for socket in case we're in master mode
-			if(_socket === 'open'){
-				emitClick('#shuffleResults');
-			}
+			//Only allow shuffle mode when not in playOn mode
+			if(_socket === null){
 
+				//Ensure shuffle icon is visible
+				$('#shuffleResults').css('opacity' : '1');
 
-			if(!_playMode.shuffle){
+				if(!_playMode.shuffle){
 
-				_playMode.shuffle 	= !_playMode.shuffle;
+					_playMode.shuffle 	= !_playMode.shuffle;
 
-				//Reset loop button and boolean val
-				_playMode.loop 		= false;
-				$('#loopSong').attr('src', 'images/icons/loop-icon.png');
+					//Reset loop button and boolean val
+					_playMode.loop 		= false;
+					$('#loopSong').attr('src', 'images/icons/loop-icon.png');
 
-				//Change icon to indicate selection
-				$(this).attr('src', 'images/icons/shuffle-icon-red.png');
+					//Change icon to indicate selection
+					$(this).attr('src', 'images/icons/shuffle-icon-red.png');
+
+				}else{
+
+					_playMode.shuffle = !_playMode.shuffle;
+
+					//Change oicon back
+					$(this).attr('src', 'images/icons/shuffle-icon.png');
+				}
 
 			}else{
 
-				_playMode.shuffle = !_playMode.shuffle;
-
-				//Change oicon back
-				$(this).attr('src', 'images/icons/shuffle-icon.png');
+				//Hide the icon when in playOn mode
+				$(this).css('opacity' : '0');
 			}
 
 		});
@@ -814,7 +828,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 			$(response.selector).trigger("click");
-
+			_mastersRandomVideo = response.
 		});//_socketConnect.on
 
 
@@ -880,6 +894,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 	function emitClick(selector){
+
 
 		//Build obj for socket transmission
 		var data = {
@@ -1281,17 +1296,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		var getVideo = $('.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
 
 
-		// $('.resultItems').each(function(){
-		// 	var vid = $(this).attr('data-videoId');
-		// 	_shuffleList.push(vid);
-		// });
-
-
-		// var getVideo = Math.floor(Math.random() * _shuffleList.length);
-
-		//Start playing next video in shuffle
-		// _player.loadVideoById(getVideo);
 		play(getVideo);
+
+
 
 
 		//Set the previous index for use in the previous button functionality
