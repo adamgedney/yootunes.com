@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function($, Key, getCookies, socketService){
+define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService', 'Content'], function($, Key, getCookies, socketService, Content){
 
 
 // var Player = (function(window, document, $){
@@ -719,12 +719,17 @@ console.log(_socketConnect);
 		// //=============================//
 		_socketConnect.on('playOn', function (response) {
 
-			console.log("socket play return event received thisDev/response", _thisDevice, response);
+			console.log("socket play return event received thisDev/response", _thisDevice, response, response.device);
+
 
 			//Sets the controlling device to MUTE.
 			//Most efficient way of setting up controller/slave
 			if(response.controllerDevice === _thisDevice){
 				_player.mute();
+			}else{
+
+				//Reloads device list on slave machine
+				Content.getDevices();
 			}
 
 
@@ -968,6 +973,7 @@ console.log(_socketConnect);
 
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');
+
 		console.log(_thisDevice, _playOnDevice, "this/playon devices");
 
 			//Connection to node socket server opened if playOn is enabled
