@@ -367,9 +367,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 
-
-			//Volume Handler=======//
+			//===================================//
+			//Volume Handler
+			//===================================//
 			var prevVolume;
+
 			$(document).on('mousemove', '#volumeRange', function(){
 
 				var rangeVolume = $('#volumeRange').val();
@@ -377,25 +379,28 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 				//No need for sockets if this is the device we're playing on
 				if(_socket === null){
 
+					//set volume normally
 					_player.setVolume(rangeVolume);
 
 
 				}else{//PlayOn
+
+					//Be sure loacl volume is still muted
+					_player.mute();
 
 
 					//Build obj for socket transmission
 					var data = {
 						'device' 			: _playOnDevice,
 						'volume' 			: rangeVolume,
-						'controllerDevice' 	: _thisDevice
+						'controllerDevice' 	: _thisDevice,
+						'userId' 			: _userId
 					}
 
 
 					//=============================//
 					//Socket EMIT volume stream
 					//=============================//
-
-
 					if(rangeVolume !== prevVolume){
 
 						_socketConnect.emit('volume', data);
@@ -403,29 +408,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 						prevVolume = rangeVolume;
 					}
 
-
-
-
-						//=============================//
-						//Listen for socket ON
-						//=============================//
-						_socketConnect.on('volumeOn', function(response){
-
-							//Check to see if this client matches the volumeOn command
-							if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
-
-								//Sets the controlling device volume to 0.
-								//Most efficient way of setting up controller/slave
-								if(data.controllerDevice === _thisDevice){
-									_player.mute();
-
-								}
-
-								//set volume
-								_player.setVolume(response.volume);
-
-							}//if
-						});//_socketConnect.on
 				}//else
 			});//volume mousemove
 
@@ -755,6 +737,23 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 
+		//=============================//
+		//Listen for socket ON
+		//=============================//
+		_socketConnect.on('volumeOn', function(response){
+
+			//set volume
+			_player.setVolume(response.volume);
+		});//_socketConnect.on
+
+
+
+
+
+
+
+
+
 
 
 
@@ -983,12 +982,18 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 			//Mute this controller device
 			_player.mute();
 
+			//Set icon to muted icon
+			$('.vol-icon').attr('src', 'images/icons/volume-icon-mute.svg');
+
 			// window.open('http://yooss.pw:3000');
 		}else{
 			_socket = null;
 
 			//unmute the controller
 			_player.unMute();
+
+			//Set icon to unmuted icon
+			$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
 		}
 
 
@@ -1098,11 +1103,17 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 			//Mute this controller device
 			_player.mute();
+
+			//Set icon to muted icon
+			$('.vol-icon').attr('src', 'images/icons/volume-icon-mute.svg');
 		}else{
 			_socket = null;
 
 			//Unmute this controller
 			_player.unMute();
+
+			//Set icon to unmuted icon
+			$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
 		}
 
 
@@ -1113,7 +1124,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 				//Build obj for socket transmission
 				var data = {
 					'device' 			: _playOnDevice,
-					'controllerDevice' 	: _thisDevice
+					'controllerDevice' 	: _thisDevice,
+					'userId' 			: _userId
 				}
 
 				_socketConnect.emit('pause', data);
