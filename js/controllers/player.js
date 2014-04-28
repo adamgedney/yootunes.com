@@ -102,7 +102,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 			if(event.template === '#app'){
 
 				//Ensure shuffle icon is visible if previously hidden by playOn mode
-				$('#shuffleResults').css('opacity' : '1');
+				$('#shuffleResults').css('opacity','1');
 			}
 
 
@@ -196,7 +196,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 			if(_socket === null){
 
 				//Ensure shuffle icon is visible
-				$('#shuffleResults').css('opacity' : '1');
+				$('#shuffleResults').css('opacity','1');
 
 				if(!_playMode.shuffle){
 
@@ -220,7 +220,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 			}else{
 
 				//Hide the icon when in playOn mode
-				$(this).css('opacity' : '0');
+				$(this).css('opacity','0');
 			}
 
 		});
