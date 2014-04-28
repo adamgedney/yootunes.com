@@ -65,11 +65,17 @@ define(['jquery', 'getCookies'], function($, getCookies){
 		$(document).on('click', '#submitDeviceName', function(event){
 			event.preventDefault();
 
-			//Retrieve cookies & set device & userId
-			var userCookies = getCookies;
 
-			// _thisDevice = userCookies.thisDevice;
-			_userId = userCookies.userId;
+			//Ensures userId is always available
+			if(_userId === undefined){
+				if(window.userId !== undefined){
+					_userId = window.userId;
+				}else if(getCookies.userId !== undefined){
+					_userId = getCookies.userId;
+					window.userId = _userId;
+				}
+			}
+
 
 
 			var currentDeviceId = "0";//default
@@ -94,8 +100,6 @@ define(['jquery', 'getCookies'], function($, getCookies){
 				method : 'GET',
 				dataType : 'json',
 				success : function(response){
-
-					console.log(response, "new device response");
 
 					//Fires a complete event after  device has been added
 					$(document).trigger({

@@ -80,7 +80,7 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 				if(response.success === true){
 
 					//Load app, set cookie, fire event
-					loadApplication(response);
+					loadApplication(response[0][0]);
 
 
 				}else{//response failure. User may have been deleted
@@ -112,7 +112,7 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 
 
 									//Load app, set cookie, fire event
-									loadApplication(response);
+									loadApplication(response[0]);
 
 								}//success
 							});//ajax
@@ -191,13 +191,11 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 				    	dataType : 'json',
 				    	success : function(response){
 
-				    		//If response success
-				    		if(response.userId !== null || response.userId !== "" || response.userId !== undefined){
 
-				    			//Load app, set cookie, fire event
-								loadApplication(response);
+			    			//Load app, set cookie, fire event
+							loadApplication(response[0]);
 
-				    		}//if response success
+
 				    	}//success
 				    });//ajax
 			   });//user.execute
@@ -611,24 +609,16 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 			dataType 	: 'json',
 			success		: function(response){
 
-				//Check to be sure new user made it into DB
-				if(response.response === true){
 
 					//Delete the current user id cookie
 					deleteUIDCookie();
 
-
 					//Load the application, fire event, set new cookie
-					loadApplication(response);
+					loadApplication(response[0]);
 
 
 					//Show device namer to new user
 					$('#nameDeviceModal').fadeIn();
-
-				}else{//New user registration failed. Display why
-
-					console.log(response, "something went wrong");
-				}
 
 			}//success
 		});//ajax
@@ -648,15 +638,15 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 
 		//Ensures userId is always available across the app
 		//DO NOT REMOVE ** Library will fail to load on login
-		window.userId 	= response.userId;
+		window.userId 	= response.id;
 		window.theme 	= response.theme;
-		_userId 		= response.userId;
+		_userId 		= response.id;
 
 		//load the application
 		Content.loadApp();
 
 		// //Set a cookie in the browser to store user id
-		document.cookie = "uid=" 	+ response.userId;
+		document.cookie = "uid=" 	+ response.id;
 		document.cookie = "theme=" 	+ response.theme;
 	}
 

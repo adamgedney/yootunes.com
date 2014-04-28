@@ -340,7 +340,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 
 				//If device cookie doesn't/does exist
-				if(_thisDevice === undefined){//Does not exist
+				if(_thisDevice === 'undefined' || _thisDevice === undefined || _thisDevice === '' || !_thisDevice ){//Does not exist
 
 					//Fade in modal to instruct user to name this device
 					$('#nameDeviceModal').fadeIn();
@@ -1035,7 +1035,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 			}else if(getCookies.userId !== undefined){
 				_userId = getCookies.userId;
 			}
-
 		}
 
 
