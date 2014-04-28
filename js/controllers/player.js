@@ -925,6 +925,8 @@ console.log(_socketConnect);
 
 				_socket = 'open';
 
+				window.open('http://yooss.pw:3000');
+
 
 			}else{
 
