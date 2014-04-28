@@ -684,20 +684,40 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 
 
-
 	//Controls minimizing the video
 	function showMinSize(){
 
-		$('iframe#video').css({
-			'position' : 'absolute',
-			'top'      : 'initial',
-			'bottom'   : '72px',
-			'left'     : '0',
-			'right'    : 'initial',
-			'height'   : '33px',
-			'display'  : 'none',
-			'width'    : '25%'
-		});
+		//Attempts to fix bug in firefox where player crashes on iframe resize
+		// if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+
+		//      //Same as show normal but display none
+		//     $('iframe#video').css({
+		// 		'height'   : '227px',
+		// 		'display'  : 'block',
+		// 		'position' : 'absolute',
+		// 		'top'      : 'initial',
+		// 		'bottom'   : '72px',
+		// 		'left'     : '0',
+		// 		'right'    : 'initial',
+		// 		'width'    : '25%',
+		// 		'display'  : 'none'
+		// 	});
+
+		// }else{
+
+			$('iframe#video').css({
+				'position' : 'absolute',
+				'top'      : 'initial',
+				'bottom'   : '72px',
+				'left'     : '0',
+				'right'    : 'initial',
+				'height'   : '33px',
+				// 'display'  : 'none',
+				'width'    : '25%'
+			});
+		// }
+
+
 
 
 		$('.video-size-ctrl').css({
