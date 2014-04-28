@@ -733,6 +733,28 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 
+		//=============================//
+		//Listen for socket ON
+		//=============================//
+		_socketConnect.on('pauseOn', function(response){
+
+			_player.stopVideo();
+
+			//Updates button ui
+			$('#play-btn').attr('src', 'images/icons/play-wht.png');
+
+			_playerPlaying = !_playerPlaying;
+
+		});//_socketConnect.on
+
+
+
+
+
+
+
+
+
 
 
 
@@ -985,17 +1007,19 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 				_socketConnect.emit('play', _data);
 
 				//Delay play by 1s to wait for socket connection to load slave video
-				setTimeout(_player.playVideo(), 1000);
+				// setTimeout(, 1000);
+
+				_player.playVideo()
 			}else if(_socket === null){
 
-				//Play Local video normally
+				//Play Local video normally w/out delay
 				_player.playVideo();
 			}//if
 
-			//Updates button ui
-			$('#play-btn').attr('src', 'images/icons/pause.png');
+				//Updates button ui
+				$('#play-btn').attr('src', 'images/icons/pause.png');
 
-			_playerPlaying= !_playerPlaying;
+				_playerPlaying= !_playerPlaying;
 
 
 
@@ -1013,18 +1037,19 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 				_socketConnect.emit('play', _data);
 
 				//Delay play by 2s to wait for socket connection to load slave video
-				setTimeout(_player.loadVideoById(youtubeId), 2000);
+				// setTimeout(, 2000);
+
+				_player.loadVideoById(youtubeId)
 
 			}else if(_socket === null){
 
-				//Play local video normally
+				//Play local video normally w/out delay
 				_player.loadVideoById(youtubeId);
 			}//if
 
-			//reset seek stepper for each new video
-			//to conrol seek bar fill
-			_seek.stepper = 0;
-
+				//reset seek stepper for each new video
+				//to conrol seek bar fill
+				_seek.stepper = 0;
 
 
 		}//else youtubeId
@@ -1063,10 +1088,39 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 	function pause(){
 
+		//Get device id of current play on device selection
+		_playOnDevice =  $('#play-on option:selected').attr('data-id');
 
-		//No need for sockets if this is the device we're playing on
-		if(_socket === null){
 
+		//Connection to socketserver runs if we choose to be a controller
+		if(_thisDevice !== _playOnDevice){
+			_socket = 'open';
+
+			//Mute this controller device
+			_player.mute();
+		}else{
+			_socket = null;
+
+			//Unmute this controller
+			_player.unMute();
+		}
+
+
+
+			//Emit pause event
+			if(_socket === 'open'){
+
+				//Build obj for socket transmission
+				var data = {
+					'device' 			: _playOnDevice,
+					'controllerDevice' 	: _thisDevice
+				}
+
+				_socketConnect.emit('pause', data);
+			}
+
+
+			//Pause local video normally
 			_player.stopVideo();
 
 			//Updates button ui
@@ -1075,54 +1129,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 			_playerPlaying = !_playerPlaying;
 
 
-
-
-		//==========================//
-		}else{//PlayOn
-		//==========================//
-
-
-
-
-			//Build obj for socket transmission
-			var data = {
-				'device' 			: _playOnDevice,
-				'controllerDevice' 	: _thisDevice
-			}
-
-
-			//=============================//
-			//Socket EMIT pause
-			//=============================//
-			_socketConnect.emit('pause', data);
-
-
-
-				//=============================//
-				//Listen for socket ON
-				//=============================//
-				_socketConnect.on('pauseOn', function(response){
-
-					//Check to see if this client matches the pauseOn command
-					if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
-
-						//Sets the controlling device to MUTE.
-						//Most efficient way of setting up controller/slave
-						if(data.controllerDevice === _thisDevice){
-							_player.mute();
-						}
-
-
-
-						_player.stopVideo();
-
-						//Updates button ui
-						$('#play-btn').attr('src', 'images/icons/play-wht.png');
-
-						_playerPlaying = !_playerPlaying;
-					}//if
-				});//_socketConnect.on
-		}//else
 	}//pause()
 
 
