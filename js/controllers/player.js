@@ -774,9 +774,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui','Content', 'socketSer
 				_player.stopVideo();
 
 
-				//Set slave to minscreen
+				//Set slave to showNormalSize
 				$(document).trigger({
-					type : 'showMinSize'
+					type : 'showNormalSize'
 				});
 
 
