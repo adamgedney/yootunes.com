@@ -474,9 +474,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 	//methods and properties.
 	ui.prototype = {
-		constructor : ui,
-		themeDark 	: themeDark,
-		themeLight 	: themeLight
+		constructor 	: ui,
+		themeDark 		: themeDark,
+		themeLight 		: themeLight,
+		enterFullscreen : enterFullscreen,
+		showMinSize		: showMinSize
 	};
 
 	//return constructor

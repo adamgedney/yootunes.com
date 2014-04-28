@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'], function($, Key, getCookies, Content, socketService){
+define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui','Content', 'socketService'], function($, Key, getCookies, Ui,Content, socketService){
 
 
 
@@ -727,6 +727,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		_socketConnect.on('playOn', function (response) {
 
 			if(_thisDevice === response.device){
+
+				//Set slave to fullscreen
+				Ui.enterFullscreen();
+
+
 				console.log("socket play return event received thisDev/response", _thisDevice, response);
 
 				//Hide the shuffle icon ** may need to display none it
