@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
+define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content, getCookies, socketService){
 
 
 
@@ -173,6 +173,9 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 
 	function loadApplication(){
 
+		//Join user to his room for playOn control
+		socketService.joinRoom(_userId);
+
 		//load the application
 		Content.loadApp();
 
@@ -228,8 +231,10 @@ define(['jquery', 'Content', 'getCookies'], function($, Content, getCookies){
 				document.cookie = "theme=" + response[0].theme;
 
 				//Set a cookie in the browser to store user id
+				//Duplicate setting. Just for stability.
 				document.cookie = "uid=" + response[0].id;
 				window.userId 	= response[0].id;
+
 
 
 				//Load app, set cookie, fire event

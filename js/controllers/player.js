@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'getCookies'], function($, Key, getCookies){
+define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function($, Key, getCookies, socketService){
 
 
 // var Player = (function(window, document, $){
@@ -32,8 +32,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies'], function($, Key, getCooki
 		_playMode.loop 		= false;
 		_playMode.shuffle 	= false;
 
-	var socketServer 		= 'http://yooss.pw:3001';
-	var _socketConnect 		= io.connect(socketServer);
+	// var socketServer 		= 'http://yooss.pw:3001';
+	var _socketConnect 		= socketService.socket;
 	var _socket 			= null;
 
 
@@ -714,41 +714,41 @@ console.log(_socketConnect);
 
 
 		//Socketio listeners
-		//=============================//
-		//Listen for socket ON
-		//=============================//
-		_socketConnect.on('playOn', function (response) {
+		// //=============================//
+		// //Listen for socket ON
+		// //=============================//
+		// _socketConnect.on('playOn', function (response) {
 
-			console.log("socket play return event received thisDev/response", _thisDevice, response);
+		// 	console.log("socket play return event received thisDev/response", _thisDevice, response);
 
-			//Sets the controlling device to MUTE.
-			//Most efficient way of setting up controller/slave
-			if(response.controllerDevice === _thisDevice){
-				_player.mute();
-			}
-
-
-			//Check to see if this client matches the playOn command
-			if(response.device === _thisDevice || response.controllerDevice === _thisDevice){
+		// 	//Sets the controlling device to MUTE.
+		// 	//Most efficient way of setting up controller/slave
+		// 	if(response.controllerDevice === _thisDevice){
+		// 		_player.mute();
+		// 	}
 
 
-				//Check to see if this is a new video
-				if(response.newVideo === "false"){
+		// 	//Check to see if this client matches the playOn command
+		// 	if(response.device === _thisDevice || response.controllerDevice === _thisDevice){
 
-					_player.playVideo();
-					// var id = _player.getVideoData().video_id;
 
-					//Updates button ui
-					$('#play-btn').attr('src', 'images/icons/pause.png');
+		// 		//Check to see if this is a new video
+		// 		if(response.newVideo === "false"){
 
-					_playerPlaying= !_playerPlaying;
+		// 			_player.playVideo();
+		// 			// var id = _player.getVideoData().video_id;
 
-				}else{
+		// 			//Updates button ui
+		// 			$('#play-btn').attr('src', 'images/icons/pause.png');
 
-					_player.loadVideoById(response.youtubeId);
-				}//else
-			}//if device
-		});//_socketConnect.on
+		// 			_playerPlaying= !_playerPlaying;
+
+		// 		}else{
+
+		// 			_player.loadVideoById(response.youtubeId);
+		// 		}//else
+		// 	}//if device
+		// });//_socketConnect.on
 
 
 
@@ -804,6 +804,14 @@ console.log(_socketConnect);
 //================================//
 //Class methods===================//
 //================================//
+
+
+
+
+
+
+
+
 
 	function dragging(drag, scrubPos){
 		_dragging = drag;

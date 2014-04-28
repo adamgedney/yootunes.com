@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCookies, Init){
+define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($, Content, getCookies, Init, socketService){
 
 
 	//Private variables
@@ -619,6 +619,12 @@ define(['jquery', 'Content', 'getCookies', 'Init'], function($, Content, getCook
 
 					//Show device namer to new user
 					$('#nameDeviceModal').fadeIn();
+
+
+					//===================================//
+					//Create a new room on the socket server for this user
+					//===================================//
+					socketService.createRoom(response[0].id);
 
 			}//success
 		});//ajax
