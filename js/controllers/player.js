@@ -744,6 +744,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 			//set volume
 			_player.setVolume(response.volume);
+
+			//Set the range slider value to match assigned value
+			$('#volumeRange').val(response.volume);
 		});//_socketConnect.on
 
 
