@@ -31,14 +31,13 @@ require.config({
 
 
 // //Instantiate Controllers
-require(['jquery', 'socketService','Init', 'Auth', 'Content', 'Ui', 'Library', 'Player', 'User', 'lightbox'],
-	function(jquery, socketService, Init, Auth, Content, Ui, Library, Player, User, lightbox){
+require(['jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'Player', 'User', 'lightbox'],
+	function(jquery, Init, Auth, Content, Ui, Library, Player, User, lightbox){
 
 		var init 			= new Init();
 		var auth 			= new Auth();
 		var ui 				= new Ui();
 		var library 		= new Library();
-		var socketService 	= new socketService();
 		var player 			= new Player();
 		var user 			= new User();
 });
