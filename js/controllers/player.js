@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, Key, io, getCookies){
+define(['jquery', 'js/libs/keyHash.js', 'getCookies'], function($, Key, getCookies){
 
 
 // var Player = (function(window, document, $){
@@ -32,9 +32,9 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 		_playMode.loop 		= false;
 		_playMode.shuffle 	= false;
 
-	var socketServer 		= 'http://yooss.pw:41795/';
-	var _socketConnect 		= io.connect();
-	var _socket;
+	var socketServer 		= 'http://yooss.pw:3001';
+	var _socketConnect 		= io.connect(socketServer);
+	var _socket 			= null;
 
 
 	var _thisDevice;
@@ -48,6 +48,28 @@ define(['jquery', 'js/libs/keyHash.js', 'socketio', 'getCookies'], function($, K
 	var player = function(){
 
 console.log(_socketConnect);
+
+
+	// ioServer.sockets.on('connection', function (socket) {
+
+	// 		//Receives from client emit
+	// 		socket.on('play', function (data) {
+	// 		  console.log("back and forth working", data);
+
+	// 		  //Broadcast message to listening clients
+	// 		  socket.emit('playOn', data);
+	// 		});
+
+	// 	});//ioServer
+
+
+
+
+
+
+
+
+
 		//Retrieve cookies & set device & userId
 		var userCookies = getCookies;
 
@@ -358,7 +380,7 @@ console.log(_socketConnect);
 				var rangeVolume = $('#volumeRange').val();
 
 				//No need for sockets if this is the device we're playing on
-				if(socket === null){
+				if(_socket === null){
 
 					_player.setVolume(rangeVolume);
 
@@ -381,7 +403,7 @@ console.log(_socketConnect);
 
 					if(rangeVolume !== prevVolume){
 
-						_socket.emit('volume', data);
+						_socketConnect.emit('volume', data);
 
 						prevVolume = rangeVolume;
 					}
@@ -392,7 +414,7 @@ console.log(_socketConnect);
 						//=============================//
 						//Listen for socket ON
 						//=============================//
-						_socket.on('volumeOn', function(response){
+						_socketConnect.on('volumeOn', function(response){
 
 							//Check to see if this client matches the volumeOn command
 							if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
@@ -408,7 +430,7 @@ console.log(_socketConnect);
 								_player.setVolume(response.volume);
 
 							}//if
-						});//_socket.on
+						});//_socketConnect.on
 				}//else
 			});//volume mousemove
 
@@ -901,9 +923,8 @@ console.log(_socketConnect);
 			//Connection to node socket server opened if playOn is enabled
 			if(_thisDevice !== _playOnDevice){
 
-				_socket = _socketConnect;
+				_socket = 'open';
 
-				console.log(_socket, "play triggered");
 
 			}else{
 
@@ -965,7 +986,7 @@ console.log(_socketConnect);
 					data.newVideo = 'false';
 
 					//EMIT event back to server
-					_socket.emit('play', data);
+					_socketConnect.emit('play', data);
 
 
 				}else{
@@ -974,9 +995,9 @@ console.log(_socketConnect);
 					data.newVideo = 'true';
 
 					//EMIT event back to server
-					_socket.emit('play', data);
+					_socketConnect.emit('play', data);
 
-					console.log(_socket,"test emit");
+					console.log(_socketConnect,"PLAY new video socket.emit");
 				}
 
 
@@ -985,7 +1006,7 @@ console.log(_socketConnect);
 					//=============================//
 					//Listen for socket ON
 					//=============================//
-					_socket.on('playOn', function (response) {
+					_socketConnect.on('playOn', function (response) {
 
 						console.log("socket play return event received", response);
 
@@ -1016,7 +1037,7 @@ console.log(_socketConnect);
 								_player.loadVideoById(response.youtubeId);
 							}//else
 						}//if device
-					});//_socket.on
+					});//_socketConnect.on
 		}//else playOn
 	}//play
 
@@ -1084,14 +1105,14 @@ console.log(_socketConnect);
 			//=============================//
 			//Socket EMIT pause
 			//=============================//
-			_socket.emit('pause', data);
+			_socketConnect.emit('pause', data);
 
 
 
 				//=============================//
 				//Listen for socket ON
 				//=============================//
-				_socket.on('pauseOn', function(response){
+				_socketConnect.on('pauseOn', function(response){
 
 					//Check to see if this client matches the pauseOn command
 					if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
@@ -1111,7 +1132,7 @@ console.log(_socketConnect);
 
 						_playerPlaying = !_playerPlaying;
 					}//if
-				});//_socket.on
+				});//_socketConnect.on
 		}//else
 	}//pause()
 
