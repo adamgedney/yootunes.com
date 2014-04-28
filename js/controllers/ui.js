@@ -462,6 +462,18 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 
 
+		//Event triggered by playOn socket. Applies to slave device
+		$(document).on('enterFullscreen', function(){
+			enterFullscreen();
+		});
+
+
+
+
+
+
+
+
 
 
 
@@ -476,9 +488,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	ui.prototype = {
 		constructor 	: ui,
 		themeDark 		: themeDark,
-		themeLight 		: themeLight,
-		enterFullscreen : enterFullscreen,
-		showMinSize		: showMinSize
+		themeLight 		: themeLight
 	};
 
 	//return constructor

@@ -729,7 +729,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui','Content', 'socketSer
 			if(_thisDevice === response.device){
 
 				//Set slave to fullscreen
-				Ui.prototype.enterFullscreen();
+				$(document).trigger({
+					type : 'enterFullscreen'
+				});
 
 
 				console.log("socket play return event received thisDev/response", _thisDevice, response);
