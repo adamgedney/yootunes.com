@@ -78,8 +78,8 @@ define(['jquery', 'getCookies', ], function($, getCookies){
 
 
 	function createRoom(userId){
-
-		_socket.emit('createRoom', userId);
+		console.log("createRoom called", userId);
+		socket.emit('createRoom', userId);
 
 	}
 
@@ -87,8 +87,8 @@ define(['jquery', 'getCookies', ], function($, getCookies){
 
 
 	function joinRoom(userId){
-
-		_socket.emit('joinRoom', userId);
+		console.log("joinRoom called", userId);
+		socket.emit('joinRoom', userId);
 
 	}
 
