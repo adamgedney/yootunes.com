@@ -301,7 +301,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 
 
-
 		//Player Screensize Handlers======//
 		//================================//
 		//Minimize or show Normal video size

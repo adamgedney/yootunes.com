@@ -762,6 +762,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		_socketConnect.on('seekToOn', function(response){
 
 			_player.seekTo(response.seconds, true);
+
+
+			_seek.seekPos = (($('#seek-bar').width() / _seek.duration) * response.seconds)  + $('#seek-bar').offset().left;
+
+			$('#seek-dot').offset({left: _seek.seekPos});
+
+
 		});//_socketConnect.on
 
 
