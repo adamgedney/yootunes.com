@@ -983,16 +983,21 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 				//EMIT event back to server
 				_socketConnect.emit('play', _data);
+
+				//Delay play by 1s to wait for socket connection to load slave video
+				setTimeout(_player.playVideo(), 1000);
+			}else if(_socket === null){
+
+				//Play Local video normally
+				_player.playVideo();
 			}//if
-
-
-			//Play the local video
-			_player.playVideo();
 
 			//Updates button ui
 			$('#play-btn').attr('src', 'images/icons/pause.png');
 
 			_playerPlaying= !_playerPlaying;
+
+
 
 
 		}else{//New Video
@@ -1006,14 +1011,21 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 				//EMIT event back to server
 				_socketConnect.emit('play', _data);
-			}//if
 
+				//Delay play by 2s to wait for socket connection to load slave video
+				setTimeout(_player.loadVideoById(youtubeId), 2000);
+
+			}else if(_socket === null){
+
+				//Play local video normally
+				_player.loadVideoById(youtubeId);
+			}//if
 
 			//reset seek stepper for each new video
 			//to conrol seek bar fill
 			_seek.stepper = 0;
 
-			_player.loadVideoById(youtubeId);
+
 
 		}//else youtubeId
 	}//play
