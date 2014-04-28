@@ -128,6 +128,12 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 		$(document).on('click', '#playAll', function(event){
 
+			//Register click for socket in case we're in master mode
+			if(_socket === 'open'){
+				emitClick('#playAll');
+			}
+
+
 			playAll();
 
 		});
@@ -141,6 +147,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 		$(document).on('click', '#loopSong', function(event){
+
+			//Register click for socket in case we're in master mode
+			if(_socket === 'open'){
+				emitClick('#loopSong');
+			}
 
 
 			if(!_playMode.loop){
@@ -173,6 +184,12 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 		$(document).on('click', '#shuffleResults', function(event){
 
+			//Register click for socket in case we're in master mode
+			if(_socket === 'open'){
+				emitClick('#shuffleResults');
+			}
+
+
 			if(!_playMode.shuffle){
 
 				_playMode.shuffle 	= !_playMode.shuffle;
@@ -204,6 +221,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 		//Prev/Next Click Handler=======//
 		$(document).on('click', '#prev-btn', function(){
+
+			//Register click for socket in case we're in master mode
+			if(_socket === 'open'){
+				emitClick('#prev-btn');
+			}
 
 			//If shuffle is enabled, load a new random song
 			if(_playMode.shuffle){
@@ -240,6 +262,12 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 		//Next btn  Click Handler=======//
 		$(document).on('click', '#next-btn', function(){
+
+			//Register click for socket in case we're in master mode
+			if(_socket === 'open'){
+				emitClick('#next-btn');
+			}
+
 
 			//If shuffle is enabled, load a new random song
 			if(_playMode.shuffle){
@@ -761,6 +789,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		//=============================//
 		_socketConnect.on('seekToOn', function(response){
 
+			//Set playing video's position
 			_player.seekTo(response.seconds, true);
 
 
@@ -768,6 +797,23 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 			$('#seek-dot').offset({left: _seek.seekPos});
 
+
+		});//_socketConnect.on
+
+
+
+
+
+
+
+
+		//=============================//
+		//Listen for socket ON emitClick
+		//=============================//
+		_socketConnect.on('emitClickOn', function(response){
+
+
+			$(response.selector).trigger("click");
 
 		});//_socketConnect.on
 
@@ -808,7 +854,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		play 		 	: play,
 		pause 		 	: pause,
 		seekTo 	 		: seekTo,
-		dragging 		: dragging
+		dragging 		: dragging,
+		emitClick 		: emitClick
 	};
 
 	//return constructor
@@ -825,6 +872,30 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 //================================//
 //Class methods===================//
 //================================//
+
+
+
+
+
+
+
+	function emitClick(selector){
+
+		//Build obj for socket transmission
+		var data = {
+			'device' 			: _playOnDevice,
+			'controllerDevice' 	: _thisDevice,
+			'userId' 			: _userId,
+			'selector' 			: selector
+		}
+
+
+		if(_socket === 'open'){
+			//EMIT emitClick event back to server
+			_socketConnect.emit('emitClick', data);
+		}
+	}
+
 
 
 
