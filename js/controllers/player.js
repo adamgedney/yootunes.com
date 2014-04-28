@@ -1,11 +1,14 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService', 'Content'], function($, Key, getCookies, socketService, Content){
+define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'], function($, Key, getCookies, Content, socketService){
 
 
-// var Player = (function(window, document, $){
+
 
 	//Instances
 	var _key = Key;
+
+
+
 
 
 	//private vars
@@ -49,23 +52,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService', 'Content'
 	//constructor method
 	var player = function(){
 
-console.log(_socketConnect);
-
-
-	// ioServer.sockets.on('connection', function (socket) {
-
-	// 		//Receives from client emit
-	// 		socket.on('play', function (data) {
-	// 		  console.log("back and forth working", data);
-
-	// 		  //Broadcast message to listening clients
-	// 		  socket.emit('playOn', data);
-	// 		});
-
-	// 	});//ioServer
-
-
-
+		console.log(_socketConnect);
 
 
 
@@ -80,8 +67,8 @@ console.log(_socketConnect);
 
 
 
-		//If this was a page refresh make sure server removes previous connections
-		_socketConnect.emit('discon', getCookies.userId);
+		//If this was a page refresh make sure server removes previous connections to room
+		socketService.disconnectRoom(getCookies.userId);
 
 
 
@@ -719,7 +706,7 @@ console.log(_socketConnect);
 		// //=============================//
 		_socketConnect.on('playOn', function (response) {
 
-			console.log("socket play return event received thisDev/response", _thisDevice, response, response.device);
+			console.log("socket play return event received thisDev/response", _thisDevice, response);
 
 
 			//Sets the controlling device to MUTE.
@@ -729,12 +716,12 @@ console.log(_socketConnect);
 			}else{
 
 				//Reloads device list on slave machine
-				Content.getDevices();
+				// Content.getDevices();
 			}
 
 
 			//Check to see if this client matches the playOn command
-			if(response.device === _thisDevice || response.controllerDevice === _thisDevice){
+			// if(response.device === _thisDevice || response.controllerDevice === _thisDevice){
 
 
 				//Check to see if this is a new video
@@ -752,7 +739,7 @@ console.log(_socketConnect);
 
 					_player.loadVideoById(response.youtubeId);
 				}//else
-			}//if device
+			// }//if device
 		});//_socketConnect.on
 
 
@@ -1056,7 +1043,7 @@ console.log(_socketConnect);
 					//EMIT event back to server
 					_socketConnect.emit('play', _data);
 
-					console.log(_socketConnect,"PLAY new video socket.emit");
+					console.log("PLAY new video socket.emit");
 				}
 
 

@@ -558,7 +558,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 					$('.infoDeviceName').val(data.response[j].name);
 					$('.infoDeviceName').attr('data-id', data.response[j].id);
 
-					//set footer list items first reult to the current device
+					//set footer list items first result to the current device
 					var option = '<option data-id="' + data.response[j].id + '">' + data.response[j].name + '</option>';
 					$('#play-on').prepend(option);
 

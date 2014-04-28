@@ -51,9 +51,10 @@ define(['jquery', 'getCookies', ], function($, getCookies){
 
 	//methods and properties.
 	obj = {
-		createRoom 	: createRoom,
-		joinRoom 	: joinRoom,
-		socket 		: socket
+		createRoom 		: createRoom,
+		joinRoom 		: joinRoom,
+		disconnectRoom 	: disconnectRoom,
+		socket 			: socket
 	};
 
 
@@ -90,6 +91,14 @@ define(['jquery', 'getCookies', ], function($, getCookies){
 		console.log("joinRoom called", userId);
 		socket.emit('joinRoom', userId);
 
+	}
+
+
+
+
+	function disconnectRoom(userId){
+		console.log("disconnectRoom called", userId);
+		_socketConnect.emit('discon', userId);
 	}
 
 
