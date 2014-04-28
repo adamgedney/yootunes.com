@@ -27,6 +27,16 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 
 
+
+
+	//emitLibraryClick('');
+	//NOTE***    need to build socket handler to load on slave what we see on.
+
+
+
+
+
+
 		//==============================//
 		//PAGINATION handler
 		//==============================//

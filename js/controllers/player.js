@@ -217,12 +217,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 					$(this).attr('src', 'images/icons/shuffle-icon.png');
 				}
 
-			}else{
-
-				//Hide the icon when in playOn mode
-				$(this).css('opacity','0');
 			}
-
 		});
 
 
@@ -731,22 +726,28 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		//=============================//
 		_socketConnect.on('playOn', function (response) {
 
-			console.log("socket play return event received thisDev/response", _thisDevice, response);
+			if(_thisDevice === response.device){
+				console.log("socket play return event received thisDev/response", _thisDevice, response);
 
-				//Check to see if this is a new video
-				if(response.newVideo === "false"){
+				//Hide the shuffle icon ** may need to display none it
+				$('#shuffleResults').css('opacity','1');
 
-					_player.playVideo();
-					// var id = _player.getVideoData().video_id;
 
-					//Updates button ui
-					$('#play-btn').attr('src', 'images/icons/pause.png');
+					//Check to see if this is a new video
+					if(response.newVideo === "false"){
 
-					_playerPlaying= !_playerPlaying;
+						_player.playVideo();
+						// var id = _player.getVideoData().video_id;
 
-				}else{
-					_player.loadVideoById(response.youtubeId);
-				}//else
+						//Updates button ui
+						$('#play-btn').attr('src', 'images/icons/pause.png');
+
+						_playerPlaying= !_playerPlaying;
+
+					}else{
+						_player.loadVideoById(response.youtubeId);
+					}//else
+			}//if _thisDevice
 		});//_socketConnect.on
 
 
@@ -762,12 +763,14 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		//=============================//
 		_socketConnect.on('pauseOn', function(response){
 
-			_player.stopVideo();
+			if(_thisDevice === response.device){
+				_player.stopVideo();
 
-			//Updates button ui
-			$('#play-btn').attr('src', 'images/icons/play-wht.png');
+				//Updates button ui
+				$('#play-btn').attr('src', 'images/icons/play-wht.png');
 
-			_playerPlaying = !_playerPlaying;
+				_playerPlaying = !_playerPlaying;
+			}
 
 		});//_socketConnect.on
 
@@ -784,11 +787,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		//=============================//
 		_socketConnect.on('volumeOn', function(response){
 
-			//set volume
-			_player.setVolume(response.volume);
+			if(_thisDevice === response.device){
+				//set volume
+				_player.setVolume(response.volume);
 
-			//Set the range slider value to match assigned value
-			$('#volumeRange').val(response.volume);
+				//Set the range slider value to match assigned value
+				$('#volumeRange').val(response.volume);
+			}
 		});//_socketConnect.on
 
 
@@ -803,14 +808,15 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		//=============================//
 		_socketConnect.on('seekToOn', function(response){
 
-			//Set playing video's position
-			_player.seekTo(response.seconds, true);
+			if(_thisDevice === response.device){
+				//Set playing video's position
+				_player.seekTo(response.seconds, true);
 
 
-			_seek.seekPos = (($('#seek-bar').width() / _seek.duration) * response.seconds)  + $('#seek-bar').offset().left;
+				_seek.seekPos = (($('#seek-bar').width() / _seek.duration) * response.seconds)  + $('#seek-bar').offset().left;
 
-			$('#seek-dot').offset({left: _seek.seekPos});
-
+				$('#seek-dot').offset({left: _seek.seekPos});
+			}
 
 		});//_socketConnect.on
 
@@ -826,8 +832,10 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 		//=============================//
 		_socketConnect.on('emitClickOn', function(response){
 
+			if(_thisDevice === response.device){
+				$(response.selector).trigger("click");
+			}
 
-			$(response.selector).trigger("click");
 
 		});//_socketConnect.on
 
@@ -1113,6 +1121,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 			//Set icon to muted icon
 			$('.vol-icon').attr('src', 'images/icons/volume-icon-mute.svg');
+
+			//Hide the shuffle icon ** may need to display none it
+			$('#shuffleResults').css('opacity','1');
 
 			// window.open('http://yooss.pw:3000');
 		}else{
