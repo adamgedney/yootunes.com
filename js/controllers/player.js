@@ -71,13 +71,18 @@ console.log(_socketConnect);
 
 
 
-
 		//Retrieve cookies & set device & userId
 		var userCookies = getCookies;
 
 		_thisDevice 	= userCookies.thisDevice;
 		_playOnDevice 	= userCookies.thisDevice;//default device
 		_userId 		= userCookies.userId;
+
+
+
+		//If this was a page refresh make sure server removes previous connections
+		_socketConnect.emit('disconnect', getCookies.userId);
+
 
 
 		//If a reload was picked up from conten.js app rendered
@@ -724,7 +729,7 @@ console.log(_socketConnect);
 
 
 			//Check to see if this client matches the playOn command
-			if(response.device === _thisDevice){
+			if(response.device === _thisDevice || response.controllerDevice === _thisDevice){
 
 
 				//Check to see if this is a new video
