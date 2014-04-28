@@ -714,17 +714,17 @@ console.log(_socketConnect);
 		//=============================//
 		_socketConnect.on('playOn', function (response) {
 
-			console.log("socket play return event received", response);
+			console.log("socket play return event received thisDev/response", _thisDevice, response);
+
+			//Sets the controlling device to MUTE.
+			//Most efficient way of setting up controller/slave
+			if(response.controllerDevice === _thisDevice){
+				_player.mute();
+			}
+
 
 			//Check to see if this client matches the playOn command
-			if(_data.device === _thisDevice || _data.controllerDevice === _thisDevice){
-
-
-				//Sets the controlling device to MUTE.
-				//Most efficient way of setting up controller/slave
-				if(_data.controllerDevice === _thisDevice){
-					_player.mute();
-				}
+			if(response.device === _thisDevice){
 
 
 				//Check to see if this is a new video
