@@ -701,29 +701,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 
-		//Socketio listeners
-		// //=============================//
-		// //Listen for socket ON
-		// //=============================//
+
+		//=============================//
+		//Listen for socket ON PLAYON
+		//=============================//
 		_socketConnect.on('playOn', function (response) {
 
 			console.log("socket play return event received thisDev/response", _thisDevice, response);
-
-
-			//Sets the controlling device to MUTE.
-			//Most efficient way of setting up controller/slave
-			if(response.controllerDevice === _thisDevice){
-				_player.mute();
-			}else{
-
-				//Reloads device list on slave machine
-				// Content.getDevices();
-			}
-
-
-			//Check to see if this client matches the playOn command
-			// if(response.device === _thisDevice || response.controllerDevice === _thisDevice){
-
 
 				//Check to see if this is a new video
 				if(response.newVideo === "false"){
@@ -737,10 +721,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 					_playerPlaying= !_playerPlaying;
 
 				}else{
-
 					_player.loadVideoById(response.youtubeId);
 				}//else
-			// }//if device
 		});//_socketConnect.on
 
 
@@ -957,135 +939,83 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 	function play(youtubeId){
-
+		console.log(_thisDevice, _playOnDevice, "this/playon devices");
 
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');
 
-		console.log(_thisDevice, _playOnDevice, "this/playon devices");
-
-			//Connection to node socket server opened if playOn is enabled
-			if(_thisDevice !== _playOnDevice){
-
-				_socket = 'open';
-
-				// window.open('http://yooss.pw:3000');
-
-
-			}else{
-
-				_socket = null;
-
-				//unmute the controller
-				_player.unMute();
-
-			}
+		//Build obj for socket transmission
+		_data = {
+			'userId'			: _userId,
+			'device' 			: _playOnDevice,
+			'youtubeId' 		: youtubeId,
+			'newVideo'  		: 'false',
+			'controllerDevice' 	: _thisDevice
+		}
 
 
-		//No need for sockets if this is the device we're playing on
-		if(_socket === null){
+		//Connection to socketserver runs if we choose to be a controller
+		if(_thisDevice !== _playOnDevice){
+			_socket = 'open';
 
-			//Signifies we're in play/pause loop
-			if(youtubeId === ""){
+			//Mute this controller device
+			_player.mute();
 
-				_player.playVideo();
+			// window.open('http://yooss.pw:3000');
+		}else{
+			_socket = null;
 
-				//Updates button ui
-				$('#play-btn').attr('src', 'images/icons/pause.png');
-
-				_playerPlaying= !_playerPlaying;
-
-			}else{//New Video
-
-				//reset seek stepper for each new video
-				//to conrol seek bar fill
-				_seek.stepper = 0;
-
-				_player.loadVideoById(youtubeId);
-
-			}//else youtubeId
-
-
-
-		//==========================//
-		}else{//PlayOn
-		//==========================//
-
-
-
-			//Build obj for socket transmission
-			_data = {
-				'userId'			: _userId,
-				'device' 			: _playOnDevice,
-				'youtubeId' 		: youtubeId,
-				'newVideo'  		: 'false',
-				'controllerDevice' 	: _thisDevice
-			}
-
-
-
-				//=============================//
-				//Socket EMIT
-				//=============================//
-				if(youtubeId === ""){//Signifies we're in play/pause loop
-
-					//Change data.newVideo accordingly
-					_data.newVideo = 'false';
-
-					//EMIT event back to server
-					_socketConnect.emit('play', _data);
-
-
-				}else{
-
-					//Change data.newVideo accordingly
-					_data.newVideo = 'true';
-
-					//EMIT event back to server
-					_socketConnect.emit('play', _data);
-
-					console.log("PLAY new video socket.emit");
-				}
+			//unmute the controller
+			_player.unMute();
+		}
 
 
 
 
-					// //=============================//
-					// //Listen for socket ON
-					// //=============================//
-					// _socketConnect.on('playOn', function (response) {
+		//Signifies we're in play/pause loop
+		if(youtubeId === ""){
 
-					// 	console.log("socket play return event received", response);
+			//Only emit events on playOn device selection
+			if(_socket === 'open'){
 
-					// 	//Check to see if this client matches the playOn command
-					// 	if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
+				//Change data.newVideo accordingly
+				_data.newVideo = 'false';
 
-
-					// 		//Sets the controlling device to MUTE.
-					// 		//Most efficient way of setting up controller/slave
-					// 		if(data.controllerDevice === _thisDevice){
-					// 			_player.mute();
-					// 		}
+				//EMIT event back to server
+				_socketConnect.emit('play', _data);
+			}//if
 
 
-					// 		//Check to see if this is a new video
-					// 		if(response.newVideo === "false"){
+			//Play the local video
+			_player.playVideo();
 
-					// 			_player.playVideo();
-					// 			// var id = _player.getVideoData().video_id;
+			//Updates button ui
+			$('#play-btn').attr('src', 'images/icons/pause.png');
 
-					// 			//Updates button ui
-					// 			$('#play-btn').attr('src', 'images/icons/pause.png');
+			_playerPlaying= !_playerPlaying;
 
-					// 			_playerPlaying= !_playerPlaying;
 
-					// 		}else{
+		}else{//New Video
 
-					// 			_player.loadVideoById(response.youtubeId);
-					// 		}//else
-					// 	}//if device
-					// });//_socketConnect.on
-		}//else playOn
+
+			//Only emit events on playOn device selection
+			if(_socket === 'open'){
+
+				//Change data.newVideo accordingly
+				_data.newVideo = 'true';
+
+				//EMIT event back to server
+				_socketConnect.emit('play', _data);
+			}//if
+
+
+			//reset seek stepper for each new video
+			//to conrol seek bar fill
+			_seek.stepper = 0;
+
+			_player.loadVideoById(youtubeId);
+
+		}//else youtubeId
 	}//play
 
 
