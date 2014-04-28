@@ -828,7 +828,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Content', 'socketService'
 
 
 			$(response.selector).trigger("click");
-			_mastersRandomVideo = response.
+
 		});//_socketConnect.on
 
 
