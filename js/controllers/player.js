@@ -41,6 +41,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies'], function($, Key, getCooki
 	var _playOnDevice;//default
 	var _userId 			=  '';
 
+	var _data;
+
 
 
 
@@ -706,7 +708,42 @@ console.log(_socketConnect);
 
 
 
+		//Socketio listeners
+		//=============================//
+		//Listen for socket ON
+		//=============================//
+		_socketConnect.on('playOn', function (response) {
 
+			console.log("socket play return event received", response);
+
+			//Check to see if this client matches the playOn command
+			if(_data.device === _thisDevice || _data.controllerDevice === _thisDevice){
+
+
+				//Sets the controlling device to MUTE.
+				//Most efficient way of setting up controller/slave
+				if(_data.controllerDevice === _thisDevice){
+					_player.mute();
+				}
+
+
+				//Check to see if this is a new video
+				if(response.newVideo === "false"){
+
+					_player.playVideo();
+					// var id = _player.getVideoData().video_id;
+
+					//Updates button ui
+					$('#play-btn').attr('src', 'images/icons/pause.png');
+
+					_playerPlaying= !_playerPlaying;
+
+				}else{
+
+					_player.loadVideoById(response.youtubeId);
+				}//else
+			}//if device
+		});//_socketConnect.on
 
 
 
@@ -925,7 +962,7 @@ console.log(_socketConnect);
 
 				_socket = 'open';
 
-				window.open('http://yooss.pw:3000');
+				// window.open('http://yooss.pw:3000');
 
 
 			}else{
@@ -970,7 +1007,7 @@ console.log(_socketConnect);
 
 
 			//Build obj for socket transmission
-			var data = {
+			_data = {
 				'device' 			: _playOnDevice,
 				'youtubeId' 		: youtubeId,
 				'newVideo'  		: 'false',
@@ -985,19 +1022,19 @@ console.log(_socketConnect);
 				if(youtubeId === ""){//Signifies we're in play/pause loop
 
 					//Change data.newVideo accordingly
-					data.newVideo = 'false';
+					_data.newVideo = 'false';
 
 					//EMIT event back to server
-					_socketConnect.emit('play', data);
+					_socketConnect.emit('play', _data);
 
 
 				}else{
 
 					//Change data.newVideo accordingly
-					data.newVideo = 'true';
+					_data.newVideo = 'true';
 
 					//EMIT event back to server
-					_socketConnect.emit('play', data);
+					_socketConnect.emit('play', _data);
 
 					console.log(_socketConnect,"PLAY new video socket.emit");
 				}
@@ -1005,41 +1042,41 @@ console.log(_socketConnect);
 
 
 
-					//=============================//
-					//Listen for socket ON
-					//=============================//
-					_socketConnect.on('playOn', function (response) {
+					// //=============================//
+					// //Listen for socket ON
+					// //=============================//
+					// _socketConnect.on('playOn', function (response) {
 
-						console.log("socket play return event received", response);
+					// 	console.log("socket play return event received", response);
 
-						//Check to see if this client matches the playOn command
-						if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
-
-
-							//Sets the controlling device to MUTE.
-							//Most efficient way of setting up controller/slave
-							if(data.controllerDevice === _thisDevice){
-								_player.mute();
-							}
+					// 	//Check to see if this client matches the playOn command
+					// 	if(data.device === _thisDevice || data.controllerDevice === _thisDevice){
 
 
-							//Check to see if this is a new video
-							if(response.newVideo === "false"){
+					// 		//Sets the controlling device to MUTE.
+					// 		//Most efficient way of setting up controller/slave
+					// 		if(data.controllerDevice === _thisDevice){
+					// 			_player.mute();
+					// 		}
 
-								_player.playVideo();
-								// var id = _player.getVideoData().video_id;
 
-								//Updates button ui
-								$('#play-btn').attr('src', 'images/icons/pause.png');
+					// 		//Check to see if this is a new video
+					// 		if(response.newVideo === "false"){
 
-								_playerPlaying= !_playerPlaying;
+					// 			_player.playVideo();
+					// 			// var id = _player.getVideoData().video_id;
 
-							}else{
+					// 			//Updates button ui
+					// 			$('#play-btn').attr('src', 'images/icons/pause.png');
 
-								_player.loadVideoById(response.youtubeId);
-							}//else
-						}//if device
-					});//_socketConnect.on
+					// 			_playerPlaying= !_playerPlaying;
+
+					// 		}else{
+
+					// 			_player.loadVideoById(response.youtubeId);
+					// 		}//else
+					// 	}//if device
+					// });//_socketConnect.on
 		}//else playOn
 	}//play
 
