@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handlebars, getCookies, Init, Ui){
+define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function($, handlebars, getCookies, Init, Ui, Library){
 
 
 
@@ -315,6 +315,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 			//window.userId was set in init just before this fired
 			_userId = window.userId;
 
+			//Remove share from url
+			window.history.pushState({test : ''}, '', "/");
+
 
 		});
 
@@ -333,7 +336,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 		$(document).on('rendered', function(event){
 
 
-
+			//ON APP RENDER========================//
 			if(event.template === '#app'){
 
 
@@ -392,7 +395,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 				}else{
 
 					//Adds shared playlist to this user's account
-					addSharedPlaylist(_userId, _playlistShared);
+					Library.addSharedPlaylist(_userId, _playlistShared);
 
 					//Load library items
 					loadLibrary(_currentSkip);
@@ -415,7 +418,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 
 
-
+			//ON LIBRARY RENDER========================//
 			if(event.template === '#libraryItem'){
 
 				//Set the application theme colors
@@ -436,7 +439,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 				$('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
 
 
-				//CHANGE ICON FROM TRASH TO PLUS============//
+				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
 				if($('.sourceTitle').html() === 'Add'){
 					console.log($('.sourceTitle').html(), "source title html ADD" );
 					//Swaps out icon for add icon
@@ -456,7 +459,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 					//Gets the song_id from the displayed result item
 					var itemId = $('li.resultItems:eq(' + i + ')').find('.addToLibrary').attr('data-id');
 
-					//Should load the library here w/out a limit to get an array of song ids.
+//**NOTE			//Should load the library here w/out a limit to get an array of song ids.
 					//if song id matches this song, then add the check mark icon instead
 
 				}//for
@@ -471,7 +474,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 
 
-
+			//ON LANDING PAGE RENDER========================//
 			if(event.template === '#landing'){
 				//Hide DOM nodes
 				hideNodes();
@@ -479,7 +482,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 
 
-			//Listen for acctSettings view render
+			//ON ACCT SETTINGS RENDER========================//
 			if(event.template === '#acctSettings'){
 
 				//Check/uncheck theme option based on current setting
@@ -1041,30 +1044,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 	}
 
 
-
-
-
-
-
-
-
-	function addSharedPlaylist(userId, sharedPlaylistId){
-
-
-		//Build API url
-		var API_URL = _baseUrl + '/add-shared-playlist/' + userId + '/' + sharedPlaylistId;
-
-		//Call API to add song to library
-		$.ajax({
-			url : API_URL,
-			method : 'GET',
-			dataType : 'json',
-			success : function(response){
-
-				console.log(response, "response from add-shared-playlist");
-			}//success
-		});//ajax
-	}
 
 
 

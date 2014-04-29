@@ -17,7 +17,7 @@ define(['jquery'], function($){
 
 
 	//constructor fuction
-	var library = function(){
+	// var library = function(){
 
 
 
@@ -183,7 +183,7 @@ define(['jquery'], function($){
 
 
 
-	};//constructor function
+	// };//constructor function
 	//================================//
 
 
@@ -191,20 +191,24 @@ define(['jquery'], function($){
 
 
 
-	//methods and properties.
-	library.prototype = {
-		constructor  : library
-		// getApp 			: getApp,
-		// getPlaylists	: getPlaylists,
-		// getLibrary		: getLibrary,
-		// getSong 		: getSong,
-		// getSongs		: getSongs,
-		// getArtists		: getArtists,
-		// getAlbums		: getAlbums
-	};
+	// //methods and properties.
+	// library.prototype = {
+	// 	constructor  : library,
+	// 	// getApp 			: getApp,
+	// 	// getPlaylists	: getPlaylists,
+	// 	// getLibrary		: getLibrary,
+	// 	// getSong 		: getSong,
+	// 	// getSongs		: getSongs,
+	// 	// getArtists		: getArtists,
+	// 	// getAlbums		: getAlbums
+	// };
+
+	var obj = {
+		addSharedPlaylist : addSharedPlaylist
+	}
 
 	//return constructor
-	return library;
+	return obj;
 
 
 
@@ -321,56 +325,28 @@ define(['jquery'], function($){
 
 
 
-		function addSongToPlaylist(songId, playlistId, userId){
-
-			//Build API url
-			var API_URL = _baseUrl + '/add-to-playlist/' + songId + '/' + playlistId;
-
-			//Call API to add song to library
-			$.ajax({
-				url : API_URL,
-				method : 'GET',
-				dataType : 'json',
-				success : function(response){
-
-				}//success
-			});//ajax
+	function addSharedPlaylist(userId, sharedPlaylistId){
 
 
-			//Adds this new song to user's library
-			addSongToLibrary(songId, userId);
-		}
+		//Build API url
+		var API_URL = _baseUrl + '/add-shared-playlist/' + userId + '/' + sharedPlaylistId;
 
+		//Call API to add song to library
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
 
+				console.log(response, "response from add-shared-playlist");
 
-
-
-
-
-
-
-		function deleteSongFromPlaylist(songId, playlistId){
-
-			//Build API url
-			var API_URL = _baseUrl + '/delete-from-playlist/' + songId + '/' + playlistId;
-
-			//Call API to add song to library
-			$.ajax({
-				url : API_URL,
-				method : 'GET',
-				dataType : 'json',
-				success : function(response){
-
-					//Triggers playlist song deleted to trigger a playlist refresh
-					$.event.trigger({
-						type 	: 'playlistsongremoved',
-						id 		: playlistId
-					});
-				}//success
-			});//ajax
-
-
-		}
+				//Dispatches event to application for playlist reloading in content controller
+				$.event.trigger({
+					type : 'playlistadded'
+				});
+			}//success
+		});//ajax
+	}
 
 
 
@@ -380,29 +356,88 @@ define(['jquery'], function($){
 
 
 
-		function deletePlaylist(playlistId){
+	function addSongToPlaylist(songId, playlistId, userId){
 
-			//Build API url
-			var API_URL = _baseUrl + '/delete-playlist/' + playlistId;
+		//Build API url
+		var API_URL = _baseUrl + '/add-to-playlist/' + songId + '/' + playlistId;
 
-			//Call API to add song to library
-			$.ajax({
-				url : API_URL,
-				method : 'GET',
-				dataType : 'json',
-				success : function(response){
+		//Call API to add song to library
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
 
-					//Triggers playlist added just so a playlist reload occurs
-					$.event.trigger({
-						type : 'playlistadded'
-					});
-
-				}//success
-			});//ajax
+			}//success
+		});//ajax
 
 
+		//Adds this new song to user's library
+		addSongToLibrary(songId, userId);
+	}
 
-		}
+
+
+
+
+
+
+
+
+	function deleteSongFromPlaylist(songId, playlistId){
+
+		//Build API url
+		var API_URL = _baseUrl + '/delete-from-playlist/' + songId + '/' + playlistId;
+
+		//Call API to add song to library
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+
+				//Triggers playlist song deleted to trigger a playlist refresh
+				$.event.trigger({
+					type 	: 'playlistsongremoved',
+					id 		: playlistId
+				});
+			}//success
+		});//ajax
+
+
+	}
+
+
+
+
+
+
+
+
+
+	function deletePlaylist(playlistId){
+
+		//Build API url
+		var API_URL = _baseUrl + '/delete-playlist/' + playlistId;
+
+		//Call API to add song to library
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+
+				//Triggers playlist added just so a playlist reload occurs
+				$.event.trigger({
+					type : 'playlistadded'
+				});
+
+			}//success
+		});//ajax
+
+
+
+	}
 
 
 
