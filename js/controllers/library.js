@@ -339,11 +339,6 @@ define(['jquery'], function($){
 			success : function(response){
 
 				console.log(response, "response from add-shared-playlist");
-
-				//Dispatches event to application for playlist reloading in content controller
-				$.event.trigger({
-					type : 'playlistadded'
-				});
 			}//success
 		});//ajax
 	}

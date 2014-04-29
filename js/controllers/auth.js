@@ -16,9 +16,6 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 
 
-
-
-
 	//==========================================//
 	//User Registration handler
 	//==========================================//
@@ -52,6 +49,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//User authentication
 	//==========================================//
 	$(document).on('click', '#popdownSubmit', function(event){
+
 
 		var email 		= $('#popdownEmail').val();
 		var password 	= CryptoJS.SHA1($('#popdownPass').val());
@@ -647,6 +645,13 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 		window.userId 	= response.id;
 		window.theme 	= response.theme;
 		_userId 		= response.id;
+		_playlistId 	= window.playlistId;
+
+		//Fire event passing user data to listening class
+		$.event.trigger({
+			type 			: 'userloggedin',
+			playlistId 		: _playlistId
+		});
 
 		//load the application
 		Content.loadApp();

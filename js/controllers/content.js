@@ -309,7 +309,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function
 
 		//on reload set shared playlist id for use in app rendered event
 		$(document).on('userloggedin', function(event){
-
+			console.log("userloggedinpicked up in content plid/uid", event.playlistId, window.userId);
 			_playlistShared = event.playlistId;
 
 			//window.userId was set in init just before this fired

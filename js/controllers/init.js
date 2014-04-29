@@ -76,7 +76,8 @@ define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content
 				//store the playlist that brought user to yootunes
 				setPlaylistCookie(tokenArray[1]);
 
-				_playlistId = tokenArray[1];
+				_playlistId 		= tokenArray[1];
+				window.playlistId 	= tokenArray[1];
 			}
 		}//end URL params =======//
 		//======================//
