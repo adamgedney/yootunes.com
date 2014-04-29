@@ -436,6 +436,17 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 				$('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
 
 
+				//CHANGE ICON FROM TRASH TO PLUS============//
+				if($('.sourceTitle').html() === 'Add'){
+					console.log($('.sourceTitle').html(), "source title html ADD" );
+					//Swaps out icon for add icon
+					$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
+				}else{
+					console.log($('.sourceTitle').html(), "source title html REM" );
+					$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+				}
+
+
 				//Loop through li items to see if song is in library
 				for(var i=0;i<_userSongs.length;i++){
 
@@ -445,17 +456,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 					//Gets the song_id from the displayed result item
 					var itemId = $('li.resultItems:eq(' + i + ')').find('.addToLibrary').attr('data-id');
 
-						//Checks result item against user's library stored locally
-						//Sets trash/add icon accordingly
-						if(_userSongs[i] === itemId){
-							//Swaps out icon for trash icon
-							$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+					//Should load the library here w/out a limit to get an array of song ids.
+					//if song id matches this song, then add the check mark icon instead
 
-						}else{
-
-							//Swaps out icon for add icon
-							$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
-						}
 				}//for
 
 				//Hide DOM nodes
