@@ -9,8 +9,12 @@ define(['jquery', 'getCookies'], function($, getCookies){
 	var _playonDevice;
 	var _thisDevice;
 
-	var server 	= 'http://yooss.pw:3001';
-	var socket = io.connect(server);
+	var server 	= 'http://yooss.pw';
+
+
+	var socket = io.connect(server);;
+
+
 
 
 
