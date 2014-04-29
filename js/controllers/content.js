@@ -10,7 +10,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 	var _songs 			= [];
 	var	_userId			= window.userId;
 	var	_userEmail 		= '';
-	var _userSongs;
+	var _userSongs 		= [];
 	var _sortBy			= 'def';
 	var _sortOrder		= 'def';
 	var _currentContent = '';
@@ -438,7 +438,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 						//Checks result item against user's library stored locally
 						//Sets trash/add icon accordingly
-						if(_userSongs[i].song_id === itemId){
+						if(_userSongs[i] === itemId){
 							//Swaps out icon for trash icon
 							$('li.resultItems:eq(' + i + ')').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
@@ -1002,8 +1002,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 						user : {userId : _userId}
 					};
 
-					//Store the users songs for list functions
-					_userSongs = response;
+
+					//Reset _userSongs then Store the users songs for list functions
+					_userSongs = [];
+					for(var i=0;i<response.length; i++){
+						_userSongs.push(response[i].song_id);
+					}
 
 					//Shows column headers
 					$('.li-header').show();
@@ -1101,7 +1105,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 
 					//Store the users songs for list functions
-					_userSongs = response[0];
+					for(var i=0;i<response[0].length; i++){
+						_userSongs.push(response[0][i].song_id);
+					}
+
+
 
 				}//success
 			});//ajax
@@ -1325,6 +1333,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 	function resetPagination(){
 		_currentSkip 	= 0;
 		_onPage 		= 1;
+		_userSongs 		= [];
 	}
 
 
