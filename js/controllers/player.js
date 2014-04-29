@@ -776,7 +776,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui','Content', 'socketSer
 
 				//Set slave to showNormalSize
 				$(document).trigger({
-					type : 'showNormalSize'
+					type : 'showMinSize'
 				});
 
 
