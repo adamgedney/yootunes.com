@@ -241,8 +241,6 @@ define(['jquery'], function($){
 				}
 			}//success
 		});//ajax
-
-
 	}
 
 

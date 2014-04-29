@@ -27,6 +27,7 @@ define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content
 			//Handles password reset token
 			//& playlist share token
 		var params = window.location.search;
+
 		if(params !== ""){
 
 
@@ -176,14 +177,14 @@ define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content
 		//Join user to his room for playOn control
 		socketService.joinRoom(_userId);
 
-		//load the application
-		Content.loadApp();
-
 		//fire event passing user data to listening class
 		$.event.trigger({
 			type 			: 'userloggedin',
 			playlistId 		: _playlistId
 		});
+
+		//load the application
+		Content.loadApp();
 
 	}
 

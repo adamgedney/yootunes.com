@@ -309,7 +309,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 		//on reload set shared playlist id for use in app rendered event
 		$(document).on('userloggedin', function(event){
+
 			_playlistShared = event.playlistId;
+
+			//window.userId was set in init just before this fired
+			_userId = window.userId;
+
 
 		});
 
@@ -386,13 +391,17 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 				}else{
 
+					//Adds shared playlist to this user's account
+					addSharedPlaylist(_userId, _playlistShared);
+
+					//Load library items
+					loadLibrary(_currentSkip);
 
 					//load the playlist songs if this was a shared playlist
 					loadPlaylistSongs(_playlistShared);
 
 					//Expires share cookie once it has been used
 					document.cookie = 'share=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-
 				}
 
 
@@ -1026,8 +1035,32 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 
 				}//success
 			});//ajax
+	}
 
 
+
+
+
+
+
+
+
+	function addSharedPlaylist(userId, sharedPlaylistId){
+
+
+		//Build API url
+		var API_URL = _baseUrl + '/add-shared-playlist/' + userId + '/' + sharedPlaylistId;
+
+		//Call API to add song to library
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+
+				console.log(response, "response from add-shared-playlist");
+			}//success
+		});//ajax
 	}
 
 
@@ -1088,8 +1121,16 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui'], function($, handleb
 						user : {userId : _userId}
 					};
 
-					//Render library items with user data
-					render(src, id, appendTo, data);
+
+					//Only render library if this is not a shared playlist.
+					//Loads shared playlist instead
+					if(_playlistShared === 0 || _playlistShared === undefined|| _playlistShared === ""){
+						//Render library items with user data
+						render(src, id, appendTo, data);
+					}else{
+						//resets shared playlist after library behavior has taken place
+						_playlistShared = 0;
+					}
 
 
 					//Pagination vars
