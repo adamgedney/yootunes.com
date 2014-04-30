@@ -1251,21 +1251,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Loop through device list
 		for(var j=0;j<response.length;j++){
 
-			//Render MODAL window list
-			var option 	= '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-			$('#userDevices').append(option);
-
-
-			//Populate SETTINGS PAGE list
-			var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
-			$('#infoDeviceList').append(li);
-
-
-			//Populate APP FOOTER list
-			var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-			$('#play-on').append(option);
-
-
 			//If device is this device, set name
 			if(response[j].id === _thisDevice){
 
@@ -1276,7 +1261,23 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//set footer list items first result to the current device
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
 				$('#play-on').prepend(option);
-			}
+			}else{
+
+				//Render MODAL window list
+				var option 	= '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
+				$('#userDevices').append(option);
+
+
+				//Populate SETTINGS PAGE list
+				var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
+				$('#infoDeviceList').append(li);
+
+
+				//Populate APP FOOTER list
+				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
+				$('#play-on').append(option);
+
+			}//else
 		}//for
 
 		//Add a blank device to MODAL list
