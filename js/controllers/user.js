@@ -216,7 +216,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 			 //set cookie DEVICE# with device id here
 			document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
-
+			$('#nameDeviceModal').fadeOut();
 
 		}else{//NEW DEVICE
 
