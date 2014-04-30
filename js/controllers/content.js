@@ -357,6 +357,17 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//ON APP RENDER========================//
 			if(event.template === '#app'){
 
+
+				//Ensures userId is always available
+				if(_userId === undefined){
+					if(window.userId !== undefined){
+						_userId = window.userId;
+					}else if(getCookies.userId !== undefined){
+						_userId = getCookies.userId;
+					}
+				}
+
+
 				//Set the application THEME colors
 				if(window.theme === 'light'){
 
@@ -389,10 +400,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 									window.thisDevice 	= devices[j];
 									match 				= true;
 
-									//Get Devices
-									User.getDevices(_userId, function(response){
-										renderDevices(response);
-									});
+									renderDevices(response);
 
 									break;
 								}//if
@@ -404,6 +412,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 							//Fade in modal to instruct user to name this device
 							$('#nameDeviceModal').fadeIn();
+
 						}//if false
 					});//getDevices
 
@@ -413,21 +422,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 					//Fade in modal to instruct user to name this device
 					$('#nameDeviceModal').fadeIn();
-					$('#devicePrompt').fadeIn();
+					// $('#devicePrompt').fadeIn();
 
 					//Maybe user deleted cookies? GET DEVICES TO ASK USER
 					User.getDevices(_userId, function(response){
 
-						//List user devices in modal
-						for(var k=0;k<response.length;k++){
-							var option 	= '<option data-id="' + response[k].id + '">' + response[k].name + '</option>';
-
-
-							$('#userDevices').append(option);
-						}
-						//Add a blank device
-						var blank	= '<option>Your Devices</option>'
-						$('#userDevices').prepend(blank);
+						renderDevices(response);
 					});//getDevices
 				}//else
 
@@ -1251,9 +1251,21 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Loop through device list
 		for(var j=0;j<response.length;j++){
 
-			//===================================//
-			//Settings page & app footer list
-			//===================================//
+			//Render MODAL window list
+			var option 	= '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
+			$('#userDevices').append(option);
+
+
+			//Populate SETTINGS PAGE list
+			var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
+			$('#infoDeviceList').append(li);
+
+
+			//Populate APP FOOTER list
+			var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
+			$('#play-on').append(option);
+
+
 			//If device is this device, set name
 			if(response[j].id === _thisDevice){
 
@@ -1264,27 +1276,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//set footer list items first result to the current device
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
 				$('#play-on').prepend(option);
-
-
-
-			}else{
-
-
-
-				//Populate SETTINGS PAGE list
-				var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
-				$('#infoDeviceList').append(li);
-
-
-
-				//Populate APP FOOTER list
-				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				$('#play-on').append(option);
-
-			}//else
+			}
 		}//for
-	}
 
+		//Add a blank device to MODAL list
+		var blank	= '<option>Your Devices</option>'
+		$('#userDevices').prepend(blank);
+	}
 
 
 

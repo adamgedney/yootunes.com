@@ -26,36 +26,13 @@ define([], function(){
 			obj.userId = cookieArray[c].substr(4);
 		}
 
-
-			//Retrieve user device cookie1
-			if(cookieArray[c].indexOf("device1") !== -1){
-
-				obj.devices.push(cookieArray[c].substr(8));
-			}
-
-			//Retrieve user device cookie2
-			if(cookieArray[c].indexOf("device2") !== -1){
+		//Supports storing 50 different users' devices in one browser
+		for(var i=0;i<50;i++){
+			if(cookieArray[c].indexOf("device" + (i + 1)) !== -1){
 
 				obj.devices.push(cookieArray[c].substr(8));
 			}
-
-			//Retrieve user device cookie3
-			if(cookieArray[c].indexOf("device3") !== -1){
-
-				obj.devices.push(cookieArray[c].substr(8));
-			}
-
-			//Retrieve user device cookie4
-			if(cookieArray[c].indexOf("device4") !== -1){
-
-				obj.devices.push(cookieArray[c].substr(8));
-			}
-
-			//Retrieve user device cookie5
-			if(cookieArray[c].indexOf("device5") !== -1){
-
-				obj.devices.push(cookieArray[c].substr(8));
-			}
+		}
 
 
 		//Retrieve shared playlist cookie

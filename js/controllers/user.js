@@ -206,10 +206,11 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 		var currentDeviceId 	= "0";//default set in case we're new and not updating
 		var name 				= $('.infoDeviceName').val();
-		var selectedDeviceName 	= $('#userDevices').val();
-		var selectedDeviceId 	= $('#userDevices').attr('data-id');
+		var selectedDeviceName 	= $('#userDevices option:selected').text();
+		var selectedDeviceId 	= $('#userDevices option:selected').attr('data-id');
 		var deviceCookieAmount 	= _devices.length;
 
+		console.log(selectedDeviceId);
 		//USER CHOSE A DEVICE NAME FROM LIST
 		if(selectedDeviceName !== 'Your Devices' && name === ''){
 
@@ -242,6 +243,9 @@ define(['jquery', 'getCookies'], function($, getCookies){
 						newDeviceId 	: response.newDeviceId,
 						newDeviceName 	: response.newDeviceName
 					});//trigger
+
+					$('#nameDeviceModal').fadeOut();
+
 				}//success
 			});//ajax
 		}//else

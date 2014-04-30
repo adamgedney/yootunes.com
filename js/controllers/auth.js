@@ -396,13 +396,13 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 		var displayName 	= $('#infoName').val();
 		var email 			= $('#infoEmail').val();
 		var birthdate 		= $('#infoBirthdate').val();
-		var title 			= $('#infoTitle').val();
+		var title 			= $('#infoTitle option:selected').text();
 		var password 		= CryptoJS.SHA1($('#infoPass').val());
 		var passwordAgain 	= CryptoJS.SHA1($('#infoPassAgain').val());
 		var pwString 		= ' ';
 			_userId 		= $('#infoId').html();
 
-		//Splite birthday into month/day/year
+		//Split birthday into month/day/year
 		var birthArray = birthdate.split('/');
 
 				//sets default on display name so call won't crash
