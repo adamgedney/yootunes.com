@@ -130,42 +130,43 @@ define(['jquery', 'User', 'Content', 'getCookies', 'socketService'], function($,
 
 
 
-		$('#nameDeviceModal').fadeIn();
+		// $('#nameDeviceModal').fadeIn();
 
-		if(getCookies.devices.length !== 0){
-			var devices = getCookies.devices;
-
-
-			//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
-			User.getDevices(cookies.userId, function(response){
-
-				for(var i=0;i<response.length;i++){
-					for(var j=0;j<devices.length;j++){
-						if(response[i] === devices[j]){
-							console.log("this is this user's device");
-
-							//THIS IS THE USER'S DEVICE
-							_thisDevice = devices[j];
-
-							break;
-						}//if
-					}//for j
-				}//for i
-			});
+		// if(getCookies.devices.length !== 0){
+		// 	var devices = getCookies.devices;
 
 
-			console.log(devices[0],devices[1],devices[2],devices[3],devices[4], devices, "devices picked up in init" );
-		}else{
-			//Fade in modal to instruct user to name this device
-			$('#nameDeviceModal').fadeIn();
+		// 	//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
+		// 	User.getDevices(cookies.userId, function(response){
 
-			//Maybe user deleted cookies? GET DEVICES TO ASK USER
-			User.getDevices(cookies.userId, function(response){
-				//Is one of these your device?
-			});
+		// 		for(var i=0;i<response.length;i++){
+		// 			for(var j=0;j<devices.length;j++){
+		// 				if(response[i] === devices[j]){
+		// 					console.log("this is this user's device");
 
-			// 		// document.cookie = "device=" + _thisDevice;
-		}
+		// 					//THIS IS THE USER'S DEVICE
+		// 					_thisDevice = devices[j];
+
+		// 					break;
+		// 				}//if
+		// 			}//for j
+		// 		}//for i
+		// 	});
+
+		// 	console.log(devices[0],devices[1],devices[2],devices[3],devices[4], devices, "devices picked up in init" );
+
+		// }else{//NO DEVICE COOKIES FOUND
+
+		// 	//Fade in modal to instruct user to name this device
+		// 	$('#nameDeviceModal').fadeIn();
+
+		// 	//Maybe user deleted cookies? GET DEVICES TO ASK USER
+		// 	User.getDevices(cookies.userId, function(response){
+		// 		//Is one of these your device?
+		// 	});
+
+		// 	// 		// document.cookie = "device=" + _thisDevice;
+		// }
 
 
 

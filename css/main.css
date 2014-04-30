@@ -120,7 +120,7 @@ img {
   max-width: 100%;
 }
 
-input, button, textarea {
+input, button, textarea, select {
   border: none;
   border: 1px solid #949494;
   border-radius: 2px;
@@ -218,7 +218,7 @@ input, button, textarea {
   font-weight: 700;
 }
 
-input[type="email"], input[type="text"], input[type="submit"], input[type="password"], .copy-signup {
+input[type="email"], input[type="text"], input[type="submit"], input[type="password"], .copy-signup, select {
   height: 48px;
   width: 100%;
 }
@@ -1403,7 +1403,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   position: relative;
   background: #ebebeb;
   border-radius: 2px;
-  margin-top: 18%;
+  margin-top: 13%;
   padding: 1%;
   text-align: center;
 }
@@ -1437,6 +1437,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 #restoreAcctModal .modal {
   text-align: left;
+}
+
+#devicePrompt p {
+  text-align: left;
+  margin-top: 18px;
+  margin-bottom: 0;
 }
 
 #appLoading h3 {

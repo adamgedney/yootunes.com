@@ -309,7 +309,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//on reload set shared playlist id for use in app rendered event
 		$(document).on('userloggedin', function(event){
-			console.log("userloggedinpicked up in content plid/uid", event.playlistId, window.userId);
 			_playlistShared = event.playlistId;
 
 			//window.userId was set in init just before this fired
@@ -358,14 +357,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//ON APP RENDER========================//
 			if(event.template === '#app'){
 
-
-				// //Retrieve cookies & set device & userId
-				// var userCookies = getCookies;
-				// 	_thisDevice = userCookies.devices[0];
-				// 	console.log(userCookies.devices[0]);
-
-
-
 				//Set the application THEME colors
 				if(window.theme === 'light'){
 
@@ -378,32 +369,47 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 				//DEVICE DETECTION
-				// $('#nameDeviceModal').fadeIn();
-
+				//Flow: 1. check device cookies against user devices. If match, set this device
+				//		2. If no match, prompt user to name this device
+				//		3. if no cookies found, prompt user to select this device from their devices or name this new device
 				if(getCookies.devices.length !== 0){
 					var devices = getCookies.devices;
-
+					var match = false;
 
 					//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
 					User.getDevices(_userId, function(response){
 
 						for(var i=0;i<response.length;i++){
 							for(var j=0;j<devices.length;j++){
-								if(response[i] === devices[j]){
-									console.log("this is this user's device");
+
+								if(response[i].id === devices[j]){
 
 									//THIS IS THE USER'S DEVICE
-									_thisDevice = devices[j];
+									_thisDevice 		= devices[j];
+									window.thisDevice 	= devices[j];
+									match 				= true;
+
+									//Get Devices
+									User.getDevices(_userId, function(response){
+										renderDevices(response);
+									});
 
 									break;
 								}//if
 							}//for j
 						}//for i
-					});
 
-					console.log(devices[0],devices[1],devices[2],devices[3],devices[4], devices, "devices picked up in init" );
+
+						if(match === false){
+
+							//Fade in modal to instruct user to name this device
+							$('#nameDeviceModal').fadeIn();
+						}//if false
+					});//getDevices
+
 
 				}else{//NO DEVICE COOKIES FOUND
+
 
 					//Fade in modal to instruct user to name this device
 					$('#nameDeviceModal').fadeIn();
@@ -412,49 +418,20 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					//Maybe user deleted cookies? GET DEVICES TO ASK USER
 					User.getDevices(_userId, function(response){
 
-						//Is one of these your device?
+						//List user devices in modal
 						for(var k=0;k<response.length;k++){
-							var option = '<option>' + response[k].name + '</option>';
+							var option 	= '<option data-id="' + response[k].id + '">' + response[k].name + '</option>';
+
 
 							$('#userDevices').append(option);
 						}
-					});
-
-					// 		// document.cookie = "device=" + _thisDevice;
-				}
-
-
-
+						//Add a blank device
+						var blank	= '<option>Your Devices</option>'
+						$('#userDevices').prepend(blank);
+					});//getDevices
+				}//else
 
 
-
-
-
-
-				// //If device cookie doesn't/does exist
-				// if(_thisDevice === 'undefined' || _thisDevice === undefined || _thisDevice === '' || !_thisDevice ){//Does not exist
-
-				// 	//Fade in modal to instruct user to name this device
-				// 	$('#nameDeviceModal').fadeIn();
-
-
-				// 	//**Check user module for new device ajax call
-
-
-				// 	//Set device on new device creation
-				// 	$(document).on('reloadDevices', function(event){
-
-				// 		//Fade in modal to instruct user to name this device
-				// 		$('#nameDeviceModal').fadeOut();
-
-				// 		//Set this device once a new one is created
-				// 		_thisDevice = event.newDeviceId;
-
-				// 		// //Set a device cookie for socket server control
-				// 		// document.cookie = "device=" + _thisDevice;
-
-				// 	});//on reloadDevices
-				// }
 
 
 
@@ -484,12 +461,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 				//Load playlists
 				loadPlaylists();
-
-				//Get Devices
-				User.getDevices(_userId, function(response){
-					renderDevices(response);
-				});
-
 			}//if #app
 
 
@@ -731,7 +702,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-	//public methods.
+	//public methods & properties.
 	var obj = {
 		loadLanding 		: loadLanding,
 		loadPlaylists		: loadPlaylists,
@@ -1285,6 +1256,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//===================================//
 			//If device is this device, set name
 			if(response[j].id === _thisDevice){
+
 				//Set the current device if it matches the cookie
 				$('.infoDeviceName').val(response[j].name);
 				$('.infoDeviceName').attr('data-id', response[j].id);

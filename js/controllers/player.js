@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui','Content', 'socketService'], function($, Key, getCookies, Ui,Content, socketService){
+define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], function($, Key, getCookies, Ui, socketService){
 
 
 
@@ -1109,7 +1109,10 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui','Content', 'socketSer
 
 
 	function play(youtubeId){
-		console.log(_thisDevice, _playOnDevice, "this/playon devices");
+		_thisDevice = window.thisDevice;
+
+		console.log(_thisDevice,  _playOnDevice, "this/playon devices");
+
 
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');

@@ -34,30 +34,30 @@ define(['jquery', 'getCookies'], function($, getCookies){
 		_devices = getCookies.devices;
 
 
-		//If device cookie doesn't/does exist
-		if(_thisDevice === 'undefined' || _thisDevice === undefined || _thisDevice === '' || !_thisDevice ){//Does not exist
+		// //If device cookie doesn't/does exist
+		// if(_thisDevice === 'undefined' || _thisDevice === undefined || _thisDevice === '' || !_thisDevice ){//Does not exist
 
-			//Fade in modal to instruct user to name this device
-			$('#nameDeviceModal').fadeIn();
-
-
-			//**Check user module for new device ajax call
+		// 	//Fade in modal to instruct user to name this device
+		// 	$('#nameDeviceModal').fadeIn();
 
 
-			// //Set device on new device creation
-			// $(document).on('reloadDevices', function(event){
+		// 	//**Check user module for new device ajax call
 
-			// 	//Fade in modal to instruct user to name this device
-			// 	$('#nameDeviceModal').fadeOut();
 
-			// 	//Set this device once a new one is created
-			// 	_thisDevice = event.newDeviceId;
+		// 	// //Set device on new device creation
+		// 	// $(document).on('reloadDevices', function(event){
 
-			// 	// //Set a device cookie for socket server control
-			// 	// document.cookie = "device=" + _thisDevice;
+		// 	// 	//Fade in modal to instruct user to name this device
+		// 	// 	$('#nameDeviceModal').fadeOut();
 
-			// });//on reloadDevices
-		}
+		// 	// 	//Set this device once a new one is created
+		// 	// 	_thisDevice = event.newDeviceId;
+
+		// 	// 	// //Set a device cookie for socket server control
+		// 	// 	// document.cookie = "device=" + _thisDevice;
+
+		// 	// });//on reloadDevices
+		// }
 
 
 
@@ -71,7 +71,6 @@ define(['jquery', 'getCookies'], function($, getCookies){
 		$(document).on('click', '#submitDeviceName', function(event){
 			event.preventDefault();
 
-
 			//Ensures userId is always available
 			if(_userId === undefined){
 				if(window.userId !== undefined){
@@ -82,44 +81,15 @@ define(['jquery', 'getCookies'], function($, getCookies){
 				}
 			}
 
+			addDevice(_userId, function(response){
+
+			});
 
 
-			var currentDeviceId = "0";//default
-			var name 			= $('.infoDeviceName').val();
-
-
-
-			//If a device name already exists for this device, get it
-			if(!$('#infoDeviceName').attr('data-id') === ''){
-
-				 currentDeviceId = $('.infoDeviceName').attr('data-id');
-
-			}
-
-
-			//Build API URL
-			var API_URL = _baseUrl + '/device/' + _userId + '/' + name + '/' + currentDeviceId;
-
-			//Call API to set new device or update current device
-			$.ajax({
-				url : API_URL,
-				method : 'GET',
-				dataType : 'json',
-				success : function(response){
-
-					//Fires a complete event after  device has been added
-					//Picked up in content controller
-					$(document).trigger({
-						type 		: 'reloadDevices',
-						newDeviceId 	: response.newDeviceId,
-						newDeviceName 	: response.newDeviceName
-					});
-
-					//Set a device cookie for socket server control
-					document.cookie = "device=" + response.newDeviceId;
-				}//success
-			});//ajax
 		});//updateDeviceName
+
+
+
 
 
 
@@ -178,7 +148,8 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 	//Public methods and properties.
 	obj.getDevices 	= getDevices,
-	obj.getUser 	= getUser;
+	obj.getUser 	= getUser,
+	obj.addDevice 	= addDevice;
 
 
 
@@ -219,6 +190,69 @@ define(['jquery', 'getCookies'], function($, getCookies){
 			}//success
 		});//ajax
 	}
+
+
+
+
+
+
+
+
+
+	function addDevice(userId, callback){
+
+		//retrieve device array from service
+		// _devices = getCookies.devices;
+
+		var currentDeviceId 	= "0";//default set in case we're new and not updating
+		var name 				= $('.infoDeviceName').val();
+		var selectedDeviceName 	= $('#userDevices').val();
+		var selectedDeviceId 	= $('#userDevices').attr('data-id');
+		var deviceCookieAmount 	= _devices.length;
+
+		//USER CHOSE A DEVICE NAME FROM LIST
+		if(selectedDeviceName !== 'Your Devices' && name === ''){
+
+			 //set cookie DEVICE# with device id here
+			document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
+
+
+		}else{//NEW DEVICE
+
+
+
+
+			//Build API URL
+			var API_URL = _baseUrl + '/device/' + _userId + '/' + name + '/' + currentDeviceId;
+
+			//Call API to set new device or update current device
+			$.ajax({
+				url : API_URL,
+				method : 'GET',
+				dataType : 'json',
+				success : function(response){
+
+					//Set a device cookie for the new device
+					document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + response.newDeviceId;
+
+					//Fires a complete event after  device has been added
+					//Picked up in content controller
+					$(document).trigger({
+						type 		: 'reloadDevices',
+						newDeviceId 	: response.newDeviceId,
+						newDeviceName 	: response.newDeviceName
+					});//trigger
+				}//success
+			});//ajax
+		}//else
+
+		// //If a device name already exists for this device, get it
+		// if(!$('#infoDeviceName').attr('data-id') === ''){
+
+		// 	 currentDeviceId = $('.infoDeviceName').attr('data-id');
+
+		// }
+	}//addDevice()
 
 
 
