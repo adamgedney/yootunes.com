@@ -12,8 +12,10 @@ define(['jquery', 'getCookies'], function($, getCookies){
 	//private vars
 	var _baseUrl 	= 'http://yooapi.pw';
 	var _userId;
+	var _devices 	= [];
 	var _thisDevice;
 
+	var obj 		= {};
 
 
 
@@ -25,33 +27,37 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 	//constructor function
-	var user = function(){
+	// var user = function(){
 
 
+		//retrieve device array from service
+		_devices = getCookies.devices;
 
 
-// 		//If device cookie doesn't/does exist
-// 		if(_thisDevice === undefined){//Does not exist
+		//If device cookie doesn't/does exist
+		if(_thisDevice === 'undefined' || _thisDevice === undefined || _thisDevice === '' || !_thisDevice ){//Does not exist
 
-// 			//Fade in modal to instruct user to name this device
-// 			$('#nameDeviceModal').fadeIn();
-// console.log(_thisDevice, "this device user js");
+			//Fade in modal to instruct user to name this device
+			$('#nameDeviceModal').fadeIn();
 
-// 			//Set device on new device creation
-// 			$(document).on('reloadDevices', function(event){
-// 				console.log(event.newDeviceId, "reload picked up in user");
 
-// 				//Fade in modal to instruct user to name this device
-// 				$('#nameDeviceModal').fadeOut();
+			//**Check user module for new device ajax call
 
-// 				//Set this device once a new one is created
-// 				_thisDevice = event.newDeviceId;
 
-// 				//Set a device cookie for socket server control
-// 				document.cookie = "device=" + _thisDevice;
+			// //Set device on new device creation
+			// $(document).on('reloadDevices', function(event){
 
-// 			});//on reloadDevices
-// 		}
+			// 	//Fade in modal to instruct user to name this device
+			// 	$('#nameDeviceModal').fadeOut();
+
+			// 	//Set this device once a new one is created
+			// 	_thisDevice = event.newDeviceId;
+
+			// 	// //Set a device cookie for socket server control
+			// 	// document.cookie = "device=" + _thisDevice;
+
+			// });//on reloadDevices
+		}
 
 
 
@@ -102,11 +108,15 @@ define(['jquery', 'getCookies'], function($, getCookies){
 				success : function(response){
 
 					//Fires a complete event after  device has been added
+					//Picked up in content controller
 					$(document).trigger({
 						type 		: 'reloadDevices',
 						newDeviceId 	: response.newDeviceId,
 						newDeviceName 	: response.newDeviceName
 					});
+
+					//Set a device cookie for socket server control
+					document.cookie = "device=" + response.newDeviceId;
 				}//success
 			});//ajax
 		});//updateDeviceName
@@ -153,7 +163,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
-	};//constructor
+	// };//constructor
 	//=========================//
 
 
@@ -166,23 +176,15 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
-	//methods and properties.
-	user.prototype = {
-		constructor : user
-	};
+	//Public methods and properties.
+	obj.getDevices 	= getDevices,
+	obj.getUser 	= getUser;
 
 
 
 
-
-
-
-
-
-
-
-	//return constructor
-	return user;
+	//return object
+	return obj;
 
 
 
@@ -199,7 +201,69 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
+	function getDevices(userId, callback){
+		var API_URL = _baseUrl + '/get-devices/' + userId;
 
+		//Get current user's devices
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+
+				//Callback once data received
+				if(typeof callback === "function"){
+
+					callback(response);
+				}
+			}//success
+		});//ajax
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	function getUser(userId, callback){
+
+		//Build API request
+		var API_URL = _baseUrl + '/get-user/' + userId;
+
+		//Request auth form server
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success 	: function(response){
+
+
+				//store theme info for app-wide use
+				window.theme = response[0].theme;
+				document.cookie = "theme=" + response[0].theme;
+
+				//Set a cookie in the browser to store user id
+				//Duplicate setting. Just for stability.
+				document.cookie = "uid=" + response[0].id;
+				window.userId 	= response[0].id;
+
+
+				//Callback once data received
+				if(typeof callback === "function"){
+
+					callback(response);
+				}
+			}//success
+		});//ajax
+	}
 
 
 

@@ -6,7 +6,6 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	var _auth 				= {};
 	var _user 				= {};
 	var _userId;
-	var _thisDevice;
 	var _playlistId 		= 0;
 	var _baseUrl 			= 'http://yooapi.pw';
 

@@ -27,7 +27,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui','Content', 'socketSer
 	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
 	var _shuffleIndexes 	= [];
-	// var _shuffleList 		= [];
 	var _prevIndex 			= 0;
 	var _playingVideo     	= '';
 
@@ -35,7 +34,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui','Content', 'socketSer
 		_playMode.loop 		= false;
 		_playMode.shuffle 	= false;
 
-	// var socketServer 	= 'http://yooss.pw:3001';
 	var _socketConnect 		= socketService.socket;
 	var _socket 			= null;
 

@@ -10,8 +10,9 @@ define([], function(){
 	var obj = {};
 
 	//Check for the stored cookie in the browser
-	var cookie = document.cookie;
+	var cookie 		= document.cookie;
 	var cookieArray = cookie.split("; ");
+		obj.devices = [];
 
 	//loop through cookie array
 	for(var c=0;c<cookieArray.length;c++){
@@ -26,12 +27,35 @@ define([], function(){
 		}
 
 
-		//Retrieve user device cookie
-		if(cookieArray[c].indexOf("device") !== -1){
+			//Retrieve user device cookie1
+			if(cookieArray[c].indexOf("device1") !== -1){
 
-			//Set class level device id
-			obj.thisDevice = cookieArray[c].substr(7);
-		}
+				obj.devices.push(cookieArray[c].substr(8));
+			}
+
+			//Retrieve user device cookie2
+			if(cookieArray[c].indexOf("device2") !== -1){
+
+				obj.devices.push(cookieArray[c].substr(8));
+			}
+
+			//Retrieve user device cookie3
+			if(cookieArray[c].indexOf("device3") !== -1){
+
+				obj.devices.push(cookieArray[c].substr(8));
+			}
+
+			//Retrieve user device cookie4
+			if(cookieArray[c].indexOf("device4") !== -1){
+
+				obj.devices.push(cookieArray[c].substr(8));
+			}
+
+			//Retrieve user device cookie5
+			if(cookieArray[c].indexOf("device5") !== -1){
+
+				obj.devices.push(cookieArray[c].substr(8));
+			}
 
 
 		//Retrieve shared playlist cookie

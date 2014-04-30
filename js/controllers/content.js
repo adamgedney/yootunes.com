@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function($, handlebars, getCookies, Init, Ui, Library){
+define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], function($, handlebars, getCookies, Init, User, Ui, Library){
 
 
 
@@ -329,6 +329,25 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function
 
 
 
+		//Set device on new device creation
+		$(document).on('reloadDevices', function(event){
+
+			//Fade out name device modal
+			$('#nameDeviceModal').fadeOut();
+
+			//Set this device once a new one is created
+			_thisDevice = event.newDeviceId;
+
+		});//on reloadDevices
+
+
+
+
+
+
+
+
+
 
 
 		//Makes synchronous
@@ -340,13 +359,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function
 			if(event.template === '#app'){
 
 
-				//Retrieve cookies & set device & userId
-				var userCookies = getCookies;
-					_thisDevice = userCookies.thisDevice;
+				// //Retrieve cookies & set device & userId
+				// var userCookies = getCookies;
+				// 	_thisDevice = userCookies.devices[0];
+				// 	console.log(userCookies.devices[0]);
 
 
 
-				//Set the application theme colors
+				//Set the application THEME colors
 				if(window.theme === 'light'){
 
 					Ui.prototype.themeLight();
@@ -357,30 +377,84 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function
 
 
 
-				//If device cookie doesn't/does exist
-				if(_thisDevice === 'undefined' || _thisDevice === undefined || _thisDevice === '' || !_thisDevice ){//Does not exist
+				//DEVICE DETECTION
+				// $('#nameDeviceModal').fadeIn();
+
+				if(getCookies.devices.length !== 0){
+					var devices = getCookies.devices;
+
+
+					//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
+					User.getDevices(_userId, function(response){
+
+						for(var i=0;i<response.length;i++){
+							for(var j=0;j<devices.length;j++){
+								if(response[i] === devices[j]){
+									console.log("this is this user's device");
+
+									//THIS IS THE USER'S DEVICE
+									_thisDevice = devices[j];
+
+									break;
+								}//if
+							}//for j
+						}//for i
+					});
+
+					console.log(devices[0],devices[1],devices[2],devices[3],devices[4], devices, "devices picked up in init" );
+
+				}else{//NO DEVICE COOKIES FOUND
 
 					//Fade in modal to instruct user to name this device
 					$('#nameDeviceModal').fadeIn();
+					$('#devicePrompt').fadeIn();
 
+					//Maybe user deleted cookies? GET DEVICES TO ASK USER
+					User.getDevices(_userId, function(response){
 
-					//**Check user module for new device ajax call
+						//Is one of these your device?
+						for(var k=0;k<response.length;k++){
+							var option = '<option>' + response[k].name + '</option>';
 
+							$('#userDevices').append(option);
+						}
+					});
 
-					//Set device on new device creation
-					$(document).on('reloadDevices', function(event){
-
-						//Fade in modal to instruct user to name this device
-						$('#nameDeviceModal').fadeOut();
-
-						//Set this device once a new one is created
-						_thisDevice = event.newDeviceId;
-
-						//Set a device cookie for socket server control
-						document.cookie = "device=" + _thisDevice;
-
-					});//on reloadDevices
+					// 		// document.cookie = "device=" + _thisDevice;
 				}
+
+
+
+
+
+
+
+
+
+				// //If device cookie doesn't/does exist
+				// if(_thisDevice === 'undefined' || _thisDevice === undefined || _thisDevice === '' || !_thisDevice ){//Does not exist
+
+				// 	//Fade in modal to instruct user to name this device
+				// 	$('#nameDeviceModal').fadeIn();
+
+
+				// 	//**Check user module for new device ajax call
+
+
+				// 	//Set device on new device creation
+				// 	$(document).on('reloadDevices', function(event){
+
+				// 		//Fade in modal to instruct user to name this device
+				// 		$('#nameDeviceModal').fadeOut();
+
+				// 		//Set this device once a new one is created
+				// 		_thisDevice = event.newDeviceId;
+
+				// 		// //Set a device cookie for socket server control
+				// 		// document.cookie = "device=" + _thisDevice;
+
+				// 	});//on reloadDevices
+				// }
 
 
 
@@ -412,7 +486,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function
 				loadPlaylists();
 
 				//Get Devices
-				getDevices();
+				User.getDevices(_userId, function(response){
+					renderDevices(response);
+				});
 
 			}//if #app
 
@@ -441,11 +517,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function
 
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
 				if($('.sourceTitle').html() === 'Add'){
-					console.log($('.sourceTitle').html(), "source title html ADD" );
+
 					//Swaps out icon for add icon
 					$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
 				}else{
-					console.log($('.sourceTitle').html(), "source title html REM" );
+
 					$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 				}
 
@@ -506,106 +582,51 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function
 				$('.section-header').hide();
 
 
-				//Buil API URL
-				var API_URL = _baseUrl + '/get-user/' + _userId;
+				//Get User
+				User.getUser(_userId, function(response){
 
-				//Get current user's data where available
-				$.ajax({
-					url : API_URL,
-					method : 'GET',
-					dataType : 'json',
-					success : function(response){
+					$('#infoName').val(response[0].display_name);
+					$('#infoEmail').val(response[0].email);
+					$('#infoId').html(response[0].id);
+					$('#infoTitleGender').val(response[0].title);
 
-
-						$('#infoName').val(response[0].display_name);
-						$('#infoEmail').val(response[0].email);
-						$('#infoId').html(response[0].id);
-						$('#infoTitleGender').val(response[0].title);
-
-						//Format birthdate for display
-						var birthdate = response[0].birthMonth + '/' + response[0].birthDay + '/' + response[0].birthYear;
-						$('#infoBirthdate').val(birthdate);
+					//Format birthdate for display
+					var birthdate = response[0].birthMonth + '/' + response[0].birthDay + '/' + response[0].birthYear;
+					$('#infoBirthdate').val(birthdate);
 
 
-						//Prepend selected TITLE option
-						var option1 = '<option >' + response[0].title + '</option>';
-						$('#infoTitleGender').prepend(option1);
+					//Prepend selected TITLE option
+					var option1 = '<option >' + response[0].title + '</option>';
+					$('#infoTitleGender').prepend(option1);
 
-							//Handle title options list
-							if(response[0].title == "Mr."){
-								var option2 = '<option >Mrs.</option>';
-								var option3 = '<option >Ms.</option>';
-								$('#infoTitleGender').append(option2);
-								$('#infoTitleGender').append(option3);
-							}else if(response[0].title == "Mrs."){
-								var option2 = '<option >Mr.</option>';
-								var option3 = '<option >Ms.</option>';
-								$('#infoTitleGender').append(option2);
-								$('#infoTitleGender').append(option3);
-							}else if(response[0].title == "Ms."){
-								var option2 = '<option >Mrs.</option>';
-								var option3 = '<option >Mr.</option>';
-								$('#infoTitleGender').append(option2);
-								$('#infoTitleGender').append(option3);
-							}
-					}//success
-				});//ajax
+						//Handle title options list
+						if(response[0].title == "Mr."){
+							var option2 = '<option >Mrs.</option>';
+							var option3 = '<option >Ms.</option>';
+							$('#infoTitleGender').append(option2);
+							$('#infoTitleGender').append(option3);
+						}else if(response[0].title == "Mrs."){
+							var option2 = '<option >Mr.</option>';
+							var option3 = '<option >Ms.</option>';
+							$('#infoTitleGender').append(option2);
+							$('#infoTitleGender').append(option3);
+						}else if(response[0].title == "Ms."){
+							var option2 = '<option >Mrs.</option>';
+							var option3 = '<option >Mr.</option>';
+							$('#infoTitleGender').append(option2);
+							$('#infoTitleGender').append(option3);
+						}
+				});//getUser
+
+
 
 				//Get Devices
-				getDevices();
+				User.getDevices(_userId, function(response){
+					renderDevices(response);
+				});
 
 			}//acctSettings
 		});//onRendered
-
-
-
-
-
-
-
-
-
-		//Pickup return event
-		$(document).on('getDevices', function(data){
-			$('#play-on').empty();
-			$('#infoDeviceList').empty();
-
-
-			//Loop through device list
-			for(var j=0;j<data.response.length;j++){
-
-				//===================================//
-				//Settings page & app footer list
-				//===================================//
-				//If device is this device, set name
-				if(data.response[j].id === _thisDevice){
-					//Set the current device if it matches the cookie
-					$('.infoDeviceName').val(data.response[j].name);
-					$('.infoDeviceName').attr('data-id', data.response[j].id);
-
-					//set footer list items first result to the current device
-					var option = '<option data-id="' + data.response[j].id + '">' + data.response[j].name + '</option>';
-					$('#play-on').prepend(option);
-
-
-
-				}else{
-
-
-
-					//Populate SETTINGS PAGE list
-					var li = '<li>' + data.response[j].name + ' <img id="deleteDevice" data-id="' + data.response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
-					$('#infoDeviceList').append(li);
-
-
-
-					//Populate APP FOOTER list
-					var option = '<option data-id="' + data.response[j].id + '">' + data.response[j].name + '</option>';
-					$('#play-on').append(option);
-
-				}//else
-			}//for
-		});//on getDevices
 
 
 
@@ -689,7 +710,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function
 		$(document).on('reloadDevices', function(){
 
 			//Load devices
-			getDevices();
+			User.getDevices(_userId, function(response){
+				renderDevices(response);
+			});
 		});
 
 
@@ -1249,24 +1272,45 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'Ui', 'Library'], function
 
 
 
-	function getDevices(){
-		var API_URL = _baseUrl + '/get-devices/' + _userId;
+	function renderDevices(response){
+		$('#play-on').empty();
+		$('#infoDeviceList').empty();
 
-		//Get current user's devices
-		$.ajax({
-			url : API_URL,
-			method : 'GET',
-			dataType : 'json',
-			success : function(response){
 
-				//Broadcast response
-				$(document).trigger({
-					type		: 'getDevices',
-					response 	: response
-				});
+		//Loop through device list
+		for(var j=0;j<response.length;j++){
 
-			}//success
-		});//ajax
+			//===================================//
+			//Settings page & app footer list
+			//===================================//
+			//If device is this device, set name
+			if(response[j].id === _thisDevice){
+				//Set the current device if it matches the cookie
+				$('.infoDeviceName').val(response[j].name);
+				$('.infoDeviceName').attr('data-id', response[j].id);
+
+				//set footer list items first result to the current device
+				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
+				$('#play-on').prepend(option);
+
+
+
+			}else{
+
+
+
+				//Populate SETTINGS PAGE list
+				var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
+				$('#infoDeviceList').append(li);
+
+
+
+				//Populate APP FOOTER list
+				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
+				$('#play-on').append(option);
+
+			}//else
+		}//for
 	}
 
 

@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content, getCookies, socketService){
+define(['jquery', 'User', 'Content', 'getCookies', 'socketService'], function($, User, Content, getCookies, socketService){
 
 
 
@@ -96,7 +96,7 @@ define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content
 
 
 		//==========================================//
-		//Get cookies from service
+		//Check cookies from service
 		//==========================================//
 		var cookies = getCookies;
 
@@ -109,7 +109,7 @@ define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content
 			Content.loadLanding();
 
 
-		}else{//exists
+		}else{//USER EXISTS
 
 			//store user id for lpublic use
 			_userId = cookies.userId;
@@ -117,8 +117,55 @@ define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content
 
 			//get the user data for stored id
 			//then load the app on success
-			getUser(cookies.userId);
+			User.getUser(cookies.userId, function(response){
+
+				//Load app, set cookie, fire event
+				//Cookie setting here is redundant but harmless
+				//Prevents duplicate code.
+				loadApplication();
+			});
+
+
 		}//else
+
+
+
+		$('#nameDeviceModal').fadeIn();
+
+		if(getCookies.devices.length !== 0){
+			var devices = getCookies.devices;
+
+
+			//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
+			User.getDevices(cookies.userId, function(response){
+
+				for(var i=0;i<response.length;i++){
+					for(var j=0;j<devices.length;j++){
+						if(response[i] === devices[j]){
+							console.log("this is this user's device");
+
+							//THIS IS THE USER'S DEVICE
+							_thisDevice = devices[j];
+
+							break;
+						}//if
+					}//for j
+				}//for i
+			});
+
+
+			console.log(devices[0],devices[1],devices[2],devices[3],devices[4], devices, "devices picked up in init" );
+		}else{
+			//Fade in modal to instruct user to name this device
+			$('#nameDeviceModal').fadeIn();
+
+			//Maybe user deleted cookies? GET DEVICES TO ASK USER
+			User.getDevices(cookies.userId, function(response){
+				//Is one of these your device?
+			});
+
+			// 		// document.cookie = "device=" + _thisDevice;
+		}
 
 
 
@@ -138,9 +185,9 @@ define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content
 //========================//
 
 
-	Init.prototype = {
-		getUser : getUser
-	}
+	// Init.prototype = {
+	// 	getUser : getUser
+	// }
 
 
 	return Init;
@@ -212,55 +259,5 @@ define(['jquery', 'Content', 'getCookies', 'socketService'], function($, Content
 
 
 
-
-
-
-	function getUser(userId){
-
-		//Build API request
-		var API_URL = _baseUrl + '/get-user/' + userId;
-
-		//Request auth form server
-		$.ajax({
-			url 		: API_URL,
-			method 		: 'GET',
-			dataType 	: 'json',
-			success 	: function(response){
-
-
-				//store theme info for app-wide use
-				window.theme = response[0].theme;
-				document.cookie = "theme=" + response[0].theme;
-
-				//Set a cookie in the browser to store user id
-				//Duplicate setting. Just for stability.
-				document.cookie = "uid=" + response[0].id;
-				window.userId 	= response[0].id;
-
-
-
-				//Load app, set cookie, fire event
-				//Cookie setting here is redundant but harmless
-				//Prevents duplicate code.
-				loadApplication();
-
-			}
-		});//ajax
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// })(document, window, jQuery);
 });//define()
 })();//function
