@@ -186,11 +186,18 @@ header {
 }
 
 
-.plusContainer{
+.plusContainerSM, .plusContainerLG{
 	width: 100%;
-	background: #D84937;/*plus buttn color*/
+	background: #D84937;/*plus button color*/
 	border-radius: 5px;
+	padding: 9px 0 0 6%;
+
 }
+
+.plusContainerLG{
+	padding: 9px 0 0 25%;
+}
+
 
 
 
@@ -333,12 +340,6 @@ header {
 			@include break-sm{
 				color: $white;
 			}
-		}
-
-		#heroPlusBtn{
-			display: block;
-			width: 244px;
-			margin: 0 auto;
 		}
 	}
 }
