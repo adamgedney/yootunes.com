@@ -289,6 +289,9 @@ header #sign-in-btn {
   margin-top: 15px;
 }
 
+/*#gPlusSignIn{
+	width: 100%;
+}*/
 .hero {
   width: 100%;
   overflow: hidden;

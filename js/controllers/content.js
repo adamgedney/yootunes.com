@@ -709,7 +709,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		loadLibrary 		: loadLibrary,
 		loadApp				: loadApp,
 		loadReset 			: loadReset,
-		loadAcctSettings    : loadAcctSettings
+		loadAcctSettings    : loadAcctSettings,
+		loadScripts 		: loadScripts
 	};
 
 
@@ -791,10 +792,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		render(src, id, appendTo, data);
 
-			//Loads any scripts needing dynamic insertion
-			loadScripts();
 
-			resetPagination();
+		resetPagination();
 
 	}
 
@@ -875,12 +874,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 		//Google+ Auth script
-		// var po = document.createElement('script');
-		//    po.type = 'text/javascript'; po.async = true;
-		//    po.src = 'https://apis.google.com/js/client:plusone.js';
+		var po = document.createElement('script');
+		   po.type = 'text/javascript'; po.async = true;
+		   po.src = 'https://apis.google.com/js/client:plusone.js';
 
-	 //   	var s = document.getElementsByTagName('script')[0];
-	 //   		s.parentNode.insertBefore(po, s);
+	   	var s = document.getElementsByTagName('script')[0];
+	   		s.parentNode.insertBefore(po, s);
 	   	//End Google+ auth script
 	}
 

@@ -34,6 +34,9 @@ require.config({
 require(['jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'Player', 'User', 'lightbox'],
 	function(jquery, Init, Auth, Content, Ui, Library, Player, User, lightbox){
 
+		//Load async scripts
+		Content.loadScripts();
+
 		var init 			= new Init();
 		var auth 			= new Auth();
 		var ui 				= new Ui();
