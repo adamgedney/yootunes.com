@@ -57,7 +57,7 @@ define(['jquery', 'User', 'Content', 'getCookies', 'socketService'], function($,
 							Content.loadReset();
 
 							//Store the userId associated with the token
-							_user.tokenResponseId = response.userId;
+							window.tokenResponseId = response.userId;
 
 						}//if
 					}//success

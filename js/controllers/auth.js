@@ -4,7 +4,6 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 	//Private variables
 	var _auth 				= {};
-	var _user 				= {};
 	var _userId;
 	var _playlistId 		= 0;
 	var _baseUrl 			= 'http://yooapi.pw';
@@ -341,9 +340,11 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//Reset user password
 	//==========================================//
 	$(document).on('click', '#resetSubmit', function(event){
-		event.preventDefault();
+		// event.preventDefault();
 
-		var userId 		= _user.tokenResponseId;
+		console.log("resetSubmit");
+
+		var userId 		= window.tokenResponseId;
 		var password 	= CryptoJS.SHA1($('#resetInput').val());
 		var pwString 	= '';
 
@@ -369,7 +370,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 			dataType 	: 'json',
 			success 	: function(response){
 
-
+console.log(response, "password reset response");
 				if(response === "Password reset success"){
 
 					$('#success').fadeIn();
