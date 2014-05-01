@@ -1179,17 +1179,21 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		font-size: 1.2em;
 	}
 
-	select{
+	select#play-on{
 		@include col(11);
 		background: transparent;
-		background: url(../images/icons/down-arrow-wht.svg) no-repeat right;
+		background: url(../images/icons/down-arrow-wht.svg) no-repeat 90%;
 		border-radius: 2px;
 		-webkit-appearance: none;
-		border: 1px solid $white;
-		color: $white;
+		-moz-appearance: none;
+	    text-indent: 0.01px;
+	    text-overflow: '';
+		border: 1px solid nth($grey, 2);
+		color: nth($grey, 3);
 		font-size: .9em;
 		padding: 3px;
 		outline: none;
+		height: 27px;
 	}
 }
 
