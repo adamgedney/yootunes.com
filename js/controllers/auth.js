@@ -342,7 +342,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	$(document).on('click', '#resetSubmit', function(event){
 		// event.preventDefault();
 
-		console.log("resetSubmit");
+
 
 		var userId 		= window.tokenResponseId;
 		var password 	= CryptoJS.SHA1($('#resetInput').val());
@@ -357,7 +357,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 		}
 
 
-
+		console.log(userId, pwString, "resetSubmit");
 		//Build API request
 		var API_URL 	= _baseUrl + '/reset-pass/' + userId + '/' + pwString;
 
