@@ -1372,11 +1372,11 @@ console.log("onPlayerReady");
 			console.log(_player.o, "Youtube player obj");
 		}
 
-		if (window.YT) {
-		    // Apparently, the API was ready before this script was executed.
-		    // Manually invoke the function
-		    window.onYouTubePlayerAPIReady();
-		}
+		// if (window.YT) {
+		//     // Apparently, the API was ready before this script was executed.
+		//     // Manually invoke the function
+		//     window.onYouTubePlayerAPIReady();
+		// }
 	}
 
 

@@ -7,24 +7,16 @@ require.config({
 		Handlebars 		: 'libs/handlebars',
 		lightbox 		: 'libs/lightbox-2.6.min',
 		// io 			: 'http://yooss.pw:41795/socket.io/socket.io',
+		User 			: 'controllers/user',
 		Init 			: 'controllers/init',
 		Auth 			: 'controllers/auth',
 		Content 		: 'controllers/content',
 		Ui 				: 'controllers/ui',
 		Library 		: 'controllers/library',
 		Player 			: 'controllers/player',
-		User 			: 'controllers/user',
 		socketService 	: 'services/socketService',
 		getCookies 		: 'services/getCookiesService'
-	},
-	shim: {
-        Content : {
-            exports : 'Content'
-        },
-        User : {
-        	exports : 'User'
-        }
-    }
+	}
 });
 
 // packages 		: [
@@ -34,6 +26,16 @@ require.config({
 // 			main : 'jquery'
 // 		}
 // 	]
+
+// ,
+// 	shim: {
+//         Content : {
+//             exports : 'Content'
+//         },
+//         User : {
+//         	exports : 'User'
+//         }
+//     }
 
 	// socketio 	: 'http://yooss.pw:41795/socket.io/socket.io',
 
