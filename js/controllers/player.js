@@ -280,41 +280,43 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 
+		//Make player object once view containeing #video has loaded
+		$(document).on('DOMready', function(){
+			makePlayer();
+		});
 
 
 
 
+		// if (window.YT) {
+		//     // Apparently, the API was ready before this script was executed.
+		//     // Manually invoke the function
+		//     onYouTubePlayerAPIReady();
+		// }
 
+		// //Listens for the player API to load
+		// window.onYouTubePlayerAPIReady = function() {
 
-		if (window.YT) {
-		    // Apparently, the API was ready before this script was executed.
-		    // Manually invoke the function
-		    onYouTubePlayerAPIReady();
-		}
+		// 	console.log("player api ready");
+		// 	// create the global player from the specific iframe (#video)
+		// 	_player = new YT.Player('video', {
+		// 		playerVars: {
+		// 			controls 		: 0,
+		// 			enablejsapi 	: 1,
+		// 			rel 			: 0,
+		// 			showinfo		: 0,
+		// 			modestbranding 	: 1,
+		// 			origin 			: 'http://yootunes.com'
+		// 		},
+		// 	    events: {
+		// 	      // call this function when player is ready to use
+		// 	      'onStateChange'	: onPlayerStateChange,
+		// 	      'onReady'			: onPlayerReady
+		// 	    }
+		//   });
 
-		//Listens for the player API to load
-		window.onYouTubePlayerAPIReady = function() {
-
-			console.log("player api ready");
-			// create the global player from the specific iframe (#video)
-			_player = new YT.Player('video', {
-				playerVars: {
-					controls 		: 0,
-					enablejsapi 	: 1,
-					rel 			: 0,
-					showinfo		: 0,
-					modestbranding 	: 1,
-					origin 			: 'http://yootunes.com'
-				},
-			    events: {
-			      // call this function when player is ready to use
-			      'onStateChange'	: onPlayerStateChange,
-			      'onReady'			: onPlayerReady
-			    }
-		  });
-
-			console.log(_player, "Youtube player obj");
-		}
+		// 	console.log(_player.o, "Youtube player obj");
+		// }
 
 
 
@@ -1319,6 +1321,49 @@ console.log("onPlayerReady");
 		//Set the previous index for use in the previous button functionality
 		//Only push when the song being pushed is a new shuffle song
 		_shuffleIndexes.push(_currentIndex);
+	}
+
+
+
+
+
+
+
+
+
+	function makePlayer(){
+
+
+
+		//Listens for the player API to load
+		window.onYouTubePlayerAPIReady = function() {
+
+			console.log("player api ready");
+			// create the global player from the specific iframe (#video)
+			_player = new YT.Player('video', {
+				playerVars: {
+					controls 		: 0,
+					enablejsapi 	: 1,
+					rel 			: 0,
+					showinfo		: 0,
+					modestbranding 	: 1,
+					origin 			: 'http://yootunes.com'
+				},
+			    events: {
+			      // call this function when player is ready to use
+			      'onStateChange'	: onPlayerStateChange,
+			      'onReady'			: onPlayerReady
+			    }
+		  });
+
+			console.log(_player.o, "Youtube player obj");
+		}
+
+		if (window.YT) {
+		    // Apparently, the API was ready before this script was executed.
+		    // Manually invoke the function
+		    window.onYouTubePlayerAPIReady();
+		}
 	}
 
 

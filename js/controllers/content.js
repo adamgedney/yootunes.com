@@ -356,6 +356,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//ON APP RENDER========================//
 			if(event.template === '#app'){
 
+				$(document).trigger({
+					type : 'DOMready'
+				});
+
 
 				//Ensures userId is always available
 				if(_userId === undefined){
