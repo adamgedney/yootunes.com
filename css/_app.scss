@@ -1139,7 +1139,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		float: right;
 	}
 
-	input[type='range'] {
+	input[type='range'], input[type='range']::-moz-range-track {
 	    -webkit-appearance: none;
 	    border: 0;
 	    background-color: nth($grey, 2);
@@ -1147,15 +1147,27 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	    padding: 0;
 	}
 
-	input[type='range']::-webkit-slider-thumb {
+	input[type='range']::-webkit-slider-thumb, input[type='range']::-moz-range-thumb  {
 	    -webkit-appearance: none;
+	    -moz-appearance: none;
 	    width: 6px;
 	    height: 6px;
 	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
 	    border-radius: 10px;
 	    background: $white;
 	    background-repeat: no-repeat;
 	    background-position: 50%;
+	}
+
+	input[type='range']::-moz-range-track {
+		outline: none;
+	}
+
+	input[type='range']::-moz-range-thumb{
+		width: 6px;
+	    height: 6px;
+	    border: none;
 	}
 
 
@@ -1171,6 +1183,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 	svg, img{
 		height: 18px;
+		width: 24px;
 		margin-top: 25%;
 	}
 }

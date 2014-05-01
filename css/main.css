@@ -1644,22 +1644,32 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   margin: 0;
   float: right;
 }
-.volume-ctrl input[type='range'] {
+.volume-ctrl input[type='range'], .volume-ctrl input[type='range']::-moz-range-track {
   -webkit-appearance: none;
   border: 0;
   background-color: #494f4f;
   height: 1px;
   padding: 0;
 }
-.volume-ctrl input[type='range']::-webkit-slider-thumb {
+.volume-ctrl input[type='range']::-webkit-slider-thumb, .volume-ctrl input[type='range']::-moz-range-thumb {
   -webkit-appearance: none;
+  -moz-appearance: none;
   width: 6px;
   height: 6px;
   -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
   border-radius: 10px;
   background: #ebebeb;
   background-repeat: no-repeat;
   background-position: 50%;
+}
+.volume-ctrl input[type='range']::-moz-range-track {
+  outline: none;
+}
+.volume-ctrl input[type='range']::-moz-range-thumb {
+  width: 6px;
+  height: 6px;
+  border: none;
 }
 
 .playing-share-ctrl {
@@ -1670,6 +1680,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 .playing-share-ctrl svg, .playing-share-ctrl img {
   height: 18px;
+  width: 24px;
   margin-top: 25%;
 }
 
