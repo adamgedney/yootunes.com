@@ -16,7 +16,15 @@ require.config({
 		User 			: 'controllers/user',
 		socketService 	: 'services/socketService',
 		getCookies 		: 'services/getCookiesService'
-	}
+	},
+	shim: {
+        Content : {
+            exports : 'Content'
+        },
+        User : {
+        	exports : 'User'
+        }
+    }
 });
 
 // packages 		: [
