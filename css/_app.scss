@@ -49,14 +49,6 @@ img, .section-header, aside.app, .li-header, .li-group, .footer{
 }
 
 
-// p {
-//     -webkit-user-select: text;
-//     -khtml-user-select: text;
-//     -moz-user-select: text;
-//     -o-user-select: text;
-//     user-select: text;
-// }
-
 
 html{
 	background: $white;
@@ -69,50 +61,52 @@ html{
 	letter-spacing: 1px;/*give gothic font some space*/
 }
 
+
+
 aside.app{
 	display: none;
-}
+	margin-left: 0;
+	@include col(3);
+	height: 100vh;
+	float: left;
+	border-right: 1px solid nth($grey, 4);
+	overflow: hidden;
+	// background: $black; /*experimenting with dark bg*/
 
-@include app-break-smmd{
-	aside.app{
-		display: block;
+	.video-size-ctrl{
+		background: $black;
 		@include col(3);
-		height: 100vh;
-		float: left;
-		border-right: 1px solid nth($grey, 4);
-		overflow: hidden;
-		// background: $black; /*experimenting with dark bg*/
+		//margin-left: 16.6666667%;
+		position: fixed;
+		bottom: 72px;
+		left: 0;
+		z-index:1002;
+		height: 33px;
+		text-align: right;
+		border-bottom: 1px solid nth($grey, 1);
 
-		.video-size-ctrl{
-			background: $black;
-			@include col(3);
-			//margin-left: 16.6666667%;
-			position: fixed;
-			bottom: 72px;
-			left: 0;
-			z-index:1002;
-			height: 33px;
-			text-align: right;
-			border-bottom: 1px solid nth($grey, 1);
+		svg, img{
+			height: 27px;
+			width: 27px;
+			margin-left: 3px;
+			cursor: pointer;
+		}
 
-			svg, img{
-				height: 27px;
-				width: 27px;
-				margin-left: 3px;
-				cursor: pointer;
-			}
+		svg:first-child, img:first-child{
+			width: 18px;
+		}
 
-			svg:first-child, img:first-child{
-				width: 18px;
-			}
-
-			svg:last-child, img:last-child{
-				width: 36px;
-				margin-left: 0;
-			}
+		svg:last-child, img:last-child{
+			width: 36px;
+			margin-left: 0;
 		}
 	}
+
+	@include app-break-smmd{
+		display: block;
+	}
 }
+
 
 
 #collectionCount{
@@ -338,10 +332,16 @@ li.playlist-dropdown:hover{
 /*Main Content container===============*/
 /*=====================================*/
 section.app{
-	@include col(9);
+	@include col(12);
 	float: left;
 	height: 100%;
+
+	@include app-break-smmd{
+		@include col(9);
+	}
 }
+
+
 
 .section-header{
 	height: 72px; //120
@@ -361,24 +361,34 @@ section.app{
 	}
 
 	input[type="text"]{
-		@include col(11);
+		@include col(10);
 		border-top-right-radius: 0;
 		border-bottom-right-radius: 0;
 		// border-right: none;
 		border: none;
-		font-size: 2.7em;
+		font-size: 1.2em;
 		font-weight: 100;
 		background: transparent;
 		padding-left: 3%;
 		outline: none;
+
+		@include app-break-smmd{
+			@include col(11);
+			font-size: 2.7em;
+		}
+
 	}
 
 	input[type="submit"]{
-		@include col(1);
+		@include col(2);
 		background: transparent;
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 		border-left: 1px solid nth($grey, 4);
+
+		@include app-break-smmd{
+			@include col(1);
+		}
 	}
 
 	input[type="submit"]:hover{
@@ -401,9 +411,13 @@ section.app{
 
 #search-icon{
 	position: absolute;
-	right: 3.15%;
+	right: 6.15%;
 	top: 39%;
 	height: 18px;
+
+	@include app-break-smmd{
+		right: 3.15%;
+	}
 }
 
 .main-container{
@@ -478,37 +492,54 @@ section.app{
 }
 
 .li-col1, .li-col7{
-	width: 6%;
+	@include col(2);
 	display: inline-block;
+
+	@include app-break-smmd{
+		width: 6%;
+	}
 }
 
 .li-col2{
 	display: inline-block;
-	@include col(4);
+	@include col(7);
 	float: left;
 	padding-right: 2%;
 	margin-right: 2%;
+
+	@include app-break-smmd{
+		@include col(4);
+	}
 }
 
 .li-col3, .li-col4{
 	@include col(2);
 	display: inline-block;
 	float: left;
+	display: none;
+
+	@include app-break-smmd{
+		display: block;
+	}
 }
 
 .li-col3{
-	width: 200px;//Testing float fix where content is empty
+	/*width: 200px;//Testing float fix where content is empty*/
 }
 
-.li-col3:before{
+/*.li-col3:before{
 	content: " ";
 	width: 200px;
-}
+}*/
 
 .li-col6, .li-col5{
 	@include col(1);
 	float: right;
-	display: inline-block;
+	display: none;
+
+	@include app-break-smmd{
+		display: inline-block;
+	}
 }
 
 .li-col6{

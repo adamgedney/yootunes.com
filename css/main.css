@@ -761,42 +761,43 @@ html {
 
 aside.app {
   display: none;
+  margin-left: 0;
+  width: 25%;
+  height: 100vh;
+  float: left;
+  border-right: 1px solid #d6d6d6;
+  overflow: hidden;
 }
-
+aside.app .video-size-ctrl {
+  background: #0f1010;
+  width: 25%;
+  position: fixed;
+  bottom: 72px;
+  left: 0;
+  z-index: 1002;
+  height: 33px;
+  text-align: right;
+  border-bottom: 1px solid #272a2a;
+}
+aside.app .video-size-ctrl svg, aside.app .video-size-ctrl img {
+  height: 27px;
+  width: 27px;
+  margin-left: 3px;
+  cursor: pointer;
+}
+aside.app .video-size-ctrl svg:first-child, aside.app .video-size-ctrl img:first-child {
+  width: 18px;
+}
+aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-child {
+  width: 36px;
+  margin-left: 0;
+}
 @media only screen and (min-width: 650px) {
   aside.app {
     display: block;
-    width: 25%;
-    height: 100vh;
-    float: left;
-    border-right: 1px solid #d6d6d6;
-    overflow: hidden;
-  }
-  aside.app .video-size-ctrl {
-    background: #0f1010;
-    width: 25%;
-    position: fixed;
-    bottom: 72px;
-    left: 0;
-    z-index: 1002;
-    height: 33px;
-    text-align: right;
-    border-bottom: 1px solid #272a2a;
-  }
-  aside.app .video-size-ctrl svg, aside.app .video-size-ctrl img {
-    height: 27px;
-    width: 27px;
-    margin-left: 3px;
-    cursor: pointer;
-  }
-  aside.app .video-size-ctrl svg:first-child, aside.app .video-size-ctrl img:first-child {
-    width: 18px;
-  }
-  aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-child {
-    width: 36px;
-    margin-left: 0;
   }
 }
+
 #collectionCount {
   font-size: .8em;
 }
@@ -971,9 +972,14 @@ li.playlist-dropdown:hover {
 /*Main Content container===============*/
 /*=====================================*/
 section.app {
-  width: 75%;
+  width: 100%;
   float: left;
   height: 100%;
+}
+@media only screen and (min-width: 650px) {
+  section.app {
+    width: 75%;
+  }
 }
 
 .section-header {
@@ -998,22 +1004,33 @@ section.app {
   height: 72px;
 }
 .search input[type="text"] {
-  width: 91.6666666%;
+  width: 83.3333333%;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border: none;
-  font-size: 2.7em;
+  font-size: 1.2em;
   font-weight: 100;
   background: transparent;
   padding-left: 3%;
   outline: none;
 }
+@media only screen and (min-width: 650px) {
+  .search input[type="text"] {
+    width: 91.6666666%;
+    font-size: 2.7em;
+  }
+}
 .search input[type="submit"] {
-  width: 8.33333333%;
+  width: 16.6666667%;
   background: transparent;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 1px solid #d6d6d6;
+}
+@media only screen and (min-width: 650px) {
+  .search input[type="submit"] {
+    width: 8.33333333%;
+  }
 }
 .search input[type="submit"]:hover {
   opacity: .8;
@@ -1037,9 +1054,14 @@ section.app {
 
 #search-icon {
   position: absolute;
-  right: 3.15%;
+  right: 6.15%;
   top: 39%;
   height: 18px;
+}
+@media only screen and (min-width: 650px) {
+  #search-icon {
+    right: 3.15%;
+  }
 }
 
 .main-container ul {
@@ -1096,37 +1118,57 @@ section.app {
 }
 
 .li-col1, .li-col7 {
-  width: 6%;
+  width: 16.6666667%;
   display: inline-block;
+}
+@media only screen and (min-width: 650px) {
+  .li-col1, .li-col7 {
+    width: 6%;
+  }
 }
 
 .li-col2 {
   display: inline-block;
-  width: 33.3333333%;
+  width: 58.3333333%;
   float: left;
   padding-right: 2%;
   margin-right: 2%;
+}
+@media only screen and (min-width: 650px) {
+  .li-col2 {
+    width: 33.3333333%;
+  }
 }
 
 .li-col3, .li-col4 {
   width: 16.6666667%;
   display: inline-block;
   float: left;
+  display: none;
+}
+@media only screen and (min-width: 650px) {
+  .li-col3, .li-col4 {
+    display: block;
+  }
 }
 
 .li-col3 {
-  width: 200px;
+  /*width: 200px;//Testing float fix where content is empty*/
 }
 
-.li-col3:before {
-  content: " ";
-  width: 200px;
-}
-
+/*.li-col3:before{
+	content: " ";
+	width: 200px;
+}*/
 .li-col6, .li-col5 {
   width: 8.33333333%;
   float: right;
-  display: inline-block;
+  display: none;
+}
+@media only screen and (min-width: 650px) {
+  .li-col6, .li-col5 {
+    display: inline-block;
+  }
 }
 
 .li-col6 {
