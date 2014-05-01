@@ -132,25 +132,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 
-		$(document).on('click', '#playAll', function(event){
-
-			//Register click for socket in case we're in master mode
-			if(_socket === 'open'){
-				emitClick('#playAll');
-			}
-
-
-			playAll();
-
-		});
-
-
-
-
-
-
-
-
 
 		$(document).on('click', '#loopSong', function(event){
 
@@ -342,7 +323,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 			var youtubeId = "";
 
-			//Play Button Click Handler=======//
+			//FOOTER PLAY BUTTON Click Handler=======//
 			$(document).on('click', '#play-btn', function(){
 
 				//Check if a video is loaded. If not, playall
@@ -658,12 +639,12 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			    	//set current index converted from string to int
 					_currentIndex = parseInt(_currentIndex, 10) + 1;
 
-			    	var currentVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+			    	var nextVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 					//Start playing
 					// _player.loadVideoById(currentVideo);
-
-					play(currentVideo);
+					console.log(nextVideo, "autoplay");
+					play(nextVideo);
 
 
 		    	}
