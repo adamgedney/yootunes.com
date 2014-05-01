@@ -115,15 +115,16 @@ define(['jquery', 'User', 'Content', 'getCookies', 'socketService'], function($,
 			_userId = cookies.userId;
 			window.userId = _userId;
 
-			//get the user data for stored id
+			//get the user data for stored theme
 			//then load the app on success
 			User.getUser(cookies.userId, function(response){
 
-				//Load app, set cookie, fire event
-				//Cookie setting here is redundant but harmless
-				//Prevents duplicate code.
-				loadApplication();
 			});
+
+			//Load app, set cookie, fire event
+			//Cookie setting here is redundant but harmless
+			//Prevents duplicate code.
+			loadApplication();
 
 
 		}//else
