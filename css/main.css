@@ -23,6 +23,7 @@
 
 /*-----12 col grid------*/
 /*Breakpoints -------------------*/
+/*App Breakpoints -------------------*/
 /*--------------------------------------Start CSS Reset---------------------------------------------*/
 /* http://meyerweb.com/eric/tools/css/reset/
 v2.0 | 20110126
@@ -759,37 +760,43 @@ html {
 }
 
 aside.app {
-  width: 25%;
-  height: 100vh;
-  float: left;
-  border-right: 1px solid #d6d6d6;
-  overflow: hidden;
-}
-aside.app .video-size-ctrl {
-  background: #0f1010;
-  width: 25%;
-  position: fixed;
-  bottom: 72px;
-  left: 0;
-  z-index: 1002;
-  height: 33px;
-  text-align: right;
-  border-bottom: 1px solid #272a2a;
-}
-aside.app .video-size-ctrl svg, aside.app .video-size-ctrl img {
-  height: 27px;
-  width: 27px;
-  margin-left: 3px;
-  cursor: pointer;
-}
-aside.app .video-size-ctrl svg:first-child, aside.app .video-size-ctrl img:first-child {
-  width: 18px;
-}
-aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-child {
-  width: 36px;
-  margin-left: 0;
+  display: none;
 }
 
+@media only screen and (min-width: 650px) {
+  aside.app {
+    display: block;
+    width: 25%;
+    height: 100vh;
+    float: left;
+    border-right: 1px solid #d6d6d6;
+    overflow: hidden;
+  }
+  aside.app .video-size-ctrl {
+    background: #0f1010;
+    width: 25%;
+    position: fixed;
+    bottom: 72px;
+    left: 0;
+    z-index: 1002;
+    height: 33px;
+    text-align: right;
+    border-bottom: 1px solid #272a2a;
+  }
+  aside.app .video-size-ctrl svg, aside.app .video-size-ctrl img {
+    height: 27px;
+    width: 27px;
+    margin-left: 3px;
+    cursor: pointer;
+  }
+  aside.app .video-size-ctrl svg:first-child, aside.app .video-size-ctrl img:first-child {
+    width: 18px;
+  }
+  aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-child {
+    width: 36px;
+    margin-left: 0;
+  }
+}
 #collectionCount {
   font-size: .8em;
 }
@@ -1644,14 +1651,33 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   margin: 0;
   float: right;
 }
-.volume-ctrl input[type='range'], .volume-ctrl input[type='range']::-moz-range-track {
+.volume-ctrl input[type='range'] {
   -webkit-appearance: none;
   border: 0;
   background-color: #494f4f;
   height: 1px;
   padding: 0;
 }
-.volume-ctrl input[type='range']::-webkit-slider-thumb, .volume-ctrl input[type='range']::-moz-range-thumb {
+.volume-ctrl input[type='range']::-moz-range-track {
+  -webkit-appearance: none;
+  border: 0;
+  background-color: #494f4f;
+  height: 1px;
+  padding: 0;
+}
+.volume-ctrl input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 6px;
+  height: 6px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background: #ebebeb;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+.volume-ctrl input[type='range']::-moz-range-thumb {
   -webkit-appearance: none;
   -moz-appearance: none;
   width: 6px;

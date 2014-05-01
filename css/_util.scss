@@ -175,3 +175,32 @@
 
 
 
+/*App Breakpoints -------------------*/
+@mixin app-break-sm {
+  @media only screen and (min-width: 480px) {
+    @content;
+  }
+}
+
+@mixin app-break-smmd {
+  @media only screen and (min-width: 650px) {
+    @content;
+  }
+}
+
+@mixin app-break-md{
+  @media only screen and (min-width: 960px) {
+    @content;
+  }
+}
+
+@mixin app-break-lg {
+  @media only screen and (min-width: 1154px) {
+    @content;
+  }
+}
+
+
+
+
+

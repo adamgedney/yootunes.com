@@ -70,42 +70,50 @@ html{
 }
 
 aside.app{
-	@include col(3);
-	height: 100vh;
-	float: left;
-	border-right: 1px solid nth($grey, 4);
-	overflow: hidden;
-	// background: $black; /*experimenting with dark bg*/
+	display: none;
+}
 
-	.video-size-ctrl{
-		background: $black;
+@include app-break-smmd{
+	aside.app{
+		display: block;
 		@include col(3);
-		//margin-left: 16.6666667%;
-		position: fixed;
-		bottom: 72px;
-		left: 0;
-		z-index:1002;
-		height: 33px;
-		text-align: right;
-		border-bottom: 1px solid nth($grey, 1);
+		height: 100vh;
+		float: left;
+		border-right: 1px solid nth($grey, 4);
+		overflow: hidden;
+		// background: $black; /*experimenting with dark bg*/
 
-		svg, img{
-			height: 27px;
-			width: 27px;
-			margin-left: 3px;
-			cursor: pointer;
-		}
+		.video-size-ctrl{
+			background: $black;
+			@include col(3);
+			//margin-left: 16.6666667%;
+			position: fixed;
+			bottom: 72px;
+			left: 0;
+			z-index:1002;
+			height: 33px;
+			text-align: right;
+			border-bottom: 1px solid nth($grey, 1);
 
-		svg:first-child, img:first-child{
-			width: 18px;
-		}
+			svg, img{
+				height: 27px;
+				width: 27px;
+				margin-left: 3px;
+				cursor: pointer;
+			}
 
-		svg:last-child, img:last-child{
-			width: 36px;
-			margin-left: 0;
+			svg:first-child, img:first-child{
+				width: 18px;
+			}
+
+			svg:last-child, img:last-child{
+				width: 36px;
+				margin-left: 0;
+			}
 		}
 	}
 }
+
 
 #collectionCount{
 	font-size: .8em;
@@ -1139,7 +1147,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		float: right;
 	}
 
-	input[type='range'], input[type='range']::-moz-range-track {
+	input[type='range']{
 	    -webkit-appearance: none;
 	    border: 0;
 	    background-color: nth($grey, 2);
@@ -1147,7 +1155,28 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	    padding: 0;
 	}
 
-	input[type='range']::-webkit-slider-thumb, input[type='range']::-moz-range-thumb  {
+	input[type='range']::-moz-range-track {
+	    -webkit-appearance: none;
+	    border: 0;
+	    background-color: nth($grey, 2);
+	    height: 1px;
+	    padding: 0;
+	}
+
+	input[type='range']::-webkit-slider-thumb{
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    width: 6px;
+	    height: 6px;
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+	    background: $white;
+	    background-repeat: no-repeat;
+	    background-position: 50%;
+	}
+
+	input[type='range']::-moz-range-thumb  {
 	    -webkit-appearance: none;
 	    -moz-appearance: none;
 	    width: 6px;
