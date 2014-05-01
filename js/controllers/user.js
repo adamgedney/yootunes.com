@@ -210,7 +210,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 		var selectedDeviceId 	= $('#userDevices option:selected').attr('data-id');
 		var deviceCookieAmount 	= _devices.length;
 
-		console.log(selectedDeviceId);
+
 		//USER CHOSE A DEVICE NAME FROM LIST
 		if(selectedDeviceName !== 'Your Devices' && name === ''){
 

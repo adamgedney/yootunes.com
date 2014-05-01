@@ -940,6 +940,10 @@ li.playlist-dropdown:hover {
 .playlist-popout .share-strip {
   margin-bottom: 9px;
 }
+.playlist-popout .share-strip img {
+  width: 24px;
+  height: 18px;
+}
 .playlist-popout .bottom-inner {
   border-top: 1px solid #d6d6d6;
   padding-top: 12px;
