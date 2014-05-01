@@ -7,6 +7,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//private vars
+	var _test = Modernizr.addTest('svgasimg', document.implementation.hasFeature(
+		'http://www.w3.org/TR/SVG11/feature#Image', '1.1'));
+
 	var _songs 			= [];
 	var	_userId			= window.userId;
 	var	_userEmail 		= '';
@@ -479,6 +482,18 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				}else{
 					Ui.prototype.themeDark();
 				}
+
+
+				//MODERNIZR PNG FALLBACK FOR SVG
+				if(_test.svgasimg === 'false') {
+					console.log(_test.svgasimg, "modernizr no svg");
+				  // $("img[src$='.svg']")
+				  //   .attr("src", fallback);
+				}else{
+					console.log("modernizr svg");
+				}
+
+
 
 
 
