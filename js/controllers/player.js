@@ -1017,31 +1017,46 @@ console.log("onPlayerReady");
 			}
 
 
-			//Hour handler for time display
+			//Hour handler for time display - handles 0-13hr videos
 			if(m >= 60){
 				m = m - 60;
 				h = 1;
-			}else if(m >= 120){
+			}if(h == 1 && m >= 60){
 				m = m - 120;
 				h = 2;
-			}else if(m >= 180){
-				m = m - 180;
+			}if(h == 2 && m >= 60){
+				m = m - 60;
 				h = 3;
-			}else if(m >= 240){
-				m = m - 240;
+			}if(h == 3 && m >= 60){
+				m = m - 60;
 				h = 4;
-			}else if(m >= 300){
-				m = m - 300;
+			}if(h == 4 && m >= 60){
+				m = m - 60;
 				h = 5;
-			}else if(m >= 360){
-				m = m - 360;
-				h = 5;
-			}else if(m >= 420){
-				m = m - 420;
+			}if(h == 5 && m >= 60){
+				m = m - 60;
+				h = 6;
+			}if(h == 6 && m >= 60){
+				m = m - 60;
 				h = 7;
-			}else if(m >= 480){
-				m = m - 480;
+			}if(h == 7 && m >= 60){
+				m = m - 60;
 				h = 8;
+			}if(h == 8 && m >= 60){
+				m = m - 60;
+				h = 9;
+			}if(h == 9 && m >= 60){
+				m = m - 60;
+				h = 10;
+			}if(h == 10 && m >= 60){
+				m = m - 60;
+				h = 11;
+			}if(h == 11 && m >= 60){
+				m = m - 60;
+				h = 12;
+			}if(h == 12 && m >= 60){
+				m = m - 60;
+				h = 13;
 			};
 
 
@@ -1332,8 +1347,6 @@ console.log("onPlayerReady");
 
 
 	function makePlayer(){
-
-
 
 		//Listens for the player API to load
 		window.onYouTubePlayerAPIReady = function() {
