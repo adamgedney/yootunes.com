@@ -36,7 +36,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-
 		//==============================//
 		//PAGINATION handler
 		//==============================//

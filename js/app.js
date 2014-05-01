@@ -31,16 +31,16 @@ require.config({
 
 
 // //Instantiate Controllers
-require(['jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'Player', 'User', 'lightbox'],
-	function(jquery, Init, Auth, Content, Ui, Library, Player, User, lightbox){
+require(['jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'User', 'lightbox', 'Player'],
+	function(jquery, Init, Auth, Content, Ui, Library, User, lightbox, Player){
+
+		//Load async scripts
+		Content.loadScripts();
 
 		var init 			= new Init();
 		var auth 			= new Auth();
 		var ui 				= new Ui();
 		var player 			= new Player();
-
-		//Load async scripts
-		Content.loadScripts();
 
 });
 
