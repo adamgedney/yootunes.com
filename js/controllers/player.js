@@ -306,6 +306,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			      'onReady'			: onPlayerReady
 			    }
 		  });
+
+			console.log(_player, "Youtube player obj");
 		}
 
 
