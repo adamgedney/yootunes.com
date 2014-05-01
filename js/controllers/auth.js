@@ -74,6 +74,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 				//If user was authenticated
 				if(response.success === true){
+					$('.loginError').hide();
 
 					//Load app, set cookie, fire event
 					loadApplication(response[0][0]);
@@ -81,7 +82,9 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 				}else{//response failure. User may have been deleted
 
-
+					//Prompt user with error message afforadance
+					$('.loginError').text('username or password incorrect');
+					$('.loginError').fadeIn();
 
 
 					//Determine if we need to prompt user to restore account
@@ -340,7 +343,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//Reset user password
 	//==========================================//
 	$(document).on('click', '#resetSubmit', function(event){
-		// event.preventDefault();
+		event.preventDefault();
 
 
 
@@ -370,7 +373,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 			dataType 	: 'json',
 			success 	: function(response){
 
-console.log(response, "password reset response");
+			console.log(response, "password reset success response");
 				if(response === "Password reset success"){
 
 					$('#success').fadeIn();
@@ -378,6 +381,8 @@ console.log(response, "password reset response");
 					//redirect user to root so they can log in with their new password
 					setTimeout(rootRedirect, 5000);
 				}
+			},error 	: function(response){
+				console.log(response, "password reset error response");
 			}
 		});//ajax
 	});//click resetSubmit

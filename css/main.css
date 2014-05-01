@@ -230,6 +230,13 @@ input[type="submit"], .copy-signup {
   width: 100%;
 }
 
+.error-afford {
+  position: absolute;
+  top: 3px;
+  color: #cf2425;
+  font-size: 1em;
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 #wrapper {
   background: #ebebeb;
@@ -245,7 +252,7 @@ input[type="submit"], .copy-signup {
   background: #ebebeb;
   border-radius: 2px;
   border: 1px solid #949494;
-  padding: 1%;
+  padding: 2% 1%;
 }
 @media only screen and (min-width: 770px) {
   .popdown {

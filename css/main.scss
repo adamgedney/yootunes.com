@@ -112,6 +112,13 @@ input[type="submit"], .copy-signup{
 	color: nth($grey, 1);
 	@include col(12);
 }
+
+.error-afford{
+	position: absolute;
+	top: 3px;
+	color: $red;
+	font-size: 1em;
+}
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 
@@ -130,7 +137,7 @@ input[type="submit"], .copy-signup{
 	background: $white;
 	border-radius: 2px;
 	border: 1px solid nth($grey, 3);
-	padding: 1%;
+	padding: 2% 1%;
 
 	@include break-md{
 		@include col(2);
