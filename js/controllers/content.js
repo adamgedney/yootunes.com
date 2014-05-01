@@ -563,7 +563,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 					//Format birthdate for display
 					var birthdate = response[0].birthMonth + '/' + response[0].birthDay + '/' + response[0].birthYear;
-					$('#infoBirthdate').val(birthdate);
+
+					if(birthdate === '0/0/0'){
+						$('#infoBirthdate').val('4/24/14');
+					}else{
+						$('#infoBirthdate').val(birthdate);
+					}
+
 
 
 					//Prepend selected TITLE option
