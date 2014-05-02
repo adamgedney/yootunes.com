@@ -492,17 +492,21 @@ section.app{
 }
 
 .li-col1, .li-col7{
-	@include col(2);
-	display: inline-block;
+	@include col(1);
+	display: none;
 
 	@include app-break-smmd{
 		width: 6%;
+	}
+
+	@include app-break-smmd{
+		display: inline-block;
 	}
 }
 
 .li-col2{
 	display: inline-block;
-	@include col(7);
+	@include col(12);
 	float: left;
 	padding-right: 2%;
 	margin-right: 2%;
@@ -561,7 +565,7 @@ section.app{
 	font-weight: 700;
 	@include col(12);
 	border-bottom: 1px solid nth($grey, 4);
-	font-size: .8em;
+	font-size: .6em;
 
 	.li-col1{
 		// height: 21px;
@@ -579,10 +583,15 @@ section.app{
 	.li-col7{
 		text-align: right;
 		margin-top: 0;
+		display: none;
 	}
 
 	.viewSongs, .viewArtists, .viewAlbums, .viewGenres{
 		cursor: pointer;
+	}
+
+	@include app-break-smmd{
+		font-size: .8em;
 	}
 }
 
@@ -590,6 +599,7 @@ section.app{
 	color: nth($grey, 2);
 	font-size: .8em;
 	cursor: pointer;
+
 }
 
 li.li-group:nth-child(even){
@@ -1025,6 +1035,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	float: left;
 	overflow: hidden;
 	// border-right: 1px solid nth($grey, 1);
+	display: none;
 
 	ul{
 		float: left;
@@ -1043,6 +1054,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		height: 36px;
 		width: 27px;
 		margin: 18px 18px 0 0;
+	}
+
+	@include app-break-smmd{
+		display: inline-block;
 	}
 }
 
