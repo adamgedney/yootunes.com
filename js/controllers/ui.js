@@ -174,42 +174,53 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		//Main menu dropdown interaction=============//
 		$(document).on('click', '.dropdown-trigger', function(event){
 
-			//Ensures form is hidden at start
-			$('.newPlaylistForm').hide();
+			//Prevent dropdown on mobile view
+			if($(window).width() > '650'){
 
-			this.toggle;
+				//Ensures form is hidden at start
+				$('.newPlaylistForm').hide();
 
-			var selector 	= '.main-dropdown';
-			var id 			= $(this).attr('data-id');
-			_dropdownId 	= id;
+				this.toggle;
 
-
-			//returns the opposite boolean toggle value
-			this.toggle = toggleUi(this.toggle, selector, id);
-
-			if(this.toggle){
-
-				_dropdownOpen = true;
-
-				$('.resultItems').removeClass('bg-white');
-				$('.resultItems').removeClass('bold');
-				$('.resultItems').css({'borderBottom':'none'});
-
-				//Set the li item that triggered dropdown to white bg
-				$(this).parent().addClass('bg-white');
-				$(this).parent().addClass('bold');
-				$(this).parent().css({'borderBottom':'1px solid #ebebeb'});
+				var selector 	= '.main-dropdown';
+				var id 			= $(this).attr('data-id');
+				_dropdownId 	= id;
 
 
+				//returns the opposite boolean toggle value
+				this.toggle = toggleUi(this.toggle, selector, id);
+
+				if(this.toggle){
+
+					_dropdownOpen = true;
+
+					$('.resultItems').removeClass('bg-white');
+					$('.resultItems').removeClass('bold');
+					$('.resultItems').css({'borderBottom':'none'});
+
+					//Set the li item that triggered dropdown to white bg
+					$(this).parent().addClass('bg-white');
+					$(this).parent().addClass('bold');
+					$(this).parent().css({'borderBottom':'1px solid #ebebeb'});
+
+
+				}else{
+
+					_dropdownOpen = false;
+
+					$('.resultItems').css({'background':'none'});
+					$(this).parent().removeClass('bg-white');
+					$(this).parent().removeClass('bold');
+					$(this).parent().css({'borderBottom':'none'});
+				}
 			}else{
 
-				_dropdownOpen = false;
+				//Trigger play here instead/ Same funcitonality as play icon click
+				console.log(Player.playItem());
+				// Player.playItem($(this));
 
-				$('.resultItems').css({'background':'none'});
-				$(this).parent().removeClass('bg-white');
-				$(this).parent().removeClass('bold');
-				$(this).parent().css({'borderBottom':'none'});
 			}
+
 		});
 
 

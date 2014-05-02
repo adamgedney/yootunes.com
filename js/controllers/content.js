@@ -7,9 +7,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//private vars
-	var _test = Modernizr.addTest('svgasimg', document.implementation.hasFeature(
-		'http://www.w3.org/TR/SVG11/feature#Image', '1.1'));
-
 	var _songs 			= [];
 	var	_userId			= window.userId;
 	var	_userEmail 		= '';
@@ -22,62 +19,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	var _playlistShared = 0;
 
 	var _libraryCount;
-	// var _pageLimit;
-	// var _lastPageSkip;
+	var _loadInterval;
 	var _currentSkip 	= 0;
 	var _numPages;
 	var _onPage 		= 1;
 
 
 
-
-
-	//emitLibraryClick('');
-	//NOTE***    need to build socket handler to load on slave what we see on.
-
-
-
-
-
-		//==============================//
-		//PAGINATION handler
-		//==============================//
-		$(document).on('mouseover', '.resultItems', function(){
-
-
-			//Determines when to begin loading next result group
-			var loadRange 	= [ (20 * _onPage) - 3 + "",
-								(20 * _onPage) - 2 + "",
-								(20 * _onPage) - 1 + "",
-								(20 * _onPage)     + "",
-								(20 * _onPage) + 1 + "",
-								(20 * _onPage) + 2 + "",
-								(20 * _onPage) + 3 + ""];
-
-			var index = $(this).attr('data-index');
-
-				//If we are hovering over the load range we are
-				//close enough to load the next group
-				if(	index === loadRange[0] ||
-				   	index === loadRange[1] ||
-				   	index === loadRange[2] ||
-				   	index === loadRange[3] ||
-				   	index === loadRange[4] ||
-				   	index === loadRange[5] ||
-				   	index === loadRange[6]
-			   	){
-
-						//Only load pages if we haven't reached max results yet
-						if((_currentSkip + 50) <= _libraryCount){
-
-							_onPage 		+= 1;
-							_currentSkip 	+= 50;
-
-							//Load the next page
-							loadLibrary(_currentSkip);
-						}//if
-				}//if
-		});//mouseover li results
 
 
 
@@ -359,9 +307,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//ON APP RENDER========================//
 			if(event.template === '#app'){
 
-				$(document).trigger({
-					type : 'DOMready'
-				});
+				//paged loading of library items every 1.5s until
+				//full library is loaded
+				_loadInterval = setInterval(pageLoader, 1500);
+
+
+
+				//Start loading the player script once #video is on DOM
+				loadPlayerScript();
 
 
 				//Ensures userId is always available
@@ -474,6 +427,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//ON LIBRARY RENDER========================//
 			if(event.template === '#libraryItem'){
 
+
+
+
+
+
 				//Set the application theme colors
 				//again to ensure lib items are styled
 				//once they hit the DOM
@@ -484,14 +442,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				}
 
 
-				//MODERNIZR PNG FALLBACK FOR SVG
-				if(_test.svgasimg === 'false') {
-					console.log(_test.svgasimg, "modernizr no svg");
-				  // $("img[src$='.svg']")
-				  //   .attr("src", fallback);
-				}else{
-					console.log("modernizr svg");
-				}
 
 
 
@@ -888,14 +838,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	//Loads any scripts needing dynamic insertion
 	function loadScripts(){
 
-		//Load YouTube Player API scripts
-		var tag = document.createElement('script');
-			tag.src = "https://www.youtube.com/player_api";
-
-		var firstScriptTag = document.getElementsByTagName('script')[0];
-			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-		//End YouTube Player API scripts
-
 
 		//Google+ Auth script
 		// var po = document.createElement('script');
@@ -905,6 +847,24 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	 //   	var s = document.getElementsByTagName('script')[0];
 	 //   		s.parentNode.insertBefore(po, s);
 	   	//End Google+ auth script
+	}
+
+
+
+
+
+
+
+
+	function loadPlayerScript(){
+
+		//Load YouTube Player API scripts
+		var tag = document.createElement('script');
+			tag.src = "https://www.youtube.com/player_api";
+
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		//End YouTube Player API scripts
 	}
 
 
@@ -1389,6 +1349,33 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
+	function pageLoader(){
+console.log(_currentSkip, 'paged loading');
+		if((_currentSkip + 50) <= _libraryCount){
+			console.log(_currentSkip, "if");
+			_onPage 		+= 1;
+			_currentSkip 	+= 50;
+
+			//Load the next page
+			loadLibrary(_currentSkip);
+
+		}else{
+console.log(_currentSkip, "else");
+
+			clearInterval(_loadInterval);
+
+		}//if
+	}
+
+
+
+
+
+
+
+
+
+
 	//Resets PAGINATION variables for transitioning
 	//back to library fom another screen
 	function resetPagination(){
@@ -1493,6 +1480,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				$(settings).find('a').removeClass('red');
 			}
 	}
+
+
+
+
+
+
+
 
 
 

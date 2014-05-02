@@ -280,19 +280,14 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 
-		//Make player object once view containeing #video has loaded
-		// $(document).on('DOMready', function(){
-		// 	makePlayer();
-		// });
 
 
 
-
-		if (window.YT) {
-		    // Apparently, the API was ready before this script was executed.
-		    // Manually invoke the function
-		    onYouTubePlayerAPIReady();
-		}
+		// if (window.YT) {
+		//     // Apparently, the API was ready before this script was executed.
+		//     // Manually invoke the function
+		//     onYouTubePlayerAPIReady();
+		// }
 
 		//Listens for the player API to load
 		window.onYouTubePlayerAPIReady = function() {
@@ -450,63 +445,8 @@ console.log("onPlayerReady");
 			//Play icon Click Handler=======//
 			$(document).on('click', '.play-icon', function(event){
 
-				var playerId = _player.getVideoData().video_id;
-				var id = $(this).attr('data-videoid');
+				playItem($(this));
 
-				//Makes video ctrl transparent so user can see youtube loading gif
-				$('.video-size-ctrl').css({'opacity':'.5'});
-
-				//Sets the current index to enable autoplay feature funcitonality
-				_currentIndex = $(this).parent().attr('data-index');
-
-				this.newVideo;
-
-				//Checks to see if loaded video matches this video
-				if(playerId !== id){
-					this.newVideo = false;
-				}
-
-
-					//Determines if new video needs to be loaded
-					if(!this.newVideo){
-
-
-						play(id);
-
-
-						//sets new video to false & playing to true
-						this.newVideo = true;
-						// _playerNewVideo = !_playerNewVideo;
-
-						_playerPlaying = true;
-
-
-
-					//Runs play w/out loading new video
-					}else{
-
-
-
-
-						//Pause playback handler
-						if(_playerPlaying){
-							//Pause playback
-							pause();
-
-							//Set playAll icon to play icon if it wasn't already
-							// $('#playAllIcon').attr('src', 'images/icons/play-drk.png');
-
-							_playerPlaying= false;
-
-						}else{
-							var youtubeId = "";
-
-							play(youtubeId);
-
-							//sets playing to true
-							_playerPlaying = true;
-						}//else
-					}//else
 			});//onclick play icon
 
 
@@ -880,7 +820,8 @@ console.log("onPlayerReady");
 		pause 		 	: pause,
 		seekTo 	 		: seekTo,
 		dragging 		: dragging,
-		emitClick 		: emitClick
+		emitClick 		: emitClick,
+		playItem 		: playItem
 	};
 
 	//return constructor
@@ -1098,6 +1039,75 @@ console.log("onPlayerReady");
 				$('.seek-buffered').width($('#seek-bar').width());
 			}
 		}//if draggin false
+	}
+
+
+
+
+
+
+
+
+
+	function playItem(that){
+
+		var playerId = _player.getVideoData().video_id;
+		var id = that.attr('data-videoid');
+
+		//Makes video ctrl transparent so user can see youtube loading gif
+		$('.video-size-ctrl').css({'opacity':'.5'});
+
+		//Sets the current index to enable autoplay feature funcitonality
+		_currentIndex = that.parent().attr('data-index');
+
+		this.newVideo;
+
+		//Checks to see if loaded video matches this video
+		if(playerId !== id){
+			this.newVideo = false;
+		}
+
+
+			//Determines if new video needs to be loaded
+			if(!this.newVideo){
+
+
+				play(id);
+
+
+				//sets new video to false & playing to true
+				this.newVideo = true;
+				// _playerNewVideo = !_playerNewVideo;
+
+				_playerPlaying = true;
+
+
+
+			//Runs play w/out loading new video
+			}else{
+
+
+
+
+				//Pause playback handler
+				if(_playerPlaying){
+					//Pause playback
+					pause();
+
+					//Set playAll icon to play icon if it wasn't already
+					// $('#playAllIcon').attr('src', 'images/icons/play-drk.png');
+
+					_playerPlaying= false;
+
+				}else{
+					var youtubeId = "";
+
+					play(youtubeId);
+
+					//sets playing to true
+					_playerPlaying = true;
+				}//else
+			}//else
 	}
 
 

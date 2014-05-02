@@ -763,6 +763,7 @@ aside.app {
   display: none;
   margin-left: 0;
   width: 25%;
+  min-height: 500px;
   height: 100vh;
   float: left;
   border-right: 1px solid #d6d6d6;
@@ -1119,22 +1120,16 @@ section.app {
 
 .li-col1, .li-col7 {
   width: 8.33333333%;
-  display: none;
 }
 @media only screen and (min-width: 650px) {
   .li-col1, .li-col7 {
     width: 6%;
   }
 }
-@media only screen and (min-width: 650px) {
-  .li-col1, .li-col7 {
-    display: inline-block;
-  }
-}
 
 .li-col2 {
   display: inline-block;
-  width: 100%;
+  width: 83.3333333%;
   float: left;
   padding-right: 2%;
   margin-right: 2%;
@@ -1183,11 +1178,17 @@ section.app {
 .li-col7 {
   float: right;
   margin-top: 18px;
+  display: none;
 }
 .li-col7 svg, .li-col7 img {
   height: 12px;
   width: 12px;
   margin-right: 30%;
+}
+@media only screen and (min-width: 650px) {
+  .li-col7 {
+    display: inline-block;
+  }
 }
 
 .li-header {
@@ -1545,10 +1546,9 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .info {
-  width: 25%;
+  width: 83.3333333%;
   float: left;
   overflow: hidden;
-  display: none;
 }
 .info ul {
   float: left;
@@ -1560,20 +1560,25 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   font-size: .5em;
 }
 .info svg, .info img {
-  display: block;
+  display: none;
   float: left;
   height: 36px;
   width: 27px;
   margin: 18px 18px 0 0;
 }
 @media only screen and (min-width: 650px) {
+  .info svg, .info img {
+    display: block;
+  }
+}
+@media only screen and (min-width: 650px) {
   .info {
-    display: inline-block;
+    width: 25%;
   }
 }
 
 .transport-ctrl {
-  width: 8.33333333%;
+  width: 16.6666667%;
   float: left;
   overflow: hidden;
   height: 100%;
@@ -1598,10 +1603,21 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .transport-ctrl .prev, .transport-ctrl .next {
   max-height: 9px;
   margin-top: 1px;
+  display: none;
+}
+@media only screen and (min-width: 650px) {
+  .transport-ctrl .prev, .transport-ctrl .next {
+    display: inline;
+  }
+}
+@media only screen and (min-width: 650px) {
+  .transport-ctrl {
+    width: 8.33333333%;
+  }
 }
 
 .seek-ctrl {
-  width: 25%;
+  width: 100%;
   float: left;
   position: relative;
   top: 50%;
@@ -1612,7 +1628,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   transform: translateY(-50%);
   height: 36px;
   overflow: hidden;
-  position: relative;
+  position: absolute;
+  top: 0px;
 }
 .seek-ctrl p {
   font-size: 1.2em;
@@ -1623,12 +1640,24 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .seek-ctrl #seek-bar {
   width: 83.3333333%;
 }
+@media only screen and (min-width: 650px) {
+  .seek-ctrl {
+    position: relative;
+    width: 25%;
+    top: 36px;
+  }
+}
 
 .seek-line, .seek-fill, #seek-bar, .seek-buffered {
   width: 83.3333333%;
   height: 0px;
-  border-bottom: 1px solid #272a2a;
+  /*border-bottom: 1px solid nth($grey, 1);*/
   margin-top: 18px;
+}
+@media only screen and (min-width: 650px) {
+  .seek-line, .seek-fill, #seek-bar, .seek-buffered {
+    border-bottom: 1px solid #272a2a;
+  }
 }
 
 .seek-fill {
@@ -1666,6 +1695,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   float: left;
   height: 100%;
   padding-left: 2%;
+  display: none;
 }
 .playmode-ctrl img {
   position: relative;
@@ -1679,11 +1709,17 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   cursor: pointer;
   height: 12px;
 }
+@media only screen and (min-width: 650px) {
+  .playmode-ctrl {
+    display: inline-block;
+  }
+}
 
 .volume-ctrl {
   width: 8.33333333%;
   float: left;
   height: 100%;
+  display: none;
 }
 .volume-ctrl .vol-icon {
   height: 15px;
@@ -1756,21 +1792,32 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   height: 6px;
   border: none;
 }
+@media only screen and (min-width: 650px) {
+  .volume-ctrl {
+    display: inline-block;
+  }
+}
 
 .playing-share-ctrl {
   width: 16.6666667%;
   float: left;
   height: 100%;
   padding: 0 4%;
+  display: none;
 }
 .playing-share-ctrl svg, .playing-share-ctrl img {
   height: 18px;
   width: 24px;
   margin-top: 25%;
 }
+@media only screen and (min-width: 650px) {
+  .playing-share-ctrl {
+    display: inline-block;
+  }
+}
 
 .playon-ctrl {
-  width: 8.33333333%;
+  width: 33.3333333%;
   float: right;
   position: relative;
   top: 50%;
@@ -1779,6 +1826,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  display: none;
 }
 .playon-ctrl h3 {
   font-size: 1.2em;
@@ -1798,6 +1846,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   padding: 3px;
   outline: none;
   height: 27px;
+}
+@media only screen and (min-width: 650px) {
+  .playon-ctrl {
+    width: 8.33333333%;
+    display: inline-block;
+  }
 }
 
 /*Dark Theme Overrides==============================================*/

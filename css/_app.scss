@@ -67,6 +67,7 @@ aside.app{
 	display: none;
 	margin-left: 0;
 	@include col(3);
+	min-height: 500px;
 	height: 100vh;
 	float: left;
 	border-right: 1px solid nth($grey, 4);
@@ -493,20 +494,15 @@ section.app{
 
 .li-col1, .li-col7{
 	@include col(1);
-	display: none;
 
 	@include app-break-smmd{
 		width: 6%;
-	}
-
-	@include app-break-smmd{
-		display: inline-block;
 	}
 }
 
 .li-col2{
 	display: inline-block;
-	@include col(12);
+	@include col(10);
 	float: left;
 	padding-right: 2%;
 	margin-right: 2%;
@@ -553,11 +549,16 @@ section.app{
 .li-col7{
 	float: right;
 	margin-top: 18px;
+	display: none;
 
 	svg, img{
 		height: 12px;
 		width: 12px;
 		margin-right: 30%;
+	}
+
+	@include app-break-smmd{
+		display: inline-block;
 	}
 }
 
@@ -1009,6 +1010,16 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 
+
+
+
+
+
+
+
+
+
+
 /*=====================================*/
 /*Footer Container=====================*/
 /*=====================================*/
@@ -1031,11 +1042,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 .info{
-	@include col(3);
+	@include col(10);
 	float: left;
 	overflow: hidden;
 	// border-right: 1px solid nth($grey, 1);
-	display: none;
 
 	ul{
 		float: left;
@@ -1049,20 +1059,24 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	}
 
 	svg, img{
-		display: block;
+		display: none;
 		float: left;
 		height: 36px;
 		width: 27px;
 		margin: 18px 18px 0 0;
+
+		@include app-break-smmd{
+			display: block;
+		}
 	}
 
 	@include app-break-smmd{
-		display: inline-block;
+		@include col(3);
 	}
 }
 
 .transport-ctrl{
-	@include col(1);
+	@include col(2);
 	float: left;
 	overflow: hidden;
 	// height: 18px;
@@ -1085,16 +1099,26 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	.prev, .next{
 		max-height: 9px;
 		margin-top: 1px;
+		display: none;
+
+		@include app-break-smmd{
+			display: inline;
+		}
+	}
+
+	@include app-break-smmd{
+		@include col(1);
 	}
 }
 
 .seek-ctrl{
-	@include col(3);
+	@include col(12);
 	float: left;
 	@include vertical-align;
 	height: 36px;
 	overflow: hidden;
-	position: relative;
+	position: absolute;
+	top: 0px;
 
 	p{
 		font-size: 1.2em;
@@ -1106,6 +1130,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	#seek-bar{
 		@include col(10);
 	}
+
+	@include app-break-smmd{
+		position: relative;
+		@include col(3);
+		top: 36px;
+	}
 }
 
 
@@ -1114,9 +1144,13 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	@include col(10);
 	// @include col-ctr(10);
 	height: 0px;
-	border-bottom: 1px solid nth($grey, 1);
+	/*border-bottom: 1px solid nth($grey, 1);*/
 	// @include vertical-align;
 	margin-top:18px;
+
+	@include app-break-smmd{
+		border-bottom: 1px solid nth($grey, 1);
+	}
 }
 
 
@@ -1160,12 +1194,17 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	float: left;
 	height: 100%;
 	padding-left: 2%;
+	display: none;
 
 	img{
 		@include vertical-align;
 		margin-left: 10%;
 		cursor: pointer;
 		height: 12px;
+	}
+
+	@include app-break-smmd{
+		display: inline-block;
 	}
 }
 
@@ -1176,6 +1215,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	// padding-right: 10%;
 	// border-left: 1px solid nth($grey, 1);
 	// border-right: 1px solid nth($grey, 1);
+	display: none;
 
 	.vol-icon{
 		height: 15px;
@@ -1245,7 +1285,9 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	    border: none;
 	}
 
-
+	@include app-break-smmd{
+		display: inline-block;
+	}
 
 }
 
@@ -1255,18 +1297,24 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	height: 100%;
 	padding: 0 4%;
 	// border-right: 1px solid nth($grey, 1);
+	display: none;
 
 	svg, img{
 		height: 18px;
 		width: 24px;
 		margin-top: 25%;
 	}
+
+	@include app-break-smmd{
+		display: inline-block;
+	}
 }
 
 .playon-ctrl{
-	@include col(1);
+	@include col(4);
 	float: right;
 	@include vertical-align;
+	display: none;
 
 	h3{
 		font-size: 1.2em;
@@ -1287,6 +1335,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		padding: 3px;
 		outline: none;
 		height: 27px;
+	}
+
+	@include app-break-smmd{
+		@include col(1);
+		display: inline-block;
 	}
 }
 
