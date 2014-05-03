@@ -584,22 +584,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-		//Reload library when song removed form library
-		$(document).on('songremoved', function(){
-
-			//Load library items
-			loadLibrary(_currentSkip);
-		});
-
-
-
-
-
-
-
-
-
-
 
 		//Reload playlists when new playlist added
 		$(document).on('playlistadded', function(){

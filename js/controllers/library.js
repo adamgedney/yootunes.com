@@ -268,10 +268,9 @@ define(['jquery'], function($){
 			dataType : 'json',
 			success : function(response){
 
-				//Dispatches event to application for library reloading in content controller
-				$.event.trigger({
-					type : 'songremoved'
-				});
+
+				//hide the item just removed form lib. so library doesn't reload
+				$('.resultItems[data-id=' + id + ']').hide();
 
 				//Indicate song was removed in Library songs display in sidebar
 				if(response === true){

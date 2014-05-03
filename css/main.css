@@ -1546,6 +1546,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   background: rgba(0, 0, 0, 0.5);
   z-index: 99999;
   opacity: .75;
+  overflow: hidden;
 }
 
 #adsense1 {
