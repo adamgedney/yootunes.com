@@ -1009,7 +1009,43 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 // 	bottom: 67px;
 // }
 
+#adsense{
+	position: absolute;
+	left: 25%;
+	@include col(9);
+	bottom: 72px;
+	height: 61px;
+	background: rgba(0,0,0,.5);
+	z-index: 99999;
+}
 
+#adsense1{
+	width: 468px;
+	height: 60px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+#adsense2{
+	width: 468px;
+	height: 60px;
+	position: absolute;
+	left: 500px;
+	bottom: 0;
+}
+
+
+.ytbanner {
+	width: 468px;
+	height: 60px;
+	float: left;
+	text-align: left;
+	left: 0;
+}
+
+/*@media(min-width: 500px) { .ytbanner { width: 468px; height: 60px; } }
+@media(min-width: 800px) { .ytbanner { width: 728px; height: 90px; } }*/
 
 
 
