@@ -840,12 +840,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 		//Google+ Auth script
-		// var po = document.createElement('script');
-		//    po.type = 'text/javascript'; po.async = true;
-		//    po.src = 'https://apis.google.com/js/client:plusone.js';
+		var po = document.createElement('script');
+		   po.type = 'text/javascript'; po.async = true;
+		   po.src = 'https://apis.google.com/js/client:plusone.js';
 
-	 //   	var s = document.getElementsByTagName('script')[0];
-	 //   		s.parentNode.insertBefore(po, s);
+	   	var s = document.getElementsByTagName('script')[0];
+	   		s.parentNode.insertBefore(po, s);
 	   	//End Google+ auth script
 	}
 
