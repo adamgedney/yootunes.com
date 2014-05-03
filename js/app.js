@@ -44,13 +44,14 @@ require.config({
 require(['modernizr', 'jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'User', 'lightbox', 'Player'],
 	function(modernizr, jquery, Init, Auth, Content, Ui, Library, User, lightbox, Player){
 
-		//Load async scripts
-		Content.loadScripts();
 
 		var init 			= new Init();
 		var auth 			= new Auth();
 		var ui 				= new Ui();
 		var player 			= new Player();
+
+		//Load async scripts
+		Content.loadScripts();
 
 });
 

@@ -297,18 +297,20 @@ header #sign-in-btn {
   margin-top: 15px;
 }
 
-.plusContainerSM, .plusContainerLG {
-  width: 100%;
-  background: #D84937;
-  /*plus button color*/
-  border-radius: 5px;
-  padding: 9px 0 0 6%;
+	                    /*
+.plusContainerSM, .plusContainerLG{
+	width: 100%;
+	background: #D84937;/*plus button color*/
+	                                         /*
+	border-radius: 5px;
+	padding: 9px 0 0 6%;
+
 }
 
-.plusContainerLG {
-  padding: 9px 0 0 25%;
+.plusContainerLG{
+	padding: 9px 0 0 25%;
 }
-
+*/
 .hero {
   width: 100%;
   overflow: hidden;
