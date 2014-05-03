@@ -190,7 +190,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 				    	dataType : 'json',
 				    	success : function(response){
 
-
+				    		console.log(response[0], "plus response");
 			    			//Load app, set cookie, fire event
 							loadApplication(response[0]);
 

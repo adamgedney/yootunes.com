@@ -19,28 +19,10 @@ require.config({
 	}
 });
 
-// packages 		: [
-// 		{
-// 			name : 'jquery',
-// 			location : 'libs/',
-// 			main : 'jquery'
-// 		}
-// 	]
-
-// ,
-// 	shim: {
-//         Content : {
-//             exports : 'Content'
-//         },
-//         User : {
-//         	exports : 'User'
-//         }
-//     }
-
-	// socketio 	: 'http://yooss.pw:41795/socket.io/socket.io',
 
 
-// //Instantiate Controllers
+
+//Instantiate Controllers
 require(['modernizr', 'jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'User', 'lightbox', 'Player'],
 	function(modernizr, jquery, Init, Auth, Content, Ui, Library, User, lightbox, Player){
 
@@ -56,6 +38,4 @@ require(['modernizr', 'jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'User
 });
 
 
-// // 'Ui', 'Library', 'Player', 'User'
-// //  Ui, Library, Player, User
 
