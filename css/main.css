@@ -1214,6 +1214,11 @@ section.app {
   margin-top: 0;
   display: none;
 }
+@media only screen and (min-width: 650px) {
+  .li-header .li-col7 {
+    display: inline-block;
+  }
+}
 .li-header .viewSongs, .li-header .viewArtists, .li-header .viewAlbums, .li-header .viewGenres {
   cursor: pointer;
 }

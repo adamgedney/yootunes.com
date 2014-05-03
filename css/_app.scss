@@ -585,6 +585,9 @@ section.app{
 		text-align: right;
 		margin-top: 0;
 		display: none;
+
+		@include app-break-smmd{
+			display: inline-block;		}
 	}
 
 	.viewSongs, .viewArtists, .viewAlbums, .viewGenres{
