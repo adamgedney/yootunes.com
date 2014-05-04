@@ -85,17 +85,17 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			socketService.joinRoom(_userId);
 
 				//Get device id of current play on device selection
-				_playOnDevice =  $('#play-on option:selected').attr('data-id');
+				// _playOnDevice =  $('#play-on option:selected').attr('data-id');
 
-				//Build obj for socket transmission
-				var data = {
-					'device' 			: _playOnDevice,
-					'controllerDevice' 	: _thisDevice,
-					'userId' 			: _userId
-				}
+				// //Build obj for socket transmission
+				// var data = {
+				// 	'device' 			: _playOnDevice,
+				// 	'controllerDevice' 	: _thisDevice,
+				// 	'userId' 			: _userId
+				// }
 
 				//Emit pause to force entrance into room
-				_socketConnect.emit('pause', data);
+				_socketConnect.emit('force');
 
 				//
 				pause();
@@ -673,7 +673,9 @@ console.log("onPlayerReady");
 
 
 
-
+		_socketConnect.on('roomForced', function () {
+			console.log("forced received from socket");
+		});
 
 
 
