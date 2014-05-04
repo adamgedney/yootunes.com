@@ -650,16 +650,6 @@ console.log("onPlayerReady");
 
 
 
-		//Reload devices in slave mode to prevent glitched controlling
-		$(document).on('slaveMode', function(){
-
-			console.log("slave mode player cont");
-
-			_player.unMute();
-
-			//Set icon to unmuted icon
-			$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
-		});
 
 
 
@@ -681,11 +671,16 @@ console.log("onPlayerReady");
 					type : 'slaveMode'
 				});
 
+				//UnMute
+				_player.unMute();
+				//Set icon to unmuted icon
+				$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
+
 
 				console.log("socket play return event received thisDev/response", _thisDevice, response);
 
 				//Hide the shuffle icon ** may need to display none it
-				$('#shuffleResults').css('opacity','1');
+				$('#shuffleResults').css('opacity','0');
 
 
 					//Check to see if this is a new video
