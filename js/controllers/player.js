@@ -84,7 +84,21 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			//Join user to his room for playOn control
 			socketService.joinRoom(_userId);
 
-			pause();
+				//Get device id of current play on device selection
+				_playOnDevice =  $('#play-on option:selected').attr('data-id');
+
+				//Build obj for socket transmission
+				var data = {
+					'device' 			: _playOnDevice,
+					'controllerDevice' 	: _thisDevice,
+					'userId' 			: _userId
+				}
+
+				//Emit pause to force entrance into room
+				_socketConnect.emit('pause', data);
+
+				//
+				pause();
 		});
 
 
