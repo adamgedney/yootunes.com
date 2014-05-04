@@ -81,9 +81,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		//on playOn change, pause video to enable transition
 		$(document).on('change', '#play-on', function(){
 
-			//Join user to his room for playOn control
-			socketService.joinRoom(_userId);
-
 			pause();
 		});
 
@@ -101,6 +98,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		$(document).on('rendered', function(event){
 
 			if(event.template === '#app'){
+
+				//Join user to his room for playOn control
+				socketService.joinRoom(_userId);
 
 				//Ensure shuffle icon is visible if previously hidden by playOn mode
 				$('#shuffleResults').css('opacity','1');
