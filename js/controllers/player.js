@@ -81,6 +81,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		//on playOn change, pause video to enable transition
 		$(document).on('change', '#play-on', function(){
 
+			//Join user to his room for playOn control
+			socketService.joinRoom(_userId);
+
 			pause();
 		});
 
@@ -99,9 +102,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 			if(event.template === '#app'){
 
-				//Join user to his room for playOn control
-				socketService.joinRoom(_userId);
-
 				//Ensure shuffle icon is visible if previously hidden by playOn mode
 				$('#shuffleResults').css('opacity','1');
 			}
@@ -110,8 +110,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			//When libary items have loaded
 			if(event.template === '#libraryItem'){
 
-				//When list is loaded, if list item video is playing, set icon to pause
+				//Join user to his room for playOn control
+				socketService.joinRoom(_userId);
 
+
+				//When list is loaded, if list item video is playing, set icon to pause
 				$('.playIconImg[data-videoid=' + _playingVideo + ']').attr('src', 'images/icons/pause-drk.png');
 
 
