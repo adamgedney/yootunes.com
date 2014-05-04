@@ -991,23 +991,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 
-// #banner-ads{
-// 	position: absolute;
-// 	width: 800px;
-// 	height: 75px;
-// 	bottom: 67px;
-// 	right: 0;
-// 	background: $red;
-// }
 
-
-// .adsbygoogle{
-// 	background: nth($grey, 4);
-// 	@include col(12);
-// 	position: relative;
-// 	z-index: 300;
-// 	bottom: 67px;
-// }
 
 #adsense{
 	position: absolute;
@@ -1016,7 +1000,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	bottom: 72px;
 	height: 61px;
 	background: rgba(0,0,0,.5);
-	z-index: 99999;
+	z-index: 999;
 	opacity: .75;
 	overflow: hidden;
 	display: none;
