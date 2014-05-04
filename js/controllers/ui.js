@@ -14,7 +14,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 
 	//private vars
-	var _baseUrl 		= 'http://yooapi.pw';
+	var _baseUrl 		= 'http://api.yootunes.com';
 
 	var _seek 				= {};
 		_seek.drag,

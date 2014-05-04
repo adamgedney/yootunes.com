@@ -9,7 +9,7 @@ define(['jquery', 'User', 'Content', 'getCookies', 'socketService'], function($,
 	var _userId;
 	var _thisDevice;
 	var _playlistId 		= 0;
-	var _baseUrl 			= 'http://yooapi.pw';
+	var _baseUrl 			= 'http://api.yootunes.com';
 
 
 

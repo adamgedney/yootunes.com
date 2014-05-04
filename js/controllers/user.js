@@ -10,7 +10,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 	//private vars
-	var _baseUrl 	= 'http://yooapi.pw';
+	var _baseUrl 	= 'http://api.yootunes.com';
 	var _userId;
 	var _devices 	= [];
 	var _thisDevice;

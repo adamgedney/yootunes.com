@@ -9,7 +9,7 @@ define(['jquery'], function($){
 	//private vars
 	var _addedToLibrary = false;
 	var _libraryId 		= '';
-	var _baseUrl 		= 'http://yooapi.pw';
+	var _baseUrl 		= 'http://api.yootunes.com';
 
 
 
