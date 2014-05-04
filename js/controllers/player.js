@@ -675,6 +675,16 @@ console.log("onPlayerReady");
 
 		_socketConnect.on('roomForced', function () {
 			console.log("forced received from socket");
+
+			//Build obj for socket transmission
+			var data = {
+				'device' 			: _playOnDevice,
+				'controllerDevice' 	: _thisDevice,
+				'userId' 			: _userId
+			}
+
+			_socketConnect.emit('pause', data);
+
 		});
 
 
