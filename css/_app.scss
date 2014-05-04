@@ -1370,6 +1370,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		font-size: 1.2em;
 	}
 
+	select#play-on:-moz-focusring {
+	    color: transparent;
+	    text-shadow: 0 0 0 $white;
+	}
+
 	select#play-on{
 		@include col(11);
 		background: transparent;
@@ -1385,6 +1390,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		padding: 3px;
 		outline: none;
 		height: 27px;
+		color: $white;
+
+		option{
+			color: $white;
+		}
 	}
 
 	@include app-break-smmd{

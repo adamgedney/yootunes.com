@@ -1885,6 +1885,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .playon-ctrl h3 {
   font-size: 1.2em;
 }
+.playon-ctrl select#play-on:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #ebebeb;
+}
 .playon-ctrl select#play-on {
   width: 91.6666666%;
   background: transparent;
@@ -1900,6 +1904,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   padding: 3px;
   outline: none;
   height: 27px;
+  color: #ebebeb;
+}
+.playon-ctrl select#play-on option {
+  color: #ebebeb;
 }
 @media only screen and (min-width: 650px) {
   .playon-ctrl {
