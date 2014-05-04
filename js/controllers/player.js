@@ -671,11 +671,6 @@ console.log("onPlayerReady");
 					type : 'slaveMode'
 				});
 
-				//UnMute
-				_player.unMute();
-				//Set icon to unmuted icon
-				$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
-
 
 				console.log("socket play return event received thisDev/response", _thisDevice, response);
 
@@ -686,6 +681,12 @@ console.log("onPlayerReady");
 					//Check to see if this is a new video
 					if(response.newVideo === "false"){
 
+						//unmute the controller
+						_player.unMute();
+
+						//Set icon to unmuted icon
+						$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
+
 						_player.playVideo();
 						// var id = _player.getVideoData().video_id;
 
@@ -695,6 +696,12 @@ console.log("onPlayerReady");
 						_playerPlaying= !_playerPlaying;
 
 					}else{
+						//unmute the controller
+						_player.unMute();
+
+						//Set icon to unmuted icon
+						$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
+
 						_player.loadVideoById(response.youtubeId);
 					}//else
 			}//if _thisDevice
