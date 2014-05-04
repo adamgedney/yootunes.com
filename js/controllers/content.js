@@ -62,16 +62,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Songs library page load interaction=========//
 		$(document).on('click', '.viewSongs', function(event){
 
-			var by = "youtube_title";
-
-			resetPagination();
-
-			sortList(by);
-
-			activeLibraryItem('.viewSongs');
-
-			//Set correct container height
-			$('.scroll-container').css('height', '74vh');
+			loadFilteredLibrary('youtube_title', '.viewSongs');
 
 		});
 
@@ -87,16 +78,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Artists library page load interaction=========//
 		$(document).on('click', '.viewArtists', function(event){
 
-			var by = "artist";
-
-			resetPagination();
-
-			sortList(by);
-
-			activeLibraryItem('.viewArtists');
-
-			//Set correct container height
-			$('.scroll-container').css('height', '74vh');
+			loadFilteredLibrary('artist', '.viewArtists');
 		});
 
 
@@ -111,16 +93,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Albums library page load interaction=========//
 		$(document).on('click', '.viewAlbums', function(event){
 
-			var by = "album";
-
-			resetPagination();
-
-			sortList(by);
-
-			activeLibraryItem('.viewAlbums');
-
-			//Set correct container height
-			$('.scroll-container').css('height', '74vh');
+			loadFilteredLibrary('album', '.viewAlbums');
 		});
 
 
@@ -135,16 +108,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Genres library page load interaction=========//
 		$(document).on('click', '.viewGenres', function(event){
 
-			var by = "genre";
-
-			resetPagination();
-
-			sortList(by);
-
-			activeLibraryItem('.viewGenres');
-
-			//Set correct container height
-			$('.scroll-container').css('height', '74vh');
+			loadFilteredLibrary('genre', '.viewGenres');
 
 		});
 
@@ -307,6 +271,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//ON APP RENDER========================//
 			if(event.template === '#app'){
 
+				//Show adsense ads on app load
+				$('#adsense').show();
+
 				//paged loading of library items every 1.5s until
 				//full library is loaded
 				_loadInterval = setInterval(pageLoader, 1500);
@@ -430,8 +397,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-
-
 				//Set the application theme colors
 				//again to ensure lib items are styled
 				//once they hit the DOM
@@ -499,6 +464,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 			//ON ACCT SETTINGS RENDER========================//
 			if(event.template === '#acctSettings'){
+
+				//Hide ads on acct settings page
+				$('#adsense').hide();
 
 				//Check/uncheck theme option based on current setting
 				if(window.theme === "dark"){
@@ -677,9 +645,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 	//return constructor
 	return obj;
-
-
-
 
 
 
@@ -1366,6 +1331,30 @@ console.log(_currentSkip, "else");
 		_currentSkip 	= 0;
 		_onPage 		= 1;
 		_userSongs 		= [];
+	}
+
+
+
+
+
+
+
+
+	//loads library from LIbrary menu click for sorting
+	// -songs,artists,albums,genres
+	function loadFilteredLibrary(sortBy, activeItem){
+
+		resetPagination();
+
+		sortList(sortBy);
+
+		activeLibraryItem(activeItem);
+
+		//Set correct container height
+		$('.scroll-container').css('height', '74vh');
+
+		//Shows ads if coming from acct settings page
+		$('#adsense').show();
 	}
 
 
