@@ -1327,13 +1327,20 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 	input[type='range']::-moz-range-track {
 		outline: none;
+	/*	color: transparent;
+		height: 2px;*/
 	}
+
 
 	input[type='range']::-moz-range-thumb{
 		width: 6px;
 	    height: 6px;
 	    border: none;
+
+	    color: transparent;
+	    text-shadow: 0 0 0 $white;
 	}
+
 
 	@include app-break-smmd{
 		display: inline-block;

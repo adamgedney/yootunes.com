@@ -650,6 +650,25 @@ console.log("onPlayerReady");
 
 
 
+		//Reload devices in slave mode to prevent glitched controlling
+		$(document).on('slaveMode', function(){
+
+			console.log("slave mode player cont");
+
+			_player.unMute();
+
+			//Set icon to unmuted icon
+			$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
+		});
+
+
+
+
+
+
+
+
+
 		//=============================//
 		//Listen for socket ON PLAY
 		//=============================//
@@ -659,7 +678,7 @@ console.log("onPlayerReady");
 
 				//Set slave to fullscreen
 				$(document).trigger({
-					type : 'enterFullscreen'
+					type : 'slaveMode'
 				});
 
 

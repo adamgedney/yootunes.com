@@ -260,6 +260,24 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
+		//Reload devices in slave mode to prevent glitched controlling
+		$(document).on('slaveMode', function(){
+
+			console.log("slave mode content cont");
+			User.getDevices(_userId, function(response){
+
+				renderDevices(response);
+			});//getDevices
+
+		});
+
+
+
+
+
+
+
+
 
 
 
