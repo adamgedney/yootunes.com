@@ -673,8 +673,8 @@ console.log("onPlayerReady");
 
 
 
-		_socketConnect.on('roomForced', function () {
-			console.log("forced received from socket");
+		_socketConnect.on('roomForced', function (response) {
+			console.log("forced received from socket", response);
 
 			//Build obj for socket transmission
 			var data = {
