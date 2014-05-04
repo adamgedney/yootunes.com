@@ -695,7 +695,10 @@ console.log("onPlayerReady");
 		//Listen for socket ON PLAY
 		//=============================//
 		_socketConnect.on('playOn', function (response) {
-			console.log("playOn received from socket",_thisDevice, response);
+
+			//Set thisDevice from content controller's determination
+			_thisDevice = window.thisDevice;
+
 			if(_thisDevice === response.device){
 
 				//Set slave to fullscreen
