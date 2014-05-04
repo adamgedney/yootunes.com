@@ -81,6 +81,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		//on playOn change, pause video to enable transition
 		$(document).on('change', '#play-on', function(){
 
+			//Join user to his room for playOn control
+			socketService.joinRoom(_userId);
+
 			pause();
 		});
 
@@ -1202,7 +1205,7 @@ console.log("onPlayerReady");
 
 				//EMIT event back to server
 				_socketConnect.emit('play', _data);
-
+				console.log('play emit just sent');
 				//Delay play by 1s to wait for socket connection to load slave video
 				// setTimeout(, 1000);
 

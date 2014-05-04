@@ -178,9 +178,6 @@ define(['jquery', 'User', 'Content', 'getCookies', 'socketService'], function($,
 
 	function loadApplication(){
 
-		//Join user to his room for playOn control
-		socketService.joinRoom(_userId);
-
 		//fire event passing user data to listening class
 		$.event.trigger({
 			type 			: 'userloggedin',
