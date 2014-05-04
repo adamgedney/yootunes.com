@@ -81,23 +81,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		//on playOn change, pause video to enable transition
 		$(document).on('change', '#play-on', function(){
 
-			//Join user to his room for playOn control
-			socketService.joinRoom(_userId);
-
-				//Get device id of current play on device selection
-				_playOnDevice =  $('#play-on option:selected').attr('data-id');
-
-				//Build obj for socket transmission
-				var data = {
-					'device' 			: _playOnDevice,
-					'controllerDevice' 	: _thisDevice,
-					'userId' 			: _userId
-				}
-
-				//Emit pause to force entrance into room
-				_socketConnect.emit('force', data);
-
-				//
 				pause();
 		});
 
@@ -131,16 +114,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				//When list is loaded, if list item video is playing, set icon to pause
 				$('.playIconImg[data-videoid=' + _playingVideo + ']').attr('src', 'images/icons/pause-drk.png');
 
-
-				//NOTE:*** Moved to library rendered in content-----
-				// //Loop through all list items to assign an index number
-				// $('.resultItems').each(function(index, value){
-
-				// 	//Sets an index number to each li item
-				// 	$('.resultItems:eq(' + index + ')').attr('data-index', index);
-
-
-				// });//each
 			};//#libraryItem
 		});//on rendered
 
@@ -667,25 +640,6 @@ console.log("onPlayerReady");
 
 
 
-
-
-
-
-
-
-		_socketConnect.on('roomForced', function (response) {
-			console.log("forced received from socket", response);
-
-			//Build obj for socket transmission
-			var data = {
-				'device' 			: _playOnDevice,
-				'controllerDevice' 	: _thisDevice,
-				'userId' 			: _userId
-			}
-
-			_socketConnect.emit('pause', data);
-
-		});
 
 
 
