@@ -826,27 +826,32 @@ aside.app {
   bottom: 72px;
   left: 0;
   z-index: 990;
-  height: 33px;
+  height: 48px;
   text-align: right;
   border-bottom: 1px solid #272a2a;
 }
 .video-size-ctrl svg, .video-size-ctrl img {
   height: 27px;
   width: 27px;
+  margin-top: 9px;
   margin-left: 3px;
   cursor: pointer;
 }
 .video-size-ctrl svg:first-child, .video-size-ctrl img:first-child {
   width: 18px;
+  height: 27px;
 }
 .video-size-ctrl svg:last-child, .video-size-ctrl img:last-child {
   width: 36px;
+  height: 27px;
   margin-left: 0;
 }
 @media only screen and (min-width: 650px) {
   .video-size-ctrl {
     width: 25%;
     z-index: 1002;
+    height: 33px;
+    margin-top: 3px;
   }
 }
 
@@ -857,7 +862,7 @@ aside.app {
 #video {
   width: 100%;
   position: fixed;
-  bottom: 72px;
+  bottom: 87px;
   left: 0;
   /*z-index:1005;*/
   z-index: 989;
@@ -868,6 +873,7 @@ aside.app {
   #video {
     width: 25%;
     z-index: 1000;
+    bottom: 72px;
   }
 }
 
@@ -1621,7 +1627,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   position: absolute;
   left: 0;
   width: 100%;
-  bottom: 105px;
+  bottom: 120px;
   height: 61px;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
@@ -1997,11 +2003,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
     font-size: 1.2em;
   }
 }
-.playon-ctrl select#play-on:-moz-focusring {
+.playon-ctrl select.play-on:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #ebebeb;
 }
-.playon-ctrl select#play-on {
+.playon-ctrl select.play-on {
   width: 91.6666666%;
   background: transparent;
   background: url(../images/icons/down-arrow-wht.svg) no-repeat 90%;
@@ -2018,7 +2024,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   height: 27px;
   color: #ebebeb;
 }
-.playon-ctrl select#play-on option {
+.playon-ctrl select.play-on option {
   color: #ebebeb;
 }
 @media only screen and (min-width: 650px) {

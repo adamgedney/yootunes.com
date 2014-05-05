@@ -49,10 +49,13 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		//taht starts at the offset left of the hovered over item.
 		//use for tooltips, feedback, validation, error messages, and upgrade acct encouragement.
 
+		//on window resize, recalculate windowWidth for queries
+		window.windowWidth = $(window).width();
 
+		$(window).resize(function() {
+			window.windowWidth = $(window).width();
 
-
-
+		});
 
 
 
@@ -175,7 +178,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		$(document).on('click', '.dropdown-trigger', function(event){
 
 			//Prevent dropdown on mobile view
-			if($(window).width() > '650'){
+			if(window.windowWidth > '650'){
 
 				//Ensures form is hidden at start
 				$('.newPlaylistForm').hide();
@@ -494,7 +497,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 			this.toggle;
 
-			if(this.toggle){
+			if(!this.toggle){
 				$('#adsense').fadeOut();
 
 				$('section.app').addClass('mainSlideRight');
@@ -661,7 +664,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	//Controls entering fullscreen iframe manipulation
 	function enterFullscreen(){
 
-		if($(window).width() < '650'){
+		if(window.windowWidth < '650'){
 
 		}else{
 
@@ -707,7 +710,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	function showNormalSize(){
 
 
-		if($(window).width() < '650'){
+		if(window.windowWidth < '650'){
+
+			//hide ads
+			$('#adsense').hide();
 
 			$('iframe#video').css({
 				'height'   : '227px',
@@ -764,7 +770,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	//Controls minimizing the video
 	function showMinSize(){
 
-		if($(window).width() < '650'){
+		if(window.windowWidth < '650'){
+
+			//Show ads
+			$('#adsense').show();
 
 			$('iframe#video').css({
 				'position' : 'absolute',

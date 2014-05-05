@@ -128,29 +128,34 @@ aside.app{
 	bottom: 72px;
 	left: 0;
 	z-index:990;
-	height: 33px;
+	height: 48px;
 	text-align: right;
 	border-bottom: 1px solid nth($grey, 1);
 
 	svg, img{
 		height: 27px;
 		width: 27px;
+		margin-top: 9px;
 		margin-left: 3px;
 		cursor: pointer;
 	}
 
 	svg:first-child, img:first-child{
 		width: 18px;
+		height: 27px;
 	}
 
 	svg:last-child, img:last-child{
 		width: 36px;
+		height: 27px;
 		margin-left: 0;
 	}
 
 	@include app-break-smmd{
 		@include col(3);
 		z-index: 1002;
+		height: 33px;
+		margin-top: 3px;
 	}
 }
 
@@ -164,7 +169,7 @@ aside.app{
 	// background: $black;//remove during tests. Placeholder bg color so video can be commented out
 	@include col(12);
 	position: fixed;
-	bottom: 72px;
+	bottom: 87px;
 	left: 0;
 	/*z-index:1005;*/
 	z-index: 989;
@@ -174,6 +179,7 @@ aside.app{
 	@include app-break-smmd{
 		@include col(3);
 		z-index:1000;
+		bottom: 72px;
 	}
 }
 
@@ -1073,7 +1079,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	position: absolute;
 	left: 0;
 	@include col(12);
-	bottom: 105px;
+	bottom: 120px;
 	height: 61px;
 	background: rgba(0,0,0,.5);
 	z-index: 999;
@@ -1460,12 +1466,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		}
 	}
 
-	select#play-on:-moz-focusring {
+	select.play-on:-moz-focusring {
 	    color: transparent;
 	    text-shadow: 0 0 0 $white;
 	}
 
-	select#play-on{
+	select.play-on{
 		@include col(11);
 		background: transparent;
 		background: url(../images/icons/down-arrow-wht.svg) no-repeat 90%;

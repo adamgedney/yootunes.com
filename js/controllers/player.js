@@ -80,7 +80,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 		//on playOn change, pause video to enable transition
-		$(document).on('change', '#play-on', function(){
+		$(document).on('change', '.play-on', function(){
 
 				pause();
 		});
@@ -442,16 +442,18 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 			});//onclick play icon
 
-			//Mobile view song play on li click
-			if($(window).width() < '650'){
+
 
 				$(document).on('click', '.dropdown-trigger', function(event){
-
-					var item = $(this).parent().find('.play-icon');
-					playItem(item);
+					console.log(window.windowWidth);
+					//Mobile view song play on li click
+					if(window.windowWidth < '650'){
+						var item = $(this).parent().find('.play-icon');
+						playItem(item);
+					}
 
 				});//onclick play icon
-			}
+
 
 
 
@@ -1136,7 +1138,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		_thisDevice = window.thisDevice;
 
 		//Get device id of current play on device selection
-		_playOnDevice =  $('#play-on option:selected').attr('data-id');
+		_playOnDevice =  $('.play-on option:selected').attr('data-id');
 
 		//Build obj for socket transmission
 		_data = {
@@ -1256,7 +1258,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 	function pause(){
 
 		//Get device id of current play on device selection
-		_playOnDevice =  $('#play-on option:selected').attr('data-id');
+		_playOnDevice =  $('.play-on option:selected').attr('data-id');
 
 
 		//Connection to socketserver runs if we choose to be a controller
