@@ -1007,8 +1007,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .modal{
-	@include col(3);
-	@include col_ctr(3);
+	@include col(10);
+	@include col_ctr(10);
 	position: relative;
 	background: $white;
 	border-radius: 2px;
@@ -1023,6 +1023,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 	p{
 		font-size: 1.2em;
+	}
+
+	@include app-break-smmd{
+		@include col(3);
+		@include col_ctr(3);
 	}
 }
 

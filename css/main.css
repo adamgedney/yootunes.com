@@ -1569,9 +1569,9 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .modal {
-  width: 25%;
-  margin-left: 37.5%;
-  margin-right: 37.5%;
+  width: 83.3333333%;
+  margin-left: 8.33333335%;
+  margin-right: 8.33333335%;
   position: relative;
   background: #ebebeb;
   border-radius: 2px;
@@ -1585,6 +1585,13 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 .modal p {
   font-size: 1.2em;
+}
+@media only screen and (min-width: 650px) {
+  .modal {
+    width: 25%;
+    margin-left: 37.5%;
+    margin-right: 37.5%;
+  }
 }
 
 .modalCloseIcon {
