@@ -536,6 +536,18 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 
 
+		//Hide adsense ads for a time
+		$(document).on('click', '#closeAds', function(event){
+			hideAdsense();
+		});
+
+
+
+
+
+
+
+
 
 
 
@@ -912,6 +924,24 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
 		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('dark-input-bg');
+	}
+
+
+
+
+
+
+
+
+
+
+	function hideAdsense(){
+		$('#adsense').fadeOut();
+		setTimeout(showAdsense, 25000);
+	}
+
+	function showAdsense(){
+		$('#adsense').fadeIn();
 	}
 
 

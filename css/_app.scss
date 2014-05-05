@@ -1079,6 +1079,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 
+#closeAds{
+	position: relative;
+	top: 0;
+	left: 92%;
+	z-index: 1000;
+}
 
 #adsense{
 	position: absolute;
@@ -1089,7 +1095,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	background: rgba(0,0,0,.5);
 	z-index: 999;
 	opacity: .75;
-	overflow: hidden;
+	overflow-x: hidden;
 	display: none;
 
 	@include app-break-smmd{
