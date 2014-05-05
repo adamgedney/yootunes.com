@@ -761,43 +761,92 @@ html {
   /*give gothic font some space*/
 }
 
+#mobile-header {
+  height: 48px;
+  background: #0f1010;
+  position: relative;
+  z-index: 9999;
+}
+#mobile-header #menu-btn {
+  display: inline-block;
+  margin: 0 0 9px 18px;
+}
+#mobile-header .mobile-logo {
+  display: inline-block;
+  width: 155px;
+  margin: 3px 22%;
+}
+@media only screen and (min-width: 650px) {
+  #mobile-header {
+    display: none;
+  }
+}
+
+.sidebarSlideRight {
+  left: 0 !important;
+  transition-duration: 0.7s;
+  -webkit-transition-duration: 0.7s;
+}
+
+.sidebarSlideLeft {
+  left: -66.6666666% !important;
+  transition-duration: 0.7s;
+  -webkit-transition-duration: 0.7s;
+}
+
 aside.app {
-  display: none;
+  position: absolute;
+  z-index: 998;
+  /*display: none;*/
   margin-left: 0;
-  width: 25%;
+  left: -66.6666666%;
+  width: 66.6666666%;
   min-height: 500px;
   height: 100vh;
   float: left;
   border-right: 1px solid #d6d6d6;
   overflow: hidden;
-}
-aside.app .video-size-ctrl {
   background: #0f1010;
-  width: 25%;
+  /*experimenting with dark bg*/
+}
+@media only screen and (min-width: 650px) {
+  aside.app {
+    width: 25%;
+    left: 0;
+    display: block;
+    position: relative;
+    background: none;
+  }
+}
+
+.video-size-ctrl {
+  background: #0f1010;
+  width: 100%;
   position: fixed;
   bottom: 72px;
   left: 0;
-  z-index: 1002;
+  z-index: 1006;
   height: 33px;
   text-align: right;
   border-bottom: 1px solid #272a2a;
 }
-aside.app .video-size-ctrl svg, aside.app .video-size-ctrl img {
+.video-size-ctrl svg, .video-size-ctrl img {
   height: 27px;
   width: 27px;
   margin-left: 3px;
   cursor: pointer;
 }
-aside.app .video-size-ctrl svg:first-child, aside.app .video-size-ctrl img:first-child {
+.video-size-ctrl svg:first-child, .video-size-ctrl img:first-child {
   width: 18px;
 }
-aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-child {
+.video-size-ctrl svg:last-child, .video-size-ctrl img:last-child {
   width: 36px;
   margin-left: 0;
 }
 @media only screen and (min-width: 650px) {
-  aside.app {
-    display: block;
+  .video-size-ctrl {
+    width: 25%;
+    z-index: 1002;
   }
 }
 
@@ -806,13 +855,19 @@ aside.app .video-size-ctrl svg:last-child, aside.app .video-size-ctrl img:last-c
 }
 
 #video {
-  width: 25%;
+  width: 100%;
   position: fixed;
   bottom: 72px;
   left: 0;
-  z-index: 1000;
+  z-index: 1005;
   height: 33px;
   border: none;
+}
+@media only screen and (min-width: 650px) {
+  #video {
+    width: 25%;
+    z-index: 1000;
+  }
 }
 
 .loading {
@@ -974,6 +1029,18 @@ li.playlist-dropdown:hover {
 /*=====================================*/
 /*Main Content container===============*/
 /*=====================================*/
+.mainSlideRight {
+  margin-left: 66.6666666%;
+  transition-duration: 0.7s;
+  -webkit-transition-duration: 0.7s;
+}
+
+.mainSlideLeft {
+  margin-left: 0;
+  transition-duration: 0.7s;
+  -webkit-transition-duration: 0.7s;
+}
+
 section.app {
   width: 100%;
   float: left;
@@ -1000,11 +1067,14 @@ section.app {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   position: relative;
+  width: 100%;
 }
 .search input {
   float: left;
   margin: 0;
   height: 72px;
+  background: rgba(0, 0, 0, 0.1);
+  /*slight dark overlay*/
 }
 .search input[type="text"] {
   width: 83.3333333%;
@@ -1013,7 +1083,7 @@ section.app {
   border: none;
   font-size: 1.2em;
   font-weight: 100;
-  background: transparent;
+  /*background: transparent;*/
   padding-left: 3%;
   outline: none;
 }
@@ -1025,7 +1095,7 @@ section.app {
 }
 .search input[type="submit"] {
   width: 16.6666667%;
-  background: transparent;
+  /*background: transparent;*/
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: 1px solid #d6d6d6;
@@ -1131,7 +1201,7 @@ section.app {
 
 .li-col2 {
   display: inline-block;
-  width: 83.3333333%;
+  width: 75%;
   float: left;
   padding-right: 2%;
   margin-right: 2%;
@@ -1180,7 +1250,7 @@ section.app {
 .li-col7 {
   float: right;
   margin-top: 18px;
-  display: none;
+  /*display: none;*/
 }
 .li-col7 svg, .li-col7 img {
   height: 12px;
@@ -1189,7 +1259,7 @@ section.app {
 }
 @media only screen and (min-width: 650px) {
   .li-col7 {
-    display: inline-block;
+    /*display: inline-block;*/
   }
 }
 
@@ -1405,12 +1475,17 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .info-col1, .info-col2, .info-col3 {
-  width: 33.3333333%;
+  width: 100%;
   height: 100%;
-  float: left;
 }
 .info-col1 p, .info-col2 p, .info-col3 p {
   border-bottom: 1px solid #e2e2e2;
+}
+@media only screen and (min-width: 650px) {
+  .info-col1, .info-col2, .info-col3 {
+    width: 33.3333333%;
+    float: left;
+  }
 }
 
 .info-col1 {
@@ -1435,9 +1510,16 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   margin-top: 9px;
 }
 
-.info-col3 {
-  padding-left: 6%;
+.info-col2, .info-col3 {
+  padding-bottom: 72px;
 }
+@media only screen and (min-width: 650px) {
+  .info-col2, .info-col3 {
+    padding-left: 6%;
+    padding-bottom: 72px;
+  }
+}
+
 .info-col3 label[for="emailUpdatesInfo"], .info-col3 label[for="themeDark"], .info-col3 input[type="checkbox"] {
   display: inline;
   vertical-align: middle;
@@ -1451,9 +1533,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   background: #cf2425;
 }
 
-.info-col2 {
-  padding-left: 6%;
-}
 .info-col2 ul li {
   overflow: hidden;
   border-top: 1px solid #949494;
@@ -1541,7 +1620,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   position: absolute;
   left: 0;
   width: 100%;
-  bottom: 72px;
+  bottom: 105px;
   height: 61px;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
@@ -1553,6 +1632,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   #adsense {
     left: 25%;
     width: 75%;
+  }
+}
+@media only screen and (min-width: 650px) {
+  #adsense {
+    bottom: 72px;
   }
 }
 
@@ -1612,12 +1696,17 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 .info ul {
   float: left;
-  margin: 9px 0 0 2%;
+  margin: 18px 0 0 2%;
 }
 .info ul li {
   font-size: .8em;
   overflow: hidden;
   font-size: .5em;
+}
+@media only screen and (min-width: 650px) {
+  .info ul {
+    margin: 9px 0 0 2%;
+  }
 }
 .info svg, .info img {
   display: none;
@@ -1690,6 +1779,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   overflow: hidden;
   position: absolute;
   top: 0px;
+  z-index: 1007;
 }
 .seek-ctrl p {
   font-size: 1.2em;
@@ -1739,9 +1829,14 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   border-radius: 50%;
   position: absolute;
   top: 13px;
-  z-index: 10;
+  z-index: 10000;
   opacity: .9;
   cursor: pointer;
+}
+@media only screen and (min-width: 650px) {
+  #seek-dot {
+    z-index: 10;
+  }
 }
 
 #seek-dot:active {

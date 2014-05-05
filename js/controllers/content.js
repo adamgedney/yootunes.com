@@ -18,6 +18,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	var _thisDevice;
 	var _playlistShared = 0;
 
+
 	var _libraryCount;
 	var _loadInterval;
 	var _currentSkip 	= 0;
@@ -41,6 +42,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//load account settings page
 			loadAcctSettings();
 
+
 			activeLibraryItem('#acctSettings');
 
 			//Set correct container height
@@ -61,7 +63,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Songs library page load interaction=========//
 		$(document).on('click', '.viewSongs', function(event){
-
+			resetPagination();
 			loadFilteredLibrary('youtube_title', '.viewSongs');
 
 		});
@@ -77,7 +79,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Artists library page load interaction=========//
 		$(document).on('click', '.viewArtists', function(event){
-
+			resetPagination();
 			loadFilteredLibrary('artist', '.viewArtists');
 		});
 
@@ -92,7 +94,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Albums library page load interaction=========//
 		$(document).on('click', '.viewAlbums', function(event){
-
+			resetPagination();
 			loadFilteredLibrary('album', '.viewAlbums');
 		});
 
@@ -107,7 +109,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Genres library page load interaction=========//
 		$(document).on('click', '.viewGenres', function(event){
-
+			resetPagination();
 			loadFilteredLibrary('genre', '.viewGenres');
 
 		});
@@ -1294,7 +1296,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			_sortOrder 	= "DESC";
 
 			//Load library
-			loadLibrary(_currentSkip);
+			// loadLibrary(_currentSkip);
+			//paged loading of library items every 1.5s until
+			//full library is loaded
+			_loadInterval = setInterval(pageLoader, 1500);
 
 			this.toggle = !this.toggle;
 
@@ -1304,7 +1309,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			_sortOrder 	= "ASC";
 
 			//Load library
-			loadLibrary(_currentSkip);
+			// loadLibrary(_currentSkip);
+			//paged loading of library items every 1.5s until
+			//full library is loaded
+			_loadInterval = setInterval(pageLoader, 1500);
 
 			this.toggle = !this.toggle;
 		}
@@ -1362,7 +1370,7 @@ console.log(_currentSkip, "else");
 	// -songs,artists,albums,genres
 	function loadFilteredLibrary(sortBy, activeItem){
 
-		resetPagination();
+		$('.scroll-container').empty();
 
 		sortList(sortBy);
 

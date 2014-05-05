@@ -62,49 +62,95 @@ html{
 }
 
 
+#mobile-header{
+	height: 48px;
+	background: $black;
+	position: relative;
+	z-index: 9999;
+
+	#menu-btn{
+		display: inline-block;
+		margin: 0 0 9px 18px;
+	}
+
+	.mobile-logo{
+		display: inline-block;
+		width: 155px;
+		margin: 3px 22%;
+	}
+
+	@include app-break-smmd{
+		display: none;
+	}
+}
+
+// mobile slideout class
+.sidebarSlideRight{
+	left: 0 !important;
+	@include duration;
+}
+
+.sidebarSlideLeft{
+	left: -66.6666666% !important;
+	@include duration;
+}
 
 aside.app{
-	display: none;
+	position: absolute;
+	z-index: 998;
+	/*display: none;*/
 	margin-left: 0;
-	@include col(3);
+	left: -66.6666666%;
+	@include col(8);
 	min-height: 500px;
 	height: 100vh;
 	float: left;
 	border-right: 1px solid nth($grey, 4);
 	overflow: hidden;
-	// background: $black; /*experimenting with dark bg*/
+	background: $black; /*experimenting with dark bg*/
 
-	.video-size-ctrl{
-		background: $black;
+
+
+	@include app-break-smmd{
 		@include col(3);
-		//margin-left: 16.6666667%;
-		position: fixed;
-		bottom: 72px;
 		left: 0;
-		z-index:1002;
-		height: 33px;
-		text-align: right;
-		border-bottom: 1px solid nth($grey, 1);
+		display: block;
+		position: relative;
+		background: none;
+	}
+}
 
-		svg, img{
-			height: 27px;
-			width: 27px;
-			margin-left: 3px;
-			cursor: pointer;
-		}
+.video-size-ctrl{
+	background: $black;
+	@include col(12);
+	//margin-left: 16.6666667%;
+	position: fixed;
+	bottom: 72px;
+	left: 0;
+	z-index:1006;
+	height: 33px;
+	text-align: right;
+	border-bottom: 1px solid nth($grey, 1);
 
-		svg:first-child, img:first-child{
-			width: 18px;
-		}
+	svg, img{
+		height: 27px;
+		width: 27px;
+		margin-left: 3px;
+		cursor: pointer;
+	}
 
-		svg:last-child, img:last-child{
-			width: 36px;
-			margin-left: 0;
-		}
+	svg:first-child, img:first-child{
+		width: 18px;
+	}
+
+	svg:last-child, img:last-child{
+		width: 36px;
+		margin-left: 0;
 	}
 
 	@include app-break-smmd{
-		display: block;
+		@include col(3);
+		z-index: 1002;
 	}
 }
 
@@ -116,13 +162,18 @@ aside.app{
 
 #video{
 	// background: $black;//remove during tests. Placeholder bg color so video can be commented out
-	@include col(3);
+	@include col(12);
 	position: fixed;
 	bottom: 72px;
 	left: 0;
-	z-index:1000;
+	z-index:1005;
 	height: 33px;
 	border: none;
+
+	@include app-break-smmd{
+		@include col(3);
+		z-index:1000;
+	}
 }
 
 .loading{
@@ -332,6 +383,17 @@ li.playlist-dropdown:hover{
 /*=====================================*/
 /*Main Content container===============*/
 /*=====================================*/
+// mobile slideout class
+.mainSlideRight{
+	margin-left: 66.6666666%;
+	@include duration;
+}
+
+.mainSlideLeft{
+	margin-left: 0;
+	@include duration;
+}
+
 section.app{
 	@include col(12);
 	float: left;
@@ -353,12 +415,14 @@ section.app{
 	overflow: hidden;
 	@include vertical-align;
 	position: relative;
+	@include col(12);
 
 	input{
 		float: left;
 		margin: 0;
 		// padding: 0 6%;
 		height: 72px;//39
+		background: rgba(0,0,0,.1);/*slight dark overlay*/
 	}
 
 	input[type="text"]{
@@ -369,7 +433,7 @@ section.app{
 		border: none;
 		font-size: 1.2em;
 		font-weight: 100;
-		background: transparent;
+		/*background: transparent;*/
 		padding-left: 3%;
 		outline: none;
 
@@ -382,7 +446,7 @@ section.app{
 
 	input[type="submit"]{
 		@include col(2);
-		background: transparent;
+		/*background: transparent;*/
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 		border-left: 1px solid nth($grey, 4);
@@ -408,6 +472,7 @@ section.app{
 	input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
 	    color: nth($grey, 4);
 	}
+
 }
 
 #search-icon{
@@ -502,7 +567,7 @@ section.app{
 
 .li-col2{
 	display: inline-block;
-	@include col(10);
+	@include col(9);
 	float: left;
 	padding-right: 2%;
 	margin-right: 2%;
@@ -549,7 +614,7 @@ section.app{
 .li-col7{
 	float: right;
 	margin-top: 18px;
-	display: none;
+	/*display: none;*/
 
 	svg, img{
 		height: 12px;
@@ -558,7 +623,7 @@ section.app{
 	}
 
 	@include app-break-smmd{
-		display: inline-block;
+		/*display: inline-block;*/
 	}
 }
 
@@ -829,12 +894,16 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .info-col1, .info-col2, .info-col3{
-	@include col(4);
+	@include col(12);
 	height: 100%;
-	float: left;
 
 	p{
 		border-bottom: 1px solid nth($grey, 5);
+	}
+
+	@include app-break-smmd{
+		@include col(4);
+		float: left;
 	}
 }
 
@@ -861,9 +930,16 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	margin-top: 9px;
 }
 
-.info-col3{
-	padding-left: 6%;
+.info-col2, .info-col3{
+	padding-bottom: 72px;
 
+	@include app-break-smmd{
+		padding-left: 6%;
+		padding-bottom: 72px;
+	}
+}
+
+.info-col3{
 
 	label[for="emailUpdatesInfo"], label[for="themeDark"], input[type="checkbox"]{
 		display: inline;
@@ -881,7 +957,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 .info-col2{
-	padding-left: 6%;
 
 	ul{
 		li{
@@ -997,7 +1072,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	position: absolute;
 	left: 0;
 	@include col(12);
-	bottom: 72px;
+	bottom: 105px;
 	height: 61px;
 	background: rgba(0,0,0,.5);
 	z-index: 999;
@@ -1008,6 +1083,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	@include app-break-smmd{
 		left: 25%;
 		@include col(9);
+	}
+
+	@include app-break-smmd{
+		bottom: 72px;
 	}
 }
 
@@ -1088,12 +1167,16 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 	ul{
 		float: left;
-		margin: 9px 0 0 2%;
+		margin: 18px 0 0 2%;
 
 		li{
 			font-size: .8em;
 			overflow: hidden;
 			font-size: .5em;
+		}
+
+		@include app-break-smmd{
+			margin: 9px 0 0 2%;
 		}
 	}
 
@@ -1158,6 +1241,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	overflow: hidden;
 	position: absolute;
 	top: 0px;
+	z-index: 1007;
 
 	p{
 		font-size: 1.2em;
@@ -1215,10 +1299,14 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	border-radius: 50%;
 	position: absolute;
 	top: 13px;
-	z-index: 10;
+	z-index: 10000;
 	opacity: .9;
 	cursor: pointer;
 	// border: 1px solid nth($grey, 2);
+
+	@include app-break-smmd{
+		z-index: 10;
+	}
 }
 
 #seek-dot:active{

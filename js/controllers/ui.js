@@ -213,14 +213,12 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 					$(this).parent().removeClass('bold');
 					$(this).parent().css({'borderBottom':'none'});
 				}
+
 			}else{
 
-				//Trigger play here instead/ Same funcitonality as play icon click
-				console.log(Player.playItem());
-				// Player.playItem($(this));
+
 
 			}
-
 		});
 
 
@@ -491,6 +489,42 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 
 
+		//Mobile menu handler
+		$(document).on('click', '#menu-btn', function(){
+
+			this.toggle;
+
+			if(this.toggle){
+				$('section.app').addClass('mainSlideRight');
+				$('aside.app').addClass('sidebarSlideRight');
+
+				//reset slide left
+				$('section.app').removeClass('mainSlideLeft');
+				$('aside.app').removeClass('sidebarSlideLeft');
+
+				this.toggle = !this.toggle;
+
+			}else{
+
+				$('section.app').addClass('mainSlideLeft');
+				$('aside.app').addClass('sidebarSlideLeft');
+
+				//reset slide right
+				$('section.app').removeClass('mainSlideRight');
+				$('aside.app').removeClass('sidebarSlideRight');
+
+				this.toggle = !this.toggle;
+			}
+		});
+
+
+
+
+
+
+
+
+
 
 
 
@@ -624,25 +658,30 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	//Controls entering fullscreen iframe manipulation
 	function enterFullscreen(){
 
-		$('iframe#video').css({
-			'position' : 'absolute',
-			'top'      : '0',
-			'bottom'   : '0',
-			'left'     : '0',
-			'right'    : '0',
-			'height'   : '100%',
-			'width'    : '100%',
-			'display'  : 'block'
-		});
+		if($(window).width() < '650'){
+
+		}else{
+
+			$('iframe#video').css({
+				'position' : 'absolute',
+				'top'      : '0',
+				'bottom'   : '0',
+				'left'     : '0',
+				'right'    : '0',
+				'height'   : '100%',
+				'width'    : '100%',
+				'display'  : 'block'
+			});
 
 
-		$('.video-size-ctrl').css({
-			'top'     	 : '9px',
-			'left' 		 : '9px',
-			'background' : 'none',
-			'textAlign'  : 'left',
-			'border'     : 'none'
-		});
+			$('.video-size-ctrl').css({
+				'top'     	 : '9px',
+				'left' 		 : '9px',
+				'background' : 'none',
+				'textAlign'  : 'left',
+				'border'     : 'none'
+			});
+		}//else
 
 
 		$('.footer').css({
@@ -664,28 +703,52 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	//Controls minimizing the video
 	function showNormalSize(){
 
-		$('iframe#video').css({
-			'height'   : '227px',
-			'display'  : 'block',
-			'position' : 'absolute',
-			'top'      : 'initial',
-			'bottom'   : '72px',
-			'left'     : '0',
-			'right'    : 'initial',
-			'width'    : '25%'
-		});
 
-		$('.video-size-ctrl').css({
-			'bottom'     : '72px',
-			'background' : '#0f1010',
-			'textAlign'  : 'right',
-			'top'     	 : 'initial',
-			'left' 		 : 'initial',
-		});
+		if($(window).width() < '650'){
 
-		$('.footer').css({
-			'opacity' : '1'
-		});
+			$('iframe#video').css({
+				'height'   : '227px',
+				'display'  : 'block',
+				'position' : 'absolute',
+				'top'      : 'initial',
+				'bottom'   : '72px',
+				'left'     : '0',
+				'right'    : 'initial',
+				'width'    : '100%'
+			});
+
+			$('.video-size-ctrl').css({
+				'bottom'     : '72px',
+				'background' : '#0f1010',
+				'textAlign'  : 'right',
+				'top'     	 : 'initial',
+				'left' 		 : 'initial',
+			});
+
+		}else{
+
+			$('iframe#video').css({
+				'height'   : '227px',
+				'display'  : 'block',
+				'position' : 'absolute',
+				'top'      : 'initial',
+				'bottom'   : '72px',
+				'left'     : '0',
+				'right'    : 'initial',
+				'width'    : '25%'
+			});
+
+			$('.video-size-ctrl').css({
+				'bottom'     : '72px',
+				'background' : '#0f1010',
+				'textAlign'  : 'right',
+				'top'     	 : 'initial',
+				'left' 		 : 'initial',
+			});
+		}
+			$('.footer').css({
+				'opacity' : '1'
+			});
 	}
 
 
@@ -698,31 +761,49 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	//Controls minimizing the video
 	function showMinSize(){
 
+		if($(window).width() < '650'){
 
-		$('iframe#video').css({
-			'position' : 'absolute',
-			'top'      : 'initial',
-			'bottom'   : '72px',
-			'left'     : '0',
-			'right'    : 'initial',
-			'height'   : '33px',
-			// 'display'  : 'none',//breaks iframe
-			'width'    : '25%'
-		});
+			$('iframe#video').css({
+				'position' : 'absolute',
+				'top'      : 'initial',
+				'bottom'   : '72px',
+				'left'     : '0',
+				'right'    : 'initial',
+				'height'   : '33px',
+				'width'    : '100%'
+			});
 
+			$('.video-size-ctrl').css({
+				'bottom'     : '72px',
+				'background' : '#0f1010',
+				'textAlign'  : 'right',
+				'top'     	 : 'initial',
+				'left' 		 : 'initial'
+			});
+		}else{
 
+			$('iframe#video').css({
+				'position' : 'absolute',
+				'top'      : 'initial',
+				'bottom'   : '72px',
+				'left'     : '0',
+				'right'    : 'initial',
+				'height'   : '33px',
+				'width'    : '25%'
+			});
 
-		$('.video-size-ctrl').css({
-			'bottom'     : '72px',
-			'background' : '#0f1010',
-			'textAlign'  : 'right',
-			'top'     	 : 'initial',
-			'left' 		 : 'initial',
-		});
+			$('.video-size-ctrl').css({
+				'bottom'     : '72px',
+				'background' : '#0f1010',
+				'textAlign'  : 'right',
+				'top'     	 : 'initial',
+				'left' 		 : 'initial'
+			});
+		}
 
-		$('.footer').css({
-			'opacity' : '1'
-		});
+			$('.footer').css({
+				'opacity' : '1'
+			});
 	}
 
 

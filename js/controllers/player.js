@@ -116,8 +116,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				$('.playIconImg[data-videoid=' + _playingVideo + ']').attr('src', 'images/icons/pause-drk.png');
 
 				//Populate footer metadata with first li item data
-				var id = $('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
-				renderSongInfo(id);
+				if(_playerPlaying === false){
+					var id = $('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
+					renderSongInfo(id);
+				}
+
 
 			};//#libraryItem
 		});//on rendered
@@ -438,6 +441,17 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				playItem($(this));
 
 			});//onclick play icon
+
+			//Mobile view song play on li click
+			if($(window).width() < '650'){
+
+				$(document).on('click', '.dropdown-trigger', function(event){
+
+					var item = $(this).parent().find('.play-icon');
+					playItem(item);
+
+				});//onclick play icon
+			}
 
 
 
@@ -1043,6 +1057,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 		var playerId = _player.getVideoData().video_id;
 		var id = that.attr('data-videoid');
+
+		renderSongInfo(id);
 
 		//Makes video ctrl transparent so user can see youtube loading gif
 		$('.video-size-ctrl').css({'opacity':'.5'});
