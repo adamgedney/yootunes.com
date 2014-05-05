@@ -825,7 +825,7 @@ aside.app {
   position: fixed;
   bottom: 72px;
   left: 0;
-  z-index: 1006;
+  z-index: 990;
   height: 33px;
   text-align: right;
   border-bottom: 1px solid #272a2a;
@@ -859,7 +859,8 @@ aside.app {
   position: fixed;
   bottom: 72px;
   left: 0;
-  z-index: 1005;
+  /*z-index:1005;*/
+  z-index: 989;
   height: 33px;
   border: none;
 }
@@ -1779,6 +1780,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   overflow: hidden;
   position: absolute;
   top: 0px;
+  left: 0;
   z-index: 1007;
 }
 .seek-ctrl p {
@@ -1795,6 +1797,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
     position: relative;
     width: 25%;
     top: 36px;
+    left: initial;
   }
 }
 
@@ -1976,7 +1979,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .playon-ctrl {
-  width: 33.3333333%;
+  width: 100%;
   float: right;
   position: relative;
   top: 50%;
@@ -1985,10 +1988,14 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   -o-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  display: none;
 }
 .playon-ctrl h3 {
-  font-size: 1.2em;
+  font-size: 1em;
+}
+@media only screen and (min-width: 650px) {
+  .playon-ctrl h3 {
+    font-size: 1.2em;
+  }
 }
 .playon-ctrl select#play-on:-moz-focusring {
   color: transparent;
@@ -2017,7 +2024,15 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 @media only screen and (min-width: 650px) {
   .playon-ctrl {
     width: 8.33333333%;
-    display: inline-block;
+  }
+}
+
+#mobile-playon {
+  margin-top: 27px;
+}
+@media only screen and (min-width: 650px) {
+  #mobile-playon {
+    display: none;
   }
 }
 

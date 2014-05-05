@@ -495,6 +495,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 			this.toggle;
 
 			if(this.toggle){
+				$('#adsense').fadeOut();
+
 				$('section.app').addClass('mainSlideRight');
 				$('aside.app').addClass('sidebarSlideRight');
 
@@ -505,6 +507,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 				this.toggle = !this.toggle;
 
 			}else{
+				$('#adsense').fadeIn();
 
 				$('section.app').addClass('mainSlideLeft');
 				$('aside.app').addClass('sidebarSlideLeft');

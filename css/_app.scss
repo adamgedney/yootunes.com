@@ -127,7 +127,7 @@ aside.app{
 	position: fixed;
 	bottom: 72px;
 	left: 0;
-	z-index:1006;
+	z-index:990;
 	height: 33px;
 	text-align: right;
 	border-bottom: 1px solid nth($grey, 1);
@@ -166,7 +166,8 @@ aside.app{
 	position: fixed;
 	bottom: 72px;
 	left: 0;
-	z-index:1005;
+	/*z-index:1005;*/
+	z-index: 989;
 	height: 33px;
 	border: none;
 
@@ -1241,6 +1242,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	overflow: hidden;
 	position: absolute;
 	top: 0px;
+	left: 0;
 	z-index: 1007;
 
 	p{
@@ -1258,6 +1260,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		position: relative;
 		@include col(3);
 		top: 36px;
+		left: initial;
 	}
 }
 
@@ -1445,13 +1448,16 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .playon-ctrl{
-	@include col(4);
+	@include col(12);
 	float: right;
 	@include vertical-align;
-	display: none;
 
 	h3{
-		font-size: 1.2em;
+		font-size: 1em;
+
+		@include app-break-smmd{
+			font-size: 1.2em;
+		}
 	}
 
 	select#play-on:-moz-focusring {
@@ -1483,7 +1489,14 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 	@include app-break-smmd{
 		@include col(1);
-		display: inline-block;
+	}
+}
+
+#mobile-playon{
+	margin-top: 27px;
+
+	@include app-break-smmd{
+		display: none;
 	}
 }
 
