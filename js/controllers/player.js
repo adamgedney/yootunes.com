@@ -307,8 +307,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			      'onReady'			: onPlayerReady
 			    }
 		  });
-
-			console.log(_player.o, "Youtube player obj");
 		}
 
 
@@ -325,7 +323,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			//FOOTER PLAY BUTTON Click Handler=======//
 			$(document).on('click', '#play-btn', function(){
 				var youtubeId = $('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
-console.log(_playerPlaying, youtubeId);
+
 					//Play if not already playing
 					if(_playerPlaying === false){
 
@@ -1053,22 +1051,26 @@ console.log(_playerPlaying, youtubeId);
 		_currentIndex = that.parent().attr('data-index');
 
 		this.newVideo;
-
+		console.log(playerId, id);
 		//Checks to see if loaded video matches this video
 		if(playerId !== id){
+			this.newVideo = true;
+		}else{
 			this.newVideo = false;
 		}
 
 
 			//Determines if new video needs to be loaded
-			if(!this.newVideo){
+			if(this.newVideo === true){
 
+				_paused = false;
 
 				play(id);
 
 
 				//sets new video to false & playing to true
-				this.newVideo = true;
+				this.newVideo 	= false;
+
 				// _playerNewVideo = !_playerNewVideo;
 
 				_playerPlaying = true;
@@ -1077,7 +1079,6 @@ console.log(_playerPlaying, youtubeId);
 
 			//Runs play w/out loading new video
 			}else{
-
 
 
 
@@ -1120,7 +1121,7 @@ console.log(_playerPlaying, youtubeId);
 
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');
-console.log(_thisDevice,  _playOnDevice, "this/playon devices");
+
 		//Build obj for socket transmission
 		_data = {
 			'userId'			: _userId,
@@ -1154,7 +1155,6 @@ console.log(_thisDevice,  _playOnDevice, "this/playon devices");
 			//Set icon to unmuted icon
 			$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
 		}
-
 
 
 
@@ -1223,21 +1223,6 @@ console.log(_thisDevice,  _playOnDevice, "this/playon devices");
 
 
 
-
-
-
-
-
-
-	function playAll(){
-		var firstVideo = $('.resultItems[data-index="0"]').attr('data-videoId');
-
-		//set current index
-		_currentIndex = 0;
-
-
-		play(firstVideo);
-	};
 
 
 
