@@ -1539,8 +1539,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 #adsense {
   position: absolute;
-  left: 25%;
-  width: 75%;
+  left: 0;
+  width: 100%;
   bottom: 72px;
   height: 61px;
   background: rgba(0, 0, 0, 0.5);
@@ -1548,6 +1548,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   opacity: .75;
   overflow: hidden;
   display: none;
+}
+@media only screen and (min-width: 650px) {
+  #adsense {
+    left: 25%;
+    width: 75%;
+  }
 }
 
 #adsense1 {

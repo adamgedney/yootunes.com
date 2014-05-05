@@ -29,6 +29,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 	var _shuffleIndexes 	= [];
 	var _prevIndex 			= 0;
 	var _playingVideo     	= '';
+	var _paused 			= false;
 
 	var _playMode 			= {};
 		_playMode.loop 		= false;
@@ -113,6 +114,10 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 				//When list is loaded, if list item video is playing, set icon to pause
 				$('.playIconImg[data-videoid=' + _playingVideo + ']').attr('src', 'images/icons/pause-drk.png');
+
+				//Populate footer metadata with first li item data
+				var id = $('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
+				renderSongInfo(id);
 
 			};//#libraryItem
 		});//on rendered
@@ -313,37 +318,31 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 		//Fires when player returns ready
 		window.onPlayerReady = function(event) {
-console.log("onPlayerReady");
-			// //Makes play icons visible on ready
-			// $('.playIconImg').css({
-			// 	'opacity' : '1'
-			// });
 
-			var youtubeId = "";
+
+
 
 			//FOOTER PLAY BUTTON Click Handler=======//
 			$(document).on('click', '#play-btn', function(){
-
-				//Check if a video is loaded. If not, playall
-				if($('#fbShareMain').attr('href') === ""){
-
-					playAll();
-					_playerPlaying = !_playerPlaying;
-
-
-				}else{
-
+				var youtubeId = $('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
+console.log(_playerPlaying, youtubeId);
 					//Play if not already playing
-					if(!_playerPlaying){
+					if(_playerPlaying === false){
 
 						play(youtubeId);
+
+						_playerPlaying 	= true;
+						_paused 		= false;
 
 					//Stop playing if already playing
 					}else{
 
 						pause();
+
+						_paused 		= true;
+						_playerPlaying 	= false;
 					}
-				}//playAll else
+
 			});
 
 
@@ -466,31 +465,14 @@ console.log("onPlayerReady");
 
 
 				//Set song data & UI Changes
-				var playing 			= $('.play-icon[data-videoId=' + id + ']');
-				var song 				= $('#infoTitle');
-				var artist 				= $('#infoArtist');
-				var album 				= $('#infoAlbum');
-				var dataSong 			= $(playing).attr('data-song');
-				var dataArtist 			= $(playing).attr('data-artist');
-				var dataAlbum 			= $(playing).attr('data-album');
-				var fbShareMain 		= $('#fbShareMain');
-				var googleShareMain 	= $('#googleShareMain');
-				var twitterShareMain 	= $('#twitterShareMain');
-				var linkShareMain 		= $('#linkShareMain');
-				var youtubeUrl 			= 'https://www.youtube.com/watch?v=' + id;
+				renderSongInfo(id);
+				var playing = $('.play-icon[data-videoId=' + id + ']');
 
-				song.html(dataSong);
-				artist.html(dataArtist);
-				album.html(dataAlbum);
-				fbShareMain.attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + youtubeUrl);
-				googleShareMain.attr('href', 'https://plus.google.com/share?url=' + youtubeUrl);
-				twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl);
-				linkShareMain.attr('href', youtubeUrl);
 
 				//Resets video ctrl container to opaque (hides loading icon)
 				$('.video-size-ctrl').css({'opacity':'1'});
 
-				//Dynamically add video url to play on icon in video ctrl box
+				//Dynamically add video url to watch on icon in video ctrl box
 				$('#watchOnYoutube').attr('href', 'http://youtube.com/watch?v=' + id);
 
 				//NOTE:*****
@@ -1104,18 +1086,17 @@ console.log("onPlayerReady");
 					//Pause playback
 					pause();
 
-					//Set playAll icon to play icon if it wasn't already
-					// $('#playAllIcon').attr('src', 'images/icons/play-drk.png');
-
-					_playerPlaying= false;
+					_paused 		= true;
+					_playerPlaying	= false;
 
 				}else{
-					var youtubeId = "";
 
-					play(youtubeId);
+
+					play(id);
 
 					//sets playing to true
-					_playerPlaying = true;
+					_playerPlaying  = true;
+					_paused 		= false;
 				}//else
 			}//else
 	}
@@ -1137,12 +1118,9 @@ console.log("onPlayerReady");
 	function play(youtubeId){
 		_thisDevice = window.thisDevice;
 
-		console.log(_thisDevice,  _playOnDevice, "this/playon devices");
-
-
 		//Get device id of current play on device selection
 		_playOnDevice =  $('#play-on option:selected').attr('data-id');
-
+console.log(_thisDevice,  _playOnDevice, "this/playon devices");
 		//Build obj for socket transmission
 		_data = {
 			'userId'			: _userId,
@@ -1181,7 +1159,7 @@ console.log("onPlayerReady");
 
 
 		//Signifies we're in play/pause loop
-		if(youtubeId === ""){
+		if(_paused === true){
 
 			//Only emit events on playOn device selection
 			if(_socket === 'open'){
@@ -1196,10 +1174,12 @@ console.log("onPlayerReady");
 				// setTimeout(, 1000);
 
 				_player.playVideo()
+
 			}else if(_socket === null){
 
 				//Play Local video normally w/out delay
 				_player.playVideo();
+
 			}//if
 
 				//Updates button ui
@@ -1366,37 +1346,28 @@ console.log("onPlayerReady");
 
 
 
-	function makePlayer(){
+	function renderSongInfo(id){
 
-		// //Listens for the player API to load
-		// window.onYouTubePlayerAPIReady = function() {
+		var playing 			= $('.play-icon[data-videoId=' + id + ']');
+		var song 				= $('#infoTitle');
+		var artist 				= $('#infoArtist');
+		var album 				= $('#infoAlbum');
+		var dataSong 			= $(playing).attr('data-song');
+		var dataArtist 			= $(playing).attr('data-artist');
+		var dataAlbum 			= $(playing).attr('data-album');
+		var fbShareMain 		= $('#fbShareMain');
+		var googleShareMain 	= $('#googleShareMain');
+		var twitterShareMain 	= $('#twitterShareMain');
+		var linkShareMain 		= $('#linkShareMain');
+		var youtubeUrl 			= 'https://www.youtube.com/watch?v=' + id;
 
-		// 	console.log("player api ready");
-		// 	// create the global player from the specific iframe (#video)
-		// 	_player = new YT.Player('video', {
-		// 		playerVars: {
-		// 			controls 		: 0,
-		// 			enablejsapi 	: 1,
-		// 			rel 			: 0,
-		// 			showinfo		: 0,
-		// 			modestbranding 	: 1,
-		// 			origin 			: 'http://yootunes.com'
-		// 		},
-		// 	    events: {
-		// 	      // call this function when player is ready to use
-		// 	      'onStateChange'	: onPlayerStateChange,
-		// 	      'onReady'			: onPlayerReady
-		// 	    }
-		//   });
-
-		// 	console.log(_player.o, "Youtube player obj");
-		// }
-
-		// if (window.YT) {
-		//     // Apparently, the API was ready before this script was executed.
-		//     // Manually invoke the function
-		//     window.onYouTubePlayerAPIReady();
-		// }
+		song.html(dataSong);
+		artist.html(dataArtist);
+		album.html(dataAlbum);
+		fbShareMain.attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + youtubeUrl);
+		googleShareMain.attr('href', 'https://plus.google.com/share?url=' + youtubeUrl);
+		twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl);
+		linkShareMain.attr('href', youtubeUrl);
 	}
 
 
