@@ -55,6 +55,13 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		$(window).resize(function() {
 			window.windowWidth = $(window).width();
 
+			//On resize show sidebar
+			if(window.windowWidth > '650'){
+				$('section.app').removeClass('mainSlideLeft');
+				$('aside.app').removeClass('sidebarSlideLeft');
+			}
+
+
 		});
 
 
@@ -484,7 +491,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		$(document).on('showMinSize', function(){
 			showMinSize();
 		});
-
 
 
 
