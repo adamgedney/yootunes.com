@@ -297,10 +297,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 				// //paged loading of library items every 1.5s until
 				// //full library is loaded
-				// _loadInterval = setInterval(pageLoader, 1500);
+				_loadInterval = setInterval(pageLoader, 1500);
 
 				//Load library
-				loadLibrary(_currentSkip);
+				// loadLibrary(_currentSkip);
 
 
 
@@ -1304,10 +1304,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			_sortOrder 	= "DESC";
 
 			//Load library
-			loadLibrary(_currentSkip);
+			// loadLibrary(_currentSkip);
 			//paged loading of library items every 1.5s until
 			//full library is loaded
-			// _loadInterval = setInterval(pageLoader, 1500);
+			_loadInterval = setInterval(pageLoader, 1500);
 
 			this.toggle = !this.toggle;
 
@@ -1317,10 +1317,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			_sortOrder 	= "ASC";
 
 			//Load library
-			loadLibrary(_currentSkip);
+			// loadLibrary(_currentSkip);
 			//paged loading of library items every 1.5s until
 			//full library is loaded
-			// _loadInterval = setInterval(pageLoader, 1500);
+			_loadInterval = setInterval(pageLoader, 1500);
 
 			this.toggle = !this.toggle;
 		}
