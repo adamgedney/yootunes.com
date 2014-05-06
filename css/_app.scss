@@ -121,12 +121,12 @@ aside.app{
 }
 
 .video-size-ctrl{
-	background: $black;
-	@include col(12);
+	/*background: $black;*/
+	@include col(1);
 	//margin-left: 16.6666667%;
 	position: fixed;
 	bottom: 72px;
-	left: 0;
+	left: 16.6666667%;
 	z-index:990;
 	height: 48px;
 	text-align: right;
@@ -166,7 +166,7 @@ aside.app{
 }
 
 #video{
-	// background: $black;//remove during tests. Placeholder bg color so video can be commented out
+	background: $black;
 	@include col(12);
 	position: fixed;
 	bottom: 87px;

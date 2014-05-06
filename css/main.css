@@ -820,11 +820,11 @@ aside.app {
 }
 
 .video-size-ctrl {
-  background: #0f1010;
-  width: 100%;
+  /*background: $black;*/
+  width: 8.33333333%;
   position: fixed;
   bottom: 72px;
-  left: 0;
+  left: 16.6666667%;
   z-index: 990;
   height: 48px;
   text-align: right;
@@ -860,6 +860,7 @@ aside.app {
 }
 
 #video {
+  background: #0f1010;
   width: 100%;
   position: fixed;
   bottom: 87px;
