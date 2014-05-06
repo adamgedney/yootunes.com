@@ -1502,12 +1502,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		}
 	}
 
-	select#play-on:-moz-focusring {
+	select#play-on:-moz-focusring, select#mobile-play-on:-moz-focusring {
 	    color: transparent;
 	    text-shadow: 0 0 0 $white;
 	}
 
-	select#play-on{
+	select#play-on, select#mobile-play-on{
 		@include col(11);
 		background: transparent;
 		background: url(../images/icons/down-arrow-wht.svg) no-repeat 90%;
