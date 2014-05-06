@@ -2,11 +2,10 @@ require.config({
 	baseUrl : "./js",
 	optimize: "none",
 	paths 	: {
-		jquery 			: 'libs/jquery',
+		jquery 			: 'jquery',
 		modernizr 		: 'libs/modernizr',
 		Handlebars 		: 'libs/handlebars',
 		lightbox 		: 'libs/lightbox-2.6.min',
-		// io 			: 'http://yooss.pw:41795/socket.io/socket.io',
 		User 			: 'controllers/user',
 		Init 			: 'controllers/init',
 		Auth 			: 'controllers/auth',
@@ -22,9 +21,9 @@ require.config({
 
 
 
-//Instantiate Controllers
-require(['modernizr', 'jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'User', 'lightbox', 'Player'],
-	function(modernizr, jquery, Init, Auth, Content, Ui, Library, User, lightbox, Player){
+// //Instantiate Controllers
+require(['modernizr', 'Init', 'Auth', 'Content', 'Ui', 'Library', 'User',  'Player'],
+	function(modernizr, Init, Auth, Content, Ui, Library, User, Player){
 
 
 		var init 			= new Init();
@@ -36,6 +35,7 @@ require(['modernizr', 'jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'User
 		Content.loadScripts();
 
 });
+
 
 
 

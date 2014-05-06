@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key, Player, getCookies){
+define(['jquery', 'lightbox','js/libs/keyHash.js', 'Player', 'getCookies'], function($, lightbox, Key, Player, getCookies){
 
 
 
@@ -204,6 +204,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 				if(this.toggle){
 
+					//Loads video thumbnail when dropdown is revealed
+					loadThumb(id);
+					console.log(id, "dropdown id");
+
+
 					_dropdownOpen = true;
 
 					$('.resultItems').removeClass('bg-white');
@@ -232,7 +237,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 			}
 		});
-
 
 
 
@@ -944,6 +948,28 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 	function showAdsense(){
 		$('#adsense').fadeIn();
+	}
+
+
+
+
+
+
+
+
+	//Reduces library thumb get requests to an on as needed basis
+	function loadThumb(id){
+		var videoId = $('.youtube-img[data-id=' + id + ']').attr('data-videoId');
+		var thumbSrc = 'https://i.ytimg.com/vi/' + videoId + '/default.jpg';
+		var hiresSrc = 'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg';
+		console.log(videoId, thumbSrc, hiresSrc);
+
+		//Set thumbnail src
+		$('.youtube-img[data-id=' + id + ']').attr('src', thumbSrc);
+
+
+		//Set lightbox higher res src
+		$('.youtube-img-a[data-id=' + id + ']').attr('href', hiresSrc);
 	}
 
 
