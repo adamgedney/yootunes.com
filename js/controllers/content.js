@@ -1205,6 +1205,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 	function renderDevices(response){
 		$('#play-on').empty();
+		$('#mobile-play-on').empty();
 		$('#infoDeviceList').empty();
 
 
@@ -1221,6 +1222,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//set footer list items first result to the current device
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
 				$('#play-on').prepend(option);
+				$('#mobile-play-on').prepend(option);
 			}else{
 
 				//Render MODAL window list
@@ -1236,6 +1238,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//Populate APP FOOTER list
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
 				$('#play-on').append(option);
+				$('#mobile-play-on').append(option);
 
 			}//else
 		}//for

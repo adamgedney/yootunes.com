@@ -86,8 +86,15 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		$(document).on('change', '#play-on', function(){
 
 			_playOnDevice =  $('#play-on option:selected').attr('data-id');
-			console.log(_thisDevice, _playOnDevice, "peeon");
-				// pause();
+
+				pause();
+		});
+
+		$(document).on('change', '#mobile-play-on', function(){
+
+			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
+
+				pause();
 		});
 
 
@@ -1198,8 +1205,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		_thisDevice = window.thisDevice;
 
 		//Get device id of current play on device selection
-		_playOnDevice =  $('#play-on option:selected').attr('data-id');
-console.log(_thisDevice, _playOnDevice, "peeon");
+
+		if(window.windowWidth < app_break_smmd){
+			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
+		}else{
+			_playOnDevice =  $('#play-on option:selected').attr('data-id');
+		}
+
 		//Build obj for socket transmission
 		_data = {
 			'userId'			: _userId,
@@ -1257,7 +1269,7 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 
 				//Play Local video normally w/out delay
 
-					_player.playVideo();
+				_player.playVideo();
 
 
 
@@ -1288,7 +1300,7 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 
 
 
-					_player.loadVideoById(youtubeId);
+				_player.loadVideoById(youtubeId);
 
 
 			}else if(_socket === null){
@@ -1326,7 +1338,13 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 	function pause(){
 
 		//Get device id of current play on device selection
-		_playOnDevice =  $('#play-on option:selected').attr('data-id');
+		if(window.windowWidth < app_break_smmd){
+			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
+		}else{
+			_playOnDevice =  $('#play-on option:selected').attr('data-id');
+		}
+
+
 
 
 		//Connection to socketserver runs if we choose to be a controller
