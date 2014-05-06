@@ -328,7 +328,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			//FOOTER PLAY BUTTON Click Handler=======//
 			$(document).on('click', '#play-btn', function(){
 				var youtubeId = $('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
-alert("footer play picked up");
+
 					//Play if not already playing
 					if(_playerPlaying === false){
 
@@ -1065,7 +1065,7 @@ alert("footer play picked up");
 		var id = that.attr('data-videoid');
 
 		renderSongInfo(id);
-alert("playItem play picked up" + id);
+
 		//Makes video ctrl transparent so user can see youtube loading gif
 		$('.video-size-ctrl').css({'opacity':'.5'});
 
