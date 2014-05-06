@@ -83,9 +83,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 		//on playOn change, pause video to enable transition
-		$(document).on('change', '.play-on', function(){
+		$(document).on('change', '#play-on', function(){
 
-				pause();
+			_playOnDevice =  $('#play-on option:selected').attr('data-id');
+			console.log(_thisDevice, _playOnDevice, "peeon");
+				// pause();
 		});
 
 
@@ -1126,7 +1128,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		_currentIndex = that.parent().attr('data-index');
 
 		this.newVideo;
-		console.log(playerId, id);
+
 		//Checks to see if loaded video matches this video
 		if(playerId !== id){
 			this.newVideo = true;
@@ -1193,12 +1195,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 	function play(youtubeId){
 		//Fallback thisDevice for mobile slips
-		_thisDevice = _playOnDevice;
 		_thisDevice = window.thisDevice;
 
 		//Get device id of current play on device selection
-		_playOnDevice =  $('.play-on option:selected').attr('data-id');
-
+		_playOnDevice =  $('#play-on option:selected').attr('data-id');
+console.log(_thisDevice, _playOnDevice, "peeon");
 		//Build obj for socket transmission
 		_data = {
 			'userId'			: _userId,
@@ -1318,7 +1319,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 	function pause(){
 
 		//Get device id of current play on device selection
-		_playOnDevice =  $('.play-on option:selected').attr('data-id');
+		_playOnDevice =  $('#play-on option:selected').attr('data-id');
 
 
 		//Connection to socketserver runs if we choose to be a controller

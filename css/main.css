@@ -831,8 +831,8 @@ aside.app {
   border-bottom: 1px solid #272a2a;
 }
 .video-size-ctrl svg, .video-size-ctrl img {
-  height: 27px;
-  /*width: 27px;*/
+  height: 24px;
+  width: 27px;
   margin-top: 9px;
   margin-left: 3px;
   cursor: pointer;
@@ -2045,11 +2045,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
     font-size: 1.2em;
   }
 }
-.playon-ctrl select.play-on:-moz-focusring {
+.playon-ctrl select#play-on:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #ebebeb;
 }
-.playon-ctrl select.play-on {
+.playon-ctrl select#play-on {
   width: 91.6666666%;
   background: transparent;
   background: url(../images/icons/down-arrow-wht.svg) no-repeat 90%;
@@ -2066,7 +2066,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   height: 27px;
   color: #ebebeb;
 }
-.playon-ctrl select.play-on option {
+.playon-ctrl select#play-on option {
   color: #ebebeb;
 }
 @media only screen and (min-width: 800px) {
