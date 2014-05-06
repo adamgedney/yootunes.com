@@ -304,8 +304,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-				//Start loading the player script once #video is on DOM
-				loadPlayerScript();
+
 
 
 				//Ensures userId is always available
@@ -418,7 +417,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//ON LIBRARY RENDER========================//
 			if(event.template === '#libraryItem'){
 
-
+				//Start loading the player script once #video is on DOM
+				loadPlayerScript();
 
 
 				//Set the application theme colors
