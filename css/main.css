@@ -742,7 +742,7 @@ input[type="password"] {
 }
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
-.no-select, img, .section-header, aside.app, .li-header, .li-group, .footer {
+.no-select, img, .section-header, aside.app, .li-header, .footer {
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: -moz-none;

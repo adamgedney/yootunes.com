@@ -44,7 +44,7 @@ input[type="password"]{
     user-select: none;
 }
 
-img, .section-header, aside.app, .li-header, .li-group, .footer{
+img, .section-header, aside.app, .li-header, .footer{
 	@extend .no-select;
 }
 
