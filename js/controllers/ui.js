@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key, Player, getCookies){
+define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], function($, Key, Player, getCookies, lightbox){
 
 
 
