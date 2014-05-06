@@ -693,6 +693,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 	//Controls entering fullscreen iframe manipulation
 	function enterFullscreen(){
 
+		//hide ads
+		$('#adsense').hide();
+
 		if(window.windowWidth < app_break_smmd){
 
 		}else{
