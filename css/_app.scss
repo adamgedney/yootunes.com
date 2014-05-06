@@ -103,7 +103,8 @@ aside.app{
 	left: -66.6666666%;
 	@include col(8);
 	min-height: 500px;
-	height: 100vh;
+	max-height: 900px;
+	max-height: 100vh;
 	float: left;
 	border-right: 1px solid nth($grey, 4);
 	overflow: hidden;
@@ -1096,13 +1097,13 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 #adsense{
-	position: absolute;
-	left: 0;
+	position: relative;
+	/*left: 0;*/
 	@include col(12);
-	bottom: 120px;
+	/*bottom: 120px;*/
 	height: 61px;
 	background: rgba(0,0,0,.5);
-	z-index: 999;
+	z-index: 10000;
 	opacity: .75;
 	overflow-x: hidden;
 	display: none;

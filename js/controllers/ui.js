@@ -506,7 +506,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 			this.toggle;
 
 			if(!this.toggle){
-				$('#adsense').fadeOut();
+				// $('#adsense').fadeOut();
 
 				$('section.app').addClass('mainSlideRight');
 				$('aside.app').addClass('sidebarSlideRight');
@@ -518,7 +518,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 				this.toggle = !this.toggle;
 
 			}else{
-				$('#adsense').fadeIn();
+				// $('#adsense').fadeIn();
 
 				$('section.app').addClass('mainSlideLeft');
 				$('aside.app').addClass('sidebarSlideLeft');
@@ -733,7 +733,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		if(window.windowWidth < app_break_smmd){
 
 			//hide ads
-			$('#adsense').hide();
+			// $('#adsense').hide();
 
 			$('iframe#video').css({
 				'height'   : '227px',
@@ -793,7 +793,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		if(window.windowWidth < app_break_smmd){
 
 			//Show ads
-			$('#adsense').show();
+			// $('#adsense').show();
 
 			$('iframe#video').css({
 				'position' : 'absolute',
