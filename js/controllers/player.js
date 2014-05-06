@@ -1084,22 +1084,22 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			}
 
 
-			//EMIT SOCKET DATA=====================//
-			//Build obj for socket transmission
-			var data = {
-				'device' 				: _playOnDevice,
-				'controllerDevice' 		: _thisDevice,
-				'mobileTriggerDevice'	: _mobileTriggerDevice,
-				'userId' 				: _userId,
-				'time' 					: time,
-				'seekPos' 				: $('#seek-dot').offset().left
-			}
+			// //EMIT SOCKET DATA=====================//
+			// //Build obj for socket transmission
+			// var data = {
+			// 	'device' 				: _playOnDevice,
+			// 	'controllerDevice' 		: _thisDevice,
+			// 	'mobileTriggerDevice'	: _mobileTriggerDevice,
+			// 	'userId' 				: _userId,
+			// 	'time' 					: time,
+			// 	'seekPos' 				: $('#seek-dot').offset().left
+			// }
 
-			//Emit when not in controller mode so as to repoet back to controller
-			if(_socket === null){
-				//EMIT seekUpdate event back to server
-				_socketConnect.emit('seekUpdate', data);
-			}//if
+			// //Emit when not in controller mode so as to repoet back to controller
+			// if(_socket === null){
+			// 	//EMIT seekUpdate event back to server
+			// 	_socketConnect.emit('seekUpdate', data);
+			// }//if
 
 		}//if draggin false
 	}
