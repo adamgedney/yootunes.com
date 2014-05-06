@@ -823,7 +823,7 @@ aside.app {
 .video-size-ctrl {
   background: #0f1010;
   width: 100%;
-  position: fixed;
+  position: absolute;
   bottom: 72px;
   left: 0;
   z-index: 990;
@@ -862,7 +862,7 @@ aside.app {
 
 #video {
   width: 100%;
-  position: fixed;
+  position: absolute;
   bottom: 87px;
   left: 0;
   /*z-index:1005;*/

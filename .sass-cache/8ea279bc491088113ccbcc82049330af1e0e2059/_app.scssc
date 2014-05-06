@@ -1,7 +1,7 @@
 3.2.9 (Media Mark)
-696000c4867f3766b4862537995738939c10c5c6
+4f06ee03f8f9e1a6201125fbcac964e7810ae99d
 o:Sass::Tree::RootNode
-:@template"_X
+:@template"eX
 
 
 .share-strip{
@@ -128,7 +128,7 @@ aside.app{
 	background: $black;
 	@include col(12);
 	//margin-left: 16.6666667%;
-	position: fixed;
+	position: absolute;
 	bottom: 72px;
 	left: 0;
 	z-index:990;
@@ -172,7 +172,7 @@ aside.app{
 #video{
 	// background: $black;//remove during tests. Placeholder bg color so video can be commented out
 	@include col(12);
-	position: fixed;
+	position: absolute;
 	bottom: 87px;
 	left: 0;
 	/*z-index:1005;*/
@@ -1724,8 +1724,7 @@ aside;@¨;ig;(0o;*;["app;@¨;ig;)To;;	i ;[o;
 black;"
 black;@;i};@;i};;o;;"col;[ ;@;{ ;i~;0;[o;;i;@;@;i~;[ ;"12o;+
 ;;,;[ ;["#/*margin-left: 16.6666667%; */;@;io;
-;	i ;["position;[ ;o;;;;"
-fixed;@;@;iÄ;;o;
+;	i ;["position;[ ;o;;;;"absolute;@;@;iÄ;;o;
 ;	i ;["bottom;[ ;o;;;;"	72px;@;@;iÅ;;o;
 ;	i ;["	left;[ ;o;;;;"0;@;@;iÇ;;o;
 ;	i ;["z-index;[ ;o;;;;"990;@;@;iÉ;;o;
@@ -1765,8 +1764,7 @@ width;[ ;o;;;;"	36px;@;@;iñ;;o;
 ;	i ;["font-size;[ ;o;;;;"	.8em;@;@;i¶;;;@;["#collectionCount;i•;o;;" ;i•; [o;!; [o;"
 ;#0;@’;$o;%;&{ ;i•; [o;9;["collectionCount;@’;i•;)To;;	i ;[o;+
 ;;,;[ ;["g/* background: $black;//remove during tests. Placeholder bg color so video can be commented out */;@;i™o;;"col;[ ;@;{ ;i´;0;[o;;i;@;@;i´;[ ;"12o;
-;	i ;["position;[ ;o;;;;"
-fixed;@;@;i¨;;o;
+;	i ;["position;[ ;o;;;;"absolute;@;@;i¨;;o;
 ;	i ;["bottom;[ ;o;;;;"	87px;@;@;i≠;;o;
 ;	i ;["	left;[ ;o;;;;"0;@;@;iÆ;;o;+
 ;;3;[ ;["/*z-index:1005;*/;@;iØo;
