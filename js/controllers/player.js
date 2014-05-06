@@ -1301,7 +1301,12 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 				//Play local video normally w/out delay
 				if(window.windowWidth < app_break_smmd){
 					_player.loadVideoById(youtubeId);
-					$('iframe#video .ytp-large-play-button').trigger('click');
+					// $('iframe#video .ytp-large-play-button').trigger('click');
+					var el = $('iframe#video .ytp-large-play-button').get(0);
+					var evt = document.createEvent("MouseEvents");
+					evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+					el.dispatchEvent(evt);
+
 					console.log("new video trigger")
 				}else{
 					_player.loadVideoById(youtubeId);
