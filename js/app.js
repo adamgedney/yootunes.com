@@ -22,8 +22,8 @@ require.config({
 
 
 // //Instantiate Controllers
-require(['modernizr', 'Init', 'Auth', 'Content', 'Ui', 'Library', 'User',  'Player'],
-	function(modernizr, Init, Auth, Content, Ui, Library, User, Player){
+require(['modernizr', 'jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'User', 'Player', 'lightbox'],
+	function(modernizr, jquery, Init, Auth, Content, Ui, Library, User, Player, lightbox){
 
 
 		var init 			= new Init();
