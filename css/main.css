@@ -802,8 +802,7 @@ aside.app {
   left: -66.6666666%;
   width: 66.6666666%;
   min-height: 500px;
-  max-height: 900px;
-  max-height: 100vh;
+  height: 100vh;
   float: left;
   border-right: 1px solid #d6d6d6;
   overflow: hidden;

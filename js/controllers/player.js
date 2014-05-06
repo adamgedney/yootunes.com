@@ -759,6 +759,31 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 		//=============================//
+		//Listen for socket ON seekUpdate
+		//=============================//
+		_socketConnect.on('seekUpdateOn', function(response){
+
+			//If this is the controller and we're in mobile
+			if(_thisDevice === response.controllerDevice){
+
+				if(window.windowWidth < app_break_smmd){
+					$('#current-time').html(time);
+
+					//Update scrubber position
+					$('#seek-dot').offset({left: _seek.seekPos});
+				}
+
+			}
+		});//_socketConnect.on
+
+
+
+
+
+
+
+
+		//=============================//
 		//Listen for socket ON SETTIME
 		//=============================//
 		_socketConnect.on('seekToOn', function(response){
@@ -1012,11 +1037,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				h = 13;
 			};
 
+			var time = m + ':' + s;
 
 			//Set Hours in time display
 			if(h === 0){
-				$('#current-time').html(m + ':' + s);
+				$('#current-time').html(time);
 			}else{
+
 
 				//Adds digit if under 10m
 				if(m <= 0){
@@ -1025,9 +1052,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 					m = '0' + m;
 				}
 
-				$('#current-time').html(h + ':' + m + ':' + s);
-			}
+				//time format
+				time = h + ':' + m + ':' + s;
 
+				$('#current-time').html(time);
+			}
 
 
 			//(bar width / video duration) * time = xPos of scrubber + seekbar left
@@ -1050,6 +1079,24 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			if($('.seek-buffered').width() >= $('#seek-bar').width()){
 				$('.seek-buffered').width($('#seek-bar').width());
 			}
+
+
+			//EMIT SOCKET DATA=====================//
+			//Build obj for socket transmission
+			var data = {
+				'device' 			: _playOnDevice,
+				'controllerDevice' 	: _thisDevice,
+				'userId' 			: _userId,
+				'time' 				: time,
+				'seekPos' 			: _seek.seekPos
+			}
+
+
+			if(_socket === 'open'){
+				//EMIT seekUpdate event back to server
+				_socketConnect.emit('seekUpdate', data);
+			}//if
+
 		}//if draggin false
 	}
 
@@ -1237,7 +1284,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 				//Play local video normally w/out delay
 				_player.loadVideoById(youtubeId);
-				alert("player" + _player.loadVideoById(youtubeId) + " / "+ youtubeId);
+
 			}//if
 
 				//reset seek stepper for each new video

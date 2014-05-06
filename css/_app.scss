@@ -103,8 +103,7 @@ aside.app{
 	left: -66.6666666%;
 	@include col(8);
 	min-height: 500px;
-	max-height: 900px;
-	max-height: 100vh;
+	height: 100vh;
 	float: left;
 	border-right: 1px solid nth($grey, 4);
 	overflow: hidden;
