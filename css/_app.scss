@@ -121,12 +121,12 @@ aside.app{
 }
 
 .video-size-ctrl{
-	/*background: $black;*/
-	@include col(1);
+	background: $black;
+	@include col(12);
 	//margin-left: 16.6666667%;
 	position: fixed;
 	bottom: 72px;
-	left: 16.6666667%;
+	left: 0;
 	z-index:990;
 	height: 48px;
 	text-align: right;
