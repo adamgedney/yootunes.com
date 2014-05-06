@@ -749,7 +749,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			// $('#adsense').hide();
 
 			$('iframe#video').css({
-				'height'   : '227px',
+				'height'   : '327px',
 				'display'  : 'block',
 				'position' : 'absolute',
 				'top'      : 'initial',
