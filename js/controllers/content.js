@@ -1378,6 +1378,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	// -songs,artists,albums,genres
 	function loadFilteredLibrary(sortBy, activeItem){
 
+		//Show search bar
+		$('.li-header').show();
+
 		$('.scroll-container').empty();
 
 		sortList(sortBy);
