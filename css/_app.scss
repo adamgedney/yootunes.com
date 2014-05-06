@@ -125,7 +125,7 @@ aside.app{
 	background: $black;
 	@include col(12);
 	//margin-left: 16.6666667%;
-	position: absolute;
+	position: fixed;
 	bottom: 72px;
 	left: 0;
 	z-index:990;
@@ -169,7 +169,7 @@ aside.app{
 #video{
 	// background: $black;//remove during tests. Placeholder bg color so video can be commented out
 	@include col(12);
-	position: absolute;
+	position: fixed;
 	bottom: 87px;
 	left: 0;
 	/*z-index:1005;*/
