@@ -1131,6 +1131,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	position: absolute;
 	left: 468px;
 	bottom: 0;
+	display: none;
+
+	@include app-break-sm{
+		display: inline-block;
+	}
 }
 
 #adsense3{
@@ -1139,6 +1144,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	position: absolute;
 	left: 468px;
 	bottom: 0;
+	display: none;
+
+	@include app-break-md{
+		display: inline-block;
+	}
 }
 
 

@@ -1684,6 +1684,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   position: absolute;
   left: 468px;
   bottom: 0;
+  display: none;
+}
+@media only screen and (min-width: 480px) {
+  #adsense2 {
+    display: inline-block;
+  }
 }
 
 #adsense3 {
@@ -1692,6 +1698,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   position: absolute;
   left: 468px;
   bottom: 0;
+  display: none;
+}
+@media only screen and (min-width: 960px) {
+  #adsense3 {
+    display: inline-block;
+  }
 }
 
 .ytbanner {
