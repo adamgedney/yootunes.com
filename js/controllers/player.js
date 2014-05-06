@@ -322,13 +322,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		//Fires when player returns ready
 		window.onPlayerReady = function(event) {
 
-alert("player ready");
+
 
 
 			//FOOTER PLAY BUTTON Click Handler=======//
 			$(document).on('click', '#play-btn', function(){
 				var youtubeId = $('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
-
+alert("footer play picked up");
 					//Play if not already playing
 					if(_playerPlaying === false){
 
@@ -450,8 +450,10 @@ alert("player ready");
 					// console.log(window.windowWidth);
 					//Mobile view song play on li click
 					if(window.windowWidth < app_break_smmd){
+
 						var item = $(this).parent().find('.play-icon');
 						playItem(item);
+						alert("dropdown play picked up" + item);
 					}
 
 				});//onclick play icon
