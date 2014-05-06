@@ -41,6 +41,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 	var _thisDevice;
 	var _playOnDevice;//default
+	var _mobileTriggerDevice;
 	var _userId 			=  '';
 
 	var _data;
@@ -655,6 +656,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			//Set thisDevice from content controller's determination
 			_thisDevice = window.thisDevice;
 
+			_mobileTriggerDevice = response.controllerDevice;
+
 			if(_thisDevice === response.device){
 
 				//Set slave to fullscreen
@@ -764,7 +767,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		_socketConnect.on('seekUpdateOn', function(response){
 
 			//If this is the controller and we're in mobile
-			if(_thisDevice === response.controllerDevice){
+			if(_thisDevice === response.mobileTriggerDevice){
 
 				if(window.windowWidth < app_break_smmd){
 					$('#current-time').html(time);
@@ -1084,11 +1087,12 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 			//EMIT SOCKET DATA=====================//
 			//Build obj for socket transmission
 			var data = {
-				'device' 			: _playOnDevice,
-				'controllerDevice' 	: _thisDevice,
-				'userId' 			: _userId,
-				'time' 				: time,
-				'seekPos' 			: _seek.seekPos
+				'device' 				: _playOnDevice,
+				'controllerDevice' 		: _thisDevice,
+				'mobileTriggerDevice'	: _mobileTriggerDevice,
+				'userId' 				: _userId,
+				'time' 					: time,
+				'seekPos' 				: $('#seek-dot').offset().left
 			}
 
 			//Emit when not in controller mode so as to repoet back to controller
