@@ -15,7 +15,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 	var _devices 	= [];
 	var _thisDevice;
 
-	var obj 		= {};
+
 
 
 
@@ -147,15 +147,18 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 	//Public methods and properties.
-	obj.getDevices 	= getDevices,
-	obj.getUser 	= getUser,
-	obj.addDevice 	= addDevice;
+	var exports 		= {
+		getDevices 		: getDevices,
+		getUser 		: getUser,
+		addDevice 		: addDevice
+	};
 
 
 
 
-	//return object
-	return obj;
+
+	//return exports
+	return exports;
 
 
 

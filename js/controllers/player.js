@@ -45,6 +45,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 	var _data;
 
+	var app_break_smmd 		= '768';
+
 
 
 
@@ -447,7 +449,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				$(document).on('click', '.dropdown-trigger', function(event){
 					console.log(window.windowWidth);
 					//Mobile view song play on li click
-					if(window.windowWidth < '650'){
+					if(window.windowWidth < app_break_smmd){
 						var item = $(this).parent().find('.play-icon');
 						playItem(item);
 					}

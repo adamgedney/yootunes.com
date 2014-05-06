@@ -203,12 +203,12 @@ define(['jquery'], function($){
 	// 	// getAlbums		: getAlbums
 	// };
 
-	var obj = {
+	var exports = {
 		addSharedPlaylist : addSharedPlaylist
 	}
 
-	//return constructor
-	return obj;
+	//return exports
+	return exports;
 
 
 

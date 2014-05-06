@@ -414,8 +414,12 @@ section.app{
 
 
 .section-header{
-	height: 72px; //120
+	height: 48px; //120
 	border-bottom: 1px solid nth($grey, 4);
+
+	@include app-break-smmd{
+		height: 72px
+	}
 }
 
 .search{
@@ -428,8 +432,12 @@ section.app{
 		float: left;
 		margin: 0;
 		// padding: 0 6%;
-		height: 72px;//39
+		height: 48px;//39
 		background: rgba(0,0,0,.1);/*slight dark overlay*/
+
+		@include app-break-smmd{
+			height: 72px
+		}
 	}
 
 	input[type="text"]{
@@ -639,6 +647,7 @@ section.app{
 	@include col(12);
 	border-bottom: 1px solid nth($grey, 4);
 	font-size: .6em;
+	background: rgba(0,0,0,.05);
 
 	.li-col1{
 		// height: 21px;
@@ -1267,6 +1276,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		display: inline;
 		float: right;
 		line-height: 0px; //important for lining up seek-line
+		margin-right: 9px;
+
+		@include app-break-smmd{
+			margin-right: 0;
+		}
 	}
 
 	#seek-bar{

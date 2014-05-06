@@ -649,7 +649,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//public methods & properties.
-	var obj = {
+	var exports = {
 		loadLanding 		: loadLanding,
 		loadPlaylists		: loadPlaylists,
 		loadLibrary 		: loadLibrary,
@@ -664,7 +664,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//return constructor
-	return obj;
+	return exports;
 
 
 

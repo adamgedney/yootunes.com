@@ -36,6 +36,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 	var _currentTheme 		= '';
 
+	var app_break_smmd 		= '768';
+
 
 
 
@@ -56,7 +58,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 			window.windowWidth = $(window).width();
 
 			//On resize show sidebar
-			if(window.windowWidth > '650'){
+			if(window.windowWidth > app_break_smmd){
 				$('section.app').removeClass('mainSlideLeft');
 				$('aside.app').removeClass('sidebarSlideLeft');
 			}
@@ -185,7 +187,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 		$(document).on('click', '.dropdown-trigger', function(event){
 
 			//Prevent dropdown on mobile view
-			if(window.windowWidth > '650'){
+			if(window.windowWidth > app_break_smmd){
 
 				//Ensures form is hidden at start
 				$('.newPlaylistForm').hide();
@@ -682,7 +684,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	//Controls entering fullscreen iframe manipulation
 	function enterFullscreen(){
 
-		if(window.windowWidth < '650'){
+		if(window.windowWidth < app_break_smmd){
 
 		}else{
 
@@ -728,7 +730,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	function showNormalSize(){
 
 
-		if(window.windowWidth < '650'){
+		if(window.windowWidth < app_break_smmd){
 
 			//hide ads
 			$('#adsense').hide();
@@ -788,7 +790,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 	//Controls minimizing the video
 	function showMinSize(){
 
-		if(window.windowWidth < '650'){
+		if(window.windowWidth < app_break_smmd){
 
 			//Show ads
 			$('#adsense').show();
