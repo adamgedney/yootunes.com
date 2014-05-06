@@ -859,7 +859,7 @@ aside.app {
   font-size: .8em;
 }
 
-#video, video {
+#video {
   background: #0f1010;
   width: 100%;
   position: fixed;
@@ -871,7 +871,7 @@ aside.app {
   border: none;
 }
 @media only screen and (min-width: 800px) {
-  #video, video {
+  #video {
     width: 25%;
     z-index: 1000;
     bottom: 72px;
