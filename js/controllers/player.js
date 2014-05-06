@@ -449,7 +449,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				$(document).on('click', '.dropdown-trigger', function(event){
 					// console.log(window.windowWidth);
 					//Mobile view song play on li click
+
 					if(window.windowWidth < app_break_smmd){
+
 
 						var item = $(this).parent().find('.play-icon');
 						playItem(item);
@@ -1139,6 +1141,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 	function play(youtubeId){
+		//Fallback thisDevice for mobile slips
+		_thisDevice = _playOnDevice;
 		_thisDevice = window.thisDevice;
 
 		//Get device id of current play on device selection
@@ -1233,6 +1237,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 				//Play local video normally w/out delay
 				_player.loadVideoById(youtubeId);
+				alert("player" + _player.loadVideoById(youtubeId) + " / "+ youtubeId);
 			}//if
 
 				//reset seek stepper for each new video

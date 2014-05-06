@@ -1003,6 +1003,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	//Gets data & Loads library template
 	function loadLibrary(page){
 
+		//Limit 0 === no limit
+		var limit = 0;
+
 		//Ensures userId is always available
 		if(_userId === undefined){
 			if(window.userId !== undefined){
@@ -1033,7 +1036,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			appendTo 	= '.scroll-container';
 
 			//Build API request
-			var API_URL = _baseUrl + '/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder + '/' + page;
+			var API_URL = _baseUrl + '/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder + '/' + page + '/' + limit;
 
 
 
@@ -1326,7 +1329,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	function pageLoader(){
-console.log(_currentSkip, 'paged loading');
+
 		if((_currentSkip + 50) <= _libraryCount){
 			console.log(_currentSkip, "if");
 			_onPage 		+= 1;
@@ -1336,7 +1339,7 @@ console.log(_currentSkip, 'paged loading');
 			loadLibrary(_currentSkip);
 
 		}else{
-console.log(_currentSkip, "else");
+
 
 			clearInterval(_loadInterval);
 
