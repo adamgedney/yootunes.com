@@ -107,7 +107,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		//Trouble overriding CSS :hover on theme change.
 
 
-			MOUSEOVER hover effect for LIGHT theme.
+			//MOUSEOVER hover effect for LIGHT theme.
 			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
 				var resultId = $(this).attr('data-id');
