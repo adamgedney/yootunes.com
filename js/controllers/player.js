@@ -1257,7 +1257,8 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 
 				//Play Local video normally w/out delay
 				if(window.windowWidth < app_break_smmd){
-					$('#video').trigger('click');
+					$('iframe#video .ytp-large-play-button').trigger('click');
+					console.log("playpause loop trigger");
 				}else{
 					_player.playVideo();
 				}
@@ -1290,7 +1291,7 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 
 
 				if(window.windowWidth < app_break_smmd){
-					$('#video').trigger('click');
+					$('iframe#video .ytp-large-play-button').trigger('click');
 				}else{
 					_player.loadVideoById(youtubeId);
 				}
@@ -1299,7 +1300,9 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 
 				//Play local video normally w/out delay
 				if(window.windowWidth < app_break_smmd){
-					$('#video').trigger('click');
+					_player.loadVideoById(youtubeId);
+					$('iframe#video .ytp-large-play-button').trigger('click');
+					console.log("new video trigger")
 				}else{
 					_player.loadVideoById(youtubeId);
 				}
