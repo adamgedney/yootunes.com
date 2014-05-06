@@ -103,59 +103,59 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 			//MOUSEOVER hover effect for LIGHT theme.
-			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
+			// $(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
-				var resultId = $(this).attr('data-id');
+			// 	var resultId = $(this).attr('data-id');
 
-				if(window.theme === 'light' || _currentTheme === 'light'){
+			// 	if(window.theme === 'light' || _currentTheme === 'light'){
 
-					//If dropdown is open or closed set hover color accordingly
-					if(!_dropdownOpen){
-						$(this).css({'background': '#e7e7e7'});
-					}else if(_dropdownOpen && resultId === _dropdownId){
-						$(this).css({'background': '#ffffff'});
-					}
+			// 		//If dropdown is open or closed set hover color accordingly
+			// 		if(!_dropdownOpen){
+			// 			$(this).css({'background': '#e7e7e7'});
+			// 		}else if(_dropdownOpen && resultId === _dropdownId){
+			// 			$(this).css({'background': '#ffffff'});
+			// 		}
 
-				}else if(window.theme === 'dark' || _currentTheme === 'dark'){
+			// 	}else if(window.theme === 'dark' || _currentTheme === 'dark'){
 
-					//If dropdown is open or closed set hover color accordingly
-					if(!_dropdownOpen){
-						$(this).css({'background': '#2a2d2d'});
-					}else if(_dropdownOpen && resultId === _dropdownId){
+			// 		//If dropdown is open or closed set hover color accordingly
+			// 		if(!_dropdownOpen){
+			// 			$(this).css({'background': '#2a2d2d'});
+			// 		}else if(_dropdownOpen && resultId === _dropdownId){
 
-						$(this).css({'background': '#ffffff'});
-					}
-				}
-			});//MOUSEOVER
-
-
+			// 			$(this).css({'background': '#ffffff'});
+			// 		}
+			// 	}
+			// });//MOUSEOVER
 
 
 
-			//MOUSEOUT hover effect for LIGHT theme.
-			$(document).on('mouseout', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
-				var resultId = $(this).attr('data-id');
 
-				if(window.theme === 'light' || _currentTheme === 'light'){
+			// //MOUSEOUT hover effect for LIGHT theme.
+			// $(document).on('mouseout', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
-					//If dropdown is open or closed set hover color accordingly
-					if(!_dropdownOpen){
-						$(this).css({'background': 'none'});
-					}else if(_dropdownOpen && resultId === _dropdownId){
-						$(this).css({'background': '#ffffff'});
-					}
+			// 	var resultId = $(this).attr('data-id');
 
-				}else if(window.theme === 'dark' || _currentTheme === 'dark'){
+			// 	if(window.theme === 'light' || _currentTheme === 'light'){
 
-					//If dropdown is open or closed set hover color accordingly
-					if(!_dropdownOpen){
-						$(this).css({'background': 'none'});
-					}else if(_dropdownOpen && resultId === _dropdownId){
-						$(this).css({'background': '#ffffff'});
-					}
-				}
-			});
+			// 		//If dropdown is open or closed set hover color accordingly
+			// 		if(!_dropdownOpen){
+			// 			$(this).css({'background': 'none'});
+			// 		}else if(_dropdownOpen && resultId === _dropdownId){
+			// 			$(this).css({'background': '#ffffff'});
+			// 		}
+
+			// 	}else if(window.theme === 'dark' || _currentTheme === 'dark'){
+
+			// 		//If dropdown is open or closed set hover color accordingly
+			// 		if(!_dropdownOpen){
+			// 			$(this).css({'background': 'none'});
+			// 		}else if(_dropdownOpen && resultId === _dropdownId){
+			// 			$(this).css({'background': '#ffffff'});
+			// 		}
+			// 	}
+			// });
 
 
 
