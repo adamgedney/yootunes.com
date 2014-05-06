@@ -1256,7 +1256,12 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 			}else if(_socket === null){
 
 				//Play Local video normally w/out delay
-				_player.playVideo();
+				if(window.windowWidth < app_break_smmd){
+					$('#video').trigger('click');
+				}else{
+					_player.playVideo();
+				}
+
 
 			}//if
 
@@ -1283,12 +1288,21 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 				//Delay play by 2s to wait for socket connection to load slave video
 				// setTimeout(, 2000);
 
-				_player.loadVideoById(youtubeId)
+
+				if(window.windowWidth < app_break_smmd){
+					$('#video').trigger('click');
+				}else{
+					_player.loadVideoById(youtubeId);
+				}
 
 			}else if(_socket === null){
 
 				//Play local video normally w/out delay
-				_player.loadVideoById(youtubeId);
+				if(window.windowWidth < app_break_smmd){
+					$('#video').trigger('click');
+				}else{
+					_player.loadVideoById(youtubeId);
+				}
 
 			}//if
 

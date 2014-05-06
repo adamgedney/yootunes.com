@@ -874,7 +874,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 				//Shows column headers
-				$('.li-header').show();
+				// $('.li-header').show();
 
 				//Clear append container
 				$(appendTo).empty();
@@ -921,7 +921,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 				//Shows column headers
-				$('.li-header').show();
+				// $('.li-header').show();
 
 				//Clear append container
 				$(appendTo).empty();
@@ -1028,7 +1028,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			$('.scroll-container').empty();
 
 			//Shows column headers
-			$('.li-header').show();
+			// $('.li-header').show();
 
 			//Change last column to remove
 			$('.sourceTitle').html('Remove');
@@ -1114,15 +1114,15 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				test	: ''
 			};
 
-			//Hides column headers
-			$('.li-header').hide();
-
 			//Clear append container
 			$(appendTo).empty();
 
 		render(src, id, appendTo, data);
 
 			resetPagination();
+
+			//Hides column headers
+			$('.li-header').hide();
 
 	}
 
@@ -1150,7 +1150,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			};
 
 			//Shows column headers
-			$('.li-header').show();
+			// $('.li-header').show();
 
 			//Clear append container
 			$(appendTo).empty();
@@ -1380,6 +1380,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Show search bar
 		$('.li-header').show();
+		$('.section-header').show();
 
 		$('.scroll-container').empty();
 
