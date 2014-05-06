@@ -763,23 +763,23 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 
-		//=============================//
-		//Listen for socket ON seekUpdate
-		//=============================//
-		_socketConnect.on('seekUpdateOn', function(response){
+		// //=============================//
+		// //Listen for socket ON seekUpdate
+		// //=============================//
+		// _socketConnect.on('seekUpdateOn', function(response){
 
-			//If this is the controller and we're in mobile
-			if(_thisDevice === response.mobileTriggerDevice){
+		// 	//If this is the controller and we're in mobile
+		// 	if(_thisDevice === response.mobileTriggerDevice){
 
-				if(window.windowWidth < app_break_smmd){
-					$('#current-time').html(time);
+		// 		if(window.windowWidth < app_break_smmd){
+		// 			$('#current-time').html(time);
 
-					//Update scrubber position
-					$('#seek-dot').offset({left: _seek.seekPos});
-				}
+		// 			//Update scrubber position
+		// 			$('#seek-dot').offset({left: _seek.seekPos});
+		// 		}
 
-			}
-		});//_socketConnect.on
+		// 	}
+		// });//_socketConnect.on
 
 
 
@@ -1042,11 +1042,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				h = 13;
 			};
 
-			var time = m + ':' + s;
+			var timeDisplay = m + ':' + s;
 
 			//Set Hours in time display
 			if(h === 0){
-				$('#current-time').html(time);
+				$('#current-time').html(timeDisplay);
 			}else{
 
 
@@ -1058,9 +1058,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				}
 
 				//time format
-				time = h + ':' + m + ':' + s;
+				timeDisplay  = h + ':' + m + ':' + s;
 
-				$('#current-time').html(time);
+				$('#current-time').html(timeDisplay);
 			}
 
 
