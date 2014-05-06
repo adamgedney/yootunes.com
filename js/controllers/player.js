@@ -1091,8 +1091,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				'seekPos' 			: _seek.seekPos
 			}
 
-
-			if(_socket === 'open'){
+			//Emit when not in controller mode so as to repoet back to controller
+			if(_socket === null){
 				//EMIT seekUpdate event back to server
 				_socketConnect.emit('seekUpdate', data);
 			}//if
