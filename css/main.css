@@ -1663,13 +1663,10 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 @media only screen and (min-width: 800px) {
   #adsense {
+    position: absolute;
+    bottom: 72px;
     left: 25%;
     width: 75%;
-  }
-}
-@media only screen and (min-width: 800px) {
-  #adsense {
-    bottom: 72px;
   }
 }
 
