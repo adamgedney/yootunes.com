@@ -165,7 +165,7 @@ aside.app{
 	font-size: .8em;
 }
 
-#video{
+#video, video{
 	background: $black;
 	@include col(12);
 	position: fixed;

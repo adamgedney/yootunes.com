@@ -1303,13 +1303,16 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 					_player.loadVideoById(youtubeId);
 					// $('iframe#video .ytp-large-play-button').trigger('click');
 					var el = $('iframe#video .ytp-large-play-button').get(0);
-					// var evt = document.createEvent("MouseEvents");
-					// evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-					// el.dispatchEvent(evt);
+					var evt = document.createEvent("MouseEvents");
+					evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+					el.dispatchEvent(evt);
 
-					 var e = document.createEvent('HTMLEvents');
-					  e.initEvent('touchstart',true, true);
-					  el.dispatchEvent(e);
+					evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+					el.dispatchEvent(evt);
+
+					 // var e = document.createEvent('HTMLEvents');
+					 //  e.initEvent('touchstart',true, true);
+					 //  el.dispatchEvent(e);
 
 					console.log("new video trigger")
 				}else{
