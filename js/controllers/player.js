@@ -45,7 +45,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 	var _data;
 
-	var app_break_smmd 		= '768';
+	var app_break_smmd 		= '800';
 
 
 

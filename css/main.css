@@ -776,7 +776,7 @@ html {
   width: 155px;
   margin: 3px 22%;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   #mobile-header {
     display: none;
   }
@@ -809,7 +809,7 @@ aside.app {
   background: #0f1010;
   /*experimenting with dark bg*/
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   aside.app {
     width: 25%;
     left: 0;
@@ -846,7 +846,7 @@ aside.app {
   height: 27px;
   margin-left: 0;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .video-size-ctrl {
     width: 25%;
     z-index: 1002;
@@ -869,7 +869,7 @@ aside.app {
   height: 33px;
   border: none;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   #video {
     width: 25%;
     z-index: 1000;
@@ -1053,7 +1053,7 @@ section.app {
   float: left;
   height: 100%;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   section.app {
     width: 75%;
   }
@@ -1063,7 +1063,7 @@ section.app {
   height: 48px;
   border-bottom: 1px solid #d6d6d6;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .section-header {
     height: 72px;
   }
@@ -1088,7 +1088,7 @@ section.app {
   background: rgba(0, 0, 0, 0.1);
   /*slight dark overlay*/
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .search input {
     height: 72px;
   }
@@ -1104,7 +1104,7 @@ section.app {
   padding-left: 3%;
   outline: none;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .search input[type="text"] {
     width: 91.6666666%;
     font-size: 2.7em;
@@ -1117,7 +1117,7 @@ section.app {
   border-bottom-left-radius: 0;
   border-left: 1px solid #d6d6d6;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .search input[type="submit"] {
     width: 8.33333333%;
   }
@@ -1148,7 +1148,7 @@ section.app {
   top: 39%;
   height: 18px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   #search-icon {
     right: 3.15%;
   }
@@ -1210,7 +1210,7 @@ section.app {
 .li-col1, .li-col7 {
   width: 8.33333333%;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .li-col1, .li-col7 {
     width: 6%;
   }
@@ -1223,7 +1223,7 @@ section.app {
   padding-right: 2%;
   margin-right: 2%;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .li-col2 {
     width: 33.3333333%;
   }
@@ -1235,7 +1235,7 @@ section.app {
   float: left;
   display: none;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .li-col3, .li-col4 {
     display: block;
   }
@@ -1254,7 +1254,7 @@ section.app {
   float: right;
   display: none;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .li-col6, .li-col5 {
     display: inline-block;
   }
@@ -1274,7 +1274,7 @@ section.app {
   width: 12px;
   margin-right: 30%;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .li-col7 {
     /*display: inline-block;*/
   }
@@ -1302,7 +1302,7 @@ section.app {
   margin-top: 0;
   display: none;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .li-header .li-col7 {
     display: inline-block;
   }
@@ -1310,7 +1310,7 @@ section.app {
 .li-header .viewSongs, .li-header .viewArtists, .li-header .viewAlbums, .li-header .viewGenres {
   cursor: pointer;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .li-header {
     font-size: .8em;
   }
@@ -1499,7 +1499,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .info-col1 p, .info-col2 p, .info-col3 p {
   border-bottom: 1px solid #e2e2e2;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .info-col1, .info-col2, .info-col3 {
     width: 33.3333333%;
     float: left;
@@ -1531,7 +1531,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .info-col2, .info-col3 {
   padding-bottom: 72px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .info-col2, .info-col3 {
     padding-left: 6%;
     padding-bottom: 72px;
@@ -1597,7 +1597,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .modal p {
   font-size: 1.2em;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .modal {
     width: 25%;
     margin-left: 37.5%;
@@ -1660,13 +1660,13 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   overflow-x: hidden;
   display: none;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   #adsense {
     left: 25%;
     width: 75%;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   #adsense {
     bottom: 72px;
   }
@@ -1735,7 +1735,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   overflow: hidden;
   font-size: .5em;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .info ul {
     margin: 9px 0 0 2%;
   }
@@ -1747,12 +1747,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 27px;
   margin: 18px 18px 0 0;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .info svg, .info img {
     display: block;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .info {
     width: 25%;
   }
@@ -1786,12 +1786,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   margin-top: 1px;
   display: none;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .transport-ctrl .prev, .transport-ctrl .next {
     display: inline;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .transport-ctrl {
     width: 8.33333333%;
   }
@@ -1821,7 +1821,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   line-height: 0px;
   margin-right: 9px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .seek-ctrl p {
     margin-right: 0;
   }
@@ -1829,7 +1829,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .seek-ctrl #seek-bar {
   width: 83.3333333%;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .seek-ctrl {
     position: relative;
     width: 25%;
@@ -1844,7 +1844,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   /*border-bottom: 1px solid nth($grey, 1);*/
   margin-top: 18px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .seek-line, .seek-fill, #seek-bar, .seek-buffered {
     border-bottom: 1px solid #272a2a;
   }
@@ -1873,7 +1873,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   opacity: .9;
   cursor: pointer;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   #seek-dot {
     z-index: 10;
   }
@@ -1904,7 +1904,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   cursor: pointer;
   height: 12px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .playmode-ctrl {
     display: inline-block;
   }
@@ -1991,7 +1991,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   color: transparent;
   text-shadow: 0 0 0 #ebebeb;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .volume-ctrl {
     display: inline-block;
   }
@@ -2009,7 +2009,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 24px;
   margin-top: 25%;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .playing-share-ctrl {
     display: inline-block;
   }
@@ -2029,7 +2029,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .playon-ctrl h3 {
   font-size: 1em;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .playon-ctrl h3 {
     font-size: 1.2em;
   }
@@ -2058,7 +2058,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .playon-ctrl select.play-on option {
   color: #ebebeb;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   .playon-ctrl {
     width: 8.33333333%;
   }
@@ -2067,7 +2067,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 #mobile-playon {
   margin-top: 27px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
   #mobile-playon {
     display: none;
   }

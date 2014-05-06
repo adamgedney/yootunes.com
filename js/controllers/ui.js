@@ -36,7 +36,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies'], function($, Key
 
 	var _currentTheme 		= '';
 
-	var app_break_smmd 		= '768';
+	var app_break_smmd 		= '800';
 
 
 
