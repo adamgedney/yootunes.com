@@ -1256,12 +1256,9 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 			}else if(_socket === null){
 
 				//Play Local video normally w/out delay
-				if(window.windowWidth < app_break_smmd){
-					$('iframe#video .ytp-large-play-button').trigger('click');
-					console.log("playpause loop trigger");
-				}else{
+
 					_player.playVideo();
-				}
+
 
 
 			}//if
@@ -1290,33 +1287,15 @@ console.log(_thisDevice, _playOnDevice, "peeon");
 				// setTimeout(, 2000);
 
 
-				if(window.windowWidth < app_break_smmd){
-					$('iframe#video .ytp-large-play-button').trigger('click');
-				}else{
+
 					_player.loadVideoById(youtubeId);
-				}
+
 
 			}else if(_socket === null){
 
 				//Play local video normally w/out delay
-				if(window.windowWidth < app_break_smmd){
-					_player.loadVideoById(youtubeId);
-					// $('iframe#video .ytp-large-play-button').trigger('click');
-					var el = $('iframe#video .ytp-large-play-button').get(0);
+				_player.loadVideoById(youtubeId);
 
-					var evt = document.createEvent("MouseEvents");
-					evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-					el.dispatchEvent(evt);
-
-
-					 // var e = document.createEvent('HTMLEvents');
-					 //  e.initEvent('touchstart',true, true);
-					 //  el.dispatchEvent(e);
-
-					console.log("new video trigger")
-				}else{
-					_player.loadVideoById(youtubeId);
-				}
 
 			}//if
 
