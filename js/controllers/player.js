@@ -453,7 +453,7 @@ alert("footer play picked up");
 
 						var item = $(this).parent().find('.play-icon');
 						playItem(item);
-						alert("dropdown play picked up" + item);
+
 					}
 
 				});//onclick play icon
@@ -1065,7 +1065,7 @@ alert("footer play picked up");
 		var id = that.attr('data-videoid');
 
 		renderSongInfo(id);
-
+alert("playItem play picked up" + id);
 		//Makes video ctrl transparent so user can see youtube loading gif
 		$('.video-size-ctrl').css({'opacity':'.5'});
 
