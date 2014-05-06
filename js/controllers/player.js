@@ -322,7 +322,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		//Fires when player returns ready
 		window.onPlayerReady = function(event) {
 
-
+alert("player ready");
 
 
 			//FOOTER PLAY BUTTON Click Handler=======//
