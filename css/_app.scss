@@ -1112,7 +1112,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 	@include app-break-smmd{
-		position: absolute;
+		position: fixed;
 		bottom: 72px;
 		left: 25%;
 		@include col(9);

@@ -1,7 +1,7 @@
 3.2.9 (Media Mark)
-0dcec21d6178a97f65885b59659b89d4f53250a5
+db1d3ada9618bcdcf55b755d63d118541b18bb87
 o:Sass::Tree::RootNode
-:@template"Y
+:@template"Y
 
 
 .share-strip{
@@ -1115,7 +1115,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 	@include app-break-smmd{
-		position: absolute;
+		position: fixed;
 		bottom: 72px;
 		left: 25%;
 		@include col(9);
@@ -2518,7 +2518,8 @@ white;@;i=;@;i=;;o;
 ;	i ;["opacity;[ ;o;;;;".75;@;@;iU;;o;
 ;	i ;["overflow-x;[ ;o;;;;"hidden;@;@;iV;;o;
 ;	i ;["display;[ ;o;;;;"	none;@;@;iW;;o;;"app-break-smmd;[	o;
-;	i ;["position;[ ;o;;;;"absolute;@;@;i[;;o;
+;	i ;["position;[ ;o;;;;"
+fixed;@;@;i[;;o;
 ;	i ;["bottom;[ ;o;;;;"	72px;@;@;i\;;o;
 ;	i ;["	left;[ ;o;;;;"25%;@;@;i];;o;;"col;[ ;@;{ ;i^;0;[o;;i;@;@;i^;[ ;"9;@;{ ;iZ;)T;0;[ ;@;["#adsense;iM;o;;" ;iM; [o;!; [o;"
 ;#0;@é;$o;%;&{ ;iM; [o;9;["adsense;@é;iM;)To;;	i ;[
