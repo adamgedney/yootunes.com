@@ -120,11 +120,15 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			if(event.template === '#app'){
 
 				//Hide footer for mobile devices until playOn change
-				if((window.windowWidth + "") < app_break_smmd){
+				if(window.windowWidth < app_break_smmd){
 					$('#video').hide();
 					$('.video-size-ctrl').hide();
 					$('.footer').hide();
 
+				}else{
+					$('#video').show();
+					$('.video-size-ctrl').show();
+					$('.footer').show();
 				}
 
 				//Start loading the player script once #video is on DOM

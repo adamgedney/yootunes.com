@@ -66,6 +66,14 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			if(window.windowWidth > app_break_smmd){
 				$('section.app').removeClass('mainSlideLeft');
 				$('aside.app').removeClass('sidebarSlideLeft');
+
+				$('#video').show();
+				$('.video-size-ctrl').show();
+				$('.footer').show();
+			}else{
+				$('#video').hide();
+				$('.video-size-ctrl').hide();
+				$('.footer').hide();
 			}
 
 
