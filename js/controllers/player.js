@@ -1305,9 +1305,12 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 			}else if(_socket === null){
 
-				//Play local video normally w/out delay
-				_player.loadVideoById(youtubeId);
-
+				//Play local video
+				if(window.windowWidth < app_break_smmd){
+					popupPlayer(youtubeId);
+				}else{
+					_player.loadVideoById(youtubeId);
+				}
 
 			}//if
 
@@ -1462,6 +1465,18 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 
+
+
+
+
+
+	function popupPlayer(id){
+		var video = $('#video');
+		var iframe = '<iframe width="300" height="169" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
+
+		video.empty();
+		video.append(iframe);
+	}
 
 
 
