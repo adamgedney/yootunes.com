@@ -29,7 +29,41 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
+function registerDOM(template){
 
+		if(template === '#app'){
+
+		}//#app
+
+		if(template === '#landing'){
+
+
+		}//#landing
+
+		if(template === '#forgot'){
+
+		}//#library
+
+		if(template === '#reset'){
+
+		}//#library
+
+		if(template === '#library'){
+
+		}//#library
+
+		if(template === '#playlist'){
+
+		}//#library
+
+		if(template === '#subPlaylist'){
+
+		}//#library
+
+		if(template === '#acctSettings'){
+
+		}//#acctSettings
+	}
 
 
 
@@ -288,6 +322,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Listens for loadApp content renderer complete
 		$(document).on('rendered', function(event){
 
+			registerDOM(event.template);
 
 			//ON APP RENDER========================//
 			if(event.template === '#app'){
