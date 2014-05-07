@@ -518,8 +518,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				_updateInterval = setInterval(updateTime, 100);
 
 
-		      	//If user plays video from click on video, change play/pause
-		      	$('#play-btn').attr('src', 'images/icons/pause.png');
+		      	//If user plays video from click on video, change play/pause in desktop view only
+		      	if(window.windowWidth > app_break_smmd){
+		      		$('#play-btn').attr('src', 'images/icons/pause.png');
+		      	}
+
 
 
 
@@ -546,7 +549,10 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		    	clearInterval(_updateInterval);
 
 		    	//If user plays video from click on video, change play/pause
-		    	$('#play-btn').attr('src', 'images/icons/play-wht.png');
+		    	if(window.windowWidth > app_break_smmd){
+		      		$('#play-btn').attr('src', 'images/icons/play-wht.png');
+		      	}
+
 
 		    	//Sets list icon play/pause img
 		    	$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/play-drk.png');
@@ -630,7 +636,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				//Mobile view song play on li click
 
 				if(window.windowWidth < app_break_smmd){
-
 
 					var item = $(this).parent().find('.play-icon');
 					playItem(item);
@@ -1189,7 +1194,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 			//Determines if new video needs to be loaded
 			if(this.newVideo === true){
-
+console.log("playitem new video", playerId, id);
 				_paused = false;
 
 				play(id);
@@ -1207,7 +1212,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			//Runs play w/out loading new video
 			}else{
 
-
+console.log("playitem not new vid");
 
 				//Pause playback handler
 				if(_playerPlaying){
@@ -1216,6 +1221,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 					_paused 		= true;
 					_playerPlaying	= false;
+
 
 				}else{
 
@@ -1251,6 +1257,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 		if(window.windowWidth < app_break_smmd){
 			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
+			_mobileIframeId = youtubeId;
+
 		}else{
 			_playOnDevice =  $('#play-on option:selected').attr('data-id');
 		}
@@ -1343,14 +1351,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				// setTimeout(, 2000);
 
 
-
 				//Play local video
-				if(window.windowWidth < app_break_smmd){
-					popupPlayer(youtubeId);
+				_player.loadVideoById(youtubeId);
 
-				}else{
-					_player.loadVideoById(youtubeId);
-				}
 
 
 			}else if(_socket === null){
@@ -1369,7 +1372,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				//to conrol seek bar fill
 				_seek.stepper = 0;
 
-
+				//Updates button ui
+				$('#play-btn').attr('src', 'images/icons/pause.png');
 		}//else youtubeId
 	}//play
 
@@ -1525,8 +1529,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		var video = $('#video-overlay');
 		var iframe = '<iframe width="' + window.windowWidth + '" height="300" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
 
-
-		_mobileIframeId = id;
 
 		video.empty();
 		video.append(iframe);

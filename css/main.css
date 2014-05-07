@@ -1818,7 +1818,9 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .seek-ctrl {
-  width: 100%;
+  position: relative;
+  width: 25%;
+  top: 36px;
   float: left;
   position: relative;
   top: 50%;
@@ -1829,10 +1831,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   transform: translateY(-50%);
   height: 36px;
   overflow: hidden;
-  position: absolute;
-  top: 0px;
-  left: 0;
   z-index: 1007;
+  display: none;
 }
 .seek-ctrl p {
   font-size: 1.2em;
@@ -1851,10 +1851,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 @media only screen and (min-width: 800px) {
   .seek-ctrl {
-    position: relative;
-    width: 25%;
-    top: 36px;
-    left: initial;
+    display: inline-block;
   }
 }
 

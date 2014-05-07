@@ -249,7 +249,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			//======================================//
 			}else{//Handles mobile view popup toggling
 			//======================================//
-				// $('.footer').hide();
+				var playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
+
 				var thisId = $(this).parent().find('.playIconImg').attr('data-videoId');
 
 
@@ -262,35 +263,44 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 				$(this).parent().find('.playIconImg').attr('src', 'images/icons/pause-drk.png');
 
 
-				if(_previousId !== thisId){
+				//Toggle mobile video if in normal mode not master mode
+				if(playOnDevice === window.thisDevice){
 
-					//Handle mobile video popup
-					if(_popupToggle === true){
+					if(_previousId !== thisId){
 
-						showNormalSize();
+						//Handle mobile video popup
+						if(_popupToggle === true){
+
+							showNormalSize();
+
+						}else{
+							showMinSize();
+
+						}
+
+						//Set previousId for toggle flow
+						_previousId = thisId;
 
 					}else{
-						showMinSize();
 
-					}
+						//Handle mobile video popup
+						if(_popupToggle === false){
 
-					//Set previousId for toggle flow
-					_previousId = thisId;
 
+							showNormalSize();
+							_popupToggle = !_popupToggle;
+						}else{
+							showMinSize();
+
+							_popupToggle = !_popupToggle;
+						}//else
+					}//else
 				}else{
 
-					//Handle mobile video popup
-					if(_popupToggle === false){
-
-
-						showNormalSize();
-						_popupToggle = !_popupToggle;
-					}else{
-						showMinSize();
-
-						_popupToggle = !_popupToggle;
-					}//else
-				}//else
+					//Reset popup video
+					showMinSize();
+					_popupToggle = false;
+				}//else playOnDevice
 			}//else breakpoint
 		});
 

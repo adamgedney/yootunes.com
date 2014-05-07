@@ -1281,15 +1281,15 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 .seek-ctrl{
-	@include col(12);
+	position: relative;
+	@include col(3);
+	top: 36px;
 	float: left;
 	@include vertical-align;
 	height: 36px;
 	overflow: hidden;
-	position: absolute;
-	top: 0px;
-	left: 0;
 	z-index: 1007;
+	display: none;
 
 	p{
 		font-size: 1.2em;
@@ -1308,10 +1308,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	}
 
 	@include app-break-smmd{
-		position: relative;
-		@include col(3);
-		top: 36px;
-		left: initial;
+		display: inline-block;
+
 	}
 }
 
