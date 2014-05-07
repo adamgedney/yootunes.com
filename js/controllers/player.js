@@ -102,6 +102,14 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				$('.footer').show();
 				$('.video-size-ctrl').hide();
 				$('#video').hide();
+
+			if(window.thisDevice !== _playOnDevice){
+				$('.li-col1').hide();
+				$('#video-overlay').hide();
+			}else{
+				$('.li-col1').show();
+				$('##video-overlay').show();
+			}
 		});
 
 
