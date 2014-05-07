@@ -12,6 +12,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 
 	//private vars
+	var DOM 				= {};
+
 	var _player 			= {};
 
 	var _playerPlaying      = false;
@@ -86,7 +88,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		//on playOn change, pause video to enable transition
 		$(document).on('change', '#play-on', function(){
 
-			_playOnDevice =  $('#play-on option:selected').attr('data-id');
+			_playOnDevice =  DOM.playOnSelected.attr('data-id');
 
 				pause();
 		});
@@ -95,22 +97,22 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 		$(document).on('change', '#mobile-play-on', function(){
 
-			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
+			_playOnDevice =  DOM.mobilePlayOnSelected.attr('data-id');
 
 				pause();
 
-				$('.footer').show();
-				$('.video-size-ctrl').hide();
-				$('#video').hide();
+				DOM.footer.show();
+				DOM.videoSizeCtrl.hide();
+				DOM.video.hide();
 
 			if(window.thisDevice !== _playOnDevice){
-				$('.li-col1').hide();
-				$('.li-col2').css('width', '83.3333333%');
-				$('#video-overlay').hide();
+				DOM.liCol1.hide();
+				DOM.liCol2.css('width', '83.3333333%');
+				DOM.videoOverlay.hide();
 			}else{
-				$('.li-col1').show();
-				$('.li-col2').css('width', '75%');
-				$('##video-overlay').show();
+				DOM.liCol1.show();
+				DOM.liCol2.css('width', '75%');
+				DOM.videoOverlay.show();
 			}
 		});
 
@@ -127,18 +129,20 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		//Listen for rendered
 		$(document).on('rendered', function(event){
 
+			registerDOM(event.template);
+
 			if(event.template === '#app'){
 
 				//Hide footer for mobile devices until playOn change
 				if(window.windowWidth < app_break_smmd){
-					$('#video').hide();
-					$('.video-size-ctrl').hide();
-					$('.footer').hide();
+					DOM.video.hide();
+					DOM.videoSizeCtrl.hide();
+					DOM.footer.hide();
 
 				}else{
-					$('#video').show();
-					$('.video-size-ctrl').show();
-					$('.footer').show();
+					DOM.video.show();
+					DOM.videoSizeCtrl.show();
+					DOM.footer.show();
 				}
 
 				//Start loading the player script once #video is on DOM
@@ -148,7 +152,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				socketService.joinRoom(_userId);
 
 				//Ensure shuffle icon is visible if previously hidden by playOn mode
-				$('#shuffleResults').css('opacity','1');
+				DOM.shuffleResults.css('opacity','1');
 			}
 
 
@@ -192,7 +196,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 				//Reset shuffle button and boolean val
 				_playMode.shuffle 	= false;
-				$('#shuffleResults').attr('src', 'images/icons/shuffle-icon.png');
+				DOM.shuffleResults.attr('src', 'images/icons/shuffle-icon.png');
 
 				//Change icon to indicate selection
 				$(this).attr('src', 'images/icons/loop-icon-red.png');
@@ -220,7 +224,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			if(_socket === null){
 
 				//Ensure shuffle icon is visible
-				$('#shuffleResults').css('opacity','1');
+				DOM.shuffleResults.css('opacity','1');
 
 				if(!_playMode.shuffle){
 
@@ -228,7 +232,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 					//Reset loop button and boolean val
 					_playMode.loop 		= false;
-					$('#loopSong').attr('src', 'images/icons/loop-icon.png');
+					DOM.loopSong.attr('src', 'images/icons/loop-icon.png');
 
 					//Change icon to indicate selection
 					$(this).attr('src', 'images/icons/shuffle-icon-red.png');
@@ -267,7 +271,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				_prevIndex -= 1 ;
 
 				//Gets index number of previous shuffle videos stored in shuffleIndex array
-		    	var prevVideo = $('.resultItems[data-index="' + _shuffleIndexes[_prevIndex + _shuffleIndexes.length] + '"]').attr('data-videoId');
+		    	var prevVideo = $('li.resultItems[data-index="' + _shuffleIndexes[_prevIndex + _shuffleIndexes.length] + '"]').attr('data-videoId');
 
 				//Start playing
 				// _player.loadVideoById(prevVideo);
@@ -280,7 +284,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				//set current index
 				_currentIndex = parseInt(_currentIndex, 10) - 1;
 
-		    	var prevVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+		    	var prevVideo = $('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 				//Start playing
 				// _player.loadVideoById(prevVideo);
@@ -313,7 +317,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				//set current index
 				_currentIndex = parseInt(_currentIndex, 10) + 1;
 
-		    	var nextVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+		    	var nextVideo = $('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 				//Start playing
 				// _player.loadVideoById(nextVideo);
@@ -432,7 +436,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 			$(document).on('mousemove', '#volumeRange', function(){
 
-				var rangeVolume = $('#volumeRange').val();
+				var rangeVolume = DOM.volumeRange.val();
 
 				//No need for sockets if this is the device we're playing on
 				if(_socket === null){
@@ -498,14 +502,14 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 				//Set song data & UI Changes
 				renderSongInfo(id);
-				var playing = $('.play-icon[data-videoId=' + id + ']');
+				var playing = $('span.play-icon[data-videoId=' + id + ']');
 
 
 				//Resets video ctrl container to opaque (hides loading icon)
-				$('.video-size-ctrl').css({'opacity':'1'});
+				DOM.videoSizeCtrl.css({'opacity':'1'});
 
 				//Dynamically add video url to watch on icon in video ctrl box
-				$('#watchOnYoutube').attr('href', 'http://youtube.com/watch?v=' + id);
+				DOM.watchOnYoutube.attr('href', 'http://youtube.com/watch?v=' + id);
 
 				//NOTE:*****
 				//This is actually the current index. Clean up possible duplicate setting of this value later.
@@ -522,19 +526,19 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 		      	//If user plays video from click on video, change play/pause in desktop view only
 		      	if(window.windowWidth > app_break_smmd){
-		      		$('#play-btn').attr('src', 'images/icons/pause.png');
+		      		DOM.playBtn.attr('src', 'images/icons/pause.png');
 		      	}
 
 
 
 
 		      	//Sets list icon play/pause img
-				$('.playIconImg').attr('src', 'images/icons/play-drk.png');
+				DOM.playIconImg.attr('src', 'images/icons/play-drk.png');
 				$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
 
 
 				//Set info section animation to playing wave animation
-				$('.playingAnimation').attr('src', 'images/icons/wave-animated.gif');
+				DOM.playingAnim.attr('src', 'images/icons/wave-animated.gif');
 
 
 
@@ -552,7 +556,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 		    	//If user plays video from click on video, change play/pause
 		    	if(window.windowWidth > app_break_smmd){
-		      		$('#play-btn').attr('src', 'images/icons/play-wht.png');
+		      		DOM.playBtn.attr('src', 'images/icons/play-wht.png');
 		      	}
 
 
@@ -560,7 +564,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		    	$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/play-drk.png');
 
 		    	//Set info section animation to noto logomark
-				$('.playingAnimation').attr('src', 'images/icons/note.svg');
+				DOM.playingAnim.attr('src', 'images/icons/note.svg');
 
 		    }
 
@@ -602,7 +606,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			    	//set current index converted from string to int
 					_currentIndex = parseInt(_currentIndex, 10) + 1;
 
-			    	var nextVideo = $('.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+			    	var nextVideo = $('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 					//Start playing
 					// _player.loadVideoById(currentVideo);
@@ -639,7 +643,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 				if(window.windowWidth < app_break_smmd){
 
-					var item = $(this).parent().find('.play-icon');
+					var item = $(this).parent().find('span.play-icon');
 					playItem(item);
 
 				}
@@ -718,7 +722,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				console.log("socket play return event received thisDev/response", _thisDevice, response);
 
 				//Hide the shuffle icon ** may need to display none it
-				$('#shuffleResults').css('opacity','0');
+				DOM.shuffleResults.css('opacity','0');
 
 
 					//Check to see if this is a new video
@@ -728,13 +732,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 						_player.unMute();
 
 						//Set icon to unmuted icon
-						$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
+						DOM.volIcon.attr('src', 'images/icons/volume-icon.svg');
 
 						_player.playVideo();
 						// var id = _player.getVideoData().video_id;
 
 						//Updates button ui
-						$('#play-btn').attr('src', 'images/icons/pause.png');
+						DOM.playBtn.attr('src', 'images/icons/pause.png');
 
 						_playerPlaying= !_playerPlaying;
 
@@ -743,7 +747,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 						_player.unMute();
 
 						//Set icon to unmuted icon
-						$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
+						DOM.volIcon.attr('src', 'images/icons/volume-icon.svg');
 
 						_player.loadVideoById(response.youtubeId);
 					}//else
@@ -774,7 +778,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 
 				//Updates button ui
-				$('#play-btn').attr('src', 'images/icons/play-wht.png');
+				DOM.playBtn.attr('src', 'images/icons/play-wht.png');
 
 				_playerPlaying = !_playerPlaying;
 			}
@@ -799,7 +803,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				_player.setVolume(response.volume);
 
 				//Set the range slider value to match assigned value
-				$('#volumeRange').val(response.volume);
+				DOM.volumeRange.val(response.volume);
 			}
 		});//_socketConnect.on
 
@@ -819,10 +823,10 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		// 	if(_thisDevice === response.mobileTriggerDevice){
 
 		// 		if(window.windowWidth < app_break_smmd){
-		// 			$('#current-time').html(time);
+		// 			DOM.currentTime.html(time);
 
 		// 			//Update scrubber position
-		// 			$('#seek-dot').offset({left: _seek.seekPos});
+		// 			DOM.seekDot.offset({left: _seek.seekPos});
 		// 		}
 
 		// 	}
@@ -845,9 +849,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				_player.seekTo(response.seconds, true);
 
 
-				_seek.seekPos = (($('#seek-bar').width() / _seek.duration) * response.seconds)  + $('#seek-bar').offset().left;
+				_seek.seekPos = ((DOM.seekBar.width() / _seek.duration) * response.seconds)  + DOM.seekBar.offset().left;
 
-				$('#seek-dot').offset({left: _seek.seekPos});
+				DOM.seekDot.offset({left: _seek.seekPos});
 			}
 
 		});//_socketConnect.on
@@ -870,15 +874,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 
 		});//_socketConnect.on
-
-
-
-
-
-
-
-
-
 
 
 
@@ -991,7 +986,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 	function seekTo(scrubberOffset){
 
 		//Set video time: ((scrubber x - bar left) / bar width) * duration
-		var s = ((scrubberOffset - $('#seek-bar').offset().left) / $('#seek-bar').width()) *_seek.duration;
+		var s = ((scrubberOffset - DOM.seekBar.offset().left) / DOM.seekBar.width()) *_seek.duration;
 
 
 		//Build obj for socket transmission
@@ -1093,7 +1088,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 			//Set Hours in time display
 			if(h === 0){
-				$('#current-time').html(timeDisplay);
+				DOM.currentTime.html(timeDisplay);
 			}else{
 
 
@@ -1107,51 +1102,38 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				//time format
 				timeDisplay  = h + ':' + m + ':' + s;
 
-				$('#current-time').html(timeDisplay);
+				DOM.currentTime.html(timeDisplay);
 			}
 
 
 			//(bar width / video duration) * time = xPos of scrubber + seekbar left
-			_seek.seekPos = (($('#seek-bar').width() / _seek.duration) * time)  + $('#seek-bar').offset().left;
+			_seek.seekPos = ((DOM.seekBar.width() / _seek.duration) * time)  + DOM.seekBar.offset().left;
 
 
 			//Update scrubber position
-			$('#seek-dot').offset({left: _seek.seekPos});
+			DOM.seekDot.offset({left: _seek.seekPos});
 
 
 			//Sets seek bar colored backfill bar width
-			$('.seek-fill').width($('#seek-dot').offset().left - $('#seek-bar').offset().left);
+			DOM.seekFill.width(DOM.seekDot.offset().left - DOM.seekBar.offset().left);
 
 
 			//Set Buffered stream indicator in seek bar
 			var buffered = _player.getVideoLoadedFraction();
-			$('.seek-buffered').width(($('#seek-dot').offset().left - $('#seek-bar').offset().left) + (buffered * 100));
+			DOM.seekBuffered.width((DOM.seekDot.offset().left - DOM.seekBar.offset().left) + (buffered * 100));
 
 			//DOn't allow buffered indicator to exceed seek bar width
-			if($('.seek-buffered').width() >= $('#seek-bar').width()){
-				$('.seek-buffered').width($('#seek-bar').width());
+			if(DOM.seekBuffered.width() >= DOM.seekBar.width()){
+				DOM.seekBuffered.width(DOM.seekBar.width());
 			}
 
 
-			// //EMIT SOCKET DATA=====================//
-			// //Build obj for socket transmission
-			// var data = {
-			// 	'device' 				: _playOnDevice,
-			// 	'controllerDevice' 		: _thisDevice,
-			// 	'mobileTriggerDevice'	: _mobileTriggerDevice,
-			// 	'userId' 				: _userId,
-			// 	'time' 					: time,
-			// 	'seekPos' 				: $('#seek-dot').offset().left
-			// }
-
-			// //Emit when not in controller mode so as to repoet back to controller
-			// if(_socket === null){
-			// 	//EMIT seekUpdate event back to server
-			// 	_socketConnect.emit('seekUpdate', data);
-			// }//if
 
 		}//if draggin false
 	}
+
+
+
 
 
 
@@ -1179,7 +1161,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		renderSongInfo(id);
 
 		//Makes video ctrl transparent so user can see youtube loading gif
-		$('.video-size-ctrl').css({'opacity':'.5'});
+		DOM.videoSizeCtrl.css({'opacity':'.5'});
 
 		//Sets the current index to enable autoplay feature funcitonality
 		_currentIndex = that.parent().attr('data-index');
@@ -1196,7 +1178,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 			//Determines if new video needs to be loaded
 			if(this.newVideo === true){
-console.log("playitem new video", playerId, id);
+
 				_paused = false;
 
 				play(id);
@@ -1214,7 +1196,6 @@ console.log("playitem new video", playerId, id);
 			//Runs play w/out loading new video
 			}else{
 
-console.log("playitem not new vid");
 
 				//Pause playback handler
 				if(_playerPlaying){
@@ -1258,11 +1239,11 @@ console.log("playitem not new vid");
 		//Get device id of current play on device selection
 
 		if(window.windowWidth < app_break_smmd){
-			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
+			_playOnDevice =  DOM.mobilePlayOnSelected.attr('data-id');
 			_mobileIframeId = youtubeId;
 
 		}else{
-			_playOnDevice =  $('#play-on option:selected').attr('data-id');
+			_playOnDevice =  DOM.playOnSelected.attr('data-id');
 		}
 
 		//Build obj for socket transmission
@@ -1283,10 +1264,10 @@ console.log("playitem not new vid");
 			_player.mute();
 
 			//Set icon to muted icon
-			$('.vol-icon').attr('src', 'images/icons/volume-icon-mute.svg');
+			DOM.volIcon.attr('src', 'images/icons/volume-icon-mute.svg');
 
 			//Hide the shuffle icon ** may need to display none it
-			$('#shuffleResults').css('opacity','1');
+			DOM.shuffleResults.css('opacity','1');
 
 			// window.open('http://yooss.pw:3000');
 		}else{
@@ -1296,7 +1277,7 @@ console.log("playitem not new vid");
 			_player.unMute();
 
 			//Set icon to unmuted icon
-			$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
+			DOM.volIcon.attr('src', 'images/icons/volume-icon.svg');
 		}
 
 
@@ -1312,7 +1293,7 @@ console.log("playitem not new vid");
 
 				//EMIT event back to server
 				_socketConnect.emit('play', _data);
-				console.log('play emit just sent');
+
 				//Delay play by 1s to wait for socket connection to load slave video
 				// setTimeout(, 1000);
 
@@ -1330,7 +1311,7 @@ console.log("playitem not new vid");
 			}//if
 
 				//Updates button ui
-				$('#play-btn').attr('src', 'images/icons/pause.png');
+				DOM.playBtn.attr('src', 'images/icons/pause.png');
 
 				_playerPlaying= !_playerPlaying;
 
@@ -1375,7 +1356,7 @@ console.log("playitem not new vid");
 				_seek.stepper = 0;
 
 				//Updates button ui
-				$('#play-btn').attr('src', 'images/icons/pause.png');
+				DOM.playBtn.attr('src', 'images/icons/pause.png');
 		}//else youtubeId
 	}//play
 
@@ -1399,9 +1380,9 @@ console.log("playitem not new vid");
 
 		//Get device id of current play on device selection
 		if(window.windowWidth < app_break_smmd){
-			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
+			_playOnDevice =  DOM.mobilePlayOnSelected.attr('data-id');
 		}else{
-			_playOnDevice =  $('#play-on option:selected').attr('data-id');
+			_playOnDevice =  DOM.playOnSelected.attr('data-id');
 		}
 
 
@@ -1415,7 +1396,7 @@ console.log("playitem not new vid");
 			_player.mute();
 
 			//Set icon to muted icon
-			$('.vol-icon').attr('src', 'images/icons/volume-icon-mute.svg');
+			DOM.volIcon.attr('src', 'images/icons/volume-icon-mute.svg');
 		}else{
 			_socket = null;
 
@@ -1423,7 +1404,7 @@ console.log("playitem not new vid");
 			_player.unMute();
 
 			//Set icon to unmuted icon
-			$('.vol-icon').attr('src', 'images/icons/volume-icon.svg');
+			DOM.volIcon.attr('src', 'images/icons/volume-icon.svg');
 		}
 
 
@@ -1446,7 +1427,7 @@ console.log("playitem not new vid");
 			_player.stopVideo();
 
 			//Updates button ui
-			$('#play-btn').attr('src', 'images/icons/play-wht.png');
+			DOM.playBtn.attr('src', 'images/icons/play-wht.png');
 
 			_playerPlaying = !_playerPlaying;
 
@@ -1474,7 +1455,7 @@ console.log("playitem not new vid");
 		//random index for shuffle mode.
 		var randomIndex = Math.floor(Math.random() * resultLength);
 
-		var getVideo = $('.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
+		var getVideo = $('li.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
 
 
 		play(getVideo);
@@ -1497,7 +1478,7 @@ console.log("playitem not new vid");
 
 	function renderSongInfo(id){
 
-		var playing 			= $('.play-icon[data-videoId=' + id + ']');
+		var playing 			= $('span.play-icon[data-videoId=' + id + ']');
 		var song 				= $('#infoTitle');
 		var artist 				= $('#infoArtist');
 		var album 				= $('#infoAlbum');
@@ -1528,7 +1509,7 @@ console.log("playitem not new vid");
 
 	function popupPlayer(id){
 
-		var video = $('#video-overlay');
+		var video = DOM.videoOverlay;
 		var iframe = '<iframe width="' + window.windowWidth + '" height="300" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
 
 
@@ -1563,6 +1544,71 @@ console.log("playitem not new vid");
 
 
 
-// })(window, document,jQuery);
+
+
+	function registerDOM(template){
+
+		if(template === '#app'){
+			DOM.playOnSelected 			= $('#play-on option:selected');
+			DOM.mobilePlayOnSelected 	= $('#mobile-play-on option:selected');
+			DOM.footer 					= $('.footer');
+			DOM.videoSizeCtrl 			= $('.video-size-ctrl');
+			DOM.video 					= $('#video');
+			DOM.liCol1 					= $('.li-col1');
+			DOM.liCol2 					= $('.li-col2');
+			DOM.videoOverlay 			= $('#video-overlay');
+			DOM.shuffleResults 			= $('#shuffleResults');
+			DOM.loopSong 				= $('#loopSong');
+			DOM.volumeRange 			= $('#volumeRange');
+			DOM.watchOnYoutube 			= $('#watchOnYoutube');
+			DOM.playBtn 				= $('.transport-ctrl img#play-btn');
+			DOM.playingAnim 			= $('div.info img.playingAnimation');
+			DOM.playIconImg 			= $('span.li-col1 img.playIconImg');
+			DOM.volIcon 				= $('div.volume-ctrl img.vol-icon');
+			DOM.seekBar 				= $('#seek-bar');
+			DOM.seekDot 				= $('#seek-dot');
+			DOM.seekFill 				= $('.seek-fill');
+			DOM.seekBuffered 			= $('.seek-buffered');
+			DOM.currentTime 			= $('#current-time');
+
+		}//#app
+
+		if(template === '#landing'){
+
+		}//#landing
+
+		if(template === '#forgot'){
+
+		}//#library
+
+		if(template === '#reset'){
+
+		}//#library
+
+		if(template === '#library'){
+
+		}//#library
+
+		if(template === '#playlist'){
+
+		}//#library
+
+		if(template === '#subPlaylist'){
+
+		}//#library
+
+		if(template === '#acctSettings'){
+
+		}//#acctSettings
+	}
+
+
+
+
+
+
+
+
+
 });//define()
 })();//function
