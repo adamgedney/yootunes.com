@@ -793,7 +793,7 @@ console.log("menu clicked");
 				'display'  : 'block',
 				'position' : 'fixed',
 				'top'      : 'initial',
-				'bottom'   : '0px',
+				'bottom'   : '72px',
 				'left'     : '0',
 				'right'    : 'initial',
 				'width'    : '100%',
