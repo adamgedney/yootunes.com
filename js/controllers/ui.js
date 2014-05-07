@@ -54,11 +54,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 		//on window resize, recalculate windowWidth for queries
 		window.windowWidth = $(window).width();
-		console.log(window.windowWidth + "", "ui load");
-		if((window.windowWidth + "") < app_break_smmd){
-			$('#video').hide();
 
-		}
+
 
 
 		$(window).resize(function() {
@@ -754,9 +751,9 @@ console.log("menu clicked");
 			// $('#adsense').hide();
 
 			$('#video-overlay').css({
-				'height'   : '300px',
+				'height'   : '227px',
 				'display'  : 'block',
-				'position' : 'absolute',
+				'position' : 'fixed',
 				'top'      : 'initial',
 				'bottom'   : '0px',
 				'left'     : '0',
@@ -812,7 +809,7 @@ console.log("menu clicked");
 			// $('#adsense').show();
 
 			$('#video-overlay').css({
-				'position' : 'absolute',
+				'position' : 'fixed',
 				'top'      : 'initial',
 				'bottom'   : '0px',
 				'left'     : '0',
