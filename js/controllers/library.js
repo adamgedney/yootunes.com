@@ -7,6 +7,7 @@ define(['jquery'], function($){
 // var Library = (function(window, document, $){
 
 	//private vars
+	var DOM 			= {};
 	var _addedToLibrary = false;
 	var _libraryId 		= '';
 	var _baseUrl 		= 'http://api.yootunes.com';
@@ -15,9 +16,12 @@ define(['jquery'], function($){
 
 
 
+		//Listen for rendered to register DOM elements
+		$(document).on('rendered', function(event){
+			registerDOM(event.template);
+		});
 
-	//constructor fuction
-	// var library = function(){
+
 
 
 
@@ -117,7 +121,7 @@ define(['jquery'], function($){
 			createNewPlaylist(userId, songId, playlistName);
 
 			//Clear form on submit
-			$('.newPlaylistInput').val('');
+			DOM.newPlaylistInput.val('');
 
 			event.preventDefault();
 		});
@@ -183,25 +187,13 @@ define(['jquery'], function($){
 
 
 
-	// };//constructor function
-	//================================//
+//================================//
+//End Event Logic=================//
+//================================//
 
 
 
 
-
-
-	// //methods and properties.
-	// library.prototype = {
-	// 	constructor  : library,
-	// 	// getApp 			: getApp,
-	// 	// getPlaylists	: getPlaylists,
-	// 	// getLibrary		: getLibrary,
-	// 	// getSong 		: getSong,
-	// 	// getSongs		: getSongs,
-	// 	// getArtists		: getArtists,
-	// 	// getAlbums		: getAlbums
-	// };
 
 	var exports = {
 		addSharedPlaylist : addSharedPlaylist
@@ -209,6 +201,15 @@ define(['jquery'], function($){
 
 	//return exports
 	return exports;
+
+
+
+
+
+
+
+
+
 
 
 
@@ -240,8 +241,8 @@ define(['jquery'], function($){
 
 				if(response === true){
 					//Display total songs in library in interface
-					var currentNumber = $('#collectionTotal').html();
-					$('#collectionTotal').html(parseInt(currentNumber) + 1);
+					var currentNumber = DOM.collectionTotal.html();
+					DOM.collectionTotal.html(parseInt(currentNumber) + 1);
 				}
 			}//success
 		});//ajax
@@ -276,8 +277,8 @@ define(['jquery'], function($){
 				if(response === true){
 
 					//Display total songs in library in interface
-					var currentNumber = $('#collectionTotal').html();
-					$('#collectionTotal').html(parseInt(currentNumber) - 1);
+					var currentNumber = DOM.collectionTotal.html();
+					DOM.collectionTotal.html(parseInt(currentNumber) - 1);
 				}
 
 			}//success
@@ -440,10 +441,54 @@ define(['jquery'], function($){
 
 
 
-		//Called by the add to playlist submenu interaction
-		function hideCheck(thisCheck){
-			thisCheck.fadeOut(5000);
-		}
+	//Called by the add to playlist submenu interaction
+	function hideCheck(thisCheck){
+		thisCheck.fadeOut(5000);
+	}
+
+
+
+
+
+
+
+
+	function registerDOM(template){
+
+		if(template === '#app'){
+			DOM.collectionTotal 	= $('#collectionTotal');
+			DOM.newPlaylistInput 	= $('.newPlaylistInput');
+
+		}//#app
+
+		if(template === '#landing'){
+
+		}//#landing
+
+		if(template === '#forgot'){
+
+		}//#library
+
+		if(template === '#reset'){
+
+		}//#library
+
+		if(template === '#library'){
+
+		}//#library
+
+		if(template === '#playlist'){
+
+		}//#library
+
+		if(template === '#subPlaylist'){
+
+		}//#library
+
+		if(template === '#acctSettings'){
+
+		}//#acctSettings
+	}
 
 
 
@@ -461,6 +506,6 @@ define(['jquery'], function($){
 
 
 
-// })(window, document,jQuery);
+
 });//define()
 })();//function

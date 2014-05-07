@@ -14,7 +14,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	var Auth = function(){
 
 
-	//Listen for rendered app to then register DOM elements
+	//Listen for rendered to register DOM elements
 	$(document).on('rendered', function(event){
 
 			registerDOM(event.template);
