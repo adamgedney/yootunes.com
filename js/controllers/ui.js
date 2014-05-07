@@ -2,19 +2,11 @@
 define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], function($, Key, Player, getCookies, lightbox){
 
 
-
-
-// var Ui = (function(window, document, $){
-
-
-	//Instances
-	var _key 		= Key;
-	// var _content 	= new Content();
-
-
-
 	//private vars
-	var _baseUrl 		= 'http://api.yootunes.com';
+	var _baseUrl 			= 'http://api.yootunes.com';
+
+	var DOM 				= {};
+	var _key 				= Key;
 
 	var _seek 				= {};
 		_seek.drag,
@@ -44,8 +36,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
-	//constructor method
-	// var ui = function(){
+
+
 
 
 
@@ -53,27 +45,32 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		//taht starts at the offset left of the hovered over item.
 		//use for tooltips, feedback, validation, error messages, and upgrade acct encouragement.
 
+		//Listen for rendered to register DOM elements
+		$(document).on('rendered', function(event){
+			registerDOM(event.template);
+		});
+
+
+
+
 		//on window resize, recalculate windowWidth for queries
 		window.windowWidth = $(window).width();
-
-
-
 
 		$(window).resize(function() {
 			window.windowWidth = $(window).width();
 
 			//On resize show sidebar
 			if(window.windowWidth > app_break_smmd){
-				$('section.app').removeClass('mainSlideLeft');
-				$('aside.app').removeClass('sidebarSlideLeft');
+				DOM.sectionApp.removeClass('mainSlideLeft');
+				DOM.asideApp.removeClass('sidebarSlideLeft');
 
-				$('#video').show();
-				$('.video-size-ctrl').show();
-				$('.footer').show();
+				DOM.video.show();
+				DOM.videoSizeCtrl.show();
+				DOM.footer.show();
 			}else{
-				$('#video').hide();
-				$('.video-size-ctrl').hide();
-				$('.footer').hide();
+				DOM.video.hide();
+				DOM.videoSizeCtrl.hide();
+				DOM.footer.hide();
 			}
 
 
@@ -87,8 +84,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 			this.toggle;
 
-			var selector = '.signin';
-			var id = $(this).attr('data-id');
+			var selector	= '.signin';
+			var id 			= $(this).attr('data-id');
 
 			//returns the opposite boolean toggle value
 			this.toggle = toggleUi(this.toggle, selector, id);
@@ -184,8 +181,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 			this.toggle;
 
-			var selector = '.playlist-dropdown';
-			var id = $(this).attr('data-id');
+			var selector 	= '.playlist-dropdown';
+			var id 			= $(this).attr('data-id');
 
 			//returns the opposite boolean toggle value
 			this.toggle = toggleUi(this.toggle, selector, id);
@@ -203,7 +200,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			if(window.windowWidth > app_break_smmd){
 
 				//Ensures form is hidden at start
-				$('.newPlaylistForm').hide();
+				DOM.newPlaylistForm.hide();
 
 				this.toggle;
 
@@ -224,9 +221,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 					_dropdownOpen = true;
 
-					$('.resultItems').removeClass('bg-white');
-					$('.resultItems').removeClass('bold');
-					$('.resultItems').css({'borderBottom':'none'});
+					DOM.resultItems.removeClass('bg-white');
+					DOM.resultItems.removeClass('bold');
+					DOM.resultItems.css({'borderBottom':'none'});
 
 					//Set the li item that triggered dropdown to white bg
 					$(this).parent().addClass('bg-white');
@@ -238,7 +235,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 					_dropdownOpen = false;
 
-					$('.resultItems').css({'background':'none'});
+					DOM.resultItems.css({'background':'none'});
 					$(this).parent().removeClass('bg-white');
 					$(this).parent().removeClass('bold');
 					$(this).parent().css({'borderBottom':'none'});
@@ -249,17 +246,17 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			//======================================//
 			}else{//Handles mobile view popup toggling
 			//======================================//
-				var playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
+				var playOnDevice =  DOM.mobilePlayOnSelected.attr('data-id');
 
 				var thisId = $(this).parent().find('.playIconImg').attr('data-videoId');
 
 
 				//Highlight selected mobile video
-				$('.resultItems').removeClass('highlight');
+				DOM.resultItems.removeClass('highlight');
 				$(this).parent().addClass('highlight');
 
 				//Set play icon to pause if video is selected
-				$('.resultItems').find('.playIconImg').attr('src', 'images/icons/play-drk.png');
+				DOM.resultItems.find('.playIconImg').attr('src', 'images/icons/play-drk.png');
 				$(this).parent().find('.playIconImg').attr('src', 'images/icons/pause-drk.png');
 
 
@@ -313,11 +310,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		//Add create playlist show/hide interaction=========//
 		$(document).on('click', '.createNewPlaylistLink', function(event){
 
-			var that = this;
+			var that 		= this;
+			var selector 	= '.newPlaylistForm';
+			var id 			= null;
 			that.toggle;
-
-			var selector = '.newPlaylistForm';
-			var id = null;
 
 			//returns the opposite boolean toggle value
 			that.toggle = toggleUi(that.toggle, selector);
@@ -330,14 +326,13 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
-
 		//Prevents parent div from scrolling while reaching end of scroll in child
 		$(document).on('mouseover', '.playlistSubScrollContainer', function(){
-			$('.scroll-container').css({'overflow':'hidden'});
+			DOM.scrollContainer.css({'overflow':'hidden'});
 		});
 
 		$(document).on('mouseout', '.playlistSubScrollContainer', function(){
-			$('.scroll-container').css({'overflow':'scroll'});
+			DOM.scrollContainer.css({'overflow':'scroll'});
 		});
 
 
@@ -356,10 +351,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		$(document).on('mousedown', '#seek-dot', function(event){
 
 			var scrubber 			= '#seek-dot';
-				_seek.seekBarWidth 	= $('#seek-bar').width(),
-				_seek.seekBarLeft 	= $('#seek-bar').offset().left,
-				_seek.seekBarRight 	= $('#seek-bar').offset().left + _seek.seekBarWidth,
-				_seek.seekFill 		= $('.seek-fill'),
+				_seek.seekBarWidth 	= DOM.seekBar.width(),
+				_seek.seekBarLeft 	= DOM.seekBar.offset().left,
+				_seek.seekBarRight 	= DOM.seekBar.offset().left + _seek.seekBarWidth,
+				_seek.seekFill 		= DOM.seekFill,
 				_seek.drag 			= true;
 
 				Player.prototype.dragging(true);
@@ -478,13 +473,14 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
+
 		//Modal close functionality
 		$(document).on('click', '.modalCloseIcon', function(){
 
 			//Hide modal window nodes
-			$('#restoreAcctModal').fadeOut();
-			$('#deleteAcctModal').fadeOut();
-			$('#nameDeviceModal').fadeOut();
+			DOM.restoreAcctModal.fadeOut();
+			DOM.deleteAcctModal.fadeOut();
+			DOM.nameDeviceModal.fadeOut();
 		});
 
 
@@ -501,7 +497,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			_userId = window.userId;
 
 			//Store theme choice as dark
-			if($('#themeDark').is(':checked')){
+			if(DOM.themeDark.is(':checked')){
 
 				_currentTheme = "dark";
 
@@ -572,30 +568,30 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 		//Mobile menu handler
 		$(document).on('click', '#menu-btn', function(){
-console.log("menu clicked");
+
 			this.toggle;
 
 			if(!this.toggle){
-				// $('#adsense').fadeOut();
+				// DOM.adsense.fadeOut();
 
-				$('section.app').addClass('mainSlideRight');
-				$('aside.app').addClass('sidebarSlideRight');
+				DOM.sectionApp.addClass('mainSlideRight');
+				DOM.asideApp.addClass('sidebarSlideRight');
 
 				//reset slide left
-				$('section.app').removeClass('mainSlideLeft');
-				$('aside.app').removeClass('sidebarSlideLeft');
+				DOM.sectionApp.removeClass('mainSlideLeft');
+				DOM.asideApp.removeClass('sidebarSlideLeft');
 
 				this.toggle = !this.toggle;
 
 			}else{
-				// $('#adsense').fadeIn();
+				// DOM.adsense.fadeIn();
 
-				$('section.app').addClass('mainSlideLeft');
-				$('aside.app').addClass('sidebarSlideLeft');
+				DOM.sectionApp.addClass('mainSlideLeft');
+				DOM.asideApp.addClass('sidebarSlideLeft');
 
 				//reset slide right
-				$('section.app').removeClass('mainSlideRight');
-				$('aside.app').removeClass('sidebarSlideRight');
+				DOM.sectionApp.removeClass('mainSlideRight');
+				DOM.asideApp.removeClass('sidebarSlideRight');
 
 				this.toggle = !this.toggle;
 			}
@@ -745,13 +741,13 @@ console.log("menu clicked");
 	function enterFullscreen(){
 
 		//hide ads
-		$('#adsense').hide();
+		DOM.adsense.hide();
 
 		if(window.windowWidth < app_break_smmd){
 
 		}else{
-
-			$('iframe#video').css({
+//was $(iframe#video)
+			DOM.video.css({
 				'position' : 'absolute',
 				'top'      : '0',
 				'bottom'   : '0',
@@ -763,7 +759,7 @@ console.log("menu clicked");
 			});
 
 
-			$('.video-size-ctrl').css({
+			DOM.videoSizeCtrl.css({
 				'top'     	 : '9px',
 				'left' 		 : '9px',
 				'background' : 'none',
@@ -773,7 +769,7 @@ console.log("menu clicked");
 		}//else
 
 
-		$('.footer').css({
+		DOM.footer.css({
 			'opacity' : '.8'
 		});
 	}
@@ -796,9 +792,9 @@ console.log("menu clicked");
 		if(window.windowWidth < app_break_smmd){
 
 			//hide ads
-			// $('#adsense').hide();
+			// DOM.adsense.hide();
 
-			$('#video-overlay').css({
+			DOM.videoOverlay.css({
 				'height'   : '227px',
 				'display'  : 'block',
 				'position' : 'fixed',
@@ -811,13 +807,13 @@ console.log("menu clicked");
 				'-webkit-transition-duration' : '1s'
 			});
 
-			$('.video-size-ctrl').hide();
+			DOM.videoSizeCtrl.hide();
 
-			$('#video').hide();
+			DOM.video.hide();
 
 		}else{
 
-			$('iframe#video').css({
+			DOM.video.css({
 				'height'   : '227px',
 				'display'  : 'block',
 				'position' : 'absolute',
@@ -828,7 +824,7 @@ console.log("menu clicked");
 				'width'    : '25%'
 			});
 
-			$('.video-size-ctrl').css({
+			DOM.videoSizeCtrl.css({
 				'bottom'     : '72px',
 				'background' : '#0f1010',
 				'textAlign'  : 'right',
@@ -836,7 +832,7 @@ console.log("menu clicked");
 				'left' 		 : 'initial',
 			});
 		}
-			$('.footer').css({
+			DOM.footer.css({
 				'opacity' : '1'
 			});
 	}
@@ -854,9 +850,9 @@ console.log("menu clicked");
 		if(window.windowWidth < app_break_smmd){
 
 			//Show ads
-			// $('#adsense').show();
+			// DOM.adsense.show();
 
-			$('#video-overlay').css({
+			DOM.videoOverlay.css({
 				'position' : 'fixed',
 				'top'      : 'initial',
 				'bottom'   : '0px',
@@ -868,13 +864,13 @@ console.log("menu clicked");
 				'-webkit-transition-duration' : '1s'
 			});
 
-			$('.video-size-ctrl').hide();
+			DOM.videoSizeCtrl.hide();
 
-			$('#video').hide();
+			DOM.video.hide();
 
 		}else{
 
-			$('iframe#video').css({
+			DOM.video.css({
 				'position' : 'absolute',
 				'top'      : 'initial',
 				'bottom'   : '72px',
@@ -884,7 +880,7 @@ console.log("menu clicked");
 				'width'    : '25%'
 			});
 
-			$('.video-size-ctrl').css({
+			DOM.videoSizeCtrl.css({
 				'bottom'     : '72px',
 				'background' : '#0f1010',
 				'textAlign'  : 'right',
@@ -893,7 +889,7 @@ console.log("menu clicked");
 			});
 		}
 
-			$('.footer').css({
+			DOM.footer.css({
 				'opacity' : '1'
 			});
 	}
@@ -936,24 +932,27 @@ console.log("menu clicked");
 		document.cookie = "theme=dark";
 
 
-		$('#app').css({
+		DOM.app.css({
 			'background': '#272a2a'}
 		);
 
 		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('dark-fonts');
 
 
-		$('.li-header').addClass('dark-border-bottom');
-		$('.section-header').addClass('dark-border-bottom');
-		$('#searchSubmit').addClass('dark-border-left');
+		DOM.liHeader.addClass('dark-border-bottom');
+		DOM.sectionHeader.addClass('dark-border-bottom');
+		DOM.searchSubmit.addClass('dark-border-left');
 
-		$('aside.app').addClass('dark-border-right');
-		$('input[type=text]').addClass('dark-placeholder');
+		DOM.asideApp.addClass('dark-border-right');
+		DOM.inputText.addClass('dark-placeholder');
 
-		$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
+		DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
 
 		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('dark-input-bg');
 	}
+
+
+
 
 
 
@@ -969,21 +968,21 @@ console.log("menu clicked");
 		document.cookie = "theme=light";
 
 
-		$('#app').css({
+		DOM.app.css({
 			'background': '#ebebeb'}
 		);
 
 		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('dark-fonts');
 
 
-		$('.li-header').removeClass('dark-border-bottom');
-		$('.section-header').removeClass('dark-border-bottom');
-		$('#searchSubmit').removeClass('dark-border-left');
+		DOM.liHeader.removeClass('dark-border-bottom');
+		DOM.sectionHeader.removeClass('dark-border-bottom');
+		DOM.searchSubmit.removeClass('dark-border-left');
 
-		$('aside.app').removeClass('dark-border-right');
-		$('input[type=text]').removeClass('dark-placeholder');
+		DOM.asideApp.removeClass('dark-border-right');
+		DOM.inputText.removeClass('dark-placeholder');
 
-		$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+		DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
 		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('dark-input-bg');
 	}
@@ -998,12 +997,12 @@ console.log("menu clicked");
 
 
 	function hideAdsense(){
-		$('#adsense').fadeOut();
+		DOM.adsense.fadeOut();
 		setTimeout(showAdsense, 25000);
 	}
 
 	function showAdsense(){
-		$('#adsense').fadeIn();
+		DOM.adsense.fadeIn();
 	}
 
 
@@ -1027,6 +1026,82 @@ console.log("menu clicked");
 		//Set lightbox higher res src
 		$('.youtube-img-a[data-id=' + id + ']').attr('href', hiresSrc);
 	}
+
+
+
+
+
+
+
+
+
+	function registerDOM(template){
+
+		if(template === '#app'){
+			DOM.sectionApp 				= $('section.app');
+			DOM.asideApp 				= $('aside.app');
+			DOM.video 					= $('#video');
+			DOM.videoSizeCtrl 			= $('div.video-size-ctrl');
+			DOM.footer 					= $('div.footer');
+			DOM.resultItems 			= $('li.resultItems');
+			DOM.mobilePlayOnSelected 	= $('#mobile-play-on option:selected');
+			DOM.scrollContainer 		= $('.scroll-container');
+			DOM.seekBar 				= $('#seek-bar');
+			DOM.seekFill 				= $('.seek-fill');
+			DOM.nameDeviceModal 		= $('#nameDeviceModal');
+			DOM.adsense 				= $('#adsense');
+			DOM.videoOverlay 			= $('#video-overlay');
+			DOM.app 					= $('#app');
+			DOM.liHeader 				= $('.li-header');
+			DOM.sectionHeader 			= $('.section-header');
+			DOM.searchSubmit 			= $('#searchSubmit');
+			DOM.inputText 				= $('input[type=text]');
+			DOM.newPlaylistForm 		= $('.newPlaylistForm');
+
+		}//#app
+
+		if(template === '#landing'){
+			DOM.restoreAcctModal = $('#restoreAcctModal');
+
+		}//#landing
+
+		if(template === '#forgot'){
+
+		}//#library
+
+		if(template === '#reset'){
+
+		}//#library
+
+		if(template === '#library'){
+
+		}//#library
+
+		if(template === '#playlist'){
+
+		}//#library
+
+		if(template === '#subPlaylist'){
+
+		}//#library
+
+		if(template === '#acctSettings'){
+			DOM.deleteAcctModal = $('#deleteAcctModal');
+			DOM.themeDark 		= $('#themeDark');
+
+		}//#acctSettings
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

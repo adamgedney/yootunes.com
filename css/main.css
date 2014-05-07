@@ -1756,7 +1756,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 @media only screen and (min-width: 800px) {
   .info ul li {
-    font-size: .8em;
+    font-size: .4em;
   }
 }
 @media only screen and (min-width: 800px) {

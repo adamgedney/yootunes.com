@@ -10,7 +10,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 	var _thisDevice;
 
 	var server 	= 'http://ss.yootunes.com';
-	var socket = io.connect(server);;
+	var socket 	= io.connect(server);;
 
 
 
@@ -81,7 +81,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 	function createRoom(userId){
-		console.log("createRoom called", userId);
+		// console.log("createRoom called", userId);
 		socket.emit('createRoom', userId);
 
 	}
@@ -90,7 +90,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 	function joinRoom(userId){
-		console.log("joinRoom called", userId);
+		// console.log("joinRoom called", userId);
 		socket.emit('joinRoom', userId);
 
 	}
@@ -99,7 +99,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 	function disconnectRoom(userId){
-		console.log("disconnectRoom called", userId);
+		// console.log("disconnectRoom called", userId);
 		_socketConnect.emit('discon', userId);
 	}
 

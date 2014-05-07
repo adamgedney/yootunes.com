@@ -10,6 +10,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 	//private vars
+	var DOM 		= {};
 	var _baseUrl 	= 'http://api.yootunes.com';
 	var _userId;
 	var _devices 	= [];
@@ -25,39 +26,15 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
-
-	//constructor function
-	// var user = function(){
+		//Listen for rendered to register DOM elements
+		$(document).on('rendered', function(event){
+			registerDOM(event.template);
+		});
 
 
 		//retrieve device array from service
 		_devices = getCookies.devices;
 
-
-		// //If device cookie doesn't/does exist
-		// if(_thisDevice === 'undefined' || _thisDevice === undefined || _thisDevice === '' || !_thisDevice ){//Does not exist
-
-		// 	//Fade in modal to instruct user to name this device
-		// 	$('#nameDeviceModal').fadeIn();
-
-
-		// 	//**Check user module for new device ajax call
-
-
-		// 	// //Set device on new device creation
-		// 	// $(document).on('reloadDevices', function(event){
-
-		// 	// 	//Fade in modal to instruct user to name this device
-		// 	// 	$('#nameDeviceModal').fadeOut();
-
-		// 	// 	//Set this device once a new one is created
-		// 	// 	_thisDevice = event.newDeviceId;
-
-		// 	// 	// //Set a device cookie for socket server control
-		// 	// 	// document.cookie = "device=" + _thisDevice;
-
-		// 	// });//on reloadDevices
-		// }
 
 
 
@@ -208,9 +185,9 @@ define(['jquery', 'getCookies'], function($, getCookies){
 		// _devices = getCookies.devices;
 
 		var currentDeviceId 	= "0";//default set in case we're new and not updating
-		var name 				= $('.infoDeviceName').val();
-		var selectedDeviceName 	= $('#userDevices option:selected').text();
-		var selectedDeviceId 	= $('#userDevices option:selected').attr('data-id');
+		var name 				= DOM.infoDeviceName.val();
+		var selectedDeviceName 	= DOM.userDevicesSelected.text();
+		var selectedDeviceId 	= DOM.userDevicesSelected.attr('data-id');
 		var deviceCookieAmount 	= _devices.length;
 
 
@@ -219,7 +196,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 			 //set cookie DEVICE# with device id here
 			document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
-			$('#nameDeviceModal').fadeOut();
+			DOM.nameDeviceModal.fadeOut();
 
 		}else{//NEW DEVICE
 
@@ -247,18 +224,11 @@ define(['jquery', 'getCookies'], function($, getCookies){
 						newDeviceName 	: response.newDeviceName
 					});//trigger
 
-					$('#nameDeviceModal').fadeOut();
+					DOM.nameDeviceModal.fadeOut();
 
 				}//success
 			});//ajax
 		}//else
-
-		// //If a device name already exists for this device, get it
-		// if(!$('#infoDeviceName').attr('data-id') === ''){
-
-		// 	 currentDeviceId = $('.infoDeviceName').attr('data-id');
-
-		// }
 	}//addDevice()
 
 
@@ -304,6 +274,51 @@ define(['jquery', 'getCookies'], function($, getCookies){
 				}
 			}//success
 		});//ajax
+	}
+
+
+
+
+
+
+
+
+	function registerDOM(template){
+
+		if(template === '#app'){
+			DOM.nameDeviceModal 	= $('#nameDeviceModal');
+			DOM.infoDeviceName 		= $('.infoDeviceName');
+			DOM.userDevicesSelected = $('#userDevices option:selected');
+
+		}//#app
+
+		if(template === '#landing'){
+
+		}//#landing
+
+		if(template === '#forgot'){
+
+		}//#library
+
+		if(template === '#reset'){
+
+		}//#library
+
+		if(template === '#library'){
+
+		}//#library
+
+		if(template === '#playlist'){
+
+		}//#library
+
+		if(template === '#subPlaylist'){
+
+		}//#library
+
+		if(template === '#acctSettings'){
+
+		}//#acctSettings
 	}
 
 

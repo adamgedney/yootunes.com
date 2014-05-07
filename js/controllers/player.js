@@ -332,16 +332,10 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 
 
-		// if (window.YT) {
-		//     // Apparently, the API was ready before this script was executed.
-		//     // Manually invoke the function
-		//     onYouTubePlayerAPIReady();
-		// }
 
 		//Listens for the player API to load
 		window.onYouTubePlayerAPIReady = function() {
 
-			console.log("player api ready");
 			// create the global player from the specific iframe (#video)
 			_player = new YT.Player('video', {
 				playerVars: {
