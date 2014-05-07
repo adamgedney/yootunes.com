@@ -105,9 +105,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 			if(window.thisDevice !== _playOnDevice){
 				$('.li-col1').hide();
+				$('.li-col2').css('width', '83.3333333%');
 				$('#video-overlay').hide();
 			}else{
 				$('.li-col1').show();
+				$('.li-col2').css('width', '75%');
 				$('##video-overlay').show();
 			}
 		});
