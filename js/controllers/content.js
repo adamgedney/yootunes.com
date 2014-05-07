@@ -418,7 +418,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//ON LIBRARY RENDER========================//
 			if(event.template === '#libraryItem'){
 
-
+				var resultItems = $('li.resultItems');
+				DOM.sourceTitle = $('.sourceTitle');
 
 
 				//Set the application theme colors
@@ -442,15 +443,15 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//Set list item length to DOM for shuffle function in player controller
 				$('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
 
-
+console.log(DOM.sourceTitle.html());
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
 				if(DOM.sourceTitle.html() === 'Add'){
 
 					//Swaps out icon for add icon
-					DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
+					resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
 				}else{
 
-					DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+					resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 				}
 
 
@@ -1373,6 +1374,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		DOM.scrollContainer.empty();
 
+		DOM.sourceTitle.html("Remove");
+
 		sortList(sortBy);
 
 		activeLibraryItem(activeItem);
@@ -1525,7 +1528,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		}//#library
 
 		if(template === '#library'){
-			// DOM.resultItems = $('li.resultItems');
 
 		}//#library
 
