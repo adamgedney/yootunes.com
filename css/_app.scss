@@ -1217,9 +1217,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		margin: 18px 0 0 2%;
 
 		li{
-			font-size: .8em;
 			overflow: hidden;
-			font-size: .5em;
+			font-size: .6em;
+
+			@include app-break-smmd{
+				font-size: .8em;
+			}
 		}
 
 		@include app-break-smmd{
