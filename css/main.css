@@ -741,6 +741,10 @@ input[type="password"] {
   line-height: 16px;
 }
 
+.highlight {
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 .no-select, img, .section-header, aside.app, .li-header, .footer {
   -webkit-user-select: none;

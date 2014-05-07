@@ -33,7 +33,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 	var _userId 			= window.userId;
 	var _dropdownOpen 		= false;
 	var _dropdownId 		= '';
-	var _popupToggle 		= false;
+	var _popupToggle 		= true;
+	var _previousId 		= '';
 
 	var _currentTheme 		= '';
 
@@ -235,25 +236,54 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 					$(this).parent().css({'borderBottom':'none'});
 				}
 
-			}else{
 
 
-				//Handle mobile video popup
-				if(_popupToggle === false){
-					$('.footer').hide();
+			//======================================//
+			}else{//Handles mobile view popup toggling
+			//======================================//
+				// $('.footer').hide();
+				var thisId = $(this).parent().find('.playIconImg').attr('data-videoId');
 
-					console.log("toggle true", _popupToggle);
 
-					showNormalSize();
-					_popupToggle = !_popupToggle;
+				//Highlight selected mobile video
+				$('.resultItems').removeClass('highlight');
+				$(this).parent().addClass('highlight');
+
+				//Set play icon to pause if video is selected
+				$('.resultItems').find('.playIconImg').attr('src', 'images/icons/play-drk.png');
+				$(this).parent().find('.playIconImg').attr('src', 'images/icons/pause-drk.png');
+
+
+				if(_previousId !== thisId){
+
+					//Handle mobile video popup
+					if(_popupToggle === true){
+
+						showNormalSize();
+
+					}else{
+						showMinSize();
+
+					}
+
+					//Set previousId for toggle flow
+					_previousId = thisId;
+
 				}else{
-					showMinSize();
-					console.log("toggle false", _popupToggle);
-					_popupToggle = !_popupToggle;
-				}
+
+					//Handle mobile video popup
+					if(_popupToggle === false){
 
 
-			}
+						showNormalSize();
+						_popupToggle = !_popupToggle;
+					}else{
+						showMinSize();
+
+						_popupToggle = !_popupToggle;
+					}//else
+				}//else
+			}//else breakpoint
 		});
 
 
