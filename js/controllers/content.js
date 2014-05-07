@@ -7,6 +7,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//private vars
+	var DOM 			= {};
 	var _songs 			= [];
 	var	_userId			= window.userId;
 	var	_userEmail 		= '';
@@ -29,41 +30,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-function registerDOM(template){
 
-		if(template === '#app'){
-
-		}//#app
-
-		if(template === '#landing'){
-
-
-		}//#landing
-
-		if(template === '#forgot'){
-
-		}//#library
-
-		if(template === '#reset'){
-
-		}//#library
-
-		if(template === '#library'){
-
-		}//#library
-
-		if(template === '#playlist'){
-
-		}//#library
-
-		if(template === '#subPlaylist'){
-
-		}//#library
-
-		if(template === '#acctSettings'){
-
-		}//#acctSettings
-	}
 
 
 
@@ -81,7 +48,7 @@ function registerDOM(template){
 			activeLibraryItem('#acctSettings');
 
 			//Set correct container height
-			$('.scroll-container').css('height', '100vh');
+			DOM.scrollContainer.css('height', '100vh');
 
 		});//click acctSettings
 
@@ -170,7 +137,7 @@ function registerDOM(template){
 			activeLibraryItem(playlistId);
 
 			//Set correct container height
-			$('.scroll-container').css('height', '74vh');
+			DOM.scrollContainer.css('height', '74vh');
 		});
 
 
@@ -186,15 +153,15 @@ function registerDOM(template){
 		//Search call and result looping=========//
 		$(document).on('click', '#searchSubmit', function(event){
 			event.preventDefault();
-			var query = $('#searchInput').val();
+			var query = DOM.searchInput.val();
 			var API_URL = _baseUrl + '/search/' + query;
 			var songs = [];
 
 			//Empty results list while srarch results load
-			$('.scroll-container').empty();
+			DOM.scrollContainer.empty();
 
 			//Show loading icon
-			$('.loading').fadeIn();
+			DOM.loading.fadeIn();
 
 			//Search query call
 			$.ajax({
@@ -214,7 +181,7 @@ function registerDOM(template){
 					loadQueryResults(songs);
 
 					//Hide loading icon
-					$('.loading').fadeOut();
+					DOM.loading.fadeOut();
 
 					//pass data to private var
 					//after loading new results
@@ -283,7 +250,7 @@ function registerDOM(template){
 		$(document).on('reloadDevices', function(event){
 
 			//Fade out name device modal
-			$('#nameDeviceModal').fadeOut();
+			DOM.nameDeviceModal.fadeOut();
 
 			//Set this device once a new one is created
 			_thisDevice = event.newDeviceId;
@@ -328,7 +295,7 @@ function registerDOM(template){
 			if(event.template === '#app'){
 
 				//Show adsense ads on app load
-				$('#adsense').show();
+				DOM.adsense.show();
 
 				// //paged loading of library items every 1.5s until
 				// //full library is loaded
@@ -393,7 +360,7 @@ function registerDOM(template){
 						if(match === false){
 
 							//Fade in modal to instruct user to name this device
-							$('#nameDeviceModal').fadeIn();
+							DOM.nameDeviceModal.fadeIn();
 
 						}//if false
 					});//getDevices
@@ -403,7 +370,7 @@ function registerDOM(template){
 
 
 					//Fade in modal to instruct user to name this device
-					$('#nameDeviceModal').fadeIn();
+					DOM.nameDeviceModal.fadeIn();
 					// $('#devicePrompt').fadeIn();
 
 					//Maybe user deleted cookies? GET DEVICES TO ASK USER
@@ -469,20 +436,20 @@ function registerDOM(template){
 
 
 				//Remove search input value
-				$('#searchInput').val('');
+				DOM.searchInput.val('');
 
 				//Set list item length to DOM for shuffle function in player controller
 				$('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
 
 
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
-				if($('.sourceTitle').html() === 'Add'){
+				if(DOM.sourceTitle.html() === 'Add'){
 
 					//Swaps out icon for add icon
-					$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
+					DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
 				}else{
 
-					$('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+					DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 				}
 
 
@@ -522,13 +489,13 @@ function registerDOM(template){
 			if(event.template === '#acctSettings'){
 
 				//Hide ads on acct settings page
-				$('#adsense').hide();
+				DOM.adsense.hide();
 
 				//Check/uncheck theme option based on current setting
 				if(window.theme === "dark"){
-					$('#themeDark').prop('checked', true);
+					DOM.themeDark.prop('checked', true);
 				}else{
-					$('#themeDark').prop('checked', false);
+					DOM.themeDark.prop('checked', false);
 				}
 
 				//Set the application theme colors
@@ -542,48 +509,48 @@ function registerDOM(template){
 
 
 				//Hide the entire section header (search bar)
-				$('.section-header').hide();
+				DOM.sectionHeader.hide();
 
 
 				//Get User
 				User.getUser(_userId, function(response){
 
-					$('#infoName').val(response[0].display_name);
-					$('#infoEmail').val(response[0].email);
-					$('#infoId').html(response[0].id);
-					$('#infoTitleGender').val(response[0].title);
+					DOM.infoName.val(response[0].display_name);
+					DOM.infoEmail.val(response[0].email);
+					DOM.infoId.html(response[0].id);
+					DOM.infoTitleGender.val(response[0].title);
 
 					//Format birthdate for display
 					var birthdate = response[0].birthMonth + '/' + response[0].birthDay + '/' + response[0].birthYear;
 
 					if(birthdate === '0/0/0'){
-						$('#infoBirthdate').val('4/24/14');
+						DOM.infoBirthdate.val('4/24/14');
 					}else{
-						$('#infoBirthdate').val(birthdate);
+						DOM.infoBirthdate.val(birthdate);
 					}
 
 
 
 					//Prepend selected TITLE option
 					var option1 = '<option >' + response[0].title + '</option>';
-					$('#infoTitleGender').prepend(option1);
+					DOM.infoTitleGender.prepend(option1);
 
 						//Handle title options list
 						if(response[0].title == "Mr."){
 							var option2 = '<option >Mrs.</option>';
 							var option3 = '<option >Ms.</option>';
-							$('#infoTitleGender').append(option2);
-							$('#infoTitleGender').append(option3);
+							DOM.infoTitleGender.append(option2);
+							DOM.infoTitleGender.append(option3);
 						}else if(response[0].title == "Mrs."){
 							var option2 = '<option >Mr.</option>';
 							var option3 = '<option >Ms.</option>';
-							$('#infoTitleGender').append(option2);
-							$('#infoTitleGender').append(option3);
+							DOM.infoTitleGender.append(option2);
+							DOM.infoTitleGender.append(option3);
 						}else if(response[0].title == "Ms."){
 							var option2 = '<option >Mrs.</option>';
 							var option3 = '<option >Mr.</option>';
-							$('#infoTitleGender').append(option2);
-							$('#infoTitleGender').append(option3);
+							DOM.infoTitleGender.append(option2);
+							DOM.infoTitleGender.append(option3);
 						}
 				});//getUser
 
@@ -892,7 +859,7 @@ function registerDOM(template){
 
 
 				//Shows column headers
-				// $('.li-header').show();
+				// DOM.liHeader.show();
 
 				//Clear append container
 				$(appendTo).empty();
@@ -939,7 +906,7 @@ function registerDOM(template){
 
 
 				//Shows column headers
-				// $('.li-header').show();
+				// DOM.liHeader.show();
 
 				//Clear append container
 				$(appendTo).empty();
@@ -993,7 +960,7 @@ function registerDOM(template){
 					}
 
 					//Shows column headers
-					$('.li-header').show();
+					DOM.liHeader.show();
 
 					//Clear append container
 					$(appendTo).empty();
@@ -1005,7 +972,7 @@ function registerDOM(template){
 
 
 					//Change last column to remove
-					$('.sourceTitle').html('Remove');
+					DOM.sourceTitle.html('Remove');
 
 				}//success
 			});//ajax
@@ -1042,14 +1009,14 @@ function registerDOM(template){
 		//Ensures search bar is visible & container is
 		//emptied quickly before a reload
 		if(page === 0){
-			$('.section-header').show();
-			$('.scroll-container').empty();
+			DOM.sectionHeader.show();
+			DOM.scrollContainer.empty();
 
 			//Shows column headers
-			// $('.li-header').show();
+			// DOM.liHeader.show();
 
 			//Change last column to remove
-			$('.sourceTitle').html('Remove');
+			DOM.sourceTitle.html('Remove');
 		}
 
 
@@ -1093,7 +1060,7 @@ function registerDOM(template){
 					_numPages = Math.ceil(response.count / response.limit);
 
 					//Display total songs in library in interface
-					$('#collectionTotal').html(response.count);
+					DOM.collectionTotal.html(response.count);
 
 
 
@@ -1140,7 +1107,7 @@ function registerDOM(template){
 			resetPagination();
 
 			//Hides column headers
-			$('.li-header').hide();
+			DOM.liHeader.hide();
 
 	}
 
@@ -1168,7 +1135,7 @@ function registerDOM(template){
 			};
 
 			//Shows column headers
-			// $('.li-header').show();
+			// DOM.liHeader.show();
 
 			//Clear append container
 			$(appendTo).empty();
@@ -1181,7 +1148,7 @@ function registerDOM(template){
 
 
 		//Change last column to remove
-		$('.sourceTitle').html('Add');
+		DOM.sourceTitle.html('Add');
 	}
 
 
@@ -1222,9 +1189,9 @@ function registerDOM(template){
 
 
 	function renderDevices(response){
-		$('#play-on').empty();
-		$('#mobile-play-on').empty();
-		$('#infoDeviceList').empty();
+		DOM.playOn.empty();
+		DOM.mobilePlayOn.empty();
+		DOM.infoDeviceList.empty();
 
 
 		//Loop through device list
@@ -1234,36 +1201,36 @@ function registerDOM(template){
 			if(response[j].id === _thisDevice){
 
 				//Set the current device if it matches the cookie
-				$('.infoDeviceName').val(response[j].name);
-				$('.infoDeviceName').attr('data-id', response[j].id);
+				DOM.infoDeviceName.val(response[j].name);
+				DOM.infoDeviceName.attr('data-id', response[j].id);
 
 				//set footer list items first result to the current device
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				$('#play-on').prepend(option);
-				$('#mobile-play-on').prepend(option);
+				DOM.playOn.prepend(option);
+				DOM.mobilePlayOn.prepend(option);
 			}else{
 
 				//Render MODAL window list
 				var option 	= '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				$('#userDevices').append(option);
+				DOM.userDevices.append(option);
 
 
 				//Populate SETTINGS PAGE list
 				var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
-				$('#infoDeviceList').append(li);
+				DOM.infoDeviceList.append(li);
 
 
 				//Populate APP FOOTER list
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				$('#play-on').append(option);
-				$('#mobile-play-on').append(option);
+				DOM.playOn.append(option);
+				DOM.mobilePlayOn.append(option);
 
 			}//else
 		}//for
 
 		//Add a blank device to MODAL list
 		var blank	= '<option>Your Devices</option>'
-		$('#userDevices').prepend(blank);
+		DOM.userDevices.prepend(blank);
 	}
 
 
@@ -1400,20 +1367,20 @@ function registerDOM(template){
 	function loadFilteredLibrary(sortBy, activeItem){
 
 		//Show search bar
-		$('.li-header').show();
-		$('.section-header').show();
+		DOM.liHeader.show();
+		DOM.sectionHeader.show();
 
-		$('.scroll-container').empty();
+		DOM.scrollContainer.empty();
 
 		sortList(sortBy);
 
 		activeLibraryItem(activeItem);
 
 		//Set correct container height
-		$('.scroll-container').css('height', '74vh');
+		DOM.scrollContainer.css('height', '74vh');
 
 		//Shows ads if coming from acct settings page
-		$('#adsense').show();
+		DOM.adsense.show();
 	}
 
 
@@ -1517,6 +1484,68 @@ function registerDOM(template){
 
 
 
+
+
+
+
+
+	function registerDOM(template){
+
+		if(template === '#app'){
+			DOM.scrollContainer = $('div.scroll-container');
+			DOM.searchInput 	= $('input#searchInput');
+			DOM.loading 		= $('div.loading');
+			DOM.nameDeviceModal = $('div#nameDeviceModal');
+			DOM.adsense 		= $('div#adsense');
+			DOM.sectionHeader 	= $('.section-header');
+			DOM.sourceTitle 	= $('.sourceTitle');
+			DOM.resultItems 	= $('li.resultItems');//Why this workey workey?
+			DOM.collectionTotal = $('#collectionTotal');
+			DOM.playOn 			= $('#play-on');
+			DOM.mobilePlayOn 	= $('#mobile-play-on');
+			DOM.userDevices 	= $('#userDevices');//modal
+			DOM.infoDeviceList 	= $('#infoDeviceList');
+			DOM.infoDeviceName 	= $('.infoDeviceName');
+			DOM.liHeader 		= $('.li-header');
+		}//#app
+
+		if(template === '#landing'){
+
+
+		}//#landing
+
+		if(template === '#forgot'){
+
+		}//#library
+
+		if(template === '#reset'){
+
+		}//#library
+
+		if(template === '#library'){
+			// DOM.resultItems = $('li.resultItems');
+
+		}//#library
+
+		if(template === '#playlist'){
+
+		}//#library
+
+		if(template === '#subPlaylist'){
+
+		}//#library
+
+		if(template === '#acctSettings'){
+			DOM.themeDark 		= $('#themeDark');
+			DOM.infoName 		= $('#infoName');
+			DOM.infoEmail 		= $('#infoEmail');
+			DOM.infoId 			= $('#infoId');
+			DOM.infoTitleGender = $('#infoTitleGender');
+			DOM.infoBirthdate 	= $('#infoBirthdate');
+			DOM.infoDeviceName 	= $('.infoDeviceName');
+			DOM.infoDeviceList 	= $('#infoDeviceList');
+		}//#acctSettings
+	}
 
 
 
