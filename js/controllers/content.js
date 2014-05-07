@@ -296,6 +296,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 				//Show adsense ads on app load
 				DOM.adsense.show();
+				// DOM.video.show();
 
 				// //paged loading of library items every 1.5s until
 				// //full library is loaded
@@ -1496,6 +1497,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			DOM.searchInput 	= $('input#searchInput');
 			DOM.loading 		= $('div.loading');
 			DOM.nameDeviceModal = $('div#nameDeviceModal');
+			// DOM.video 			= $('#video');
 			DOM.adsense 		= $('div#adsense');
 			DOM.sectionHeader 	= $('.section-header');
 			DOM.sourceTitle 	= $('.sourceTitle');

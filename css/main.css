@@ -824,7 +824,7 @@ aside.app {
 }
 
 .video-size-ctrl {
-  background: #0f1010;
+  background: none;
   width: 100%;
   position: fixed;
   bottom: 72px;
@@ -837,18 +837,20 @@ aside.app {
 .video-size-ctrl svg, .video-size-ctrl img {
   height: 24px;
   width: 27px;
-  margin-top: 9px;
-  margin-left: 3px;
+  margin: 9px 0 0;
+  padding-bottom: 11px;
+  vertical-align: middle;
   cursor: pointer;
 }
 .video-size-ctrl svg:first-child, .video-size-ctrl img:first-child {
-  width: 18px;
+  width: 15px;
   height: 27px;
+  margin-right: 3px;
 }
 .video-size-ctrl svg:last-child, .video-size-ctrl img:last-child {
   width: 36px;
   height: 27px;
-  margin-left: 0;
+  margin-left: -6px;
 }
 @media only screen and (min-width: 800px) {
   .video-size-ctrl {
@@ -884,6 +886,11 @@ aside.app {
 
 #video-overlay {
   bottom: 0px;
+}
+@media only screen and (min-width: 800px) {
+  #video-overlay {
+    display: none;
+  }
 }
 
 .loading {

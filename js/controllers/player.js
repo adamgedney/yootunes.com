@@ -88,7 +88,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		//on playOn change, pause video to enable transition
 		$(document).on('change', '#play-on', function(){
 
-			_playOnDevice =  DOM.playOnSelected.attr('data-id');
+			_playOnDevice =  $('#play-on option:selected').attr('data-id');
 
 				pause();
 		});
@@ -97,11 +97,10 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 		$(document).on('change', '#mobile-play-on', function(){
 
-			_playOnDevice =  DOM.mobilePlayOnSelected.attr('data-id');
+			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
 
 				pause();
 
-				DOM.footer.show();
 				DOM.videoSizeCtrl.hide();
 				DOM.video.hide();
 
@@ -109,10 +108,15 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				DOM.liCol1.hide();
 				DOM.liCol2.css('width', '83.3333333%');
 				DOM.videoOverlay.hide();
+
+				DOM.footer.show();
+
 			}else{
 				DOM.liCol1.show();
 				DOM.liCol2.css('width', '75%');
 				DOM.videoOverlay.show();
+
+				DOM.footer.hide();
 			}
 		});
 
@@ -1233,11 +1237,11 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		//Get device id of current play on device selection
 
 		if(window.windowWidth < app_break_smmd){
-			_playOnDevice =  DOM.mobilePlayOnSelected.attr('data-id');
+			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
 			_mobileIframeId = youtubeId;
 
 		}else{
-			_playOnDevice =  DOM.playOnSelected.attr('data-id');
+			_playOnDevice =  $('#play-on option:selected').attr('data-id');
 		}
 
 		//Build obj for socket transmission
@@ -1249,7 +1253,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			'controllerDevice' 	: _thisDevice
 		}
 
-
+		console.log(_thisDevice, _playOnDevice);
 		//Connection to socketserver runs if we choose to be a controller
 		if(_thisDevice !== _playOnDevice){
 			_socket = 'open';
@@ -1374,9 +1378,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 		//Get device id of current play on device selection
 		if(window.windowWidth < app_break_smmd){
-			_playOnDevice =  DOM.mobilePlayOnSelected.attr('data-id');
+			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
 		}else{
-			_playOnDevice =  DOM.playOnSelected.attr('data-id');
+			_playOnDevice =  $('#play-on option:selected').attr('data-id');
 		}
 
 
@@ -1543,8 +1547,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 	function registerDOM(template){
 
 		if(template === '#app'){
-			DOM.playOnSelected 			= $('#play-on option:selected');
-			DOM.mobilePlayOnSelected 	= $('#mobile-play-on option:selected');
 			DOM.footer 					= $('.footer');
 			DOM.videoSizeCtrl 			= $('.video-size-ctrl');
 			DOM.video 					= $('#video');

@@ -56,6 +56,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		//on window resize, recalculate windowWidth for queries
 		window.windowWidth = $(window).width();
 
+
+
 		$(window).resize(function() {
 			window.windowWidth = $(window).width();
 
@@ -246,17 +248,17 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			//======================================//
 			}else{//Handles mobile view popup toggling
 			//======================================//
-				var playOnDevice =  DOM.mobilePlayOnSelected.attr('data-id');
-
-				var thisId = $(this).parent().find('.playIconImg').attr('data-videoId');
+				var playOnDevice 	=  $('#mobile-play-on option:selected').attr('data-id');
+				var thisId 			= $(this).parent().find('.playIconImg').attr('data-videoId');
+				var resultItems 	= $('li.resultItems');
 
 
 				//Highlight selected mobile video
-				DOM.resultItems.removeClass('highlight');
+				resultItems.removeClass('highlight');
 				$(this).parent().addClass('highlight');
 
 				//Set play icon to pause if video is selected
-				DOM.resultItems.find('.playIconImg').attr('src', 'images/icons/play-drk.png');
+				resultItems.find('.playIconImg').attr('src', 'images/icons/play-drk.png');
 				$(this).parent().find('.playIconImg').attr('src', 'images/icons/pause-drk.png');
 
 
@@ -746,8 +748,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		if(window.windowWidth < app_break_smmd){
 
 		}else{
-//was $(iframe#video)
-			DOM.video.css({
+
+			$('iframe#video').css({
 				'position' : 'absolute',
 				'top'      : '0',
 				'bottom'   : '0',
@@ -813,7 +815,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 		}else{
 
-			DOM.video.css({
+
+			$('iframe#video').css({
 				'height'   : '227px',
 				'display'  : 'block',
 				'position' : 'absolute',
@@ -870,7 +873,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 		}else{
 
-			DOM.video.css({
+			$('iframe#video').css({
 				'position' : 'absolute',
 				'top'      : 'initial',
 				'bottom'   : '72px',
@@ -1043,8 +1046,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			DOM.video 					= $('#video');
 			DOM.videoSizeCtrl 			= $('div.video-size-ctrl');
 			DOM.footer 					= $('div.footer');
-			DOM.resultItems 			= $('li.resultItems');
-			DOM.mobilePlayOnSelected 	= $('#mobile-play-on option:selected');
+			DOM.resultItems 			= $('.resultItems');
 			DOM.scrollContainer 		= $('.scroll-container');
 			DOM.seekBar 				= $('#seek-bar');
 			DOM.seekFill 				= $('.seek-fill');

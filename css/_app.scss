@@ -126,7 +126,7 @@ aside.app{
 }
 
 .video-size-ctrl{
-	background: $black;
+	background: none;
 	@include col(12);
 	//margin-left: 16.6666667%;
 	position: fixed;
@@ -140,20 +140,23 @@ aside.app{
 	svg, img{
 		height: 24px;
 		width: 27px;
-		margin-top: 9px;
-		margin-left: 3px;
+		margin: 9px 0 0;
+		padding-bottom: 11px;
+		vertical-align: middle;
 		cursor: pointer;
 	}
 
+
 	svg:first-child, img:first-child{
-		width: 18px;
+		width: 15px;
 		height: 27px;
+		margin-right: 3px;
 	}
 
 	svg:last-child, img:last-child{
 		width: 36px;
 		height: 27px;
-		margin-left: 0;
+		margin-left: -6px;
 	}
 
 	@include app-break-smmd{
@@ -190,6 +193,10 @@ aside.app{
 
 #video-overlay{
 	bottom: 0px;
+
+	@include app-break-smmd{
+		display: none;
+	}
 }
 
 .loading{
