@@ -97,6 +97,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 		$(document).on('change', '#mobile-play-on', function(){
 
+			var liCol1 = $('.li-col1');
+			var liCol2 = $('.li-col2');
 			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
 
 				pause();
@@ -105,15 +107,15 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				DOM.video.hide();
 
 			if(window.thisDevice !== _playOnDevice){
-				DOM.liCol1.hide();
-				DOM.liCol2.css('width', '83.3333333%');
+				liCol1.hide();
+				liCol2.css('width', '83.3333333%');
 				DOM.videoOverlay.hide();
 
 				DOM.footer.show();
 
 			}else{
-				DOM.liCol1.show();
-				DOM.liCol2.css('width', '75%');
+				liCol1.show();
+				liCol2.css('width', '75%');
 				DOM.videoOverlay.show();
 
 				DOM.footer.hide();
@@ -1550,8 +1552,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			DOM.footer 					= $('.footer');
 			DOM.videoSizeCtrl 			= $('.video-size-ctrl');
 			DOM.video 					= $('#video');
-			DOM.liCol1 					= $('.li-col1');
-			DOM.liCol2 					= $('.li-col2');
+			// DOM.liCol1 					= $('.li-col1');
+			// DOM.liCol2 					= $('.li-col2');
 			DOM.videoOverlay 			= $('#video-overlay');
 			DOM.shuffleResults 			= $('#shuffleResults');
 			DOM.loopSong 				= $('#loopSong');
