@@ -304,9 +304,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-				//Start loading the player script once #video is on DOM
-				loadPlayerScript();
-
 
 				//Ensures userId is always available
 				if(_userId === undefined){
@@ -321,10 +318,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//Set the application THEME colors
 				if(window.theme === 'light'){
 
-					Ui.prototype.themeLight();
+					Ui.themeLight();
 				}else{
 
-					Ui.prototype.themeDark();
+					Ui.themeDark();
 				}
 
 
@@ -425,9 +422,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//again to ensure lib items are styled
 				//once they hit the DOM
 				if(window.theme === 'light'){
-					Ui.prototype.themeLight();
+					Ui.themeLight();
 				}else{
-					Ui.prototype.themeDark();
+					Ui.themeDark();
 				}
 
 
@@ -503,9 +500,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//again to ensure settings items are styled
 				//once they hit the DOM
 				if(window.theme === 'light'){
-					Ui.prototype.themeLight();
+					Ui.themeLight();
 				}else{
-					Ui.prototype.themeDark();
+					Ui.themeDark();
 				}
 
 
@@ -667,7 +664,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-	//return constructor
+	//return exports
 	return exports;
 
 
@@ -825,20 +822,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-
-
-
-
-	function loadPlayerScript(){
-
-		//Load YouTube Player API scripts
-		var tag = document.createElement('script');
-			tag.src = "https://www.youtube.com/player_api";
-
-		var firstScriptTag = document.getElementsByTagName('script')[0];
-			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-		//End YouTube Player API scripts
-	}
 
 
 

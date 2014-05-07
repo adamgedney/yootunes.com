@@ -165,14 +165,14 @@ aside.app{
 	font-size: .8em;
 }
 
-#video{
+#video, #video-overlay{
 	background: $black;
 	@include col(12);
 	position: fixed;
 	bottom: 87px;
 	left: 0;
 	/*z-index:1005;*/
-	z-index: 989;
+	z-index: 990;
 	height: 33px;
 	border: none;
 
@@ -181,6 +181,10 @@ aside.app{
 		z-index:1000;
 		bottom: 72px;
 	}
+}
+
+#video-overlay{
+	bottom: 0px;
 }
 
 .loading{

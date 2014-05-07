@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'User', 'Content', 'getCookies', 'socketService'], function($, User, Content, getCookies, socketService){
+define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, User, Content, getCookies, socketService){
 
 
 
@@ -10,6 +10,8 @@ define(['jquery', 'User', 'Content', 'getCookies', 'socketService'], function($,
 	var _thisDevice;
 	var _playlistId 		= 0;
 	var _baseUrl 			= 'http://api.yootunes.com';
+
+	// var app_break_smmd 		= '800';
 
 
 
@@ -128,6 +130,21 @@ define(['jquery', 'User', 'Content', 'getCookies', 'socketService'], function($,
 
 
 		}//else
+
+
+
+
+
+
+
+
+		//Capture window width
+		window.windowWidth = $(window).width();
+
+		// if(window.windowWidth < app_break_smmd){
+		// 	alert("Mobile devices can not directly play YouTube videos. You can still use this device to control one of your other computers though by selecting 'Play On' from the side menu. Maybe one day device makers will fix this...");
+
+		// }
 
 
 

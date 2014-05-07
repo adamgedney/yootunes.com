@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], function($, Key, getCookies, Ui, socketService){
+define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function($, Key, getCookies, socketService){
 
 
 
@@ -47,6 +47,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 	var _data;
 
 	var app_break_smmd 		= '800';
+	var _mobileIframeId;
 
 
 
@@ -55,7 +56,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 	//constructor method
 	var player = function(){
 
-		console.log(_socketConnect);
+
 
 
 
@@ -90,11 +91,17 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				pause();
 		});
 
+
+
 		$(document).on('change', '#mobile-play-on', function(){
 
 			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
 
 				pause();
+
+				$('.footer').show();
+				$('.video-size-ctrl').hide();
+				$('#video').hide();
 		});
 
 
@@ -112,6 +119,20 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 			if(event.template === '#app'){
 
+				//Hide footer for mobile devices until playOn change
+				if((window.windowWidth + "") < app_break_smmd){
+					$('#video').hide();
+					$('.video-size-ctrl').hide();
+					$('.footer').hide();
+
+				}
+
+				//Start loading the player script once #video is on DOM
+				loadPlayerScript();
+
+				//Join user to his room for playOn control
+				socketService.joinRoom(_userId);
+
 				//Ensure shuffle icon is visible if previously hidden by playOn mode
 				$('#shuffleResults').css('opacity','1');
 			}
@@ -119,9 +140,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 			//When libary items have loaded
 			if(event.template === '#libraryItem'){
-
-				//Join user to his room for playOn control
-				socketService.joinRoom(_userId);
 
 
 				//When list is loaded, if list item video is playing, set icon to pause
@@ -444,36 +462,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 
-
-			//NOTE: May need to add an event fired from the "return to search results
-			//interaction" to reset the play button to a pause button
-			//Play icon Click Handler=======//
-			$(document).on('click', '.play-icon', function(event){
-
-				playItem($(this));
-
-			});//onclick play icon
-
-
-
-				$(document).on('click', '.dropdown-trigger', function(event){
-					// console.log(window.windowWidth);
-					//Mobile view song play on li click
-
-					if(window.windowWidth < app_break_smmd){
-
-
-						var item = $(this).parent().find('.play-icon');
-						playItem(item);
-
-					}
-
-				});//onclick play icon
-
-
-
-
-
 		//================================//
 		};//On Player Ready
 		//================================//
@@ -605,6 +593,39 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 		    	}
 		    }
 		};
+
+
+
+
+
+
+
+
+
+		//NOTE: May need to add an event fired from the "return to search results
+		//interaction" to reset the play button to a pause button
+		//Play icon Click Handler=======//
+		$(document).on('click', '.play-icon', function(event){
+
+			playItem($(this));
+
+		});//onclick play icon
+
+
+
+			$(document).on('click', '.dropdown-trigger', function(event){
+				// console.log(window.windowWidth);
+				//Mobile view song play on li click
+
+				if(window.windowWidth < app_break_smmd){
+
+
+					var item = $(this).parent().find('.play-icon');
+					playItem(item);
+
+				}
+
+			});//onclick play icon
 
 
 
@@ -1123,8 +1144,18 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 	function playItem(that){
 
-		var playerId = _player.getVideoData().video_id;
+		var playerId;
 		var id = that.attr('data-videoid');
+
+
+
+		if(window.windowWidth < app_break_smmd){
+			playerId = _mobileIframeId;
+		}else{
+			playerId = _player.getVideoData().video_id;
+		}
+
+
 
 		renderSongInfo(id);
 
@@ -1265,6 +1296,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 				_player.playVideo()
 
+
 			}else if(_socket === null){
 
 				//Play Local video normally w/out delay
@@ -1300,7 +1332,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 
-				_player.loadVideoById(youtubeId);
+				//Play local video
+				if(window.windowWidth < app_break_smmd){
+					popupPlayer(youtubeId);
+
+				}else{
+					_player.loadVideoById(youtubeId);
+				}
 
 
 			}else if(_socket === null){
@@ -1308,6 +1346,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 				//Play local video
 				if(window.windowWidth < app_break_smmd){
 					popupPlayer(youtubeId);
+
 				}else{
 					_player.loadVideoById(youtubeId);
 				}
@@ -1469,13 +1508,37 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'Ui', 'socketService'], fu
 
 
 
-
 	function popupPlayer(id){
-		var video = $('#video');
-		var iframe = '<iframe width="300" height="169" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
+
+		var video = $('#video-overlay');
+		var iframe = '<iframe width="' + window.windowWidth + '" height="300" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
+
+
+		_mobileIframeId = id;
 
 		video.empty();
 		video.append(iframe);
+
+	}
+
+
+
+
+
+
+
+
+
+
+	function loadPlayerScript(){
+
+		//Load YouTube Player API scripts
+		var tag = document.createElement('script');
+			tag.src = "https://www.youtube.com/player_api";
+
+		var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		//End YouTube Player API scripts
 	}
 
 

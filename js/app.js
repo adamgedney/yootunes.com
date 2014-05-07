@@ -22,13 +22,13 @@ require.config({
 
 
 // //Instantiate Controllers
-require(['modernizr', 'jquery','Init', 'Auth', 'Content', 'Ui', 'Library', 'User', 'Player'],
-	function(modernizr, jquery, Init, Auth, Content, Ui, Library, User, Player){
+require(['modernizr', 'jquery','Init', 'Auth', 'Content','Library', 'User', 'Player'],
+	function(modernizr, jquery, Init, Auth, Content, Library, User, Player){
 
 
 		var init 			= new Init();
 		var auth 			= new Auth();
-		var ui 				= new Ui();
+		// var ui 				= new Ui();
 		var player 			= new Player();
 
 		//Load async scripts

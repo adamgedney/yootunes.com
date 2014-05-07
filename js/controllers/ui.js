@@ -33,6 +33,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 	var _userId 			= window.userId;
 	var _dropdownOpen 		= false;
 	var _dropdownId 		= '';
+	var _popupToggle 		= false;
 
 	var _currentTheme 		= '';
 
@@ -43,7 +44,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 	//constructor method
-	var ui = function(){
+	// var ui = function(){
 
 
 
@@ -53,9 +54,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 		//on window resize, recalculate windowWidth for queries
 		window.windowWidth = $(window).width();
-
-		if(window.windowWidth < app_break_smmd){
-			alert("Mobile devices can not directly play YouTube videos. You can still use this device to control one of your other computers though by selecting 'Play On' from the side menu. Maybe one day device makers will fix this...");
+		console.log(window.windowWidth + "", "ui load");
+		if((window.windowWidth + "") < app_break_smmd){
+			$('#video').hide();
 
 		}
 
@@ -239,6 +240,20 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 			}else{
 
+
+				//Handle mobile video popup
+				if(_popupToggle === false){
+					$('.footer').hide();
+
+					console.log("toggle true", _popupToggle);
+
+					showNormalSize();
+					_popupToggle = !_popupToggle;
+				}else{
+					showMinSize();
+					console.log("toggle false", _popupToggle);
+					_popupToggle = !_popupToggle;
+				}
 
 
 			}
@@ -512,7 +527,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 		//Mobile menu handler
 		$(document).on('click', '#menu-btn', function(){
-
+console.log("menu clicked");
 			this.toggle;
 
 			if(!this.toggle){
@@ -558,6 +573,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
+//================================//
+//End event logic=================//
+//================================//
 
 
 
@@ -567,19 +585,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
-
-	};//constructor function
-	//================================//
-
-	//methods and properties.
-	ui.prototype = {
-		constructor 	: ui,
-		themeDark 		: themeDark,
-		themeLight 		: themeLight
-	};
-
-	//return constructor
-	return ui;
 
 
 
@@ -748,24 +753,22 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			//hide ads
 			// $('#adsense').hide();
 
-			$('iframe#video').css({
-				'height'   : '227px',
+			$('#video-overlay').css({
+				'height'   : '300px',
 				'display'  : 'block',
 				'position' : 'absolute',
 				'top'      : 'initial',
-				'bottom'   : '72px',
+				'bottom'   : '0px',
 				'left'     : '0',
 				'right'    : 'initial',
-				'width'    : '100%'
+				'width'    : '100%',
+				'transition-duration' : '1s',
+				'-webkit-transition-duration' : '1s'
 			});
 
-			$('.video-size-ctrl').css({
-				'bottom'     : '72px',
-				'background' : '#0f1010',
-				'textAlign'  : 'right',
-				'top'     	 : 'initial',
-				'left' 		 : 'initial',
-			});
+			$('.video-size-ctrl').hide();
+
+			$('#video').hide();
 
 		}else{
 
@@ -808,23 +811,22 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			//Show ads
 			// $('#adsense').show();
 
-			$('iframe#video').css({
+			$('#video-overlay').css({
 				'position' : 'absolute',
 				'top'      : 'initial',
-				'bottom'   : '72px',
+				'bottom'   : '0px',
 				'left'     : '0',
 				'right'    : 'initial',
-				'height'   : '33px',
-				'width'    : '100%'
+				'height'   : '30px',
+				'width'    : '100%',
+				'transition-duration' : '1s',
+				'-webkit-transition-duration' : '1s'
 			});
 
-			$('.video-size-ctrl').css({
-				'bottom'     : '72px',
-				'background' : '#0f1010',
-				'textAlign'  : 'right',
-				'top'     	 : 'initial',
-				'left' 		 : 'initial'
-			});
+			$('.video-size-ctrl').hide();
+
+			$('#video').hide();
+
 		}else{
 
 			$('iframe#video').css({
@@ -980,6 +982,25 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		//Set lightbox higher res src
 		$('.youtube-img-a[data-id=' + id + ']').attr('href', hiresSrc);
 	}
+
+
+
+
+
+
+
+
+
+	//methods and properties.
+	var exports = {
+		themeDark 		: themeDark,
+		themeLight 		: themeLight,
+		showNormalSize 	: showNormalSize,
+		showMinSize 	: showMinSize
+	};
+
+	//return constructor
+	return exports;
 
 
 

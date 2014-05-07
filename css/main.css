@@ -859,23 +859,27 @@ aside.app {
   font-size: .8em;
 }
 
-#video {
+#video, #video-overlay {
   background: #0f1010;
   width: 100%;
   position: fixed;
   bottom: 87px;
   left: 0;
   /*z-index:1005;*/
-  z-index: 989;
+  z-index: 990;
   height: 33px;
   border: none;
 }
 @media only screen and (min-width: 800px) {
-  #video {
+  #video, #video-overlay {
     width: 25%;
     z-index: 1000;
     bottom: 72px;
   }
+}
+
+#video-overlay {
+  bottom: 0px;
 }
 
 .loading {
