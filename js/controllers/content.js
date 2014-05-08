@@ -72,68 +72,25 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-		//Songs library page load interaction=========//
-		$(document).on('click', '.viewSongs', function(event){
+		//Library list sort interaction=========//
+		$(document).on('click', '.viewSongs, .viewArtists, .viewAlbums, .viewGenres', function(event){
 
 			if(_state !== 'library'){
 				loadLibrary(function(response){});
-			}else{
+			}else if(_state === 'library' && $(this).hasClass('viewSongs')){
 				var sortOn = 'span.li-col2';
-
-				sortResults(_sort.ul, _sort.li, sortOn);
+			}else if(_state === 'library' && $(this).hasClass('viewArtists')){
+				var sortOn = 'span.li-col3';
+			}else if(_state === 'library' && $(this).hasClass('viewAlbums')){
+				var sortOn = 'span.li-col4';
+			}else if(_state === 'library' && $(this).hasClass('viewGenres')){
+				var sortOn = 'span.li-col5';
 			}
 
+			sortResults(_sort.ul, _sort.li, sortOn);
 		});
 
 
-
-
-		//Artists library page load interaction=========//
-		$(document).on('click', '.viewArtists', function(event){
-
-
-			if(_state !== 'library'){
-				loadLibrary(function(response){});
-			}else{
-				var sortOn 	= 'span.li-col3';
-
-				sortResults(_sort.ul, _sort.li, sortOn);
-			}
-
-		});
-
-
-
-
-		//Albums library page load interaction=========//
-		$(document).on('click', '.viewAlbums', function(event){
-
-			if(_state !== 'library'){
-				loadLibrary(function(response){});
-			}else{
-				var sortOn 	= 'span.li-col4';
-
-				sortResults(_sort.ul, _sort.li, sortOn);
-			}
-
-		});
-
-
-
-
-		//Genres library page load interaction=========//
-		$(document).on('click', '.viewGenres', function(event){
-
-			if(_state !== 'library'){
-				loadLibrary(function(response){});
-			}else{
-				var sortOn 	= 'span.li-col5';
-
-				sortResults(_sort.ul, _sort.li, sortOn);
-			}
-
-
-		});
 
 
 
@@ -175,6 +132,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			loadPlaylistSongs(playlistId);
 
 			activeLibraryItem(playlistId);
+
+			DOM.sectionHeader.show();
 
 			//Set correct container height
 			DOM.scrollContainer.css('height', '74vh');
@@ -1058,6 +1017,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	//Gets data & Loads library template
 	function loadLibrary(callback){
 
+		_state 	= 'library';
+
 		//*** Rewrite API. No more need for pagination
 		var page = 0;
 
@@ -1078,13 +1039,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			DOM.scrollContainer.empty();
 
 			//Shows column headers
-			// DOM.liHeader.show();
+			DOM.liHeader.show();
 
 			//Change last column to remove
 			DOM.sourceTitle.html('Remove');
 
-
-			_state 	= 'library';
 
 
 
