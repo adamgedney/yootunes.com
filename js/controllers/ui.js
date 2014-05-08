@@ -124,7 +124,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			//MOUSEOVER hover effect for LIGHT theme.
 			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
-				console.log(window.theme, "mouseovertheme");
+
 				var resultId = $(this).attr('data-id');
 
 				if(window.theme === 'light' || _currentTheme === 'light'){
@@ -206,8 +206,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		//Main menu dropdown interaction=============//
 		$(document).on('click', '.dropdown-trigger', function(event){
 
+
+
 			//Prevent dropdown on mobile view
 			if(window.windowWidth > app_break_smmd){
+
 
 				//Ensures form is hidden at start
 				DOM.newPlaylistForm.hide();
@@ -222,11 +225,17 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 				//returns the opposite boolean toggle value
 				this.toggle = toggleUi(this.toggle, selector, id);
 
+
+
 				if(this.toggle){
+
+					DOM.resultItems = $('li.resultItems');
+
+					$(this).parent().css({'background' : '#ffffff'});
 
 					//Loads video thumbnail when dropdown is revealed
 					loadThumb(id);
-					console.log(id, "dropdown id");
+					// console.log(id, "dropdown id");
 
 
 					_dropdownOpen = true;
@@ -242,6 +251,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 				}else{
+
+					DOM.resultItems = $('li.resultItems');
+
+					$(this).parent().css({'background' : 'none'});
 
 					_dropdownOpen = false;
 
@@ -778,9 +791,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			});
 		}//else
 
-
+		//Was set to transparent until FF YT controls started showing
+		//FIX THIS LATER
 		DOM.footer.css({
-			'opacity' : '.8'
+			'opacity' : '1'
 		});
 	}
 
@@ -937,6 +951,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 	function themeDark(){
 
+		DOM.resultItems = $('.resultItems');
+
 		//Set global and cookie to dark
 		window.theme = 'dark';
 		document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
@@ -972,6 +988,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 	function themeLight(){
+
+		DOM.resultItems = $('.resultItems');
 
 		//set global & cookie to light
 		window.theme = 'light';

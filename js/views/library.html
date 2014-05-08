@@ -24,7 +24,7 @@
 					<span class="li-col6">{{this.length}}</span>
 						<span class="li-col5">{{this.genre}}</span>
 				</span><!-- /.dropdown-trigger-->
-		</li>
+
 
 
 
@@ -37,7 +37,8 @@
 
 
 		<!-- Popdown li -->
-		<li data-id="{{this.id}}" class="li-group dropdown main-dropdown"><!-- list item group-->
+		<div data-id="{{this.id}}" class="li-group dropdown main-dropdown"><!-- list item group-->
+
 			<span class="li-col1"><a class="youtube-img-a" data-id="{{this.id}}" data-lightbox="{{this.id}}" title="{{this.youtube_title}}" href="" ><img data-id="{{this.id}}" data-videoId="{{this.youtube_id}}"  class="thumb youtube-img" src="" alt="track play icon" /></a></span>
 
 				<span class="li-desc">{{this.description}}</span>
@@ -116,7 +117,8 @@
 						</div><!-- /.share-strip-->
 					</li>
 				</ul>
-		</li>
+		</div>
+	</li>
 	{{/each}}
 
 	<li class="li-group"><!-- list item group--></li>

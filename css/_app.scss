@@ -687,7 +687,7 @@ section.app{
 			display: inline-block;		}
 	}
 
-	.viewSongs, .viewArtists, .viewAlbums, .viewGenres{
+	.viewSongs, .viewArtists, .viewAlbums, .viewGenres, .mainViewSongs, .mainViewArtists, .mainViewAlbums, .mainViewGenres{
 		cursor: pointer;
 	}
 
@@ -703,9 +703,10 @@ section.app{
 
 }
 
-li.li-group:nth-child(even){
+/*row striping*/
+/*li.li-group:nth-child(even){
 	background: nth($grey, 6);
-}
+}*/
 
 
 
@@ -722,13 +723,14 @@ li.li-group:nth-child(even){
 /*=====================================*/
 /*li dropdown==========================*/
 /*=====================================*/
-
-li.li-group.dropdown{
-	background: #fff;
+/*li.li-group.dropdown{*/
+.dropdown{
+	/*background: #fff;*/
 	padding: 18px 18px 18px 9px;
 	overflow: hidden;
 	min-height: 240px;
 	display: none;//Added to experiment with jquery show/hide on dropdowns
+	@include col(12);
 
 	.youtube-img{//youtube thumbnail
 		width: 100%;

@@ -27,6 +27,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	var _onPage 		= 1;
 	var _limit 			= 0;//0 === no limit
 
+	var _sort 			= {};
+		_sort.ul 		= '';
+		_sort.li 		= '';
+		_sort.sortOn 	= '';
+
+	var _state 			= 'library';
+
 
 
 
@@ -43,6 +50,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 			//load account settings page
 			loadAcctSettings();
+
+			_state 	= 'settings';
 
 
 			activeLibraryItem('#acctSettings');
@@ -65,56 +74,87 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Songs library page load interaction=========//
 		$(document).on('click', '.viewSongs', function(event){
-			resetPagination();
-			loadFilteredLibrary('youtube_title', '.viewSongs');
+
+			if(_state !== 'library'){
+				loadLibrary(function(response){});
+			}else{
+				var sortOn = 'span.li-col2';
+
+				sortResults(_sort.ul, _sort.li, sortOn);
+			}
 
 		});
-
-
-
-
-
-
 
 
 
 
 		//Artists library page load interaction=========//
 		$(document).on('click', '.viewArtists', function(event){
-			resetPagination();
-			loadFilteredLibrary('artist', '.viewArtists');
+
+
+			if(_state !== 'library'){
+				loadLibrary(function(response){});
+			}else{
+				var sortOn 	= 'span.li-col3';
+
+				sortResults(_sort.ul, _sort.li, sortOn);
+			}
+
 		});
-
-
-
-
-
-
 
 
 
 
 		//Albums library page load interaction=========//
 		$(document).on('click', '.viewAlbums', function(event){
-			resetPagination();
-			loadFilteredLibrary('album', '.viewAlbums');
+
+			if(_state !== 'library'){
+				loadLibrary(function(response){});
+			}else{
+				var sortOn 	= 'span.li-col4';
+
+				sortResults(_sort.ul, _sort.li, sortOn);
+			}
+
 		});
-
-
-
-
-
-
 
 
 
 
 		//Genres library page load interaction=========//
 		$(document).on('click', '.viewGenres', function(event){
-			resetPagination();
-			loadFilteredLibrary('genre', '.viewGenres');
+
+			if(_state !== 'library'){
+				loadLibrary(function(response){});
+			}else{
+				var sortOn 	= 'span.li-col5';
+
+				sortResults(_sort.ul, _sort.li, sortOn);
+			}
+
 
 		});
+
+
+
+
+
+		//Header sort interaction=========//
+		$(document).on('click', '.mainViewSongs, .mainViewArtists, .mainViewAlbums, .mainViewGenres', function(event){
+
+				if($(this).hasClass('mainViewSongs')){
+					var sortOn 	= 'span.li-col2';
+				}else if($(this).hasClass('mainViewArtists')){
+					var sortOn 	= 'span.li-col3';
+				}else if($(this).hasClass('mainViewAlbums')){
+					var sortOn 	= 'span.li-col4';
+				}else if($(this).hasClass('mainViewGenres')){
+					var sortOn 	= 'span.li-col5';
+				}
+
+				sortResults(_sort.ul, _sort.li, sortOn);
+		});
+
 
 
 
@@ -180,6 +220,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					//Send results to renderer
 					loadQueryResults(songs);
 
+					_state 	= 'query';
+
 					//Hide loading icon
 					DOM.loading.fadeOut();
 
@@ -210,7 +252,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				resetPagination();
 
 				//Load library items
-				loadLibrary(_currentSkip);
+				loadLibrary(function(){});
 
 			}else{
 				//Send previous results back to renderer
@@ -405,7 +447,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 					//Load library items
-					loadLibrary(_currentSkip);
+					loadLibrary(function(){});
+
 
 
 				}else{
@@ -414,10 +457,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					Library.addSharedPlaylist(_userId, _playlistShared);
 
 					//Load library items
-					// loadLibrary(_currentSkip);
+					// loadLibrary(function(){});
 
 					//load the playlist songs if this was a shared playlist
 					loadPlaylistSongs(_playlistShared);
+
 
 					//Expires share cookie once it has been used
 					document.cookie = 'share=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
@@ -435,6 +479,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 				var resultItems = $('li.resultItems');
 				DOM.sourceTitle = $('.sourceTitle');
+
+				//Register sortable elements on DOM
+				_sort.ul = 'ul#libraryWrapper';
+				_sort.li = 'ul#libraryWrapper li.resultItems';
 
 
 				//Set the application theme colors
@@ -990,6 +1038,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					//Change last column to remove
 					DOM.sourceTitle.html('Remove');
 
+					_state 	= 'playlist';
+
 				}//success
 			});//ajax
 	}
@@ -1006,7 +1056,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//Gets data & Loads library template
-	function loadLibrary(page){
+	function loadLibrary(callback){
+
+		//*** Rewrite API. No more need for pagination
+		var page = 0;
 
 		//Ensures userId is always available
 		if(_userId === undefined){
@@ -1021,7 +1074,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Ensures search bar is visible & container is
 		//emptied quickly before a reload
-		if(page === 0){
 			DOM.sectionHeader.show();
 			DOM.scrollContainer.empty();
 
@@ -1030,7 +1082,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 			//Change last column to remove
 			DOM.sourceTitle.html('Remove');
-		}
+
+
+			_state 	= 'library';
 
 
 
@@ -1043,7 +1097,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			console.log("pulled lib from local storage");
 			var response = JSON.parse(localStorage.getItem('library'));
 
-			setLibrary(response);
+			setLibrary(response, function(){
+				callback("loaded");
+			});
 
 
 
@@ -1064,7 +1120,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				dataType 	: 'json',
 				success 	: function(response){
 
-					setLibrary(response);
+					setLibrary(response, function(){
+						callback("loaded");
+					});
 
 					//Set library to local storage
 					if(localStorage){
@@ -1100,7 +1158,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//Used by loadLibrary method
-	function setLibrary(response){
+	function setLibrary(response, callback){
 
 		var src 		= '/js/views/library.html',
 			id 			= '#libraryItem',
@@ -1118,9 +1176,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			if(_playlistShared === 0 || _playlistShared === undefined|| _playlistShared === ""){
 				//Render library items with user data
 				render(src, id, appendTo, data);
+
+				callback("loaded");
 			}else{
 				//resets shared playlist after library behavior has taken place
 				_playlistShared = 0;
+
+				callback("loaded");
+
 			}
 
 
@@ -1345,36 +1408,74 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-	function sortList(by){
+	// function sortList(by){
 
+	// 	this.toggle;
+
+	// 	if(this.toggle){
+	// 		//Set the sort order
+	// 		_sortBy 	= by;
+	// 		_sortOrder 	= "DESC";
+
+	// 		//Load library
+	// 		loadLibrary(function(){});
+	// 		//paged loading of library items every 1.5s until
+	// 		//full library is loaded
+	// 		// _loadInterval = setInterval(pageLoader, 1500);
+
+	// 		this.toggle = !this.toggle;
+
+	// 	}else{
+	// 		//Set the sort order
+	// 		_sortBy 	= by;
+	// 		_sortOrder 	= "ASC";
+
+	// 		//Load library
+	// 		loadLibrary(function(){});
+	// 		//paged loading of library items every 1.5s until
+	// 		//full library is loaded
+	// 		// _loadInterval = setInterval(pageLoader, 1500);
+
+	// 		this.toggle = !this.toggle;
+	// 	}
+	// }
+
+
+
+
+
+
+
+
+	//Client side sorting of li items and their dropdowns
+	function sortResults(ul, li, sortOn){
 		this.toggle;
 
-		if(this.toggle){
-			//Set the sort order
-			_sortBy 	= by;
-			_sortOrder 	= "DESC";
-
-			//Load library
-			loadLibrary(_currentSkip);
-			//paged loading of library items every 1.5s until
-			//full library is loaded
-			// _loadInterval = setInterval(pageLoader, 1500);
-
-			this.toggle = !this.toggle;
-
-		}else{
-			//Set the sort order
-			_sortBy 	= by;
-			_sortOrder 	= "ASC";
-
-			//Load library
-			loadLibrary(_currentSkip);
-			//paged loading of library items every 1.5s until
-			//full library is loaded
-			// _loadInterval = setInterval(pageLoader, 1500);
-
-			this.toggle = !this.toggle;
+		function asc_sort(a, b){
+			return ($(b).find(sortOn).text()) < ($(a).find(sortOn).text()) ? 1 : -1;
 		}
+
+		function dec_sort(a, b){
+			return ($(b).find(sortOn).text()) < ($(a).find(sortOn).text()) ? -1 : 1;
+		}
+
+
+
+			if(this.toggle){
+
+				$(ul).html($(li).sort(asc_sort));
+
+
+				this.toggle = !this.toggle;
+
+			}else{
+
+				$(ul).html($(li).sort(dec_sort));
+
+				this.toggle = !this.toggle;
+
+			}
+
 	}
 
 
@@ -1391,7 +1492,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	// 		_currentSkip 	+= _limit;
 
 	// 		//Load the next page
-	// 		loadLibrary(_currentSkip);
+	// 		loadLibrary(function(){});
 
 	// 	}else{
 
