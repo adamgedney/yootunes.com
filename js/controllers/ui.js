@@ -1061,7 +1061,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			DOM.nameDeviceModal 		= $('#nameDeviceModal');
 			DOM.adsense 				= $('#adsense');
 			DOM.videoOverlay 			= $('#video-overlay');
-			DOM.app 					= $('#app');
+			DOM.app 					= $('#app, html, body');
 			DOM.liHeader 				= $('.li-header');
 			DOM.sectionHeader 			= $('.section-header');
 			DOM.searchSubmit 			= $('#searchSubmit');

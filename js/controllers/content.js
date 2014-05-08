@@ -19,7 +19,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	var _thisDevice;
 	var _playlistShared = 0;
 
-
+	var _libraryChanged = false;
 	var _libraryCount;
 	var _loadInterval;
 	var _currentSkip 	= 0;
@@ -28,7 +28,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	var _limit 			= 0;//0 === no limit
 
 
-var count = 0;
+
 
 
 
@@ -224,6 +224,18 @@ var count = 0;
 
 
 
+		//Listen for library controller to notify of song added or removed
+		$(document).on('libraryChanged', function(event){
+			_libraryChanged = true;
+		});
+
+
+
+
+
+
+
+
 
 		//on reload set shared playlist id for use in app rendered event
 		$(document).on('userloggedin', function(event){
@@ -297,14 +309,6 @@ var count = 0;
 				//Show adsense ads on app load
 				DOM.adsense.show();
 				// DOM.video.show();
-
-				// //paged loading of library items every 1.5s until
-				// //full library is loaded
-				// _loadInterval = setInterval(pageLoader, 1500);
-
-				//Load library
-				// loadLibrary(_currentSkip);
-
 
 
 
@@ -1004,8 +1008,6 @@ var count = 0;
 	//Gets data & Loads library template
 	function loadLibrary(page){
 
-count += 1;
-console.log(count, "count");
 		//Ensures userId is always available
 		if(_userId === undefined){
 			if(window.userId !== undefined){
@@ -1037,8 +1039,8 @@ console.log(count, "count");
 		//====================================//
 		//Get library from local storage
 		//====================================//
-		if(JSON.parse(localStorage.getItem('library')) !== null){
-
+		if(JSON.parse(localStorage.getItem('library')) !== null && _libraryChanged === false){
+			console.log("pulled lib from local storage");
 			var response = JSON.parse(localStorage.getItem('library'));
 
 			setLibrary(response);
@@ -1069,7 +1071,11 @@ console.log(count, "count");
 					//Set library to local storage
 					if(localStorage){
 						localStorage.setItem('library', JSON.stringify(response));
+						console.log("rewrote local storage");
 					}
+
+					_libraryChanged = false;
+					//compare localStorage to library?
 
 
 					//Add a loading screen here that's removed once library is rendered
@@ -1086,6 +1092,16 @@ console.log(count, "count");
 	}
 
 
+
+
+
+
+
+
+
+
+
+	//Used by loadLibrary method
 	function setLibrary(response){
 
 		var src 		= '/js/views/library.html',

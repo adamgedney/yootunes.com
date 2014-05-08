@@ -60,7 +60,7 @@ define(['jquery'], function($){
 
 
 
-				//Handles adding and removing functions and button image swap
+				//Handles adding and removing functions and check/plus button image swap
 				if(this.toggle){
 
 					//retrieve clicked song user id
@@ -238,7 +238,7 @@ define(['jquery'], function($){
 			method : 'GET',
 			dataType : 'json',
 			success : function(response){
-
+console.log(response, "add to lib response");
 				if(response === true){
 					//Display total songs in library in interface
 					var currentNumber = DOM.collectionTotal.html();
@@ -246,6 +246,11 @@ define(['jquery'], function($){
 				}
 			}//success
 		});//ajax
+
+		//Notify local storage of library change
+		$.event.trigger({
+			type : 'libraryChanged'
+		});
 	}
 
 
@@ -269,7 +274,7 @@ define(['jquery'], function($){
 			dataType : 'json',
 			success : function(response){
 
-
+console.log(response, "remove from lib response");
 				//hide the item just removed form lib. so library doesn't reload
 				$('.resultItems[data-id=' + id + ']').hide();
 
@@ -283,6 +288,11 @@ define(['jquery'], function($){
 
 			}//success
 		});//ajax
+
+		//Notify local storage of library change
+		$.event.trigger({
+			type : 'libraryChanged'
+		});
 	}
 
 
