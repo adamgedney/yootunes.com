@@ -1045,7 +1045,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 			setLibrary(response);
 
-
+			alert('local storage used' + localStorage.getItem('library'));
 
 
 
