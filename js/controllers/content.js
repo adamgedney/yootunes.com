@@ -22,10 +22,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	var _libraryChanged = false;
 	var _libraryCount;
 	var _loadInterval;
-	var _currentSkip 	= 0;
-	var _numPages;
-	var _onPage 		= 1;
-	var _limit 			= 0;//0 === no limit
+
 
 	var _sort 			= {};
 		_sort.ul 		= '';
@@ -76,7 +73,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		$(document).on('click', '.viewSongs, .viewArtists, .viewAlbums, .viewGenres', function(event){
 
 			if(_state !== 'library'){
-				loadLibrary(function(response){});
+				loadLibrary();
 			}else if(_state === 'library' && $(this).hasClass('viewSongs')){
 				var sortOn = 'span.li-col2';
 			}else if(_state === 'library' && $(this).hasClass('viewArtists')){
@@ -208,10 +205,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//library resetting pagination
 			if(_songs.length === 0){
 
-				resetPagination();
 
 				//Load library items
-				loadLibrary(function(){});
+				loadLibrary();
 
 			}else{
 				//Send previous results back to renderer
@@ -406,7 +402,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 					//Load library items
-					loadLibrary(function(){});
+					loadLibrary();
 
 
 
@@ -416,7 +412,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					Library.addSharedPlaylist(_userId, _playlistShared);
 
 					//Load library items
-					// loadLibrary(function(){});
+					// loadLibrary();
 
 					//load the playlist songs if this was a shared playlist
 					loadPlaylistSongs(_playlistShared);
@@ -733,8 +729,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			$(appendTo).empty();
 
 		render(src, id, appendTo, data);
-
-			resetPagination();
 	}
 
 
@@ -760,10 +754,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 		render(src, id, appendTo, data);
-
-
-		resetPagination();
-
 	}
 
 
@@ -790,8 +780,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 		render(src, id, appendTo, data);
-
-			resetPagination();
 	}
 
 
@@ -818,8 +806,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 		render(src, id, appendTo, data);
-
-			resetPagination();
 	}
 
 
@@ -991,8 +977,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					//Render library items with user data
 					render(src, id, appendTo, data);
 
-					resetPagination();
-
 
 					//Change last column to remove
 					DOM.sourceTitle.html('Remove');
@@ -1015,7 +999,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//Gets data & Loads library template
-	function loadLibrary(callback){
+	function loadLibrary(){
 
 		_state 	= 'library';
 
@@ -1050,60 +1034,87 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 // localStorage.removeItem('library');
 		//====================================//
-		//Get library from local storage
+		//Get library from local storage after checking DB library count for
+		//changes originating from another machine
 		//====================================//
 		if(JSON.parse(localStorage.getItem('library')) !== null && _libraryChanged === false){
-			console.log("pulled lib from local storage");
-			var response = JSON.parse(localStorage.getItem('library'));
 
-			setLibrary(response, function(){
-				callback("loaded");
-			});
+			var localLength = JSON.parse(localStorage.getItem('library'))[0].length;
 
 
+			//First get library count to compare against localstorage count
+			var API_URL = _baseUrl + '/get-library-count/' + _userId;
 
-		//====================================//
-		}else{//Make AJAX call to get library
-		//====================================//
-
-
-			//Build API request
-			var API_URL = _baseUrl + '/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder + '/' + page + '/' + _limit;
-
-
-
-			//Call API for user's library
 			$.ajax({
 				url 		: API_URL,
 				method 		: 'GET',
 				dataType 	: 'json',
 				success 	: function(response){
 
-					setLibrary(response, function(){
-						callback("loaded");
-					});
 
-					//Set library to local storage
-					if(localStorage){
-						localStorage.setItem('library', JSON.stringify(response));
-						console.log("rewrote local storage");
-					}
+					if(response === localLength){
+						console.log(response, localLength, "library count call");
+						var localResponse = JSON.parse(localStorage.getItem('library'));
 
-					_libraryChanged = false;
-					//compare localStorage to library?
+						prepareLibrary(localResponse);
+
+						console.log("pulled lib from local storage");
+
+					}else{//Library count has changed
+
+						//Call API for songs
+						getLibrarySongs();
+
+					}//localStorage and library don't match
+				}//AJAX success
+			});//AJAX library count
+
+		//======================================//
+		}else{//No local storage found==========//
+		//======================================//
+
+			//Call API for songs
+			getLibrarySongs();
+
+		}//else localstorage
+	}
 
 
-					//Add a loading screen here that's removed once library is rendered
 
 
 
-				}//success
-			});//ajax
-		}//localstorage
 
-		//Note: This is the data returned from API
-		//album, artist, created_at, description, genre, id, img_default, img_high, img_medium
-		//length, query, song_title, updated_at, youtube_id, youtube_results_id, youtube_title
+
+
+
+	function getLibrarySongs(){
+		//Build API request
+		var API_URL = _baseUrl + '/get-library/' + _userId;
+
+		//Call API for user's library
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success 	: function(response){
+
+				prepareLibrary(response);
+
+				//Set library to local storage
+				if(localStorage){
+					localStorage.setItem('library', JSON.stringify(response));
+
+					console.log("rewrote local storage");
+				}
+
+				_libraryChanged = false;
+				//compare localStorage to library?
+
+
+				//Add a loading screen here that's removed once library is rendered
+
+			}//success
+		});//ajax
 	}
 
 
@@ -1117,7 +1128,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//Used by loadLibrary method
-	function setLibrary(response, callback){
+	function prepareLibrary(response){
 
 		var src 		= '/js/views/library.html',
 			id 			= '#libraryItem',
@@ -1136,28 +1147,18 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//Render library items with user data
 				render(src, id, appendTo, data);
 
-				callback("loaded");
 			}else{
 				//resets shared playlist after library behavior has taken place
 				_playlistShared = 0;
 
-				callback("loaded");
 
 			}
-
-
-
 
 			//Pagination vars
 			_libraryCount 	= response.count;
 
-			//Set the number of pages available to pagination
-			_numPages = Math.ceil(response.count / response.limit);
-
 			//Display total songs in library in interface
 			DOM.collectionTotal.html(response.count);
-
-
 
 
 			//Store the users songs for list functions
@@ -1189,11 +1190,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		render(src, id, appendTo, data);
 
-			resetPagination();
-
 			//Hides column headers
 			DOM.liHeader.hide();
-
 	}
 
 
@@ -1227,10 +1225,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 		render(src, id, appendTo, data);
-
-
-			resetPagination();
-
 
 		//Change last column to remove
 		DOM.sourceTitle.html('Add');
@@ -1340,9 +1334,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			var html 		= template(data);
 
 
-			//Clear append container
-			// $(appendTo).empty();
-
 			//Appends template into Wrapper on DOM
 			$(appendTo).append(html);
 
@@ -1355,49 +1346,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		});
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-	// function sortList(by){
-
-	// 	this.toggle;
-
-	// 	if(this.toggle){
-	// 		//Set the sort order
-	// 		_sortBy 	= by;
-	// 		_sortOrder 	= "DESC";
-
-	// 		//Load library
-	// 		loadLibrary(function(){});
-	// 		//paged loading of library items every 1.5s until
-	// 		//full library is loaded
-	// 		// _loadInterval = setInterval(pageLoader, 1500);
-
-	// 		this.toggle = !this.toggle;
-
-	// 	}else{
-	// 		//Set the sort order
-	// 		_sortBy 	= by;
-	// 		_sortOrder 	= "ASC";
-
-	// 		//Load library
-	// 		loadLibrary(function(){});
-	// 		//paged loading of library items every 1.5s until
-	// 		//full library is loaded
-	// 		// _loadInterval = setInterval(pageLoader, 1500);
-
-	// 		this.toggle = !this.toggle;
-	// 	}
-	// }
 
 
 
@@ -1442,41 +1390,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-
-	// function pageLoader(){
-
-	// 	if((_currentSkip + _limit) <= _libraryCount){
-	// 		console.log(_currentSkip, "if");
-	// 		_onPage 		+= 1;
-	// 		_currentSkip 	+= _limit;
-
-	// 		//Load the next page
-	// 		loadLibrary(function(){});
-
-	// 	}else{
-
-
-	// 		clearInterval(_loadInterval);
-
-	// 	}//if
-	// }
-
-
-
-
-
-
-
-
-
-
-	//Resets PAGINATION variables for transitioning
-	//back to library fom another screen
-	function resetPagination(){
-		_currentSkip 	= 0;
-		_onPage 		= 1;
-		_userSongs 		= [];
-	}
 
 
 
