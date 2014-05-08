@@ -48,6 +48,13 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		//Listen for rendered to register DOM elements
 		$(document).on('rendered', function(event){
 			registerDOM(event.template);
+
+			if(event.template === '#libraryItem'){
+				//Failsafe retrieval of theme
+				if(window.userId === undefined){
+					window.theme = getCookies.theme;
+				}
+			}
 		});
 
 
@@ -81,6 +88,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
+
+
+
+
 		//Sign up button interaction handler=======//
 		$(document).on('click', '#sign-in-btn', function(){
 
@@ -110,13 +121,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
-		//HOVER EFFECTS over li items -necessary to use JS.
-		//Trouble overriding CSS :hover on theme change.
-
-
 			//MOUSEOVER hover effect for LIGHT theme.
 			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
+				console.log(window.theme, "mouseovertheme");
 				var resultId = $(this).attr('data-id');
 
 				if(window.theme === 'light' || _currentTheme === 'light'){

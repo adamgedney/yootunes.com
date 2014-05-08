@@ -25,10 +25,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	var _currentSkip 	= 0;
 	var _numPages;
 	var _onPage 		= 1;
-	var _limit 			= 50;
+	var _limit 			= 0;//0 === no limit
 
 
-
+var count = 0;
 
 
 
@@ -300,7 +300,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 				// //paged loading of library items every 1.5s until
 				// //full library is loaded
-				_loadInterval = setInterval(pageLoader, 1500);
+				// _loadInterval = setInterval(pageLoader, 1500);
 
 				//Load library
 				// loadLibrary(_currentSkip);
@@ -318,6 +318,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				}
 
 
+				//Failsafe retrieval of theme
+				if(window.theme === undefined){
+					window.theme = getCookies.theme;
+				}
+
 				//Set the application THEME colors
 				if(window.theme === 'light'){
 
@@ -326,6 +331,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 					Ui.themeDark();
 				}
+
+				console.log(window.theme, "theme content app rendered");
+
+
+
+
 
 
 
@@ -399,7 +410,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					Library.addSharedPlaylist(_userId, _playlistShared);
 
 					//Load library items
-					loadLibrary(_currentSkip);
+					// loadLibrary(_currentSkip);
 
 					//load the playlist songs if this was a shared playlist
 					loadPlaylistSongs(_playlistShared);
@@ -443,7 +454,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//Set list item length to DOM for shuffle function in player controller
 				$('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
 
-console.log(DOM.sourceTitle.html());
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
 				if(DOM.sourceTitle.html() === 'Add'){
 
@@ -994,9 +1004,8 @@ console.log(DOM.sourceTitle.html());
 	//Gets data & Loads library template
 	function loadLibrary(page){
 
-		//Limit 0 === no limit
-
-
+count += 1;
+console.log(count, "count");
 		//Ensures userId is always available
 		if(_userId === undefined){
 			if(window.userId !== undefined){
@@ -1022,9 +1031,26 @@ console.log(DOM.sourceTitle.html());
 		}
 
 
-		var src 		= '/js/views/library.html',
-			id 			= '#libraryItem',
-			appendTo 	= '.scroll-container';
+
+
+// localStorage.removeItem('library');
+		//====================================//
+		//Get library from local storage
+		//====================================//
+		if(JSON.parse(localStorage.getItem('library')) !== null){
+
+			var response = JSON.parse(localStorage.getItem('library'));
+
+			setLibrary(response);
+
+
+
+
+
+		//====================================//
+		}else{//Make AJAX call to get library
+		//====================================//
+
 
 			//Build API request
 			var API_URL = _baseUrl + '/get-library/' + _userId + '/' + _sortBy + '/' + _sortOrder + '/' + page + '/' + _limit;
@@ -1038,50 +1064,71 @@ console.log(DOM.sourceTitle.html());
 				dataType 	: 'json',
 				success 	: function(response){
 
-					data 	 	= {
-						song : response[0],
-						user : {userId : _userId}
-					};
+					setLibrary(response);
 
-
-					//Only render library if this is not a shared playlist.
-					//Loads shared playlist instead
-					if(_playlistShared === 0 || _playlistShared === undefined|| _playlistShared === ""){
-						//Render library items with user data
-						render(src, id, appendTo, data);
-					}else{
-						//resets shared playlist after library behavior has taken place
-						_playlistShared = 0;
+					//Set library to local storage
+					if(localStorage){
+						localStorage.setItem('library', JSON.stringify(response));
 					}
 
 
-					//Pagination vars
-					_libraryCount 	= response.count;
-
-					//Set the number of pages available to pagination
-					_numPages = Math.ceil(response.count / response.limit);
-
-					//Display total songs in library in interface
-					DOM.collectionTotal.html(response.count);
-
-
-
-
-					//Store the users songs for list functions
-					//Store youtube img urls for click dependent loading to limit GET requests
-					for(var i=0;i<response[0].length; i++){
-						_userSongs.push(response[0][i].song_id);
-					}
+					//Add a loading screen here that's removed once library is rendered
 
 
 
 				}//success
 			});//ajax
-
+		}//localstorage
 
 		//Note: This is the data returned from API
 		//album, artist, created_at, description, genre, id, img_default, img_high, img_medium
 		//length, query, song_title, updated_at, youtube_id, youtube_results_id, youtube_title
+	}
+
+
+	function setLibrary(response){
+
+		var src 		= '/js/views/library.html',
+			id 			= '#libraryItem',
+			appendTo 	= '.scroll-container';
+
+
+		data = {
+				song : response[0],
+				user : {userId : _userId}
+			};
+
+
+			//Only render library if this is not a shared playlist.
+			//Loads shared playlist instead
+			if(_playlistShared === 0 || _playlistShared === undefined|| _playlistShared === ""){
+				//Render library items with user data
+				render(src, id, appendTo, data);
+			}else{
+				//resets shared playlist after library behavior has taken place
+				_playlistShared = 0;
+			}
+
+
+
+
+			//Pagination vars
+			_libraryCount 	= response.count;
+
+			//Set the number of pages available to pagination
+			_numPages = Math.ceil(response.count / response.limit);
+
+			//Display total songs in library in interface
+			DOM.collectionTotal.html(response.count);
+
+
+
+
+			//Store the users songs for list functions
+			//Store youtube img urls for click dependent loading to limit GET requests
+			for(var i=0;i<response[0].length; i++){
+				_userSongs.push(response[0][i].song_id);
+			}
 	}
 
 
@@ -1294,10 +1341,10 @@ console.log(DOM.sourceTitle.html());
 			_sortOrder 	= "DESC";
 
 			//Load library
-			// loadLibrary(_currentSkip);
+			loadLibrary(_currentSkip);
 			//paged loading of library items every 1.5s until
 			//full library is loaded
-			_loadInterval = setInterval(pageLoader, 1500);
+			// _loadInterval = setInterval(pageLoader, 1500);
 
 			this.toggle = !this.toggle;
 
@@ -1307,10 +1354,10 @@ console.log(DOM.sourceTitle.html());
 			_sortOrder 	= "ASC";
 
 			//Load library
-			// loadLibrary(_currentSkip);
+			loadLibrary(_currentSkip);
 			//paged loading of library items every 1.5s until
 			//full library is loaded
-			_loadInterval = setInterval(pageLoader, 1500);
+			// _loadInterval = setInterval(pageLoader, 1500);
 
 			this.toggle = !this.toggle;
 		}
@@ -1322,23 +1369,23 @@ console.log(DOM.sourceTitle.html());
 
 
 
-	function pageLoader(){
+	// function pageLoader(){
 
-		if((_currentSkip + _limit) <= _libraryCount){
-			console.log(_currentSkip, "if");
-			_onPage 		+= 1;
-			_currentSkip 	+= _limit;
+	// 	if((_currentSkip + _limit) <= _libraryCount){
+	// 		console.log(_currentSkip, "if");
+	// 		_onPage 		+= 1;
+	// 		_currentSkip 	+= _limit;
 
-			//Load the next page
-			loadLibrary(_currentSkip);
+	// 		//Load the next page
+	// 		loadLibrary(_currentSkip);
 
-		}else{
+	// 	}else{
 
 
-			clearInterval(_loadInterval);
+	// 		clearInterval(_loadInterval);
 
-		}//if
-	}
+	// 	}//if
+	// }
 
 
 

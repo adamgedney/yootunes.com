@@ -746,7 +746,7 @@ input[type="password"] {
 }
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
-.no-select, img, .section-header, aside.app, .li-header, .footer {
+.no-select, img, .section-header, aside.app, .li-header, .li-group, .footer {
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: -moz-none;
@@ -1143,19 +1143,19 @@ section.app {
 }
 .search input[type="text"]::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #d6d6d6;
+  color: #949494;
 }
 .search input[type="text"]:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #d6d6d6;
+  color: #949494;
 }
 .search input[type="text"]::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #d6d6d6;
+  color: #949494;
 }
 .search input[type="text"]:-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #d6d6d6;
+  color: #949494;
 }
 
 #search-icon {
@@ -1755,7 +1755,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 .info ul {
   float: left;
-  margin: 18px 0 0 2%;
+  margin: 18px 0 2%;
+  width: 83.3333333%;
 }
 .info ul li {
   overflow: hidden;
@@ -1776,7 +1777,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   float: left;
   height: 36px;
   width: 27px;
-  margin: 18px 18px 0 0;
+  margin: 18px 0 0 0;
+  width: 8.33333333%;
 }
 @media only screen and (min-width: 800px) {
   .info svg, .info img {
