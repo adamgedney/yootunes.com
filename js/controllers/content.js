@@ -1041,33 +1041,21 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 			var localLength = JSON.parse(localStorage.getItem('library'))[0].length;
 
+				if(window.libraryCount === localLength){
+					console.log(window.libraryCount, localLength, "library count call");
+					var localResponse = JSON.parse(localStorage.getItem('library'));
 
-			//First get library count to compare against localstorage count
-			var API_URL = _baseUrl + '/get-library-count/' + _userId;
+					prepareLibrary(localResponse);
 
-			$.ajax({
-				url 		: API_URL,
-				method 		: 'GET',
-				dataType 	: 'json',
-				success 	: function(response){
+					console.log("pulled lib from local storage");
 
+				}else{//Library count has changed
 
-					if(response === localLength){
-						console.log(response, localLength, "library count call");
-						var localResponse = JSON.parse(localStorage.getItem('library'));
+					//Call API for songs
+					getLibrarySongs();
 
-						prepareLibrary(localResponse);
+				}//localStorage and library don't match
 
-						console.log("pulled lib from local storage");
-
-					}else{//Library count has changed
-
-						//Call API for songs
-						getLibrarySongs();
-
-					}//localStorage and library don't match
-				}//AJAX success
-			});//AJAX library count
 
 		//======================================//
 		}else{//No local storage found==========//

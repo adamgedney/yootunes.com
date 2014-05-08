@@ -117,16 +117,38 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 			_userId = cookies.userId;
 			window.userId = _userId;
 
-			//get the user data for stored theme
-			//then load the app on success
-			User.getUser(cookies.userId, function(response){
+			//Run this ASAP to prepare for library load
+			//First get library count to compare against localstorage count
+			var API_URL = _baseUrl + '/get-library-count/' + _userId;
 
-			});
+			$.ajax({
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType 	: 'json',
+				success 	: function(response){
 
-			//Load app, set cookie, fire event
-			//Cookie setting here is redundant but harmless
-			//Prevents duplicate code.
-			loadApplication();
+					//Used By libraryLoad to check local storage
+					window.libraryCount = response;
+					console.log(window.libraryCount);
+
+					//get the user data for stored theme
+					//then load the app on success
+					User.getUser(cookies.userId, function(response){
+
+					});
+
+					//Load app, set cookie, fire event
+					//Cookie setting here is redundant but harmless
+					//Prevents duplicate code.
+					loadApplication();
+
+				}//AJAX success
+			});//AJAX library count
+
+
+
+
+
 
 
 		}//else
