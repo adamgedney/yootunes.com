@@ -100,13 +100,13 @@ $green: #2f7c2f;
 	font-weight: 700;
 }
 
-input[type="email"], input[type="text"], input[type="submit"], input[type="password"], .copy-signup, select{
+input[type="email"], input[type="text"], input[type="submit"], input[type="password"], .copy-signup, .button, select{
 	height: 48px;
 	@include col(12);
 }
 
 
-input[type="submit"], .copy-signup{
+input[type="submit"], .copy-signup, .button{
 	border: none;
 	background: $blue;
 	color: $white;
@@ -118,6 +118,10 @@ input[type="submit"], .copy-signup{
 	top: 3px;
 	color: $red;
 	font-size: 1em;
+}
+
+.button{
+	display: block;
 }
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
@@ -180,11 +184,12 @@ header {
   }
 
   #sign-in-btn{
+  	@include col(1);
   	background: none;
   	float: right;
   	color: $white;
   	line-height: 0;
-  	font-size: 1.5em;
+  	font-size: 1.2em;
   	font-weight: 100;
   	margin-top: 15px;
   }
@@ -201,9 +206,14 @@ header {
 
 }
 */
-.plusContainerLG{
+.plusContainerSM, .plusContainerLG{
 	width: 245px;
 	margin: 0 auto;
+}
+
+.plusContainerSM{
+	width: 180px;
+	margin: 18px 0 ;
 }
 
 
@@ -351,6 +361,11 @@ header {
 			}
 		}
 	}
+}
+
+.signin.popdown{
+	@include col(3);
+	padding:2%;
 }
 
 
@@ -501,9 +516,15 @@ header {
 		margin-bottom: 36px;
 	}
 
-	button{
+	a.copy-signup{
+		display: block;
+		@include col(12);
 		height: 57px;
 		margin-bottom: 72px;
+		text-align: center;
+		line-height: 57px;
+		border-radius: 2px;
+		font-size: 1.5em;
 
 		@include break-md{
 			margin-bottom: 36px;
