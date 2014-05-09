@@ -6,6 +6,7 @@ require.config({
 		modernizr 		: 'libs/modernizr',
 		Handlebars 		: 'libs/handlebars',
 		lightbox 		: 'libs/lightbox-2.6.min',
+		parallax 		: 'libs/parallax',
 		User 			: 'controllers/user',
 		Init 			: 'controllers/init',
 		Auth 			: 'controllers/auth',
@@ -22,19 +23,22 @@ require.config({
 
 
 // //Instantiate Controllers
-require(['modernizr', 'jquery','Init', 'Auth', 'Content','Library', 'User', 'Player'],
-	function(modernizr, jquery, Init, Auth, Content, Library, User, Player){
-
+require(['modernizr', 'jquery', 'parallax','Init', 'Auth', 'Content','Library', 'User', 'Player'],
+	function(modernizr, jquery, parallax, Init, Auth, Content, Library, User, Player){
 
 		var init 			= new Init();
 		var auth 			= new Auth();
-		// var ui 				= new Ui();
 		var player 			= new Player();
 
 		//Load async scripts
 		Content.loadScripts();
 
 });
+
+
+
+
+
 
 
 
