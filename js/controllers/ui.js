@@ -1046,7 +1046,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		var videoId = $('.youtube-img[data-id=' + id + ']').attr('data-videoId');
 		var thumbSrc = 'https://i.ytimg.com/vi/' + videoId + '/default.jpg';
 		var hiresSrc = 'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg';
-		console.log(videoId, thumbSrc, hiresSrc);
 
 		//Set thumbnail src
 		$('.youtube-img[data-id=' + id + ']').attr('src', thumbSrc);

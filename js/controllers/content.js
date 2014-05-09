@@ -146,6 +146,29 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
+		//Show search history when user starts typing
+		$(document).on('keyup', '#searchInput', function(event){
+			console.log($(this).val().length);
+			var API_URL = _baseUrl + '/get-search-history/' + _userId;
+
+			//Search query call
+			$.ajax({
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType	: 'json',
+				success 	: function(response){
+
+					console.log(response, "search change response");
+				}//success
+			});//ajax
+
+		});
+
+
+
+
+
+
 		//Search call and result looping=========//
 		$(document).on('click', '#searchSubmit', function(event){
 			event.preventDefault();
