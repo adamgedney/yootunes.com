@@ -506,6 +506,24 @@ section.app{
 
 }
 
+#datalistContainer{
+	@include col(10);
+	background: nth($grey, 5);
+	position: absolute;
+	top: 68px;
+	height: auto;
+	z-index: 15000;
+
+		li{
+			line-height: 27px;
+		}
+
+		li:hover{
+			background: rgba(0,0,0,.1);
+			cursor: pointer;
+		}
+}
+
 #search-icon{
 	position: absolute;
 	right: 6.15%;

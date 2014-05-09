@@ -1158,6 +1158,22 @@ section.app {
   color: #949494;
 }
 
+#datalistContainer {
+  width: 83.3333333%;
+  background: #e2e2e2;
+  position: absolute;
+  top: 68px;
+  height: auto;
+  z-index: 15000;
+}
+#datalistContainer li {
+  line-height: 27px;
+}
+#datalistContainer li:hover {
+  background: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
 #search-icon {
   position: absolute;
   right: 6.15%;

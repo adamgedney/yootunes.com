@@ -153,7 +153,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			//Send first 2 characters to API for querying history
 			if($(this).val().length >= 2){
 				var characters = $(this).val();
-console.log(characters);
+
 				var API_URL = _baseUrl + '/get-search-history/' + _userId + '/' + characters;
 
 				//Search query call
@@ -163,15 +163,28 @@ console.log(characters);
 					dataType	: 'json',
 					success 	: function(response){
 
-						console.log(response, "search change response");
+						DOM.datalist = $('#datalistContainer');
+						DOM.datalist.empty();
+
+						//Creates list of previous queries from DB. limit 10
+						for(var i=0;i<response.length;i++){
+
+							DOM.datalist.append('<li>' + response[i].query + '</li>');
+						}
 					}//success
 				});//ajax
 			}
-
-
 		});
 
 
+
+		//Sets selected datlist item as the search val and clicks search
+		$(document).on('click', 'ul#datalistContainer li', function(){
+
+			DOM.searchInput.val($(this).text());
+			$('#searchSubmit').trigger('click');
+
+		});
 
 
 
@@ -179,7 +192,13 @@ console.log(characters);
 		//Search call and result looping=========//
 		$(document).on('click', '#searchSubmit', function(event){
 			event.preventDefault();
+			DOM.datalist.empty();
+
+
 			var query = DOM.searchInput.val();
+
+
+
 			var API_URL = _baseUrl + '/search/' + query + '/' + _userId;
 			var songs = [];
 
@@ -1564,6 +1583,7 @@ console.log(characters);
 			DOM.infoDeviceList 	= $('#infoDeviceList');
 			DOM.infoDeviceName 	= $('.infoDeviceName');
 			DOM.liHeader 		= $('.li-header');
+			DOM.datalist  		= $('#datalistContainer');
 		}//#app
 
 		if(template === '#landing'){
