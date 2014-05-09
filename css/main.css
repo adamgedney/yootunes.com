@@ -1159,10 +1159,10 @@ section.app {
 }
 
 #datalistContainer {
-  width: 83.3333333%;
+  width: 100%;
   background: #e2e2e2;
   position: absolute;
-  top: 68px;
+  top: 157px;
   height: auto;
   z-index: 15000;
 }
@@ -1172,6 +1172,12 @@ section.app {
 #datalistContainer li:hover {
   background: rgba(0, 0, 0, 0.1);
   cursor: pointer;
+}
+@media only screen and (min-width: 800px) {
+  #datalistContainer {
+    width: 83.3333333%;
+    top: 68px;
+  }
 }
 
 #search-icon {

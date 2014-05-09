@@ -192,15 +192,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Search call and result looping=========//
 		$(document).on('click', '#searchSubmit', function(event){
 			event.preventDefault();
-			DOM.datalist.empty();
 
-
-			var query = DOM.searchInput.val();
-
-
-
+			var query 	= DOM.searchInput.val();
 			var API_URL = _baseUrl + '/search/' + query + '/' + _userId;
-			var songs = [];
+			var songs 	= [];
 
 			//Empty results list while srarch results load
 			DOM.scrollContainer.empty();
@@ -214,6 +209,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				method 		: 'GET',
 				dataType	: 'json',
 				success 	: function(data){
+
+					//Empty autocomplete
+					DOM.datalist.empty();
 
 					//Loop through response & push into array
 					//for delivery to renderer
