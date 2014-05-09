@@ -226,8 +226,8 @@ input[type="email"], input[type="text"], input[type="submit"], input[type="passw
 
 input[type="submit"], .copy-signup {
   border: none;
-  background: #e5a539;
-  color: #272a2a;
+  background: #3b578a;
+  color: #ebebeb;
   width: 100%;
 }
 
@@ -306,11 +306,12 @@ header #sign-in-btn {
 	padding: 9px 0 0 6%;
 
 }
-
-.plusContainerLG{
-	padding: 9px 0 0 25%;
-}
 */
+.plusContainerLG {
+  width: 245px;
+  margin: 0 auto;
+}
+
 .hero {
   width: 100%;
   overflow: hidden;
@@ -361,10 +362,11 @@ header #sign-in-btn {
   width: 91.6666666%;
   margin-left: 4.1666667%;
   margin-right: 4.1666667%;
+  font-size: 2.7em;
 }
 @media only screen and (min-width: 480px) {
   .cta h2 {
-    color: #ebebeb;
+    color: #0f1010;
     font-weight: 100;
     line-height: 1.5em;
     text-align: left;
@@ -386,7 +388,7 @@ header #sign-in-btn {
 }
 @media only screen and (min-width: 480px) {
   .cta p {
-    color: #ebebeb;
+    color: #0f1010;
     width: 91.6666666%;
     margin-left: 4.1666667%;
     margin-right: 4.1666667%;
@@ -412,20 +414,20 @@ header #sign-in-btn {
 }
 @media only screen and (min-width: 770px) {
   .signup {
-    width: 50%;
+    width: 41.6666666%;
     padding-right: 6%;
-    float: left;
+    float: right;
   }
 }
 .signup h2 {
   color: #0f1010;
   padding-left: 6%;
   text-align: center;
-  font-size: 2.7em;
+  font-size: 2.1em;
 }
 @media only screen and (min-width: 480px) {
   .signup h2 {
-    color: #ebebeb;
+    color: #0f1010;
     padding-left: 0;
   }
 }
@@ -572,6 +574,9 @@ header #sign-in-btn {
   margin-left: 8.33333335%;
   margin-right: 8.33333335%;
 }
+.shots img:hover {
+  opacity: 1;
+}
 @media only screen and (min-width: 770px) {
   .shots {
     width: 50%;
@@ -586,6 +591,9 @@ header #sign-in-btn {
   width: 83.3333333%;
   margin-left: 8.33333335%;
   margin-right: 8.33333335%;
+}
+.copy h2 {
+  font-size: 2.7em;
 }
 @media only screen and (min-width: 480px) {
   .copy {

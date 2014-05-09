@@ -108,8 +108,8 @@ input[type="email"], input[type="text"], input[type="submit"], input[type="passw
 
 input[type="submit"], .copy-signup{
 	border: none;
-	background: $yellow;
-	color: nth($grey, 1);
+	background: $blue;
+	color: $white;
 	@include col(12);
 }
 
@@ -200,11 +200,12 @@ header {
 	padding: 9px 0 0 6%;
 
 }
-
-.plusContainerLG{
-	padding: 9px 0 0 25%;
-}
 */
+.plusContainerLG{
+	width: 245px;
+	margin: 0 auto;
+}
+
 
 
 
@@ -254,9 +255,10 @@ header {
 		text-align: center;
 		@include col(11);
 		@include col_ctr(11);
+		font-size: 2.7em;
 
 		@include break-sm{
-			color: $white;
+			color: $black;
 			font-weight: 100;
 			line-height: 1.5em;
 			text-align: left;
@@ -275,7 +277,7 @@ header {
 		@include col_ctr(10);
 
 		@include break-sm{
-			color: $white;
+			color: $black;
 			@include col(11);
 			@include col_ctr(11);
 		}
@@ -298,19 +300,19 @@ header {
 	}
 
 	@include break-md{
-		@include col(6);
+		@include col(5);
 		padding-right: 6%;
-		float: left;
+		float: right;
 	}
 
 	h2{
 		color: $black;
 		padding-left: 6%;
 		text-align: center;
-		font-size: 2.7em;
+		font-size: 2.1em;
 
 		@include break-sm{
-			color: $white;
+			color: $black;
 			padding-left: 0;
 		}
 
@@ -459,17 +461,27 @@ header {
 	@include col(10);
 	@include col_ctr(10);
 
+	img:hover{
+		opacity: 1;
+	}
+
 	@include break-md{
 		@include col(6);
 		@include col_ctr(0);
 	}
 }
 
+
+
 .copy{
 	float: right;
 	padding:36px 6% 0;
 	@include col(10);
 	@include col_ctr(10);
+
+	h2{
+		font-size: 2.7em;
+	}
 
 	@include break-sm{
 		padding:0 6%;

@@ -144,6 +144,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
+		//Clear autocomplete in case user wants out
+		$(document).on('click', '#searchInput', function(event){
+			//Empty autocomplete
+			DOM.datalist.empty();
+		});
+
 
 
 		//Show search history when user starts typing
@@ -175,6 +181,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				});//ajax
 			}
 		});
+
+
 
 
 

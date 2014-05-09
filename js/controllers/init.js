@@ -129,7 +129,6 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 					//Used By libraryLoad to check local storage
 					window.libraryCount = response;
-					console.log(window.libraryCount);
 
 					//get the user data for stored theme
 					//then load the app on success
