@@ -148,19 +148,26 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Show search history when user starts typing
 		$(document).on('keyup', '#searchInput', function(event){
-			console.log($(this).val().length);
-			var API_URL = _baseUrl + '/get-search-history/' + _userId;
 
-			//Search query call
-			$.ajax({
-				url 		: API_URL,
-				method 		: 'GET',
-				dataType	: 'json',
-				success 	: function(response){
 
-					console.log(response, "search change response");
-				}//success
-			});//ajax
+			//Send first 2 characters to API for querying history
+			if($(this).val().length >= 2){
+				var characters = $(this).val();
+console.log(characters);
+				var API_URL = _baseUrl + '/get-search-history/' + _userId + '/' + characters;
+
+				//Search query call
+				$.ajax({
+					url 		: API_URL,
+					method 		: 'GET',
+					dataType	: 'json',
+					success 	: function(response){
+
+						console.log(response, "search change response");
+					}//success
+				});//ajax
+			}
+
 
 		});
 
