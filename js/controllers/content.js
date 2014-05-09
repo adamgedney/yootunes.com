@@ -150,7 +150,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		$(document).on('click', '#searchSubmit', function(event){
 			event.preventDefault();
 			var query = DOM.searchInput.val();
-			var API_URL = _baseUrl + '/search/' + query;
+			var API_URL = _baseUrl + '/search/' + query + '/' + _userId;
 			var songs = [];
 
 			//Empty results list while srarch results load
