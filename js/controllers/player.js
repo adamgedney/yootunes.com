@@ -67,12 +67,12 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			//Retrieve cookies & set device & userId
 			var userCookies = getCookies;
 
-			_thisDevice 	= window.thisDevice;
-			_playOnDevice 	= window.thisDevice;//default device
+			_thisDevice 	= event.thisDevice;
+			_playOnDevice 	= event.thisDevice;//default device
 			_userId 		= userCookies.userId;
 
 
-			console.log(_thisDevice, "player device");
+			console.log(_thisDevice, "player device", event, window.thisDevice);
 
 		});
 

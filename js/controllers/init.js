@@ -293,7 +293,9 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 								$.event.trigger({
 									type 			: 'gotdevices',
-									response 		: response
+									response 		: response,
+									thisDevice 		: devices[j],
+									origin 			: 'determinate'
 								});
 
 								// renderDevices(response);
@@ -325,7 +327,8 @@ console.log("none found");
 
 					$.event.trigger({
 						type 			: 'gotdevices',
-						response 		: response
+						response 		: response,
+						origin 			: 'indeterminate'
 					});
 
 					// renderDevices(response);
