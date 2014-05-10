@@ -656,10 +656,20 @@ section.app{
 			padding: 0 2%;
 			overflow: hidden;
 			color: nth($grey, 3);
+			position: relative;
 
 			svg,img,  .add-icon, .play-icon img{
 				height: 12px;
 				vertical-align: middle;
+			}
+
+			.draggableIcon{
+				position: absolute;
+				top: 11px;
+				left: 6px;
+				height: 27px;
+				opacity: .3;
+				display: none;
 			}
 
 			.add-icon{

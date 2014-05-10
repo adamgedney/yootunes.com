@@ -217,13 +217,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 
 
-			//MOUSEOVER hover effect for LIGHT theme.
+			//MOUSEOVER hover effect.
 			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
-
-
-				if($(this) === '.li-playlist'){
-					console.log("over playlist");
-				}
 
 
 				var resultId = $(this).attr('data-id');
@@ -247,13 +242,17 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 						$(this).css({'background': '#ffffff'});
 					}
 				}
+
+				//Show only this dragable icon on hover
+				$('.draggableIcon').css({'display' : 'none'})
+				$(this).find('.draggableIcon').css({'display' : 'block'});
 			});//MOUSEOVER
 
 
 
 
 
-			//MOUSEOUT hover effect for LIGHT theme.
+			//MOUSEOUT hover effect.
 			$(document).on('mouseout', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
 				var resultId = $(this).attr('data-id');
