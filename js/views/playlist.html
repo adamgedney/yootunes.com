@@ -3,10 +3,21 @@
 
 
 {{#each playlist}}
-		<li class="li-playlist"><a data-id="{{this.id}}" data-userid="{{this.user_id}}" class="playlistTitle" href="#">{{this.name}}</a>
-			<span data-id="{{this.id}}" class="playlist-menu"><img class="svg" src="images/icons/more-arrow-down.svg" alt="menu icon" />
-			</span>
+		<li class="li-playlist">
+
+				<a data-id="{{this.id}}" data-userid="{{this.user_id}}" class="playlistTitle" href="#">{{this.name}}</a>
+					<span data-id="{{this.id}}" class="playlist-menu"><img class="svg" src="images/icons/more-arrow-down.svg" alt="menu icon" />
+					</span>
+
+					<form data-id="{{this.id}}" class="renamePlaylistForm">
+						<input data-id="{{this.id}}" type="text" class="renamePlaylistInput" placeholder="Change playlist name"/>
+						<input data-id="{{this.id}}" class="renamePlaylistSubmit" type="submit" value="save">
+					</form>
 		</li>
+
+
+
+
 
 		<li data-id="{{this.id}}" class="playlist-dropdown">
 			<div class="playlist-popout">

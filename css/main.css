@@ -1057,6 +1057,44 @@ aside.app::-webkit-scrollbar {
   padding: 0;
 }
 
+.li-playlist .renamePlaylistForm {
+  position: absolute;
+  z-index: -20;
+  top: 0;
+  opacity: 0;
+  width: 83.3333333%;
+  overflow: hidden;
+}
+.li-playlist .renamePlaylistForm input[type="text"] {
+  line-height: 27px;
+  height: 27px;
+  font-size: 1em;
+  font-family: OpenSansLight;
+  color: #d6d6d6;
+  background: #1A1C1C;
+}
+.li-playlist .renamePlaylistForm input[type="submit"] {
+  height: 22px;
+  line-height: 18px;
+  margin: 2px 1px 0 0;
+  font-size: 1em;
+  width: 33.3333333%;
+  font-family: OpenSansLight;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#renameShow {
+  z-index: 1 !important;
+  opacity: 1;
+}
+
+#renameHide {
+  z-index: -20 !important;
+  opacity: 0;
+}
+
 .playlist-menu {
   width: 8.33333333%;
   float: right;

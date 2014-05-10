@@ -19,7 +19,49 @@ define(['jquery'], function($){
 		//Listen for rendered to register DOM elements
 		$(document).on('rendered', function(event){
 			registerDOM(event.template);
+
+			if(event.template === '#playlist'){
+
+
+				//Rename playlist
+				$(document).on('dblclick', '.playlistTitle', function(event){
+					var playlistId 	= $(this).attr('data-id');
+					var form 		= $('form.renamePlaylistForm[data-id=' + playlistId + ']');
+					var input 		= $('input.renamePlaylistInput[data-id=' + playlistId + ']');
+
+					$('form.renamePlaylistForm').attr('id', 'renameHide');
+					form.attr('id', 'renameShow');
+					input.val($(this).text());
+
+
+				});//dbl click
+			}//#app
+		});//rendered
+
+
+
+
+		//Rename playlist submit
+		$(document).on('click', '.renamePlaylistSubmit', function(event){
+			event.preventDefault();
+
+			var playlistId 	= $(this).attr('data-id');
+			var form 		= $('form.renamePlaylistForm[data-id=' + playlistId + ']');
+			var input 		= $('input.renamePlaylistInput[data-id=' + playlistId + ']');
+			var newName 	= input.val();
+
+
+			renamePlaylist(playlistId, newName);
+
+			//Reset and hide form
+			input.val('');
+			$('form.renamePlaylistForm').attr('id', 'renameHide');
+
+
 		});
+
+
+
 
 
 
@@ -117,7 +159,9 @@ define(['jquery'], function($){
 			var songId 			= $(this).attr('data-id');
 			var playlistName 	= $(this).prev().val();//Previous li sibling in form = text input
 
-console.log("new playlist submit");
+			if(songId === ''){
+				songId = 0;
+			}
 			createNewPlaylist(userId, songId, playlistName);
 
 			//Clear form on submit
@@ -168,7 +212,6 @@ console.log("new playlist submit");
 
 			deletePlaylist(playlistId);
 		});
-
 
 
 
@@ -304,7 +347,9 @@ console.log(response, "remove from lib response");
 
 
 	function createNewPlaylist(userId, songId, playlistName){
-console.log("createNEwPlaylist");
+
+		userId = window.userId;
+
 		//Build API url
 		var API_URL = _baseUrl + '/new-playlist/' + userId + '/' + songId + '/' + playlistName;
 
@@ -432,6 +477,37 @@ console.log("createNEwPlaylist");
 			dataType : 'json',
 			success : function(response){
 
+				//Triggers playlist added just so a playlist reload occurs
+				$.event.trigger({
+					type : 'playlistadded'
+				});
+
+			}//success
+		});//ajax
+
+
+
+	}
+
+
+
+
+
+
+
+
+	function renamePlaylist(playlistId, newName){
+
+		//Build API url
+		var API_URL = _baseUrl + '/rename-playlist/' + playlistId + '/' + newName;
+
+		//Call API to add song to library
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+				console.log(response, "new playlist name response");
 				//Triggers playlist added just so a playlist reload occurs
 				$.event.trigger({
 					type : 'playlistadded'

@@ -1293,7 +1293,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 					//Set input value
 					var submit = $('.newPlaylistSubmit');
 
-					$('.newPlaylistInput').val(that.text());
+					//sanitize string
+					var sanitized = that.text().replace(/[^a-zA-Z ]/g, "")
+						sanitized = sanitized.substr(0, 25);
+
+					$('.newPlaylistInput').val(sanitized);
 					submit.attr('data-user', that.attr('data-user'));
 					submit.attr('data-id', that.attr('data-id'));
 

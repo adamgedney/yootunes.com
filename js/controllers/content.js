@@ -416,7 +416,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 									_thisDevice 		= devices[j];
 									window.thisDevice 	= devices[j];
 									match 				= true;
-									console.log("test", response, devices[j]);
+
 									renderDevices(response);
 
 									break;
