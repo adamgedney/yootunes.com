@@ -406,7 +406,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 					//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
 					User.getDevices(_userId, function(response){
-console.log("user devices", response, getCookies.devices);
+
 						for(var i=0;i<response.length;i++){
 							for(var j=0;j<devices.length;j++){
 
@@ -416,7 +416,7 @@ console.log("user devices", response, getCookies.devices);
 									_thisDevice 		= devices[j];
 									window.thisDevice 	= devices[j];
 									match 				= true;
-
+									console.log("test", response, devices[j]);
 									renderDevices(response);
 
 									break;
