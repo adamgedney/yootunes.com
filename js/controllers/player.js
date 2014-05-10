@@ -633,6 +633,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 			playItem($(this));
 
+			//Change li text color
+			$(this).parent().css('color', '#cf2425 !important');//red
+
 		});//onclick play icon
 
 

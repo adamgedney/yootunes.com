@@ -39,109 +39,52 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
-		// //Parallax bg controller for landing page==================//
-		// var parallax = {};
-		// 	parallax.yPos = 0;
-		// 	parallax.hero = $('div.hero');
-		// 	parallax.position = $(window).scrollTop();
-		// 	parallax.current = 0;
-
-		// $(window).on('scroll', function(){
-		// 	console.log("scrolling");
-		// 	//Sets current reference point
-		// 	var scroll = $(window).scrollTop();
-
-		// 	//checks difference between start position and current
-		// 	if(scroll > parallax.position ){
-		// 		parallax.yPos -= 1.5;
-		// 	}else{
-		// 		parallax.yPos += 1.5;
-
-		// 		//resets background once out of viewport to fix a presentation bug
-		// 		if(scroll > 680){
-		// 			parallax.yPos = -1;
-		// 		}
-		// 	}
 
 
 
-		// 	//animates background image in hero
-		// 	parallax.hero.css({
-		// 		'backgroundPosition' : '0 ' + parallax.yPos + 'px'
-		// 	});
+			//Title/tooltip handler. Write function to display pre designed modal
+			//taht starts at the offset left of the hovered over item.
+			//use for tooltips, feedback, validation, error messages, and upgrade acct encouragement.
 
-		// 	//sets position eqal to current scroll to increment difference
-		// 	parallax.position = scroll;
-		// }); // onscroll
+			//Listen for rendered to register DOM elements
+			$(document).on('rendered', function(event){
+				registerDOM(event.template);
 
-
-
-
-
-
-		//Title/tooltip handler. Write function to display pre designed modal
-		//taht starts at the offset left of the hovered over item.
-		//use for tooltips, feedback, validation, error messages, and upgrade acct encouragement.
-
-		//Listen for rendered to register DOM elements
-		$(document).on('rendered', function(event){
-			registerDOM(event.template);
-
-			if(event.template === '#libraryItem'){
-				//Failsafe retrieval of theme
-				if(window.userId === undefined){
-					window.theme = getCookies.theme;
+				if(event.template === '#libraryItem'){
+					//Failsafe retrieval of theme
+					if(window.userId === undefined){
+						window.theme = getCookies.theme;
+					}
 				}
-			}
-		});
+			});
 
 
 
 
-		//on window resize, recalculate windowWidth for queries
-		window.windowWidth = $(window).width();
-
-
-
-		$(window).resize(function() {
+			//on window resize, recalculate windowWidth for queries
 			window.windowWidth = $(window).width();
 
-			//On resize show sidebar
-			if(window.windowWidth > app_break_smmd){
-				DOM.sectionApp.removeClass('mainSlideLeft');
-				DOM.asideApp.removeClass('sidebarSlideLeft');
-
-				DOM.video.show();
-				DOM.videoSizeCtrl.show();
-				DOM.footer.show();
-			}else{
-				DOM.video.hide();
-				DOM.videoSizeCtrl.hide();
-				DOM.footer.hide();
-			}
 
 
-		});
+			$(window).resize(function() {
+				window.windowWidth = $(window).width();
+
+				//On resize show sidebar
+				if(window.windowWidth > app_break_smmd){
+					DOM.sectionApp.removeClass('mainSlideLeft');
+					DOM.asideApp.removeClass('sidebarSlideLeft');
+
+					DOM.video.show();
+					DOM.videoSizeCtrl.show();
+					DOM.footer.show();
+				}else{
+					DOM.video.hide();
+					DOM.videoSizeCtrl.hide();
+					DOM.footer.hide();
+				}
 
 
-
-
-
-
-
-
-		//Sign up button interaction handler=======//
-		$(document).on('click', '#sign-in-btn', function(){
-
-			this.toggle;
-
-			var selector	= '.signin';
-			var id 			= $(this).attr('data-id');
-
-			//returns the opposite boolean toggle value
-			this.toggle = toggleUi(this.toggle, selector, id);
-
-		});//sing-in-button click
+			});
 
 
 
@@ -149,10 +92,48 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
-		//Stop propagation on children of main menu====//
-		$(document).on('click', 'li', function(event){
-			event.stopPropagation();
-		});
+
+			//Sign up button interaction handler=======//
+			$(document).on('click', '#sign-in-btn', function(){
+
+				this.toggle;
+
+				var selector	= '.signin';
+				var id 			= $(this).attr('data-id');
+
+				//returns the opposite boolean toggle value
+				this.toggle = toggleUi(this.toggle, selector, id);
+
+			});//sing-in-button click
+
+
+
+
+
+
+
+			//Stop propagation on children of main menu====//
+			$(document).on('click', 'li', function(event){
+				event.stopPropagation();
+			});
+
+
+
+
+
+
+
+			//MOUSEOVER hover effect for LIGHT theme.
+			$(document).on('mouseover', '.li-playlist', function(event){
+				$('.li-playlist').find('.playlist-menu').css({'display' : 'none'});
+
+				$(this).find('.playlist-menu').css({'display' : 'inline'});
+			});
+
+			//MOUSEOVER hover effect for LIGHT theme.
+			$(document).on('mouseout', '.li-playlist', function(event){
+				$('.li-playlist').find('.playlist-menu').css({'display' : 'none'});
+			});
 
 
 
@@ -178,7 +159,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 					//If dropdown is open or closed set hover color accordingly
 					if(!_dropdownOpen){
-						$(this).css({'background': '#2a2d2d'});
+						$(this).css({'background': '#202222'});
 					}else if(_dropdownOpen && resultId === _dropdownId){
 
 						$(this).css({'background': '#ffffff'});
@@ -278,6 +259,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 					_dropdownOpen = true;
 
+					//Show last column
+					$('.li-col7').show();
+					$('.li-col2').css({'width':'41.6666666%'});//4 col
+
 					DOM.resultItems.removeClass('bg-white');
 					DOM.resultItems.removeClass('bold');
 					DOM.resultItems.css({'borderBottom':'none'});
@@ -289,6 +274,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 				}else{
+
+					//Hide last column
+					$('.li-col7').hide();
+					$('.li-col2').css({'width':'50%'});//5 col
 
 					DOM.resultItems = $('li.resultItems');
 
@@ -997,23 +986,23 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		document.cookie = "theme=dark";
 
 
-		DOM.app.css({
-			'background': '#272a2a'}
-		);
+		// DOM.app.css({
+		// 	'background': '#1b1d1d'}
+		// );
 
-		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('dark-fonts');
+		// $('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('dark-fonts');
 
 
-		DOM.liHeader.addClass('dark-border-bottom');
-		DOM.sectionHeader.addClass('dark-border-bottom');
-		DOM.searchSubmit.addClass('dark-border-left');
+		// DOM.liHeader.addClass('dark-border-bottom');
+		// DOM.sectionHeader.addClass('dark-border-bottom');
+		// DOM.searchSubmit.addClass('dark-border-left');
 
-		DOM.asideApp.addClass('dark-border-right');
-		DOM.inputText.addClass('dark-placeholder');
+		// DOM.asideApp.addClass('dark-border-right');
+		// DOM.inputText.addClass('dark-placeholder');
 
-		DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
+		// // DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
 
-		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('dark-input-bg');
+		// $('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('dark-input-bg');
 	}
 
 
@@ -1049,7 +1038,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		DOM.asideApp.removeClass('dark-border-right');
 		DOM.inputText.removeClass('dark-placeholder');
 
-		DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+		// DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
 		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('dark-input-bg');
 	}

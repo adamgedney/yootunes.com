@@ -519,9 +519,15 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
 				if(DOM.sourceTitle.html() === 'Add'){
 
+					$('.li-col7').show();
+					$('.li-col2').css({'width':'41.6666666%'});//4 col
+
 					//Swaps out icon for add icon
 					resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
 				}else{
+
+					$('.li-col7').hide();
+					$('.li-col2').css({'width':'50%'});//5 col
 
 					resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 				}
@@ -1032,9 +1038,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					//Render library items with user data
 					render(src, id, appendTo, data);
 
-
-					//Change last column to remove
-					DOM.sourceTitle.html('Remove');
+					//Change last column to ''
+					DOM.sourceTitle.html('');
 
 					_state 	= 'playlist';
 
@@ -1079,9 +1084,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 			//Shows column headers
 			DOM.liHeader.show();
-
-			//Change last column to remove
-			DOM.sourceTitle.html('Remove');
 
 
 
@@ -1196,6 +1198,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 			}
+
+			//Change last column to ''
+			DOM.sourceTitle.html('');
 
 			//Pagination vars
 			_libraryCount 	= response.count;
@@ -1450,8 +1455,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		DOM.sectionHeader.show();
 
 		DOM.scrollContainer.empty();
-
-		DOM.sourceTitle.html("Remove");
 
 		sortList(sortBy);
 

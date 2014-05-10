@@ -56,12 +56,13 @@ img, .section-header, aside.app, .li-header, .li-group, .footer{
 
 
 html{
-	background: $white;
+	background: $dark-bg;
 }
 
 //body#app
 #app{
-	background: $white;
+	color: nth($grey, 3);
+	background: $dark-bg;
 	overflow: hidden;
 	letter-spacing: 1px;/*give gothic font some space*/
 }
@@ -110,9 +111,11 @@ aside.app{
 	min-height: 500px;
 	height: 100vh;
 	float: left;
-	border-right: 1px solid nth($grey, 4);
-	overflow: hidden;
+	border-right: 1px solid nth($grey, 1);
+	overflow: scroll;
+	padding-bottom: 306px;
 	background: $black; /*experimenting with dark bg*/
+	color: nth($grey, 3);
 
 
 
@@ -124,6 +127,11 @@ aside.app{
 		background: none;
 	}
 }
+
+aside.app::-webkit-scrollbar {
+    display: none;
+}
+
 
 .video-size-ctrl{
 	background: none;
@@ -227,10 +235,10 @@ aside.app{
 /*Sidebar Settings=====================*/
 /*=====================================*/
 .library-nav{
-	line-height: 36px;
-	font-size: .8em;
+line-height: 36px;
+font-size: .8em;
 
-	ul{
+	ul, .settings-nav{
 		margin-bottom: 0;
 
 		li{
@@ -243,22 +251,11 @@ aside.app{
 	}
 }
 
-#returnToSearch{
-	margin-top: 27px;
-	vertical-align: top;
-	line-height: 18px;
-	overflow: hidden;
-	cursor: pointer;
-
-	img{
-		height: 18px;
-		float: right;
-	}
+.settings-nav{
+	line-height: 36px;
 }
 
-#returnToSearch:hover{
-	background: none;
-}
+
 
 
 .settings-menu{
@@ -311,25 +308,27 @@ aside.app{
 .playlist-menu{
 	@include col(1);
 	float: right;
+	display: none;
 
 	svg, img{
-		height: 12px;
+		height: 6px;
 		vertical-align: middle;
 	}
 }
+
 
 .add-icon{
 	float: right;
 }
 
-.playlist-scroll-container::-webkit-scrollbar {
+/*.playlist-scroll-container::-webkit-scrollbar {
     display: none;
 }
 
 .playlist-scroll-container{
 	height: 47vh;
 	overflow: scroll;
-}
+}*/
 
 
 
@@ -431,7 +430,7 @@ section.app{
 
 .section-header{
 	height: 48px; //120
-	border-bottom: 1px solid nth($grey, 4);
+	border-bottom: 1px solid nth($grey, 1);
 
 	@include app-break-smmd{
 		height: 72px
@@ -447,7 +446,6 @@ section.app{
 	input{
 		float: left;
 		margin: 0;
-		// padding: 0 6%;
 		height: 48px;//39
 		background: rgba(0,0,0,.1);/*slight dark overlay*/
 
@@ -462,10 +460,10 @@ section.app{
 		border-bottom-right-radius: 0;
 		// border-right: none;
 		border: none;
-		font-size: 1.2em;
+		font-size: 1em;
 		font-weight: 100;
 		/*background: transparent;*/
-		padding-left: 3%;
+		padding-left: 7.5%;
 		outline: none;
 
 		@include app-break-smmd{
@@ -480,7 +478,7 @@ section.app{
 		/*background: transparent;*/
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
-		border-left: 1px solid nth($grey, 4);
+		border-left: 1px solid nth($grey, 1);
 
 		@include app-break-smmd{
 			@include col(1);
@@ -492,18 +490,37 @@ section.app{
 	}
 
 	input[type="text"]::-webkit-input-placeholder { /* WebKit browsers */
-	    color: nth($grey, 3);
+		font-family: OpenSansLight;
+	    color: nth($grey, 2);
 	}
 	input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	    color: nth($grey, 3);
+		font-family: OpenSansLight;
+	    color: nth($grey, 2);
 	}
 	input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
-	    color: nth($grey, 3);
+		font-family: OpenSansLight;
+	    color: nth($grey, 2);
 	}
 	input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
-	    color: nth($grey, 3);
+		font-family: OpenSansLight;
+	    color: nth($grey, 2);
 	}
 
+}
+
+#returnToSearch{
+	position: absolute;
+	margin: 27px 0 0 2%;
+	z-index: 1;
+	cursor: pointer;
+
+	img{
+		height: 18px;
+	}
+}
+
+#returnToSearch:hover{
+	background: none;
 }
 
 #datalistContainer{
@@ -549,6 +566,7 @@ section.app{
 			line-height: 48px;
 			padding: 0 2%;
 			overflow: hidden;
+			color: nth($grey, 3);
 
 			svg,img,  .add-icon, .play-icon img{
 				height: 12px;
@@ -563,8 +581,11 @@ section.app{
 
 			.play-icon{
 				img{
-					width: 10px;
+					width: 15px;
+					height: 15px;
 					margin-left: 23%;
+					position: relative;
+					z-index: 1;
 				}
 			}
 
@@ -627,7 +648,7 @@ section.app{
 	margin-right: 2%;
 
 	@include app-break-smmd{
-		@include col(4);
+		@include col(6);
 	}
 }
 
@@ -643,7 +664,7 @@ section.app{
 }
 
 .li-col3{
-	/*width: 200px;//Testing float fix where content is empty*/
+
 }
 
 /*.li-col3:before{
@@ -682,15 +703,16 @@ section.app{
 }
 
 .li-header{
+	height: 48px;
+	line-height: 48px;
 	font-weight: 700;
 	@include col(12);
-	border-bottom: 1px solid nth($grey, 4);
+	border-bottom: 1px solid nth($grey, 1);
 	font-size: .6em;
 	background: rgba(0,0,0,.05);
 
+
 	.li-col1{
-		// height: 21px;
-		line-height: 18px;
 		font-size: .6em;
 		padding-top: 19px;
 		color: nth($grey, 3);
@@ -1604,7 +1626,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 /*Dark Theme Overrides==============================================*/
 .dark-fonts{
-	color: #949494 !important;/*nth($grey, 3)*/
+	color: nth($grey, 3) !important;/*nth($grey, 3)*/
 }
 
 .dark-border-bottom{

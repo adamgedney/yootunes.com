@@ -7,6 +7,7 @@
 		{{#each song}}
 
 		<li class="li-group resultItems" data-id="{{this.id}}" data-videoId="{{youtube_id}}" data-index="" data-resultLength="" ><!-- list item group-->
+
 			<span data-videoId="{{youtube_id}}" data-song="{{youtube_title}}" data-artist="{{artist}}" data-album="{{album}}" class="li-col1 play-icon" title="start playing from here">
 				<img data-videoId="{{youtube_id}}" class="playIconImg" src="images/icons/play-drk.png" alt="track play icon" />
 			</span>
@@ -15,14 +16,14 @@
 				<span title="{{this.youtube_title}}" class="li-col2 truncate">{{this.youtube_title}}</span>
 					<span class="li-col3">{{this.artist}} </span>
 						<span class="li-col4">{{this.album}} </span>
-			</span><!-- /.dropdown-trigger-->
 
-					<span data-id="{{this.id}}" data-user="{{../user.userId}}" data-in-library="false" data-libid="{{this.library_id}}" data-playlistId="{{this.playlist_id}}" title="Add to library" class="li-col7 addToLibrary"><img class="add-icon" src="images/icons/trash-icon.png" alt="add to library icon" />
+
+					<span data-id="{{this.id}}" data-user="{{../user.userId}}" data-in-library="false" data-libid="{{this.library_id}}" data-playlistId="{{this.playlist_id}}" title="Add to library" class="li-col7 addToLibrary"><img class="add-icon" src="images/icons/add.png" alt="add to library icon" />
 					</span>
 
-				<span data-id="{{this.id}}" class="dropdown-trigger">
 					<span class="li-col6">{{this.length}}</span>
 						<span class="li-col5">{{this.genre}}</span>
+
 				</span><!-- /.dropdown-trigger-->
 
 

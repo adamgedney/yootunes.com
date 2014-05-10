@@ -56,9 +56,21 @@ ul {
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'OpenSans';
+  src: url("../fonts/OpenSans-Regular-webfont.eot");
+  src: url("../fonts/OpenSans-Regular-webfont.eot?iefix") format("eot"), url("../fonts/OpenSans-Regular-webfont.woff") format("woff"), url("../fonts/OpenSans-Regular-webfont.ttf") format("truetype"), url("../fonts/OpenSans-Regular-webfont.svg#webfont") format("svg");
+}
+
+@font-face {
+  font-family: 'OpenSansLight';
+  src: url("../fonts/OpenSans-Light-webfont.eot");
+  src: url("../fonts/OpenSans-Light-webfont.eot?iefix") format("eot"), url("../fonts/OpenSans-Light-webfont.woff") format("woff"), url("../fonts/OpenSans-Light-webfont.ttf") format("truetype"), url("../fonts/OpenSans-Light-webfont.svg#webfont") format("svg");
+}
+
 body {
   color: #272a2a;
-  font: 62.5% "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font: 62.5% OpenSans, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   -webkit-font-smoothing: antialiased;
   background: #0f1010;
 }
@@ -132,7 +144,7 @@ input, button, .button, textarea, select {
   font-size: 1.6em;
   font-weight: 100;
   outline: none;
-  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font-family: OpenSans, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 ::-webkit-input-placeholder {
@@ -292,7 +304,7 @@ header img {
   margin-top: 6px;
 }
 header #sign-in-btn {
-  width: 8.33333333%;
+  width: 50%;
   background: none;
   float: right;
   color: #ebebeb;
@@ -300,6 +312,11 @@ header #sign-in-btn {
   font-size: 1.2em;
   font-weight: 100;
   margin-top: 15px;
+}
+@media only screen and (min-width: 800px) {
+  header #sign-in-btn {
+    width: 8.33333333%;
+  }
 }
 
 	                    /*
@@ -483,8 +500,13 @@ header #sign-in-btn {
 }
 
 .signin.popdown {
-  width: 25%;
+  width: 83.3333333%;
   padding: 2%;
+}
+@media only screen and (min-width: 800px) {
+  .signin.popdown {
+    width: 25%;
+  }
 }
 
 .howto {
@@ -784,11 +806,12 @@ input[type="password"] {
 }
 
 html {
-  background: #ebebeb;
+  background: #1b1d1d;
 }
 
 #app {
-  background: #ebebeb;
+  color: #949494;
+  background: #1b1d1d;
   overflow: hidden;
   letter-spacing: 1px;
   /*give gothic font some space*/
@@ -837,10 +860,12 @@ aside.app {
   min-height: 500px;
   height: 100vh;
   float: left;
-  border-right: 1px solid #d6d6d6;
-  overflow: hidden;
+  border-right: 1px solid #272a2a;
+  overflow: scroll;
+  padding-bottom: 306px;
   background: #0f1010;
   /*experimenting with dark bg*/
+  color: #949494;
 }
 @media only screen and (min-width: 800px) {
   aside.app {
@@ -850,6 +875,10 @@ aside.app {
     position: relative;
     background: none;
   }
+}
+
+aside.app::-webkit-scrollbar {
+  display: none;
 }
 
 .video-size-ctrl {
@@ -945,30 +974,18 @@ aside.app {
   line-height: 36px;
   font-size: .8em;
 }
-.library-nav ul {
+.library-nav ul, .library-nav .settings-nav {
   margin-bottom: 0;
 }
-.library-nav ul li {
+.library-nav ul li, .library-nav .settings-nav li {
   padding: 0 6%;
 }
-.library-nav ul li a {
+.library-nav ul li a, .library-nav .settings-nav li a {
   color: #494f4f;
 }
 
-#returnToSearch {
-  margin-top: 27px;
-  vertical-align: top;
-  line-height: 18px;
-  overflow: hidden;
-  cursor: pointer;
-}
-#returnToSearch img {
-  height: 18px;
-  float: right;
-}
-
-#returnToSearch:hover {
-  background: none;
+.settings-nav {
+  line-height: 36px;
 }
 
 .settings-menu {
@@ -1010,9 +1027,10 @@ aside.app {
 .playlist-menu {
   width: 8.33333333%;
   float: right;
+  display: none;
 }
 .playlist-menu svg, .playlist-menu img {
-  height: 12px;
+  height: 6px;
   vertical-align: middle;
 }
 
@@ -1020,15 +1038,14 @@ aside.app {
   float: right;
 }
 
-.playlist-scroll-container::-webkit-scrollbar {
-  display: none;
+/*.playlist-scroll-container::-webkit-scrollbar {
+    display: none;
 }
 
-.playlist-scroll-container {
-  height: 47vh;
-  overflow: scroll;
-}
-
+.playlist-scroll-container{
+	height: 47vh;
+	overflow: scroll;
+}*/
 /*=====================================*/
 /*Base popout & Playlist popout========*/
 /*=====================================*/
@@ -1106,7 +1123,7 @@ section.app {
 
 .section-header {
   height: 48px;
-  border-bottom: 1px solid #d6d6d6;
+  border-bottom: 1px solid #272a2a;
 }
 @media only screen and (min-width: 800px) {
   .section-header {
@@ -1143,10 +1160,10 @@ section.app {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border: none;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 100;
   /*background: transparent;*/
-  padding-left: 3%;
+  padding-left: 7.5%;
   outline: none;
 }
 @media only screen and (min-width: 800px) {
@@ -1160,7 +1177,7 @@ section.app {
   /*background: transparent;*/
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border-left: 1px solid #d6d6d6;
+  border-left: 1px solid #272a2a;
 }
 @media only screen and (min-width: 800px) {
   .search input[type="submit"] {
@@ -1172,19 +1189,37 @@ section.app {
 }
 .search input[type="text"]::-webkit-input-placeholder {
   /* WebKit browsers */
-  color: #949494;
+  font-family: OpenSansLight;
+  color: #494f4f;
 }
 .search input[type="text"]:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
-  color: #949494;
+  font-family: OpenSansLight;
+  color: #494f4f;
 }
 .search input[type="text"]::-moz-placeholder {
   /* Mozilla Firefox 19+ */
-  color: #949494;
+  font-family: OpenSansLight;
+  color: #494f4f;
 }
 .search input[type="text"]:-ms-input-placeholder {
   /* Internet Explorer 10+ */
-  color: #949494;
+  font-family: OpenSansLight;
+  color: #494f4f;
+}
+
+#returnToSearch {
+  position: absolute;
+  margin: 27px 0 0 2%;
+  z-index: 1;
+  cursor: pointer;
+}
+#returnToSearch img {
+  height: 18px;
+}
+
+#returnToSearch:hover {
+  background: none;
 }
 
 #datalistContainer {
@@ -1230,6 +1265,7 @@ section.app {
   line-height: 48px;
   padding: 0 2%;
   overflow: hidden;
+  color: #949494;
 }
 .main-container ul li svg, .main-container ul li img, .main-container ul li .add-icon, .main-container ul li .play-icon img {
   height: 12px;
@@ -1239,8 +1275,11 @@ section.app {
   width: 12px;
 }
 .main-container ul li .play-icon img {
-  width: 10px;
+  width: 15px;
+  height: 15px;
   margin-left: 23%;
+  position: relative;
+  z-index: 1;
 }
 .main-container ul li .createNewPlaylistLink, .main-container ul li .addToPlaylistTitle {
   font-size: 1.5em;
@@ -1292,7 +1331,7 @@ section.app {
 }
 @media only screen and (min-width: 800px) {
   .li-col2 {
-    width: 33.3333333%;
+    width: 50%;
   }
 }
 
@@ -1306,10 +1345,6 @@ section.app {
   .li-col3, .li-col4 {
     display: block;
   }
-}
-
-.li-col3 {
-  /*width: 200px;//Testing float fix where content is empty*/
 }
 
 /*.li-col3:before{
@@ -1348,14 +1383,15 @@ section.app {
 }
 
 .li-header {
+  height: 48px;
+  line-height: 48px;
   font-weight: 700;
   width: 100%;
-  border-bottom: 1px solid #d6d6d6;
+  border-bottom: 1px solid #272a2a;
   font-size: .6em;
   background: rgba(0, 0, 0, 0.05);
 }
 .li-header .li-col1 {
-  line-height: 18px;
   font-size: .6em;
   padding-top: 19px;
   color: #949494;

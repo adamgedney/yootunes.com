@@ -22,6 +22,7 @@ $grey: #272a2a, /* slightly lighter ->2a2d2d*/
 #e2e2e2,
 #e7e7e7;
 $dark-grey: #343838;
+$dark-bg: #1b1d1d;
 $black: #0f1010;
 $blue: #3b578a;
 $red: #cf2425;
@@ -184,7 +185,7 @@ header {
   }
 
   #sign-in-btn{
-  	@include col(1);
+  	@include col(6);
   	background: none;
   	float: right;
   	color: $white;
@@ -192,6 +193,11 @@ header {
   	font-size: 1.2em;
   	font-weight: 100;
   	margin-top: 15px;
+
+  	@include app-break-smmd{
+		@include col(1);
+	}
+
   }
 
 
@@ -364,8 +370,12 @@ header {
 }
 
 .signin.popdown{
-	@include col(3);
+	@include col(10);
 	padding:2%;
+
+	@include app-break-smmd{
+		@include col(3);
+	}
 }
 
 

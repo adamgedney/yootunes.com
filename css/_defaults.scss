@@ -12,10 +12,27 @@
 }
 
 
+@font-face{ font-family: 'OpenSans';
+src: url('../fonts/OpenSans-Regular-webfont.eot');
+src: url('../fonts/OpenSans-Regular-webfont.eot?iefix') format('eot'),
+	 url('../fonts/OpenSans-Regular-webfont.woff') format('woff'),
+	 url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'),
+	 url('../fonts/OpenSans-Regular-webfont.svg#webfont') format('svg'); }
+
+
+@font-face{ font-family: 'OpenSansLight';
+src: url('../fonts/OpenSans-Light-webfont.eot');
+src: url('../fonts/OpenSans-Light-webfont.eot?iefix') format('eot'),
+	 url('../fonts/OpenSans-Light-webfont.woff') format('woff'),
+	 url('../fonts/OpenSans-Light-webfont.ttf') format('truetype'),
+	 url('../fonts/OpenSans-Light-webfont.svg#webfont') format('svg'); }
+
+
+
 body{
 	color: nth($grey, 1);
 	// font: 62.5% 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
-	font:  62.5% "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	font:  62.5% OpenSans, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	background: $black;
 }
@@ -88,7 +105,7 @@ input, button, .button, textarea, select{
 	font-weight: 100;
 	outline: none;
 	// font-family: 'Open Sans', "Helvetica Neue Light", Helvetica, Arial, sans-serif;
-	font-family : "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	font-family : OpenSans, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 ::-webkit-input-placeholder { /* WebKit browsers */
