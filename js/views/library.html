@@ -13,7 +13,7 @@
 			</span>
 
 			<span data-id="{{this.id}}" class="dropdown-trigger">
-				<span title="{{this.youtube_title}}" class="li-col2 truncate">{{this.youtube_title}}</span>
+				<span title="{{this.youtube_title}}" data-id="{{this.id}}" data-user="{{../user.userId}}" class="li-col2 truncate">{{this.youtube_title}}</span>
 					<span class="li-col3">{{this.artist}} </span>
 						<span class="li-col4">{{this.album}} </span>
 
@@ -56,7 +56,7 @@
 
 									<!-- Sub Main Menu li-->
 									<ul class="popout add-to-playlist-menu">
-										<li class="playlist-menu-form">
+										<!-- <li class="playlist-menu-form">
 											<p class="bold createNewPlaylistLink">
 												<img class="svg" src="images/icons/add.svg" alt="add icon" />
 													Create new playlist
@@ -68,7 +68,7 @@
 
 												<input data-id="{{this.id}}" data-user="{{../user.userId}}" class="newPlaylistSubmit" type="submit" value="Save"/>
 											</form>
-										</li>
+										</li> -->
 
 										<li class="playlist-menu-header">
 											<p class="bold addToPlaylistTitle">

@@ -8,6 +8,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 	var DOM 				= {};
 	var _key 				= Key;
 
+	var _dragResult 		= {};
+		_dragResult.dragging= false;
+		_dragResult.origX;
+		_dragResult.origY;
+
 	var _seek 				= {};
 		_seek.drag,
 		_seek.seekTime,
@@ -27,9 +32,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 	var _dropdownId 		= '';
 	var _popupToggle 		= true;
 	var _previousId 		= '';
-
 	var _currentTheme 		= '';
 
+	//CSS breakpoints
 	var app_break_smmd 		= '800';
 
 
@@ -133,14 +138,72 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
-			//MOUSEOVER hover effect for LIGHT theme.
+
+			//Show/Hide create NEW PLAYLIST form on hover over playlist title
+			$(document).on('mouseover', 'span#revealForm', function(event){
+
+				$('#hiddenCreatePlaylistForm').show();
+
+			});
+
+			$(document).on('mouseout', 'span#revealForm', function(event){
+
+					//Empty form input then hide it
+					// $('.newPlaylistInput').val('');
+					$('#hiddenCreatePlaylistForm').hide();
+
+
+			});
+
+			//NEW PLAYLIST BUTTON interaction handler=======//
+			$(document).on('click', '.add-playlist-icon', function(){
+
+				this.toggle;
+
+				var selector	= '#hiddenCreatePlaylistForm';
+				var id 			= null;
+
+				//returns the opposite boolean toggle value
+				this.toggle = toggleUi(this.toggle, selector, id);
+
+			});//new playlist button click
+
+
+
+
+
+
+
+
+
+
+			//Add to playlist DRAG & DROP interaction handler=======//
+			$(document).on('mousedown', '.resultItems', function(event){
+
+				//Set item to dragging
+				_dragResult.dragging = true;
+
+				itemDragging($(this), event);
+			});
+
+
+
+
+
+
+
+
+
+
+
+			//MOUSEOVER triangle icon hover effect.
 			$(document).on('mouseover', '.li-playlist', function(event){
 				$('.li-playlist').find('.playlist-menu').css({'display' : 'none'});
 
 				$(this).find('.playlist-menu').css({'display' : 'inline'});
 			});
 
-			//MOUSEOVER hover effect for LIGHT theme.
+			//MOUSEOVER triangle icon hover effect.
 			$(document).on('mouseout', '.li-playlist', function(event){
 				$('.li-playlist').find('.playlist-menu').css({'display' : 'none'});
 			});
@@ -152,6 +215,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 			//MOUSEOVER hover effect for LIGHT theme.
 			$(document).on('mouseover', '.resultItems, .li-playlist, .library-nav ul li', function(){
+
+
+				if($(this) === '.li-playlist'){
+					console.log("over playlist");
+				}
 
 
 				var resultId = $(this).attr('data-id');
@@ -536,6 +604,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 		//Modal close functionality
 		$(document).on('click', '.modalCloseIcon', function(){
+
+			DOM.restoreAcctModal = $('#restoreAcctModal');
 
 			//Hide modal window nodes
 			DOM.restoreAcctModal.fadeOut();
@@ -1121,6 +1191,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			DOM.searchSubmit 			= $('#searchSubmit');
 			DOM.inputText 				= $('input[type=text]');
 			DOM.newPlaylistForm 		= $('.newPlaylistForm');
+			DOM.restoreAcctModal 		= $('#restoreAcctModal');
 
 		}//#app
 
@@ -1155,6 +1226,116 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 		}//#acctSettings
 	}
+
+
+
+
+
+
+
+
+
+	//Handles resultItems drag to playist coordinates
+	function itemDragging(elem, event){
+
+		var that 			= elem.clone().find('span.li-col2').appendTo('.scroll-container');
+		var thatWidth 		= that.width();
+		var thatHeight 		= that.height();
+		_dragResult.origX 	= elem.find('span.li-col2').offset().left;
+		_dragResult.origY 	= elem.find('span.li-col2').offset().top;
+
+
+
+			//If in dragging mode and we're moving the mouse then redraw resultItem
+			$(document).on('mousemove', function(event){
+
+				that.css({
+					'position' 		: 'absolute',
+					'zIndex' 		: '999',
+					'cursor'    	: 'move',
+					'pointerEvents': 'none'
+				});
+
+				var dragX = event.pageX - (thatWidth / 2);
+				var dragY = event.pageY - (thatHeight / 2);
+				_dragResult.X 			= event.pageX;
+				_dragResult.Y 			= event.pageY;
+
+				//Only set position when dragging
+				if(_dragResult.dragging){
+					that.offset({top:dragY, left:dragX});
+				}//dragging;
+			});
+
+
+			//Releasing item. Check to see if we're over a playlist
+			//otherwise return to original location
+			$(document).on('mouseup', function(event){
+
+				that.css({
+					'transition-duration' 	: '1s',
+					'cursor' 				: 'pointer'
+				});
+
+				//Set item to not dragging
+				_dragResult.dragging = false;
+
+
+				//If over new playlist, drop li-col2 title into input value
+				var input = getCoordinates('.newPlaylistInput');
+
+				if(_dragResult.X   >= input.left &&  _dragResult.X   <= input.right &&
+				   _dragResult.Y   >= input.top  &&  _dragResult.Y   <= input.bottom){
+
+					//Set input value
+					var submit = $('.newPlaylistSubmit');
+
+					$('.newPlaylistInput').val(that.text());
+					submit.attr('data-user', that.attr('data-user'));
+					submit.attr('data-id', that.attr('data-id'));
+
+					that.fadeOut(function(){
+						that.remove();
+					});
+
+
+				}else{//Return item to origin position
+
+
+					that.offset({top: _dragResult.origY, left: _dragResult.origX});
+
+					//hides the clone after it returns to position and fades out
+					that.fadeOut(function(){
+						that.remove();
+					});
+				}//else
+
+			});//mouseup
+	}
+
+
+
+
+
+	function getCoordinates(selector){
+
+		this.coordinates = {};
+		this.item 		= $(selector);
+		this.itemLeft 	= this.item.offset().left;
+		this.itemRight 	= this.item.offset().left + this.item.width();
+		this.itemTop 	= this.item.offset().top;
+		this.itemBottom = this.item.offset().top + this.item.height();
+
+		this.coordinates.top 	= this.itemTop,
+		this.coordinates.right 	= this.itemRight,
+		this.coordinates.bottom = this.itemBottom,
+		this.coordinates.left 	= this.itemLeft,
+		this.coordinates.height = this.item.height(),
+		this.coordinates.width 	= this.item.width();
+
+		return this.coordinates;
+	}
+
 
 
 

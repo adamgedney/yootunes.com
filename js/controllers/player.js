@@ -532,7 +532,8 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 
 
-		      	//Sets list icon play/pause img
+		      	//Sets resultItems play/pause img
+		      	DOM.playIconImg = $('.playIconImg');
 				DOM.playIconImg.attr('src', 'images/icons/play-drk.png');
 				$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
 

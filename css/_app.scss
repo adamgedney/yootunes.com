@@ -42,14 +42,14 @@ input[type="password"]{
 /*--------------------------------------End Objects / Start Main------------------------------------*/
 
 .no-select{
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: -moz-none;
-    -o-user-select: none;
-    user-select: none;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: -moz-none !important;
+    -o-user-select: none !important;
+    user-select: none !important;
 }
 
-img, .section-header, aside.app, .li-header, .li-group, .footer{
+*{
 	@extend .no-select;
 }
 
@@ -59,7 +59,6 @@ html{
 	background: $dark-bg;
 }
 
-//body#app
 #app{
 	color: nth($grey, 3);
 	background: $dark-bg;
@@ -291,6 +290,7 @@ font-size: .8em;
 		display: inline;
 		line-height: 36px;
 		padding: 0 6%;
+		cursor: pointer;
 	}
 
 	ul{
@@ -309,6 +309,35 @@ font-size: .8em;
 	}
 }
 
+#revealForm{
+	height: auto;
+	width: 100%;
+	display: block;
+}
+
+#hiddenCreatePlaylistForm{
+	@include col(10);
+	@include col_ctr(10);
+	margin: 0 0 18px 6%;
+	opacity: .9;
+	border-radius: 2px;
+	border: 1px solid nth($grey, 4);
+	padding: 6%;
+	overflow: hidden;
+	display: none;
+
+	input{
+		height: 27px;
+		font-family: OpenSansLight;
+		line-height: 27px;
+	}
+
+	input[type="submit"]{
+		margin: 0;
+		padding: 0;
+	}
+}
+
 .playlist-menu{
 	@include col(1);
 	float: right;
@@ -321,8 +350,14 @@ font-size: .8em;
 }
 
 
-.add-icon{
+.add-icon, .add-playlist-icon{
 	float: right;
+}
+
+.add-playlist-icon{
+	margin: 12px 6% 0 0;
+	width: 12px;
+	height: 12px;
 }
 
 /*.playlist-scroll-container::-webkit-scrollbar {
@@ -1280,7 +1315,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 	ul{
 		float: left;
-		margin: 18px 0 2%;
+		margin: 18px 0 0;
 		@include col(10);
 
 		li{
@@ -1293,7 +1328,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		}
 
 		@include app-break-smmd{
-			margin: 9px 0 0 2%;
+			margin: 9px 0 0;
 		}
 	}
 

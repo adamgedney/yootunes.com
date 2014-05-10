@@ -1294,8 +1294,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	function hideNodes(){
 
 		var selectors = ['.playlist-dropdown', 'li.main-dropdown',
-		 '.improve-meta-sub-menu', '.signin',
-		'#restoreAcctModal', '.newPlaylistForm', '#signupContainer'];
+		 '.improve-meta-sub-menu', '.signin','#restoreAcctModal',
+		 '.newPlaylistForm', '#signupContainer','#hiddenCreatePlaylistForm'];
 
 		for(var i=0; i<selectors.length;i++){
 			$(selectors[i]).hide();

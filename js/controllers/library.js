@@ -117,7 +117,7 @@ define(['jquery'], function($){
 			var songId 			= $(this).attr('data-id');
 			var playlistName 	= $(this).prev().val();//Previous li sibling in form = text input
 
-
+console.log("new playlist submit");
 			createNewPlaylist(userId, songId, playlistName);
 
 			//Clear form on submit
@@ -304,7 +304,7 @@ console.log(response, "remove from lib response");
 
 
 	function createNewPlaylist(userId, songId, playlistName){
-
+console.log("createNEwPlaylist");
 		//Build API url
 		var API_URL = _baseUrl + '/new-playlist/' + userId + '/' + songId + '/' + playlistName;
 

@@ -68,7 +68,20 @@
 
 
 			<div class="playlist-nav">
-				<h3 class="bold">Playlists</h3>
+
+			<span id="revealForm">
+				<h3 id="playlistsTitle" class="bold">Playlists <img class="add-playlist-icon" src="images/icons/add.png" alt="new playlist icon" /></h3>
+
+				<div id="hiddenCreatePlaylistForm">
+					<form class="">
+						<input type="text" class="newPlaylistInput" placeholder="New playlist name"/>
+
+						<input data-id="" data-user="" class="newPlaylistSubmit" type="submit" value="Save" maxlength="30"/>
+					</form>
+				</div><!-- /#hiddenCreatePlaylistForm-->
+			</span><!-- #/revealForm-->
+
+
 
 				<div class="playlist-scroll-container">
 					<ul id="playlistWrapper">
