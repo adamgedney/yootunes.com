@@ -994,10 +994,11 @@ aside.app::-webkit-scrollbar {
 
 .settings-menu {
   margin-top: 33px;
+  border-top: 1px solid #272a2a;
 }
 
 .library-menu {
-  margin-top: 18px;
+  margin-top: 9px;
   width: 100%;
 }
 
@@ -1054,6 +1055,7 @@ aside.app::-webkit-scrollbar {
 #hiddenCreatePlaylistForm input[type="submit"] {
   margin: 0;
   padding: 0;
+  opacity: .7;
 }
 
 .li-playlist .renamePlaylistForm {
@@ -1472,13 +1474,18 @@ section.app {
 }
 
 .li-header {
-  height: 48px;
-  line-height: 48px;
+  height: 27px;
+  /*line-height: 27px;*/
   font-weight: 700;
   width: 100%;
   border-bottom: 1px solid #272a2a;
   font-size: .6em;
   background: rgba(0, 0, 0, 0.05);
+}
+.li-header .li-col1, .li-header .li-col2, .li-header .li-col3, .li-header .li-col4, .li-header .li-col5, .li-header .li-col5, .li-header .li-col7 {
+  max-height: 27px;
+  line-height: 27px;
+  font-family: OpenSansLight;
 }
 .li-header .li-col1 {
   font-size: .6em;

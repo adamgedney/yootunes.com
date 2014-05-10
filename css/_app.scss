@@ -263,10 +263,11 @@ font-size: .8em;
 
 .settings-menu{
 	margin-top: 33px;
+	border-top: 1px solid nth($grey, 1);
 }
 
 .library-menu{
-	margin-top: 18px;
+	margin-top: 9px;
 	@include col(12);
 }
 
@@ -335,6 +336,7 @@ font-size: .8em;
 	input[type="submit"]{
 		margin: 0;
 		padding: 0;
+		opacity: .7;
 	}
 }
 
@@ -802,13 +804,19 @@ section.app{
 }
 
 .li-header{
-	height: 48px;
-	line-height: 48px;
+	height: 27px;
+	/*line-height: 27px;*/
 	font-weight: 700;
 	@include col(12);
 	border-bottom: 1px solid nth($grey, 1);
 	font-size: .6em;
 	background: rgba(0,0,0,.05);
+
+	.li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col5, .li-col7{
+		max-height: 27px;
+		line-height: 27px;
+		font-family: OpenSansLight;
+	}
 
 
 	.li-col1{
