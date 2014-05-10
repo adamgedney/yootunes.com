@@ -2,7 +2,7 @@
 	<script id="landing" type="text/x-handlebars-template">
 
 		<header >
-			<img src="images/atom-logo.png" height="36" alt="yootunes logo"/>
+			<img src="images/atom-logo.png" height="36" alt="atomPlayer logo"/>
 
 			<button id="sign-in-btn" class="outline">Log In</button>
 
@@ -57,41 +57,46 @@
 
 		<section id="top" class="hero">
 			<div class="cta">
-				<h2>Yootunes is a library manager for all your favorite YouTube<span class="small super">®</span> music.</h2>
+				<h2>atomPlayer is a library manager for all your favorite YouTube<span class="small super">®</span> music.</h2>
 
-				<p><span class="bold">YooTunes was designed</span> to give you a better and more intuitive music playing experience. It plays, saves, and organizes all your favorite YouTube music. Best of all, it’s free! Sign up and <span class="bold">see what all the hype is about.</span></p>
-			</div><!-- /.cta-->
-
+				<!-- <p><span class="bold">YooTunes was designed</span> to give you a better and more intuitive music playing experience. It plays, saves, and organizes all your favorite YouTube music. Best of all, it’s free! Sign up and <span class="bold">see what all the hype is about.</span></p> -->
 
 
-			<div class="signup">
-				<h2>Create an account in 7s...</h2>
+				<button class="get-started" id="getStarted">Try it out!</button>
 
-				<form>
-					<input id="signupEmail" type="email" placeholder="Email Address"/>
-					<input id="signupPass" type="password" placeholder="Password"/>
-					<input id="signupPassAgain" type="password" placeholder="Password Again"/>
 
-					<input id="signupSubmit" type="Submit" value="Sign up" />
 
-					<p class="or">-or-</p>
 
-					<div class="plusContainerLG">
-						<div class="g-signin" id="gPlusSignIn"
-					        data-scope="https://www.googleapis.com/auth/plus.login"
-					        data-clientid="25005213504-eimnnfsrdl50a1he27vrngio73kvji9j.apps.googleusercontent.com"
-					        data-theme="dark"
-					        data-callback="authCallback"
-					        data-cookiepolicy="single_host_origin"
-					        data-requestvisibleactions="http://schemas.google.com/AddActivity"
-					        data-width="wide"
-					        data-height="tall"
-					        >
-					    </div>
-					</div><!-- /.plusContainerLG-->
-				</form>
-			</div><!-- /.signup-->
-		</section><!-- /.cta-->
+
+				<div class="signup" id="signupContainer">
+					<h2>Create an account in 7s...</h2>
+
+					<form>
+						<input id="signupEmail" type="email" placeholder="Email Address"/>
+						<input id="signupPass" type="password" placeholder="Password"/>
+						<input id="signupPassAgain" type="password" placeholder="Password Again"/>
+
+						<input id="signupSubmit" type="Submit" value="Sign up" />
+
+						<div class="plusContainerLG">
+							<div class="g-signin" id="gPlusSignIn"
+						        data-scope="https://www.googleapis.com/auth/plus.login"
+						        data-clientid="25005213504-eimnnfsrdl50a1he27vrngio73kvji9j.apps.googleusercontent.com"
+						        data-theme="dark"
+						        data-callback="authCallback"
+						        data-cookiepolicy="single_host_origin"
+						        data-requestvisibleactions="http://schemas.google.com/AddActivity"
+						        data-width="wide"
+						        data-height="tall"
+						        >
+						    </div>
+						</div><!-- /.plusContainerLG-->
+					</form>
+				</div><!-- /.signup-->
+
+
+				</div><!-- /.cta-->
+		</section><!-- /.hero-->
 
 
 
@@ -142,11 +147,9 @@
 			<div class="copy">
 				<h2>Finally, listen to YouTube<span class="small super">®</span> the right way...</h2>
 
-				<p>You love listening to music on YouTube but you understand how difficult that can be. YouTube was designed to play videos, not music. Yootunes is an awesome new music player that lets you search YouTube, save songs to your library, make playlists and share with friends. </p>
+				<p>atomPlayer is an awesome new music player that lets you search YouTube, save songs to your library, make playlists and share with friends. </p>
 
-				<p>Best of all, there are no annoying ads before each video! What are you waiting for? Sign up.</p>
-
-				<a href="#top" class="copy-signup .button">Sign up</a>
+				<a href="#top" class="copy-signup .button">Try it out</a>
 			</div><!-- /.copy -->
 		</section><!-- /.details -->
 
@@ -169,9 +172,9 @@
 
 
 			<div class="col-2">
-				<img src="images/atom-logo.png" height="36" alt="yootunes logo"/>
+				<img src="images/atom-logo.png" height="36" alt="atomPlayer logo"/>
 
-				<p>&copy;2014 YooTunes.com. All rights reserved.</p>
+				<p>&copy;2014 atomPlayer.com. All rights reserved.</p>
 			</div><!-- /.col-2 -->
 
 

@@ -68,6 +68,12 @@ ul {
   src: url("../fonts/OpenSans-Light-webfont.eot?iefix") format("eot"), url("../fonts/OpenSans-Light-webfont.woff") format("woff"), url("../fonts/OpenSans-Light-webfont.ttf") format("truetype"), url("../fonts/OpenSans-Light-webfont.svg#webfont") format("svg");
 }
 
+@font-face {
+  font-family: 'OpenSansBold';
+  src: url("../fonts/OpenSans-Bold-webfont.eot");
+  src: url("../fonts/OpenSans-Bold-webfont.eot?iefix") format("eot"), url("../fonts/OpenSans-Bold-webfont.woff") format("woff"), url("../fonts/OpenSans-Bold-webfont.ttf") format("truetype"), url("../fonts/OpenSans-Bold-webfont.svg#webfont") format("svg");
+}
+
 body {
   color: #272a2a;
   font: 62.5% OpenSans, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
@@ -313,7 +319,7 @@ header #sign-in-btn {
   font-weight: 100;
   margin-top: 15px;
 }
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 770px) {
   header #sign-in-btn {
     width: 8.33333333%;
   }
@@ -361,23 +367,11 @@ header #sign-in-btn {
 .cta {
   height: 100%;
   width: 100%;
-  padding-left: 6%;
   margin-top: 108px;
 }
 @media only screen and (min-width: 480px) {
   .cta {
     margin-top: 198px;
-    width: 83.3333333%;
-    margin-left: 8.33333335%;
-    margin-right: 8.33333335%;
-  }
-}
-@media only screen and (min-width: 770px) {
-  .cta {
-    width: 50%;
-    margin-left: 0;
-    margin-right: 0;
-    float: left;
   }
 }
 .cta h2 {
@@ -390,20 +384,19 @@ header #sign-in-btn {
   margin-left: 4.1666667%;
   margin-right: 4.1666667%;
   font-size: 2.7em;
+  font-family: OpenSansBold;
 }
 @media only screen and (min-width: 480px) {
   .cta h2 {
     color: #0f1010;
     font-weight: 100;
     line-height: 1.5em;
-    text-align: left;
-  }
-}
-@media only screen and (min-width: 770px) {
-  .cta h2 {
-    width: 75%;
-    margin-left: 0;
-    margin-right: 0;
+    text-align: center;
+    font-size: 4.2em;
+    margin: 0;
+    width: 58.3333333%;
+    margin-left: 20.833335%;
+    margin-right: 20.833335%;
   }
 }
 .cta p {
@@ -429,21 +422,34 @@ header #sign-in-btn {
   }
 }
 
-.signup {
-  height: 100%;
-  width: 100%;
-  margin-top: 81px;
+.get-started {
+  background: #3b578a;
+  width: 16.6666667%;
+  margin-left: 41.6666666%;
+  margin-right: 41.6666666%;
+  height: 48px;
+  border: none;
+  color: #ebebeb;
+  margin-top: 48px;
+  opacity: .9;
 }
-@media only screen and (min-width: 480px) {
-  .signup {
-    margin-top: 198px;
-  }
+
+.signup {
+  background: #ebebeb;
+  padding: 2%;
+  width: 100%;
+  position: absolute;
+  top: 36px;
+  z-index: 1;
+  border-radius: 2px;
+  opacity: .9;
+  /*margin-top: 81px;*/
 }
 @media only screen and (min-width: 770px) {
   .signup {
-    width: 41.6666666%;
-    padding-right: 6%;
-    float: right;
+    width: 33.3333333%;
+    margin-left: 33.3333334%;
+    margin-right: 33.3333334%;
   }
 }
 .signup h2 {
@@ -451,6 +457,9 @@ header #sign-in-btn {
   padding-left: 6%;
   text-align: center;
   font-size: 2.1em;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 @media only screen and (min-width: 480px) {
   .signup h2 {
@@ -460,13 +469,11 @@ header #sign-in-btn {
 }
 @media only screen and (min-width: 770px) {
   .signup h2 {
-    width: 75%;
+    width: 100%;
     text-align: left;
-    float: right;
   }
 }
 .signup form {
-  float: right;
   opacity: .98;
   width: 83.3333333%;
   margin-left: 8.33333335%;
@@ -480,22 +487,15 @@ header #sign-in-btn {
     margin-right: 25%;
   }
 }
+.signup form input {
+  height: 36px;
+}
 @media only screen and (min-width: 770px) {
   .signup form {
-    width: 75%;
+    width: 100%;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
-  }
-}
-.signup form .or {
-  text-align: center;
-  color: #0f1010;
-  margin-top: 18px;
-}
-@media only screen and (min-width: 480px) {
-  .signup form .or {
-    color: #ebebeb;
   }
 }
 
@@ -503,7 +503,7 @@ header #sign-in-btn {
   width: 83.3333333%;
   padding: 2%;
 }
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 770px) {
   .signin.popdown {
     width: 25%;
   }
@@ -616,7 +616,7 @@ header #sign-in-btn {
 }
 @media only screen and (min-width: 770px) {
   .shots {
-    width: 50%;
+    width: 33.3333333%;
     margin-left: 0;
     margin-right: 0;
   }

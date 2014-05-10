@@ -1295,7 +1295,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		var selectors = ['.playlist-dropdown', 'li.main-dropdown',
 		 '.improve-meta-sub-menu', '.signin',
-		'#restoreAcctModal', '.newPlaylistForm'];
+		'#restoreAcctModal', '.newPlaylistForm', '#signupContainer'];
 
 		for(var i=0; i<selectors.length;i++){
 			$(selectors[i]).hide();

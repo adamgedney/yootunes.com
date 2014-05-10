@@ -38,7 +38,17 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
+			//getStarted button interaction handler=======//
+			$(document).on('click', '#getStarted', function(){
 
+				this.toggle;
+
+				var selector	= '#signupContainer';
+				var id 			= null;
+
+				//returns the opposite boolean toggle value
+				this.toggle = toggleUi(this.toggle, selector, id);
+			});
 
 
 
@@ -707,10 +717,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 				$(selector).fadeIn();
 
 				//custom event for notifying sub menu handler of new sub menu open
-				$.event.trigger({
-					type	: "subOpen",
-					selector: selector
-				});
+				// $.event.trigger({
+				// 	type	: "subOpen",
+				// 	selector: selector
+				// });
 
 			//Fade out
 			}else{

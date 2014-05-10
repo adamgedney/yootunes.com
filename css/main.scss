@@ -194,7 +194,7 @@ header {
   	font-weight: 100;
   	margin-top: 15px;
 
-  	@include app-break-smmd{
+  	@include break-md{
 		@include col(1);
 	}
 
@@ -248,20 +248,12 @@ header {
 .cta{
 	height: 100%;
 	@include col(12);
-	padding-left: 6%;
 	margin-top: 108px;
 
 	@include break-sm{
 		margin-top: 198px;
-		@include col(10);
-		@include col_ctr(10);
 	}
 
-	@include break-md{
-		@include col(6);
-		@include col_ctr(0);
-		float: left;
-	}
 
 	h2{
 		color: $black;
@@ -272,18 +264,19 @@ header {
 		@include col(11);
 		@include col_ctr(11);
 		font-size: 2.7em;
+		font-family: OpenSansBold;
 
 		@include break-sm{
 			color: $black;
 			font-weight: 100;
 			line-height: 1.5em;
-			text-align: left;
+			text-align: center;
+			font-size: 4.2em;
+			margin: 0;
+			@include col(7);
+			@include col_ctr(7);
 		}
 
-		@include break-md{
-			@include col(9);
-			@include col_ctr(0);
-		}
 	}
 
 	p{
@@ -306,19 +299,33 @@ header {
 }
 
 
-.signup{
-	height: 100%;
-	@include col(12);
-	margin-top: 81px;
+.get-started{
+	background: $blue;
+	@include col(2);
+	@include col_ctr(2);
+	height: 48px;
+	border: none;
+	color: $white;
+	margin-top: 48px;
+	opacity: .9;
+}
 
-	@include break-sm{
-		margin-top: 198px;
-	}
+
+.signup{
+	background: $white;
+	padding: 2%;
+	@include col(12);
+	position: absolute;
+	top: 36px;
+	z-index: 1;
+	border-radius: 2px;
+	opacity: .9;
+	/*margin-top: 81px;*/
+
 
 	@include break-md{
-		@include col(5);
-		padding-right: 6%;
-		float: right;
+		@include col(4);
+		@include col_ctr(4);
 	}
 
 	h2{
@@ -326,6 +333,8 @@ header {
 		padding-left: 6%;
 		text-align: center;
 		font-size: 2.1em;
+		@include col(12);
+		@include col_ctr(12);
 
 		@include break-sm{
 			color: $black;
@@ -333,14 +342,12 @@ header {
 		}
 
 		@include break-md{
-			@include col(9);
+			@include col(12);
 			text-align: left;
-			float: right;
 		}
 	}
 
 	form{
-		float: right;
 		opacity: .98;
 		@include col(10);
 		@include col_ctr(10);
@@ -351,20 +358,14 @@ header {
 			@include col_ctr(6);
 		}
 
-		@include break-md{
-			@include col(9);
-			@include col_ctr(0);
-			margin-bottom: 0;
+		input{
+			height: 36px;
 		}
 
-		.or{
-			text-align: center;
-			color: $black;
-			margin-top: 18px;
-
-			@include break-sm{
-				color: $white;
-			}
+		@include break-md{
+			@include col(12);
+			@include col_ctr(12);
+			margin-bottom: 0;
 		}
 	}
 }
@@ -373,7 +374,7 @@ header {
 	@include col(10);
 	padding:2%;
 
-	@include app-break-smmd{
+	@include break-md{
 		@include col(3);
 	}
 }
@@ -491,7 +492,7 @@ header {
 	}
 
 	@include break-md{
-		@include col(6);
+		@include col(4);
 		@include col_ctr(0);
 	}
 }

@@ -27,6 +27,13 @@ src: url('../fonts/OpenSans-Light-webfont.eot?iefix') format('eot'),
 	 url('../fonts/OpenSans-Light-webfont.ttf') format('truetype'),
 	 url('../fonts/OpenSans-Light-webfont.svg#webfont') format('svg'); }
 
+@font-face{ font-family: 'OpenSansBold';
+src: url('../fonts/OpenSans-Bold-webfont.eot');
+src: url('../fonts/OpenSans-Bold-webfont.eot?iefix') format('eot'),
+	 url('../fonts/OpenSans-Bold-webfont.woff') format('woff'),
+	 url('../fonts/OpenSans-Bold-webfont.ttf') format('truetype'),
+	 url('../fonts/OpenSans-Bold-webfont.svg#webfont') format('svg'); }
+
 
 
 body{
