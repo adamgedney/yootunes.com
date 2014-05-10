@@ -262,7 +262,8 @@ define(['jquery'], function($){
 
 
 	var exports = {
-		addSharedPlaylist : addSharedPlaylist
+		addSharedPlaylist : addSharedPlaylist,
+		addSongToPlaylist : addSongToPlaylist
 	}
 
 	//return exports

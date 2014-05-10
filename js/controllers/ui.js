@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], function($, Key, Player, getCookies, lightbox){
+define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'lightbox'], function($, Key, Player, Library, getCookies, lightbox){
 
 
 	//private vars
@@ -12,6 +12,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		_dragResult.dragging= false;
 		_dragResult.origX;
 		_dragResult.origY;
+
+	var _overPlaylist;
 
 	var _seek 				= {};
 		_seek.drag,
@@ -201,6 +203,8 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 				$('.li-playlist').find('.playlist-menu').css({'display' : 'none'});
 
 				$(this).find('.playlist-menu').css({'display' : 'inline'});
+
+				_overPlaylist = $(this);
 			});
 
 			//MOUSEOVER triangle icon hover effect.
@@ -1285,8 +1289,12 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 				//If over new playlist, drop li-col2 title into input value
-				var input = getCoordinates('.newPlaylistInput');
+				var input 			= getCoordinates('.newPlaylistInput');
+				var overPlaylist 	= getCoordinates(_overPlaylist);
 
+
+
+				//OVER THE CREATE PLAYLIST FORM
 				if(_dragResult.X   >= input.left &&  _dragResult.X   <= input.right &&
 				   _dragResult.Y   >= input.top  &&  _dragResult.Y   <= input.bottom){
 
@@ -1299,15 +1307,35 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 					$('.newPlaylistInput').val(sanitized);
 					submit.attr('data-user', that.attr('data-user'));
-					submit.attr('data-id', that.attr('data-id'));
+					submit.attr('data-id', that.attr('data-id'));//song id
 
 					that.fadeOut(function(){
 						that.remove();
 					});
 
 
-				}else{//Return item to origin position
 
+				//OVER A PLAYLIST
+				}else if(_dragResult.X   >= overPlaylist .left &&  _dragResult.X   <= overPlaylist .right &&
+				   		 _dragResult.Y   >= overPlaylist .top  &&  _dragResult.Y   <= overPlaylist .bottom){//Return item to origin position
+
+					var songId 		= that.attr('data-id');
+					var playlistId 	= _overPlaylist.attr('data-id');
+					var user 		= _overPlaylist.attr('data-userid');
+
+
+					//Add song to playist
+					Library.addSongToPlaylist(songId, playlistId, user);
+
+					//hides the clone after it returns to position and fades out
+					that.fadeOut(function(){
+						that.remove();
+					});
+
+
+
+				//RETURN TO ORIGINAL LOCATION
+				}else{
 
 					that.offset({top: _dragResult.origY, left: _dragResult.origX});
 
@@ -1315,7 +1343,13 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 					that.fadeOut(function(){
 						that.remove();
 					});
+
 				}//else
+
+
+				//Unbind move listener
+				$(document).unbind('mousemove');
+
 
 			});//mouseup
 	}
