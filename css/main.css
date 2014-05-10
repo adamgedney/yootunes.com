@@ -1036,13 +1036,12 @@ aside.app::-webkit-scrollbar {
 }
 
 #hiddenCreatePlaylistForm {
-  width: 83.3333333%;
-  margin-left: 8.33333335%;
-  margin-right: 8.33333335%;
-  margin: 0 0 18px 6%;
+  width: 100%;
+  /*@include col_ctr(8);*/
+  margin: 0 0 18px;
   opacity: .9;
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 2px;
-  border: 1px solid #d6d6d6;
   padding: 6%;
   overflow: hidden;
   display: none;
@@ -1062,7 +1061,9 @@ aside.app::-webkit-scrollbar {
   z-index: -20;
   top: 0;
   opacity: 0;
-  width: 83.3333333%;
+  width: 100%;
+  margin-left: -5%;
+  padding-left: 5%;
   overflow: hidden;
 }
 .li-playlist .renamePlaylistForm input[type="text"] {
@@ -1072,13 +1073,14 @@ aside.app::-webkit-scrollbar {
   font-family: OpenSansLight;
   color: #d6d6d6;
   background: #1A1C1C;
+  border: none;
 }
 .li-playlist .renamePlaylistForm input[type="submit"] {
   height: 22px;
   line-height: 18px;
-  margin: 2px 1px 0 0;
+  margin: 2px 5% 0 0;
   font-size: 1em;
-  width: 33.3333333%;
+  width: 25%;
   font-family: OpenSansLight;
   position: absolute;
   right: 0;

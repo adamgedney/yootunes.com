@@ -316,12 +316,12 @@ font-size: .8em;
 }
 
 #hiddenCreatePlaylistForm{
-	@include col(10);
-	@include col_ctr(10);
-	margin: 0 0 18px 6%;
+	@include col(12);
+	/*@include col_ctr(8);*/
+	margin: 0 0 18px;
 	opacity: .9;
+	background: rgba(0,0,0,.3);
 	border-radius: 2px;
-	border: 1px solid nth($grey, 4);
 	padding: 6%;
 	overflow: hidden;
 	display: none;
@@ -344,7 +344,9 @@ font-size: .8em;
 		z-index: -20;
 		top: 0;
 		opacity: 0;
-		@include col(10);
+		@include col(12);
+		margin-left: -5%;//accomidates for container padding
+		padding-left: 5%;
 		overflow: hidden;
 
 
@@ -355,14 +357,15 @@ font-size: .8em;
 			font-family: OpenSansLight;
 			color: nth($grey, 4);
 			background: #1A1C1C;//dark theme background
+			border: none;
 		}
 
 		input[type="submit"]{
 			height: 22px;
 			line-height: 18px;
-			margin:2px 1px 0 0;
+			margin:2px 5% 0 0;
 			font-size: 1em;
-			@include col(4);
+			@include col(3);
 			font-family: OpenSansLight;
 			position: absolute;
 			right: 0;

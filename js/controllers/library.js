@@ -10,7 +10,18 @@ define(['jquery'], function($){
 	var DOM 			= {};
 	var _addedToLibrary = false;
 	var _libraryId 		= '';
+	var _visibleFormId 	= '';
+
 	var _baseUrl 		= 'http://api.yootunes.com';
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26,6 +37,7 @@ define(['jquery'], function($){
 				//Rename playlist
 				$(document).on('dblclick', '.playlistTitle', function(event){
 					var playlistId 	= $(this).attr('data-id');
+					_visibleFormId 	= playlistId;
 					var form 		= $('form.renamePlaylistForm[data-id=' + playlistId + ']');
 					var input 		= $('input.renamePlaylistInput[data-id=' + playlistId + ']');
 
@@ -53,12 +65,23 @@ define(['jquery'], function($){
 
 			renamePlaylist(playlistId, newName);
 
-			//Reset and hide form
-			input.val('');
-			$('form.renamePlaylistForm').attr('id', 'renameHide');
-
+			resetRenameForm();
 
 		});
+
+
+
+
+		//ON FORM MOUSEOUT
+		$(document).on('click', '.li-playlist',function(event){
+			var playlistId 	= $(this).attr('data-id');
+
+			if($(this).attr('data-id') !== _visibleFormId){
+				resetRenameForm();
+			}
+
+		});
+
 
 
 
@@ -574,6 +597,21 @@ console.log(response, "remove from lib response");
 		if(template === '#acctSettings'){
 
 		}//#acctSettings
+	}
+
+
+
+
+
+
+
+
+
+	function resetRenameForm(){
+		//Reset and hide form
+		$('input.renamePlaylistInput').val('');
+		$('form.renamePlaylistForm').attr('id', 'renameHide');
+		_visibleFormId = '';
 	}
 
 
