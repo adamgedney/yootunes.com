@@ -30,7 +30,10 @@ define([], function(){
 		for(var i=0;i<50;i++){
 			if(cookieArray[c].indexOf("device" + (i + 1)) !== -1){
 
-				obj.devices.push(cookieArray[c].substr(8));
+				if(cookieArray[c].substr(8) !== 'undefined'){
+					obj.devices.push(cookieArray[c].substr(8));
+				}
+
 			}
 		}
 
