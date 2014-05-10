@@ -605,7 +605,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 		//Modal close functionality
 		$(document).on('click', '.modalCloseIcon', function(){
 
-			DOM.restoreAcctModal = $('#restoreAcctModal');
+			DOM.restoreAcctModal 	= $('#restoreAcctModal');
+			DOM.deleteAcctModal 	= $('#deleteAcctModal');
+			DOM.nameDeviceModal 	= $('#nameDeviceModal');
 
 			//Hide modal window nodes
 			DOM.restoreAcctModal.fadeOut();
@@ -1182,6 +1184,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 			DOM.scrollContainer 		= $('.scroll-container');
 			DOM.seekBar 				= $('#seek-bar');
 			DOM.seekFill 				= $('.seek-fill');
+			DOM.deleteAcctModal 		= $('#deleteAcctModal');
 			DOM.nameDeviceModal 		= $('#nameDeviceModal');
 			DOM.adsense 				= $('#adsense');
 			DOM.videoOverlay 			= $('#video-overlay');
