@@ -1593,6 +1593,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			DOM.infoDeviceName 	= $('.infoDeviceName');
 			DOM.liHeader 		= $('.li-header');
 			DOM.datalist  		= $('#datalistContainer');
+			DOM.themeDark 		= $('#themeDark');
+			DOM.infoName 		= $('#infoName');
+			DOM.infoEmail 		= $('#infoEmail');
+			DOM.infoId 			= $('#infoId');
+			DOM.infoTitleGender = $('#infoTitleGender');
+			DOM.infoBirthdate 	= $('#infoBirthdate');
+			DOM.infoDeviceName 	= $('.infoDeviceName');
+			DOM.infoDeviceList 	= $('#infoDeviceList');
 		}//#app
 
 		if(template === '#landing'){
