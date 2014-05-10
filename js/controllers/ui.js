@@ -144,7 +144,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 			//Show/Hide create NEW PLAYLIST form on hover over playlist title
 			$(document).on('mouseover', 'span#revealForm', function(event){
 
-				$('#hiddenCreatePlaylistForm').show();
+				//Only allow form to show if we're dragging result
+				if(_dragResult.dragging === true){
+					$('#hiddenCreatePlaylistForm').show();
+				}
+
 
 			});
 
