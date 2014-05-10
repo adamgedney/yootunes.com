@@ -138,13 +138,15 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 					});
 
 
-					//Determine this device before we laod application
-					determineDevice();
+
 
 					//Load app, set cookie, fire event
 					//Cookie setting here is redundant but harmless
 					//Prevents duplicate code.
 					loadApplication();
+
+					//Determine this device before we laod application
+					determineDevice();
 
 				}//AJAX success
 			});//AJAX library count
