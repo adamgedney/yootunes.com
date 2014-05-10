@@ -8,6 +8,8 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 	var _user 				= {};
 	var _userId;
 	var _playlistId 		= 0;
+	var _cookies;
+
 	var _baseUrl 			= 'http://api.atomplayer.com';
 
 	// var app_break_smmd 		= '800';
@@ -99,11 +101,11 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 		//==========================================//
 		//Check cookies from service
 		//==========================================//
-		var cookies = getCookies;
+		_cookies = getCookies;
 
 
 		//If uid cookie does not exist
-		if(cookies.userId === -1 || cookies.userId === undefined || cookies.userId === 'undefined'){
+		if(_cookies.userId === -1 || _cookies.userId === undefined || _cookies.userId === 'undefined'){
 
 
 			//Load landing page
@@ -113,7 +115,7 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 		}else{//USER EXISTS
 
 			//store user id for lpublic use
-			_userId = cookies.userId;
+			_userId = _cookies.userId;
 			window.userId = _userId;
 
 			//Run this ASAP to prepare for library load
@@ -131,9 +133,13 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 					//get the user data for stored theme
 					//then load the app on success
-					User.getUser(cookies.userId, function(response){
+					User.getUser(_cookies.userId, function(response){
 
 					});
+
+
+					//Determine this device before we laod application
+					determineDevice();
 
 					//Load app, set cookie, fire event
 					//Cookie setting here is redundant but harmless
@@ -238,6 +244,79 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 		_playlistId = 0;
 
+	}
+
+
+
+
+
+
+
+
+
+	function determineDevice(){
+		//DEVICE DETECTION
+			//Flow: 1. check device cookies against user devices. If match, set this device
+			//		2. If no match, prompt user to name this device
+			//		3. if no cookies found, prompt user to select this device from their devices or name this new device
+			if(_cookies.devices.length !== 0){
+				var devices = _cookies.devices;
+				var match = false;
+
+				//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
+				User.getDevices(_userId, function(response){
+
+					for(var i=0;i<response.length;i++){
+						for(var j=0;j<devices.length;j++){
+
+							if(response[i].id === devices[j]){
+
+								//THIS IS THE USER'S DEVICE
+								_thisDevice 		= devices[j];
+								window.thisDevice 	= devices[j];
+								match 				= true;
+
+
+								$.event.trigger({
+									type 			: 'gotdevices',
+									response 		: response
+								});
+
+								// renderDevices(response);
+								console.log("this device in init", window.thisDevice);
+								break;
+							}//if
+						}//for j
+					}//for i
+
+
+					if(match === false){
+
+						//Fade in modal to instruct user to name this device
+						$('.nameDeviceModal').fadeIn();
+
+					}//if false
+				});//getDevices
+
+
+			}else{//NO DEVICE COOKIES FOUND
+
+
+				// Fade in modal to instruct user to name this device
+				$('.nameDeviceModal').fadeIn();
+				$('#devicePrompt').fadeIn();
+
+				//Maybe user deleted cookies? GET DEVICES TO ASK USER
+				User.getDevices(_userId, function(response){
+
+					$.event.trigger({
+						type 			: 'gotdevices',
+						response 		: response
+					});
+
+					// renderDevices(response);
+				});//getDevices
+			}//else
 	}
 
 

@@ -396,60 +396,62 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-				//DEVICE DETECTION
-				//Flow: 1. check device cookies against user devices. If match, set this device
-				//		2. If no match, prompt user to name this device
-				//		3. if no cookies found, prompt user to select this device from their devices or name this new device
-				if(getCookies.devices.length !== 0){
-					var devices = getCookies.devices;
-					var match = false;
+				// //DEVICE DETECTION
+				// //Flow: 1. check device cookies against user devices. If match, set this device
+				// //		2. If no match, prompt user to name this device
+				// //		3. if no cookies found, prompt user to select this device from their devices or name this new device
+				// if(getCookies.devices.length !== 0){
+				// 	var devices = getCookies.devices;
+				// 	var match = false;
 
-					//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
-					User.getDevices(_userId, function(response){
+				// 	//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
+				// 	User.getDevices(_userId, function(response){
 
-						for(var i=0;i<response.length;i++){
-							for(var j=0;j<devices.length;j++){
+				// 		for(var i=0;i<response.length;i++){
+				// 			for(var j=0;j<devices.length;j++){
 
-								if(response[i].id === devices[j]){
+				// 				if(response[i].id === devices[j]){
 
-									//THIS IS THE USER'S DEVICE
-									_thisDevice 		= devices[j];
-									window.thisDevice 	= devices[j];
-									match 				= true;
+				// 					//THIS IS THE USER'S DEVICE
+				// 					_thisDevice 		= devices[j];
+				// 					window.thisDevice 	= devices[j];
+				// 					match 				= true;
 
-									renderDevices(response);
+				// 					renderDevices(response);
 
-									break;
-								}//if
-							}//for j
-						}//for i
-
-
-						if(match === false){
-
-							//Fade in modal to instruct user to name this device
-							DOM.nameDeviceModal.fadeIn();
-
-						}//if false
-					});//getDevices
+				// 					break;
+				// 				}//if
+				// 			}//for j
+				// 		}//for i
 
 
-				}else{//NO DEVICE COOKIES FOUND
+				// 		if(match === false){
+
+				// 			//Fade in modal to instruct user to name this device
+				// 			DOM.nameDeviceModal.fadeIn();
+
+				// 		}//if false
+				// 	});//getDevices
 
 
-					//Fade in modal to instruct user to name this device
-					DOM.nameDeviceModal.fadeIn();
-					// $('#devicePrompt').fadeIn();
-
-					//Maybe user deleted cookies? GET DEVICES TO ASK USER
-					User.getDevices(_userId, function(response){
-
-						renderDevices(response);
-					});//getDevices
-				}//else
+				// }else{//NO DEVICE COOKIES FOUND
 
 
+				// 	//Fade in modal to instruct user to name this device
+				// 	DOM.nameDeviceModal.fadeIn();
+				// 	// $('#devicePrompt').fadeIn();
 
+				// 	//Maybe user deleted cookies? GET DEVICES TO ASK USER
+				// 	User.getDevices(_userId, function(response){
+
+				// 		renderDevices(response);
+				// 	});//getDevices
+				// }//else
+
+				//Render devices once init has retrieved them
+				$(document).on('gotdevices', function(event){
+					renderDevices(event.response);
+				});
 
 
 				//if playlistId cookie exists load playlist, else load library
