@@ -1316,6 +1316,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	function renderDevices(response){
+		DOM.infoDeviceName 	= $('.infoDeviceName');
+		DOM.infoDeviceList 	= $('#infoDeviceList');
+		DOM.userDevices 	= $('#userDevices');
+		DOM.playOn 			= $('#play-on');
+		DOM.mobilePlayOn 	= $('#mobile-play-on');
+
 		DOM.playOn.empty();
 		DOM.mobilePlayOn.empty();
 		DOM.infoDeviceList.empty();
@@ -1599,8 +1605,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			DOM.infoId 			= $('#infoId');
 			DOM.infoTitleGender = $('#infoTitleGender');
 			DOM.infoBirthdate 	= $('#infoBirthdate');
-			DOM.infoDeviceName 	= $('.infoDeviceName');
-			DOM.infoDeviceList 	= $('#infoDeviceList');
+
 		}//#app
 
 		if(template === '#landing'){
