@@ -193,6 +193,9 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 		//retrieve device array from service
 		// _devices = getCookies.devices;
+		DOM.nameDeviceModal 	= $('#nameDeviceModal');
+		DOM.infoDeviceName 		= $('.infoDeviceName');
+		DOM.userDevicesSelected = $('#userDevices option:selected');
 
 		var currentDeviceId 	= "0";//default set in case we're new and not updating
 		var name 				= DOM.infoDeviceName.val();

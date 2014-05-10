@@ -61,18 +61,22 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 
 
+		//Ensures private vars won't be set until ready
+		$(document).on('gotdevices', function(event){
+
+			//Retrieve cookies & set device & userId
+			var userCookies = getCookies;
+
+			_thisDevice 	= window.thisDevice;
+			_playOnDevice 	= window.thisDevice;//default device
+			_userId 		= userCookies.userId;
 
 
+			console.log(_thisDevice, "player device");
 
-		//Retrieve cookies & set device & userId
-		var userCookies = getCookies;
-
-		_thisDevice 	= userCookies.thisDevice;
-		_playOnDevice 	= userCookies.thisDevice;//default device
-		_userId 		= userCookies.userId;
+		});
 
 
-console.log(_thisDevice, "player device");
 
 
 		//If a reload was picked up from conten.js app rendered

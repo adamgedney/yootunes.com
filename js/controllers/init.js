@@ -145,19 +145,29 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 					//Prevents duplicate code.
 					loadApplication();
 
-					//Determine this device before we laod application
-					determineDevice();
-
 				}//AJAX success
 			});//AJAX library count
 
-
-
-
-
-
-
 		}//else
+
+
+
+
+
+		$(document).on('rendered', function(event){
+
+			//ON APP RENDER========================//
+			if(event.template === '#app'){
+
+
+				console.log("#app in init");
+				//Determine this device before we laod application
+				determineDevice();
+			}
+
+		});
+
+
 
 
 
@@ -257,6 +267,8 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 
 	function determineDevice(){
+
+		console.log("determine ran in initjs");
 		//DEVICE DETECTION
 			//Flow: 1. check device cookies against user devices. If match, set this device
 			//		2. If no match, prompt user to name this device
@@ -295,7 +307,7 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 					if(match === false){
 
 						//Fade in modal to instruct user to name this device
-						$('.nameDeviceModal').fadeIn();
+						$('div#nameDeviceModal').fadeIn();
 
 					}//if false
 				});//getDevices
@@ -303,9 +315,9 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 			}else{//NO DEVICE COOKIES FOUND
 
-
+console.log("none found");
 				// Fade in modal to instruct user to name this device
-				$('.nameDeviceModal').fadeIn();
+				$('div#nameDeviceModal').fadeIn();
 				$('#devicePrompt').fadeIn();
 
 				//Maybe user deleted cookies? GET DEVICES TO ASK USER

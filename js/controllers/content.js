@@ -451,6 +451,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				//Render devices once init has retrieved them
 				$(document).on('gotdevices', function(event){
 					renderDevices(event.response);
+
+					console.log("gotdevices picked up evt", event.response);
 				});
 
 
