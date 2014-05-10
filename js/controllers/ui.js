@@ -254,13 +254,13 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 					//Loads video thumbnail when dropdown is revealed
 					loadThumb(id);
-					// console.log(id, "dropdown id");
+
 
 
 					_dropdownOpen = true;
 
 					//Show last column
-					$('.li-col7').show();
+					$(this).find('.li-col7').show();
 					$('.li-col2').css({'width':'41.6666666%'});//4 col
 
 					DOM.resultItems.removeClass('bg-white');
@@ -976,33 +976,33 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
-	function themeDark(){
+	function themeLight(){
 
 		DOM.resultItems = $('.resultItems');
 
 		//Set global and cookie to dark
-		window.theme = 'dark';
+		window.theme = 'light';
 		document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-		document.cookie = "theme=dark";
+		document.cookie = "theme=light";
 
 
-		// DOM.app.css({
-		// 	'background': '#1b1d1d'}
-		// );
+		DOM.app.css({
+			'background': '#ebebeb'}
+		);
 
-		// $('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('dark-fonts');
+		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('light-fonts');
 
 
-		// DOM.liHeader.addClass('dark-border-bottom');
-		// DOM.sectionHeader.addClass('dark-border-bottom');
-		// DOM.searchSubmit.addClass('dark-border-left');
+		DOM.liHeader.addClass('light-border-bottom');
+		DOM.sectionHeader.addClass('light-border-bottom');
+		DOM.searchSubmit.addClass('light-border-left');
 
-		// DOM.asideApp.addClass('dark-border-right');
-		// DOM.inputText.addClass('dark-placeholder');
+		DOM.asideApp.addClass('light-border-right');
+		DOM.inputText.addClass('light-placeholder');
 
-		// // DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
+		// DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
 
-		// $('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('dark-input-bg');
+		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('light-input-bg');
 	}
 
 
@@ -1014,33 +1014,33 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'getCookies', 'lightbox'], fun
 
 
 
-	function themeLight(){
+	function themeDark(){
 
 		DOM.resultItems = $('.resultItems');
 
 		//set global & cookie to light
-		window.theme = 'light';
+		window.theme = 'dark';
 		document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-		document.cookie = "theme=light";
+		document.cookie = "theme=dark";
 
 
 		DOM.app.css({
-			'background': '#ebebeb'}
+			'background': '#1b1d1d'}
 		);
 
-		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('dark-fonts');
+		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('light-fonts');
 
 
-		DOM.liHeader.removeClass('dark-border-bottom');
-		DOM.sectionHeader.removeClass('dark-border-bottom');
-		DOM.searchSubmit.removeClass('dark-border-left');
+		DOM.liHeader.removeClass('light-border-bottom');
+		DOM.sectionHeader.removeClass('light-border-bottom');
+		DOM.searchSubmit.removeClass('light-border-left');
 
-		DOM.asideApp.removeClass('dark-border-right');
-		DOM.inputText.removeClass('dark-placeholder');
+		DOM.asideApp.removeClass('light-border-right');
+		DOM.inputText.removeClass('light-placeholder');
 
 		// DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
-		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('dark-input-bg');
+		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('light-input-bg');
 	}
 
 

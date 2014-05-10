@@ -251,6 +251,10 @@ font-size: .8em;
 	}
 }
 
+.app-logo{
+	margin: 18px 0 0 5.5%;
+}
+
 .settings-nav{
 	line-height: 36px;
 }
@@ -461,10 +465,12 @@ section.app{
 		// border-right: none;
 		border: none;
 		font-size: 1em;
-		font-weight: 100;
+		font-family: OpenSansLight;
 		/*background: transparent;*/
 		padding-left: 7.5%;
 		outline: none;
+		color: nth($grey, 4);
+
 
 		@include app-break-smmd{
 			@include col(11);
@@ -776,6 +782,7 @@ section.app{
 	min-height: 240px;
 	display: none;//Added to experiment with jquery show/hide on dropdowns
 	@include col(12);
+	position: relative;
 
 	.youtube-img{//youtube thumbnail
 		width: 100%;
@@ -879,6 +886,11 @@ ul.dropdown-main-menu{
 
 ul.dropdown-main-menu li ul::-webkit-scrollbar {
     display: none;
+}
+
+
+#bg-container{
+	position: absolute;
 }
 
 .popout{
@@ -1624,44 +1636,44 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 
 
-/*Dark Theme Overrides==============================================*/
-.dark-fonts{
+/*Light Theme Overrides==============================================*/
+.light-fonts{
 	color: nth($grey, 3) !important;/*nth($grey, 3)*/
 }
 
-.dark-border-bottom{
-	border-bottom: 1px solid #494F4F !important;/*nth($grey, 3)*/
+.light-border-bottom{
+	border-bottom: 1px solid nth($grey, 5) !important;/*nth($grey, 3)*/
 }
 
-.dark-border-right{
-	border-right: 1px solid #494F4F !important;/*nth($grey, 3)*/
+.light-border-right{
+	border-right: 1px solid nth($grey, 5) !important;/*nth($grey, 3)*/
 }
 
-.dark-border-left{
-	border-left: 1px solid #494F4F !important;/*nth($grey, 3)*/
+.light-border-left{
+	border-left: 1px solid nth($grey, 5) !important;/*nth($grey, 3)*/
 }
 
-.dark-placeholder::-webkit-input-placeholder { /* WebKit browsers */
-    color: #494F4F !important;
+.light-placeholder::-webkit-input-placeholder { /* WebKit browsers */
+    color: nth($grey, 5) !important;
 }
-.dark-placeholder:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: #494F4F !important;
+.light-placeholder:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: nth($grey, 5) !important;
 }
-.dark-placeholder::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: #494F4F !important;
+.light-placeholder::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: nth($grey, 5) !important;
 }
-.dark-placeholder:-ms-input-placeholder { /* Internet Explorer 10+ */
-    color: #494F4F !important;
+.light-placeholder:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: nth($grey, 5) !important;
 }
 
-.dark-input-bg{
-	background: #494F4F !important;
+.light-input-bg{
+	background: nth($grey, 5) !important;
 	border: none !important;
 }
 
 
 
-/* --END-- Dark Theme Overrides======================================*/
+/* --END-- Light Theme Overrides======================================*/
 
 
 

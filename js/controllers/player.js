@@ -537,9 +537,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 				$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
 
 
-				//Set info section animation to playing wave animation
-				DOM.playingAnim.attr('src', 'images/icons/wave-animated.gif');
-
 
 
 
@@ -562,9 +559,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 		    	//Sets list icon play/pause img
 		    	$('.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/play-drk.png');
-
-		    	//Set info section animation to noto logomark
-				DOM.playingAnim.attr('src', 'images/icons/note.svg');
 
 		    }
 
@@ -633,8 +627,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 			playItem($(this));
 
+			var id = $(this).attr('data-id');
+
 			//Change li text color
-			$(this).parent().css('color', '#cf2425 !important');//red
+			$('.resultItems').find('.li-col2, .li-col3, .li-col4, .li-col5, .li-col6').removeClass('red');//red
+			$('.resultItems[data-id=' + id + ']').find('.li-col2, .li-col3, .li-col4, .li-col5, .li-col6').addClass('red');//red
+
+			console.log($('.resultItems[data-id=' + id + ']'), id);
 
 		});//onclick play icon
 
@@ -1563,7 +1562,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			DOM.volumeRange 			= $('#volumeRange');
 			DOM.watchOnYoutube 			= $('#watchOnYoutube');
 			DOM.playBtn 				= $('.transport-ctrl img#play-btn');
-			DOM.playingAnim 			= $('div.info img.playingAnimation');
 			DOM.playIconImg 			= $('span.li-col1 img.playIconImg');
 			DOM.volIcon 				= $('div.volume-ctrl img.vol-icon');
 			DOM.seekBar 				= $('#seek-bar');
