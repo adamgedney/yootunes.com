@@ -15,7 +15,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 	var _sortBy			= 'def';
 	var _sortOrder		= 'def';
 	var _currentContent = '';
-	var _baseUrl 		= 'http://api.yootunes.com';
+	var _baseUrl 		= 'http://api.atomplayer.com';
 	var _thisDevice;
 	var _playlistShared = 0;
 

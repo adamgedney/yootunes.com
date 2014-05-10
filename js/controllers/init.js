@@ -7,9 +7,8 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 	//Private variables
 	var _user 				= {};
 	var _userId;
-	var _thisDevice;
 	var _playlistId 		= 0;
-	var _baseUrl 			= 'http://api.yootunes.com';
+	var _baseUrl 			= 'http://api.atomplayer.com';
 
 	// var app_break_smmd 		= '800';
 

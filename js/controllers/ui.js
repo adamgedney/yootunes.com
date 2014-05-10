@@ -3,7 +3,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 
 	//private vars
-	var _baseUrl 			= 'http://api.yootunes.com';
+	var _baseUrl 			= 'http://api.atomplayer.com';
 
 	var DOM 				= {};
 	var _key 				= Key;

@@ -12,7 +12,7 @@ define(['jquery'], function($){
 	var _libraryId 		= '';
 	var _visibleFormId 	= '';
 
-	var _baseUrl 		= 'http://api.yootunes.com';
+	var _baseUrl 		= 'http://api.atomplayer.com';
 
 
 

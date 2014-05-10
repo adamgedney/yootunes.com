@@ -1480,7 +1480,10 @@ section.app {
   width: 100%;
   border-bottom: 1px solid #272a2a;
   font-size: .6em;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
 }
 .li-header .li-col1, .li-header .li-col2, .li-header .li-col3, .li-header .li-col4, .li-header .li-col5, .li-header .li-col5, .li-header .li-col7 {
   max-height: 27px;
@@ -1851,6 +1854,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 #closeAds {
   position: relative;
+  width: 21px;
+  height: 21px;
   top: 0;
   left: 92%;
   z-index: 1000;

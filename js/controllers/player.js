@@ -72,7 +72,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		_userId 		= userCookies.userId;
 
 
-
+console.log(_thisDevice, "player device");
 
 
 		//If a reload was picked up from conten.js app rendered

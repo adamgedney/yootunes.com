@@ -11,7 +11,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 	//private vars
 	var DOM 		= {};
-	var _baseUrl 	= 'http://api.yootunes.com';
+	var _baseUrl 	= 'http://api.atomplayer.com';
 	var _userId;
 	var _devices 	= [];
 	var _thisDevice;
@@ -100,6 +100,66 @@ define(['jquery', 'getCookies'], function($, getCookies){
 				}//success
 			});//ajax
 		});//updateDeviceName
+
+
+
+
+
+
+
+
+
+			//DEVICE DETECTION
+			//Flow: 1. check device cookies against user devices. If match, set this device
+			//		2. If no match, prompt user to name this device
+			//		3. if no cookies found, prompt user to select this device from their devices or name this new device
+			// if(getCookies.devices.length !== 0){
+			// 	var devices = getCookies.devices;
+			// 	var match = false;
+
+			// 	//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
+			// 	getDevices(_userId, function(response){
+
+			// 		for(var i=0;i<response.length;i++){
+			// 			for(var j=0;j<devices.length;j++){
+
+			// 				if(response[i].id === devices[j]){
+
+			// 					//THIS IS THE USER'S DEVICE
+			// 					_thisDevice 		= devices[j];
+			// 					window.thisDevice 	= devices[j];
+			// 					match 				= true;
+
+			// 					renderDevices(response);
+
+			// 					break;
+			// 				}//if
+			// 			}//for j
+			// 		}//for i
+
+
+			// 		if(match === false){
+
+			// 			//Fade in modal to instruct user to name this device
+			// 			DOM.nameDeviceModal.fadeIn();
+
+			// 		}//if false
+			// 	});//getDevices
+
+
+			// }else{//NO DEVICE COOKIES FOUND
+
+
+			// 	//Fade in modal to instruct user to name this device
+			// 	DOM.nameDeviceModal.fadeIn();
+			// 	// $('#devicePrompt').fadeIn();
+
+			// 	//Maybe user deleted cookies? GET DEVICES TO ASK USER
+			// 	getDevices(_userId, function(response){
+
+			// 		renderDevices(response);
+			// 	});//getDevices
+			// }//else
 
 
 
