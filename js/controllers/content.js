@@ -217,6 +217,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			if($(this).text() !== 'Search History'){
 				$('input#searchInput').val($(this).text());
 				$('#searchSubmit').trigger('click');
+			}else{
+				$(this).parent().empty();
 			}
 
 
