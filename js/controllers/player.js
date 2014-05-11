@@ -638,7 +638,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			$('.resultItems').find('.li-col2, .li-col3, .li-col4, .li-col5, .li-col6').removeClass('red');//red
 			$('.resultItems[data-id=' + id + ']').find('.li-col2, .li-col3, .li-col4, .li-col5, .li-col6').addClass('red');//red
 
-			console.log($('.resultItems[data-id=' + id + ']'), id);
+			// console.log($('.resultItems[data-id=' + id + ']'), id);
 
 		});//onclick play icon
 
@@ -1262,7 +1262,7 @@ console.log("payOn received", response);
 			'controllerDevice' 	: _thisDevice
 		}
 
-		console.log(_thisDevice, _playOnDevice);
+		console.log(_thisDevice, _playOnDevice, "thisdevice/playondevicein play funct");
 		//Connection to socketserver runs if we choose to be a controller
 		if(_thisDevice !== _playOnDevice){
 			_socket = 'open';
@@ -1276,7 +1276,7 @@ console.log("payOn received", response);
 			//Hide the shuffle icon ** may need to display none it
 			DOM.shuffleResults.css('opacity','1');
 
-			// window.open('http://yooss.pw:3000');
+
 		}else{
 			_socket = null;
 

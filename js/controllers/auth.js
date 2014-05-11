@@ -8,18 +8,11 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	var _playlistId 		= 0;
 	var _baseUrl 			= 'http://api.atomplayer.com';
 
-	var DOM = {};
 
 
 	var Auth = function(){
 
 
-	//Listen for rendered to register DOM elements
-	$(document).on('rendered', function(event){
-
-			registerDOM(event.template);
-
-	});
 
 
 
@@ -37,9 +30,9 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//==========================================//
 	$(document).on('click', '#signupSubmit', function(event){
 
-		var email 			= DOM.signupEmail.val();
-		var password 		= CryptoJS.SHA1(DOM.signupPass.val());
-		var passwordAgain 	= CryptoJS.SHA1(DOM.signupPassAgain.val());
+		var email 			= $('#signupEmail').val();
+		var password 		= CryptoJS.SHA1($('#signupPass').val());
+		var passwordAgain 	= CryptoJS.SHA1($('#signupPassAgain').val());
 
 		//Run create user function
 		createNewUser(email, password, passwordAgain);
@@ -67,8 +60,8 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	$(document).on('click', '#popdownSubmit', function(event){
 
 
-		var email 		= DOM.popdownEmail.val();
-		var password 	= CryptoJS.SHA1(DOM.popdownPass.val());
+		var email 		= $('#popdownEmail').val();
+		var password 	= CryptoJS.SHA1($('#popdownPass').val());
 		var pwString 	= '';
 
 
@@ -92,7 +85,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 				//If user was authenticated
 				if(response.success === true){
-					DOM.loginError.hide();
+					$('.loginError').hide();
 
 					//Load app, set cookie, fire event
 					loadApplication(response[0][0]);
@@ -101,15 +94,15 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 				}else{//response failure. User may have been deleted
 
 					//Prompt user with error message afforadance
-					DOM.loginError.text('username or password incorrect');
-					DOM.loginError.fadeIn();
+					$('.loginError').text('username or password incorrect');
+					$('.loginError').fadeIn();
 
 
 					//Determine if we need to prompt user to restore account
 					if(response.restorable == true){
 
 						//Fade in restore acct modal window
-						DOM.restoreAcctModal.fadeIn();
+						$('#restoreAcctModal').fadeIn();
 
 
 
@@ -141,9 +134,9 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 						//New Account Button Handler
 						$(document).on('click', '#newAccountButton', function(event){
 
-							var email 			= DOM.popdownEmail.val();
-							var password 		= CryptoJS.SHA1(DOM.popdownPass.val());
-							var passwordAgain 	= CryptoJS.SHA1(DOM.popdownPass.val());
+							var email 			= $('#popdownEmail').val();
+							var password 		= CryptoJS.SHA1($('#popdownPass').val());
+							var passwordAgain 	= CryptoJS.SHA1($('#popdownPass').val());
 
 							//Run create user function
 							createNewUser(email, password, passwordAgain);
@@ -321,9 +314,9 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 		event.preventDefault();
 
 		//Hides error message if this isn't the first attempt
-		DOM.errorElem.hide();
+		$('#error').hide();
 
-		var email = DOM.forgotInput.val();
+		var email = $('#forgotInput').val();
 		var API_URL = _baseUrl + '/forgot/' + email;
 
 		$.ajax({
@@ -335,10 +328,10 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 				if(response === "User null"){
 
 					//Show error message if no user was found
-					DOM.errorElem.fadeIn();
+					$('#error').fadeIn();
 				}else{
 
-					DOM.success.fadeIn();
+					$('#success').fadeIn();
 
 					//reload the landing page
 					setTimeout(reloadLanding, 5000);
@@ -366,7 +359,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 
 		var userId 		= window.tokenResponseId;
-		var password 	= CryptoJS.SHA1(DOM.resetInput.val());
+		var password 	= CryptoJS.SHA1($('#resetInput').val());
 		var pwString 	= '';
 
 
@@ -394,7 +387,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 			console.log(response, "password reset success response");
 				if(response === "Password reset success"){
 
-					DOM.success.fadeIn();
+					$('#success').fadeIn();
 
 					//redirect user to root so they can log in with their new password
 					setTimeout(rootRedirect, 5000);
@@ -417,14 +410,14 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	$(document).on('click', '#updateInfo', function(event){
 		event.preventDefault();
 
-		var displayName 	= DOM.infoName.val();
-		var email 			= DOM.infoEmail.val();
-		var birthdate 		= DOM.infoBirthdate.val();
+		var displayName 	= $('#infoName').val();
+		var email 			= $('#infoEmail').val();
+		var birthdate 		= $('#infoBirthdate').val();
 		var title 			= $('#infoTitleGender option:selected').text();
-		var password 		= CryptoJS.SHA1(DOM.infoPass.val());
-		var passwordAgain 	= CryptoJS.SHA1(DOM.infoPassAgain.val());
+		var password 		= CryptoJS.SHA1($('#infoPass').val());
+		var passwordAgain 	= CryptoJS.SHA1($('#infoPassAgain').val());
 		var pwString 		= ' ';
-			_userId 		= DOM.infoId.html();
+			_userId 		= $('#infoId').html();
 			console.log(title);
 		//Split birthday into month/day/year
 		var birthArray = birthdate.split('/');
@@ -447,7 +440,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 
 		//sets default on password so call won't receive empty sha3
-		if(DOM.infoPass.val() === "" || DOM.infoPassAgain.val() === ""){
+		if($('#infoPass').val() === "" || $('#infoPassAgain').val() === ""){
 
 			pwString = "0";
 
@@ -499,7 +492,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 		event.preventDefault();
 
 		//fade in modal window
-		DOM.deleteAcctModal.fadeIn();
+		$('#deleteAcctModal').fadeIn();
 
 	});
 
@@ -529,7 +522,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 
 				//Fade out modal window
-				DOM.deleteAcctModal.fadeOut();
+				$('#deleteAcctModal').fadeOut();
 
 
 				//================================//
@@ -639,7 +632,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 
 					//Show device namer to new user
-					DOM.nameDeviceModal.fadeIn();
+					$('#nameDeviceModal').fadeIn();
 
 
 					//===================================//
@@ -719,60 +712,6 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 
 
-
-
-
-
-
-	function registerDOM(template){
-
-		if(template === '#app'){
-			DOM.nameDeviceModal = $('#nameDeviceModal');
-		}//#app
-
-		if(template === '#landing'){
-			DOM.signupEmail 		= $('#signupEmail');
-			DOM.signupPass 			= $('#signupPass');
-			DOM.signupPassAgain 	= $('#signupPassAgain');
-			DOM.popdownEmail 		= $('#popdownEmail');
-			DOM.popdownPass 		= $('#popdownPass');
-			DOM.loginError 			= $('.loginError');
-			DOM.restoreAcctModal	= $('#restoreAcctModal');
-			DOM.errorElem 			= $('#error');
-			DOM.success 			= $('#success');
-
-		}//#landing
-
-		if(template === '#forgot'){
-			DOM.forgotInput = $('#forgotInput');
-		}//#library
-
-		if(template === '#reset'){
-			DOM.resetInput 	= $('#resetInput');
-		}//#library
-
-		if(template === '#library'){
-
-		}//#library
-
-		if(template === '#playlist'){
-
-		}//#library
-
-		if(template === '#subPlaylist'){
-
-		}//#library
-
-		if(template === '#acctSettings'){
-			DOM.infoPass 			= $('#infoPass');
-			DOM.infoPassAgain 		= $('#infoPassAgain');
-			DOM.infoId 				= $('#infoId');
-			DOM.infoName 			= $('#infoName');
-			DOM.infoEmail 			= $('#infoEmail');
-			DOM.infoBirthdate 		= $('#infoBirthdate');
-			DOM.deleteAcctModal 	= $('#deleteAcctModal');
-		}//#acctSettings
-	}
 
 
 
