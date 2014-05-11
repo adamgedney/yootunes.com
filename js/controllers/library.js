@@ -25,8 +25,9 @@ define(['jquery'], function($){
 
 
 
-
-		//Listen for rendered to register DOM elements
+		//============================================//
+		//Listen for RENDERED
+		//============================================//
 		$(document).on('rendered', function(event){
 
 			if(event.template === '#playlist'){
@@ -43,7 +44,6 @@ define(['jquery'], function($){
 					form.attr('id', 'renameShow');
 					input.val($(this).text());
 
-
 				});//dbl click
 			}//#app
 		});//rendered
@@ -51,7 +51,7 @@ define(['jquery'], function($){
 
 
 
-		//Rename playlist submit
+		//RENAME PLAYLIST submit
 		$(document).on('click', '.renamePlaylistSubmit', function(event){
 			event.preventDefault();
 
@@ -59,7 +59,6 @@ define(['jquery'], function($){
 			var form 		= $('form.renamePlaylistForm[data-id=' + playlistId + ']');
 			var input 		= $('input.renamePlaylistInput[data-id=' + playlistId + ']');
 			var newName 	= input.val();
-
 
 			renamePlaylist(playlistId, newName);
 
