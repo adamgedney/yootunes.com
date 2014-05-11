@@ -48,6 +48,7 @@ require.config({
 		lightbox 		: 'libs/lightbox-2.6.min',
 		parallax 		: 'libs/parallax',
 		keyHash 		: 'libs/keyHash',
+		qtip 			: 'libs/qtip',
 		User 			: 'controllers/user',
 		Init 			: 'controllers/init',
 		Auth 			: 'controllers/auth',

@@ -1,11 +1,10 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'lightbox'], function($, Key, Player, Library, getCookies, lightbox){
+define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], function($, qtip, Player, Library, getCookies, lightbox){
 
 
 	//private vars
 	var _baseUrl 			= 'http://api.atomplayer.com';
 
-	var _key 				= Key;
 
 	var _dragResult 		= {};
 		_dragResult.dragging= false;
@@ -44,6 +43,14 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 
 
+
+
+
+
+
+
+
+
 			//getStarted button interaction handler=======//
 			$(document).on('click', '#getStarted', function(){
 
@@ -68,7 +75,35 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 			$(document).on('rendered', function(event){
 
 
+				if(event.template === '#libraryItem' || event.template === '#playlist'){
+
+					//============================//
+					//Enable QTIP on all tooltips
+					//============================//
+					$(document).find('[title!=""]').qtip({
+						style: {
+							classes: 'qtip-tipsy'
+						},
+						position: {
+							target: [9, 9]
+					    },
+					    show: {
+					        delay: 1000
+					    },
+					    hide: {
+					    	event: 'click mouseleave',
+					        delay: 500
+					    }
+					});
+				}
+
+
+
+
+
 				if(event.template === '#libraryItem'){
+
+
 					//Failsafe retrieval of theme
 					if(window.userId === undefined){
 						window.theme = getCookies.theme;
@@ -567,19 +602,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 		});
 
 
-
-
-
-		//Esc fullscreen handler
-		// $(document).on('keydown', function(){
-		// 	if(_key.Esc){
-
-		// 		showNormalSize();
-
-		// 		_videoSize.full = !_videoSize.full;
-		// 		_videoSize.normal = false;
-		// 	}
-		// });
 
 
 
