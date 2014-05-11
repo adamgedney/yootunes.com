@@ -139,10 +139,10 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 					});
 
 
-					determineDevice(function(device){
-						window.thisDevice = device;
-						console.log(window.thisDevice);
-					});
+					// determineDevice(function(device){
+					// 	window.thisDevice = device;
+					// 	console.log(window.thisDevice);
+					// });
 
 					//Load app, set cookie, fire event
 						//Cookie setting here is redundant but harmless
@@ -162,18 +162,20 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 
 
-		// $(document).on('rendered', function(event){
+		$(document).on('rendered', function(event){
 
-		// 	//ON APP RENDER========================//
-		// 	if(event.template === '#app'){
+			//ON APP RENDER========================//
+			if(event.template === '#app'){
 
 
-		// 		console.log("#app in init");
-		// 		//Determine this device before we laod application
-		// 		determineDevice();
-		// 	}
+				//Determine this device before we laod application
+				determineDevice(function(device){
+					window.thisDevice = device;
 
-		// });
+				});
+			}
+
+		});
 
 
 
@@ -284,6 +286,7 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 			if(_cookies.devices.length !== 0){
 				var devices = _cookies.devices;
 				var match = false;
+				console.log(devices, "devices");
 
 				//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
 				User.getDevices(_userId, function(response){
@@ -327,14 +330,14 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 			}else{//NO DEVICE COOKIES FOUND
 
-console.log("none found");
+
 				// Fade in modal to instruct user to name this device
 				$('div#nameDeviceModal').fadeIn();
 				$('#devicePrompt').fadeIn();
 
 				//Maybe user deleted cookies? GET DEVICES TO ASK USER
 				User.getDevices(_userId, function(response){
-
+					console.log("none found", response);
 					$.event.trigger({
 						type 			: 'gotdevices',
 						response 		: response,
