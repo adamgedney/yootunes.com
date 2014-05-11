@@ -27,7 +27,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 	//constructor function
 	var SocketService = function(){
 
-
+console.log(socket);
 
 
 
