@@ -23,7 +23,7 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 	var Init = function(){
 
-
+console.log(socketService, "init socketservice reference");
 		//=============================//
 		//Check for URL parameters
 		//=============================//
