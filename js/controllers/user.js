@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'getCookies'], function($, getCookies){
+define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUserDevices){
 
 
 	//private vars
@@ -9,13 +9,50 @@ define(['jquery', 'getCookies'], function($, getCookies){
 	var _thisDevice;
 
 
-	//retrieve device array from service
-	_devices = getCookies.devices;
 
 
 
 
-		//Name this device
+
+
+		//=====================================//
+		//OPEN NAME DEVICE MODAL
+		//=====================================//
+		$(document).on('namedevice', function(){
+
+			// Fade in modal to instruct user to name this device
+			$('div#nameDeviceModal').fadeIn();
+			$('#devicePrompt').fadeIn();
+
+			//Maybe user deleted cookies? GET DEVICES TO ASK USER
+			getUserDevices.get(userId, function(response){
+
+				//Set for addDevice method
+				_devices = response;
+
+				//Instructs Content to render device lists in ui & modal
+				$.event.trigger({
+					type 			: 'renderdevices',
+					response 		: response,
+					origin 			: 'indeterminate'
+				});
+			});//getDevices
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+		//=====================================//
+		//NAME DEVICE MODAL HANDLER
+		//=====================================//
 		$(document).on('click', '#submitDeviceName', function(event){
 			event.preventDefault();
 
@@ -29,9 +66,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 				}
 			}
 
-			addDevice(_userId, function(response){
-
-			});
+			addDevice(_userId);
 
 
 		});//updateDeviceName
@@ -63,14 +98,18 @@ define(['jquery', 'getCookies'], function($, getCookies){
 					console.log(response, "delete device response");
 
 					//Fires a complete event after  device has been deleted
-					$(document).trigger({
-						type : 'reloadDevices'
+					//Instructs Content to render device lists in ui & modal
+					$.event.trigger({
+						type 	: 'renderdevices',
+						origin 	: 'delete device'
 					});
 
 
 				}//success
 			});//ajax
 		});//updateDeviceName
+
+
 
 
 
@@ -106,7 +145,6 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 	//Public methods and properties.
 	var exports 		= {
-		getDevices 		: getDevices,
 		getUser 		: getUser,
 		addDevice 		: addDevice
 	};
@@ -133,26 +171,24 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
-	function getDevices(userId, callback){
-		var API_URL = _baseUrl + '/get-devices/' + userId;
+	// function getDevices(userId, callback){
+	// 	var API_URL = _baseUrl + '/get-devices/' + userId;
 
-		//Get current user's devices
-		$.ajax({
-			url : API_URL,
-			method : 'GET',
-			dataType : 'json',
-			success : function(response){
+	// 	//Get current user's devices
+	// 	$.ajax({
+	// 		url : API_URL,
+	// 		method : 'GET',
+	// 		dataType : 'json',
+	// 		success : function(response){
 
-				//Callback once data received
-				if(typeof callback === "function"){
+	// 			//Callback once data received
+	// 			if(typeof callback === "function"){
 
-					callback(response);
-				}
-			}//success
-		});//ajax
-	}
-
-
+	// 				callback(response);
+	// 			}
+	// 		}//success
+	// 	});//ajax
+	// }
 
 
 
@@ -160,7 +196,9 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
-	function addDevice(userId, callback){
+
+
+	function addDevice(userId){
 
 		//retrieve device array from service
 		// _devices = getCookies.devices;
@@ -177,7 +215,9 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 			 //set cookie DEVICE# with device id here
 			document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
-			$('#nameDeviceModal').fadeOut();
+			$('div#nameDeviceModal').fadeOut();
+
+
 
 		}else{//NEW DEVICE
 
@@ -197,15 +237,15 @@ define(['jquery', 'getCookies'], function($, getCookies){
 					//Set a device cookie for the new device
 					document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + response.newDeviceId;
 
-					//Fires a complete event after  device has been added
-					//Picked up in content controller
-					$(document).trigger({
-						type 		: 'reloadDevices',
-						newDeviceId 	: response.newDeviceId,
-						newDeviceName 	: response.newDeviceName
-					});//trigger
 
-					$('#nameDeviceModal').fadeOut();
+					//Instructs COntent to reload device list
+					$.event.trigger({
+						type : 'renderdevices'
+					});
+
+
+
+					$('div#nameDeviceModal').fadeOut();
 
 				}//success
 			});//ajax

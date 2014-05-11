@@ -2,7 +2,7 @@
 //ATOMPLAYER APP FLOW
 //=================================//
 //
-//APP.JS** loads requirejs configuration and requires libs, init, auth,
+//APP.JS** loads Require.js configuration and requires libs, init, auth,
 //content, library, user, & player controllers as dependencies
 //An instance is made for init, auth, and player to kick off the app.
 //
@@ -10,10 +10,12 @@
 //loads socketservice as a dependency & checks to see if the user's library count has changed
 //to determine if we use localstorage or an ajax call to retrieve library.
 //Init also determine what device the user is using.
+//Init CAN LOAD APP if user cookie is found, or else Auth takes over
 //
 //AUTH** handles all user authentication interactions. -login, logout, forgot password, create user, & acct settings page
 //update info. This is where socketio room is created. <-- near line 641 as of this writing
 //Auth also sets cookies and global vars for user
+//Auth CAN LOAD APP on authentication
 //
 //USER** handles setting and deleting user devices and getting user data
 //
@@ -30,7 +32,7 @@
 //UI** handles user interface interactions, playlist drag&drop, a lot of show/hides, button toggles,
 //mouse events, menus, seek bar movements, screen sizes, themeing, ad show/hide, youtube image loading.
 //
-//THE DATA API exists at api.atomplayer.com. -PHP/Laravel/MySQL
+//THE DATA API exists at api.atomplayer.com.    -PHP/Laravel/MySQL
 //THE SOCKET SERVER exists at ss.atomplayer.com -NodeJS/Express/Socket.io
 
 
@@ -53,7 +55,9 @@ require.config({
 		Library 		: 'controllers/library',
 		Player 			: 'controllers/player',
 		socketService 	: 'services/socketService',
-		getCookies 		: 'services/getCookiesService'
+		getCookies 		: 'services/getCookiesService',
+		determineDevice : 'services/determineDevice',
+		getUserDevices 	: 'services/getUserDevices'
 	}
 });
 

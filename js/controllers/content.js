@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], function($, handlebars, getCookies, Init, User, Ui, Library){
+define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', 'Ui', 'Library'], function($, handlebars, getCookies, getUserDevices, Init, User, Ui, Library){
 
 
 
@@ -309,16 +309,19 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-		//Set device on new device creation
-		$(document).on('reloadDevices', function(event){
+		// //Set device on new device creation
+		// $(document).on('reloadDevices', function(event){
 
-			//Fade out name device modal
-			$('div#nameDeviceModal').fadeOut();
 
-			//Set this device once a new one is created
-			_thisDevice = event.newDeviceId;
+		// 	//Set this device once a new one is created
+		// 	_thisDevice = event.thisDevice;
 
-		});//on reloadDevices
+		// 	//Load devices
+		// 	getUserDevices.get(_userId, function(response){
+		// 		renderDevices(response);
+		// 	});
+
+		// });//on reloadDevices
 
 
 
@@ -331,7 +334,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		$(document).on('slaveMode', function(){
 
 			console.log("slave mode content cont");
-			User.getDevices(_userId, function(response){
+			getUserDevices.get(_userId, function(response){
 
 				renderDevices(response);
 			});//getDevices
@@ -389,11 +392,29 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 				//Render devices once init has retrieved them
-				$(document).on('gotdevices', function(event){
-					_thisDevice = event.thisDevice;
-					renderDevices(event.response);
+				$(document).on('renderdevices', function(event){
 
-					console.log("gotdevices picked up evt", event);
+					//Set this device once a new one is created
+					if(event.thisDevice){
+						_thisDevice = event.thisDevice;
+					}
+
+					//Render devices
+					if(event.response){
+						renderDevices(event.response);
+					}else{
+						//Fetch as render user devices in lists and modals
+						getUserDevices.get(_userId, function(response){
+							renderDevices(response);
+						});
+					}
+
+
+
+
+
+
+					console.log("renderdevices picked up in Content", event);
 				});
 
 
@@ -581,7 +602,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 				//Get Devices
-				User.getDevices(_userId, function(response){
+				getUserDevices.get(_userId, function(response){
 					renderDevices(response);
 				});
 
@@ -650,14 +671,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 
-		//Reload devices when one was deleted
-		$(document).on('reloadDevices', function(){
-
-			//Load devices
-			User.getDevices(_userId, function(response){
-				renderDevices(response);
-			});
-		});
 
 
 
@@ -1040,15 +1053,16 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//====================================//
 		if(JSON.parse(localStorage.getItem('library')) !== null && _libraryChanged === false){
 
-			var localLength = JSON.parse(localStorage.getItem('library'))[0].length;
+			//Local storage length +1 to accomodate fro ajax library array index
+			var localLength = JSON.parse(localStorage.getItem('library'))[0].length + 1;
 
 				if(window.libraryCount === localLength){
-					console.log(window.libraryCount, localLength, "library count call");
+
 					var localResponse = JSON.parse(localStorage.getItem('library'));
 
 					prepareLibrary(localResponse);
 
-					console.log("pulled lib from local storage");
+					// console.log("pulled lib from local storage");
 
 				}else{//Library count has changed
 
@@ -1093,7 +1107,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				if(localStorage){
 					localStorage.setItem('library', JSON.stringify(response));
 
-					console.log("rewrote local storage");
+					// console.log("rewrote local storage");
 				}
 
 				_libraryChanged = false;

@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, User, Content, getCookies, socketService){
+define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDevice'], function($, User, Content, getCookies, socketService, determineDevice){
 
 
 
@@ -69,7 +69,7 @@ console.log(socketService, "init socketservice reference");
 
 
 			//========================//
-			//INitiate PLAYLIST SHARE flow
+			//Initiate PLAYLIST SHARE flow
 			//========================//
 			if(params.substr(1,5) === "share"){
 
@@ -114,7 +114,7 @@ console.log(socketService, "init socketservice reference");
 
 		}else{//USER EXISTS
 
-			//store user id for lpublic use
+			//store user id for global use
 			_userId = _cookies.userId;
 			window.userId = _userId;
 
@@ -128,7 +128,7 @@ console.log(socketService, "init socketservice reference");
 				dataType 	: 'json',
 				success 	: function(response){
 
-					//Used By libraryLoad to check local storage
+					//Used By Content.;oadLibrary to check local storage
 					window.libraryCount = response;
 
 					//get the user data for stored theme
@@ -143,39 +143,37 @@ console.log(socketService, "init socketservice reference");
 					// 	window.thisDevice = device;
 					// 	console.log(window.thisDevice);
 					// });
+			determineDevice.get(function(response){
+				console.log(response, "determine response in init");
+			});
 
 					//Load app, set cookie, fire event
 						//Cookie setting here is redundant but harmless
 						//Prevents duplicate code.
 						loadApplication();
 
-
-
-
-
 				}//AJAX success
 			});//AJAX library count
-
-		}//else
-
+		}//ELSE USER EXISTS
 
 
 
 
-		$(document).on('rendered', function(event){
 
-			//ON APP RENDER========================//
-			if(event.template === '#app'){
+		// $(document).on('rendered', function(event){
+
+		// 	//ON APP RENDER========================//
+		// 	if(event.template === '#app'){
 
 
-				//Determine this device before we laod application
-				determineDevice(function(device){
-					window.thisDevice = device;
+		// 		//Determine this device before we laod application
+		// 		determineDevice(function(device){
+		// 			window.thisDevice = device;
 
-				});
-			}
+		// 		});
+		// 	}
 
-		});
+		// });
 
 
 
@@ -245,6 +243,11 @@ console.log(socketService, "init socketservice reference");
 			playlistId 		: _playlistId
 		});
 
+		// determineDevice.get(function(device){
+		// 	window.thisDevice = device;
+
+		// });
+
 		//load the application
 		Content.loadApp();
 
@@ -276,78 +279,6 @@ console.log(socketService, "init socketservice reference");
 
 
 
-	function determineDevice(callback){
-
-		console.log("determine ran in initjs");
-		//DEVICE DETECTION
-			//Flow: 1. check device cookies against user devices. If match, set this device
-			//		2. If no match, prompt user to name this device
-			//		3. if no cookies found, prompt user to select this device from their devices or name this new device
-			if(_cookies.devices.length !== 0){
-				var devices = _cookies.devices;
-				var match = false;
-				console.log(devices, "devices");
-
-				//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
-				User.getDevices(_userId, function(response){
-
-					for(var i=0;i<response.length;i++){
-						for(var j=0;j<devices.length;j++){
-
-							if(response[i].id === devices[j]){
-
-								//THIS IS THE USER'S DEVICE
-								_thisDevice 		= devices[j];
-								window.thisDevice 	= devices[j];
-								match 				= true;
-
-								//trigger callback once ready
-								callback(devices[j]);
-
-								$.event.trigger({
-									type 			: 'gotdevices',
-									response 		: response,
-									thisDevice 		: devices[j],
-									origin 			: 'determinate'
-								});
-
-								// renderDevices(response);
-								console.log("this device in init", window.thisDevice);
-								break;
-							}//if
-						}//for j
-					}//for i
-
-
-					if(match === false){
-
-						//Fade in modal to instruct user to name this device
-						$('div#nameDeviceModal').fadeIn();
-
-					}//if false
-				});//getDevices
-
-
-			}else{//NO DEVICE COOKIES FOUND
-
-
-				// Fade in modal to instruct user to name this device
-				$('div#nameDeviceModal').fadeIn();
-				$('#devicePrompt').fadeIn();
-
-				//Maybe user deleted cookies? GET DEVICES TO ASK USER
-				User.getDevices(_userId, function(response){
-					console.log("none found", response);
-					$.event.trigger({
-						type 			: 'gotdevices',
-						response 		: response,
-						origin 			: 'indeterminate'
-					});
-
-					// renderDevices(response);
-				});//getDevices
-			}//else
-	}
 
 
 
