@@ -7,7 +7,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	//private vars
-	var DOM 			= {};
 	var _songs 			= [];
 	var	_userId			= window.userId;
 	var	_userEmail 		= '';
@@ -54,7 +53,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			activeLibraryItem('#acctSettings');
 
 			//Set correct container height
-			DOM.scrollContainer.css('height', '100vh');
+			$('div.scroll-container').css('height', '100vh');
 
 		});//click acctSettings
 
@@ -130,10 +129,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 			activeLibraryItem(playlistId);
 
-			DOM.sectionHeader.show();
+			$('.section-header').show();
 
 			//Set correct container height
-			DOM.scrollContainer.css('height', '74vh');
+			$('div.scroll-container').css('height', '74vh');
 		});
 
 
@@ -147,7 +146,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Clear autocomplete in case user wants out
 		$(document).on('click', '#searchInput', function(event){
 			//Empty autocomplete
-			DOM.datalist.empty();
+			$('#datalistContainer').empty();
 		});
 
 
@@ -169,13 +168,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					dataType	: 'json',
 					success 	: function(response){
 
-						DOM.datalist = $('#datalistContainer');
-						DOM.datalist.empty();
+
+						$('#datalistContainer').empty();
 
 						//Creates list of previous queries from DB. limit 10
 						for(var i=0;i<response.length;i++){
 
-							DOM.datalist.append('<li>' + response[i].query + '</li>');
+							$('#datalistContainer').append('<li>' + response[i].query + '</li>');
 						}
 					}//success
 				});//ajax
@@ -189,7 +188,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Sets selected datlist item as the search val and clicks search
 		$(document).on('click', 'ul#datalistContainer li', function(){
 
-			DOM.searchInput.val($(this).text());
+			$('input#searchInput').val($(this).text());
 			$('#searchSubmit').trigger('click');
 
 		});
@@ -201,15 +200,15 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		$(document).on('click', '#searchSubmit', function(event){
 			event.preventDefault();
 
-			var query 	= DOM.searchInput.val();
+			var query 	= $('input#searchInput').val();
 			var API_URL = _baseUrl + '/search/' + query + '/' + _userId;
 			var songs 	= [];
 
 			//Empty results list while srarch results load
-			DOM.scrollContainer.empty();
+			$('div.scroll-container').empty();
 
 			//Show loading icon
-			DOM.loading.fadeIn();
+			$('div.loading').fadeIn();
 
 			//Search query call
 			$.ajax({
@@ -219,7 +218,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				success 	: function(data){
 
 					//Empty autocomplete
-					DOM.datalist.empty();
+					$('#datalistContainer').empty();
 
 					//Loop through response & push into array
 					//for delivery to renderer
@@ -234,7 +233,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					_state 	= 'query';
 
 					//Hide loading icon
-					DOM.loading.fadeOut();
+					$('div.loading').fadeOut();
 
 					//pass data to private var
 					//after loading new results
@@ -314,7 +313,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		$(document).on('reloadDevices', function(event){
 
 			//Fade out name device modal
-			DOM.nameDeviceModal.fadeOut();
+			$('div#nameDeviceModal').fadeOut();
 
 			//Set this device once a new one is created
 			_thisDevice = event.newDeviceId;
@@ -353,13 +352,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		//Listens for loadApp content renderer complete
 		$(document).on('rendered', function(event){
 
-			registerDOM(event.template);
 
 			//ON APP RENDER========================//
 			if(event.template === '#app'){
 
 				//Show adsense ads on app load
-				DOM.adsense.show();
+				$('div#adsense').show();
 				// DOM.video.show();
 
 
@@ -388,65 +386,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					Ui.themeDark();
 				}
 
-				console.log(window.theme, "theme content app rendered");
 
-
-
-
-
-
-
-				// //DEVICE DETECTION
-				// //Flow: 1. check device cookies against user devices. If match, set this device
-				// //		2. If no match, prompt user to name this device
-				// //		3. if no cookies found, prompt user to select this device from their devices or name this new device
-				// if(getCookies.devices.length !== 0){
-				// 	var devices = getCookies.devices;
-				// 	var match = false;
-
-				// 	//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
-				// 	User.getDevices(_userId, function(response){
-
-				// 		for(var i=0;i<response.length;i++){
-				// 			for(var j=0;j<devices.length;j++){
-
-				// 				if(response[i].id === devices[j]){
-
-				// 					//THIS IS THE USER'S DEVICE
-				// 					_thisDevice 		= devices[j];
-				// 					window.thisDevice 	= devices[j];
-				// 					match 				= true;
-
-				// 					renderDevices(response);
-
-				// 					break;
-				// 				}//if
-				// 			}//for j
-				// 		}//for i
-
-
-				// 		if(match === false){
-
-				// 			//Fade in modal to instruct user to name this device
-				// 			DOM.nameDeviceModal.fadeIn();
-
-				// 		}//if false
-				// 	});//getDevices
-
-
-				// }else{//NO DEVICE COOKIES FOUND
-
-
-				// 	//Fade in modal to instruct user to name this device
-				// 	DOM.nameDeviceModal.fadeIn();
-				// 	// $('#devicePrompt').fadeIn();
-
-				// 	//Maybe user deleted cookies? GET DEVICES TO ASK USER
-				// 	User.getDevices(_userId, function(response){
-
-				// 		renderDevices(response);
-				// 	});//getDevices
-				// }//else
 
 				//Render devices once init has retrieved them
 				$(document).on('gotdevices', function(event){
@@ -493,7 +433,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			if(event.template === '#libraryItem'){
 
 				var resultItems = $('li.resultItems');
-				DOM.sourceTitle = $('.sourceTitle');
 
 				//Register sortable elements on DOM
 				_sort.ul = 'ul#libraryWrapper';
@@ -516,13 +455,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 				//Remove search input value
-				DOM.searchInput.val('');
+				$('input#searchInput').val('');
 
 				//Set list item length to DOM for shuffle function in player controller
 				$('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
 
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
-				if(DOM.sourceTitle.html() === 'Add'){
+				if($('.sourceTitle').html() === 'Add'){
 
 					$('.li-col7').show();
 					$('.li-col2').css({'width':'41.6666666%'});//4 col
@@ -574,13 +513,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			if(event.template === '#acctSettings'){
 
 				//Hide ads on acct settings page
-				DOM.adsense.hide();
+				$('div#adsense').hide();
 
 				//Check/uncheck theme option based on current setting
 				if(window.theme === "dark"){
-					DOM.themeDark.prop('checked', true);
+					$('#themeDark').prop('checked', true);
 				}else{
-					DOM.themeDark.prop('checked', false);
+					$('#themeDark').prop('checked', false);
 				}
 
 				//Set the application theme colors
@@ -594,48 +533,48 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 				//Hide the entire section header (search bar)
-				DOM.sectionHeader.hide();
+				$('.section-header').hide();
 
 
 				//Get User
 				User.getUser(_userId, function(response){
 
-					DOM.infoName.val(response[0].display_name);
-					DOM.infoEmail.val(response[0].email);
-					DOM.infoId.html(response[0].id);
-					DOM.infoTitleGender.val(response[0].title);
+					$('#infoName').val(response[0].display_name);
+					$('#infoEmail').val(response[0].email);
+					$('#infoId').html(response[0].id);
+					$('#infoTitleGender').val(response[0].title);
 
 					//Format birthdate for display
 					var birthdate = response[0].birthMonth + '/' + response[0].birthDay + '/' + response[0].birthYear;
 
 					if(birthdate === '0/0/0'){
-						DOM.infoBirthdate.val('4/24/14');
+						$('#infoBirthdate').val('4/24/14');
 					}else{
-						DOM.infoBirthdate.val(birthdate);
+						$('#infoBirthdate').val(birthdate);
 					}
 
 
 
 					//Prepend selected TITLE option
 					var option1 = '<option >' + response[0].title + '</option>';
-					DOM.infoTitleGender.prepend(option1);
+					$('#infoTitleGender').prepend(option1);
 
 						//Handle title options list
 						if(response[0].title == "Mr."){
 							var option2 = '<option >Mrs.</option>';
 							var option3 = '<option >Ms.</option>';
-							DOM.infoTitleGender.append(option2);
-							DOM.infoTitleGender.append(option3);
+							$('#infoTitleGender').append(option2);
+							$('#infoTitleGender').append(option3);
 						}else if(response[0].title == "Mrs."){
 							var option2 = '<option >Mr.</option>';
 							var option3 = '<option >Ms.</option>';
-							DOM.infoTitleGender.append(option2);
-							DOM.infoTitleGender.append(option3);
+							$('#infoTitleGender').append(option2);
+							$('#infoTitleGender').append(option3);
 						}else if(response[0].title == "Ms."){
 							var option2 = '<option >Mrs.</option>';
 							var option3 = '<option >Mr.</option>';
-							DOM.infoTitleGender.append(option2);
-							DOM.infoTitleGender.append(option3);
+							$('#infoTitleGender').append(option2);
+							$('#infoTitleGender').append(option3);
 						}
 				});//getUser
 
@@ -934,7 +873,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 				//Shows column headers
-				// DOM.liHeader.show();
+				// $('.li-header').show();
 
 				//Clear append container
 				$(appendTo).empty();
@@ -981,7 +920,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 				//Shows column headers
-				// DOM.liHeader.show();
+				// $('.li-header').show();
 
 				//Clear append container
 				$(appendTo).empty();
@@ -1035,7 +974,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					}
 
 					//Shows column headers
-					DOM.liHeader.show();
+					$('.li-header').show();
 
 					//Clear append container
 					$(appendTo).empty();
@@ -1044,7 +983,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 					render(src, id, appendTo, data);
 
 					//Change last column to ''
-					DOM.sourceTitle.html('');
+					$('.sourceTitle').html('');
 
 					_state 	= 'playlist';
 
@@ -1084,11 +1023,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Ensures search bar is visible & container is
 		//emptied quickly before a reload
-			DOM.sectionHeader.show();
-			DOM.scrollContainer.empty();
+			$('.section-header').show();
+			$('div.scroll-container').empty();
 
 			//Shows column headers
-			DOM.liHeader.show();
+			$('.li-header').show();
 
 
 
@@ -1205,13 +1144,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 			}
 
 			//Change last column to ''
-			DOM.sourceTitle.html('');
+			$('.sourceTitle').html('');
 
 			//Pagination vars
 			_libraryCount 	= response.count;
 
 			//Display total songs in library in interface
-			DOM.collectionTotal.html(response.count);
+			$('#collectionTotal').html(response.count);
 
 
 			//Store the users songs for list functions
@@ -1244,7 +1183,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		render(src, id, appendTo, data);
 
 			//Hides column headers
-			DOM.liHeader.hide();
+			$('.li-header').hide();
 	}
 
 
@@ -1270,8 +1209,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 				user 	: {userId : _userId}
 			};
 
-			//Shows column headers
-			// DOM.liHeader.show();
 
 			//Clear append container
 			$(appendTo).empty();
@@ -1280,7 +1217,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 		render(src, id, appendTo, data);
 
 		//Change last column to remove
-		DOM.sourceTitle.html('Add');
+		$('.sourceTitle').html('Add');
 	}
 
 
@@ -1321,54 +1258,49 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 
 	function renderDevices(response){
-		DOM.infoDeviceName 	= $('.infoDeviceName');
-		DOM.infoDeviceList 	= $('#infoDeviceList');
-		DOM.userDevices 	= $('#userDevices');
-		DOM.playOn 			= $('#play-on');
-		DOM.mobilePlayOn 	= $('#mobile-play-on');
 
-		DOM.playOn.empty();
-		DOM.mobilePlayOn.empty();
-		DOM.infoDeviceList.empty();
+		$('#play-on').empty();
+		$('#mobile-play-on').empty();
+		$('#infoDeviceList').empty();
 
 
 		//Loop through device list
 		for(var j=0;j<response.length;j++){
-console.log("render dev", response[j].id, _thisDevice);
+
 			//If device is this device, set name
 			if(response[j].id === _thisDevice){
 
 				//Set the current device if it matches the cookie
-				DOM.infoDeviceName.val(response[j].name);
-				DOM.infoDeviceName.attr('data-id', response[j].id);
+				$('.infoDeviceName').val(response[j].name);
+				$('.infoDeviceName').attr('data-id', response[j].id);
 
 				//set footer list items first result to the current device
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				DOM.playOn.prepend(option);
-				DOM.mobilePlayOn.prepend(option);
+				$('#play-on').prepend(option);
+				$('#mobile-play-on').prepend(option);
 			}else{
 
 				//Render MODAL window list
 				var option 	= '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				DOM.userDevices.append(option);
+				$('#userDevices').append(option);
 
 
 				//Populate SETTINGS PAGE list
 				var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
-				DOM.infoDeviceList.append(li);
+				$('#infoDeviceList').append(li);
 
 
 				//Populate APP FOOTER list
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				DOM.playOn.append(option);
-				DOM.mobilePlayOn.append(option);
+				$('#play-on').append(option);
+				$('#mobile-play-on').append(option);
 
 			}//else
 		}//for
 
 		//Add a blank device to MODAL list
 		var blank	= '<option>Your Devices</option>'
-		DOM.userDevices.prepend(blank);
+		$('#userDevices').prepend(blank);
 	}
 
 
@@ -1462,20 +1394,20 @@ console.log("render dev", response[j].id, _thisDevice);
 	function loadFilteredLibrary(sortBy, activeItem){
 
 		//Show search bar
-		DOM.liHeader.show();
-		DOM.sectionHeader.show();
+		$('.li-header').show();
+		$('.section-header').show();
 
-		DOM.scrollContainer.empty();
+		$('div.scroll-container').empty();
 
 		sortList(sortBy);
 
 		activeLibraryItem(activeItem);
 
 		//Set correct container height
-		DOM.scrollContainer.css('height', '74vh');
+		$('div.scroll-container').css('height', '74vh');
 
 		//Shows ads if coming from acct settings page
-		DOM.adsense.show();
+		$('div#adsense').show();
 	}
 
 
@@ -1574,96 +1506,6 @@ console.log("render dev", response[j].id, _thisDevice);
 				$(settings).find('a').removeClass('red');
 			}
 	}
-
-
-
-
-
-
-
-
-
-
-	function registerDOM(template){
-
-		if(template === '#app'){
-			DOM.scrollContainer = $('div.scroll-container');
-			DOM.searchInput 	= $('input#searchInput');
-			DOM.loading 		= $('div.loading');
-			DOM.nameDeviceModal = $('div#nameDeviceModal');
-			// DOM.video 			= $('#video');
-			DOM.adsense 		= $('div#adsense');
-			DOM.sectionHeader 	= $('.section-header');
-			DOM.sourceTitle 	= $('.sourceTitle');
-			DOM.resultItems 	= $('li.resultItems');//Why this workey workey?
-			DOM.collectionTotal = $('#collectionTotal');
-			DOM.playOn 			= $('#play-on');
-			DOM.mobilePlayOn 	= $('#mobile-play-on');
-			DOM.userDevices 	= $('#userDevices');//modal
-			DOM.infoDeviceList 	= $('#infoDeviceList');
-			DOM.infoDeviceName 	= $('.infoDeviceName');
-			DOM.liHeader 		= $('.li-header');
-			DOM.datalist  		= $('#datalistContainer');
-			DOM.themeDark 		= $('#themeDark');
-			DOM.infoName 		= $('#infoName');
-			DOM.infoEmail 		= $('#infoEmail');
-			DOM.infoId 			= $('#infoId');
-			DOM.infoTitleGender = $('#infoTitleGender');
-			DOM.infoBirthdate 	= $('#infoBirthdate');
-
-		}//#app
-
-		if(template === '#landing'){
-
-
-		}//#landing
-
-		if(template === '#forgot'){
-
-		}//#library
-
-		if(template === '#reset'){
-
-		}//#library
-
-		if(template === '#library'){
-
-		}//#library
-
-		if(template === '#playlist'){
-
-		}//#library
-
-		if(template === '#subPlaylist'){
-
-		}//#library
-
-		if(template === '#acctSettings'){
-			DOM.themeDark 		= $('#themeDark');
-			DOM.infoName 		= $('#infoName');
-			DOM.infoEmail 		= $('#infoEmail');
-			DOM.infoId 			= $('#infoId');
-			DOM.infoTitleGender = $('#infoTitleGender');
-			DOM.infoBirthdate 	= $('#infoBirthdate');
-			DOM.infoDeviceName 	= $('.infoDeviceName');
-			DOM.infoDeviceList 	= $('#infoDeviceList');
-		}//#acctSettings
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
