@@ -5,7 +5,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 	//private vars
 	var _baseUrl 			= 'http://api.atomplayer.com';
 
-	var DOM 				= {};
 	var _key 				= Key;
 
 	var _dragResult 		= {};
@@ -63,9 +62,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 			//taht starts at the offset left of the hovered over item.
 			//use for tooltips, feedback, validation, error messages, and upgrade acct encouragement.
 
-			//Listen for rendered to register DOM elements
+			//========================================//
+			//Listen for RENDERED
+			//========================================//
 			$(document).on('rendered', function(event){
-				registerDOM(event.template);
+
 
 				if(event.template === '#libraryItem'){
 					//Failsafe retrieval of theme
@@ -88,16 +89,16 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 				//On resize show sidebar
 				if(window.windowWidth > app_break_smmd){
-					DOM.sectionApp.removeClass('mainSlideLeft');
-					DOM.asideApp.removeClass('sidebarSlideLeft');
+					$('section.app').removeClass('mainSlideLeft');
+					$('aside.app').removeClass('sidebarSlideLeft');
 
-					DOM.video.show();
-					DOM.videoSizeCtrl.show();
-					DOM.footer.show();
+					$('#video').show();
+					$('div.video-size-ctrl').show();
+					$('div.footer').show();
 				}else{
-					DOM.video.hide();
-					DOM.videoSizeCtrl.hide();
-					DOM.footer.hide();
+					$('#video').hide();
+					$('div.video-size-ctrl').hide();
+					$('div.footer').hide();
 				}
 
 
@@ -317,7 +318,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 
 				//Ensures form is hidden at start
-				DOM.newPlaylistForm.hide();
+				$('.newPlaylistForm').hide();
 
 				this.toggle;
 
@@ -333,14 +334,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 				if(this.toggle){
 
-					DOM.resultItems = $('li.resultItems');
-
 					$(this).parent().css({'background' : '#ffffff'});
 
 					//Loads video thumbnail when dropdown is revealed
 					loadThumb(id);
-
-
 
 					_dropdownOpen = true;
 
@@ -348,9 +345,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 					$(this).find('.li-col7').show();
 					$('.li-col2').css({'width':'41.6666666%'});//4 col
 
-					DOM.resultItems.removeClass('bg-white');
-					DOM.resultItems.removeClass('bold');
-					DOM.resultItems.css({'borderBottom':'none'});
+					$('li.resultItems').removeClass('bg-white');
+					$('li.resultItems').removeClass('bold');
+					$('li.resultItems').css({'borderBottom':'none'});
 
 					//Set the li item that triggered dropdown to white bg
 					$(this).parent().addClass('bg-white');
@@ -364,13 +361,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 					$('.li-col7').hide();
 					$('.li-col2').css({'width':'50%'});//5 col
 
-					DOM.resultItems = $('li.resultItems');
-
 					$(this).parent().css({'background' : 'none'});
 
 					_dropdownOpen = false;
 
-					DOM.resultItems.css({'background':'none'});
+					$('li.resultItems').css({'background':'none'});
 					$(this).parent().removeClass('bg-white');
 					$(this).parent().removeClass('bold');
 					$(this).parent().css({'borderBottom':'none'});
@@ -463,11 +458,11 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 		//Prevents parent div from scrolling while reaching end of scroll in child
 		$(document).on('mouseover', '.playlistSubScrollContainer', function(){
-			DOM.scrollContainer.css({'overflow':'hidden'});
+			$('.scroll-container').css({'overflow':'hidden'});
 		});
 
 		$(document).on('mouseout', '.playlistSubScrollContainer', function(){
-			DOM.scrollContainer.css({'overflow':'scroll'});
+			$('.scroll-container').css({'overflow':'scroll'});
 		});
 
 
@@ -486,10 +481,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 		$(document).on('mousedown', '#seek-dot', function(event){
 
 			var scrubber 			= '#seek-dot';
-				_seek.seekBarWidth 	= DOM.seekBar.width(),
-				_seek.seekBarLeft 	= DOM.seekBar.offset().left,
-				_seek.seekBarRight 	= DOM.seekBar.offset().left + _seek.seekBarWidth,
-				_seek.seekFill 		= DOM.seekFill,
+				_seek.seekBarWidth 	= $('#seek-bar').width(),
+				_seek.seekBarLeft 	= $('#seek-bar').offset().left,
+				_seek.seekBarRight 	= $('#seek-bar').offset().left + _seek.seekBarWidth,
+				_seek.seekFill 		= $('.seek-fill'),
 				_seek.drag 			= true;
 
 				Player.prototype.dragging(true);
@@ -612,14 +607,10 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 		//Modal close functionality
 		$(document).on('click', '.modalCloseIcon', function(){
 
-			DOM.restoreAcctModal 	= $('#restoreAcctModal');
-			DOM.deleteAcctModal 	= $('#deleteAcctModal');
-			DOM.nameDeviceModal 	= $('#nameDeviceModal');
-
 			//Hide modal window nodes
-			DOM.restoreAcctModal.fadeOut();
-			DOM.deleteAcctModal.fadeOut();
-			DOM.nameDeviceModal.fadeOut();
+			$('#restoreAcctModal').fadeOut();
+			$('#deleteAcctModal').fadeOut();
+			$('#nameDeviceModal').fadeOut();
 		});
 
 
@@ -636,7 +627,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 			_userId = window.userId;
 
 			//Store theme choice as dark
-			if(DOM.themeDark.is(':checked')){
+			if($('#themeDark').is(':checked')){
 
 				_currentTheme = "dark";
 
@@ -711,26 +702,26 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 			this.toggle;
 
 			if(!this.toggle){
-				// DOM.adsense.fadeOut();
+				// $('#adsense').fadeOut();
 
-				DOM.sectionApp.addClass('mainSlideRight');
-				DOM.asideApp.addClass('sidebarSlideRight');
+				$('section.app').addClass('mainSlideRight');
+				$('aside.app').addClass('sidebarSlideRight');
 
 				//reset slide left
-				DOM.sectionApp.removeClass('mainSlideLeft');
-				DOM.asideApp.removeClass('sidebarSlideLeft');
+				$('section.app').removeClass('mainSlideLeft');
+				$('aside.app').removeClass('sidebarSlideLeft');
 
 				this.toggle = !this.toggle;
 
 			}else{
-				// DOM.adsense.fadeIn();
+				// $('#adsense').fadeIn();
 
-				DOM.sectionApp.addClass('mainSlideLeft');
-				DOM.asideApp.addClass('sidebarSlideLeft');
+				$('section.app').addClass('mainSlideLeft');
+				$('aside.app').addClass('sidebarSlideLeft');
 
 				//reset slide right
-				DOM.sectionApp.removeClass('mainSlideRight');
-				DOM.asideApp.removeClass('sidebarSlideRight');
+				$('section.app').removeClass('mainSlideRight');
+				$('aside.app').removeClass('sidebarSlideRight');
 
 				this.toggle = !this.toggle;
 			}
@@ -880,7 +871,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 	function enterFullscreen(){
 
 		//hide ads
-		DOM.adsense.hide();
+		$('#adsense').hide();
 
 		if(window.windowWidth < app_break_smmd){
 
@@ -898,7 +889,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 			});
 
 
-			DOM.videoSizeCtrl.css({
+			$('div.video-size-ctrl').css({
 				'top'     	 : '9px',
 				'left' 		 : '9px',
 				'background' : 'none',
@@ -909,7 +900,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 		//Was set to transparent until FF YT controls started showing
 		//FIX THIS LATER
-		DOM.footer.css({
+		$('div.footer').css({
 			'opacity' : '1'
 		});
 	}
@@ -932,9 +923,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 		if(window.windowWidth < app_break_smmd){
 
 			//hide ads
-			// DOM.adsense.hide();
+			// $('#adsense').hide();
 
-			DOM.videoOverlay.css({
+			$('#video-overlay').css({
 				'height'   : '227px',
 				'display'  : 'block',
 				'position' : 'fixed',
@@ -947,9 +938,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 				'-webkit-transition-duration' : '1s'
 			});
 
-			DOM.videoSizeCtrl.hide();
+			$('div.video-size-ctrl').hide();
 
-			DOM.video.hide();
+			$('#video').hide();
 
 		}else{
 
@@ -965,7 +956,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 				'width'    : '25%'
 			});
 
-			DOM.videoSizeCtrl.css({
+			$('div.video-size-ctrl').css({
 				'bottom'     : '72px',
 				'background' : '#0f1010',
 				'textAlign'  : 'right',
@@ -973,7 +964,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 				'left' 		 : 'initial',
 			});
 		}
-			DOM.footer.css({
+			$('div.footer').css({
 				'opacity' : '1'
 			});
 	}
@@ -991,9 +982,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 		if(window.windowWidth < app_break_smmd){
 
 			//Show ads
-			// DOM.adsense.show();
+			// $('#adsense').show();
 
-			DOM.videoOverlay.css({
+			$('#video-overlay').css({
 				'position' : 'fixed',
 				'top'      : 'initial',
 				'bottom'   : '0px',
@@ -1005,9 +996,9 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 				'-webkit-transition-duration' : '1s'
 			});
 
-			DOM.videoSizeCtrl.hide();
+			$('div.video-size-ctrl').hide();
 
-			DOM.video.hide();
+			$('#video').hide();
 
 		}else{
 
@@ -1021,7 +1012,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 				'width'    : '25%'
 			});
 
-			DOM.videoSizeCtrl.css({
+			$('div.video-size-ctrl').css({
 				'bottom'     : '72px',
 				'background' : '#0f1010',
 				'textAlign'  : 'right',
@@ -1030,7 +1021,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 			});
 		}
 
-			DOM.footer.css({
+			$('div.footer').css({
 				'opacity' : '1'
 			});
 	}
@@ -1067,29 +1058,27 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 	function themeLight(){
 
-		DOM.resultItems = $('.resultItems');
-
 		//Set global and cookie to dark
 		window.theme = 'light';
 		document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 		document.cookie = "theme=light";
 
 
-		DOM.app.css({
+		$('#app, html, body').css({
 			'background': '#ebebeb'}
 		);
 
 		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('light-fonts');
 
 
-		DOM.liHeader.addClass('light-border-bottom');
-		DOM.sectionHeader.addClass('light-border-bottom');
-		DOM.searchSubmit.addClass('light-border-left');
+		$('.li-header').addClass('light-border-bottom');
+		$('.section-header').addClass('light-border-bottom');
+		$('#searchSubmit').addClass('light-border-left');
 
-		DOM.asideApp.addClass('light-border-right');
-		DOM.inputText.addClass('light-placeholder');
+		$('aside.app').addClass('light-border-right');
+		$('input[type=text]').addClass('light-placeholder');
 
-		// DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
+		// $('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
 
 		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('light-input-bg');
 	}
@@ -1105,29 +1094,27 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 	function themeDark(){
 
-		DOM.resultItems = $('.resultItems');
-
 		//set global & cookie to light
 		window.theme = 'dark';
 		document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 		document.cookie = "theme=dark";
 
 
-		DOM.app.css({
+		$('#app, html, body').css({
 			'background': '#1b1d1d'}
 		);
 
 		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('light-fonts');
 
 
-		DOM.liHeader.removeClass('light-border-bottom');
-		DOM.sectionHeader.removeClass('light-border-bottom');
-		DOM.searchSubmit.removeClass('light-border-left');
+		$('.li-header').removeClass('light-border-bottom');
+		$('.section-header').removeClass('light-border-bottom');
+		$('#searchSubmit').removeClass('light-border-left');
 
-		DOM.asideApp.removeClass('light-border-right');
-		DOM.inputText.removeClass('light-placeholder');
+		$('aside.app').removeClass('light-border-right');
+		$('input[type=text]').removeClass('light-placeholder');
 
-		// DOM.resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+		// $('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
 		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('light-input-bg');
 	}
@@ -1142,12 +1129,12 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 
 	function hideAdsense(){
-		DOM.adsense.fadeOut();
+		$('#adsense').fadeOut();
 		setTimeout(showAdsense, 25000);
 	}
 
 	function showAdsense(){
-		DOM.adsense.fadeIn();
+		$('#adsense').fadeIn();
 	}
 
 
@@ -1179,63 +1166,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 
 
-	function registerDOM(template){
-
-		if(template === '#app'){
-			DOM.sectionApp 				= $('section.app');
-			DOM.asideApp 				= $('aside.app');
-			DOM.video 					= $('#video');
-			DOM.videoSizeCtrl 			= $('div.video-size-ctrl');
-			DOM.footer 					= $('div.footer');
-			DOM.resultItems 			= $('.resultItems');
-			DOM.scrollContainer 		= $('.scroll-container');
-			DOM.seekBar 				= $('#seek-bar');
-			DOM.seekFill 				= $('.seek-fill');
-			DOM.deleteAcctModal 		= $('#deleteAcctModal');
-			DOM.nameDeviceModal 		= $('#nameDeviceModal');
-			DOM.adsense 				= $('#adsense');
-			DOM.videoOverlay 			= $('#video-overlay');
-			DOM.app 					= $('#app, html, body');
-			DOM.liHeader 				= $('.li-header');
-			DOM.sectionHeader 			= $('.section-header');
-			DOM.searchSubmit 			= $('#searchSubmit');
-			DOM.inputText 				= $('input[type=text]');
-			DOM.newPlaylistForm 		= $('.newPlaylistForm');
-			DOM.restoreAcctModal 		= $('#restoreAcctModal');
-
-		}//#app
-
-		if(template === '#landing'){
-			DOM.restoreAcctModal = $('#restoreAcctModal');
-
-		}//#landing
-
-		if(template === '#forgot'){
-
-		}//#library
-
-		if(template === '#reset'){
-
-		}//#library
-
-		if(template === '#library'){
-
-		}//#library
-
-		if(template === '#playlist'){
-
-		}//#library
-
-		if(template === '#subPlaylist'){
-
-		}//#library
-
-		if(template === '#acctSettings'){
-			DOM.deleteAcctModal = $('#deleteAcctModal');
-			DOM.themeDark 		= $('#themeDark');
-
-		}//#acctSettings
-	}
 
 
 
@@ -1410,7 +1340,6 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 	//return constructor
 	return exports;
-
 
 
 
