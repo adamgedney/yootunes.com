@@ -133,17 +133,25 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 					//get the user data for stored theme
 					//then load the app on success
+					//**Sets theme and uid cookie
 					User.getUser(_cookies.userId, function(response){
 
 					});
 
 
-
+					determineDevice(function(device){
+						window.thisDevice = device;
+						console.log(window.thisDevice);
+					});
 
 					//Load app, set cookie, fire event
-					//Cookie setting here is redundant but harmless
-					//Prevents duplicate code.
-					loadApplication();
+						//Cookie setting here is redundant but harmless
+						//Prevents duplicate code.
+						loadApplication();
+
+
+
+
 
 				}//AJAX success
 			});//AJAX library count
@@ -154,18 +162,18 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 
 
-		$(document).on('rendered', function(event){
+		// $(document).on('rendered', function(event){
 
-			//ON APP RENDER========================//
-			if(event.template === '#app'){
+		// 	//ON APP RENDER========================//
+		// 	if(event.template === '#app'){
 
 
-				console.log("#app in init");
-				//Determine this device before we laod application
-				determineDevice();
-			}
+		// 		console.log("#app in init");
+		// 		//Determine this device before we laod application
+		// 		determineDevice();
+		// 	}
 
-		});
+		// });
 
 
 
@@ -266,7 +274,7 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 
 
 
-	function determineDevice(){
+	function determineDevice(callback){
 
 		console.log("determine ran in initjs");
 		//DEVICE DETECTION
@@ -290,6 +298,8 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService'], function($, 
 								window.thisDevice 	= devices[j];
 								match 				= true;
 
+								//trigger callback once ready
+								callback(devices[j]);
 
 								$.event.trigger({
 									type 			: 'gotdevices',

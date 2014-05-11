@@ -712,7 +712,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		//Listen for socket ON PLAY
 		//=============================//
 		_socketConnect.on('playOn', function (response) {
-
+console.log("payOn received", response);
 			//Set thisDevice from content controller's determination
 			_thisDevice = window.thisDevice;
 

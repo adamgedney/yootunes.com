@@ -450,9 +450,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 				//Render devices once init has retrieved them
 				$(document).on('gotdevices', function(event){
+					_thisDevice = event.thisDevice;
 					renderDevices(event.response);
 
-					console.log("gotdevices picked up evt", event.response);
+					console.log("gotdevices picked up evt", event);
 				});
 
 
@@ -1333,7 +1334,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'Init', 'User', 'Ui', 'Library'], 
 
 		//Loop through device list
 		for(var j=0;j<response.length;j++){
-
+console.log("render dev", response[j].id, _thisDevice);
 			//If device is this device, set name
 			if(response[j].id === _thisDevice){
 
