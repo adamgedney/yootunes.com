@@ -4,8 +4,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 
 
-
-
 	//private vars
 	var _songs 			= [];
 	var	_userId			= window.userId;
@@ -154,6 +152,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		//Show search history when user starts typing
 		$(document).on('keyup', '#searchInput', function(event){
 
+			var datalist = $('#datalistContainer');
 
 			//Send first 2 characters to API for querying history
 			if($(this).val().length >= 2){
@@ -168,16 +167,43 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 					dataType	: 'json',
 					success 	: function(response){
 
+						var displayedResults = 0;
+						var startDisplay = true;
+						datalist.empty();
 
-						$('#datalistContainer').empty();
+						datalist.append('<li>Search History</li><li></li>');
 
-						//Creates list of previous queries from DB. limit 10
-						for(var i=0;i<response.length;i++){
+						//Creates list of previous queries from DB.
+						for(var i=1;i<response.length;i++){
+							//Always load most recent
+							if(startDisplay === true){
+								datalist.append('<li>' + response[0].query + '</li>');
+								startDisplay = false;
+							}
 
-							$('#datalistContainer').append('<li>' + response[i].query + '</li>');
+
+							//Show only unique results
+							if(response[i].query !== response[i-1].query){
+								datalist.append('<li>' + response[i].query + '</li>');
+
+								displayedResults += 1;
+							}
+
+							//Only show 10 results
+							if(displayedResults === 10){
+								break;
+								startDisplay = true;
+							}
+
 						}
 					}//success
 				});//ajax
+			}//if length > 2
+
+			//If the user backspaced out of search then empty datalist
+			if(event.keyCode === 8 && $('#searchInput').val() === ''){
+				//Empty autocomplete
+				datalist.empty();
 			}
 		});
 
@@ -188,8 +214,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		//Sets selected datlist item as the search val and clicks search
 		$(document).on('click', 'ul#datalistContainer li', function(){
 
-			$('input#searchInput').val($(this).text());
-			$('#searchSubmit').trigger('click');
+			if($(this).text() !== 'Search History'){
+				$('input#searchInput').val($(this).text());
+				$('#searchSubmit').trigger('click');
+			}
+
 
 		});
 

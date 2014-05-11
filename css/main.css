@@ -1315,9 +1315,16 @@ section.app {
 #datalistContainer li {
   line-height: 27px;
 }
+#datalistContainer li:first-child {
+  color: #272a2a;
+  border-bottom: 1px solid #d6d6d6;
+}
 #datalistContainer li:hover {
   background: rgba(0, 0, 0, 0.1);
   cursor: pointer;
+}
+#datalistContainer li:first-child:hover {
+  background: none;
 }
 @media only screen and (min-width: 800px) {
   #datalistContainer {

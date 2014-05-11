@@ -1,10 +1,8 @@
-var KeyHash = (function(){
+(function(){
 
-	//constructor
-	var keyHash = function(){
-	}
 
-	keyHash.prototype = {
+
+	obj = {
 	    'Backspace'		: 8,
 	    'Tab'			: 9,
 	    'Enter'			: 13,
@@ -96,6 +94,6 @@ var KeyHash = (function(){
 
 
 
-	return keyHash;
+	return obj;
 
 })();

@@ -1,9 +1,8 @@
 (function(){
-define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function($, Key, getCookies, socketService){
+define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socketService){
 
 
 	//private vars
-	var _key 				= Key;
 	var _player 			= {};
 
 	var _playerPlaying      = false;

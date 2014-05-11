@@ -438,7 +438,7 @@ console.log(response, "remove from lib response");
 			method : 'GET',
 			dataType : 'json',
 			success : function(response){
-console.log(response, "add song to playlist");
+
 			}//success
 		});//ajax
 

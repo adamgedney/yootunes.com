@@ -47,6 +47,7 @@ require.config({
 		Handlebars 		: 'libs/handlebars',
 		lightbox 		: 'libs/lightbox-2.6.min',
 		parallax 		: 'libs/parallax',
+		keyHash 		: 'libs/keyHash',
 		User 			: 'controllers/user',
 		Init 			: 'controllers/init',
 		Auth 			: 'controllers/auth',

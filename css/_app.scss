@@ -626,9 +626,18 @@ section.app{
 			line-height: 27px;
 		}
 
+		li:first-child{
+			color: nth($grey, 1);
+			border-bottom: 1px solid nth($grey, 4);
+		}
+
 		li:hover{
 			background: rgba(0,0,0,.1);
 			cursor: pointer;
+		}
+
+		li:first-child:hover{
+			background: none;
 		}
 
 	@include app-break-smmd{
