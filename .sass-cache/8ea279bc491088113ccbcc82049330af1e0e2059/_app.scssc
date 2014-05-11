@@ -1,7 +1,7 @@
 3.2.9 (Media Mark)
-f86c0c1314ccdd19b47691a43ac781496d92303c
+437d2497e5ad9c57ce30054826653f12c12046b8
 o:Sass::Tree::RootNode
-:@template"ðd
+:@template"ïd
 
 
 .share-strip{
@@ -644,7 +644,7 @@ section.app{
 		}
 
 	@include app-break-smmd{
-		@include col(10);
+		@include col(9);
 		top: 68px;
 	}
 }
@@ -2343,7 +2343,7 @@ hover;;.;@Y;iz;/0;)To;;	i ;[o;
 ;#0;@r;$o;%;&{ ;i; [o;'	;["li;@r;i;(0o;-
 ;["first-child;;.;@r;i;/0o;-
 ;["
-hover;;.;@r;i;/0;)To;;"app-break-smmd;[o;;"col;[ ;@;{ ;i„;0;[o;;i;@;@;i„;[ ;"10o;
+hover;;.;@r;i;/0;)To;;"app-break-smmd;[o;;"col;[ ;@;{ ;i„;0;[o;;i;@;@;i„;[ ;"9o;
 ;	i ;["top;[ ;o;;;;"	68px;@;@;i…;;;@;{ ;iƒ;)T;0;[ ;@;["#datalistContainer;ii;o;;" ;ii; [o;!; [o;"
 ;#0;@™;$o;%;&{ ;ii; [o;>;["datalistContainer;@™;ii;)To;;	i ;[
 o;
