@@ -9,7 +9,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 	var _playonDevice;
 	var _thisDevice;
 
-	var server 	= 'http://ss.yootunes.com';
+	var server 	= 'http://ss.atomplayer.com';
 	var socket 	= io.connect(server);;
 
 
