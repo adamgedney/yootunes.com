@@ -2,38 +2,15 @@
 define(['jquery', 'getCookies'], function($, getCookies){
 
 
-// var User = (function(window, document, $){
-
-
-
-	//instances
-
-
 	//private vars
-	var DOM 		= {};
 	var _baseUrl 	= 'http://api.atomplayer.com';
 	var _userId;
 	var _devices 	= [];
 	var _thisDevice;
 
 
-
-
-
-
-
-
-
-
-
-		//Listen for rendered to register DOM elements
-		$(document).on('rendered', function(event){
-			registerDOM(event.template);
-		});
-
-
-		//retrieve device array from service
-		_devices = getCookies.devices;
+	//retrieve device array from service
+	_devices = getCookies.devices;
 
 
 
@@ -193,14 +170,11 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 		//retrieve device array from service
 		// _devices = getCookies.devices;
-		DOM.nameDeviceModal 	= $('#nameDeviceModal');
-		DOM.infoDeviceName 		= $('.infoDeviceName');
-		DOM.userDevicesSelected = $('#userDevices option:selected');
 
 		var currentDeviceId 	= "0";//default set in case we're new and not updating
-		var name 				= DOM.infoDeviceName.val();
-		var selectedDeviceName 	= DOM.userDevicesSelected.text();
-		var selectedDeviceId 	= DOM.userDevicesSelected.attr('data-id');
+		var name 				= $('.infoDeviceName').val();
+		var selectedDeviceName 	= $('#userDevices option:selected').text();
+		var selectedDeviceId 	= $('#userDevices option:selected').attr('data-id');
 		var deviceCookieAmount 	= _devices.length;
 
 
@@ -209,7 +183,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 			 //set cookie DEVICE# with device id here
 			document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
-			DOM.nameDeviceModal.fadeOut();
+			$('#nameDeviceModal').fadeOut();
 
 		}else{//NEW DEVICE
 
@@ -237,7 +211,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 						newDeviceName 	: response.newDeviceName
 					});//trigger
 
-					DOM.nameDeviceModal.fadeOut();
+					$('#nameDeviceModal').fadeOut();
 
 				}//success
 			});//ajax
@@ -296,56 +270,5 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
-	function registerDOM(template){
-
-		if(template === '#app'){
-			DOM.nameDeviceModal 	= $('#nameDeviceModal');
-			DOM.infoDeviceName 		= $('.infoDeviceName');
-			DOM.userDevicesSelected = $('#userDevices option:selected');
-
-		}//#app
-
-		if(template === '#landing'){
-
-		}//#landing
-
-		if(template === '#forgot'){
-
-		}//#library
-
-		if(template === '#reset'){
-
-		}//#library
-
-		if(template === '#library'){
-
-		}//#library
-
-		if(template === '#playlist'){
-
-		}//#library
-
-		if(template === '#subPlaylist'){
-
-		}//#library
-
-		if(template === '#acctSettings'){
-
-		}//#acctSettings
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-// })(window, document, jQuery);
 });//define()
 })();//function
