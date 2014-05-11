@@ -15,12 +15,6 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
-
-
-
-
-
-
 		//Name this device
 		$(document).on('click', '#submitDeviceName', function(event){
 			event.preventDefault();

@@ -119,8 +119,9 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 
 
-
-		//Listen for rendered
+		//========================================//
+		//Listen for RENDERED
+		//========================================//
 		$(document).on('rendered', function(event){
 
 			if(event.template === '#app'){
@@ -354,9 +355,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 		//Fires when player returns ready
 		window.onPlayerReady = function(event) {
 
-
-
-
 			//FOOTER PLAY BUTTON Click Handler=======//
 			$(document).on('click', '#play-btn', function(){
 				var youtubeId = $('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
@@ -377,41 +375,7 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 						_paused 		= true;
 						_playerPlaying 	= false;
 					}
-
 			});
-
-
-
-
-
-
-
-
-
-			//NOTE:: ** Only allow if serach is NOT in FOCUS
-			//Keypress controls for play/pause etc.
-			// $(document).on('keypress', function(event){
-
-				//var youtubeId = "";
-
-			// 	//If Spacebar pressed
-			// 	if(_key.Space){
-			// 		//Play if not already playing
-			// 		if(!_playerPlaying){
-
-			// 			play(youtubeId);
-
-			// 		//Stop playing if already playing
-			// 		}else{
-
-			// 			pause();
-			// 		}
-			// 	}
-
-			// 	event.preventDefault();
-			// 	return false;
-
-			// });
 
 
 
@@ -460,12 +424,6 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 			});//volume mousemove
 
 
-
-
-
-
-
-
 		//================================//
 		};//On Player Ready
 		//================================//
@@ -474,7 +432,13 @@ define(['jquery', 'js/libs/keyHash.js', 'getCookies', 'socketService'], function
 
 
 
-		//LIstens for Player API state change message
+
+
+
+
+		//===========================================//
+		//Listens for PLAYER API STATE CHANGE message
+		//===========================================//
 		window.onPlayerStateChange = function(event){
 
 			var id = _player.getVideoData().video_id;
