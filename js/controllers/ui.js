@@ -400,6 +400,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 						//Handle mobile video popup
 						if(_popupToggle === true){
 
+
 							showNormalSize();
 
 						}else{
@@ -419,6 +420,7 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 							showNormalSize();
 							_popupToggle = !_popupToggle;
 						}else{
+
 							showMinSize();
 
 							_popupToggle = !_popupToggle;
@@ -1230,74 +1232,84 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 					var input 			= getCoordinates('.newPlaylistInput');
 					var overPlaylist 	= getCoordinates(_overPlaylist);
 
-
-					that.css({
-						'transition-duration' 	: '1s',
-						'cursor' 				: 'pointer'
-					});
+					//Only runs if we're over a playlist
+					if(typeof overPlaylist != 'undefined'){
 
 
-					//OVER THE CREATE PLAYLIST FORM
-					if(_dragResult.X   >= input.left &&  _dragResult.X   <= input.right &&
-					   _dragResult.Y   >= input.top  &&  _dragResult.Y   <= input.bottom){
-
-						//Set input value
-						var submit = $('.newPlaylistSubmit');
-
-						//sanitize string
-						var sanitized = that.text().replace(/[^a-zA-Z ]/g, "")
-							sanitized = sanitized.substr(0, 25);
-
-						$('.newPlaylistInput').val(sanitized);
-						submit.attr('data-user', that.attr('data-user'));
-						submit.attr('data-id', that.attr('data-id'));//song id
-
-						//Remove clone from stage
-						that.fadeOut(function(){
-							that.remove();
+						that.css({
+							'transition-duration' 	: '1s',
+							'cursor' 				: 'pointer'
 						});
 
 
+						//OVER THE CREATE PLAYLIST FORM
+						if(_dragResult.X   >= input.left &&  _dragResult.X   <= input.right &&
+						   _dragResult.Y   >= input.top  &&  _dragResult.Y   <= input.bottom){
 
-					//OVER A PLAYLIST
-					}else if(_dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
-					   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){//Return item to origin position
+							//Set input value
+							var submit = $('.newPlaylistSubmit');
 
-						var songId 		= that.attr('data-id');
-						var playlistId 	= _overPlaylist.attr('data-id');
-						var user 		= _userId;
+							//sanitize string
+							var sanitized = that.text().replace(/[^a-zA-Z ]/g, "")
+								sanitized = sanitized.substr(0, 25);
 
+							$('.newPlaylistInput').val(sanitized);
+							submit.attr('data-user', that.attr('data-user'));
+							submit.attr('data-id', that.attr('data-id'));//song id
 
-						//Add song to playist
-						Library.addSongToPlaylist(songId, playlistId, user);
-
-						//Remove clone from stage
-						that.fadeOut(function(){
-							that.remove();
-						});
-
-
-
-					}else{//RETURN TO ORIGINAL LOCATION
+							//Remove clone from stage
+							that.fadeOut(function(){
+								that.remove();
+							});
 
 
-						that.offset({top: _dragResult.origY, left: _dragResult.origX});
 
-						//Remove clone from stage
-						that.fadeOut(function(){
-							that.remove();
-						});
+						//OVER A PLAYLIST
+						}else if(_dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
+						   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){//Return item to origin position
 
-					}//else
+							var songId 		= that.attr('data-id');
+							var playlistId 	= _overPlaylist.attr('data-id');
+							var user 		= _userId;
 
 
-					//Unbind move listener
-					$(document).unbind('mousemove');
-					//Unbind mouseup listener
-					$(document).unbind('mouseup');
+							//Add song to playist
+							Library.addSongToPlaylist(songId, playlistId, user);
 
+							//Remove clone from stage
+							that.fadeOut(function(){
+								that.remove();
+							});
+
+
+
+						}else{//RETURN TO ORIGINAL LOCATION
+
+
+							that.offset({top: _dragResult.origY, left: _dragResult.origX});
+
+							//Remove clone from stage
+							that.fadeOut(function(){
+								that.remove();
+							});
+
+						}//else
+
+
+						//Unbind move listener
+						$(document).unbind('mousemove');
+						//Unbind mouseup listener
+						$(document).unbind('mouseup');
+
+					}else{
+
+						//Unbind move listener
+						$(document).unbind('mousemove');
+						//Unbind mouseup listener
+						$(document).unbind('mouseup');
+
+					}//if overPlaylist != undefined
 				});//mouseup
-
 		}//dragging === true
 	}
 
@@ -1307,21 +1319,24 @@ define(['jquery', 'js/libs/keyHash.js', 'Player', 'Library','getCookies', 'light
 
 	function getCoordinates(selector){
 
-		this.coordinates = {};
-		this.item 		= $(selector);
-		this.itemLeft 	= this.item.offset().left;
-		this.itemRight 	= this.item.offset().left + this.item.width();
-		this.itemTop 	= this.item.offset().top;
-		this.itemBottom = this.item.offset().top + this.item.height();
+		if(typeof selector != 'undefined'){
 
-		this.coordinates.top 	= this.itemTop,
-		this.coordinates.right 	= this.itemRight,
-		this.coordinates.bottom = this.itemBottom,
-		this.coordinates.left 	= this.itemLeft,
-		this.coordinates.height = this.item.height(),
-		this.coordinates.width 	= this.item.width();
+			this.coordinates = {};
+			this.item 		= $(selector);
+			this.itemLeft 	= this.item.offset().left;
+			this.itemRight 	= this.item.offset().left + this.item.width();
+			this.itemTop 	= this.item.offset().top;
+			this.itemBottom = this.item.offset().top + this.item.height();
 
-		return this.coordinates;
+			this.coordinates.top 	= this.itemTop,
+			this.coordinates.right 	= this.itemRight,
+			this.coordinates.bottom = this.itemBottom,
+			this.coordinates.left 	= this.itemLeft,
+			this.coordinates.height = this.item.height(),
+			this.coordinates.width 	= this.item.width();
+
+			return this.coordinates;
+		}
 	}
 
 
