@@ -408,14 +408,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 							renderDevices(response);
 						});
 					}
-
-
-
-
-
-
-					console.log("renderdevices picked up in Content", event);
-				});
+				});//renderdevices
 
 
 				//if playlistId cookie exists load playlist, else load library

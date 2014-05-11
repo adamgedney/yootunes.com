@@ -23,7 +23,7 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 
 	var Init = function(){
 
-console.log(socketService, "init socketservice reference");
+
 		//=============================//
 		//Check for URL parameters
 		//=============================//
@@ -134,46 +134,21 @@ console.log(socketService, "init socketservice reference");
 					//get the user data for stored theme
 					//then load the app on success
 					//**Sets theme and uid cookie
-					User.getUser(_cookies.userId, function(response){
-
-					});
+					User.getUser(_cookies.userId, function(){});
 
 
-					// determineDevice(function(device){
-					// 	window.thisDevice = device;
-					// 	console.log(window.thisDevice);
-					// });
-			determineDevice.get(function(response){
-				console.log(response, "determine response in init");
-			});
+
+					determineDevice.get(function(){});
 
 					//Load app, set cookie, fire event
-						//Cookie setting here is redundant but harmless
-						//Prevents duplicate code.
-						loadApplication();
+					//Cookie setting here is redundant but harmless
+					//Prevents duplicate code.
+					loadApplication();
 
 				}//AJAX success
 			});//AJAX library count
 		}//ELSE USER EXISTS
 
-
-
-
-
-		// $(document).on('rendered', function(event){
-
-		// 	//ON APP RENDER========================//
-		// 	if(event.template === '#app'){
-
-
-		// 		//Determine this device before we laod application
-		// 		determineDevice(function(device){
-		// 			window.thisDevice = device;
-
-		// 		});
-		// 	}
-
-		// });
 
 
 
@@ -200,9 +175,7 @@ console.log(socketService, "init socketservice reference");
 //========================//
 
 
-	// Init.prototype = {
-	// 	getUser : getUser
-	// }
+
 
 
 	return Init;
@@ -243,10 +216,6 @@ console.log(socketService, "init socketservice reference");
 			playlistId 		: _playlistId
 		});
 
-		// determineDevice.get(function(device){
-		// 	window.thisDevice = device;
-
-		// });
 
 		//load the application
 		Content.loadApp();

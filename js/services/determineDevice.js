@@ -22,8 +22,6 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies ,getUs
 
 
 
-
-
 		function determineDevice(callback){
 
 			var userId = window.userId;
@@ -64,8 +62,6 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies ,getUs
 									origin 			: 'determinate'
 								});
 
-
-								console.log("this device in determine", window.thisDevice);
 								break;
 							}//if
 						}//for j
