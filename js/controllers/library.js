@@ -7,7 +7,6 @@ define(['jquery'], function($){
 // var Library = (function(window, document, $){
 
 	//private vars
-	var DOM 			= {};
 	var _addedToLibrary = false;
 	var _libraryId 		= '';
 	var _visibleFormId 	= '';
@@ -29,7 +28,6 @@ define(['jquery'], function($){
 
 		//Listen for rendered to register DOM elements
 		$(document).on('rendered', function(event){
-			registerDOM(event.template);
 
 			if(event.template === '#playlist'){
 
@@ -188,7 +186,7 @@ define(['jquery'], function($){
 			createNewPlaylist(userId, songId, playlistName);
 
 			//Clear form on submit
-			DOM.newPlaylistInput.val('');
+			$('.newPlaylistInput').val('');
 
 			event.preventDefault();
 		});
@@ -308,8 +306,8 @@ define(['jquery'], function($){
 console.log(response, "add to lib response");
 				if(response === true){
 					//Display total songs in library in interface
-					var currentNumber = DOM.collectionTotal.html();
-					DOM.collectionTotal.html(parseInt(currentNumber) + 1);
+					var currentNumber = $('#collectionTotal').html();
+					$('#collectionTotal').html(parseInt(currentNumber) + 1);
 				}
 			}//success
 		});//ajax
@@ -349,8 +347,8 @@ console.log(response, "remove from lib response");
 				if(response === true){
 
 					//Display total songs in library in interface
-					var currentNumber = DOM.collectionTotal.html();
-					DOM.collectionTotal.html(parseInt(currentNumber) - 1);
+					var currentNumber = $('#collectionTotal').html();
+					$('#collectionTotal').html(parseInt(currentNumber) - 1);
 				}
 
 			}//success
@@ -560,45 +558,6 @@ console.log(response, "remove from lib response");
 
 
 
-
-
-
-	function registerDOM(template){
-
-		if(template === '#app'){
-			DOM.collectionTotal 	= $('#collectionTotal');
-			DOM.newPlaylistInput 	= $('.newPlaylistInput');
-
-		}//#app
-
-		if(template === '#landing'){
-
-		}//#landing
-
-		if(template === '#forgot'){
-
-		}//#library
-
-		if(template === '#reset'){
-
-		}//#library
-
-		if(template === '#library'){
-
-		}//#library
-
-		if(template === '#playlist'){
-
-		}//#library
-
-		if(template === '#subPlaylist'){
-
-		}//#library
-
-		if(template === '#acctSettings'){
-
-		}//#acctSettings
-	}
 
 
 
