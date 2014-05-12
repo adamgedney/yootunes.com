@@ -5,11 +5,13 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 	//private vars
 	var _baseUrl 			= 'http://api.atomplayer.com';
 
-
+	var itemHolding 		= 0;
 	var _dragResult 		= {};
 		_dragResult.dragging= false;
 		_dragResult.origX;
 		_dragResult.origY;
+	var _clone 			= '';
+	var _setClone 		= false;
 
 	var _overPlaylist;
 
@@ -223,12 +225,18 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			//Add to playlist DRAG & DROP interaction handler=======//
 			$(document).on('mousedown', '.resultItems', function(event){
 
+				var that 	= $(this);
+				var evt 	= event;
 
-					itemDragging($(this), event);
+				//Wait for prolonged hold before enabling itemDragging
+				itemHolding = setTimeout(function(){
+					itemDragging(that, evt);
+				}, 1000);
 
+			//bind events that can cancel timeout before it runs. Prevents multiple clones
+			}).bind('click mouseup mouseleave', '.resultItems', function(){
+			    clearTimeout(itemHolding);
 			});
-
-
 
 
 
@@ -382,7 +390,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 					//Show last column
 					$(this).find('.li-col7').show();
-					$('.li-col2').css({'width':'41.6666666%'});//4 col
+					$('.li-col4').css({'width':'8.33333333%'});//1 col Album col
 
 					$('li.resultItems').removeClass('bg-white');
 					$('li.resultItems').removeClass('dropdown-bold');
@@ -401,7 +409,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 					//Hide last column
 					$('.li-col7').hide();
-					$('.li-col2').css({'width':'50%'});//5 col
+					$('.li-col4').css({'width':'16.6666667%'});//2 col Album column
 
 					$(this).parent().css({'background' : 'none'});
 
@@ -1210,62 +1218,79 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 	//Handles resultItems drag to playist coordinates
 	function itemDragging(elem, event){
-
+console.log("itemDragging ran");
 
 
 		if(_dragResult.dragging === false){
-
+			console.log();
 			//Set item to dragging
 			_dragResult.dragging = true;
 
 
-			var that 			= elem.clone().find('span.li-col2').appendTo('.scroll-container');
-			var thatWidth 		= that.width();
-			var thatHeight 		= that.height();
+			var thatWidth;
+			var thatHeight;
+			var moving 			= false;
 			_dragResult.origX 	= elem.find('span.li-col2').offset().left;
 			_dragResult.origY 	= elem.find('span.li-col2').offset().top;
 
 
 
 				//If in dragging mode and we're moving the mouse then redraw resultItem
-				$(document).on('mousemove', function(event){
+				$(document).on('mousemove.dragging', function(event){
+
+					moving = true;
+
+					if(_setClone === false){
+						//Only set these values once
+						_clone 		= elem.clone().find('span.li-col2').appendTo('.scroll-container');
+						thatWidth 	= _clone.width();
+						thatHeight 	= _clone.height();
+						_setClone 	= true;
 
 
-					that.css({
-						'position' 		: 'absolute',
-						'zIndex' 		: '999',
-						'cursor'    	: 'move',
-						'pointerEvents': 'none'
-					});
+						_clone.css({
+							'position' 		: 'absolute',
+							'zIndex' 		: '999',
+							'cursor'    	: 'move',
+							'pointerEvents': 'none'
+						});
+					}//setClone
 
-					var dragX = event.pageX - (thatWidth / 2);
-					var dragY = event.pageY - (thatHeight / 2);
-					_dragResult.X 			= event.pageX;
-					_dragResult.Y 			= event.pageY;
+						var dragX = event.pageX - (thatWidth / 2);
+						var dragY = event.pageY - (thatHeight / 2);
+						_dragResult.X 			= event.pageX;
+						_dragResult.Y 			= event.pageY;
 
-					//Only set position when dragging
-					if(_dragResult.dragging){
-						that.offset({top:dragY, left:dragX});
-					}//dragging;
-				});
+						//Only set position when dragging
+						if(_dragResult.dragging){
+							_clone.offset({top:dragY, left:dragX});
+						}//dragging;
+
+				});//MOUSEMOVE
+
+
+
+
 
 
 				//Releasing item. Check to see if we're over a playlist
 				//otherwise return to original location
-				$(document).on('mouseup', function(event){
-
+				$(document).on('mouseup.dragging', function(event){
+					console.log("mouseup in itemDragging in ui");
 					//Set item to not dragging !important
-					_dragResult.dragging = false;
+
+					if(moving === true){
+						_dragResult.dragging 	= false;
+						_setClone 				= false;
+					}
+
 
 					//If over new playlist, drop li-col2 title into input value
 					var input 			= getCoordinates('.newPlaylistInput');
 					var overPlaylist 	= getCoordinates(_overPlaylist);
 
-					//Only runs if we're over a playlist
-					if(typeof overPlaylist != 'undefined'){
 
-
-						that.css({
+						_clone.css({
 							'transition-duration' 	: '1s',
 							'cursor' 				: 'pointer'
 						});
@@ -1279,25 +1304,31 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 							var submit = $('.newPlaylistSubmit');
 
 							//sanitize string
-							var sanitized = that.text().replace(/[^a-zA-Z ]/g, "")
+							var sanitized = _clone.text().replace(/[^a-zA-Z ]/g, "")
 								sanitized = sanitized.substr(0, 25);
 
 							$('.newPlaylistInput').val(sanitized);
-							submit.attr('data-user', that.attr('data-user'));
-							submit.attr('data-id', that.attr('data-id'));//song id
+							submit.attr('data-user', _clone.attr('data-user'));
+							submit.attr('data-id', _clone.attr('data-id'));//song id
 
 							//Remove clone from stage
-							that.fadeOut(function(){
-								that.remove();
+							_clone.fadeOut(function(){
+								_clone.remove();
+								_clone = '';
+
+								//Unbind move listener
+								$(document).unbind('mousemove.dragging');
+								//Unbind mouseup listener
+								$(document).unbind('mouseup.dragging');
 							});
 
 
 
 						//OVER A PLAYLIST
-						}else if(_dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
+						}else if(typeof overPlaylist != 'undefined' && _dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
 						   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){//Return item to origin position
 
-							var songId 		= that.attr('data-id');
+							var songId 		= _clone.attr('data-id');
 							var playlistId 	= _overPlaylist.attr('data-id');
 							var user 		= _userId;
 
@@ -1306,38 +1337,37 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 							Library.addSongToPlaylist(songId, playlistId, user);
 
 							//Remove clone from stage
-							that.fadeOut(function(){
-								that.remove();
+							_clone.fadeOut(function(){
+								_clone.remove();
+								_clone = '';
+
+								//Unbind move listener
+								$(document).unbind('mousemove.dragging');
+								//Unbind mouseup listener
+								$(document).unbind('mouseup.dragging');
 							});
 
 
 
 						}else{//RETURN TO ORIGINAL LOCATION
-
-
-							that.offset({top: _dragResult.origY, left: _dragResult.origX});
+console.log("return to original");
+							_clone.offset({top: _dragResult.origY, left: _dragResult.origX});
 
 							//Remove clone from stage
-							that.fadeOut(function(){
-								that.remove();
+							_clone.fadeOut(function(){
+								_clone.remove();
+								_clone = '';
+
+								//Unbind move listener
+								$(document).unbind('mousemove.dragging');
+								//Unbind mouseup listener
+								$(document).unbind('mouseup.dragging');
 							});
 
 						}//else
 
 
-						//Unbind move listener
-						// $(document).unbind('mousemove');
-						// //Unbind mouseup listener
-						// $(document).unbind('mouseup');
 
-					}else{
-
-						// //Unbind move listener
-						// $(document).unbind('mousemove');
-						// //Unbind mouseup listener
-						// $(document).unbind('mouseup');
-
-					}//if overPlaylist != undefined
 				});//mouseup
 		}//dragging === true
 	}
