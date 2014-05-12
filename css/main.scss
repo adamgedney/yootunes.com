@@ -232,12 +232,13 @@ header {
   @include col(12);
   overflow: hidden;
   background: $white;
+  min-height: 475px;
 
-  @include break-sm{
+  /*@include break-sm{*/
   	background: url(../images/hero-bg.jpg) no-repeat;
   	background-size: cover;
   	background-attachment: fixed;
-  }
+  /*}*/
 
   @include break-md{
   	height: 700px;
@@ -249,7 +250,7 @@ header {
 .cta{
 	height: 100%;
 	@include col(12);
-	margin-top: 108px;
+	margin-top: 198px;
 
 	@include break-sm{
 		margin-top: 198px;
@@ -302,31 +303,36 @@ header {
 
 .get-started{
 	background: $blue;
-	@include col(2);
-	@include col_ctr(2);
+	@include col(8);
+	@include col_ctr(8);
 	height: 48px;
 	border: none;
 	color: $white;
-	margin-top: 48px;
+	margin-top: 90px;
 	opacity: .9;
+
+	@include break-md{
+		@include col(2);
+		@include col_ctr(2);
+	}
 }
 
 
 .signup{
 	background: $white;
-	padding: 2%;
+	padding: 1%;
 	@include col(12);
 	position: absolute;
-	top: 36px;
+	top: 57px;
 	z-index: 1;
 	border-radius: 2px;
-	opacity: .9;
 	/*margin-top: 81px;*/
 
 
 	@include break-md{
 		@include col(4);
 		@include col_ctr(4);
+		padding: 2%;
 	}
 
 	h2{
@@ -409,9 +415,11 @@ header {
 		text-align: center;
 		color: $white;
 		padding: 72px 0 72px;
+		font-size: 2.1em;
 
 		@include break-sm{
 			padding: 148px 0 72px;
+			font-size: 3.6em;
 		}
 	}
 }
@@ -613,11 +621,11 @@ footer{
 
 	.col-3{
 		// padding: 114px 6% 0 0;
-		@include col(6);
-		@include col_ctr(6);
+		@include col(4);
+		@include col_ctr(4);
 
 		@include break-md{
-			@include col(4);
+			@include col(3);
 			@include col_ctr(0);
 			float: right;
 			padding: 114px 6% 0 0;
@@ -629,14 +637,25 @@ footer{
 			li{
 				display: inline-block;
 				@include col(2);
+				margin-left: 9px;
+				margin-right: 9px;
+
 				@include break-md{
-					float: right;
+					margin-right: 0;
+					margin-left: 0;
 				}
 
 				.svg{
-					fill: nth($grey, 2);
 					height: 30px;
 				}
+			}
+
+			li:first-child{
+				margin-left: 0;
+			}
+
+			li:last-child{
+				margin-right: 0;
 			}
 		}
 	}

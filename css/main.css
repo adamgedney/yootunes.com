@@ -711,13 +711,12 @@ header #sign-in-btn {
   width: 100%;
   overflow: hidden;
   background: #ebebeb;
-}
-@media only screen and (min-width: 480px) {
-  .hero {
-    background: url(../images/hero-bg.jpg) no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-  }
+  min-height: 475px;
+  /*@include break-sm{*/
+  background: url(../images/hero-bg.jpg) no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  /*}*/
 }
 @media only screen and (min-width: 770px) {
   .hero {
@@ -729,7 +728,7 @@ header #sign-in-btn {
 .cta {
   height: 100%;
   width: 100%;
-  margin-top: 108px;
+  margin-top: 198px;
 }
 @media only screen and (min-width: 480px) {
   .cta {
@@ -786,25 +785,31 @@ header #sign-in-btn {
 
 .get-started {
   background: #3b578a;
-  width: 16.6666667%;
-  margin-left: 41.6666666%;
-  margin-right: 41.6666666%;
+  width: 66.6666666%;
+  margin-left: 16.6666667%;
+  margin-right: 16.6666667%;
   height: 48px;
   border: none;
   color: #ebebeb;
-  margin-top: 48px;
+  margin-top: 90px;
   opacity: .9;
+}
+@media only screen and (min-width: 770px) {
+  .get-started {
+    width: 16.6666667%;
+    margin-left: 41.6666666%;
+    margin-right: 41.6666666%;
+  }
 }
 
 .signup {
   background: #ebebeb;
-  padding: 2%;
+  padding: 1%;
   width: 100%;
   position: absolute;
-  top: 36px;
+  top: 57px;
   z-index: 1;
   border-radius: 2px;
-  opacity: .9;
   /*margin-top: 81px;*/
 }
 @media only screen and (min-width: 770px) {
@@ -812,6 +817,7 @@ header #sign-in-btn {
     width: 33.3333333%;
     margin-left: 33.3333334%;
     margin-right: 33.3333334%;
+    padding: 2%;
   }
 }
 .signup h2 {
@@ -894,10 +900,12 @@ header #sign-in-btn {
   text-align: center;
   color: #ebebeb;
   padding: 72px 0 72px;
+  font-size: 2.1em;
 }
 @media only screen and (min-width: 480px) {
   .howto h2 {
     padding: 148px 0 72px;
+    font-size: 3.6em;
   }
 }
 
@@ -1088,13 +1096,13 @@ footer .col-2 {
   }
 }
 footer .col-3 {
-  width: 50%;
-  margin-left: 25%;
-  margin-right: 25%;
+  width: 33.3333333%;
+  margin-left: 33.3333334%;
+  margin-right: 33.3333334%;
 }
 @media only screen and (min-width: 770px) {
   footer .col-3 {
-    width: 33.3333333%;
+    width: 25%;
     margin-left: 0;
     margin-right: 0;
     float: right;
@@ -1107,15 +1115,23 @@ footer .col-3 ul {
 footer .col-3 ul li {
   display: inline-block;
   width: 16.6666667%;
+  margin-left: 9px;
+  margin-right: 9px;
 }
 @media only screen and (min-width: 770px) {
   footer .col-3 ul li {
-    float: right;
+    margin-right: 0;
+    margin-left: 0;
   }
 }
 footer .col-3 ul li .svg {
-  fill: #494f4f;
   height: 30px;
+}
+footer .col-3 ul li:first-child {
+  margin-left: 0;
+}
+footer .col-3 ul li:last-child {
+  margin-right: 0;
 }
 
 #forgotFormContainer {
