@@ -1,5 +1,10 @@
 
 
+.dropdown-bold{
+	font-family: OpenSansBold;
+	color: $red !important;//Used for js specificity overrides
+}
+
 
 .share-strip{
 	overflow: hidden;
@@ -302,7 +307,7 @@ font-size: .8em;
 			position: relative;
 
 			a{
-				color: nth($grey, 2);
+				color: nth($grey, 3);
 				@include col(11);
 			}
 
@@ -721,9 +726,7 @@ section.app{
 	}
 }
 
-// .playIconImg{
-// 	opacity: .1;
-// }
+
 
 .scroll-container{
 	height: 74vh;
@@ -902,14 +905,16 @@ section.app{
 		width: 100%;
 		/*height: 100%;*/
 		min-height: 102px;
-		max-height: 202px;
+		max-height: 302px;
 	}
 
 	.li-desc{
-		line-height: 18px;
+		line-height:1.5;
+		font-family: OpenSans;
+		font-size: 1.5em;
 		margin-left: 9px;
 		display: inline-block;
-		@include col(5);
+		@include col(6);
 	}
 
 	.li-col1{
@@ -954,7 +959,7 @@ ul.dropdown-main-menu{
 		svg, img{
 			height: 36px;
 		}
-		margin:9px 0 0 18px;
+		margin:0 0 0 18px;
 	}
 }
 
@@ -1092,26 +1097,34 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	label{
 		display: block;
 		font-size: 1.2em;
-		color: nth($grey, 2);
+		color: nth($grey, 3);
+		margin: 15px 0 6px 0;
 	}
 
-	.second-form{
-		margin-top: 36px;
-	}
 }
 
 .info-col1, .info-col2, .info-col3{
 	@include col(12);
 	height: 100%;
+	margin-bottom: 72px;
 
 	p{
-		border-bottom: 1px solid nth($grey, 5);
+		font-family: OpenSansBold;
+		font-size: 2.1em;
+		color: nth($grey, 5);
+		border-bottom: 1px solid nth($grey, 1);
 	}
 
 	@include app-break-smmd{
-		@include col(4);
-		float: left;
+
+		form, #infoDeviceList{
+			@include col(4);
+		}
 	}
+}
+
+.second-form{
+	margin-top: 48px;
 }
 
 .info-col1{
@@ -1141,17 +1154,24 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	padding-bottom: 72px;
 
 	@include app-break-smmd{
-		padding-left: 6%;
 		padding-bottom: 72px;
 	}
 }
 
 .info-col3{
 
-	label[for="emailUpdatesInfo"], label[for="themeDark"], input[type="checkbox"]{
+	label[for="emailUpdatesInfo"], label[for="themeDark"], input[type="checkbox"], label[for="disableTips"]{
 		display: inline;
 		vertical-align: middle;
 	}
+
+	button{
+
+		@include app-break-smmd{
+			@include col(4);
+		}
+	}
+
 }
 
 #logoutLink{
@@ -1690,10 +1710,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 	h3{
 		font-size: 1em;
-
-		@include app-break-smmd{
-			font-size: 1.2em;
-		}
 	}
 
 	select#play-on:-moz-focusring, select#mobile-play-on:-moz-focusring {

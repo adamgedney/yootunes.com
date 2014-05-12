@@ -361,6 +361,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 				var selector 	= '.main-dropdown';
 				var id 			= $(this).attr('data-id');
+				var resultItems = $('li.resultItems');
+				var thisId 		= $(this).parent().find('.playIconImg').attr('data-videoId');
 				_dropdownId 	= id;
 
 
@@ -369,7 +371,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 
-				if(this.toggle){
+				if(this.toggle){//DROPDOWN OPEN
 
 					$(this).parent().css({'background' : '#ffffff'});
 
@@ -383,16 +385,19 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 					$('.li-col2').css({'width':'41.6666666%'});//4 col
 
 					$('li.resultItems').removeClass('bg-white');
-					$('li.resultItems').removeClass('bold');
+					$('li.resultItems').removeClass('dropdown-bold');
 					$('li.resultItems').css({'borderBottom':'none'});
 
 					//Set the li item that triggered dropdown to white bg
 					$(this).parent().addClass('bg-white');
-					$(this).parent().addClass('bold');
-					$(this).parent().css({'borderBottom':'1px solid #ebebeb'});
+					$(this).parent().addClass('dropdown-bold');
+					$(this).parent().css({'borderBottom':'1px solid #343838'});
+
+					//Darken play icon
+					$(this).parent().find('.playIconImg').attr('src', 'images/icons/play-blck.png');
 
 
-				}else{
+				}else{//DROPDOWN CLOSE
 
 					//Hide last column
 					$('.li-col7').hide();
@@ -404,8 +409,11 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 					$('li.resultItems').css({'background':'none'});
 					$(this).parent().removeClass('bg-white');
-					$(this).parent().removeClass('bold');
+					$(this).parent().removeClass('dropdown-bold');
 					$(this).parent().css({'borderBottom':'none'});
+
+					//Lighten play icon
+					$(this).parent().find('.playIconImg').attr('src', 'images/icons/play-drk.png');
 				}
 
 
@@ -414,8 +422,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			}else{//Handles mobile view popup toggling
 			//======================================//
 				var playOnDevice 	=  $('#mobile-play-on option:selected').attr('data-id');
-				var thisId 			= $(this).parent().find('.playIconImg').attr('data-videoId');
-				var resultItems 	= $('li.resultItems');
+
 
 
 				//Highlight selected mobile video
@@ -1319,16 +1326,16 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 						//Unbind move listener
-						$(document).unbind('mousemove');
-						//Unbind mouseup listener
-						$(document).unbind('mouseup');
+						// $(document).unbind('mousemove');
+						// //Unbind mouseup listener
+						// $(document).unbind('mouseup');
 
 					}else{
 
-						//Unbind move listener
-						$(document).unbind('mousemove');
-						//Unbind mouseup listener
-						$(document).unbind('mouseup');
+						// //Unbind move listener
+						// $(document).unbind('mousemove');
+						// //Unbind mouseup listener
+						// $(document).unbind('mouseup');
 
 					}//if overPlaylist != undefined
 				});//mouseup

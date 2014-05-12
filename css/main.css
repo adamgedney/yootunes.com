@@ -405,7 +405,7 @@ input, button, .button, textarea, select {
   opacity: .8;
   border: 0 solid transparent;
   font-size: 15px;
-  font-family: OpenSansRegular, 'Lucida Grande',sans-serif;
+  font-family: OpenSans, 'Lucida Grande',sans-serif;
   font-weight: 100;
   line-height: 23px;
   text-shadow: 0 1px #000;
@@ -1130,6 +1130,11 @@ footer .col-3 ul li .svg {
 }
 
 /*----Sass import application stylesheet----*/
+.dropdown-bold {
+  font-family: OpenSansBold;
+  color: #cf2425 !important;
+}
+
 .share-strip {
   overflow: hidden;
 }
@@ -1388,7 +1393,7 @@ aside.app::-webkit-scrollbar {
   position: relative;
 }
 .playlist-nav ul li a {
-  color: #494f4f;
+  color: #949494;
   width: 91.6666666%;
 }
 
@@ -1914,13 +1919,15 @@ section.app {
   width: 100%;
   /*height: 100%;*/
   min-height: 102px;
-  max-height: 202px;
+  max-height: 302px;
 }
 .dropdown .li-desc {
-  line-height: 18px;
+  line-height: 1.5;
+  font-family: OpenSans;
+  font-size: 1.5em;
   margin-left: 9px;
   display: inline-block;
-  width: 41.6666666%;
+  width: 50%;
 }
 .dropdown .li-col1 {
   width: 16.6666667%;
@@ -1952,7 +1959,7 @@ ul.dropdown-main-menu li.li-share svg, ul.dropdown-main-menu li.li-share img {
   margin-right: 6px;
 }
 ul.dropdown-main-menu li.li-buy {
-  margin: 9px 0 0 18px;
+  margin: 0 0 0 18px;
 }
 ul.dropdown-main-menu li.li-buy svg, ul.dropdown-main-menu li.li-buy img {
   height: 36px;
@@ -2066,24 +2073,29 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 .info-wrapper label {
   display: block;
   font-size: 1.2em;
-  color: #494f4f;
-}
-.info-wrapper .second-form {
-  margin-top: 36px;
+  color: #949494;
+  margin: 15px 0 6px 0;
 }
 
 .info-col1, .info-col2, .info-col3 {
   width: 100%;
   height: 100%;
+  margin-bottom: 72px;
 }
 .info-col1 p, .info-col2 p, .info-col3 p {
-  border-bottom: 1px solid #e2e2e2;
+  font-family: OpenSansBold;
+  font-size: 2.1em;
+  color: #e2e2e2;
+  border-bottom: 1px solid #272a2a;
 }
 @media only screen and (min-width: 800px) {
-  .info-col1, .info-col2, .info-col3 {
+  .info-col1 form, .info-col1 #infoDeviceList, .info-col2 form, .info-col2 #infoDeviceList, .info-col3 form, .info-col3 #infoDeviceList {
     width: 33.3333333%;
-    float: left;
   }
+}
+
+.second-form {
+  margin-top: 48px;
 }
 
 .info-col1 {
@@ -2113,14 +2125,18 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 @media only screen and (min-width: 800px) {
   .info-col2, .info-col3 {
-    padding-left: 6%;
     padding-bottom: 72px;
   }
 }
 
-.info-col3 label[for="emailUpdatesInfo"], .info-col3 label[for="themeDark"], .info-col3 input[type="checkbox"] {
+.info-col3 label[for="emailUpdatesInfo"], .info-col3 label[for="themeDark"], .info-col3 input[type="checkbox"], .info-col3 label[for="disableTips"] {
   display: inline;
   vertical-align: middle;
+}
+@media only screen and (min-width: 800px) {
+  .info-col3 button {
+    width: 33.3333333%;
+  }
 }
 
 #logoutLink {
@@ -2622,11 +2638,6 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 .playon-ctrl h3 {
   font-size: 1em;
-}
-@media only screen and (min-width: 800px) {
-  .playon-ctrl h3 {
-    font-size: 1.2em;
-  }
 }
 .playon-ctrl select#play-on:-moz-focusring, .playon-ctrl select#mobile-play-on:-moz-focusring {
   color: transparent;
