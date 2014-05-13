@@ -191,14 +191,14 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 			});
 
-			$(document).on('mouseout', 'span#revealForm', function(event){
+			// $(document).on('mouseout', 'span#revealForm', function(event){
 
-					//Empty form input then hide it
-					// $('.newPlaylistInput').val('');
-					$('#hiddenCreatePlaylistForm').hide();
+			// 		//Empty form input then hide it
+			// 		// $('.newPlaylistInput').val('');
+			// 		$('#hiddenCreatePlaylistForm').hide();
 
 
-			});
+			// });
 
 			//NEW PLAYLIST BUTTON interaction handler=======//
 			$(document).on('click', '.add-playlist-icon', function(){

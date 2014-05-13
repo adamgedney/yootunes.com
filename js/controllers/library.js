@@ -186,6 +186,7 @@ define(['jquery'], function($){
 
 			//Clear form on submit
 			$('.newPlaylistInput').val('');
+			$('#hiddenCreatePlaylistForm').hide();
 
 			event.preventDefault();
 		});
