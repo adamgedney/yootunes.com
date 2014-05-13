@@ -3,10 +3,10 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 
 	//Private variables
-	var _auth 				= {};
+	var _baseUrl 	= 'http://api.atomplayer.com';
+	var _auth 		= {};
+	var _playlistId = 0;
 	var _userId;
-	var _playlistId 		= 0;
-	var _baseUrl 			= 'http://api.atomplayer.com';
 
 
 
@@ -30,9 +30,10 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//==========================================//
 	$(document).on('click', '#signupSubmit', function(event){
 
-		var email 			= $('#signupEmail').val();
-		var password 		= CryptoJS.SHA1($('#signupPass').val());
-		var passwordAgain 	= CryptoJS.SHA1($('#signupPassAgain').val());
+		var siblings 		= $(this).parent();
+		var email 			= siblings.find('input#signupEmail').val();
+		var password 		= CryptoJS.SHA1(siblings.find('input#signupPass').val());
+		var passwordAgain 	= CryptoJS.SHA1(siblings.find('input#signupPassAgain').val());
 
 		//Run create user function
 		createNewUser(email, password, passwordAgain);
@@ -59,9 +60,10 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//==========================================//
 	$(document).on('click', '#popdownSubmit', function(event){
 
-
-		var email 		= $('#popdownEmail').val();
-		var password 	= CryptoJS.SHA1($('#popdownPass').val());
+		var siblings 	= $(this).parent();
+		var loginError 	= siblings.find('p.loginError');
+		var email 		= siblings.find('input#popdownEmail').val();
+		var password 	= CryptoJS.SHA1(siblings.find('input#popdownPass').val());
 		var pwString 	= '';
 
 
@@ -76,7 +78,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 		//Build API request
 		var API_URL 	= _baseUrl + '/check-user/' + email + '/' + pwString;
 
-		//Request auth form server
+		//Request auth from server
 		$.ajax({
 			url 		: API_URL,
 			method 		: 'GET',
@@ -85,7 +87,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 				//If user was authenticated
 				if(response.success === true){
-					$('.loginError').hide();
+					loginError.hide();
 
 					//Load app, set cookie, fire event
 					loadApplication(response[0][0]);
@@ -94,15 +96,15 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 				}else{//response failure. User may have been deleted
 
 					//Prompt user with error message afforadance
-					$('.loginError').text('username or password incorrect');
-					$('.loginError').fadeIn();
+					loginError.text('username or password incorrect');
+					loginError.fadeIn();
 
 
 					//Determine if we need to prompt user to restore account
 					if(response.restorable == true){
 
 						//Fade in restore acct modal window
-						$('#restoreAcctModal').fadeIn();
+						$('div#restoreAcctModal').fadeIn();
 
 
 
@@ -134,9 +136,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 						//New Account Button Handler
 						$(document).on('click', '#newAccountButton', function(event){
 
-							var email 			= $('#popdownEmail').val();
-							var password 		= CryptoJS.SHA1($('#popdownPass').val());
-							var passwordAgain 	= CryptoJS.SHA1($('#popdownPass').val());
+							var passwordAgain 	= password;
 
 							//Run create user function
 							createNewUser(email, password, passwordAgain);
@@ -312,12 +312,13 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//==========================================//
 	$(document).on('click', '#forgotSubmit', function(event){
 		event.preventDefault();
+		var error 		= ('p#error');
+		var siblings 	= $(this).parent();
+		var email 		= siblings.find('#forgotInput').val();
+		var API_URL 	= _baseUrl + '/forgot/' + email;
 
 		//Hides error message if this isn't the first attempt
-		$('#error').hide();
-
-		var email = $('#forgotInput').val();
-		var API_URL = _baseUrl + '/forgot/' + email;
+		error.hide();
 
 		$.ajax({
 			url : API_URL,
@@ -328,10 +329,10 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 				if(response === "User null"){
 
 					//Show error message if no user was found
-					$('#error').fadeIn();
+					error.fadeIn();
 				}else{
 
-					$('#success').fadeIn();
+					$('p#success').fadeIn();
 
 					//reload the landing page
 					setTimeout(reloadLanding, 5000);
@@ -355,11 +356,9 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//==========================================//
 	$(document).on('click', '#resetSubmit', function(event){
 		event.preventDefault();
-
-
-
+		var siblings 	= $(this).parent();
 		var userId 		= window.tokenResponseId;
-		var password 	= CryptoJS.SHA1($('#resetInput').val());
+		var password 	= CryptoJS.SHA1(siblings.find('#resetInput').val());
 		var pwString 	= '';
 
 
@@ -387,7 +386,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 			console.log(response, "password reset success response");
 				if(response === "Password reset success"){
 
-					$('#success').fadeIn();
+					$('p#success').fadeIn();
 
 					//redirect user to root so they can log in with their new password
 					setTimeout(rootRedirect, 5000);
@@ -409,16 +408,13 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//Update user acct info from account settings page form
 	$(document).on('click', '#updateInfo', function(event){
 		event.preventDefault();
+		var siblings 		= $(this).parent();
+		var displayName 	= siblings.find('input#infoName').val();
+		var email 			= siblings.find('input#infoEmail').val();
+		var birthdate 		= siblings.find('input#infoBirthdate').val();
+		var title 			= siblings.find('#infoTitleGender option:selected').text();
+			_userId 		= $('p span#infoId').html();
 
-		var displayName 	= $('#infoName').val();
-		var email 			= $('#infoEmail').val();
-		var birthdate 		= $('#infoBirthdate').val();
-		var title 			= $('#infoTitleGender option:selected').text();
-		var password 		= CryptoJS.SHA1($('#infoPass').val());
-		var passwordAgain 	= CryptoJS.SHA1($('#infoPassAgain').val());
-		var pwString 		= ' ';
-			_userId 		= $('#infoId').html();
-			console.log(title);
 		//Split birthday into month/day/year
 		var birthArray = birthdate.split('/');
 
@@ -439,14 +435,63 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 
 
 
+		//Build API URL
+		var API_URL = _baseUrl + '/update-user/' + _userId + '/' + title + '/' + displayName + '/' + email + '/' + birthArray[0] + '/' + birthArray[1] + '/' + birthArray[2];
+
+		//Call API to update user data
+		$.ajax({
+			url : API_URL,
+			method : 'GET',
+			dataType : 'json',
+			success : function(response){
+				console.log(response, "update settings response-acct settings");
+
+				//Reload acct settings view
+				Content.loadAcctSettings();
+
+			}//success
+		});//ajax
+	});//click updateInfo
+
+
+
+
+
+
+
+
+
+
+	//Update user acct info from account settings page form
+	$(document).on('click', '#resetPasswordInfo', function(event){
+		event.preventDefault();
+		var siblings 		= $(this).parent();
+		var	currentPass 	= CryptoJS.SHA1(siblings.find('input#infoCurrentPass').val());
+		var password 		= CryptoJS.SHA1(siblings.find('input#infoPass').val());
+		var passwordAgain 	= CryptoJS.SHA1(siblings.find('input#infoPassAgain').val());
+		var pwString 		= ' ';
+		var currentPwString = ' ';
+			_userId 		= $('p span#infoId').html();
+
+
+
 		//sets default on password so call won't receive empty sha3
-		if($('#infoPass').val() === "" || $('#infoPassAgain').val() === ""){
+		if(password === "" || passwordAgain === ""){
 
 			pwString = "0";
 
+
 		}else{
 
-			//Produces 160 char string from pw
+			//Produces 160 char string from currrentPass
+			for(var i=0;i<password.words.length;i++){
+
+				//Concat array parts into pwString
+				currentPwString += currentPass.words[i].toString();
+			}
+
+
+			//Produces 160 char string from pass/passAgain
 			for(var i=0;i<password.words.length;i++){
 
 				//Compare array of sha3 strings to make sure they match
@@ -461,10 +506,10 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 			}//for
 		}//if/else password val
 
-
+console.log(_userId, currentPwString, pwString, "reset pass data");
 
 		//Build API URL
-		var API_URL = _baseUrl + '/update-user/' + _userId + '/' + title + '/' + displayName + '/' + email + '/' + birthArray[0] + '/' + birthArray[1] + '/' + birthArray[2] + '/' + pwString;
+		var API_URL = _baseUrl + '/settings-reset-pass/' + _userId + '/' + currentPwString + '/' + pwString;
 
 		//Call API to update user data
 		$.ajax({
@@ -473,13 +518,14 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 			dataType : 'json',
 			success : function(response){
 
-
+				console.log(response, "reset pass response- acct settings");
 				//Reload acct settings view
 				Content.loadAcctSettings();
 
 			}//success
 		});//ajax
-	});//click updateInfo
+	});//click resetPassword
+
 
 
 
