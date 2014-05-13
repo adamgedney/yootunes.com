@@ -1230,6 +1230,7 @@ console.log("itemDragging ran");
 			var thatWidth;
 			var thatHeight;
 			var moving 			= false;
+			var mouseIcon 		= $('#mouseAddIcon');
 			_dragResult.origX 	= elem.find('span.li-col2').offset().left;
 			_dragResult.origY 	= elem.find('span.li-col2').offset().top;
 
@@ -1256,16 +1257,36 @@ console.log("itemDragging ran");
 						});
 					}//setClone
 
-						var dragX = event.pageX - (thatWidth / 2);
-						var dragY = event.pageY - (thatHeight / 2);
-						_dragResult.X 			= event.pageX;
-						_dragResult.Y 			= event.pageY;
+						var dragX 			= event.pageX - (thatWidth / 2);
+						var dragY 			= event.pageY - (thatHeight / 2);
+						var overPlaylist 	= getCoordinates(_overPlaylist);
+
+						_dragResult.X 		= event.pageX;
+						_dragResult.Y 		= event.pageY;
 
 						//Only set position when dragging
 						if(_dragResult.dragging){
 							_clone.offset({top:dragY, left:dragX});
 						}//dragging;
 
+
+						//Change cursor to add icon
+						if(typeof overPlaylist != 'undefined' && _dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
+						   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){
+							console.log("over");
+
+							mouseIcon.css({
+								'display'   : 'inline',
+								'top' 		: event.pageY + 10,
+								'left' 		: event.pageX + 10
+							});
+						}
+
+
+				}).bind('mouseout', function(){
+					mouseIcon.css({
+						'display'   : 'none'
+					});
 				});//MOUSEMOVE
 
 
@@ -1288,6 +1309,10 @@ console.log("itemDragging ran");
 					//If over new playlist, drop li-col2 title into input value
 					var input 			= getCoordinates('.newPlaylistInput');
 					var overPlaylist 	= getCoordinates(_overPlaylist);
+
+						mouseIcon.css({
+							'display'   : 'none'
+						});
 
 
 						_clone.css({

@@ -1,4 +1,11 @@
 
+img#mouseAddIcon{
+	position: absolute;
+	z-index: 20000;
+	width: 15px;
+	height: 15px;
+	display: none;
+}
 
 .dropdown-bold{
 	font-family: OpenSansBold;

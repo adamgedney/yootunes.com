@@ -5,6 +5,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 
 	//private vars
+	var _baseUrl 		= 'http://api.atomplayer.com';
 	var _songs 			= [];
 	var	_userId			= window.userId;
 	var	_userEmail 		= '';
@@ -12,7 +13,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 	var _sortBy			= 'def';
 	var _sortOrder		= 'def';
 	var _currentContent = '';
-	var _baseUrl 		= 'http://api.atomplayer.com';
 	var _thisDevice;
 	var _playlistShared = 0;
 
@@ -127,7 +127,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 			activeLibraryItem(playlistId);
 
-			$('.section-header').show();
+			$('div.section-header').show();
 
 			//Set correct container height
 			$('div.scroll-container').css('height', '74vh');
@@ -144,7 +144,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		//Clear autocomplete in case user wants out
 		$(document).on('click', '#searchInput', function(event){
 			//Empty autocomplete
-			$('#datalistContainer').empty();
+			$('ul#datalistContainer').empty();
 		});
 
 
@@ -152,7 +152,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		//Show search history when user starts typing
 		$(document).on('keyup', '#searchInput', function(event){
 
-			var datalist = $('#datalistContainer');
+			var datalist = $('ul#datalistContainer');
 
 			//Send first 2 characters to API for querying history
 			if($(this).val().length >= 2){
@@ -216,7 +216,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 			if($(this).text() !== 'Search History'){
 				$('input#searchInput').val($(this).text());
-				$('#searchSubmit').trigger('click');
+				$('input#searchSubmit').trigger('click');
 			}else{
 				$(this).parent().empty();
 			}
@@ -249,7 +249,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 				success 	: function(data){
 
 					//Empty autocomplete
-					$('#datalistContainer').empty();
+					$('ul#datalistContainer').empty();
 
 					//Loop through response & push into array
 					//for delivery to renderer
@@ -506,19 +506,19 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 				$('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
 
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
-				if($('.sourceTitle').html() === 'Add'){
+				if($('span.sourceTitle').html() === 'Add'){
 
-					$('.li-col7').show();
-					$('.li-col2').css({'width':'41.6666666%'});//4 col
+					$('span.li-col7').show();
+					$('span.li-col2').css({'width':'41.6666666%'});//4 col
 
 					//Swaps out icon for add icon
-					resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/add.png');
+					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/add.png');
 				}else{
 
 					$('.li-col7').hide();
 					$('.li-col2').css({'width':'50%'});//5 col
 
-					resultItems.find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/trash-icon.svg');
 				}
 
 
@@ -529,7 +529,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 					$('li.resultItems:eq(' + i + ')').attr('data-index', i);
 
 					//Gets the song_id from the displayed result item
-					var itemId = $('li.resultItems:eq(' + i + ')').find('.addToLibrary').attr('data-id');
+					var itemId = $('li.resultItems:eq(' + i + ')').find('span.addToLibrary').attr('data-id');
 
 //**NOTE			//Should load the library here w/out a limit to get an array of song ids.
 					//if song id matches this song, then add the check mark icon instead
@@ -560,66 +560,68 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 				//Hide ads on acct settings page
 				$('div#adsense').hide();
 
-				//Check/uncheck theme option based on current setting
-				if(window.theme === "dark"){
-					$('#themeDark').prop('checked', true);
-				}else{
-					$('#themeDark').prop('checked', false);
-				}
+				// //Check/uncheck theme option based on current setting
+				// if(window.theme === "dark"){
+				// 	$('#themeDark').prop('checked', true);
+				// }else{
+				// 	$('#themeDark').prop('checked', false);
+				// }
 
-				//Set the application theme colors
-				//again to ensure settings items are styled
-				//once they hit the DOM
-				if(window.theme === 'light'){
-					Ui.themeLight();
-				}else{
-					Ui.themeDark();
-				}
+				// //Set the application theme colors
+				// //again to ensure settings items are styled
+				// //once they hit the DOM
+				// if(window.theme === 'light'){
+				// 	Ui.themeLight();
+				// }else{
+				// 	Ui.themeDark();
+				// }
 
 
 				//Hide the entire section header (search bar)
-				$('.section-header').hide();
+				$('div.section-header').hide();
 
 
 				//Get User
 				User.getUser(_userId, function(response){
+					var birthdate 	= ('input#infoBirthdate');
+					var title	 	= $('#infoTitleGender');
 
-					$('#infoName').val(response[0].display_name);
-					$('#infoEmail').val(response[0].email);
-					$('#infoId').html(response[0].id);
-					$('#infoTitleGender').val(response[0].title);
+					$('input#infoName').val(response[0].display_name);
+					$('input#infoEmail').val(response[0].email);
+					$('span#infoId').html(response[0].id);
+					title.val(response[0].title);
 
 					//Format birthdate for display
 					var birthdate = response[0].birthMonth + '/' + response[0].birthDay + '/' + response[0].birthYear;
 
 					if(birthdate === '0/0/0'){
-						$('#infoBirthdate').val('4/24/14');
+						birthdate.val('4/24/14');
 					}else{
-						$('#infoBirthdate').val(birthdate);
+						birthdate.val(birthdate);
 					}
 
 
 
 					//Prepend selected TITLE option
 					var option1 = '<option >' + response[0].title + '</option>';
-					$('#infoTitleGender').prepend(option1);
+					title.prepend(option1);
 
 						//Handle title options list
 						if(response[0].title == "Mr."){
 							var option2 = '<option >Mrs.</option>';
 							var option3 = '<option >Ms.</option>';
-							$('#infoTitleGender').append(option2);
-							$('#infoTitleGender').append(option3);
+							title.append(option2);
+							title.append(option3);
 						}else if(response[0].title == "Mrs."){
 							var option2 = '<option >Mr.</option>';
 							var option3 = '<option >Ms.</option>';
-							$('#infoTitleGender').append(option2);
-							$('#infoTitleGender').append(option3);
+							title.append(option2);
+							title.append(option3);
 						}else if(response[0].title == "Ms."){
 							var option2 = '<option >Mrs.</option>';
 							var option3 = '<option >Mr.</option>';
-							$('#infoTitleGender').append(option2);
-							$('#infoTitleGender').append(option3);
+							title.append(option2);
+							title.append(option3);
 						}
 				});//getUser
 
@@ -1011,7 +1013,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 					}
 
 					//Shows column headers
-					$('.li-header').show();
+					$('li.li-header').show();
 
 					//Clear append container
 					$(appendTo).empty();
@@ -1020,7 +1022,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 					render(src, id, appendTo, data);
 
 					//Change last column to ''
-					$('.sourceTitle').html('');
+					$('span.sourceTitle').html('');
 
 					_state 	= 'playlist';
 
@@ -1060,11 +1062,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 		//Ensures search bar is visible & container is
 		//emptied quickly before a reload
-			$('.section-header').show();
+			$('div.section-header').show();
 			$('div.scroll-container').empty();
 
 			//Shows column headers
-			$('.li-header').show();
+			$('li.li-header').show();
 
 
 
@@ -1182,13 +1184,13 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			}
 
 			//Change last column to ''
-			$('.sourceTitle').html('');
+			$('span.sourceTitle').html('');
 
 			//Pagination vars
 			_libraryCount 	= response.count;
 
 			//Display total songs in library in interface
-			$('#collectionTotal').html(response.count);
+			$('span#collectionTotal').html(response.count);
 
 
 			//Store the users songs for list functions
@@ -1221,7 +1223,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		render(src, id, appendTo, data);
 
 			//Hides column headers
-			$('.li-header').hide();
+			$('li.li-header').hide();
 	}
 
 
@@ -1255,7 +1257,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		render(src, id, appendTo, data);
 
 		//Change last column to remove
-		$('.sourceTitle').html('Add');
+		$('span.sourceTitle').html('Add');
 	}
 
 
@@ -1296,10 +1298,15 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 
 	function renderDevices(response){
+		var deviceName  	= $('input.infoDeviceName');
+		var playOn 			= $('select#play-on');
+		var mobilePlayOn 	= $('select#mobile-play-on');
+		var deviceList 		= $('ul#infoDeviceList');
+		var userDevices 	= $('select#userDevices');
 
-		$('#play-on').empty();
-		$('#mobile-play-on').empty();
-		$('#infoDeviceList').empty();
+		playOn.empty();
+		mobilePlayOn.empty();
+		deviceList.empty();
 
 
 		//Loop through device list
@@ -1309,36 +1316,36 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			if(response[j].id === _thisDevice){
 
 				//Set the current device if it matches the cookie
-				$('.infoDeviceName').val(response[j].name);
-				$('.infoDeviceName').attr('data-id', response[j].id);
+				deviceName.val(response[j].name);
+				deviceName.attr('data-id', response[j].id);
 
 				//set footer list items first result to the current device
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				$('#play-on').prepend(option);
-				$('#mobile-play-on').prepend(option);
+				playOn.prepend(option);
+				mobilePlayOn.prepend(option);
 			}else{
 
 				//Render MODAL window list
 				var option 	= '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				$('#userDevices').append(option);
+				userDevices.append(option);
 
 
 				//Populate SETTINGS PAGE list
 				var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
-				$('#infoDeviceList').append(li);
+				deviceList.append(li);
 
 
 				//Populate APP FOOTER list
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				$('#play-on').append(option);
-				$('#mobile-play-on').append(option);
+				playOn.append(option);
+				mobilePlayOn.append(option);
 
 			}//else
 		}//for
 
 		//Add a blank device to MODAL list
 		var blank	= '<option>Your Devices</option>'
-		$('#userDevices').prepend(blank);
+		userDevices.prepend(blank);
 	}
 
 
@@ -1430,19 +1437,20 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 	//loads library from LIbrary menu click for sorting
 	// -songs,artists,albums,genres
 	function loadFilteredLibrary(sortBy, activeItem){
+		var scrollContainer = $('div.scroll-container');
 
 		//Show search bar
-		$('.li-header').show();
-		$('.section-header').show();
+		$('li.li-header').show();
+		$('div.section-header').show();
 
-		$('div.scroll-container').empty();
+		scrollContainer.empty();
 
 		sortList(sortBy);
 
 		activeLibraryItem(activeItem);
 
 		//Set correct container height
-		$('div.scroll-container').css('height', '74vh');
+		scrollContainer.css('height', '74vh');
 
 		//Shows ads if coming from acct settings page
 		$('div#adsense').show();
@@ -1457,91 +1465,98 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 	function activeLibraryItem(active){
 
-		var songs 		= '.viewSongs';
-		var artists 	= '.viewArtists';
-		var albums 		= '.viewAlbums';
-		var genres 		= '.viewGenres';
-		var settings 	= '#acctSettings';
-		var playlists 	= '.playlistTitle';
+		var songs 		= $('li.viewSongs');
+		var artists 	= $('li.viewArtists');
+		var albums 		= $('li.viewAlbums');
+		var genres 		= $('li.viewGenres');
+		var settings 	= $('li#acctSettings');
+		var playlists 	= $('a.playlistTitle');
+
+		var songsA 		= songs.find('a');
+		var artistsA	= artists.find('a');
+		var albumsA 	= albums.find('a');
+		var genresA 	= genres.find('a');
+		var settingsA 	= settings.find('a');
+
 
 			if(active === songs){
-				$(songs).find('a').addClass('red');
-				$(songs).addClass('red');
+				songsA.addClass('red');
+				songs.addClass('red');
 
-				$(artists).removeClass('red');
-				$(albums).removeClass('red');
-				$(genres).removeClass('red');
-				$(artists).find('a').removeClass('red');
-				$(albums).find('a').removeClass('red');
-				$(genres).find('a').removeClass('red');
-				$(settings).find('a').removeClass('red');
-				$(playlists).removeClass('red');
+				artists.removeClass('red');
+				albums.removeClass('red');
+				genres.removeClass('red');
+				artistsA.removeClass('red');
+				albumsA.removeClass('red');
+				genresA.removeClass('red');
+				settingsA.removeClass('red');
+				playlists.removeClass('red');
 
 			}else if(active === artists){
-				$(artists).find('a').addClass('red');
-				$(artists).addClass('red');
+				artistsA.addClass('red');
+				artists.addClass('red');
 
-				$(songs).removeClass('red');
-				$(albums).removeClass('red');
-				$(genres).removeClass('red');
-				$(songs).find('a').removeClass('red');
-				$(albums).find('a').removeClass('red');
-				$(genres).find('a').removeClass('red');
-				$(settings).find('a').removeClass('red');
-				$(playlists).removeClass('red');
+				songs.removeClass('red');
+				albums.removeClass('red');
+				genres.removeClass('red');
+				songsA.removeClass('red');
+				albumsA.removeClass('red');
+				genresA.removeClass('red');
+				settingsA.removeClass('red');
+				playlists.removeClass('red');
 
 			}else if(active === albums){
-				$(albums).find('a').addClass('red');
-				$(albums).addClass('red');
+				albumsA.addClass('red');
+				albums.addClass('red');
 
-				$(artists).removeClass('red');
-				$(songs).removeClass('red');
-				$(genres).removeClass('red');
-				$(songs).find('a').removeClass('red');
-				$(artists).find('a').removeClass('red');
-				$(genres).find('a').removeClass('red');
-				$(settings).find('a').removeClass('red');
-				$(playlists).removeClass('red');
+				artists.removeClass('red');
+				songs.removeClass('red');
+				genres.removeClass('red');
+				songsA.removeClass('red');
+				artistsA.removeClass('red');
+				genresA.removeClass('red');
+				settingsA.removeClass('red');
+				playlists.removeClass('red');
 
 			}else if(active === genres){
-				$(genres).find('a').addClass('red');
-				$(genres).addClass('red');
+				genresA.addClass('red');
+				genres.addClass('red');
 
-				$(artists).removeClass('red');
-				$(albums).removeClass('red');
-				$(songs).removeClass('red');
-				$(songs).find('a').removeClass('red');
-				$(artists).find('a').removeClass('red');
-				$(albums).find('a').removeClass('red');
-				$(settings).find('a').removeClass('red');
-				$(playlists).removeClass('red');
+				artists.removeClass('red');
+				albums.removeClass('red');
+				songs.removeClass('red');
+				songsA.removeClass('red');
+				artistsA.removeClass('red');
+				albumsA.removeClass('red');
+				settingsA.removeClass('red');
+				playlists.removeClass('red');
 
 			}else if(active === settings){
-				$(settings).find('a').addClass('red');
+				settingsA.addClass('red');
 
-				$(artists).removeClass('red');
-				$(albums).removeClass('red');
-				$(songs).removeClass('red');
-				$(genres).removeClass('red');
-				$(songs).find('a').removeClass('red');
-				$(artists).find('a').removeClass('red');
-				$(albums).find('a').removeClass('red');
-				$(genres).find('a').removeClass('red');
-				$(playlists).removeClass('red');
+				artists.removeClass('red');
+				albums.removeClass('red');
+				songs.removeClass('red');
+				genres.removeClass('red');
+				songsA.removeClass('red');
+				artistsA.removeClass('red');
+				albumsA.removeClass('red');
+				genresA.removeClass('red');
+				playlists.removeClass('red');
 
 			}else{//if active is a playlist id
-				$(playlists).removeClass('red');
-				$(playlists + '[data-id=' + active + ']').addClass('red');
+				playlists.removeClass('red');
+				$('a.playlistTitle[data-id=' + active + ']').addClass('red');
 
-				$(artists).removeClass('red');
-				$(albums).removeClass('red');
-				$(songs).removeClass('red');
-				$(genres).removeClass('red');
-				$(songs).find('a').removeClass('red');
-				$(artists).find('a').removeClass('red');
-				$(albums).find('a').removeClass('red');
-				$(genres).find('a').removeClass('red');
-				$(settings).find('a').removeClass('red');
+				artists.removeClass('red');
+				albums.removeClass('red');
+				songs.removeClass('red');
+				genres.removeClass('red');
+				songsA.removeClass('red');
+				artistsA.removeClass('red');
+				albumsA.removeClass('red');
+				genresA.removeClass('red');
+				settingsA.removeClass('red');
 			}
 	}
 

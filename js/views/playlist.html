@@ -6,7 +6,7 @@
 		<li title="Double click here to rename this playlist to something weird. Click the arrow to the right to share or delete this playlist." data-id="{{this.id}}" class="li-playlist">
 
 				<a data-id="{{this.id}}" data-userid="{{this.user_id}}" class="playlistTitle" href="#">{{this.name}}</a>
-					<span data-id="{{this.id}}" class="playlist-menu"><img class="svg" src="images/icons/more-arrow-down.svg" alt="menu icon" />
+					<span data-id="{{this.id}}" class="playlist-menu"><img draggable="false" class="svg" src="images/icons/more-arrow-down.svg" alt="menu icon" />
 					</span>
 
 					<form data-id="{{this.id}}" class="renamePlaylistForm">
@@ -24,13 +24,13 @@
 					<p>Share</p>
 						<div class="share-strip">
 
-							<a target="_blank" title="Share this playlist on Facebook... If you dare" href="https://www.facebook.com/sharer/sharer.php?u=http://atomplayer.com?share={{this.share_url}}"><img class="svg" src="images/icons/fb-color.png" alt="share icon" /></a>
-							<a target="_blank" title="Share this playlist on G+. Do you have any friends there?" href="https://plus.google.com/share?url=http://atomplayer.com?share={{this.share_url}}"><img class="svg" src="images/icons/google-color.png" alt="share icon" /></a>
-							<a target="_blank" title="Share this playlist on Twitter... Tweet tweeter!" href="https://twitter.com/home?status=http://atomplayer.com?share={{this.share_url}}"><img class="svg" src="images/icons/twitter-color.png" alt="share icon" /></a>
-							<a class="linkShare" title="Get the link to share this playlist. Post it all over the internet! Hooray!" href="http://atomplayer.com?share={{this.share_url}}"><img class="svg" src="images/icons/link.svg" alt="share icon" /></a>
+							<a target="_blank" title="Share this playlist on Facebook... If you dare" href="https://www.facebook.com/sharer/sharer.php?u=http://atomplayer.com?share={{this.share_url}}"><img draggable="false" class="svg" src="images/icons/fb-color.png" alt="share icon" /></a>
+							<a target="_blank" title="Share this playlist on G+. Do you have any friends there?" href="https://plus.google.com/share?url=http://atomplayer.com?share={{this.share_url}}"><img draggable="false" class="svg" src="images/icons/google-color.png" alt="share icon" /></a>
+							<a target="_blank" title="Share this playlist on Twitter... Tweet tweeter!" href="https://twitter.com/home?status=http://atomplayer.com?share={{this.share_url}}"><img draggable="false" class="svg" src="images/icons/twitter-color.png" alt="share icon" /></a>
+							<a class="linkShare" title="Get the link to share this playlist. Post it all over the internet! Hooray!" href="http://atomplayer.com?share={{this.share_url}}"><img draggable="false" class="svg" src="images/icons/link.svg" alt="share icon" /></a>
 						</div><!-- /.share-strip-->
 
-					<p title="Delete this playlist. Your songs will still remain in your library... If all goes well ;)" data-id="{{this.id}}" class="bottom-inner deletePlaylist" >Delete Playlist <img class="svg trash-icon" src="images/icons/trash-icon.svg" alt="share icon" /></p>
+					<p title="Delete this playlist. Your songs will still remain in your library... If all goes well ;)" data-id="{{this.id}}" class="bottom-inner deletePlaylist" >Delete Playlist <img draggable="false" class="svg trash-icon" src="images/icons/trash-icon.svg" alt="share icon" /></p>
 
 				</div><!-- /.playlist popout-->
 		</li>

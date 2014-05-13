@@ -538,7 +538,7 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 		event.preventDefault();
 
 		//fade in modal window
-		$('#deleteAcctModal').fadeIn();
+		$('div#deleteAcctModal').fadeIn();
 
 	});
 
@@ -568,7 +568,7 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 
 
 				//Fade out modal window
-				$('#deleteAcctModal').fadeOut();
+				$('div#deleteAcctModal').fadeOut();
 
 
 				//================================//
@@ -660,8 +660,6 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 		//Build API request
 		var API_URL			= _baseUrl + '/new-user/' + email + '/' +  pwString + '/' +  "email";
 
-
-
 		//Register new user
 		$.ajax({
 			url 		: API_URL,
@@ -678,7 +676,7 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 
 
 					//Show device namer to new user
-					$('#nameDeviceModal').fadeIn();
+					$('div#nameDeviceModal').fadeIn();
 
 
 					//===================================//
