@@ -140,9 +140,6 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 					//Prevents duplicate code.
 					loadApplication();
 
-					//#app needs to have rendered first
-					determineDevice.get(function(){});
-
 				}//AJAX success
 			});//AJAX library count
 		}//ELSE USER EXISTS
@@ -218,6 +215,8 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 		//load the application
 		Content.loadApp();
 
+		//#app needs to have rendered first
+		determineDevice.get(function(){});
 	}
 
 

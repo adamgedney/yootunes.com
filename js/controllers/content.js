@@ -583,7 +583,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 				//Get User
 				User.getUser(_userId, function(response){
-					var birthdate 	= ('input#infoBirthdate');
+					var birthdateIn = $('#infoBirthdate');
 					var title	 	= $('#infoTitleGender');
 
 					$('input#infoName').val(response[0].display_name);
@@ -595,9 +595,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 					var birthdate = response[0].birthMonth + '/' + response[0].birthDay + '/' + response[0].birthYear;
 
 					if(birthdate === '0/0/0'){
-						birthdate.val('4/24/14');
+						birthdateIn.val('4/24/14');
 					}else{
-						birthdate.val(birthdate);
+						birthdateIn.val(birthdate);
 					}
 
 
@@ -1314,14 +1314,17 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			//If device is this device, set name
 			if(response[j].id === _thisDevice){
 
-				//Set the current device if it matches the cookie
+				//Set ACCOUNT SETTINGS current device if it matches the cookie
 				deviceName.val(response[j].name);
 				deviceName.attr('data-id', response[j].id);
+				var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
+				deviceList.append(li);
 
-				//set footer list items first result to the current device
+				//set FOOTER list items first result to the current device
 				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
 				playOn.prepend(option);
 				mobilePlayOn.prepend(option);
+
 			}else{
 
 				//Render MODAL window list
@@ -1343,7 +1346,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		}//for
 
 		//Add a blank device to MODAL list
-		var blank	= '<option>Your Devices</option>'
+		var blank = '<option>Your Devices</option>'
 		userDevices.prepend(blank);
 	}
 

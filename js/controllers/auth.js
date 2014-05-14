@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($, Content, getCookies, Init, socketService){
+define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketService'], function($, Content, getCookies, determineDevice, Init, socketService){
 
 
 	//Private variables
@@ -84,7 +84,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 			method 		: 'GET',
 			dataType 	: 'json',
 			success 	: function(response){
-console.log(response);
+
 				//If user was authenticated
 				if(response.success === true){
 					loginError.hide();
@@ -721,6 +721,8 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 		//load the application
 		Content.loadApp();
 
+		//#app needs to have rendered first
+		determineDevice.get(function(){});
 	}
 
 
