@@ -29,17 +29,46 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 	//User Registration handler
 	//==========================================//
 	$(document).on('click', '#signupSubmit', function(event){
+		event.preventDefault();
 
 		var siblings 		= $(this).parent();
 		var email 			= siblings.find('input#signupEmail').val();
 		var password 		= CryptoJS.SHA1(siblings.find('input#signupPass').val());
 		var passwordAgain 	= CryptoJS.SHA1(siblings.find('input#signupPassAgain').val());
+		var pwString 		= '';
 
-		//Run create user function
-		createNewUser(email, password, passwordAgain);
+		//Produces 160 char string from pw
+		for(var i=0;i<password.words.length;i++){
+
+			//Concat array parts into pwString
+			pwString += password.words[i].toString();
+		}
 
 
-		event.preventDefault();
+		//Build API request
+		var API_URL 	= _baseUrl + '/check-user/' + email + '/' + pwString;
+
+		//Request auth from server
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success 	: function(response){
+console.log(response[0][0], "register login");
+				//If user was authenticated
+				if(response.success === true){
+
+					//Load app, set cookie, fire event
+					loadApplication(response[0][0]);
+
+				}else{//User doesn't already exist
+
+					//Run create user function
+					createNewUser(email, password, passwordAgain);
+
+				}//if
+			}//success
+		});//ajax
 	});//onclick
 
 
