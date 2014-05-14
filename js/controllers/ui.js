@@ -10,8 +10,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		_dragResult.dragging= false;
 		_dragResult.origX;
 		_dragResult.origY;
-	var _clone 			= '';
-	var _setClone 		= false;
+	var _clone 				= '';
+	var _setClone 			= false;
 
 	var _overPlaylist;
 
@@ -123,20 +123,23 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			window.windowWidth = $(window).width();
 
 			$(window).resize(function() {
-				window.windowWidth = $(window).width();
+				window.windowWidth 	= $(window).width();
+				var videoSizeCtrl 	= $('div.video-size-ctrl');
+				var video 			= $('div#video');
+				var footer 			= $('div.footer');
 
 				//On resize show sidebar
 				if(window.windowWidth > app_break_smmd){
 					$('section.app').removeClass('mainSlideLeft');
 					$('aside.app').removeClass('sidebarSlideLeft');
 
-					$('#video').show();
-					$('div.video-size-ctrl').show();
-					$('div.footer').show();
+					video.show();
+					videoSizeCtrl.show();
+					footer.show();
 				}else{
-					$('#video').hide();
-					$('div.video-size-ctrl').hide();
-					$('div.footer').hide();
+					video.hide();
+					videoSizeCtrl.hide();
+					footer.hide();
 				}
 
 
@@ -185,7 +188,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 				//Only allow form to show if we're dragging result
 				if(_dragResult.dragging === true){
-					$('#hiddenCreatePlaylistForm').show();
+					$('div#hiddenCreatePlaylistForm').show();
 				}
 
 
@@ -250,16 +253,16 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 			//MOUSEOVER triangle icon hover effect.
 			$(document).on('mouseover', '.li-playlist', function(event){
-				$('.li-playlist').find('.playlist-menu').css({'display' : 'none'});
+				$('li.li-playlist').find('span.playlist-menu').css({'display' : 'none'});
 
-				$(this).find('.playlist-menu').css({'display' : 'inline'});
+				$(this).find('span.playlist-menu').css({'display' : 'inline'});
 
 				_overPlaylist = $(this);
 			});
 
 			//MOUSEOVER triangle icon hover effect.
 			$(document).on('mouseout', '.li-playlist', function(event){
-				$('.li-playlist').find('.playlist-menu').css({'display' : 'none'});
+				$('li.li-playlist').find('span.playlist-menu').css({'display' : 'none'});
 			});
 
 
@@ -294,8 +297,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				}
 
 				//Show only this dragable icon on hover
-				$('.draggableIcon').css({'display' : 'none'})
-				$(this).find('.draggableIcon').css({'display' : 'block'});
+				$('img.draggableIcon').css({'display' : 'none'})
+				$(this).find('img.draggableIcon').css({'display' : 'block'});
 			});//MOUSEOVER
 
 
@@ -363,14 +366,14 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 				//Ensures form is hidden at start
-				$('.newPlaylistForm').hide();
+				// $('.newPlaylistForm').hide();
 
 				this.toggle;
 
 				var selector 	= '.main-dropdown';
 				var id 			= $(this).attr('data-id');
 				var resultItems = $('li.resultItems');
-				var thisId 		= $(this).parent().find('.playIconImg').attr('data-videoId');
+				var thisId 		= $(this).parent().find('img.playIconImg').attr('data-videoId');
 				_dropdownId 	= id;
 
 
@@ -389,12 +392,12 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 					_dropdownOpen = true;
 
 					//Show last column
-					$(this).find('.li-col7').show();
-					$('.li-col4').css({'width':'8.33333333%'});//1 col Album col
+					$(this).find('span.li-col7').show();
+					$('span.li-col4').css({'width':'8.33333333%'});//1 col Album col
 
-					$('li.resultItems').removeClass('bg-white');
-					$('li.resultItems').removeClass('dropdown-bold');
-					$('li.resultItems').css({'borderBottom':'none'});
+					resultItems.removeClass('bg-white');
+					resultItems.removeClass('dropdown-bold');
+					resultItems.css({'borderBottom':'none'});
 
 					//Set the li item that triggered dropdown to white bg
 					$(this).parent().addClass('bg-white');
@@ -402,26 +405,26 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 					$(this).parent().css({'borderBottom':'1px solid #343838'});
 
 					//Darken play icon
-					$(this).parent().find('.playIconImg').attr('src', 'images/icons/play-blck.png');
+					$(this).parent().find('img.playIconImg').attr('src', 'images/icons/play-blck.png');
 
 
 				}else{//DROPDOWN CLOSE
 
 					//Hide last column
-					$('.li-col7').hide();
-					$('.li-col4').css({'width':'16.6666667%'});//2 col Album column
+					$('span.li-col7').hide();
+					$('span.li-col4').css({'width':'16.6666667%'});//2 col Album column
 
 					$(this).parent().css({'background' : 'none'});
 
 					_dropdownOpen = false;
 
-					$('li.resultItems').css({'background':'none'});
+					resultItems.css({'background':'none'});
 					$(this).parent().removeClass('bg-white');
 					$(this).parent().removeClass('dropdown-bold');
 					$(this).parent().css({'borderBottom':'none'});
 
 					//Lighten play icon
-					$(this).parent().find('.playIconImg').attr('src', 'images/icons/play-drk.png');
+					$(this).parent().find('img.playIconImg').attr('src', 'images/icons/play-drk.png');
 				}
 
 
@@ -438,8 +441,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				$(this).parent().addClass('highlight');
 
 				//Set play icon to pause if video is selected
-				resultItems.find('.playIconImg').attr('src', 'images/icons/play-drk.png');
-				$(this).parent().find('.playIconImg').attr('src', 'images/icons/pause-drk.png');
+				resultItems.find('img.playIconImg').attr('src', 'images/icons/play-drk.png');
+				$(this).parent().find('img.playIconImg').attr('src', 'images/icons/pause-drk.png');
 
 
 				//Toggle mobile video if in normal mode not master mode
@@ -512,12 +515,14 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 		//Prevents parent div from scrolling while reaching end of scroll in child
 		$(document).on('mouseover', '.playlistSubScrollContainer', function(){
-			$('.scroll-container').css({'overflow':'hidden'});
+			$('div.scroll-container').css({'overflow':'hidden'});
+		}).bind('mouseout', function(){
+			$('div.scroll-container').css({'overflow':'scroll'});
 		});
 
-		$(document).on('mouseout', '.playlistSubScrollContainer', function(){
-			$('.scroll-container').css({'overflow':'scroll'});
-		});
+		// $(document).on('mouseout', '.playlistSubScrollContainer', function(){
+		// 	$('div.scroll-container').css({'overflow':'scroll'});
+		// });
 
 
 
@@ -534,11 +539,12 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		//mousedown to start drag operation
 		$(document).on('mousedown', '#seek-dot', function(event){
 
-			var scrubber 			= '#seek-dot';
-				_seek.seekBarWidth 	= $('#seek-bar').width(),
-				_seek.seekBarLeft 	= $('#seek-bar').offset().left,
-				_seek.seekBarRight 	= $('#seek-bar').offset().left + _seek.seekBarWidth,
-				_seek.seekFill 		= $('.seek-fill'),
+			var scrubber 			= 'div#seek-dot';
+				_seek.seekBar 		= $('div#seek-bar');
+				_seek.seekBarWidth 	= _seek.seekBar .width(),
+				_seek.seekBarLeft 	= _seek.seekBar .offset().left,
+				_seek.seekBarRight 	= _seek.seekBar .offset().left + _seek.seekBarWidth,
+				_seek.seekFill 		= $('div.seek-fill'),
 				_seek.drag 			= true;
 
 				Player.prototype.dragging(true);
@@ -649,9 +655,9 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		$(document).on('click', '.modalCloseIcon', function(){
 
 			//Hide modal window nodes
-			$('#restoreAcctModal').fadeOut();
-			$('#deleteAcctModal').fadeOut();
-			$('#nameDeviceModal').fadeOut();
+			$('div#restoreAcctModal').fadeOut();
+			$('div#deleteAcctModal').fadeOut();
+			$('div#nameDeviceModal').fadeOut();
 		});
 
 
@@ -662,56 +668,56 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 
-		//Dark theme set
-		$(document).on('change', '#themeDark', function(){
+		// //Dark theme set
+		// $(document).on('change', '#themeDark', function(){
 
-			_userId = window.userId;
+		// 	_userId = window.userId;
 
-			//Store theme choice as dark
-			if($('#themeDark').is(':checked')){
+		// 	//Store theme choice as dark
+		// 	if($('input#themeDark').is(':checked')){
 
-				_currentTheme = "dark";
+		// 		_currentTheme = "dark";
 
-				themeDark();
+		// 		themeDark();
 
-				//Build API url
-				var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + _currentTheme;
+		// 		//Build API url
+		// 		var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + _currentTheme;
 
-				//Call API to add song to library
-				$.ajax({
-					url : API_URL,
-					method : 'GET',
-					dataType : 'json',
-					success : function(response){
+		// 		//Call API to add song to library
+		// 		$.ajax({
+		// 			url : API_URL,
+		// 			method : 'GET',
+		// 			dataType : 'json',
+		// 			success : function(response){
 
-					}//success
-				});//ajax
-
-
-
-			}else{//Store theme as light
+		// 			}//success
+		// 		});//ajax
 
 
-				_currentTheme = "light";
 
-				themeLight();
+		// 	}else{//Store theme as light
 
-				//Build API url
-				var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + _currentTheme;
 
-				//Call API to add song to library
-				$.ajax({
-					url : API_URL,
-					method : 'GET',
-					dataType : 'json',
-					success : function(response){
+		// 		_currentTheme = "light";
 
-					}//success
-				});//ajax
+		// 		themeLight();
 
-			}//else
+		// 		//Build API url
+		// 		var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + _currentTheme;
 
-		});
+		// 		//Call API to add song to library
+		// 		$.ajax({
+		// 			url : API_URL,
+		// 			method : 'GET',
+		// 			dataType : 'json',
+		// 			success : function(response){
+
+		// 			}//success
+		// 		});//ajax
+
+		// 	}//else
+
+		// });
 
 
 
@@ -739,30 +745,32 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 		//Mobile menu handler
 		$(document).on('click', '#menu-btn', function(){
+			var app 	= $('section.app');
+			var aside 	= $('aside.app');
 
 			this.toggle;
 
 			if(!this.toggle){
 				// $('#adsense').fadeOut();
 
-				$('section.app').addClass('mainSlideRight');
-				$('aside.app').addClass('sidebarSlideRight');
+				app.addClass('mainSlideRight');
+				aside.addClass('sidebarSlideRight');
 
 				//reset slide left
-				$('section.app').removeClass('mainSlideLeft');
-				$('aside.app').removeClass('sidebarSlideLeft');
+				app.removeClass('mainSlideLeft');
+				aside.removeClass('sidebarSlideLeft');
 
 				this.toggle = !this.toggle;
 
 			}else{
 				// $('#adsense').fadeIn();
 
-				$('section.app').addClass('mainSlideLeft');
-				$('aside.app').addClass('sidebarSlideLeft');
+				app.addClass('mainSlideLeft');
+				aside.addClass('sidebarSlideLeft');
 
 				//reset slide right
-				$('section.app').removeClass('mainSlideRight');
-				$('aside.app').removeClass('sidebarSlideRight');
+				app.removeClass('mainSlideRight');
+				aside.removeClass('sidebarSlideRight');
 
 				this.toggle = !this.toggle;
 			}
@@ -815,17 +823,18 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 	//toggle Controller===========//
 	function toggleUi(toggle, selector, id){
 
-		this.toggle = toggle;
+		var selectorItem 	= $(selector);
+		this.toggle 		= toggle;
 
 		//clears previously open li in ul, if open
-		$(selector).fadeOut();
+		selectorItem.fadeOut();
 
 		//Check for provided id
 		if(id === null || id === "" || id === undefined){
 
 			//Fade in
 			if(!this.toggle){
-				$(selector).fadeIn();
+				selectorItem.fadeIn();
 
 				//custom event for notifying sub menu handler of new sub menu open
 				// $.event.trigger({
@@ -835,7 +844,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 			//Fade out
 			}else{
-				$(selector).fadeOut();
+				selectorItem.fadeOut();
 			}
 
 		//runs if providing event comes w/ a specific id
@@ -912,7 +921,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 	function enterFullscreen(){
 
 		//hide ads
-		$('#adsense').hide();
+		$('div#adsense').hide();
 
 		if(window.windowWidth < app_break_smmd){
 
@@ -959,7 +968,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 	//Controls minimizing the video
 	function showNormalSize(){
-
+		var videoSizeCtrl = $('div.video-size-ctrl');
 
 		if(window.windowWidth < app_break_smmd){
 
@@ -979,7 +988,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				'-webkit-transition-duration' : '1s'
 			});
 
-			$('div.video-size-ctrl').hide();
+			videoSizeCtrl.hide();
 
 			$('#video').hide();
 
@@ -997,7 +1006,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				'width'    : '25%'
 			});
 
-			$('div.video-size-ctrl').css({
+			videoSizeCtrl.css({
 				'bottom'     : '72px',
 				'background' : '#0f1010',
 				'textAlign'  : 'right',
@@ -1020,6 +1029,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 	//Controls minimizing the video
 	function showMinSize(){
 
+		var videoSizeCtrl = $('div.video-size-ctrl');
+
 		if(window.windowWidth < app_break_smmd){
 
 			//Show ads
@@ -1037,7 +1048,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				'-webkit-transition-duration' : '1s'
 			});
 
-			$('div.video-size-ctrl').hide();
+			videoSizeCtrl.hide();
 
 			$('#video').hide();
 
@@ -1053,7 +1064,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				'width'    : '25%'
 			});
 
-			$('div.video-size-ctrl').css({
+			videoSizeCtrl.css({
 				'bottom'     : '72px',
 				'background' : '#0f1010',
 				'textAlign'  : 'right',
@@ -1097,34 +1108,32 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 
-	function themeLight(){
+	// function themeLight(){
 
-		//Set global and cookie to dark
-		window.theme = 'light';
-		document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-		document.cookie = "theme=light";
-
-
-		$('#app, html, body').css({
-			'background': '#ebebeb'}
-		);
-
-		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('light-fonts');
+	// 	//Set global and cookie to dark
+	// 	window.theme = 'light';
+	// 	document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+	// 	document.cookie = "theme=light";
 
 
-		$('.li-header').addClass('light-border-bottom');
-		$('.section-header').addClass('light-border-bottom');
-		$('#searchSubmit').addClass('light-border-left');
+	// 	$('#app, html, body').css({
+	// 		'background': '#ebebeb'}
+	// 	);
 
-		$('aside.app').addClass('light-border-right');
-		$('input[type=text]').addClass('light-placeholder');
-
-		// $('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
-
-		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('light-input-bg');
-	}
+	// 	$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('light-fonts');
 
 
+	// 	$('.li-header').addClass('light-border-bottom');
+	// 	$('.section-header').addClass('light-border-bottom');
+	// 	$('#searchSubmit').addClass('light-border-left');
+
+	// 	$('aside.app').addClass('light-border-right');
+	// 	$('input[type=text]').addClass('light-placeholder');
+
+	// 	// $('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
+
+	// 	$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('light-input-bg');
+	// }
 
 
 
@@ -1133,32 +1142,34 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 
-	function themeDark(){
-
-		//set global & cookie to light
-		window.theme = 'dark';
-		document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-		document.cookie = "theme=dark";
 
 
-		$('#app, html, body').css({
-			'background': '#1b1d1d'}
-		);
+	// function themeDark(){
 
-		$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('light-fonts');
+	// 	//set global & cookie to light
+	// 	window.theme = 'dark';
+	// 	document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+	// 	document.cookie = "theme=dark";
 
 
-		$('.li-header').removeClass('light-border-bottom');
-		$('.section-header').removeClass('light-border-bottom');
-		$('#searchSubmit').removeClass('light-border-left');
+	// 	$('#app, html, body').css({
+	// 		'background': '#1b1d1d'}
+	// 	);
 
-		$('aside.app').removeClass('light-border-right');
-		$('input[type=text]').removeClass('light-placeholder');
+	// 	$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('light-fonts');
 
-		// $('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
 
-		$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('light-input-bg');
-	}
+	// 	$('.li-header').removeClass('light-border-bottom');
+	// 	$('.section-header').removeClass('light-border-bottom');
+	// 	$('#searchSubmit').removeClass('light-border-left');
+
+	// 	$('aside.app').removeClass('light-border-right');
+	// 	$('input[type=text]').removeClass('light-placeholder');
+
+	// 	// $('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
+
+	// 	$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('light-input-bg');
+	// }
 
 
 
@@ -1170,12 +1181,12 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 	function hideAdsense(){
-		$('#adsense').fadeOut();
+		$('div#adsense').fadeOut();
 		setTimeout(showAdsense, 25000);
 	}
 
 	function showAdsense(){
-		$('#adsense').fadeIn();
+		$('div#adsense').fadeIn();
 	}
 
 
@@ -1192,11 +1203,11 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		var hiresSrc = 'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg';
 
 		//Set thumbnail src
-		$('.youtube-img[data-id=' + id + ']').attr('src', thumbSrc);
+		$('img.youtube-img[data-id=' + id + ']').attr('src', thumbSrc);
 
 
 		//Set lightbox higher res src
-		$('.youtube-img-a[data-id=' + id + ']').attr('href', hiresSrc);
+		$('a.youtube-img-a[data-id=' + id + ']').attr('href', hiresSrc);
 	}
 
 
@@ -1218,7 +1229,6 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 	//Handles resultItems drag to playist coordinates
 	function itemDragging(elem, event){
-console.log("itemDragging ran");
 
 
 		if(_dragResult.dragging === false){
@@ -1230,7 +1240,7 @@ console.log("itemDragging ran");
 			var thatWidth;
 			var thatHeight;
 			var moving 			= false;
-			var mouseIcon 		= $('#mouseAddIcon');
+			var mouseIcon 		= $('img#mouseAddIcon');
 			_dragResult.origX 	= elem.find('span.li-col2').offset().left;
 			_dragResult.origY 	= elem.find('span.li-col2').offset().top;
 
@@ -1326,13 +1336,13 @@ console.log("itemDragging ran");
 						   _dragResult.Y   >= input.top  &&  _dragResult.Y   <= input.bottom){
 
 							//Set input value
-							var submit = $('.newPlaylistSubmit');
+							var submit = $('input.newPlaylistSubmit');
 
 							//sanitize string
 							var sanitized = _clone.text().replace(/[^a-zA-Z ]/g, "")
 								sanitized = sanitized.substr(0, 25);
 
-							$('.newPlaylistInput').val(sanitized);
+							$('input.newPlaylistInput').val(sanitized);
 							submit.attr('data-user', _clone.attr('data-user'));
 							submit.attr('data-id', _clone.attr('data-id'));//song id
 
@@ -1375,7 +1385,7 @@ console.log("itemDragging ran");
 
 
 						}else{//RETURN TO ORIGINAL LOCATION
-console.log("return to original");
+
 							_clone.offset({top: _dragResult.origY, left: _dragResult.origX});
 
 							//Remove clone from stage
