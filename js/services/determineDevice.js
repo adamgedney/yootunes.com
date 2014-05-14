@@ -28,7 +28,6 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies ,getUs
 			var cookies = getCookies;
 
 
-
 			if(cookies.devices.length !== 0){
 
 				var devices = cookies.devices;

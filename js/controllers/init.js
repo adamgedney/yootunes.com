@@ -103,7 +103,7 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 
 
 		//If uid cookie does not exist
-		if(_cookies.userId === -1 || _cookies.userId === undefined || _cookies.userId === 'undefined'){
+		if(_cookies.userId === null ||_cookies.userId === -1 || _cookies.userId === undefined || _cookies.userId === 'undefined'){
 
 
 			//Load landing page
@@ -135,13 +135,13 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 					User.getUser(_cookies.userId, function(){});
 
 
-
-					determineDevice.get(function(){});
-
 					//Load app, set cookie, fire event
 					//Cookie setting here is redundant but harmless
 					//Prevents duplicate code.
 					loadApplication();
+
+					//#app needs to have rendered first
+					determineDevice.get(function(){});
 
 				}//AJAX success
 			});//AJAX library count
@@ -230,9 +230,15 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 
 
 	function setPlaylistCookie(playlistId){
-		//Set a cookie in the browser to store
+
+		//Set a localstorage or cookie in the browser to store
 		//shared playlist if user not logged in
-		document.cookie = "share=" + playlistId;
+		if(localStorage){
+			localStorage.setItem('share', playlistId);
+		}else{
+			document.cookie = "share=" + playlistId;
+		}
+
 
 		_playlistId = 0;
 

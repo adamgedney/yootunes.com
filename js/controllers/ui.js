@@ -1236,9 +1236,6 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			//Set item to dragging
 			_dragResult.dragging = true;
 
-
-			var thatWidth;
-			var thatHeight;
 			var moving 			= false;
 			var mouseIcon 		= $('img#mouseAddIcon');
 			_dragResult.origX 	= elem.find('span.li-col2').offset().left;
@@ -1254,21 +1251,20 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 					if(_setClone === false){
 						//Only set these values once
 						_clone 		= elem.clone().find('span.li-col2').appendTo('.scroll-container');
-						thatWidth 	= _clone.width();
-						thatHeight 	= _clone.height();
 						_setClone 	= true;
 
 
 						_clone.css({
-							'position' 		: 'absolute',
+							'color' 		: '#cf2425',//red
+ 							'position' 		: 'absolute',
 							'zIndex' 		: '999',
 							'cursor'    	: 'move',
 							'pointerEvents': 'none'
 						});
 					}//setClone
 
-						var dragX 			= event.pageX - (thatWidth / 2);
-						var dragY 			= event.pageY - (thatHeight / 2);
+						var dragX 			= event.pageX + 15;
+						var dragY 			= event.pageY - 5;
 						var overPlaylist 	= getCoordinates(_overPlaylist);
 
 						_dragResult.X 		= event.pageX;

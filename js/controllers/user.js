@@ -20,24 +20,30 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 		//=====================================//
 		$(document).on('namedevice', function(){
 
-			// Fade in modal to instruct user to name this device
-			$('div#nameDeviceModal').fadeIn();
-			$('#devicePrompt').fadeIn();
+			//triggers a listen for rendered #app
+			$(document).on('rendered', function(event){
+				if(event.template === '#app'){
 
-			//Maybe user deleted cookies? GET DEVICES TO ASK USER
-			getUserDevices.get(userId, function(response){
+					// Fade in modal to instruct user to name this device
+					$('div#nameDeviceModal').fadeIn();
+					$('#devicePrompt').fadeIn();
 
-				//Set for addDevice method
-				_devices = response;
+					//Maybe user deleted cookies? GET DEVICES TO ASK USER
+					getUserDevices.get(userId, function(response){
 
-				//Instructs Content to render device lists in ui & modal
-				$.event.trigger({
-					type 			: 'renderdevices',
-					response 		: response,
-					origin 			: 'indeterminate'
-				});
-			});//getDevices
-		});
+						//Set for addDevice method
+						_devices = response;
+
+						//Instructs Content to render device lists in ui & modal
+						$.event.trigger({
+							type 			: 'renderdevices',
+							response 		: response,
+							origin 			: 'indeterminate'
+						});
+					});//getDevices
+				}//if
+			});//#app
+		});//rendered
 
 
 
@@ -216,10 +222,17 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 		if(selectedDeviceName !== 'Your Devices' && name === ''){
 
 			 //set cookie DEVICE# with device id here
-			document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
+			 if(localStorage){
+			 	var devStr = 'device' + (deviceCookieAmount + 1) + '';
+
+			 	localStorage.setItem(devStr, selectedDeviceId);
+			 }else{
+			 	document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
+			 }
+
 			nameDeviceModal.fadeOut();
 
-
+console.log(localStorage);
 
 		}else{//NEW DEVICE
 
@@ -237,8 +250,13 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 				success : function(response){
 
 					//Set a device cookie for the new device
-					document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + response.newDeviceId;
+					if(localStorage){
+					 	var devStr = 'device' + (deviceCookieAmount + 1) + '';
 
+					 	localStorage.setItem(devStr, response.newDeviceId);
+					 }else{
+					 	document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + response.newDeviceId;
+					 }
 
 					//Instructs COntent to reload device list
 					$.event.trigger({
@@ -282,12 +300,22 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 
 				//store theme info for app-wide use
 				window.theme = response[0].theme;
-				document.cookie = "theme=" + response[0].theme;
+
+				if(localStorage){
+					localStorage.setItem('theme', response[0].theme);
+				}else{
+					document.cookie = "theme=" + response[0].theme;
+				}
 
 				//Set a cookie in the browser to store user id
 				//Duplicate setting. Just for stability.
-				document.cookie = "uid=" + response[0].id;
 				window.userId 	= response[0].id;
+
+				if(localStorage){
+					localStorage.setItem('uid', response[0].id);
+				}else{
+					document.cookie = "uid=" + response[0].id;
+				}
 
 
 				//Callback once data received

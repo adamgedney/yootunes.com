@@ -1194,7 +1194,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 
 			//Store the users songs for list functions
-			//Store youtube img urls for click dependent loading to limit GET requests
 			for(var i=0;i<response[0].length; i++){
 				_userSongs.push(response[0][i].song_id);
 			}

@@ -84,7 +84,7 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 			method 		: 'GET',
 			dataType 	: 'json',
 			success 	: function(response){
-
+console.log(response);
 				//If user was authenticated
 				if(response.success === true){
 					loginError.hide();
@@ -312,13 +312,13 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 	//==========================================//
 	$(document).on('click', '#forgotSubmit', function(event){
 		event.preventDefault();
-		var error 		= ('p#error');
+		var errorMsg 	= $('#error');
 		var siblings 	= $(this).parent();
 		var email 		= siblings.find('#forgotInput').val();
 		var API_URL 	= _baseUrl + '/forgot/' + email;
 
 		//Hides error message if this isn't the first attempt
-		error.hide();
+		errorMsg.hide();
 
 		$.ajax({
 			url : API_URL,
@@ -329,10 +329,10 @@ define(['jquery', 'Content', 'getCookies', 'Init', 'socketService'], function($,
 				if(response === "User null"){
 
 					//Show error message if no user was found
-					error.fadeIn();
+					errorMsg.fadeIn();
 				}else{
 
-					$('p#success').fadeIn();
+					$('#success').fadeIn();
 
 					//reload the landing page
 					setTimeout(reloadLanding, 5000);
@@ -549,12 +549,8 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 	$(document).on('click', '#deleteAccountButton', function(event){
 		event.preventDefault();
 
-		//Check for the stored cookie in the browser
-		var cookie = document.cookie;
-		var userId = cookie.indexOf("uid");
-
 		//Stored user id
-		var id = cookie.substr(userId + 4);
+		var id = getCookies.userId;
 
 		//Build API URL
 		var API_URL = _baseUrl + '/delete-user/' + id;
@@ -712,12 +708,19 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 			playlistId 		: _playlistId
 		});
 
+		//Store theme and uid in localstorage or set cookie if localstorage doesn't exist
+		if(localStorage){
+			localStorage.setItem('uid', response.id);
+			localStorage.setItem('theme', response.theme);
+		}else{
+			//Set a cookie in the browser to store user id
+			document.cookie = "uid=" 	+ response.id;
+			document.cookie = "theme=" 	+ response.theme;
+		}
+
 		//load the application
 		Content.loadApp();
 
-		// //Set a cookie in the browser to store user id
-		document.cookie = "uid=" 	+ response.id;
-		document.cookie = "theme=" 	+ response.theme;
 	}
 
 
@@ -748,8 +751,14 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 
 	function deleteUIDCookie(){
 
-		//Expires uid cookie for logout funcitonality
-		document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+		if(localStorage){
+			localStorage.removeItem('uid');
+		}else{
+			//Expires uid cookie for logout funcitonality
+			document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+		}
+
+
 	};
 
 

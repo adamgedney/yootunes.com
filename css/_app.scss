@@ -1440,7 +1440,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	ul{
 		float: left;
 		margin: 18px 0 0;
-		@include col(10);
+		@include col(18);
 
 		li{
 			overflow: hidden;
@@ -1473,6 +1473,14 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 		@include col(3);
 	}
 }
+
+/*#infoThumb{
+	display: inline;
+	width: 48px;
+	height: 36px;
+	margin-bottom: 21px;
+	margin-right: 6%;
+}*/
 
 .transport-ctrl{
 	@include col(2);

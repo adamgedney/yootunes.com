@@ -1370,7 +1370,10 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 	function renderSongInfo(id){
 
+		//Commented out thumb code loads a youtube thumb into the footer info section
 		var playing 			= $('span.play-icon[data-videoId=' + id + ']');
+		// var thumb 				= $('img#infoThumb');
+		// var lbThumb 			= $('a#lbThumb');
 		var song 				= $('li#infoTitle');
 		var artist 				= $('li#infoArtist');
 		var album 				= $('li#infoAlbum');
@@ -1382,7 +1385,13 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 		var twitterShareMain 	= $('a#twitterShareMain');
 		var linkShareMain 		= $('a#linkShareMain');
 		var youtubeUrl 			= 'https://www.youtube.com/watch?v=' + id;
+		// var thumbSrc 			= 'https://i.ytimg.com/vi/' + id + '/default.jpg';
+		// var thumbHiSrc 			= 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
 
+
+		// thumb.attr('src', thumbSrc);
+		// lbThumb.attr('data-lightbox', thumbHiSrc);
+		// lbThumb.attr('href', thumbHiSrc);
 		song.html(dataSong);
 		artist.html(dataArtist);
 		album.html(dataAlbum);
