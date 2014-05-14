@@ -5,14 +5,12 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 
 
 	//Private variables
+	var _baseUrl 			= 'http://api.atomplayer.com';
 	var _user 				= {};
-	var _userId;
 	var _playlistId 		= 0;
+	var _userId;
 	var _cookies;
 
-	var _baseUrl 			= 'http://api.atomplayer.com';
-
-	// var app_break_smmd 		= '800';
 
 
 

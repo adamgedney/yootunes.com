@@ -4,14 +4,12 @@ define(['jquery'], function($){
 
 
 
-// var Library = (function(window, document, $){
-
 	//private vars
+	var _baseUrl 		= 'http://api.atomplayer.com';
 	var _addedToLibrary = false;
 	var _libraryId 		= '';
 	var _visibleFormId 	= '';
 
-	var _baseUrl 		= 'http://api.atomplayer.com';
 
 
 
@@ -90,10 +88,10 @@ define(['jquery'], function($){
 
 		//Add/Remove song to/from library========//
 		$(document).on('click', '.addToLibrary', function(event){
-			var id = $(this).attr('data-id');
-			var libraryId = $(this).attr('data-libid');
-			var playlistId = $(this).attr('data-playlistId');
-			var check = $(this).find('.add-icon').attr('src', 'images/icons/check.png');
+			var id 			= $(this).attr('data-id');
+			var libraryId 	= $(this).attr('data-libid');
+			var playlistId 	= $(this).attr('data-playlistId');
+			var check 		= $(this).find('img.add-icon').attr('src', 'images/icons/check.png');
 
 
 			//Currently displaying playlist if playlistId exists
@@ -137,7 +135,7 @@ define(['jquery'], function($){
 
 
 					//Swaps out icon
-					$(this).find('.add-icon').attr('src', 'images/icons/check.png');
+					$(this).find('img.add-icon').attr('src', 'images/icons/check.png');
 
 					this.toggle = !this.toggle;
 
@@ -158,7 +156,7 @@ define(['jquery'], function($){
 
 
 					//Swaps out icon
-					$(this).find('.add-icon').attr('src', 'images/icons/add.png');
+					$(this).find('img.add-icon').attr('src', 'images/icons/add.png');
 
 					this.toggle = !this.toggle;
 				}//this.toggle
@@ -185,8 +183,8 @@ define(['jquery'], function($){
 			createNewPlaylist(userId, songId, playlistName);
 
 			//Clear form on submit
-			$('.newPlaylistInput').val('');
-			$('#hiddenCreatePlaylistForm').hide();
+			$('input.newPlaylistInput').val('');
+			$('div#hiddenCreatePlaylistForm').hide();
 
 			event.preventDefault();
 		});
@@ -197,27 +195,27 @@ define(['jquery'], function($){
 
 
 
-
+//NOTE****   Sublist is hidden. Grab check affordance and move to dragon drop
 
 		//Add song to playlist
-		$(document).on('click', '.playlist-menu-sub-list', function(event){
-			var songId 		= $(this).parent().attr('data-id');
-			var playlistId 	= $(this).attr('data-playlistId');
-			var userId 		= $(this).attr('data-user');
-			var that 		= $(this);
+		// $(document).on('click', '.playlist-menu-sub-list', function(event){
+		// 	var songId 		= $(this).parent().attr('data-id');
+		// 	var playlistId 	= $(this).attr('data-playlistId');
+		// 	var userId 		= $(this).attr('data-user');
+		// 	var that 		= $(this);
 
 
-			//Show checkmark affordance when song added
-			var thisCheck = $(this).find('.addedToPlaylistCheck');
-				thisCheck.fadeIn(100, function(){
-					hideCheck(thisCheck);
-				});
+		// 	//Show checkmark affordance when song added
+		// 	var thisCheck = $(this).find('.addedToPlaylistCheck');
+		// 		thisCheck.fadeIn(100, function(){
+		// 			hideCheck(thisCheck);
+		// 		});
 
 
 
-			//Add song to playlist
-			addSongToPlaylist(songId, playlistId, userId);
-		});
+		// 	//Add song to playlist
+		// 	addSongToPlaylist(songId, playlistId, userId);
+		// });
 
 
 
@@ -293,7 +291,7 @@ define(['jquery'], function($){
 
 
 	function addSongToLibrary(id, userId){
-
+		var collectionTotal = $('span#collectionTotal');
 		//Build API url
 		var API_URL = _baseUrl + '/add-to-library/' + id + '/' + userId;
 
@@ -305,9 +303,10 @@ define(['jquery'], function($){
 			success : function(response){
 console.log(response, "add to lib response");
 				if(response === true){
+
 					//Display total songs in library in interface
-					var currentNumber = $('#collectionTotal').html();
-					$('#collectionTotal').html(parseInt(currentNumber) + 1);
+					var currentNumber = collectionTotal.html();
+					collectionTotal.html(parseInt(currentNumber) + 1);
 				}
 			}//success
 		});//ajax
@@ -329,6 +328,8 @@ console.log(response, "add to lib response");
 
 	function removeSongFromLibrary(id, userId){
 
+		var collectionTotal = $('span#collectionTotal');
+
 		//Build API url
 		var API_URL = _baseUrl + '/remove-from-library/' + id + '/' + userId;
 
@@ -341,14 +342,14 @@ console.log(response, "add to lib response");
 
 console.log(response, "remove from lib response");
 				//hide the item just removed form lib. so library doesn't reload
-				$('.resultItems[data-id=' + id + ']').hide();
+				$('li.resultItems[data-id=' + id + ']').hide();
 
 				//Indicate song was removed in Library songs display in sidebar
 				if(response === true){
 
 					//Display total songs in library in interface
-					var currentNumber = $('#collectionTotal').html();
-					$('#collectionTotal').html(parseInt(currentNumber) - 1);
+					var currentNumber = collectionTotal.html();
+					collectionTotal.html(parseInt(currentNumber) - 1);
 				}
 
 			}//success
