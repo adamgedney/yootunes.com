@@ -296,9 +296,15 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 					}
 				}
 
-				//Show only this dragable icon on hover
-				$('img.draggableIcon').css({'display' : 'none'})
-				$(this).find('img.draggableIcon').css({'display' : 'block'});
+				//Show draggable icon on non-mobile devices
+				if(window.windowWidth > app_break_smmd){
+					//Show only this draggable icon on hover
+					$('img.draggableIcon').css({'display' : 'none'})
+					$(this).find('img.draggableIcon').css({'display' : 'block'});
+				}
+
+
+
 			});//MOUSEOVER
 
 
