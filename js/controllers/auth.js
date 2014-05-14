@@ -54,7 +54,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 			method 		: 'GET',
 			dataType 	: 'json',
 			success 	: function(response){
-console.log(response[0][0], "register login");
+console.log(response[0][0], response.success, "register login");
 				//If user was authenticated
 				if(response.success === true){
 
@@ -62,7 +62,7 @@ console.log(response[0][0], "register login");
 					loadApplication(response[0][0]);
 
 				}else{//User doesn't already exist
-
+console.log("create ran", email, password, passwordAgain);
 					//Run create user function
 					createNewUser(email, password, passwordAgain);
 

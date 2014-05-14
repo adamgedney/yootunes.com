@@ -359,6 +359,13 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		//Main menu dropdown interaction=============//
 		$(document).on('click', '.dropdown-trigger', function(event){
 
+				this.toggle;
+
+				var selector 	= '.main-dropdown';
+				var id 			= $(this).attr('data-id');
+				var resultItems = $('li.resultItems');
+				var thisId 		= $(this).parent().find('img.playIconImg').attr('data-videoId');
+				_dropdownId 	= id;
 
 
 			//Prevent dropdown on mobile view
@@ -367,14 +374,6 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 				//Ensures form is hidden at start
 				// $('.newPlaylistForm').hide();
-
-				this.toggle;
-
-				var selector 	= '.main-dropdown';
-				var id 			= $(this).attr('data-id');
-				var resultItems = $('li.resultItems');
-				var thisId 		= $(this).parent().find('img.playIconImg').attr('data-videoId');
-				_dropdownId 	= id;
 
 
 				//returns the opposite boolean toggle value
