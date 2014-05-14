@@ -131,6 +131,44 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 
 
 
+		//RENAME DEVICE
+		$(document).on('click', '#submitRenameDevice', function(event){
+			event.preventDefault();
+
+			var name 		= $('input#renameDeviceName').val();
+			var deviceId 	= $(this).parent().find('#renameDeviceName').attr('data-id');
+			var API_URL 	= _baseUrl + '/rename-device/' + deviceId + '/' + name;
+console.log(name, deviceId, "rename");
+			//Delete device on deviceId
+			$.ajax({
+				url : API_URL,
+				method : 'GET',
+				dataType : 'json',
+				success : function(response){
+
+					console.log(response, "renamed device response");
+
+					//Fires a complete event after  device has been deleted
+					//Instructs Content to render device lists in ui & modal
+					$.event.trigger({
+						type 	: 'renderdevices',
+						origin 	: 'renamed device'
+					});
+
+
+				}//success
+			});//ajax
+		});//updateDeviceName
+
+
+
+
+
+
+
+
+
+
 
 
 

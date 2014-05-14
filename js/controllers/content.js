@@ -1297,7 +1297,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 
 	function renderDevices(response){
-		var deviceName  	= $('input.infoDeviceName');
+		var deviceName  	= $('input#renameDeviceName');
 		var playOn 			= $('select#play-on');
 		var mobilePlayOn 	= $('select#mobile-play-on');
 		var deviceList 		= $('ul#infoDeviceList');
