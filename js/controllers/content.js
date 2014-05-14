@@ -406,19 +406,19 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 				}
 
 
-				//Failsafe retrieval of theme
-				if(window.theme === undefined){
-					window.theme = getCookies.theme;
-				}
+				// //Failsafe retrieval of theme
+				// if(window.theme === undefined){
+				// 	window.theme = getCookies.theme;
+				// }
 
-				//Set the application THEME colors
-				if(window.theme === 'light'){
+				// //Set the application THEME colors
+				// if(window.theme === 'light'){
 
-					Ui.themeLight();
-				}else{
+				// 	Ui.themeLight();
+				// }else{
 
-					Ui.themeDark();
-				}
+				// 	Ui.themeDark();
+				// }
 
 
 
@@ -487,11 +487,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 				//Set the application theme colors
 				//again to ensure lib items are styled
 				//once they hit the DOM
-				if(window.theme === 'light'){
-					Ui.themeLight();
-				}else{
-					Ui.themeDark();
-				}
+				// if(window.theme === 'light'){
+				// 	Ui.themeLight();
+				// }else{
+				// 	Ui.themeDark();
+				// }
 
 
 

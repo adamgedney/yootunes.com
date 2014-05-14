@@ -204,10 +204,12 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 		// _devices = getCookies.devices;
 
 		var currentDeviceId 	= "0";//default set in case we're new and not updating
-		var name 				= $('.infoDeviceName').val();
-		var selectedDeviceName 	= $('#userDevices option:selected').text();
-		var selectedDeviceId 	= $('#userDevices option:selected').attr('data-id');
+		var name 				= $('input.infoDeviceName').val();
+		var deviceOption 		= $('#userDevices option:selected');
+		var selectedDeviceName 	= deviceOption.text();
+		var selectedDeviceId 	= deviceOption.attr('data-id');
 		var deviceCookieAmount 	= _devices.length;
+		var nameDeviceModal 	= $('div#nameDeviceModal');
 
 
 		//USER CHOSE A DEVICE NAME FROM LIST
@@ -215,7 +217,7 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 
 			 //set cookie DEVICE# with device id here
 			document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
-			$('div#nameDeviceModal').fadeOut();
+			nameDeviceModal.fadeOut();
 
 
 
@@ -245,7 +247,7 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 
 
 
-					$('div#nameDeviceModal').fadeOut();
+					nameDeviceModal.fadeOut();
 
 				}//success
 			});//ajax

@@ -1146,6 +1146,21 @@ footer .col-3 ul li:last-child {
 }
 
 /*----Sass import application stylesheet----*/
+/*
+*[title]:hover:after{
+	content: attr(title);
+  	position: absolute;
+  	z-index: 10000;
+  	top: 9px;
+  	left: 9px;
+	display: block;
+	width: 200px;
+	height: 200px;
+	padding: 6px;
+	border-radius: 2px;
+	background: black;
+	color: white;
+}*/
 img#mouseAddIcon {
   position: absolute;
   z-index: 20000;

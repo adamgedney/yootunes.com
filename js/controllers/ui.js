@@ -76,28 +76,28 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			//========================================//
 			$(document).on('rendered', function(event){
 
+//NOTE**** Qtip slows app down by a few seconds
+				// if(event.template === '#libraryItem' || event.template === '#playlist'){
 
-				if(event.template === '#libraryItem' || event.template === '#playlist'){
-
-					//============================//
-					//Enable QTIP on all tooltips
-					//============================//
-					$(document).find('[title!=""]').qtip({
-						style: {
-							classes: 'qtip-tipsy'
-						},
-						position: {
-							target: [9, 9]
-					    },
-					    show: {
-					        delay: 1000
-					    },
-					    hide: {
-					    	event: 'click mouseleave',
-					        delay: 500
-					    }
-					});
-				}
+				// 	//============================//
+				// 	//Enable QTIP on all tooltips
+				// 	//============================//
+				// 	$(document).find('[title!=""]').qtip({
+				// 		style: {
+				// 			classes: 'qtip-tipsy'
+				// 		},
+				// 		position: {
+				// 			target: [9, 9]
+				// 	    },
+				// 	    show: {
+				// 	        delay: 1000
+				// 	    },
+				// 	    hide: {
+				// 	    	event: 'click mouseleave',
+				// 	        delay: 500
+				// 	    }
+				// 	});
+				// }
 
 
 
@@ -1455,8 +1455,6 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 	//methods and properties.
 	var exports = {
-		themeDark 		: themeDark,
-		themeLight 		: themeLight,
 		showNormalSize 	: showNormalSize,
 		showMinSize 	: showMinSize
 	};

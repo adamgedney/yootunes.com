@@ -809,7 +809,6 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 		pause 		 	: pause,
 		seekTo 	 		: seekTo,
 		dragging 		: dragging,
-		emitClick 		: emitClick,
 		playItem 		: playItem
 	};
 
@@ -1372,9 +1371,9 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 	function renderSongInfo(id){
 
 		var playing 			= $('span.play-icon[data-videoId=' + id + ']');
-		var song 				= $('input#infoTitle');
-		var artist 				= $('input#infoArtist');
-		var album 				= $('input#infoAlbum');
+		var song 				= $('li#infoTitle');
+		var artist 				= $('li#infoArtist');
+		var album 				= $('li#infoAlbum');
 		var dataSong 			= playing.attr('data-song');
 		var dataArtist 			= playing.attr('data-artist');
 		var dataAlbum 			= playing.attr('data-album');
