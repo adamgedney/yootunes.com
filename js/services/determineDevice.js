@@ -85,7 +85,7 @@ console.log(cookies.devices, cookies.devices.length);
 
 			}else{//NO DEVICE COOKIES FOUND
 
-console.log("triggeed");
+
 					//Trigger event to open modal window from user.js
 					$.event.trigger({
 						type 	: 'namedevice',

@@ -184,7 +184,7 @@ define(['jquery'], function($){
 
 			//Clear form on submit
 			$('input.newPlaylistInput').val('');
-			$('div#hiddenCreatePlaylistForm').hide();
+			$('#hiddenCreatePlaylistForm').hide();
 
 			event.preventDefault();
 		});
@@ -342,7 +342,7 @@ console.log(response, "add to lib response");
 
 console.log(response, "remove from lib response");
 				//hide the item just removed form lib. so library doesn't reload
-				$('li.resultItems[data-id=' + id + ']').hide();
+				$('#libraryWrapper li.resultItems[data-id=' + id + ']').hide();
 
 				//Indicate song was removed in Library songs display in sidebar
 				if(response === true){

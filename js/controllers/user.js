@@ -31,7 +31,7 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 			$(document).on('rendered', function(event){
 				if(event.template === '#app'){
 					// Fade in modal to instruct user to name this device
-					$('div#nameDeviceModal').fadeIn();
+					$('#nameDeviceModal').fadeIn();
 					$('#devicePrompt').fadeIn();
 
 					//Maybe user deleted cookies? GET DEVICES TO ASK USER
@@ -260,7 +260,7 @@ console.log(name, deviceId, "rename");
 		var selectedDeviceName 	= deviceOption.text();
 		var selectedDeviceId 	= deviceOption.attr('data-id');
 		var deviceCookieAmount 	= _devices.length;
-		var nameDeviceModal 	= $('div#nameDeviceModal');
+		var nameDeviceModal 	= $('#nameDeviceModal');
 
 
 		//USER CHOSE A DEVICE NAME FROM LIST

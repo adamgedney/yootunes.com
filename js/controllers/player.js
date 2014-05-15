@@ -93,13 +93,13 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 			var liCol1 			= $('span.li-col1');
 			var liCol2 			= $('span.li-col2');
 			var footer 			= $('div.footer');
-			var videoOverlay 	= $('div#video-overlay');
+			var videoOverlay 	= $('#video-overlay');
 			_playOnDevice 		=  $('select#mobile-play-on option:selected').attr('data-id');
 
 				pause();
 
 				$('div.video-size-ctrl').hide();
-				$('div#video').hide();
+				$('#video').hide();
 
 			if(window.thisDevice !== _playOnDevice){
 				liCol1.hide();
@@ -127,7 +127,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 			if(event.template === '#app'){
 
-				var video 			= $('div#video');
+				var video 			= $('#video');
 				var videoSizeCtrls 	= $('div.video-size-ctrl');
 				var footer 			= $('div.footer');
 
@@ -163,7 +163,8 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 				//Populate footer metadata with first li item data
 				if(_playerPlaying === false){
-					var id = $('li.resultItems:eq(' + 0 + ')').find('img.playIconImg').attr('data-videoId');
+					var libraryWrapper 	= $('#libraryWrapper');
+					var id = libraryWrapper.find('li.resultItems:eq(' + 0 + ')').find('img.playIconImg').attr('data-videoId');
 					renderSongInfo(id);
 				}
 
@@ -251,7 +252,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 		//Prev/Next Click Handler=======//
 		$(document).on('click', '#prev-btn', function(){
-
+			var libraryWrapper 	= $('#libraryWrapper');
 
 			//If shuffle is enabled, load a new random song
 			if(_playMode.shuffle){
@@ -260,7 +261,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 				_prevIndex -= 1 ;
 
 				//Gets index number of previous shuffle videos stored in shuffleIndex array
-		    	var prevVideo = $('li.resultItems[data-index="' + _shuffleIndexes[_prevIndex + _shuffleIndexes.length] + '"]').attr('data-videoId');
+		    	var prevVideo = libraryWrapper.find('li.resultItems[data-index="' + _shuffleIndexes[_prevIndex + _shuffleIndexes.length] + '"]').attr('data-videoId');
 
 				//Start playing
 				// _player.loadVideoById(prevVideo);
@@ -273,7 +274,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 				//set current index
 				_currentIndex = parseInt(_currentIndex, 10) - 1;
 
-		    	var prevVideo = $('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+		    	var prevVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 				//Start playing
 				// _player.loadVideoById(prevVideo);
@@ -288,7 +289,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 		//Next btn  Click Handler=======//
 		$(document).on('click', '#next-btn', function(){
-
+			var libraryWrapper 	= $('#libraryWrapper');
 
 			//If shuffle is enabled, load a new random song
 			if(_playMode.shuffle){
@@ -301,7 +302,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 				//set current index
 				_currentIndex = parseInt(_currentIndex, 10) + 1;
 
-		    	var nextVideo = $('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+		    	var nextVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 				//Start playing
 				// _player.loadVideoById(nextVideo);
@@ -348,8 +349,9 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 			//FOOTER PLAY BUTTON Click Handler=======//
 			$(document).on('click', '#play-btn', function(){
+				var libraryWrapper 	= $('#libraryWrapper');
 
-				var youtubeId = $('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
+				var youtubeId = libraryWrapper.find('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
 
 					//Play if not already playing
 					if(_playerPlaying === false){
@@ -378,7 +380,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 			$(document).on('mousemove', '#volumeRange', function(){
 
-				var rangeVolume = $('input#volumeRange').val();
+				var rangeVolume = $('#volumeRange').val();
 
 				//No need for sockets if this is the device we're playing on
 				if(_socket === null){
@@ -433,6 +435,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 		//===========================================//
 		window.onPlayerStateChange = function(event){
 
+			var libraryWrapper 	= $('#libraryWrapper');
 			var id = _player.getVideoData().video_id;
 
 
@@ -542,7 +545,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 			    	//set current index converted from string to int
 					_currentIndex = parseInt(_currentIndex, 10) + 1;
 
-			    	var nextVideo = $('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+			    	var nextVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 					//Start playing
 					// _player.loadVideoById(currentVideo);
@@ -567,13 +570,14 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 		//Play icon Click Handler=======//
 		$(document).on('click', '.play-icon', function(event){
 
-			playItem($(this));
-
+			var libraryWrapper 	= $('#libraryWrapper');
 			var id = $(this).attr('data-id');
 
+			playItem($(this));
+
 			//Change li text color
-			$('li.resultItems').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').removeClass('red');//red
-			$('li.resultItems[data-id=' + id + ']').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').addClass('red');//red
+			libraryWrapper.find('li.resultItems').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').removeClass('red');//red
+			libraryWrapper.find('li.resultItems[data-id=' + id + ']').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').addClass('red');//red
 
 			// console.log($('.resultItems[data-id=' + id + ']'), id);
 
@@ -747,7 +751,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 				_player.setVolume(response.volume);
 
 				//Set the range slider value to match assigned value
-				$('input#volumeRange').val(response.volume);
+				$('#volumeRange').val(response.volume);
 			}
 		});//_socketConnect.on
 
@@ -764,7 +768,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 		//Listen for socket ON SETTIME
 		//=============================//
 		_socketConnect.on('seekToOn', function(response){
-			var seekBar = $('div#seek-bar');
+			var seekBar = $('#seek-bar');
 
 			if(_thisDevice === response.device){
 				//Set playing video's position
@@ -773,7 +777,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 				_seek.seekPos = ((seekBar.width() / _seek.duration) * response.seconds)  + seekBar.offset().left;
 
-				$('div#seek-dot').offset({left: _seek.seekPos});
+				$('#seek-dot').offset({left: _seek.seekPos});
 			}
 
 		});//_socketConnect.on
@@ -866,7 +870,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 	function seekTo(scrubberOffset){
 
-		var seekBar = $('div#seek-bar');
+		var seekBar = $('#seek-bar');
 
 		//Set video time: ((scrubber x - bar left) / bar width) * duration
 		var s = ((scrubberOffset - seekBar.offset().left) / seekBar.width()) *_seek.duration;
@@ -915,8 +919,8 @@ console.log("update");
 			var secd 		= (time % 60) - 1;
 			var s 			= Math.ceil(secd);
 			var currentTime = $('p#current-time');
-			var seekBar 	= $('div#seek-bar');
-			var seekDot 	= $('div#seek-dot');
+			var seekBar 	= $('#seek-bar');
+			var seekDot 	= $('#seek-dot');
 			var seekBuffered= $('div.seek-buffered');
 
 			// var seek_time = ((300 / duration) * s) + _seek.stepper + $('.seek-line').offset().left;
@@ -1344,18 +1348,18 @@ console.log("update");
 
 	function playRandom(){
 
+		var libraryWrapper 	= $('#libraryWrapper');
+
 		//get list items length
-		var resultLength = $('li.resultItems:eq(' + 0 + ')').attr('data-resultLength');
+		var resultLength = libraryWrapper.find('li.resultItems:eq(' + 0 + ')').attr('data-resultLength');
 
 		//random index for shuffle mode.
 		var randomIndex = Math.floor(Math.random() * resultLength);
 
-		var getVideo = $('li.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
+		var getVideo = libraryWrapper.find('li.resultItems[data-index="' + randomIndex + '"]').attr('data-videoId');
 
 
 		play(getVideo);
-
-
 
 
 		//Set the previous index for use in the previous button functionality
@@ -1413,7 +1417,7 @@ console.log("update");
 
 	function popupPlayer(id){
 
-		var video = $('div#video-overlay');
+		var video = $('#video-overlay');
 		var iframe = '<iframe width="' + window.windowWidth + '" height="300" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
 
 

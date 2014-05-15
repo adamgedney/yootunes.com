@@ -125,7 +125,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			$(window).resize(function() {
 				window.windowWidth 	= $(window).width();
 				var videoSizeCtrl 	= $('div.video-size-ctrl');
-				var video 			= $('div#video');
+				var video 			= $('#video');
 				var footer 			= $('div.footer');
 
 				//On resize show sidebar
@@ -188,7 +188,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 				//Only allow form to show if we're dragging result
 				if(_dragResult.dragging === true){
-					$('div#hiddenCreatePlaylistForm').show();
+					$('#hiddenCreatePlaylistForm').show();
 				}
 
 
@@ -367,11 +367,12 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 				this.toggle;
 
-				var selector 	= '.main-dropdown';
-				var id 			= $(this).attr('data-id');
-				var resultItems = $('li.resultItems');
-				var thisId 		= $(this).parent().find('img.playIconImg').attr('data-videoId');
-				_dropdownId 	= id;
+				var selector 		= '.main-dropdown';
+				var id 				= $(this).attr('data-id');
+				var libraryWrapper 	= $('#libraryWrapper');
+				var resultItems 	= libraryWrapper.find('li.resultItems');
+				var thisId 			= $(this).parent().find('img.playIconImg').attr('data-videoId');
+				_dropdownId 		= id;
 
 
 			//Prevent dropdown on mobile view
@@ -533,13 +534,13 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 		//Prevents parent div from scrolling while reaching end of scroll in child
 		$(document).on('mouseover', '.playlistSubScrollContainer', function(){
-			$('div.scroll-container').css({'overflow':'hidden'});
+			$('#scroll-container').css({'overflow':'hidden'});
 		}).bind('mouseout', function(){
-			$('div.scroll-container').css({'overflow':'scroll'});
+			$('#scroll-container').css({'overflow':'scroll'});
 		});
 
 		// $(document).on('mouseout', '.playlistSubScrollContainer', function(){
-		// 	$('div.scroll-container').css({'overflow':'scroll'});
+		// 	$('#scroll-container').css({'overflow':'scroll'});
 		// });
 
 
@@ -557,8 +558,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		//mousedown to start drag operation
 		$(document).on('mousedown', '#seek-dot', function(event){
 
-			var scrubber 			= 'div#seek-dot';
-				_seek.seekBar 		= $('div#seek-bar');
+			var scrubber 			= '#seek-dot';
+				_seek.seekBar 		= $('#seek-bar');
 				_seek.seekBarWidth 	= _seek.seekBar .width(),
 				_seek.seekBarLeft 	= _seek.seekBar .offset().left,
 				_seek.seekBarRight 	= _seek.seekBar .offset().left + _seek.seekBarWidth,
@@ -673,9 +674,9 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		$(document).on('click', '.modalCloseIcon', function(){
 
 			//Hide modal window nodes
-			$('div#restoreAcctModal').fadeOut();
-			$('div#deleteAcctModal').fadeOut();
-			$('div#nameDeviceModal').fadeOut();
+			$('#restoreAcctModal').fadeOut();
+			$('#deleteAcctModal').fadeOut();
+			$('#nameDeviceModal').fadeOut();
 		});
 
 
@@ -692,7 +693,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		// 	_userId = window.userId;
 
 		// 	//Store theme choice as dark
-		// 	if($('input#themeDark').is(':checked')){
+		// 	if($('#themeDark').is(':checked')){
 
 		// 		_currentTheme = "dark";
 
@@ -939,13 +940,13 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 	function enterFullscreen(){
 
 		//hide ads
-		$('div#adsense').hide();
+		$('#adsense').hide();
 
 		if(window.windowWidth < app_break_smmd){
 
 		}else{
 
-			$('iframe#video').css({
+			$('#video').css({
 				'position' : 'absolute',
 				'top'      : '0',
 				'bottom'   : '0',
@@ -1013,7 +1014,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		}else{
 
 
-			$('iframe#video').css({
+			$('#video').css({
 				'height'   : '227px',
 				'display'  : 'block',
 				'position' : 'absolute',
@@ -1072,7 +1073,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 		}else{
 
-			$('iframe#video').css({
+			$('#video').css({
 				'position' : 'absolute',
 				'top'      : 'initial',
 				'bottom'   : '72px',
@@ -1199,12 +1200,12 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 	function hideAdsense(){
-		$('div#adsense').fadeOut();
+		$('#adsense').fadeOut();
 		setTimeout(showAdsense, 25000);
 	}
 
 	function showAdsense(){
-		$('div#adsense').fadeIn();
+		$('#adsense').fadeIn();
 	}
 
 
@@ -1268,7 +1269,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 					if(_setClone === false){
 						//Only set these values once
-						_clone 		= elem.clone().find('span.li-col2').appendTo('.scroll-container');
+						_clone 		= elem.clone().find('span.li-col2').appendTo('#scroll-container');
 						_setClone 	= true;
 
 

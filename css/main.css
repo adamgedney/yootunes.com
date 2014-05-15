@@ -1803,7 +1803,7 @@ section.app {
   width: 9px;
 }
 
-.scroll-container {
+#scroll-container {
   height: 74vh;
   min-height: 500px;
   overflow: scroll;

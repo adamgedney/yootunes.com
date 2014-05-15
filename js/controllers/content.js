@@ -51,7 +51,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			activeLibraryItem('#acctSettings');
 
 			//Set correct container height
-			$('div.scroll-container').css('height', '100vh');
+			$('#scroll-container').css('height', '100vh');
 
 		});//click acctSettings
 
@@ -130,7 +130,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			$('div.section-header').show();
 
 			//Set correct container height
-			$('div.scroll-container').css('height', '74vh');
+			$('#scroll-container').css('height', '74vh');
 		});
 
 
@@ -144,7 +144,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		//Clear autocomplete in case user wants out
 		$(document).on('click', '#searchInput', function(event){
 			//Empty autocomplete
-			$('ul#datalistContainer').empty();
+			$('#datalistContainer').empty();
 		});
 
 
@@ -152,7 +152,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		//Show search history when user starts typing
 		$(document).on('keyup', '#searchInput', function(event){
 
-			var datalist = $('ul#datalistContainer');
+			var datalist = $('#datalistContainer');
 
 			//Send first 2 characters to API for querying history
 			if($(this).val().length >= 2){
@@ -212,11 +212,11 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 
 		//Sets selected datlist item as the search val and clicks search
-		$(document).on('click', 'ul#datalistContainer li', function(){
+		$(document).on('click', '#datalistContainer li', function(){
 
 			if($(this).text() !== 'Search History'){
-				$('input#searchInput').val($(this).text());
-				$('input#searchSubmit').trigger('click');
+				$('#searchInput').val($(this).text());
+				$('#searchSubmit').trigger('click');
 			}else{
 				$(this).parent().empty();
 			}
@@ -231,12 +231,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		$(document).on('click', '#searchSubmit', function(event){
 			event.preventDefault();
 
-			var query 	= $('input#searchInput').val();
+			var query 	= $('#searchInput').val();
 			var API_URL = _baseUrl + '/search/' + query + '/' + _userId;
 			var songs 	= [];
 
 			//Empty results list while srarch results load
-			$('div.scroll-container').empty();
+			$('#scroll-container').empty();
 
 			//Show loading icon
 			$('div.loading').fadeIn();
@@ -249,7 +249,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 				success 	: function(data){
 
 					//Empty autocomplete
-					$('ul#datalistContainer').empty();
+					$('#datalistContainer').empty();
 
 					//Loop through response & push into array
 					//for delivery to renderer
@@ -391,7 +391,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			if(event.template === '#app'){
 
 				//Show adsense ads on app load
-				$('div#adsense').show();
+				$('#adsense').show();
 				// DOM.video.show();
 
 
@@ -477,11 +477,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			//ON LIBRARY RENDER========================//
 			if(event.template === '#libraryItem'){
 
-				var resultItems = $('li.resultItems');
+				var libraryWrapper 	= $('#libraryWrapper');
+				var resultItems 	= libraryWrapper.find('li.resultItems');
 
 				//Register sortable elements on DOM
-				_sort.ul = 'ul#libraryWrapper';
-				_sort.li = 'ul#libraryWrapper li.resultItems';
+				_sort.ul = '#libraryWrapper';
+				_sort.li = '#libraryWrapper li.resultItems';
 
 
 				//Set the application theme colors
@@ -500,10 +501,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 
 				//Remove search input value
-				$('input#searchInput').val('');
+				$('#searchInput').val('');
 
 				//Set list item length to DOM for shuffle function in player controller
-				$('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
+				libraryWrapper.find('li.resultItems:eq(' + 0 + ')').attr('data-resultLength', _userSongs.length);
 
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
 				if($('span.sourceTitle').html() === 'Add'){
@@ -526,10 +527,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 				for(var i=0;i<_userSongs.length;i++){
 
 					//Sets an index number to each li item
-					$('li.resultItems:eq(' + i + ')').attr('data-index', i);
+					libraryWrapper.find('li.resultItems:eq(' + i + ')').attr('data-index', i);
 
 					//Gets the song_id from the displayed result item
-					var itemId = $('li.resultItems:eq(' + i + ')').find('span.addToLibrary').attr('data-id');
+					var itemId = libraryWrapper.find('li.resultItems:eq(' + i + ')').find('span.addToLibrary').attr('data-id');
 
 //**NOTE			//Should load the library here w/out a limit to get an array of song ids.
 					//if song id matches this song, then add the check mark icon instead
@@ -558,7 +559,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			if(event.template === '#acctSettings'){
 
 				//Hide ads on acct settings page
-				$('div#adsense').hide();
+				$('#adsense').hide();
 
 				// //Check/uncheck theme option based on current setting
 				// if(window.theme === "dark"){
@@ -586,8 +587,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 					var birthdateIn = $('#infoBirthdate');
 					var title	 	= $('#infoTitleGender');
 
-					$('input#infoName').val(response[0].display_name);
-					$('input#infoEmail').val(response[0].email);
+					$('#infoName').val(response[0].display_name);
+					$('#infoEmail').val(response[0].email);
 					$('span#infoId').html(response[0].id);
 					title.val(response[0].title);
 
@@ -985,7 +986,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 	function loadPlaylistSongs(playlistId){
 		var src 		= '/js/views/library.html',
 			id 			= '#libraryItem',
-			appendTo 	= '.scroll-container';
+			appendTo 	= '#scroll-container';
 
 			//Build API request
 			var API_URL = _baseUrl + '/get-playlist-songs/' + playlistId;
@@ -1063,7 +1064,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		//Ensures search bar is visible & container is
 		//emptied quickly before a reload
 			$('div.section-header').show();
-			$('div.scroll-container').empty();
+			$('#scroll-container').empty();
 
 			//Shows column headers
 			$('li.li-header').show();
@@ -1161,7 +1162,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 		var src 		= '/js/views/library.html',
 			id 			= '#libraryItem',
-			appendTo 	= '.scroll-container';
+			appendTo 	= '#scroll-container';
 
 
 		data = {
@@ -1210,7 +1211,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 	function loadAcctSettings(){
 		var src 		= '/js/views/acctSettings.html',
 			id 			= '#acctSettings',
-			appendTo 	= '.scroll-container';
+			appendTo 	= '#scroll-container';
 
 			data 	 	= {
 				test	: ''
@@ -1241,7 +1242,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 	function loadQueryResults(songs){
 		var src 		= '/js/views/library.html',
 			id 			= '#libraryItem',
-			appendTo 	= '.scroll-container';
+			appendTo 	= '#scroll-container';
 
 			data 	 	= {
 				song	: songs,
@@ -1297,10 +1298,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 
 	function renderDevices(response){
-		var deviceName  	= $('input#renameDeviceName');
+		var deviceName  	= $('#renameDeviceName');
 		var playOn 			= $('select#play-on');
 		var mobilePlayOn 	= $('select#mobile-play-on');
-		var deviceList 		= $('ul#infoDeviceList');
+		var deviceList 		= $('#infoDeviceList');
 		var userDevices 	= $('select#userDevices');
 
 		playOn.empty();
@@ -1439,7 +1440,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 	//loads library from LIbrary menu click for sorting
 	// -songs,artists,albums,genres
 	function loadFilteredLibrary(sortBy, activeItem){
-		var scrollContainer = $('div.scroll-container');
+		var scrollContainer = $('#scroll-container');
 
 		//Show search bar
 		$('li.li-header').show();
@@ -1455,7 +1456,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		scrollContainer.css('height', '74vh');
 
 		//Shows ads if coming from acct settings page
-		$('div#adsense').show();
+		$('#adsense').show();
 	}
 
 

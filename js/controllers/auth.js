@@ -32,9 +32,9 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		event.preventDefault();
 
 		var siblings 		= $(this).parent();
-		var email 			= siblings.find('input#signupEmail').val();
-		var password 		= CryptoJS.SHA1(siblings.find('input#signupPass').val());
-		var passwordAgain 	= CryptoJS.SHA1(siblings.find('input#signupPassAgain').val());
+		var email 			= siblings.find('#signupEmail').val();
+		var password 		= CryptoJS.SHA1(siblings.find('#signupPass').val());
+		var passwordAgain 	= CryptoJS.SHA1(siblings.find('#signupPassAgain').val());
 		var pwString 		= '';
 
 		//Produces 160 char string from pw
@@ -91,8 +91,8 @@ console.log("create ran", email, password, passwordAgain);
 
 		var siblings 	= $(this).parent();
 		var loginError 	= siblings.find('p.loginError');
-		var email 		= siblings.find('input#popdownEmail').val();
-		var password 	= CryptoJS.SHA1(siblings.find('input#popdownPass').val());
+		var email 		= siblings.find('#popdownEmail').val();
+		var password 	= CryptoJS.SHA1(siblings.find('#popdownPass').val());
 		var pwString 	= '';
 
 
@@ -133,7 +133,7 @@ console.log("create ran", email, password, passwordAgain);
 					if(response.restorable == true){
 
 						//Fade in restore acct modal window
-						$('div#restoreAcctModal').fadeIn();
+						$('#restoreAcctModal').fadeIn();
 
 
 
@@ -438,9 +438,9 @@ console.log("create ran", email, password, passwordAgain);
 	$(document).on('click', '#updateInfo', function(event){
 		event.preventDefault();
 		var siblings 		= $(this).parent();
-		var displayName 	= siblings.find('input#infoName').val();
-		var email 			= siblings.find('input#infoEmail').val();
-		var birthdate 		= siblings.find('input#infoBirthdate').val();
+		var displayName 	= siblings.find('#infoName').val();
+		var email 			= siblings.find('#infoEmail').val();
+		var birthdate 		= siblings.find('#infoBirthdate').val();
 		var title 			= siblings.find('#infoTitleGender option:selected').text();
 			_userId 		= $('p span#infoId').html();
 
@@ -495,9 +495,9 @@ console.log("create ran", email, password, passwordAgain);
 	$(document).on('click', '#resetPasswordInfo', function(event){
 		event.preventDefault();
 		var siblings 		= $(this).parent();
-		var	currentPass 	= CryptoJS.SHA1(siblings.find('input#infoCurrentPass').val());
-		var password 		= CryptoJS.SHA1(siblings.find('input#infoPass').val());
-		var passwordAgain 	= CryptoJS.SHA1(siblings.find('input#infoPassAgain').val());
+		var	currentPass 	= CryptoJS.SHA1(siblings.find('#infoCurrentPass').val());
+		var password 		= CryptoJS.SHA1(siblings.find('#infoPass').val());
+		var passwordAgain 	= CryptoJS.SHA1(siblings.find('#infoPassAgain').val());
 		var pwString 		= ' ';
 		var currentPwString = ' ';
 			_userId 		= $('p span#infoId').html();
@@ -567,7 +567,7 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 		event.preventDefault();
 
 		//fade in modal window
-		$('div#deleteAcctModal').fadeIn();
+		$('#deleteAcctModal').fadeIn();
 
 	});
 
@@ -593,7 +593,7 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 
 
 				//Fade out modal window
-				$('div#deleteAcctModal').fadeOut();
+				$('#deleteAcctModal').fadeOut();
 
 
 				//================================//
@@ -701,7 +701,7 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 
 
 					//Show device namer to new user
-					$('div#nameDeviceModal').fadeIn();
+					$('#nameDeviceModal').fadeIn();
 
 
 					//===================================//
