@@ -130,8 +130,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 				//On resize show sidebar
 				if(window.windowWidth > app_break_smmd){
-					$('section.app').removeClass('mainSlideLeft');
-					$('aside.app').removeClass('sidebarSlideLeft');
+					$('#main').removeClass('mainSlideLeft');
+					$('#sidebar').removeClass('sidebarSlideLeft');
 
 					video.show();
 					videoSizeCtrl.show();
@@ -764,8 +764,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 		//Mobile menu handler
 		$(document).on('click', '#menu-btn', function(){
-			var app 	= $('section.app');
-			var aside 	= $('aside.app');
+			var app 	= $('#sidebar');
+			var aside 	= $('#main');
 
 			this.toggle;
 
