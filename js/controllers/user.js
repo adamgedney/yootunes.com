@@ -21,23 +21,7 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 		$(document).on('namedevice', function(){
 
 
-			// Fade in modal to instruct user to name this device
-			$('div#nameDeviceModal').fadeIn();
-			$('#devicePrompt').fadeIn();
 
-			//Maybe user deleted cookies? GET DEVICES TO ASK USER
-			getUserDevices.get(userId, function(response){
-
-				//Set for addDevice method
-				_devices = response;
-
-				//Instructs Content to render device lists in ui & modal
-				$.event.trigger({
-					type 			: 'renderdevices',
-					response 		: response,
-					origin 			: 'indeterminate'
-				});
-			});//getDevices
 
 
 
@@ -46,7 +30,23 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 			//triggers a listen for rendered #app
 			$(document).on('rendered', function(event){
 				if(event.template === '#app'){
+					// Fade in modal to instruct user to name this device
+					$('div#nameDeviceModal').fadeIn();
+					$('#devicePrompt').fadeIn();
 
+					//Maybe user deleted cookies? GET DEVICES TO ASK USER
+					getUserDevices.get(userId, function(response){
+
+						//Set for addDevice method
+						_devices = response;
+
+						//Instructs Content to render device lists in ui & modal
+						$.event.trigger({
+							type 			: 'renderdevices',
+							response 		: response,
+							origin 			: 'indeterminate'
+						});
+					});//getDevices
 
 				}//if
 			});//#app

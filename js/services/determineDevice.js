@@ -27,7 +27,7 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies ,getUs
 			var userId = window.userId;
 			var cookies = getCookies;
 
-
+console.log(cookies.devices, cookies.devices.length);
 			if(cookies.devices.length !== 0){
 
 				var devices = cookies.devices;
@@ -85,7 +85,7 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies ,getUs
 
 			}else{//NO DEVICE COOKIES FOUND
 
-
+console.log("triggeed");
 					//Trigger event to open modal window from user.js
 					$.event.trigger({
 						type 	: 'namedevice',

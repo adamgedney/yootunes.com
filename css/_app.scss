@@ -77,8 +77,8 @@ input[type="password"]{
     user-select: none !important;
 }
 
-
-*:not(input.field) {
+/* *:not(input.field) */
+li, .footer, span, .section-header, .search, #video, #adsense, .video-size-ctrl,  img, #searchForm input, section.app, aside.app  {
    @extend .no-select;
 }
 

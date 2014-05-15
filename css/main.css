@@ -1203,7 +1203,7 @@ input[type="password"] {
 }
 
 /*--------------------------------------End Objects / Start Main------------------------------------*/
-.no-select, *:not(input.field) {
+.no-select, li, .footer, span, .section-header, .search, #video, #adsense, .video-size-ctrl, img, #searchForm input, section.app, aside.app {
   -webkit-user-select: none !important;
   -khtml-user-select: none !important;
   -moz-user-select: -moz-none !important;
@@ -1211,6 +1211,7 @@ input[type="password"] {
   user-select: none !important;
 }
 
+/* *:not(input.field) */
 html {
   background: #1b1d1d;
 }

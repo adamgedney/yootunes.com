@@ -904,7 +904,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 	//Updates the time in the transport view
 	function updateTime(){
-
+console.log("update");
 		if(_dragging === false){
 
 			_seek.duration 	= _player.getDuration();
@@ -1266,6 +1266,9 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 
 	function pause(){
+
+		//Clear update interval here to prevent Safari glitch
+		clearInterval(_updateInterval);
 
 		var volumeIcon 		= $('div.volume-ctrl img.vol-icon');
 		var transportPlay 	= $('div.transport-ctrl img#play-btn');
