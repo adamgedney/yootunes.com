@@ -418,6 +418,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 					$(this).parent().css({'borderBottom':'1px solid #343838'});
 
 					//Darken play icon
+
+					resultItems.find('img.playIconImg').attr('src', 'images/icons/play-drk.png');
 					$(this).parent().find('img.playIconImg').attr('src', 'images/icons/play-blck.png');
 
 
