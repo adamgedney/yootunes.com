@@ -385,10 +385,11 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				//returns the opposite boolean toggle value
 				this.toggle = toggleUi(this.toggle, selector, id);
 
-
-
+				//==============================//
 				if(this.toggle){//DROPDOWN OPEN
 
+					//Remove white bg from all other li items
+					resultItems.css({'background' : 'none'});
 					$(this).parent().css({'background' : '#ffffff'});
 
 					//Loads video thumbnail when dropdown is revealed
@@ -396,11 +397,18 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 					_dropdownOpen = true;
 
-					//Show last column
-					$(this).find('span.li-col7').show();
-					$('span.li-col4').css({'width':'8.33333333%'});//1 col Album col
+					//Show/hide last col if not a query
+					if(window.state !== "query"){
+						//Show last column
+						$('span.li-col7').hide();//<----causing add icon to disappear
+						$('span.li-col4').css({'width':'16.6666667%'});//2 col Album column
 
-					resultItems.removeClass('bg-white');
+						$(this).find('span.li-col7').show();
+						$('span.li-col4').css({'width':'8.33333333%'});//1 col Album col
+					}
+
+
+
 					resultItems.removeClass('dropdown-bold');
 					resultItems.css({'borderBottom':'none'});
 
@@ -415,9 +423,12 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 				}else{//DROPDOWN CLOSE
 
-					//Hide last column
-					$('span.li-col7').hide();
-					$('span.li-col4').css({'width':'16.6666667%'});//2 col Album column
+					//Show/hide last col if not a query
+					if(window.state !== "query"){
+						//Hide last column
+						$('span.li-col7').hide();//<----causing add icon to disappear
+						$('span.li-col4').css({'width':'16.6666667%'});//2 col Album column
+					}
 
 					$(this).parent().css({'background' : 'none'});
 

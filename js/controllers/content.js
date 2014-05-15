@@ -26,7 +26,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		_sort.li 		= '';
 		_sort.sortOn 	= '';
 
-	var _state 			= 'library';
+	window.state 		= 'library';
 
 
 
@@ -45,7 +45,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 			//load account settings page
 			loadAcctSettings();
 
-			_state 	= 'settings';
+			window.state 	= 'settings';
 
 
 			activeLibraryItem('#acctSettings');
@@ -69,15 +69,15 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		//Library list sort interaction=========//
 		$(document).on('click', '.viewSongs, .viewArtists, .viewAlbums, .viewGenres', function(event){
 
-			if(_state !== 'library'){
+			if(window.state !== 'library'){
 				loadLibrary();
-			}else if(_state === 'library' && $(this).hasClass('viewSongs')){
+			}else if(window.state === 'library' && $(this).hasClass('viewSongs')){
 				var sortOn = 'span.li-col2';
-			}else if(_state === 'library' && $(this).hasClass('viewArtists')){
+			}else if(window.state === 'library' && $(this).hasClass('viewArtists')){
 				var sortOn = 'span.li-col3';
-			}else if(_state === 'library' && $(this).hasClass('viewAlbums')){
+			}else if(window.state === 'library' && $(this).hasClass('viewAlbums')){
 				var sortOn = 'span.li-col4';
-			}else if(_state === 'library' && $(this).hasClass('viewGenres')){
+			}else if(window.state === 'library' && $(this).hasClass('viewGenres')){
 				var sortOn = 'span.li-col5';
 			}
 
@@ -261,7 +261,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 					//Send results to renderer
 					loadQueryResults(songs);
 
-					_state 	= 'query';
+					window.state 	= 'query';
 
 					//Hide loading icon
 					$('div.loading').fadeOut();
@@ -1024,7 +1024,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 					//Change last column to ''
 					$('span.sourceTitle').html('');
 
-					_state 	= 'playlist';
+					window.state 	= 'playlist';
 
 				}//success
 			});//ajax
@@ -1044,7 +1044,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 	//Gets data & Loads library template
 	function loadLibrary(){
 
-		_state 	= 'library';
+		window.state 	= 'library';
 
 		//*** Rewrite API. No more need for pagination
 		var page = 0;

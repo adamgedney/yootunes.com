@@ -1426,7 +1426,7 @@ aside.app::-webkit-scrollbar {
   cursor: pointer;
 }
 .playlist-nav ul li {
-  line-height: 24px;
+  line-height: 27px;
   cursor: pointer;
   padding: 0 6%;
   position: relative;
