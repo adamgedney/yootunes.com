@@ -130,8 +130,8 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 				//On resize show sidebar
 				if(window.windowWidth > app_break_smmd){
-					$('#main').removeClass('mainSlideLeft');
-					$('#sidebar').removeClass('sidebarSlideLeft');
+					$('section.app').removeClass('mainSlideLeft');
+					$('aside.app').removeClass('sidebarSlideLeft');
 
 					video.show();
 					videoSizeCtrl.show();
@@ -764,11 +764,11 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 		//Mobile menu handler
 		$(document).on('click', '#menu-btn', function(){
-			var app 	= $('#sidebar');
-			var aside 	= $('#main');
+			var app 	= $('aside.app');
+			var aside 	= $('section.app');
 
 			this.toggle;
-
+console.log("appclick");
 			if(!this.toggle){
 				// $('#adsense').fadeOut();
 

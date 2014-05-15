@@ -1257,7 +1257,7 @@ html {
   -webkit-transition-duration: 0.7s;
 }
 
-aside.app {
+aside {
   position: absolute;
   z-index: 998;
   /*display: none;*/
@@ -1275,7 +1275,7 @@ aside.app {
   color: #949494;
 }
 @media only screen and (min-width: 800px) {
-  aside.app {
+  aside {
     width: 25%;
     left: 0;
     display: block;
