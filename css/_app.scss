@@ -77,8 +77,9 @@ input[type="password"]{
     user-select: none !important;
 }
 
-*{
-	@extend .no-select;
+
+*:not(input.field) {
+   @extend .no-select;
 }
 
 
