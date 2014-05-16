@@ -35,6 +35,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 	var _playOnDevice;//default
 	var _mobileTriggerDevice;
 	var _userId 			=  '';
+	var _lastPlaylist;
 
 	var _data;
 
@@ -1472,8 +1473,10 @@ console.log("update");
 		}
 
 		//Build according to state
-		if(window.state === 'playlist'){
+		if(window.state === 'playlist' && _lastPlaylist !== window.currentPlaylist){
 			var API_URL = _baseUrl + '/log-playlist-play/' + _userId + '/' + window.currentPlaylist;
+
+			_lastPlaylist = window.currentPlaylist;
 		}else{
 			var API_URL = _baseUrl + '/log-song-play/' + _userId + '/' + songId;
 		}

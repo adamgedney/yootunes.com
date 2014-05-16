@@ -162,7 +162,7 @@ aside.app::-webkit-scrollbar {
 
 
 .video-size-ctrl{
-	background: none;
+	background: $black;
 	@include col(12);
 	//margin-left: 16.6666667%;
 	position: fixed;
@@ -190,8 +190,8 @@ aside.app::-webkit-scrollbar {
 	}
 
 	svg:last-child, img:last-child{
-		width: 36px;
-		height: 27px;
+		width: 39px;
+		height: 30px;
 		margin-left: -6px;
 	}
 

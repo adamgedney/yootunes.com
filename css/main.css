@@ -5448,7 +5448,7 @@ aside.app::-webkit-scrollbar {
 }
 
 .video-size-ctrl {
-  background: none;
+  background: #0f1010;
   width: 100%;
   position: fixed;
   bottom: 72px;
@@ -5472,8 +5472,8 @@ aside.app::-webkit-scrollbar {
   margin-right: 3px;
 }
 .video-size-ctrl svg:last-child, .video-size-ctrl img:last-child {
-  width: 36px;
-  height: 27px;
+  width: 39px;
+  height: 30px;
   margin-left: -6px;
 }
 @media only screen and (min-width: 800px) {
