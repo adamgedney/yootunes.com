@@ -94,9 +94,10 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		var siblings 	= $(this).parent();
 		var loginError 	= siblings.find('p.loginError');
 		var email 		= siblings.find('#popdownEmail').val();
-		var password 	= CryptoJS.SHA1(siblings.find('#popdownPass').val());
+		var passField 	= siblings.find('#popdownPass').val();
+		var password 	= CryptoJS.SHA1(passField);
 		var pwString 	= '';
-
+		loginError.hide();
 
 		//Produces 160 char string from pw
 		for(var i=0;i<password.words.length;i++){
@@ -106,83 +107,109 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		}
 
 
-		//Build API request
-		var API_URL 	= _baseUrl + '/check-user/' + email + '/' + pwString;
+		//Validate email and password
+		validateLogin(email, passField, function(resp){
 
-		//Request auth from server
-		$.ajax({
-			url 		: API_URL,
-			method 		: 'GET',
-			dataType 	: 'json',
-			success 	: function(response){
+			if(resp.email === false){
 
-				//If user was authenticated
-				if(response.success === true){
-					loginError.hide();
+				//Prompt user with error message afforadance
+				loginError.text('Check email address for typos');
+				loginError.fadeIn();
 
-					//Load app, set cookie, fire event
-					loadApplication(response[0][0]);
+			}else if(resp.password === false){
 
-					//log the login
-					logLogin();
-
-				}else{//response failure. User may have been deleted
-
-					//Prompt user with error message afforadance
-					loginError.text('username or password incorrect');
-					loginError.fadeIn();
+				//Prompt user with error message afforadance
+				loginError.text('Your password isn\'t strong enough');
+				loginError.fadeIn();
+			}
 
 
-					//Determine if we need to prompt user to restore account
-					if(response.restorable == true){
+			//Email and password fields validate
+			if(resp.email === true && resp.password === true){
 
-						//Fade in restore acct modal window
-						$('#restoreAcctModal').fadeIn();
+				//Build API request
+				var API_URL 	= _baseUrl + '/check-user/' + email + '/' + pwString;
+
+				//Request auth from server
+				$.ajax({
+					url 		: API_URL,
+					method 		: 'GET',
+					dataType 	: 'json',
+					success 	: function(response){
+
+						//If user was authenticated
+						if(response.success === true){
+							loginError.hide();
+
+							//Load app, set cookie, fire event
+							loadApplication(response[0][0]);
+
+							//log the login
+							logLogin();
+
+						}else{//response failure. User may have been deleted
+
+							//Prompt user with error message afforadance
+							loginError.text('username or password incorrect');
+							loginError.fadeIn();
 
 
+							//Determine if we need to prompt user to restore account
+							if(response.restorable == true){
 
-						//Restore User Account Handler
-						$(document).on('click', '#restoreAccountButton', function(event){
-
-							//build API URL
-							var API_URL = _baseUrl + '/restore-user/' + email + '/' + pwString;
-
-							//Call API to update user account status
-							//Request auth form server
-							$.ajax({
-								url 		: API_URL,
-								method 		: 'GET',
-								dataType 	: 'json',
-								success 	: function(response){
-
-
-									//Load app, set cookie, fire event
-									loadApplication(response[0]);
-
-									//log the login
-									logLogin();
-
-								}//success
-							});//ajax
-						});//onclick restorAccount
+								//Fade in restore acct modal window
+								$('#restoreAcctModal').fadeIn();
 
 
 
+								//Restore User Account Handler
+								$(document).on('click', '#restoreAccountButton', function(event){
 
-						//New Account Button Handler
-						$(document).on('click', '#newAccountButton', function(event){
+									//build API URL
+									var API_URL = _baseUrl + '/restore-user/' + email + '/' + pwString;
 
-							var passwordAgain 	= password;
+									//Call API to update user account status
+									//Request auth form server
+									$.ajax({
+										url 		: API_URL,
+										method 		: 'GET',
+										dataType 	: 'json',
+										success 	: function(response){
 
-							//Run create user function
-							createNewUser(email, password, passwordAgain);
+
+											//Load app, set cookie, fire event
+											loadApplication(response[0]);
+
+											//log the login
+											logLogin();
+
+										}//success
+									});//ajax
+								});//onclick restorAccount
 
 
-						});//onclick new account
-					}//if restorable
-				}//if/else response
-			}//success
-		});//ajax
+
+
+								//New Account Button Handler
+								$(document).on('click', '#newAccountButton', function(event){
+
+									var passwordAgain 	= password;
+
+									//Run create user function
+									createNewUser(email, password, passwordAgain);
+
+
+								});//onclick new account
+							}//if restorable
+						}//if/else response
+					}//success
+				});//ajax
+			}//validate true
+		});//validate
+
+
+
+
 
 		event.preventDefault();
 	});//onclick
@@ -887,6 +914,36 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 				console.log(response);
 			}//success
 		});//ajax
+	}
+
+
+
+
+
+
+	function validateLogin(email, pass, callback){
+		var passPat 	= /^[a-zA-Z]\w{3,14}$/; //4-15 char abcd aBcd ac3D
+		var emailPat 	= /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/; // standard email validation
+		var response 	= {};
+
+
+		if(!emailPat.test(email)){
+			response.email = false;
+		}else{
+			response.email = true;
+		}
+
+		if(!passPat.test(pass)){
+			response.password = false;
+		}else{
+			response.password = true;
+		}
+
+
+		if(typeof callback === "function"){
+
+			callback(response);
+		}
 	}
 
 
