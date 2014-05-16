@@ -22,6 +22,20 @@ define([], function(){
 			if(localStorage.getItem('device' + (i + 1)) !== null){
 
 				obj.devices.push(localStorage.getItem('device' + (i + 1)));
+
+				//If device 50 exists, loop through and delete all devices.
+				//User will be annoyed once, but they've likely used this app for
+				//a while and will forgive me... Multi device fix until I have time
+				//to rethink device storage
+				if(localStorage.getItem('device50') !== null){
+					for(var i=0;i<50;i++){
+
+						//Deletes user's devices from local storage
+						localStorage.removeItem('uid' + (i + 1));
+					}
+
+					//Might be smart to notify user of what just happened
+				}
 			}//if
 		}//for
 
@@ -55,8 +69,22 @@ define([], function(){
 					if(cookieArray[c].substr(8) !== 'undefined'){
 						obj.devices.push(cookieArray[c].substr(8));
 					}
+				}//if
 
-				}
+
+				//If device 50 exists, loop through and delete all devices.
+				//User will be annoyed once, but they've likely used this app for
+				//a while and will forgive me... Multi device fix until I have time
+				//to rethink device storage
+				if(cookieArray[c].indexOf("device50") !== -1){
+					for(var i=0;i<50;i++){
+
+						//Deletes user's devices from local storage
+						document.cookie = 'uid' + (i + 1) + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+					}
+
+					//Might be smart to notify user of what just happened
+				}//if
 			}
 
 

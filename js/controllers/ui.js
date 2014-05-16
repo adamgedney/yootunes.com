@@ -1088,7 +1088,9 @@ console.log("appclick");
 				'bottom'   : '72px',
 				'left'     : '0',
 				'right'    : 'initial',
-				'width'    : '25%'
+				'width'    : '25%',
+				'transition-duration' : '1s',
+				'-webkit-transition-duration' : '1s'
 			});
 
 			videoSizeCtrl.css({
@@ -1146,7 +1148,9 @@ console.log("appclick");
 				'left'     : '0',
 				'right'    : 'initial',
 				'height'   : '33px',
-				'width'    : '25%'
+				'width'    : '25%',
+				'transition-duration' : '1s',
+				'-webkit-transition-duration' : '1s'
 			});
 
 			videoSizeCtrl.css({
