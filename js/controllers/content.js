@@ -397,7 +397,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 
 				//Ensures userId is always available
-				if(_userId === undefined){
+				if(_userId === undefined || !_userId || _userId === '' || _userId === null){
 					if(window.userId !== undefined){
 						_userId = window.userId;
 					}else if(getCookies.userId !== undefined){
@@ -1025,7 +1025,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 					//Change last column to ''
 					$('span.sourceTitle').html('');
 
-					window.state 	= 'playlist';
+					window.state = 'playlist';
+
+					//Used by playerjs to log the playlist play
+					window.currentPlaylist = playlistId;
 
 				}//success
 			});//ajax
@@ -1051,7 +1054,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		var page = 0;
 
 		//Ensures userId is always available
-		if(_userId === undefined){
+		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
 			if(window.userId !== undefined){
 				_userId = window.userId;
 			}else if(getCookies.userId !== undefined){

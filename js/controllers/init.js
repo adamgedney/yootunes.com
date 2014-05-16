@@ -54,6 +54,9 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 						//Token validity conditions
 						if(response.message === "Token valid"){
 
+							//Prevents glitched loading of reset screen
+							deleteUIDCookie();
+
 							//Load the reset password view
 							Content.loadReset();
 
@@ -74,11 +77,14 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 				var shareToken 	= params.substr(7);
 				var tokenArray 	= shareToken.split('83027179269257243');
 
-				//store the playlist that brought user to yootunes
-				setPlaylistCookie(tokenArray[1]);
+				//Strips the name off the playlist ID. ID is now at [0]
+				var parseName 	= tokenArray[1].split('&');
 
-				_playlistId 		= tokenArray[1];
-				window.playlistId 	= tokenArray[1];
+				//store the playlist that brought user to yootunes
+				setPlaylistCookie(parseName[0]);
+
+				_playlistId 		= parseName[0];
+				window.playlistId 	= parseName[0];
 			}
 		}//end URL params =======//
 		//======================//
@@ -242,6 +248,25 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 		_playlistId = 0;
 
 	}
+
+
+
+
+
+
+
+
+
+
+	function deleteUIDCookie(){
+
+		if(localStorage){
+			localStorage.removeItem('uid');
+		}else{
+			//Expires uid cookie for logout funcitonality
+			document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+		}
+	};
 
 
 

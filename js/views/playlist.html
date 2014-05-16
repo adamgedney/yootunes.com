@@ -22,12 +22,12 @@
 		<li data-id="{{this.id}}" class="playlist-dropdown">
 			<div class="playlist-popout">
 					<p>Share</p>
-						<div class="share-strip">
+						<div data-id="{{this.id}}" class="share-strip playlistShare">
 
-							<a target="_blank" title="Share this playlist on Facebook... If you dare" href="https://www.facebook.com/sharer/sharer.php?u=http://atomplayer.com?share={{this.share_url}}"><img draggable="false" class="svg" src="images/icons/fb-color.png" alt="share icon" /></a>
-							<a target="_blank" title="Share this playlist on G+. Do you have any friends there?" href="https://plus.google.com/share?url=http://atomplayer.com?share={{this.share_url}}"><img draggable="false" class="svg" src="images/icons/google-color.png" alt="share icon" /></a>
-							<a target="_blank" title="Share this playlist on Twitter... Tweet tweeter!" href="https://twitter.com/home?status=http://atomplayer.com?share={{this.share_url}}"><img draggable="false" class="svg" src="images/icons/twitter-color.png" alt="share icon" /></a>
-							<a class="linkShare" title="Get the link to share this playlist. Post it all over the internet! Hooray!" href="http://atomplayer.com?share={{this.share_url}}"><img draggable="false" class="svg" src="images/icons/link.svg" alt="share icon" /></a>
+							<a target="_blank" title="Share this playlist on Facebook... If you dare" href="https://www.facebook.com/sharer/sharer.php?u=http://atomplayer.com?share={{this.share_url}}&name={{this.name}}"><img draggable="false" class="svg" src="images/icons/fb-color.png" alt="share icon" /></a>
+							<a target="_blank" title="Share this playlist on G+. Do you have any friends there?" href="https://plus.google.com/share?url=http://atomplayer.com?share={{this.share_url}}&name={{this.name}}"><img draggable="false" class="svg" src="images/icons/google-color.png" alt="share icon" /></a>
+							<a target="_blank" title="Share this playlist on Twitter... Tweet tweeter!" href="https://twitter.com/home?status=http://atomplayer.com?share={{this.share_url}}&name={{this.name}}"><img draggable="false" class="svg" src="images/icons/twitter-color.png" alt="share icon" /></a>
+							<a  data-id="{{this.id}}" class="linkShare" title="Get the link to share this playlist. Post it all over the internet! Hooray!" href="http://atomplayer.com?share={{this.share_url}}&name={{this.name}}"><img draggable="false" class="svg" src="images/icons/link.svg" alt="share icon" /></a>
 						</div><!-- /.share-strip-->
 
 					<p title="Delete this playlist. Your songs will still remain in your library... If all goes well ;)" data-id="{{this.id}}" class="bottom-inner deletePlaylist" >Delete Playlist <img draggable="false" class="svg trash-icon" src="images/icons/trash-icon.svg" alt="share icon" /></p>

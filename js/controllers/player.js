@@ -3,6 +3,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 
 	//private vars
+	var _baseUrl 			= 'http://api.atomplayer.com';
 	var _player 			= {};
 
 	var _playerPlaying      = false;
@@ -1127,9 +1128,11 @@ console.log("update");
 		//Fallback thisDevice for mobile slips
 		_thisDevice 		= window.thisDevice;
 		var volumeIcon 		= $('div.volume-ctrl img.vol-icon');
-		var transportPlay 	= $('div.transport-ctrl img#play-btn');
+		var transportPlay 	= $('div.transport-ctrl #play-btn');
+		var playingSongId 	= $('span.play-icon[data-videoId=' + youtubeId + ']').attr('data-id');
 
-
+		//Log the song being played
+		logPlay(playingSongId);
 
 		if(window.windowWidth < app_break_smmd){
 			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
@@ -1381,20 +1384,20 @@ console.log("update");
 		var playing 			= $('span.play-icon[data-videoId=' + id + ']');
 		// var thumb 				= $('img#infoThumb');
 		// var lbThumb 			= $('a#lbThumb');
-		var song 				= $('li#infoTitle');
-		var artist 				= $('li#infoArtist');
-		var album 				= $('li#infoAlbum');
+		var song 				= $('#infoTitle');
+		var artist 				= $('#infoArtist');
+		var album 				= $('#infoAlbum');
 		var dataSong 			= playing.attr('data-song');
 		var dataArtist 			= playing.attr('data-artist');
 		var dataAlbum 			= playing.attr('data-album');
-		var fbShareMain 		= $('a#fbShareMain');
-		var googleShareMain 	= $('a#googleShareMain');
-		var twitterShareMain 	= $('a#twitterShareMain');
-		var linkShareMain 		= $('a#linkShareMain');
+		var fbShareMain 		= $('#fbShareMain');
+		var googleShareMain 	= $('#googleShareMain');
+		var twitterShareMain 	= $('#twitterShareMain');
+		var linkShareMain 		= $('#linkShareMain');
 		var youtubeUrl 			= 'https://www.youtube.com/watch?v=' + id;
-		// var thumbSrc 			= 'https://i.ytimg.com/vi/' + id + '/default.jpg';
-		// var thumbHiSrc 			= 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
-
+		// var thumbSrc 		= 'https://i.ytimg.com/vi/' + id + '/default.jpg';
+		// var thumbHiSrc 		= 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+		var playingSongId 		= $('span.play-icon[data-videoId=' + id + ']').attr('data-id');
 
 		// thumb.attr('src', thumbSrc);
 		// lbThumb.attr('data-lightbox', thumbHiSrc);
@@ -1402,10 +1405,10 @@ console.log("update");
 		song.html(dataSong);
 		artist.html(dataArtist);
 		album.html(dataAlbum);
-		fbShareMain.attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + youtubeUrl);
-		googleShareMain.attr('href', 'https://plus.google.com/share?url=' + youtubeUrl);
-		twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl);
-		linkShareMain.attr('href', youtubeUrl);
+		fbShareMain.attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + youtubeUrl).attr('data-id', playingSongId);
+		googleShareMain.attr('href', 'https://plus.google.com/share?url=' + youtubeUrl).attr('data-id', playingSongId);
+		twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl).attr('data-id', playingSongId);
+		linkShareMain.attr('href', youtubeUrl).data('id', playingSongId);
 	}
 
 
@@ -1445,6 +1448,46 @@ console.log("update");
 			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 		//End YouTube Player API scripts
 	}
+
+
+
+
+
+
+
+
+
+	function logPlay(songId){
+
+		//Ensures userId is always available
+		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
+			if(window.userId !== undefined){
+				_userId = window.userId;
+				console.log(_userId, "uid");
+			}else if(getCookies.userId !== undefined){
+				_userId = getCookies.userId;
+				window.userId = _userId;
+				console.log(_userId, "cookies");
+			}
+		}
+
+		//Build according to state
+		if(window.state === 'playlist'){
+			var API_URL = _baseUrl + '/log-playlist-play/' + _userId + '/' + window.currentPlaylist;
+		}else{
+			var API_URL = _baseUrl + '/log-song-play/' + _userId + '/' + songId;
+		}
+
+
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType	: 'json',
+			success 	: function(response){
+				console.log(response);
+			}//success
+		});//ajax
+	}//log
 
 
 

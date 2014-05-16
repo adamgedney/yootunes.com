@@ -70,7 +70,7 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUs
 			event.preventDefault();
 
 			//Ensures userId is always available
-			if(_userId === undefined){
+			if(_userId === undefined || !_userId || _userId === '' || _userId === null){
 				if(window.userId !== undefined){
 					_userId = window.userId;
 				}else if(getCookies.userId !== undefined){
@@ -274,6 +274,11 @@ console.log(name, deviceId, "rename");
 			 }else{
 			 	document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
 			 }
+
+			 //Instructs COntent to reload device list
+			$.event.trigger({
+				type : 'renderdevices'
+			});
 
 			nameDeviceModal.fadeOut();
 

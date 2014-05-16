@@ -23,8 +23,6 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 
 
 
-
-
 	//==========================================//
 	//User Registration handler
 	//==========================================//
@@ -54,15 +52,19 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 			method 		: 'GET',
 			dataType 	: 'json',
 			success 	: function(response){
-console.log(response[0][0], response.success, "register login");
+
 				//If user was authenticated
 				if(response.success === true){
 
 					//Load app, set cookie, fire event
 					loadApplication(response[0][0]);
 
+					//Log user signing in from registration
+					//form for testing purposes
+					logLoginFromSignup();
+
 				}else{//User doesn't already exist
-console.log("create ran", email, password, passwordAgain);
+
 					//Run create user function
 					createNewUser(email, password, passwordAgain);
 
@@ -121,6 +123,8 @@ console.log("create ran", email, password, passwordAgain);
 					//Load app, set cookie, fire event
 					loadApplication(response[0][0]);
 
+					//log the login
+					logLogin();
 
 				}else{//response failure. User may have been deleted
 
@@ -154,6 +158,9 @@ console.log("create ran", email, password, passwordAgain);
 
 									//Load app, set cookie, fire event
 									loadApplication(response[0]);
+
+									//log the login
+									logLogin();
 
 								}//success
 							});//ajax
@@ -234,6 +241,9 @@ console.log("create ran", email, password, passwordAgain);
 			    			//Load app, set cookie, fire event
 							loadApplication(response[0][0]);
 
+							//log the login
+							logLogin();
+
 
 				    	}//success
 				    });//ajax
@@ -275,6 +285,9 @@ console.log("create ran", email, password, passwordAgain);
 		event.preventDefault();
 
 		disconnectUser(_auth.access_token);
+
+		//Log the logout
+		logLogout();
 
 	});
 
@@ -399,11 +412,9 @@ console.log("create ran", email, password, passwordAgain);
 		}
 
 
-		console.log(userId, pwString, "resetSubmit");
+
 		//Build API request
 		var API_URL 	= _baseUrl + '/reset-pass/' + userId + '/' + pwString;
-
-
 
 		//Send new password to server for update
 		$.ajax({
@@ -442,7 +453,7 @@ console.log("create ran", email, password, passwordAgain);
 		var email 			= siblings.find('#infoEmail').val();
 		var birthdate 		= siblings.find('#infoBirthdate').val();
 		var title 			= siblings.find('#infoTitleGender option:selected').text();
-			_userId 		= $('p span#infoId').html();
+			_userId 		= $('#infoId').html();
 
 		//Split birthday into month/day/year
 		var birthArray = birthdate.split('/');
@@ -608,6 +619,9 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 				//reload landing page
 				reloadLanding();
 
+				//Log the logout
+				logLogout();
+
 
 			}//success
 		});//ajax
@@ -699,6 +713,9 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 					//Load the application, fire event, set new cookie
 					loadApplication(response[0]);
 
+					//log the login
+					logLogin();
+
 
 					//Show device namer to new user
 					$('#nameDeviceModal').fadeIn();
@@ -752,6 +769,8 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 
 		//#app needs to have rendered first
 		determineDevice.get(function(){});
+
+
 	}
 
 
@@ -788,9 +807,87 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 			//Expires uid cookie for logout funcitonality
 			document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 		}
-
-
 	};
+
+
+
+
+
+
+
+
+	function logLogin(){
+		//Ensures userId is always available
+		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
+			if(window.userId !== undefined){
+				_userId = window.userId;
+			}else if(getCookies.userId !== undefined){
+				_userId = getCookies.userId;
+			}
+		}
+
+		var API_URL = _baseUrl + '/log-login/' + _userId;
+
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType	: 'json',
+			success 	: function(response){
+				console.log(response);
+			}//success
+		});//ajax
+	}
+
+
+
+
+	function logLogout(){
+		//Ensures userId is always available
+		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
+			if(window.userId !== undefined){
+				_userId = window.userId;
+			}else if(getCookies.userId !== undefined){
+				_userId = getCookies.userId;
+			}
+		}
+
+		var API_URL = _baseUrl + '/log-logout/' + _userId;
+
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType	: 'json',
+			success 	: function(response){
+				console.log(response);
+			}//success
+		});//ajax
+	}
+
+
+
+
+
+	function logLoginFromSignup(){
+		//Ensures userId is always available
+		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
+			if(window.userId !== undefined){
+				_userId = window.userId;
+			}else if(getCookies.userId !== undefined){
+				_userId = getCookies.userId;
+			}
+		}
+
+		var API_URL = _baseUrl + '/log-login-from-signup/' + _userId;
+
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType	: 'json',
+			success 	: function(response){
+				console.log(response);
+			}//success
+		});//ajax
+	}
 
 
 

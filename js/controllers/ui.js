@@ -812,6 +812,72 @@ console.log("appclick");
 
 
 
+
+
+
+		//Log shared song
+		$(document).on('click', '#footerShare', function(event){
+
+			var songId = $(this).children().eq(0).attr('data-id');
+			var API_URL = _baseUrl + '/log-shared-song/' + _userId + '/' + songId;
+
+			$.ajax({
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType	: 'json',
+				success 	: function(response){
+					console.log(response);
+				}//success
+			});//ajax
+		});
+
+
+
+
+
+
+
+
+
+		//Log shared playlist
+		$(document).on('click', '.playlistShare, .linkShare', function(event){
+
+			var playlistId = $(this).attr('data-id');
+			var API_URL = _baseUrl + '/log-shared-playlist/' + _userId + '/' + playlistId;
+
+			$.ajax({
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType	: 'json',
+				success 	: function(response){
+					console.log(response);
+				}//success
+			});//ajax
+		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //================================//
 //End event logic=================//
 //================================//
