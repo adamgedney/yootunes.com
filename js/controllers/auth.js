@@ -466,33 +466,59 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		event.preventDefault();
 		var errorMsg 	= $('#error');
 		var siblings 	= $(this).parent();
-		var email 		= siblings.find('#forgotInput').val();
+
+		var emailInput 	= siblings.find('#forgotInput');
+		var email 		= emailInput.val();
 		var API_URL 	= _baseUrl + '/forgot/' + email;
 
 		//Hides error message if this isn't the first attempt
 		errorMsg.hide();
+		emailInput.removeClass('animated bounce');
 
-		$.ajax({
-			url : API_URL,
-			method : 'GET',
-			dataType : 'json',
-			success : function(response){
 
-				if(response === "User null"){
+		//Validate email and password
+		validateEmail(email, function(resp){
 
-					//Show error message if no user was found
-					errorMsg.fadeIn();
-				}else{
+			if(resp.email === false){
 
-					$('#success').fadeIn();
+				//Prompt user with error message afforadance
+				errorMsg.text('Check your email address for typos');
+				errorMsg.fadeIn();
 
-					//reload the landing page
-					setTimeout(reloadLanding, 5000);
-
-				}
+				//Bounce error affordance
+				emailInput.addClass('animated bounce');
 
 			}
-		});
+
+
+			//Email field validates
+			if(resp.email === true){
+				$.ajax({
+					url : API_URL,
+					method : 'GET',
+					dataType : 'json',
+					success : function(response){
+
+						if(response === "User null"){
+
+							//Show error message if no user was found
+							errorMsg.text('That email doesn\'t exist in our system. Got some typos? Are you sure you didn\'t log in with Google?');
+							errorMsg.fadeIn();
+						}else{
+
+							$('#success').fadeIn();
+
+							//reload the landing page
+							setTimeout(reloadLanding, 5000);
+
+						}
+
+					}
+				});//ajax
+			}//validate true
+		});//validate
+
+
 	});
 
 
@@ -1020,6 +1046,32 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 			response.password = false;
 		}else{
 			response.password = true;
+		}
+
+
+		if(typeof callback === "function"){
+
+			callback(response);
+		}
+	}
+
+
+
+
+
+
+
+
+
+	function validateEmail(email, callback){
+		var emailPat 	= /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/; // standard email validation
+		var response 	= {};
+
+
+		if(!emailPat.test(email)){
+			response.email = false;
+		}else{
+			response.email = true;
 		}
 
 

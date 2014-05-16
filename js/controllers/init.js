@@ -21,6 +21,8 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 
 	var Init = function(){
 
+		_cookies = getCookies;
+
 
 		//=============================//
 		//Check for URL parameters
@@ -36,6 +38,11 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 			//Initiate RESET PASSWORD flow
 			//========================//
 			if(params.substr(1,5) === "reset"){
+
+				//first check to see if user has logged in since the token was sent
+				User.getUser(_cookies.userId, function(userData){
+					console.log(userData);
+				});
 
 				//strip token from url
 				var resetToken = params.substr(7);
@@ -105,8 +112,6 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 		//==========================================//
 		//Check cookies from service
 		//==========================================//
-		_cookies = getCookies;
-
 
 		//If uid cookie does not exist
 		if(_cookies.userId === null ||_cookies.userId === -1 || _cookies.userId === undefined || _cookies.userId === 'undefined'){
