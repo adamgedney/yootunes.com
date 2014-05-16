@@ -76,7 +76,6 @@ define([], function(){
 		}//for
 	}
 
-console.log(obj, localStorage);
 
 	return obj;
 

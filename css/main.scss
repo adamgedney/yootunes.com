@@ -34,6 +34,7 @@ $green: #2f7c2f;
 @import "reset";
 @import "defaults";
 @import "qtip";
+@import "animate";
 
 
 
@@ -118,8 +119,12 @@ input[type="submit"], .copy-signup, .button{
 .error-afford{
 	position: absolute;
 	top: 3px;
-	color: $red;
+	color: $red !important;
 	font-size: 1em;
+}
+
+.signupError{
+	top: 9px;
 }
 
 .button{

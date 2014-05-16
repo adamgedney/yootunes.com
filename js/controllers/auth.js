@@ -29,11 +29,29 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 	$(document).on('click', '#signupSubmit', function(event){
 		event.preventDefault();
 
-		var siblings 		= $(this).parent();
-		var email 			= siblings.find('#signupEmail').val();
-		var password 		= CryptoJS.SHA1(siblings.find('#signupPass').val());
-		var passwordAgain 	= CryptoJS.SHA1(siblings.find('#signupPassAgain').val());
-		var pwString 		= '';
+		//Expire cookie & load landing page
+		deleteUIDCookie();
+
+		var siblings 			= $(this).parent();
+		var emailInput 			= siblings.find('#signupEmail');
+		var email 				= emailInput.val();
+		var signupError 		= siblings.find('p.signupError');
+
+		var passInput 			= siblings.find('#signupPass');
+		var passInputAgain 		= siblings.find('#signupPassAgain')
+		var passInputVal 		= passInput.val();
+		var passInputAgainVal 	= passInputAgain.val();
+
+		var password 			= CryptoJS.SHA1(passInputVal);
+		var passwordAgain 		= CryptoJS.SHA1(passInputAgainVal);
+		var pwString 			= '';
+
+		passInput.removeClass('animated bounce');
+		passInputAgain.removeClass('animated bounce');
+		emailInput.removeClass('animated bounce');
+		signupError.hide();
+
+
 
 		//Produces 160 char string from pw
 		for(var i=0;i<password.words.length;i++){
@@ -43,34 +61,77 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		}
 
 
-		//Build API request
-		var API_URL 	= _baseUrl + '/check-user/' + email + '/' + pwString;
+		//Check if passwords match
+		if(passInputVal !== passInputAgainVal){
+			//Prompt user with error message afforadance
+			signupError.text('Passwords don\'t match');
+			signupError.fadeIn();
 
-		//Request auth from server
-		$.ajax({
-			url 		: API_URL,
-			method 		: 'GET',
-			dataType 	: 'json',
-			success 	: function(response){
 
-				//If user was authenticated
-				if(response.success === true){
+			passInput.addClass('animated bounce');
+			passInputAgain.addClass('animated bounce');
 
-					//Load app, set cookie, fire event
-					loadApplication(response[0][0]);
 
-					//Log user signing in from registration
-					//form for testing purposes
-					logLoginFromSignup();
+		}else{
 
-				}else{//User doesn't already exist
 
-					//Run create user function
-					createNewUser(email, password, passwordAgain);
+			//Validate email and password
+			validate(email, passInputVal, function(resp){
 
-				}//if
-			}//success
-		});//ajax
+				if(resp.email === false){
+
+					//Prompt user with error message afforadance
+					signupError.text('Check email address for typos');
+					signupError.fadeIn();
+
+					emailInput.addClass('animated bounce');
+
+				}else if(resp.password === false){
+
+					//Prompt user with error message afforadance
+					signupError.text('Your password isn\'t strong enough');
+					signupError.fadeIn();
+
+					passInput.addClass('animated bounce');
+					passInputAgain.addClass('animated bounce');
+				}
+
+
+				//Email and password fields validate
+				if(resp.email === true && resp.password === true){
+					signupError.fadeOut();
+
+					//Build API request
+					var API_URL 	= _baseUrl + '/check-user/' + email + '/' + pwString;
+
+					//Request auth from server
+					$.ajax({
+						url 		: API_URL,
+						method 		: 'GET',
+						dataType 	: 'json',
+						success 	: function(response){
+
+							//If user was authenticated
+							if(response.success === true){
+
+								//Load app, set cookie, fire event
+								loadApplication(response[0][0]);
+
+								//Log user signing in from registration
+								//form for testing purposes
+								logLoginFromSignup();
+
+							}else{//User doesn't already exist
+
+								//Run create user function
+								createNewUser(email, password, passwordAgain);
+
+							}//if
+						}//success
+					});//ajax
+				};//validate true
+			});//validate
+		}//else passwords match
 	});//onclick
 
 
@@ -90,6 +151,8 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 	//User authentication
 	//==========================================//
 	$(document).on('click', '#popdownSubmit', function(event){
+		//Expire cookie & load landing page
+		deleteUIDCookie();
 
 		var siblings 	= $(this).parent();
 		var loginError 	= siblings.find('p.loginError');
@@ -108,7 +171,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 
 
 		//Validate email and password
-		validateLogin(email, passField, function(resp){
+		validate(email, passField, function(resp){
 
 			if(resp.email === false){
 
@@ -921,8 +984,8 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 
 
 
-	function validateLogin(email, pass, callback){
-		var passPat 	= /^[a-zA-Z]\w{3,14}$/; //4-15 char abcd aBcd ac3D
+	function validate(email, pass, callback){
+		var passPat 	= /^[a-zA-Z]\w{5,14}$/; //6-15 char abcd aBcd ac3D
 		var emailPat 	= /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/; // standard email validation
 		var response 	= {};
 
