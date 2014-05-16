@@ -67,7 +67,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 			signupError.text('Passwords don\'t match');
 			signupError.fadeIn();
 
-
+			//Bounce error affordance
 			passInput.addClass('animated bounce');
 			passInputAgain.addClass('animated bounce');
 
@@ -84,6 +84,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 					signupError.text('Check email address for typos');
 					signupError.fadeIn();
 
+					//Bounce error affordance
 					emailInput.addClass('animated bounce');
 
 				}else if(resp.password === false){
@@ -92,6 +93,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 					signupError.text('Your password isn\'t strong enough');
 					signupError.fadeIn();
 
+					//Bounce error affordance
 					passInput.addClass('animated bounce');
 					passInputAgain.addClass('animated bounce');
 				}
@@ -156,11 +158,19 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 
 		var siblings 	= $(this).parent();
 		var loginError 	= siblings.find('p.loginError');
-		var email 		= siblings.find('#popdownEmail').val();
-		var passField 	= siblings.find('#popdownPass').val();
+
+		var emailInput 	= siblings.find('#popdownEmail');
+		var email 		= emailInput.val();
+
+		var passInput 	= siblings.find('#popdownPass');
+		var passField 	= passInput.val();
+
 		var password 	= CryptoJS.SHA1(passField);
 		var pwString 	= '';
+
 		loginError.hide();
+		emailInput.removeClass('animated bounce');
+		passInput.removeClass('animated bounce');
 
 		//Produces 160 char string from pw
 		for(var i=0;i<password.words.length;i++){
@@ -179,11 +189,17 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 				loginError.text('Check email address for typos');
 				loginError.fadeIn();
 
+				//Bounce error affordance
+				emailInput.addClass('animated bounce');
+
 			}else if(resp.password === false){
 
 				//Prompt user with error message afforadance
 				loginError.text('Your password isn\'t strong enough');
 				loginError.fadeIn();
+
+				//Bounce error affordance
+				passInput.addClass('animated bounce');
 			}
 
 
@@ -215,6 +231,10 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 							//Prompt user with error message afforadance
 							loginError.text('username or password incorrect');
 							loginError.fadeIn();
+
+							//Bounce error affordance
+							emailInput.addClass('animated bounce');
+							passInput.addClass('animated bounce');
 
 
 							//Determine if we need to prompt user to restore account
