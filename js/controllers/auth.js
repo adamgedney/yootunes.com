@@ -614,49 +614,100 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 	//Update user acct info from account settings page form
 	$(document).on('click', '#updateInfo', function(event){
 		event.preventDefault();
+
+		_userId 			= $('#infoId').html();
 		var siblings 		= $(this).parent();
-		var displayName 	= siblings.find('#infoName').val();
-		var email 			= siblings.find('#infoEmail').val();
-		var birthdate 		= siblings.find('#infoBirthdate').val();
+		var emailInput 		= siblings.find('#infoEmail');
+		var nameInput 		= siblings.find('#infoName');
+		var birthdateInput 	= siblings.find('#infoBirthdate');
+
+		var displayName 	= nameInput.val();
+		var email 			= emailInput.val();
+		var birthdate 		= birthdateInput.val();
 		var title 			= siblings.find('#infoTitleGender option:selected').text();
-			_userId 		= $('#infoId').html();
+		var errorMsg 		= $('#updateProfileError');
+
+		errorMsg.hide();
+		nameInput.removeClass('animated bounce');
+		emailInput.removeClass('animated bounce');
+		birthdateInput.removeClass('animated bounce');
+
+
 
 		//Split birthday into month/day/year
 		var birthArray = birthdate.split('/');
 
-				//sets default on display name so call won't crash
-				if(displayName === ""){
-					displayName = "0";
-				}
+		//sets default on display name so call won't crash
+		if(displayName === ""){
+			displayName = "0";
+		}
 
-				//Set default on email in case user is from Google plus
-				if(email === ""){
-					email = "0";
-				}
+		//Set default on email in case user is from Google plus
+		if(email === ""){
+			email = "0";
+		}
 
-				//Set default on birthdate in case user is from Google plus
-				if(birthdate === ""){
-					birthArray = ['0','0','0'];
-				}
+		//Set default on birthdate in case user is from Google plus
+		if(birthdate === ""){
+			birthArray = ['0','0','0'];
+		}
 
 
 
-		//Build API URL
-		var API_URL = _baseUrl + '/update-user/' + _userId + '/' + title + '/' + displayName + '/' + email + '/' + birthArray[0] + '/' + birthArray[1] + '/' + birthArray[2];
 
-		//Call API to update user data
-		$.ajax({
-			url : API_URL,
-			method : 'GET',
-			dataType : 'json',
-			success : function(response){
-				console.log(response, "update settings response-acct settings");
+		validateProfile(email, displayName, birthdate, function(resp){
 
-				//Reload acct settings view
-				Content.loadAcctSettings();
+			if(resp.email === false){
 
-			}//success
-		});//ajax
+				//Prompt user with error message afforadance
+				errorMsg.text('Check your email address for typos.');
+				errorMsg.fadeIn();
+
+				//Bounce error affordance
+				emailInput.addClass('animated bounce');
+
+			}else if(resp.fullName === false){
+
+				//Prompt user with error message afforadance
+				errorMsg.text('Your name may only contain letters. Oh. Wait. Deadmau5 might have an issue here.');
+				errorMsg.fadeIn();
+
+				//Bounce error affordance
+				nameInput.addClass('animated bounce');
+
+			}else if(resp.birthdate === false){
+
+				//Prompt user with error message afforadance
+				errorMsg.text('A birthdate should be written as 00/00/0000. Only numbers and / allowed');
+				errorMsg.fadeIn();
+
+				//Bounce error affordance
+				birthdateInput.addClass('animated bounce');
+
+			}
+
+
+			//Fields validates
+			if(resp.email === true && resp.fullName === true && resp.birthdate === true){
+
+				//Build API URL
+				var API_URL = _baseUrl + '/update-user/' + _userId + '/' + title + '/' + displayName + '/' + email + '/' + birthArray[0] + '/' + birthArray[1] + '/' + birthArray[2];
+
+				//Call API to update user data
+				$.ajax({
+					url : API_URL,
+					method : 'GET',
+					dataType : 'json',
+					success : function(response){
+						console.log(response, "update settings response-acct settings");
+
+						//Reload acct settings view
+						Content.loadAcctSettings();
+
+					}//success
+				});//ajax
+			}//validate true
+		});//validate
 	});//click updateInfo
 
 
@@ -1060,6 +1111,11 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 
 
 
+
+
+
+
+
 	function validate(email, pass, callback){
 		var passPat 	= /^[a-zA-Z]\w{5,14}$/; //6-15 char abcd aBcd ac3D
 		var emailPat 	= /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/; // standard email validation
@@ -1082,6 +1138,56 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 				response.password = true;
 			}
 		}
+
+
+
+		if(typeof callback === "function"){
+
+			callback(response);
+		}
+	}
+
+
+
+
+
+
+
+
+
+	function validateProfile(email, fullName, birthdate, callback){
+
+		var emailPat 		= /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/; // standard email validation
+		var letterPattern 	= /^[a-zA-Z \s]+$/;//only allow a-z /
+		var numberPattern 	= /^([0-9]{1,2})[/]+([0-9]{1,2})[/]+([0-9]{2}|[0-9]{4})$/;//only allow 0-9 /
+		var response 		= {};
+
+
+		if(email !== null){
+			if(!emailPat.test(email)){
+				response.email = false;
+			}else{
+				response.email = true;
+			}
+		}
+
+		if(fullName !== null){
+			if(!letterPattern.test(fullName)){
+				response.fullName = false;
+			}else{
+				response.fullName = true;
+			}
+		}
+
+		if(birthdate !== null){
+			if(!numberPattern.test(birthdate)){
+				response.birthdate = false;
+			}else{
+				response.birthdate = true;
+			}
+		}
+
+
 
 
 

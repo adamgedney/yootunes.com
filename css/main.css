@@ -6269,11 +6269,17 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   line-height: 16px;
   border: none;
 }
+.info-wrapper input[type="submit"] {
+  margin-top: 18px;
+}
 .info-wrapper label {
   display: block;
   font-size: 1.2em;
   color: #949494;
   margin: 15px 0 6px 0;
+}
+.info-wrapper form {
+  position: relative;
 }
 
 .info-col1, .info-col2, .info-col3 {
@@ -6355,6 +6361,17 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   height: 12px;
   float: right;
   margin-top: 10px;
+}
+
+#updateProfileError {
+  position: absolute;
+  bottom: -36px;
+  color: #cf2425;
+  z-index: 10000;
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 /*==================================*/

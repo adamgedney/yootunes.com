@@ -317,248 +317,246 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 
 
+			//Listens for the player API to load
+			window.onYouTubePlayerAPIReady = function() {
 
-
-
-		//Listens for the player API to load
-		window.onYouTubePlayerAPIReady = function() {
-
-			// create the global player from the specific iframe (#video)
-			_player = new YT.Player('video', {
-				playerVars: {
-					controls 		: 0,
-					enablejsapi 	: 1,
-					rel 			: 0,
-					showinfo		: 0,
-					modestbranding 	: 1,
-					origin 			: 'http://yootunes.com'
-				},
-			    events: {
-			      // call this function when player is ready to use
-			      'onStateChange'	: onPlayerStateChange,
-			      'onReady'			: onPlayerReady
-			    }
-		  });
-		}
-
+				// create the global player from the specific iframe (#video)
+				_player = new YT.Player('video', {
+					playerVars: {
+						controls 		: 0,
+						enablejsapi 	: 1,
+						rel 			: 0,
+						showinfo		: 0,
+						modestbranding 	: 1,
+						origin 			: 'http://yootunes.com'
+					},
+				    events: {
+				      // call this function when player is ready to use
+				      'onStateChange'	: onPlayerStateChange,
+				      'onReady'			: onPlayerReady
+				    }
+			  });
+			}
 
 
 
 
 
-		//Fires when player returns ready
-		window.onPlayerReady = function(event) {
 
-			//FOOTER PLAY BUTTON Click Handler=======//
-			$(document).on('click', '#play-btn', function(){
+
+
+			//Fires when player returns ready
+			window.onPlayerReady = function(event) {
+
+				//FOOTER PLAY BUTTON Click Handler=======//
+				$(document).on('click', '#play-btn', function(){
+					var libraryWrapper 	= $('#libraryWrapper');
+
+					var youtubeId = libraryWrapper.find('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
+
+						//Play if not already playing
+						if(_playerPlaying === false){
+
+							play(youtubeId);
+
+							_playerPlaying 	= true;
+							_paused 		= false;
+
+						//Stop playing if already playing
+						}else{
+
+							pause();
+
+							_paused 		= true;
+							_playerPlaying 	= false;
+						}
+				});
+
+
+
+				//===================================//
+				//Volume Handler
+				//===================================//
+				var prevVolume;
+
+				$(document).on('mousemove', '#volumeRange', function(){
+
+					var rangeVolume = $('#volumeRange').val();
+
+					//No need for sockets if this is the device we're playing on
+					if(_socket === null){
+
+						//set volume normally
+						_player.setVolume(rangeVolume);
+
+
+					}else{//PlayOn
+
+						//Be sure loacl volume is still muted
+						_player.mute();
+
+
+						//Build obj for socket transmission
+						var data = {
+							'device' 			: _playOnDevice,
+							'volume' 			: rangeVolume,
+							'controllerDevice' 	: _thisDevice,
+							'userId' 			: _userId
+						}
+
+
+						//=============================//
+						//Socket EMIT volume stream
+						//=============================//
+						if(rangeVolume !== prevVolume){
+
+							_socketConnect.emit('volume', data);
+
+							prevVolume = rangeVolume;
+						}
+
+					}//else
+				});//volume mousemove
+
+
+			//================================//
+			};//On Player Ready
+			//================================//
+
+
+
+
+
+
+
+
+
+			//===========================================//
+			//Listens for PLAYER API STATE CHANGE message
+			//===========================================//
+			window.onPlayerStateChange = function(event){
+
 				var libraryWrapper 	= $('#libraryWrapper');
+				var id = _player.getVideoData().video_id;
 
-				var youtubeId = libraryWrapper.find('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
 
-					//Play if not already playing
-					if(_playerPlaying === false){
+				//================================//
+				//Playing code
+				//================================//
+				if (event.data === 1){
 
-						play(youtubeId);
 
-						_playerPlaying 	= true;
-						_paused 		= false;
+					//Set song data & UI Changes
+					renderSongInfo(id);
+					var playing = $('span.play-icon[data-videoId=' + id + ']');
 
-					//Stop playing if already playing
-					}else{
 
-						pause();
+					//Resets video ctrl container to opaque (hides loading icon)
+					$('div.video-size-ctrl').css({'opacity':'1'});
 
-						_paused 		= true;
-						_playerPlaying 	= false;
-					}
-			});
+					//Dynamically add video url to watch on icon in video ctrl box
+					$('a#watchOnYoutube').attr('href', 'http://youtube.com/watch?v=' + id);
 
+					//NOTE:*****
+					//This is actually the current index. Clean up possible duplicate setting of this value later.
+					//This is the ideal place to set current index
+					_currentIndex = playing.parent().attr('data-index');
 
 
-			//===================================//
-			//Volume Handler
-			//===================================//
-			var prevVolume;
+					//Set playing variable for use by the onrendered event
+					_playingVideo = id;
 
-			$(document).on('mousemove', '#volumeRange', function(){
+					//Calls updateTime() on regular intervals
+					_updateInterval = setInterval(updateTime, 100);
 
-				var rangeVolume = $('#volumeRange').val();
 
-				//No need for sockets if this is the device we're playing on
-				if(_socket === null){
+			      	//If user plays video from click on video, change play/pause in desktop view only
+			      	if(window.windowWidth > app_break_smmd){
+			      		$('div.transport-ctrl img#play-btn').attr('src', 'images/icons/pause.png');
+			      	}
 
-					//set volume normally
-					_player.setVolume(rangeVolume);
 
 
-				}else{//PlayOn
 
-					//Be sure loacl volume is still muted
-					_player.mute();
+			      	//Sets resultItems play/pause img
+					$('span.li-col1 img.playIconImg').attr('src', 'images/icons/play-drk.png');
+					$('img.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
 
 
-					//Build obj for socket transmission
-					var data = {
-						'device' 			: _playOnDevice,
-						'volume' 			: rangeVolume,
-						'controllerDevice' 	: _thisDevice,
-						'userId' 			: _userId
-					}
 
 
-					//=============================//
-					//Socket EMIT volume stream
-					//=============================//
-					if(rangeVolume !== prevVolume){
 
-						_socketConnect.emit('volume', data);
 
-						prevVolume = rangeVolume;
-					}
+				//================================//
+				//Paused code
+				//================================//
+			    }else if(event.data < 1){
 
-				}//else
-			});//volume mousemove
 
 
-		//================================//
-		};//On Player Ready
-		//================================//
+			    	//Clears above update interval
+			    	clearInterval(_updateInterval);
 
+			    	//If user plays video from click on video, change play/pause
+			    	if(window.windowWidth > app_break_smmd){
+			      		$('div.transport-ctrl img#play-btn').attr('src', 'images/icons/play-wht.png');
+			      	}
 
 
+			    	//Sets list icon play/pause img
+			    	$('img.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/play-drk.png');
 
+			    }
 
 
 
 
+			    //================================//
+			    //If video has ended
+			    //================================//
+			    if(event.data === 0){//video ended
 
-		//===========================================//
-		//Listens for PLAYER API STATE CHANGE message
-		//===========================================//
-		window.onPlayerStateChange = function(event){
+			    	//======================//
+			    	//If loop is enabled
+			    	//======================//
+			    	if(_playMode.loop){
 
-			var libraryWrapper 	= $('#libraryWrapper');
-			var id = _player.getVideoData().video_id;
+			    		//Start playing same video again
+						// _player.loadVideoById(id);
 
+						play(id);
 
-			//================================//
-			//Playing code
-			//================================//
-			if (event.data === 1){
 
 
-				//Set song data & UI Changes
-				renderSongInfo(id);
-				var playing = $('span.play-icon[data-videoId=' + id + ']');
+					//======================//
+					//if shuffle enabled
+					//======================//
+			    	}else if(_playMode.shuffle){
 
+			    		playRandom();
 
-				//Resets video ctrl container to opaque (hides loading icon)
-				$('div.video-size-ctrl').css({'opacity':'1'});
 
-				//Dynamically add video url to watch on icon in video ctrl box
-				$('a#watchOnYoutube').attr('href', 'http://youtube.com/watch?v=' + id);
 
-				//NOTE:*****
-				//This is actually the current index. Clean up possible duplicate setting of this value later.
-				//This is the ideal place to set current index
-				_currentIndex = playing.parent().attr('data-index');
+					//======================//
+					//Autoplay
+					//======================//
+			    	}else{
 
+			    		//Handles autoplaying next video
+				    	//set current index converted from string to int
+						_currentIndex = parseInt(_currentIndex, 10) + 1;
 
-				//Set playing variable for use by the onrendered event
-				_playingVideo = id;
+				    	var nextVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
-				//Calls updateTime() on regular intervals
-				_updateInterval = setInterval(updateTime, 100);
+						//Start playing
+						// _player.loadVideoById(currentVideo);
+						console.log(nextVideo, "autoplay");
+						play(nextVideo);
 
 
-		      	//If user plays video from click on video, change play/pause in desktop view only
-		      	if(window.windowWidth > app_break_smmd){
-		      		$('div.transport-ctrl img#play-btn').attr('src', 'images/icons/pause.png');
-		      	}
-
-
-
-
-		      	//Sets resultItems play/pause img
-				$('span.li-col1 img.playIconImg').attr('src', 'images/icons/play-drk.png');
-				$('img.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
-
-
-
-
-
-
-			//================================//
-			//Paused code
-			//================================//
-		    }else if(event.data < 1){
-
-
-
-		    	//Clears above update interval
-		    	clearInterval(_updateInterval);
-
-		    	//If user plays video from click on video, change play/pause
-		    	if(window.windowWidth > app_break_smmd){
-		      		$('div.transport-ctrl img#play-btn').attr('src', 'images/icons/play-wht.png');
-		      	}
-
-
-		    	//Sets list icon play/pause img
-		    	$('img.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/play-drk.png');
-
-		    }
-
-
-
-
-		    //================================//
-		    //If video has ended
-		    //================================//
-		    if(event.data === 0){//video ended
-
-		    	//======================//
-		    	//If loop is enabled
-		    	//======================//
-		    	if(_playMode.loop){
-
-		    		//Start playing same video again
-					// _player.loadVideoById(id);
-
-					play(id);
-
-
-
-				//======================//
-				//if shuffle enabled
-				//======================//
-		    	}else if(_playMode.shuffle){
-
-		    		playRandom();
-
-
-
-				//======================//
-				//Autoplay
-				//======================//
-		    	}else{
-
-		    		//Handles autoplaying next video
-			    	//set current index converted from string to int
-					_currentIndex = parseInt(_currentIndex, 10) + 1;
-
-			    	var nextVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
-
-					//Start playing
-					// _player.loadVideoById(currentVideo);
-					console.log(nextVideo, "autoplay");
-					play(nextVideo);
-
-
-		    	}
-		    }
-		};//onStateChange
-
+			    	}
+			    }
+			};//onStateChange
 
 
 
