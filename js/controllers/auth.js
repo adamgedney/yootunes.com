@@ -476,8 +476,8 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		emailInput.removeClass('animated bounce');
 
 
-		//Validate email and password
-		validateEmail(email, function(resp){
+		//Validate email
+		validate(email, null, function(resp){
 
 			if(resp.email === false){
 
@@ -533,11 +533,17 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 	//Reset user password
 	//==========================================//
 	$(document).on('click', '#resetSubmit', function(event){
-		event.preventDefault();
 		var siblings 	= $(this).parent();
 		var userId 		= window.tokenResponseId;
-		var password 	= CryptoJS.SHA1(siblings.find('#resetInput').val());
+		var errorMsg 	= $('#error');
+
+		var passInput 	= siblings.find('#resetInput');
+		var passInputVal= passInput.val();
+		var password 	= CryptoJS.SHA1(passInputVal);
 		var pwString 	= '';
+
+		errorMsg.hide();
+		passInput.removeClass('animated bounce');
 
 
 		//Produces 160 char string from pw
@@ -548,29 +554,53 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		}
 
 
+		//Validate password
+		validate(null, passInputVal, function(resp){
 
-		//Build API request
-		var API_URL 	= _baseUrl + '/reset-pass/' + userId + '/' + pwString;
+			if(resp.password === false){
 
-		//Send new password to server for update
-		$.ajax({
-			url 		: API_URL,
-			method 		: 'GET',
-			dataType 	: 'json',
-			success 	: function(response){
+				//Prompt user with error message afforadance
+				errorMsg.text('Password must be 2 million characters long with 1000 special characters and 14 capital letters...   Just kidding. Try making it stronger though.');
+				errorMsg.fadeIn();
 
-			console.log(response, "password reset success response");
-				if(response === "Password reset success"){
+				//Bounce error affordance
+				passInput.addClass('animated bounce');
 
-					$('p#success').fadeIn();
-
-					//redirect user to root so they can log in with their new password
-					setTimeout(rootRedirect, 5000);
-				}
-			},error 	: function(response){
-				console.log(response, "password reset error response");
 			}
-		});//ajax
+
+
+			//Email field validates
+			if(resp.password === true){
+
+				//Build API request
+				var API_URL 	= _baseUrl + '/reset-pass/' + userId + '/' + pwString;
+
+				//Send new password to server for update
+				$.ajax({
+					url 		: API_URL,
+					method 		: 'GET',
+					dataType 	: 'json',
+					success 	: function(response){
+
+						console.log(response, "password reset success response");
+
+						if(response === "Password reset success"){
+
+							errorMsg.hide();
+							$('p#success').fadeIn();
+
+							//redirect user to root so they can log in with their new password
+							setTimeout(rootRedirect, 5000);
+						}
+					},error : function(response){
+
+						console.log(response, "password reset error response");
+					}
+				});//ajax
+			}//validate true
+		});//validate
+
+	event.preventDefault();
 	});//click resetSubmit
 
 
@@ -1036,17 +1066,23 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 		var response 	= {};
 
 
-		if(!emailPat.test(email)){
-			response.email = false;
-		}else{
-			response.email = true;
+		if(email !== null){
+			if(!emailPat.test(email)){
+				response.email = false;
+			}else{
+				response.email = true;
+			}
 		}
 
-		if(!passPat.test(pass)){
-			response.password = false;
-		}else{
-			response.password = true;
+
+		if(pass !== null){
+			if(!passPat.test(pass)){
+				response.password = false;
+			}else{
+				response.password = true;
+			}
 		}
+
 
 
 		if(typeof callback === "function"){
@@ -1061,25 +1097,6 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 
 
 
-
-
-	function validateEmail(email, callback){
-		var emailPat 	= /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/; // standard email validation
-		var response 	= {};
-
-
-		if(!emailPat.test(email)){
-			response.email = false;
-		}else{
-			response.email = true;
-		}
-
-
-		if(typeof callback === "function"){
-
-			callback(response);
-		}
-	}
 
 
 

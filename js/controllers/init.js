@@ -39,11 +39,6 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 			//========================//
 			if(params.substr(1,5) === "reset"){
 
-				//first check to see if user has logged in since the token was sent
-				User.getUser(_cookies.userId, function(userData){
-					console.log(userData);
-				});
-
 				//strip token from url
 				var resetToken = params.substr(7);
 
@@ -57,18 +52,32 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 					method : 'GET',
 					dataType : 'json',
 					success : function(response){
-
+console.log(response, _cookies.userId);
 						//Token validity conditions
 						if(response.message === "Token valid"){
 
-							//Prevents glitched loading of reset screen
-							deleteUIDCookie();
+							//If the reset was initaiated by this logged in user,
+							//load the application
+							if(response.userId === _cookies.userId){
 
-							//Load the reset password view
-							Content.loadReset();
+								window.userId = response.userId;
 
-							//Store the userId associated with the token
-							window.tokenResponseId = response.userId;
+								initSession();
+
+								loadApplication();
+
+							}else{//Initate token/reset flow
+
+								//Clear cookies that exist before we reset
+								deleteUIDCookie();
+
+								//Load the reset password view
+								Content.loadReset();
+
+								//Store the userId associated with the token
+								window.tokenResponseId = response.userId;
+							}
+
 
 						}//if
 					}//success
@@ -93,6 +102,12 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 				_playlistId 		= parseName[0];
 				window.playlistId 	= parseName[0];
 			}
+		}else{
+
+			//Start normal init flow
+			initSession();
+
+
 		}//end URL params =======//
 		//======================//
 
@@ -109,51 +124,7 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 
 
 
-		//==========================================//
-		//Check cookies from service
-		//==========================================//
 
-		//If uid cookie does not exist
-		if(_cookies.userId === null ||_cookies.userId === -1 || _cookies.userId === undefined || _cookies.userId === 'undefined'){
-
-
-			//Load landing page
-			Content.loadLanding();
-
-
-		}else{//USER EXISTS
-
-			//store user id for global use
-			_userId = _cookies.userId;
-			window.userId = _userId;
-
-			//Run this ASAP to prepare for library load
-			//First get library count to compare against localstorage count
-			var API_URL = _baseUrl + '/get-library-count/' + _userId;
-
-			$.ajax({
-				url 		: API_URL,
-				method 		: 'GET',
-				dataType 	: 'json',
-				success 	: function(response){
-
-					//Used By Content.;oadLibrary to check local storage
-					window.libraryCount = response;
-
-					//get the user data for stored theme
-					//then load the app on success
-					//**Sets theme and uid cookie
-					User.getUser(_cookies.userId, function(){});
-
-
-					//Load app, set cookie, fire event
-					//Cookie setting here is redundant but harmless
-					//Prevents duplicate code.
-					loadApplication();
-
-				}//AJAX success
-			});//AJAX library count
-		}//ELSE USER EXISTS
 
 
 
@@ -201,6 +172,65 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 //================================//
 //Class methods===================//
 //================================//
+
+
+
+
+
+
+
+
+
+
+	function initSession(){
+		//==========================================//
+		//Check cookies from service
+		//==========================================//
+
+		//If uid cookie does not exist
+		if(_cookies.userId === null ||_cookies.userId === -1 || _cookies.userId === undefined || _cookies.userId === 'undefined'){
+
+
+			//Load landing page
+			Content.loadLanding();
+
+
+		}else{//USER EXISTS
+
+			//store user id for global use
+			_userId = _cookies.userId;
+			window.userId = _userId;
+
+			//Run this ASAP to prepare for library load
+			//First get library count to compare against localstorage count
+			var API_URL = _baseUrl + '/get-library-count/' + _userId;
+
+			$.ajax({
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType 	: 'json',
+				success 	: function(response){
+
+					//Used By Content.;oadLibrary to check local storage
+					window.libraryCount = response;
+
+					//get the user data for stored theme
+					//then load the app on success
+					//**Sets theme and uid cookie
+					User.getUser(_cookies.userId, function(){});
+
+
+					//Load app, set cookie, fire event
+					//Cookie setting here is redundant but harmless
+					//Prevents duplicate code.
+					loadApplication();
+
+				}//AJAX success
+			});//AJAX library count
+		}//ELSE USER EXISTS
+	}
+
+
 
 
 
