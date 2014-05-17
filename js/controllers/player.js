@@ -148,6 +148,8 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 				//Start loading the player script once #video is on DOM
 				loadPlayerScript();
 
+				ensureUserExists();
+
 				//Join user to his room for playOn control
 				socketService.joinRoom(_userId);
 
