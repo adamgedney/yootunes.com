@@ -1328,7 +1328,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 			//Emit pause event
 			if(_socket === 'open'){
-console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket PAUSE SOCKET OPEN", _socketConnect);
+console.log(_thisDevice, _playOnDevice, _paused, _socket, _userId, "thisdevice/playondevicein/_paused/_socket/_userId PAUSE SOCKET OPEN", _socketConnect);
 				//Build obj for socket transmission
 				var data = {
 					'device' 			: _playOnDevice,
