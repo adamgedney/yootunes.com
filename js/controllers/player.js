@@ -1191,13 +1191,13 @@ console.log("update");
 		}
 
 
-console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket play funct", _socketConnect);
+console.log(_thisDevice, _playOnDevice, _paused, _socket, _userId, "thisdevice/playondevicein/_paused/_socket play funct", _socketConnect);
 		//Signifies we're in play/pause loop
 		if(_paused === true){
 
 			//Only emit events on playOn device selection
 			if(_socket === 'open'){
-console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket PAUSED SOCKET OPEN", _socketConnect);
+console.log(_thisDevice, _playOnDevice, _paused, _socket, _userId, "thisdevice/playondevicein/_paused/_socket PAUSED SOCKET OPEN", _socketConnect);
 				//Change data.newVideo accordingly
 				_data.newVideo = 'false';
 
@@ -1211,7 +1211,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 
 			}else if(_socket === null){
-console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket PAUSED SOCKET NULL", _socketConnect);
+console.log(_thisDevice, _playOnDevice, _paused, _socket, _userId, "thisdevice/playondevicein/_paused/_socket PAUSED SOCKET NULL", _socketConnect);
 				//Play Local video normally w/out delay
 
 				_player.playVideo();
@@ -1233,7 +1233,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 			//Only emit events on playOn device selection
 			if(_socket === 'open'){
-console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket NEW VIDEO SOCKET OPEN", _socketConnect);
+console.log(_thisDevice, _playOnDevice, _paused, _socket, _userId, "thisdevice/playondevicein/_paused/_socket NEW VIDEO SOCKET OPEN", _socketConnect);
 				//Change data.newVideo accordingly
 				_data.newVideo = 'true';
 
@@ -1250,7 +1250,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 
 			}else if(_socket === null){
-console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket NEW VIDEO SOCKET NULL", _socketConnect);
+console.log(_thisDevice, _playOnDevice, _paused, _socket, _userId, "thisdevice/playondevicein/_paused/_socket NEW VIDEO SOCKET NULL", _socketConnect);
 				//Play local video
 				if(window.windowWidth < app_break_smmd){
 					popupPlayer(youtubeId);
@@ -1345,7 +1345,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, _userId, "thisdevice/p
 				_socketConnect.emit('pause', data);
 			}
 
-console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket PAUSE AFTER SOCKET OPEN", _socketConnect);
+console.log(_thisDevice, _playOnDevice, _paused, _socket, _userId, "thisdevice/playondevicein/_paused/_socket PAUSE AFTER SOCKET OPEN", _socketConnect);
 			//Pause local video normally
 			_player.stopVideo();
 
