@@ -1293,7 +1293,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 	function pause(){
 
-		ensureUseExists();
+		ensureUserExists();
 
 		//Clear update interval here to prevent Safari glitch
 		clearInterval(_updateInterval);
