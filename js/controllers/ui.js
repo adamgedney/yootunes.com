@@ -468,6 +468,9 @@ define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCook
 				var playOnDevice 	=  $('#mobile-play-on option:selected').attr('data-id');
 				var minimizeIcon 	= $('#minimizeOverlay');
 
+				//Change li text color of the playing item
+				resultItems.find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').removeClass('red');//red
+				libraryWrapper.find('li.resultItems[data-videoId=' + thisId + ']').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').addClass('red');//red
 
 				//Highlight selected mobile video
 				resultItems.removeClass('highlight');
