@@ -1,7 +1,7 @@
 3.2.9 (Media Mark)
-a5d28300407bdb601b7b43011ca19c2ab6d11e77
+30f0f935eda07d6cbefcec035f3be4c59b5acb23
 o:Sass::Tree::RootNode
-:@template"(n
+:@template")n
 /*
 *[title]:hover:after{
 	content: attr(title);
@@ -870,7 +870,7 @@ section.app{
 
 .li-col2{
 	display: inline-block;
-	@include col(9);
+	@include col(12);
 	float: left;
 	padding-right: 2%;
 	margin-right: 2%;
@@ -2398,7 +2398,7 @@ float;[ ;o;;	;;"	left;@;@;iY;;;@;[".li-col1;iX;o;;" ;
 ;0;@Q;o;; { ;iX;[o;+;["li-col1;@Q;iX;$To;;i ;[o;,;"col;[ ;@;-{ ;i];.0;/[o;0;i;@;1@s;i];2[ ;3"1o;,;"app-break-smmd;[o;;i ;["
 width;[ ;o;;	;;"6%;@;@;i`;;;@;-{ ;i_;$T;.0;/[ ;@;[".li-col1, .li-col7;i\;o;;" ;i\;[o;;[o;
 ;0;@t;o;; { ;i\;[o;+;["li-col1;@t;i\o;;[o;
-;0;@t;o;; { ;i\;[o;+;["li-col7;@t;i\;$To;;i ;[o;;i ;["display;[ ;o;;	;;"inline-block;@;@;ie;;o;,;"col;[ ;@;-{ ;if;.0;/[o;0;i;@;1@s;if;2[ ;3"9o;;i ;["
+;0;@t;o;; { ;i\;[o;+;["li-col7;@t;i\;$To;;i ;[o;;i ;["display;[ ;o;;	;;"inline-block;@;@;ie;;o;,;"col;[ ;@;-{ ;if;.0;/[o;0;i;@;1@s;if;2[ ;3"12o;;i ;["
 float;[ ;o;;	;;"	left;@;@;ig;;o;;i ;["padding-right;[ ;o;;	;;"2%;@;@;ih;;o;;i ;["margin-right;[ ;o;;	;;"2%;@;@;ii;;o;,;"app-break-smmd;[o;,;"col;[ ;@;-{ ;il;.0;/[o;0;i;@;1@s;il;2[ ;3"6;@;-{ ;ik;$T;.0;/[ ;@;[".li-col2;id;o;;" ;id;[o;;[o;
 ;0;@º;o;; { ;id;[o;+;["li-col2;@º;id;$To;;i ;[
 o;,;"col;[ ;@;-{ ;iq;.0;/[o;0;i;@;1@s;iq;2[ ;3"2o;;i ;["display;[ ;o;;	;;"inline-block;@;@;ir;;o;;i ;["

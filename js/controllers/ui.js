@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], function($, qtip, Player, Library, getCookies, lightbox){
+define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCookies', 'lightbox'], function($, qtip, toggleUi, videoSizer, Player, Library, getCookies, lightbox){
 
 
 	//private vars
@@ -98,13 +98,16 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				// 	    }
 				// 	});
 				// }
+				if(event.template === '#app'){
 
+
+
+				};
 
 
 
 
 				if(event.template === '#libraryItem'){
-
 
 					//Failsafe retrieval of theme
 					if(window.userId === undefined){
@@ -113,6 +116,16 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 					//MAIN SET POINT for _userId for this UI module
 					_userId = window.userId;
+
+
+					//Media Query
+					if(window.windowWidth < app_break_smmd){
+						$('span.li-col1').hide();
+					}else{
+						$('span.li-col1').show();
+					}
+
+
 				}
 			});
 
@@ -136,6 +149,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 					video.show();
 					videoSizeCtrl.show();
 					footer.show();
+					$('span.li-col1').show();
 				}else{
 					video.hide();
 					videoSizeCtrl.hide();
@@ -379,7 +393,6 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			//Prevent dropdown on mobile view
 			if(window.windowWidth > app_break_smmd){
 
-
 				//Ensures form is hidden at start
 				// $('.newPlaylistForm').hide();
 
@@ -481,7 +494,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				}else{
 
 					//Reset popup video
-					showMinSize();
+					videoSizer.minView();
 					_popupToggle = false;
 				}//else playOnDevice
 			}//else breakpoint
@@ -585,14 +598,14 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			//Sets video to normal size
 			if(!_videoSize.normal){
 
-				showNormalSize();
+				videoSizer.normView();
 
 				_videoSize.normal = !_videoSize.normal;
 				_videoSize.full = false;
 
 			//Sets video to minimized size
 			}else{
-				showMinSize();
+				videoSizer.minView();
 
 				_videoSize.normal = !_videoSize.normal;
 				_videoSize.full = false;
@@ -608,13 +621,13 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 			//If video is not already full
 			if(!_videoSize.full){
-				enterFullscreen();
+				videoSizer.fullView();
 
 				_videoSize.full = !_videoSize.full;
 				_videoSize.normal = true;
 			}else{
 
-				showNormalSize();
+				videoSizer.normView();
 
 				_videoSize.full = !_videoSize.full;
 				_videoSize.normal = false;
@@ -727,13 +740,13 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 		//Event triggered by playOn socket. Applies to slave device
 		$(document).on('slaveMode', function(){
-			enterFullscreen();
+			videoSizer.fullView();
 		});
 
 
 		//Event triggered by pauseOn socket. Applies to slave device
-		$(document).on('showMinSize', function(){
-			showMinSize();
+		$(document).on('videoSizer.minView', function(){
+			videoSizer.minView();
 		});
 
 
@@ -886,56 +899,6 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 //Class methods===================//
 //================================//
 
-	//Button/menu interaction controllers====//
-	//toggle Controller===========//
-	function toggleUi(toggle, selector, id){
-
-		var selectorItem 	= $(selector);
-		this.toggle 		= toggle;
-
-		//clears previously open li in ul, if open
-		selectorItem.fadeOut();
-
-		//Check for provided id
-		if(id === null || id === "" || id === undefined){
-
-			//Fade in
-			if(!this.toggle){
-				selectorItem.fadeIn();
-
-				//custom event for notifying sub menu handler of new sub menu open
-				// $.event.trigger({
-				// 	type	: "subOpen",
-				// 	selector: selector
-				// });
-
-			//Fade out
-			}else{
-				selectorItem.fadeOut();
-			}
-
-		//runs if providing event comes w/ a specific id
-		}else{
-
-			//Fade in
-			if(!this.toggle){
-				$(selector + '[data-id=' + id + ']').fadeIn();
-
-				//custom event for notifying sub menu handler of new sub menu open
-				$.event.trigger({
-					type	: "subOpen",
-					selector: selector
-				});
-
-			//Fade out
-			}else{
-				$(selector + '[data-id=' + id + ']').fadeOut();
-			}
-		}
-
-			return this.toggle = !this.toggle;
-	}//toggleUi
-
 
 
 
@@ -983,46 +946,44 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 
-	//Player screensize functions=======//
-	//Controls entering fullscreen iframe manipulation
-	function enterFullscreen(){
+	// //Player screensize functions=======//
+	// //Controls entering fullscreen iframe manipulation
+	// function videoSizer.fullView(){
 
-		//hide ads
-		$('#adsense').hide();
+	// 	//hide ads
+	// 	$('#adsense').hide();
 
-		if(window.windowWidth < app_break_smmd){
+	// 	if(window.windowWidth < app_break_smmd){
 
-		}else{
+	// 	}else{
 
-			$('#video').css({
-				'position' : 'absolute',
-				'top'      : '0',
-				'bottom'   : '0',
-				'left'     : '0',
-				'right'    : '0',
-				'height'   : '100%',
-				'width'    : '100%',
-				'display'  : 'block'
-			});
-
-
-			$('div.video-size-ctrl').css({
-				'top'     	 : '9px',
-				'left' 		 : '9px',
-				'background' : 'none',
-				'textAlign'  : 'left',
-				'border'     : 'none'
-			});
-		}//else
-
-		//Was set to transparent until FF YT controls started showing
-		//FIX THIS LATER
-		$('div.footer').css({
-			'opacity' : '1'
-		});
-	}
+	// 		$('#video').css({
+	// 			'position' : 'absolute',
+	// 			'top'      : '0',
+	// 			'bottom'   : '0',
+	// 			'left'     : '0',
+	// 			'right'    : '0',
+	// 			'height'   : '100%',
+	// 			'width'    : '100%',
+	// 			'display'  : 'block'
+	// 		});
 
 
+	// 		$('div.video-size-ctrl').css({
+	// 			'top'     	 : '9px',
+	// 			'left' 		 : '9px',
+	// 			'background' : 'none',
+	// 			'textAlign'  : 'left',
+	// 			'border'     : 'none'
+	// 		});
+	// 	}//else
+
+	// 	//Was set to transparent until FF YT controls started showing
+	// 	//FIX THIS LATER
+	// 	$('div.footer').css({
+	// 		'opacity' : '1'
+	// 	});
+	// }
 
 
 
@@ -1033,121 +994,123 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 
 
-	//Controls minimizing the video
-	function showNormalSize(){
-		var videoSizeCtrl = $('div.video-size-ctrl');
-
-		if(window.windowWidth < app_break_smmd){
-
-			//hide ads
-			// $('#adsense').hide();
-
-			$('#video-overlay').css({
-				'height'   : '227px',
-				'display'  : 'block',
-				'position' : 'fixed',
-				'top'      : 'initial',
-				'bottom'   : '72px',
-				'left'     : '0',
-				'right'    : 'initial',
-				'width'    : '100%',
-				'transition-duration' : '1s',
-				'-webkit-transition-duration' : '1s'
-			});
-
-			videoSizeCtrl.hide();
-
-			$('#video').hide();
-
-		}else{
 
 
-			$('#video').css({
-				'height'   : '227px',
-				'display'  : 'block',
-				'position' : 'absolute',
-				'top'      : 'initial',
-				'bottom'   : '72px',
-				'left'     : '0',
-				'right'    : 'initial',
-				'width'    : '25%',
-				'transition-duration' : '1s',
-				'-webkit-transition-duration' : '1s'
-			});
+	// //Controls minimizing the video
+	// function videoSizer.normView(){
+	// 	var videoSizeCtrl = $('div.video-size-ctrl');
 
-			videoSizeCtrl.css({
-				'bottom'     : '72px',
-				'background' : '#0f1010',
-				'textAlign'  : 'right',
-				'top'     	 : 'initial',
-				'left' 		 : 'initial',
-			});
-		}
-			$('div.footer').css({
-				'opacity' : '1'
-			});
-	}
+	// 	if(window.windowWidth < app_break_smmd){
+
+	// 		//hide ads
+	// 		// $('#adsense').hide();
+
+	// 		$('#video-overlay').css({
+	// 			'height'   : '227px',
+	// 			'display'  : 'block',
+	// 			'position' : 'fixed',
+	// 			'top'      : 'initial',
+	// 			'bottom'   : '72px',
+	// 			'left'     : '0',
+	// 			'right'    : 'initial',
+	// 			'width'    : '100%',
+	// 			'transition-duration' : '1s',
+	// 			'-webkit-transition-duration' : '1s'
+	// 		});
+
+	// 		videoSizeCtrl.hide();
+
+	// 		$('#video').hide();
+
+	// 	}else{
 
 
+	// 		$('#video').css({
+	// 			'height'   : '227px',
+	// 			'display'  : 'block',
+	// 			'position' : 'absolute',
+	// 			'top'      : 'initial',
+	// 			'bottom'   : '72px',
+	// 			'left'     : '0',
+	// 			'right'    : 'initial',
+	// 			'width'    : '25%',
+	// 			'transition-duration' : '1s',
+	// 			'-webkit-transition-duration' : '1s'
+	// 		});
 
-
+	// 		videoSizeCtrl.css({
+	// 			'bottom'     : '72px',
+	// 			'background' : '#0f1010',
+	// 			'textAlign'  : 'right',
+	// 			'top'     	 : 'initial',
+	// 			'left' 		 : 'initial',
+	// 		});
+	// 	}
+	// 		$('div.footer').css({
+	// 			'opacity' : '1'
+	// 		});
+	// }
 
 
 
 
-	//Controls minimizing the video
-	function showMinSize(){
 
-		var videoSizeCtrl = $('div.video-size-ctrl');
 
-		if(window.windowWidth < app_break_smmd){
 
-			//Show ads
-			// $('#adsense').show();
 
-			$('#video-overlay').css({
-				'position' : 'fixed',
-				'top'      : 'initial',
-				'bottom'   : '0px',
-				'left'     : '0',
-				'right'    : 'initial',
-				'height'   : '30px',
-				'width'    : '100%',
-				'transition-duration' : '1s',
-				'-webkit-transition-duration' : '1s'
-			});
+	// //Controls minimizing the video
+	// function videoSizer.minView(){
 
-			videoSizeCtrl.hide();
+	// 	var videoSizeCtrl = $('div.video-size-ctrl');
 
-			$('#video').hide();
+	// 	if(window.windowWidth < app_break_smmd){
 
-		}else{
+	// 		//Show ads
+	// 		// $('#adsense').show();
 
-			$('#video').css({
-				'position' : 'absolute',
-				'top'      : 'initial',
-				'bottom'   : '72px',
-				'left'     : '0',
-				'right'    : 'initial',
-				'height'   : '33px',
-				'width'    : '25%',
-				'transition-duration' : '1s',
-				'-webkit-transition-duration' : '1s'
-			});
+	// 		$('#video-overlay').css({
+	// 			'position' : 'fixed',
+	// 			'top'      : 'initial',
+	// 			'bottom'   : '0px',
+	// 			'left'     : '0',
+	// 			'right'    : 'initial',
+	// 			'height'   : '30px',
+	// 			'width'    : '100%',
+	// 			'transition-duration' : '1s',
+	// 			'-webkit-transition-duration' : '1s'
+	// 		});
 
-			videoSizeCtrl.css({
-				'bottom'     : '72px',
-				'background' : '#0f1010',
-				'textAlign'  : 'right',
-				'top'     	 : 'initial',
-				'left' 		 : 'initial'
-			});
-		}
+	// 		videoSizeCtrl.hide();
 
-			$('div.footer').css({
-				'opacity' : '1'
-			});
-	}
+	// 		$('#video').hide();
+
+	// 	}else{
+
+	// 		$('#video').css({
+	// 			'position' : 'absolute',
+	// 			'top'      : 'initial',
+	// 			'bottom'   : '72px',
+	// 			'left'     : '0',
+	// 			'right'    : 'initial',
+	// 			'height'   : '33px',
+	// 			'width'    : '25%',
+	// 			'transition-duration' : '1s',
+	// 			'-webkit-transition-duration' : '1s'
+	// 		});
+
+	// 		videoSizeCtrl.css({
+	// 			'bottom'     : '72px',
+	// 			'background' : '#0f1010',
+	// 			'textAlign'  : 'right',
+	// 			'top'     	 : 'initial',
+	// 			'left' 		 : 'initial'
+	// 		});
+	// 	}
+
+	// 		$('div.footer').css({
+	// 			'opacity' : '1'
+	// 		});
+	// }
 
 
 
@@ -1515,11 +1478,11 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			//Handle mobile video popup
 			if(_popupToggle === true){
 
-				showNormalSize();
+				videoSizer.normView();
 
 			}else{
 
-				showMinSize();
+				videoSizer.minView();
 
 			}
 
@@ -1531,13 +1494,13 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			//Handle mobile video popup
 			if(_popupToggle === false){
 
-				showNormalSize();
+				videoSizer.normView();
 
 				_popupToggle = !_popupToggle;
 
 			}else{
 
-				showMinSize();
+				videoSizer.minView();
 
 				_popupToggle = !_popupToggle;
 
@@ -1567,8 +1530,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 
 	//methods and properties.
 	var exports = {
-		showNormalSize 	: showNormalSize,
-		showMinSize 	: showMinSize
+
 	};
 
 	//return constructor

@@ -59,7 +59,10 @@ require.config({
 		socketService 	: 'services/socketService',
 		getCookies 		: 'services/getCookiesService',
 		determineDevice : 'services/determineDevice',
-		getUserDevices 	: 'services/getUserDevices'
+		getUserDevices 	: 'services/getUserDevices',
+		toggleUi		: 'services/toggleService',
+		videoSizer		: 'services/videoSizer',
+		renderSongInfo	: 'services/renderSongInfo'
 	}
 });
 
