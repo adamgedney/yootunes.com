@@ -738,20 +738,6 @@ define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCook
 
 
 
-		//Event triggered by playOn socket. Applies to slave device
-		$(document).on('slaveMode', function(){
-			videoSizer.fullView();
-		});
-
-
-		//Event triggered by pauseOn socket. Applies to slave device
-		$(document).on('videoSizer.minView', function(){
-			videoSizer.minView();
-		});
-
-
-
-
 
 
 

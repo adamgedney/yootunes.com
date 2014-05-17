@@ -1,5 +1,6 @@
 (function(){
-define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', 'Ui', 'Library'], function($, handlebars, getCookies, getUserDevices, Init, User, Ui, Library){
+define(['jquery', 'Handlebars', 'getCookies', 'sortContent', 'getUserDevices','Init', 'User', 'Ui', 'Library'],
+	function($, handlebars, getCookies, sortContent, getUserDevices, Init, User, Ui, Library){
 
 
 
@@ -20,11 +21,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 	var _libraryCount;
 	var _loadInterval;
 
-
-	var _sort 			= {};
-		_sort.ul 		= '';
-		_sort.li 		= '';
-		_sort.sortOn 	= '';
 
 	window.state 		= 'library';
 
@@ -56,55 +52,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 		});//click acctSettings
 
 
-
-
-
-
-
-
-
-
-
-
-		//Library list sort interaction=========//
-		$(document).on('click', '.viewSongs, .viewArtists, .viewAlbums, .viewGenres', function(event){
-
-			if(window.state !== 'library'){
-				loadLibrary();
-			}else if(window.state === 'library' && $(this).hasClass('viewSongs')){
-				var sortOn = 'span.li-col2';
-			}else if(window.state === 'library' && $(this).hasClass('viewArtists')){
-				var sortOn = 'span.li-col3';
-			}else if(window.state === 'library' && $(this).hasClass('viewAlbums')){
-				var sortOn = 'span.li-col4';
-			}else if(window.state === 'library' && $(this).hasClass('viewGenres')){
-				var sortOn = 'span.li-col5';
-			}
-
-			sortResults(_sort.ul, _sort.li, sortOn);
-		});
-
-
-
-
-
-
-
-		//Header sort interaction=========//
-		$(document).on('click', '.mainViewSongs, .mainViewArtists, .mainViewAlbums, .mainViewGenres', function(event){
-
-				if($(this).hasClass('mainViewSongs')){
-					var sortOn 	= 'span.li-col2';
-				}else if($(this).hasClass('mainViewArtists')){
-					var sortOn 	= 'span.li-col3';
-				}else if($(this).hasClass('mainViewAlbums')){
-					var sortOn 	= 'span.li-col4';
-				}else if($(this).hasClass('mainViewGenres')){
-					var sortOn 	= 'span.li-col5';
-				}
-
-				sortResults(_sort.ul, _sort.li, sortOn);
-		});
 
 
 
@@ -479,24 +426,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 
 				var libraryWrapper 	= $('#libraryWrapper');
 				var resultItems 	= libraryWrapper.find('li.resultItems');
-
-				//Register sortable elements on DOM
-				_sort.ul = '#libraryWrapper';
-				_sort.li = '#libraryWrapper li.resultItems';
-
-
-				//Set the application theme colors
-				//again to ensure lib items are styled
-				//once they hit the DOM
-				// if(window.theme === 'light'){
-				// 	Ui.themeLight();
-				// }else{
-				// 	Ui.themeDark();
-				// }
-
-
-
-
 
 
 
@@ -1390,43 +1319,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'getUserDevices','Init', 'User', '
 	}
 
 
-
-
-
-
-
-
-
-	//Client side sorting of li items and their dropdowns
-	function sortResults(ul, li, sortOn){
-		this.toggle;
-
-		function asc_sort(a, b){
-			return ($(b).find(sortOn).text()) < ($(a).find(sortOn).text()) ? 1 : -1;
-		}
-
-		function dec_sort(a, b){
-			return ($(b).find(sortOn).text()) < ($(a).find(sortOn).text()) ? -1 : 1;
-		}
-
-
-
-			if(this.toggle){
-
-				$(ul).html($(li).sort(asc_sort));
-
-
-				this.toggle = !this.toggle;
-
-			}else{
-
-				$(ul).html($(li).sort(dec_sort));
-
-				this.toggle = !this.toggle;
-
-			}
-
-	}
 
 
 

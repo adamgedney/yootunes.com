@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'getCookies', 'socketService', 'renderSongInfo'], function($, getCookies, socketService, renderSongInfo){
+define(['jquery', 'getCookies', 'videoSizer', 'socketService', 'renderSongInfo'], function($, getCookies, videoSizer, socketService, renderSongInfo){
 
 
 	//private vars
@@ -349,12 +349,6 @@ define(['jquery', 'getCookies', 'socketService', 'renderSongInfo'], function($, 
 			}
 
 
-
-
-
-
-
-
 			//Fires when player returns ready
 			window.onPlayerReady = function(event) {
 
@@ -493,7 +487,9 @@ define(['jquery', 'getCookies', 'socketService', 'renderSongInfo'], function($, 
 					$('img.playIconImg[data-videoid=' + id + ']').attr('src', 'images/icons/pause-drk.png');
 
 
-
+					//Change li text color of the playing item
+					libraryWrapper.find('li.resultItems').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').removeClass('red');//red
+					libraryWrapper.find('li.resultItems[data-videoId=' + id + ']').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').addClass('red');//red
 
 
 
@@ -580,14 +576,14 @@ define(['jquery', 'getCookies', 'socketService', 'renderSongInfo'], function($, 
 		//Play icon Click Handler=======//
 		$(document).on('click', '.play-icon', function(event){
 
-			var libraryWrapper 	= $('#libraryWrapper');
+			// var libraryWrapper 	= $('#libraryWrapper');
 			var id = $(this).attr('data-id');
 
 			playItem($(this));
 
 			//Change li text color
-			libraryWrapper.find('li.resultItems').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').removeClass('red');//red
-			libraryWrapper.find('li.resultItems[data-id=' + id + ']').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').addClass('red');//red
+			// libraryWrapper.find('li.resultItems').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').removeClass('red');//red
+			// libraryWrapper.find('li.resultItems[data-id=' + id + ']').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').addClass('red');//red
 
 			// console.log($('.resultItems[data-id=' + id + ']'), id);
 
@@ -673,11 +669,7 @@ console.log("playon picked up as event");
 
 			if(_thisDevice === response.device){
 
-				//Set slave to fullscreen
-				$(document).trigger({
-					type : 'slaveMode'
-				});
-
+				videoSizer.fullView();
 
 				console.log("socket play return event received thisDev/response", _thisDevice, response);
 
@@ -731,10 +723,7 @@ console.log(response.device);
 				_player.stopVideo();
 
 
-				//Set slave to showNormalSize
-				$(document).trigger({
-					type : 'showMinSize'
-				});
+				videoSizer.minView();
 
 
 				//Updates button ui

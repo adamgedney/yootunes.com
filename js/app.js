@@ -60,9 +60,10 @@ require.config({
 		getCookies 		: 'services/getCookiesService',
 		determineDevice : 'services/determineDevice',
 		getUserDevices 	: 'services/getUserDevices',
-		toggleUi		: 'services/toggleService',
+		toggleUi		: 'services/toggleUi',
 		videoSizer		: 'services/videoSizer',
-		renderSongInfo	: 'services/renderSongInfo'
+		renderSongInfo	: 'services/renderSongInfo',
+		sortContent 	: 'services/sortContent'
 	}
 });
 
