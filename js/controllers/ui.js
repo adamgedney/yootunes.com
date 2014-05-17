@@ -373,6 +373,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				var resultItems 	= libraryWrapper.find('li.resultItems');
 				var thisId 			= $(this).parent().find('img.playIconImg').attr('data-videoId');
 				_dropdownId 		= id;
+				$('#minimizeOverlay').fadeIn();
 
 
 			//Prevent dropdown on mobile view
@@ -468,9 +469,10 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				if(playOnDevice === window.thisDevice){
 
 					//listen for user to tap video to attempt to minimize it
-					$(document).one('click', '#minimizeOverlay', function(){
+					$(document).on('click', '#minimizeOverlay', function(){
 
 						toggleMobileVideoSizes(thisId);
+						$(this).find('#video-min').toggleClass('animated pulse');
 					});
 
 						toggleMobileVideoSizes(thisId);
@@ -744,11 +746,14 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 		$(document).on('click', '#menu-btn', function(){
 			var app 	= $('aside.app');
 			var aside 	= $('section.app');
+			var that 	= $(this);
+
+			$(this).toggleClass('animated pulse');
+
 
 			this.toggle;
-console.log("appclick");
-			if(!this.toggle){
-				// $('#adsense').fadeOut();
+
+			if(!this.toggle){//opening
 
 				app.addClass('mainSlideRight');
 				aside.addClass('sidebarSlideRight');
@@ -759,8 +764,7 @@ console.log("appclick");
 
 				this.toggle = !this.toggle;
 
-			}else{
-				// $('#adsense').fadeIn();
+			}else{//closing
 
 				app.addClass('mainSlideLeft');
 				aside.addClass('sidebarSlideLeft');
