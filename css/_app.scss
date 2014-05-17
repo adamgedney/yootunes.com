@@ -1161,6 +1161,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 .info-col1{
 	overflow: hidden;
+	margin-bottom: 0;
+	padding-bottom: 72px;
 
 	select{
 		background: #fff;
@@ -1233,7 +1235,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 
-#updateProfileError{
+#updateProfileError, #resetPasswordError{
 	position: absolute;
 	bottom: -36px;
 	color: $red;
@@ -1244,6 +1246,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 	border: 0;
 }
 
+
+
+#resetPasswordError{
+	bottom: -18px;
+}
 
 
 

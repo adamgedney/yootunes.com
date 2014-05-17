@@ -722,21 +722,29 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 	//Update user acct info from account settings page form
 	$(document).on('click', '#resetPasswordInfo', function(event){
 		event.preventDefault();
-		var siblings 		= $(this).parent();
-		var	currentPass 	= CryptoJS.SHA1(siblings.find('#infoCurrentPass').val());
-		var password 		= CryptoJS.SHA1(siblings.find('#infoPass').val());
-		var passwordAgain 	= CryptoJS.SHA1(siblings.find('#infoPassAgain').val());
-		var pwString 		= ' ';
-		var currentPwString = ' ';
-			_userId 		= $('p span#infoId').html();
+		var siblings 			= $(this).parent();
+		var currentInput 		= siblings.find('#infoCurrentPass');
+		var passwordInput 		= siblings.find('#infoPass');
+		var passwordAgainInput	= siblings.find('#infoPassAgain');
 
+		var	currentPass 		= CryptoJS.SHA1(currentInput.val());
+		var password 			= CryptoJS.SHA1(passwordInput.val());
+		var passwordAgain 		= CryptoJS.SHA1(passwordAgainInput.val());
+		var pwString 			= ' ';
+		var currentPwString 	= ' ';
+		var errorMsg 			= $('#resetPasswordError');
+			_userId 			= $('p span#infoId').html();
+
+		errorMsg.hide();
+		currentInput.removeClass('animated bounce');
+		passwordInput.removeClass('animated bounce');
+		passwordAgainInput.removeClass('animated bounce');
 
 
 		//sets default on password so call won't receive empty sha3
 		if(password === "" || passwordAgain === ""){
 
 			pwString = "0";
-
 
 		}else{
 
@@ -746,7 +754,6 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 				//Concat array parts into pwString
 				currentPwString += currentPass.words[i].toString();
 			}
-
 
 			//Produces 160 char string from pass/passAgain
 			for(var i=0;i<password.words.length;i++){
@@ -763,24 +770,76 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 			}//for
 		}//if/else password val
 
-console.log(_userId, currentPwString, pwString, "reset pass data");
 
-		//Build API URL
-		var API_URL = _baseUrl + '/settings-reset-pass/' + _userId + '/' + currentPwString + '/' + pwString;
 
-		//Call API to update user data
-		$.ajax({
-			url : API_URL,
-			method : 'GET',
-			dataType : 'json',
-			success : function(response){
 
-				console.log(response, "reset pass response- acct settings");
-				//Reload acct settings view
-				Content.loadAcctSettings();
+		//Check if passwords match first
+		if(passwordInput.val() === passwordAgainInput.val()){
+			//Validation===================//
+			validateResetPass(currentInput.val(), passwordInput.val(), passwordAgainInput.val(), function(resp){
 
-			}//success
-		});//ajax
+				if(resp.currentPassword === false){
+
+					//Prompt user with error message affordance
+					errorMsg.text('Your current password needs to be stronger');
+					errorMsg.fadeIn();
+
+					//Bounce error affordance
+					currentInput.addClass('animated bounce');
+
+				}else if(resp.password === false){
+
+					//Prompt user with error message affordance
+					errorMsg.text('Your new password needs to be strong like bull');
+					errorMsg.fadeIn();
+
+					//Bounce error affordance
+					passwordInput.addClass('animated bounce');
+
+				}else if(resp.passwordAgain === false){
+
+					//Prompt user with error message affordance
+					errorMsg.text('Your new password needs to be strong like bull');
+					errorMsg.fadeIn();
+
+					//Bounce error affordance
+					passwordAgainInput.addClass('animated bounce');
+
+				}
+
+
+				//Fields validate
+				if(resp.currentPassword === true && resp.password === true && resp.passwordAgain === true){
+
+					//Build API URL
+					var API_URL = _baseUrl + '/settings-reset-pass/' + _userId + '/' + currentPwString + '/' + pwString;
+
+					//Call API to update user data
+					$.ajax({
+						url : API_URL,
+						method : 'GET',
+						dataType : 'json',
+						success : function(response){
+
+							console.log(response, "reset pass response- acct settings");
+							//Reload acct settings view
+							Content.loadAcctSettings();
+
+						}//success
+					});//ajax
+				};//validate true
+			});//validate
+		}else{//passwords don't match
+
+			//Prompt user with error message afforadance
+			errorMsg.text('New password fields don\'t match');
+			errorMsg.fadeIn();
+
+			//Bounce error affordance
+			passwordInput.addClass('animated bounce');
+			passwordAgainInput.addClass('animated bounce');
+
+		}//else password match/don't match
 	});//click resetPassword
 
 
@@ -1187,8 +1246,38 @@ console.log(_userId, currentPwString, pwString, "reset pass data");
 			}
 		}
 
+		if(typeof callback === "function"){
+
+			callback(response);
+		}
+	}
 
 
+
+
+
+
+	function validateResetPass(currentPass, pass, passAgain, callback){
+		var passPat 	= /^[a-zA-Z]\w{5,14}$/; //6-15 char abcd aBcd ac3D
+		var response 	= {};
+
+			if(!passPat.test(currentPass)){
+				response.currentPassword = false;
+			}else{
+				response.currentPassword = true;
+			}
+
+			if(!passPat.test(pass)){
+				response.password = false;
+			}else{
+				response.password = true;
+			}
+
+			if(!passPat.test(passAgain)){
+				response.passwordAgain = false;
+			}else{
+				response.passwordAgain = true;
+			}
 
 
 		if(typeof callback === "function"){
