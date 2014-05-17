@@ -1293,10 +1293,9 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 	function pause(){
 
-		ensureUserExists();
 
-		//Clear update interval here to prevent Safari glitch
-		clearInterval(_updateInterval);
+
+		ensureUserExists();
 
 		var volumeIcon 		= $('div.volume-ctrl img.vol-icon');
 		var transportPlay 	= $('div.transport-ctrl img#play-btn');
@@ -1354,6 +1353,9 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 			transportPlay.attr('src', 'images/icons/play-wht.png');
 
 			_playerPlaying = !_playerPlaying;
+
+			//Clear update interval here to prevent Safari glitch
+			clearInterval(_updateInterval);
 
 
 	}//pause()
