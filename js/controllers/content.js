@@ -439,14 +439,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'sortContent', 'getUserDevices','I
 				if($('span.sourceTitle').html() === 'Add'){
 
 					$('span.li-col7').show();
-					$('span.li-col2').css({'width':'41.6666666%'});//4 col
+					// $('span.li-col2').css({'width':'41.6666666%'});//4 col
 
 					//Swaps out icon for add icon
 					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/add.png');
 				}else{
 
 					$('.li-col7').hide();
-					$('.li-col2').css({'width':'50%'});//5 col
+					// $('.li-col2').css({'width':'50%'});//5 col
 
 					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/trash-icon.svg');
 				}
