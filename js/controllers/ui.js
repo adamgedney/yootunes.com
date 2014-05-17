@@ -1,5 +1,6 @@
 (function(){
-define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Player', 'Library','getCookies', 'lightbox'], function($, qtip, toggleUi, dragAndDrop, videoSizer, Player, Library, getCookies, lightbox){
+define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies', 'slider', 'lightbox'],
+	function($, qtip, toggleUi, dragAndDrop, videoSizer, Library, getCookies, slider, lightbox){
 
 
 	//private vars
@@ -15,15 +16,15 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Player', 'Li
 
 	// var _overPlaylist;
 
-	var _seek 				= {};
-		_seek.drag,
-		_seek.seekTime,
-		_seek.seekScrub,
-		_seek.seekBarWidth,
-		_seek.seekBarLeft,
-		_seek.seekBarRight
-		_seek.seekFillLeft,
-		_seek.seekFillWidth;
+	// var _seek 				= {};
+	// 	_seek.drag,
+	// 	_seek.seekTime,
+	// 	_seek.seekScrub,
+	// 	_seek.seekBarWidth,
+	// 	_seek.seekBarLeft,
+	// 	_seek.seekBarRight
+	// 	_seek.seekFillLeft,
+	// 	_seek.seekFillWidth;
 
 	var _videoSize 			= {};
 		_videoSize.normal 	= false,
@@ -38,10 +39,6 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Player', 'Li
 
 	//CSS breakpoints
 	var app_break_smmd 		= '800';
-
-
-
-
 
 
 
@@ -100,6 +97,11 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Player', 'Li
 				// }
 				if(event.template === '#app'){
 
+					//Set the slider funcitonality
+					var thumb 	= '#seek-dot';
+					var bar 	= '#seek-bar';
+					var fill 	= 'div.seek-fill';
+					slider(thumb, bar, fill);
 
 
 				};
@@ -549,40 +551,46 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Player', 'Li
 
 
 
-		//Player seek bar ui controller===//
-		//================================//
-		//mousedown to start drag operation
-		$(document).on('mousedown', '#seek-dot', function(event){
+		// //Player seek bar ui controller===//
+		// //================================//
+		// //mousedown to start drag operation
+		// $(document).on('mousedown', '#seek-dot', function(event){
 
-			var scrubber 			= '#seek-dot';
-				_seek.seekBar 		= $('#seek-bar');
-				_seek.seekBarWidth 	= _seek.seekBar .width(),
-				_seek.seekBarLeft 	= _seek.seekBar .offset().left,
-				_seek.seekBarRight 	= _seek.seekBar .offset().left + _seek.seekBarWidth,
-				_seek.seekFill 		= $('div.seek-fill'),
-				_seek.drag 			= true;
+		// 	var scrubber 			= '#seek-dot';
+		// 		_seek.seekBar 		= $('#seek-bar');
+		// 		_seek.seekBarWidth 	= _seek.seekBar .width(),
+		// 		_seek.seekBarLeft 	= _seek.seekBar .offset().left,
+		// 		_seek.seekBarRight 	= _seek.seekBar .offset().left + _seek.seekBarWidth,
+		// 		_seek.seekFill 		= $('div.seek-fill'),
+		// 		_seek.drag 			= true;
 
-				Player.prototype.dragging(true);
+		// 		Player.prototype.dragging(true);
 
-			//required to prevent text selection on mouseout of seekBar
-			event.preventDefault();
+		// 	//required to prevent text selection on mouseout of seekBar
+		// 	event.preventDefault();
 
-			//calls the seek bar controller
-			moving(scrubber);
-		});
+		// 	//calls the seek bar controller
+		// 	moving(scrubber);
+		// }).bind('mouseup', function(e){
+		// 	if(_seek.drag === true){
 
-
-		//mouseup to stop drag
-		$(document).on('mouseup', function(e){
-
-			if(_seek.drag === true){
-
-				Player.prototype.dragging(false, _seek.seekScrub);
-				_seek.drag = false;
-			}
+		// 		Player.prototype.dragging(false, _seek.seekScrub);
+		// 		_seek.drag = false;
+		// 	}
+		// });
 
 
-		});
+		// //mouseup to stop drag
+		// $(document).on('mouseup', function(e){
+
+		// 	if(_seek.drag === true){
+
+		// 		Player.prototype.dragging(false, _seek.seekScrub);
+		// 		_seek.drag = false;
+		// 	}
+
+
+		// });
 
 
 
@@ -897,34 +905,34 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Player', 'Li
 
 
 
-	//Seek bar drag functionality====//
-	function moving(scrubber){
+	// //Seek bar drag functionality====//
+	// function moving(scrubber){
 
-		$(document).on('mousemove', function(e){
-			// var set-time = ((e.pageX - seek.seekBarLeft) / seek.seekBarWidth) * seek.duration;
+	// 	$(document).on('mousemove', function(e){
+	// 		// var set-time = ((e.pageX - seek.seekBarLeft) / seek.seekBarWidth) * seek.duration;
 
-			//if dragging is true, allow scrubber to move
-			if(_seek.drag){
+	// 		//if dragging is true, allow scrubber to move
+	// 		if(_seek.drag){
 
-				$(scrubber).offset({left: e.pageX});
+	// 			$(scrubber).offset({left: e.pageX});
 
-				_seek.seekScrub = $(scrubber).offset().left;
+	// 			_seek.seekScrub = $(scrubber).offset().left;
 
 
-				//creates a perimeter scrubber can't leave
-				if(_seek.seekScrub < _seek.seekBarLeft){
-					$(scrubber).offset({left: _seek.seekBarLeft});
+	// 			//creates a perimeter scrubber can't leave
+	// 			if(_seek.seekScrub < _seek.seekBarLeft){
+	// 				$(scrubber).offset({left: _seek.seekBarLeft});
 
-				}else if(_seek.seekScrub > (_seek.seekBarRight  - $(scrubber).width())){
-					$(scrubber).offset({left: (_seek.seekBarRight - $(scrubber).width())});
+	// 			}else if(_seek.seekScrub > (_seek.seekBarRight  - $(scrubber).width())){
+	// 				$(scrubber).offset({left: (_seek.seekBarRight - $(scrubber).width())});
 
-				}
+	// 			}
 
-				//Sets seek bar backfill bar width
-				_seek.seekFill.width($(scrubber).offset().left - _seek.seekBarLeft);
-			};
-		});
-	};
+	// 			//Sets seek bar backfill bar width
+	// 			_seek.seekFill.width($(scrubber).offset().left - _seek.seekBarLeft);
+	// 		};
+	// 	});
+	// };
 
 
 

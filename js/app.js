@@ -64,7 +64,8 @@ require.config({
 		videoSizer		: 'services/videoSizer',
 		renderSongInfo	: 'services/renderSongInfo',
 		sortContent 	: 'services/sortContent',
-		dragAndDrop 	: 'services/dragAndDropPlaylists'
+		dragAndDrop 	: 'services/dragAndDropPlaylists',
+		slider 			: 'services/slider'
 	}
 });
 
