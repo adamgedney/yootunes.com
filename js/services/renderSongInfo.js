@@ -33,6 +33,7 @@ define(['jquery'], function($){
 		googleShareMain.attr('href', 'https://plus.google.com/share?url=' + youtubeUrl).attr('data-id', playingSongId);
 		twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl).attr('data-id', playingSongId);
 		linkShareMain.attr('href', youtubeUrl).data('id', playingSongId);
+
 	}
 
 

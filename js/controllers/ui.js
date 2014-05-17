@@ -17,6 +17,7 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 	var _popupToggle 		= true;
 	var _previousId 		= '';
 	var _currentTheme 		= '';
+	var _shareUrl;
 
 	//CSS breakpoints
 	var app_break_smmd 		= '800';
@@ -585,6 +586,10 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 
 
+
+
+
+
 		//Modal close functionality
 		$(document).on('click', '.modalCloseIcon', function(){
 
@@ -703,6 +708,51 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 
 
+
+
+
+
+		// //Playlist sharing
+		// $(document).on('click', '.fbShare, .googleShare, .twitterShare', function(event){
+		// 	event.preventDefault();
+
+		// 	//Insert opengraph meta data into head
+		// 	var that 			= $(this);
+		// 	var titles 			= $('meta.metaTitle');
+		// 	var descriptions 	= $('meta.metaDescription');
+		// 	var playlistName 	= $(this).attr('data-name');
+
+		// 	var titleMessage = 'I wanted to share my ' + playlistName + ' playlist with you.';
+		// 	var descriptionMessage = 'This sweet ' + playlistName + ' playlist was shared by someone on atomplayer.com. The atom Player is an awesome new & free YouTube music library manager. Come see what all the hype is about!';
+
+		// 	// var url;
+
+		// 	//Set the meta info beofre directing user to social media site
+		// 	titles.attr('content', titleMessage);
+		// 	descriptions.attr('content', descriptionMessage);
+
+
+
+
+		// 	//Determine what was clicked and grab the url
+		// 	if(that.hasClass('fbShare')){
+		// 		_shareUrl = that.attr('href');
+		// 		setTimeout(openSite, 1000);
+		// 	}else if(that.hasClass('googleShare')){
+		// 		_shareUrl = that.attr('href');
+		// 		setTimeout(openSite, 1000);
+		// 	}else if(that.hasClass('twitterShare')){
+		// 		_shareUrl = that.attr('href');
+		// 		setTimeout(openSite, 1000);
+		// 	}
+
+
+
+		// });
+
+		// function openSite(){
+		// 	window.open(_shareUrl);
+		// }
 
 
 
