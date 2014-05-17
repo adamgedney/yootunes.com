@@ -1327,7 +1327,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 			//Emit pause event
 			if(_socket === 'open'){
-
+console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket PAUSE SOCKET OPEN");
 				//Build obj for socket transmission
 				var data = {
 					'device' 			: _playOnDevice,
@@ -1338,7 +1338,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 				_socketConnect.emit('pause', data);
 			}
 
-
+console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket PAUSE AFTER SOCKET OPEN");
 			//Pause local video normally
 			_player.stopVideo();
 
