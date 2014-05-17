@@ -653,7 +653,7 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 		//Listen for socket ON PLAY
 		//=============================//
 		_socketConnect.on('playOn', function (response) {
-
+console.log("playon picked up as event");
 			//Set thisDevice from content controller's determination
 			_thisDevice = window.thisDevice;
 
