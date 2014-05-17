@@ -63,7 +63,8 @@ require.config({
 		toggleUi		: 'services/toggleUi',
 		videoSizer		: 'services/videoSizer',
 		renderSongInfo	: 'services/renderSongInfo',
-		sortContent 	: 'services/sortContent'
+		sortContent 	: 'services/sortContent',
+		dragAndDrop 	: 'services/dragAndDropPlaylists'
 	}
 });
 

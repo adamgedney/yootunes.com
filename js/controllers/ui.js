@@ -1,19 +1,19 @@
 (function(){
-define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCookies', 'lightbox'], function($, qtip, toggleUi, videoSizer, Player, Library, getCookies, lightbox){
+define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Player', 'Library','getCookies', 'lightbox'], function($, qtip, toggleUi, dragAndDrop, videoSizer, Player, Library, getCookies, lightbox){
 
 
 	//private vars
 	var _baseUrl 			= 'http://api.atomplayer.com';
 
 	var itemHolding 		= 0;
-	var _dragResult 		= {};
-		_dragResult.dragging= false;
-		_dragResult.origX;
-		_dragResult.origY;
-	var _clone 				= '';
-	var _setClone 			= false;
+	// var _dragResult 		= {};
+	// 	_dragResult.dragging= false;
+	// 	_dragResult.origX;
+	// 	_dragResult.origY;
+	// var _clone 				= '';
+	// var _setClone 			= false;
 
-	var _overPlaylist;
+	// var _overPlaylist;
 
 	var _seek 				= {};
 		_seek.drag,
@@ -110,9 +110,9 @@ define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCook
 				if(event.template === '#libraryItem'){
 
 					//Failsafe retrieval of theme
-					if(window.userId === undefined){
-						window.theme = getCookies.theme;
-					}
+					// if(window.userId === undefined){
+					// 	window.theme = getCookies.theme;
+					// }
 
 					//MAIN SET POINT for _userId for this UI module
 					_userId = window.userId;
@@ -201,7 +201,7 @@ define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCook
 			$(document).on('mouseover', 'span#revealForm', function(event){
 
 				//Only allow form to show if we're dragging result
-				if(_dragResult.dragging === true){
+				if(window.dragging === true){
 					$('#hiddenCreatePlaylistForm').show();
 				}
 
@@ -247,7 +247,7 @@ define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCook
 
 				//Wait for prolonged hold before enabling itemDragging
 				itemHolding = setTimeout(function(){
-					itemDragging(that, evt);
+					dragAndDrop(that, evt);
 				}, 1000);
 
 			//bind events that can cancel timeout before it runs. Prevents multiple clones
@@ -271,7 +271,7 @@ define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCook
 
 				$(this).find('span.playlist-menu').css({'display' : 'inline'});
 
-				_overPlaylist = $(this);
+				window.overPlaylist = $(this);
 			});
 
 			//MOUSEOVER triangle icon hover effect.
@@ -935,184 +935,6 @@ define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCook
 
 
 
-	// //Player screensize functions=======//
-	// //Controls entering fullscreen iframe manipulation
-	// function videoSizer.fullView(){
-
-	// 	//hide ads
-	// 	$('#adsense').hide();
-
-	// 	if(window.windowWidth < app_break_smmd){
-
-	// 	}else{
-
-	// 		$('#video').css({
-	// 			'position' : 'absolute',
-	// 			'top'      : '0',
-	// 			'bottom'   : '0',
-	// 			'left'     : '0',
-	// 			'right'    : '0',
-	// 			'height'   : '100%',
-	// 			'width'    : '100%',
-	// 			'display'  : 'block'
-	// 		});
-
-
-	// 		$('div.video-size-ctrl').css({
-	// 			'top'     	 : '9px',
-	// 			'left' 		 : '9px',
-	// 			'background' : 'none',
-	// 			'textAlign'  : 'left',
-	// 			'border'     : 'none'
-	// 		});
-	// 	}//else
-
-	// 	//Was set to transparent until FF YT controls started showing
-	// 	//FIX THIS LATER
-	// 	$('div.footer').css({
-	// 		'opacity' : '1'
-	// 	});
-	// }
-
-
-
-
-
-
-
-
-
-
-
-
-	// //Controls minimizing the video
-	// function videoSizer.normView(){
-	// 	var videoSizeCtrl = $('div.video-size-ctrl');
-
-	// 	if(window.windowWidth < app_break_smmd){
-
-	// 		//hide ads
-	// 		// $('#adsense').hide();
-
-	// 		$('#video-overlay').css({
-	// 			'height'   : '227px',
-	// 			'display'  : 'block',
-	// 			'position' : 'fixed',
-	// 			'top'      : 'initial',
-	// 			'bottom'   : '72px',
-	// 			'left'     : '0',
-	// 			'right'    : 'initial',
-	// 			'width'    : '100%',
-	// 			'transition-duration' : '1s',
-	// 			'-webkit-transition-duration' : '1s'
-	// 		});
-
-	// 		videoSizeCtrl.hide();
-
-	// 		$('#video').hide();
-
-	// 	}else{
-
-
-	// 		$('#video').css({
-	// 			'height'   : '227px',
-	// 			'display'  : 'block',
-	// 			'position' : 'absolute',
-	// 			'top'      : 'initial',
-	// 			'bottom'   : '72px',
-	// 			'left'     : '0',
-	// 			'right'    : 'initial',
-	// 			'width'    : '25%',
-	// 			'transition-duration' : '1s',
-	// 			'-webkit-transition-duration' : '1s'
-	// 		});
-
-	// 		videoSizeCtrl.css({
-	// 			'bottom'     : '72px',
-	// 			'background' : '#0f1010',
-	// 			'textAlign'  : 'right',
-	// 			'top'     	 : 'initial',
-	// 			'left' 		 : 'initial',
-	// 		});
-	// 	}
-	// 		$('div.footer').css({
-	// 			'opacity' : '1'
-	// 		});
-	// }
-
-
-
-
-
-
-
-
-	// //Controls minimizing the video
-	// function videoSizer.minView(){
-
-	// 	var videoSizeCtrl = $('div.video-size-ctrl');
-
-	// 	if(window.windowWidth < app_break_smmd){
-
-	// 		//Show ads
-	// 		// $('#adsense').show();
-
-	// 		$('#video-overlay').css({
-	// 			'position' : 'fixed',
-	// 			'top'      : 'initial',
-	// 			'bottom'   : '0px',
-	// 			'left'     : '0',
-	// 			'right'    : 'initial',
-	// 			'height'   : '30px',
-	// 			'width'    : '100%',
-	// 			'transition-duration' : '1s',
-	// 			'-webkit-transition-duration' : '1s'
-	// 		});
-
-	// 		videoSizeCtrl.hide();
-
-	// 		$('#video').hide();
-
-	// 	}else{
-
-	// 		$('#video').css({
-	// 			'position' : 'absolute',
-	// 			'top'      : 'initial',
-	// 			'bottom'   : '72px',
-	// 			'left'     : '0',
-	// 			'right'    : 'initial',
-	// 			'height'   : '33px',
-	// 			'width'    : '25%',
-	// 			'transition-duration' : '1s',
-	// 			'-webkit-transition-duration' : '1s'
-	// 		});
-
-	// 		videoSizeCtrl.css({
-	// 			'bottom'     : '72px',
-	// 			'background' : '#0f1010',
-	// 			'textAlign'  : 'right',
-	// 			'top'     	 : 'initial',
-	// 			'left' 		 : 'initial'
-	// 		});
-	// 	}
-
-	// 		$('div.footer').css({
-	// 			'opacity' : '1'
-	// 		});
-	// }
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//Notify user of link to be copied
 	function copyToClipboard(link){
 
@@ -1122,77 +944,6 @@ define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCook
 
 
 
-
-
-
-
-
-
-
-
-
-	// function themeLight(){
-
-	// 	//Set global and cookie to dark
-	// 	window.theme = 'light';
-	// 	document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-	// 	document.cookie = "theme=light";
-
-
-	// 	$('#app, html, body').css({
-	// 		'background': '#ebebeb'}
-	// 	);
-
-	// 	$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').addClass('light-fonts');
-
-
-	// 	$('.li-header').addClass('light-border-bottom');
-	// 	$('.section-header').addClass('light-border-bottom');
-	// 	$('#searchSubmit').addClass('light-border-left');
-
-	// 	$('aside.app').addClass('light-border-right');
-	// 	$('input[type=text]').addClass('light-placeholder');
-
-	// 	// $('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon-light.svg');
-
-	// 	$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').addClass('light-input-bg');
-	// }
-
-
-
-
-
-
-
-
-
-
-	// function themeDark(){
-
-	// 	//set global & cookie to light
-	// 	window.theme = 'dark';
-	// 	document.cookie = 'theme=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-	// 	document.cookie = "theme=dark";
-
-
-	// 	$('#app, html, body').css({
-	// 		'background': '#1b1d1d'}
-	// 	);
-
-	// 	$('#app, #app a, .li-col2, .li-col3, .li-col4, .li-col5, #searchInput, .playlist-nav a.playlistTitle').removeClass('light-fonts');
-
-
-	// 	$('.li-header').removeClass('light-border-bottom');
-	// 	$('.section-header').removeClass('light-border-bottom');
-	// 	$('#searchSubmit').removeClass('light-border-left');
-
-	// 	$('aside.app').removeClass('light-border-right');
-	// 	$('input[type=text]').removeClass('light-placeholder');
-
-	// 	// $('li.resultItems').find('.addToLibrary').find('.add-icon').attr('src', 'images/icons/trash-icon.svg');
-
-	// 	$('.info-wrapper input[type=text], .info-wrapper input[type=password], .info-wrapper input[type=email], #infoTitleGender').removeClass('light-input-bg');
-	// }
 
 
 
@@ -1250,207 +1001,207 @@ define(['jquery', 'qtip', 'toggleUi', 'videoSizer', 'Player', 'Library','getCook
 
 
 
-	//Handles resultItems drag to playist coordinates
-	function itemDragging(elem, event){
+	// //Handles resultItems drag to playist coordinates
+	// function itemDragging(elem, event){
 
 
-		if(_dragResult.dragging === false){
-			console.log();
-			//Set item to dragging
-			_dragResult.dragging = true;
+	// 	if(_dragResult.dragging === false){
+	// 		console.log();
+	// 		//Set item to dragging
+	// 		_dragResult.dragging = true;
 
-			var moving 			= false;
-			var mouseIcon 		= $('img#mouseAddIcon');
-			_dragResult.origX 	= elem.find('span.li-col2').offset().left;
-			_dragResult.origY 	= elem.find('span.li-col2').offset().top;
+	// 		var moving 			= false;
+	// 		var mouseIcon 		= $('img#mouseAddIcon');
+	// 		_dragResult.origX 	= elem.find('span.li-col2').offset().left;
+	// 		_dragResult.origY 	= elem.find('span.li-col2').offset().top;
 
 
 
-				//If in dragging mode and we're moving the mouse then redraw resultItem
-				$(document).on('mousemove.dragging', function(event){
+	// 			//If in dragging mode and we're moving the mouse then redraw resultItem
+	// 			$(document).on('mousemove.dragging', function(event){
 
-					moving = true;
+	// 				moving = true;
 
-					if(_setClone === false){
-						//Only set these values once
-						_clone 		= elem.clone().find('span.li-col2').appendTo('#scroll-container');
-						_setClone 	= true;
+	// 				if(_setClone === false){
+	// 					//Only set these values once
+	// 					_clone 		= elem.clone().find('span.li-col2').appendTo('#scroll-container');
+	// 					_setClone 	= true;
 
 
-						_clone.css({
-							'color' 		: '#cf2425',//red
- 							'position' 		: 'absolute',
-							'zIndex' 		: '999',
-							'cursor'    	: 'move',
-							'pointerEvents': 'none'
-						});
-					}//setClone
+	// 					_clone.css({
+	// 						'color' 		: '#cf2425',//red
+ // 							'position' 		: 'absolute',
+	// 						'zIndex' 		: '999',
+	// 						'cursor'    	: 'move',
+	// 						'pointerEvents': 'none'
+	// 					});
+	// 				}//setClone
 
-						var dragX 			= event.pageX + 15;
-						var dragY 			= event.pageY - 5;
-						var overPlaylist 	= getCoordinates(_overPlaylist);
+	// 					var dragX 			= event.pageX + 15;
+	// 					var dragY 			= event.pageY - 5;
+	// 					var overPlaylist 	= getCoordinates(_overPlaylist);
 
-						_dragResult.X 		= event.pageX;
-						_dragResult.Y 		= event.pageY;
+	// 					_dragResult.X 		= event.pageX;
+	// 					_dragResult.Y 		= event.pageY;
 
-						//Only set position when dragging
-						if(_dragResult.dragging){
-							_clone.offset({top:dragY, left:dragX});
-						}//dragging;
+	// 					//Only set position when dragging
+	// 					if(_dragResult.dragging){
+	// 						_clone.offset({top:dragY, left:dragX});
+	// 					}//dragging;
 
 
-						//Change cursor to add icon
-						if(typeof overPlaylist != 'undefined' && _dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
-						   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){
-							console.log("over");
+	// 					//Change cursor to add icon
+	// 					if(typeof overPlaylist != 'undefined' && _dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
+	// 					   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){
+	// 						console.log("over");
 
-							mouseIcon.css({
-								'display'   : 'inline',
-								'top' 		: event.pageY + 10,
-								'left' 		: event.pageX + 10
-							});
-						}
+	// 						mouseIcon.css({
+	// 							'display'   : 'inline',
+	// 							'top' 		: event.pageY + 10,
+	// 							'left' 		: event.pageX + 10
+	// 						});
+	// 					}
 
 
-				}).bind('mouseout', function(){
-					mouseIcon.css({
-						'display'   : 'none'
-					});
-				});//MOUSEMOVE
+	// 			}).bind('mouseout', function(){
+	// 				mouseIcon.css({
+	// 					'display'   : 'none'
+	// 				});
+	// 			});//MOUSEMOVE
 
 
 
 
 
 
-				//Releasing item. Check to see if we're over a playlist
-				//otherwise return to original location
-				$(document).on('mouseup.dragging', function(event){
-					console.log("mouseup in itemDragging in ui");
-					//Set item to not dragging !important
+	// 			//Releasing item. Check to see if we're over a playlist
+	// 			//otherwise return to original location
+	// 			$(document).on('mouseup.dragging', function(event){
+	// 				console.log("mouseup in itemDragging in ui");
+	// 				//Set item to not dragging !important
 
-					if(moving === true){
-						_dragResult.dragging 	= false;
-						_setClone 				= false;
-					}
+	// 				if(moving === true){
+	// 					_dragResult.dragging 	= false;
+	// 					_setClone 				= false;
+	// 				}
 
 
-					//If over new playlist, drop li-col2 title into input value
-					var input 			= getCoordinates('.newPlaylistInput');
-					var overPlaylist 	= getCoordinates(_overPlaylist);
+	// 				//If over new playlist, drop li-col2 title into input value
+	// 				var input 			= getCoordinates('.newPlaylistInput');
+	// 				var overPlaylist 	= getCoordinates(_overPlaylist);
 
-						mouseIcon.css({
-							'display'   : 'none'
-						});
+	// 					mouseIcon.css({
+	// 						'display'   : 'none'
+	// 					});
 
 
-						_clone.css({
-							'transition-duration' 	: '1s',
-							'cursor' 				: 'pointer'
-						});
+	// 					_clone.css({
+	// 						'transition-duration' 	: '1s',
+	// 						'cursor' 				: 'pointer'
+	// 					});
 
 
-						//OVER THE CREATE PLAYLIST FORM
-						if(_dragResult.X   >= input.left &&  _dragResult.X   <= input.right &&
-						   _dragResult.Y   >= input.top  &&  _dragResult.Y   <= input.bottom){
+	// 					//OVER THE CREATE PLAYLIST FORM
+	// 					if(_dragResult.X   >= input.left &&  _dragResult.X   <= input.right &&
+	// 					   _dragResult.Y   >= input.top  &&  _dragResult.Y   <= input.bottom){
 
-							//Set input value
-							var submit = $('input.newPlaylistSubmit');
+	// 						//Set input value
+	// 						var submit = $('input.newPlaylistSubmit');
 
-							//sanitize string
-							var sanitized = _clone.text().replace(/[^a-zA-Z ]/g, "")
-								sanitized = sanitized.substr(0, 25);
+	// 						//sanitize string
+	// 						var sanitized = _clone.text().replace(/[^a-zA-Z ]/g, "")
+	// 							sanitized = sanitized.substr(0, 25);
 
-							$('input.newPlaylistInput').val(sanitized);
-							submit.attr('data-user', _clone.attr('data-user'));
-							submit.attr('data-id', _clone.attr('data-id'));//song id
+	// 						$('input.newPlaylistInput').val(sanitized);
+	// 						submit.attr('data-user', _clone.attr('data-user'));
+	// 						submit.attr('data-id', _clone.attr('data-id'));//song id
 
-							//Remove clone from stage
-							_clone.fadeOut(function(){
-								_clone.remove();
-								_clone = '';
+	// 						//Remove clone from stage
+	// 						_clone.fadeOut(function(){
+	// 							_clone.remove();
+	// 							_clone = '';
 
-								//Unbind move listener
-								$(document).unbind('mousemove.dragging');
-								//Unbind mouseup listener
-								$(document).unbind('mouseup.dragging');
-							});
+	// 							//Unbind move listener
+	// 							$(document).unbind('mousemove.dragging');
+	// 							//Unbind mouseup listener
+	// 							$(document).unbind('mouseup.dragging');
+	// 						});
 
 
 
-						//OVER A PLAYLIST
-						}else if(typeof overPlaylist != 'undefined' && _dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
-						   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){//Return item to origin position
+	// 					//OVER A PLAYLIST
+	// 					}else if(typeof overPlaylist != 'undefined' && _dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
+	// 					   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){//Return item to origin position
 
-							var songId 		= _clone.attr('data-id');
-							var playlistId 	= _overPlaylist.attr('data-id');
-							var user 		= _userId;
+	// 						var songId 		= _clone.attr('data-id');
+	// 						var playlistId 	= _overPlaylist.attr('data-id');
+	// 						var user 		= _userId;
 
 
-							//Add song to playist
-							Library.addSongToPlaylist(songId, playlistId, user);
+	// 						//Add song to playist
+	// 						Library.addSongToPlaylist(songId, playlistId, user);
 
-							//Remove clone from stage
-							_clone.fadeOut(function(){
-								_clone.remove();
-								_clone = '';
+	// 						//Remove clone from stage
+	// 						_clone.fadeOut(function(){
+	// 							_clone.remove();
+	// 							_clone = '';
 
-								//Unbind move listener
-								$(document).unbind('mousemove.dragging');
-								//Unbind mouseup listener
-								$(document).unbind('mouseup.dragging');
-							});
+	// 							//Unbind move listener
+	// 							$(document).unbind('mousemove.dragging');
+	// 							//Unbind mouseup listener
+	// 							$(document).unbind('mouseup.dragging');
+	// 						});
 
 
 
-						}else{//RETURN TO ORIGINAL LOCATION
+	// 					}else{//RETURN TO ORIGINAL LOCATION
 
-							_clone.offset({top: _dragResult.origY, left: _dragResult.origX});
+	// 						_clone.offset({top: _dragResult.origY, left: _dragResult.origX});
 
-							//Remove clone from stage
-							_clone.fadeOut(function(){
-								_clone.remove();
-								_clone = '';
+	// 						//Remove clone from stage
+	// 						_clone.fadeOut(function(){
+	// 							_clone.remove();
+	// 							_clone = '';
 
-								//Unbind move listener
-								$(document).unbind('mousemove.dragging');
-								//Unbind mouseup listener
-								$(document).unbind('mouseup.dragging');
-							});
+	// 							//Unbind move listener
+	// 							$(document).unbind('mousemove.dragging');
+	// 							//Unbind mouseup listener
+	// 							$(document).unbind('mouseup.dragging');
+	// 						});
 
-						}//else
+	// 					}//else
 
 
 
-				});//mouseup
-		}//dragging === true
-	}
+	// 			});//mouseup
+	// 	}//dragging === true
+	// }
 
 
 
 
 
-	function getCoordinates(selector){
+	// function getCoordinates(selector){
 
-		if(typeof selector != 'undefined'){
+	// 	if(typeof selector != 'undefined'){
 
-			this.coordinates = {};
-			this.item 		= $(selector);
-			this.itemLeft 	= this.item.offset().left;
-			this.itemRight 	= this.item.offset().left + this.item.width();
-			this.itemTop 	= this.item.offset().top;
-			this.itemBottom = this.item.offset().top + this.item.height();
+	// 		this.coordinates = {};
+	// 		this.item 		= $(selector);
+	// 		this.itemLeft 	= this.item.offset().left;
+	// 		this.itemRight 	= this.item.offset().left + this.item.width();
+	// 		this.itemTop 	= this.item.offset().top;
+	// 		this.itemBottom = this.item.offset().top + this.item.height();
 
-			this.coordinates.top 	= this.itemTop,
-			this.coordinates.right 	= this.itemRight,
-			this.coordinates.bottom = this.itemBottom,
-			this.coordinates.left 	= this.itemLeft,
-			this.coordinates.height = this.item.height(),
-			this.coordinates.width 	= this.item.width();
+	// 		this.coordinates.top 	= this.itemTop,
+	// 		this.coordinates.right 	= this.itemRight,
+	// 		this.coordinates.bottom = this.itemBottom,
+	// 		this.coordinates.left 	= this.itemLeft,
+	// 		this.coordinates.height = this.item.height(),
+	// 		this.coordinates.width 	= this.item.width();
 
-			return this.coordinates;
-		}
-	}
+	// 		return this.coordinates;
+	// 	}
+	// }
 
 
 
