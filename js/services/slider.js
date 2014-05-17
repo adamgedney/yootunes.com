@@ -7,6 +7,7 @@ define(['jquery', 'Player'], function($, Player){
 	var _seek 				= {};
 		_seek.drag,
 		_seek.seekTime,
+		_seek.scrubber,
 		_seek.seekScrub,
 		_seek.seekBarWidth,
 		_seek.seekBarLeft,
@@ -27,7 +28,7 @@ define(['jquery', 'Player'], function($, Player){
 		//mousedown to start drag operation
 		$(document).on('mousedown', thumb, function(event){
 
-			var scrubber 			= thumb;
+				_seek.scrubber 		= thumb;
 				_seek.seekBar 		= $(bar);
 				_seek.seekBarWidth 	= _seek.seekBar .width(),
 				_seek.seekBarLeft 	= _seek.seekBar .offset().left,
@@ -42,7 +43,7 @@ define(['jquery', 'Player'], function($, Player){
 			event.preventDefault();
 
 			//calls the seek bar controller
-			moving(scrubber);
+			moving(_seek.scrubber);
 
 
 		}).bind('mouseup', function(e){
@@ -53,7 +54,32 @@ define(['jquery', 'Player'], function($, Player){
 			}
 		});
 
+
+
+
+		//Extra click handler to enable click to position on seek bar
+		$(document).on('click', _seek.seekBar, function(e){
+			var scrubberReference = $(_seek.scrubber);
+
+			scrubberReference.offset({left: e.pageX});
+
+			//set the return scrub position to the scrubberthumb
+			//position set by the click position
+			_seek.seekScrub = scrubberReference.offset().left;
+
+			Player.prototype.dragging(false, _seek.seekScrub);
+		});
+
+
+
+
 	}
+
+
+
+
+
+
 
 
 
@@ -68,26 +94,26 @@ define(['jquery', 'Player'], function($, Player){
 
 		$(document).on('mousemove', function(e){
 			// var set-time = ((e.pageX - seek.seekBarLeft) / seek.seekBarWidth) * seek.duration;
-
+			var scrubberReference = $(scrubber);
 			//if dragging is true, allow scrubber to move
 			if(_seek.drag){
 
-				$(scrubber).offset({left: e.pageX});
+				scrubberReference.offset({left: e.pageX});
 
-				_seek.seekScrub = $(scrubber).offset().left;
+				_seek.seekScrub = scrubberReference.offset().left;
 
 
 				//creates a perimeter scrubber can't leave
 				if(_seek.seekScrub < _seek.seekBarLeft){
-					$(scrubber).offset({left: _seek.seekBarLeft});
+					scrubberReference.offset({left: _seek.seekBarLeft});
 
-				}else if(_seek.seekScrub > (_seek.seekBarRight  - $(scrubber).width())){
-					$(scrubber).offset({left: (_seek.seekBarRight - $(scrubber).width())});
+				}else if(_seek.seekScrub > (_seek.seekBarRight  - scrubberReference.width())){
+					scrubberReference.offset({left: (_seek.seekBarRight - scrubberReference.width())});
 
 				}
 
 				//Sets seek bar backfill bar width
-				_seek.seekFill.width($(scrubber).offset().left - _seek.seekBarLeft);
+				_seek.seekFill.width(scrubberReference.offset().left - _seek.seekBarLeft);
 			};
 		});
 	};
