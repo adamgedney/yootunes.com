@@ -1,31 +1,12 @@
 (function(){
-define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies', 'slider', 'lightbox'],
-	function($, qtip, toggleUi, dragAndDrop, videoSizer, Library, getCookies, slider, lightbox){
+define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies', 'slider', 'lightbox', 'tips'],
+	function($, toggleUi, dragAndDrop, videoSizer, Library, getCookies, slider, lightbox, tips){
 
 
 	//private vars
 	var _baseUrl 			= 'http://api.atomplayer.com';
 
 	var itemHolding 		= 0;
-	// var _dragResult 		= {};
-	// 	_dragResult.dragging= false;
-	// 	_dragResult.origX;
-	// 	_dragResult.origY;
-	// var _clone 				= '';
-	// var _setClone 			= false;
-
-	// var _overPlaylist;
-
-	// var _seek 				= {};
-	// 	_seek.drag,
-	// 	_seek.seekTime,
-	// 	_seek.seekScrub,
-	// 	_seek.seekBarWidth,
-	// 	_seek.seekBarLeft,
-	// 	_seek.seekBarRight
-	// 	_seek.seekFillLeft,
-	// 	_seek.seekFillWidth;
-
 	var _videoSize 			= {};
 		_videoSize.normal 	= false,
 		_videoSize.full 	= false;
@@ -73,28 +54,20 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','ge
 			//========================================//
 			$(document).on('rendered', function(event){
 
-//NOTE**** Qtip slows app down by a few seconds
-				// if(event.template === '#libraryItem' || event.template === '#playlist'){
 
-				// 	//============================//
-				// 	//Enable QTIP on all tooltips
-				// 	//============================//
-				// 	$(document).find('[title]').qtip({
-				// 		style: {
-				// 			classes: 'qtip-tipsy'
-				// 		},
-				// 		position: {
-				// 			target: [9, 9]
-				// 	    },
-				// 	    show: {
-				// 	        delay: 1000
-				// 	    },
-				// 	    hide: {
-				// 	    	event: 'click mouseleave',
-				// 	        delay: 500
-				// 	    }
-				// 	});
-				// }
+				if(event.template === '#libraryItem' || event.template === '#playlist'){
+
+					//Only run tooltips on desktop machines
+					//It's a slow parsing process
+					if(window.windowWidth > app_break_smmd){
+						tips();
+					}
+
+
+				}//if library or playlist rendered
+
+
+
 				if(event.template === '#app'){
 
 					//Set the slider funcitonality
@@ -111,10 +84,6 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','ge
 
 				if(event.template === '#libraryItem'){
 
-					//Failsafe retrieval of theme
-					// if(window.userId === undefined){
-					// 	window.theme = getCookies.theme;
-					// }
 
 					//MAIN SET POINT for _userId for this UI module
 					_userId = window.userId;
@@ -210,14 +179,6 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','ge
 
 			});
 
-			// $(document).on('mouseout', 'span#revealForm', function(event){
-
-			// 		//Empty form input then hide it
-			// 		// $('.newPlaylistInput').val('');
-			// 		$('#hiddenCreatePlaylistForm').hide();
-
-
-			// });
 
 			//NEW PLAYLIST BUTTON interaction handler=======//
 			$(document).on('click', '.add-playlist-icon', function(){
@@ -537,60 +498,10 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','ge
 			$('#scroll-container').css({'overflow':'scroll'});
 		});
 
-		// $(document).on('mouseout', '.playlistSubScrollContainer', function(){
-		// 	$('#scroll-container').css({'overflow':'scroll'});
-		// });
 
 
 
 
-
-
-
-
-
-
-
-		// //Player seek bar ui controller===//
-		// //================================//
-		// //mousedown to start drag operation
-		// $(document).on('mousedown', '#seek-dot', function(event){
-
-		// 	var scrubber 			= '#seek-dot';
-		// 		_seek.seekBar 		= $('#seek-bar');
-		// 		_seek.seekBarWidth 	= _seek.seekBar .width(),
-		// 		_seek.seekBarLeft 	= _seek.seekBar .offset().left,
-		// 		_seek.seekBarRight 	= _seek.seekBar .offset().left + _seek.seekBarWidth,
-		// 		_seek.seekFill 		= $('div.seek-fill'),
-		// 		_seek.drag 			= true;
-
-		// 		Player.prototype.dragging(true);
-
-		// 	//required to prevent text selection on mouseout of seekBar
-		// 	event.preventDefault();
-
-		// 	//calls the seek bar controller
-		// 	moving(scrubber);
-		// }).bind('mouseup', function(e){
-		// 	if(_seek.drag === true){
-
-		// 		Player.prototype.dragging(false, _seek.seekScrub);
-		// 		_seek.drag = false;
-		// 	}
-		// });
-
-
-		// //mouseup to stop drag
-		// $(document).on('mouseup', function(e){
-
-		// 	if(_seek.drag === true){
-
-		// 		Player.prototype.dragging(false, _seek.seekScrub);
-		// 		_seek.drag = false;
-		// 	}
-
-
-		// });
 
 
 
@@ -683,64 +594,6 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','ge
 			$('#nameDeviceModal').fadeOut();
 		});
 
-
-
-
-
-
-
-
-
-		// //Dark theme set
-		// $(document).on('change', '#themeDark', function(){
-
-		// 	_userId = window.userId;
-
-		// 	//Store theme choice as dark
-		// 	if($('#themeDark').is(':checked')){
-
-		// 		_currentTheme = "dark";
-
-		// 		themeDark();
-
-		// 		//Build API url
-		// 		var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + _currentTheme;
-
-		// 		//Call API to add song to library
-		// 		$.ajax({
-		// 			url : API_URL,
-		// 			method : 'GET',
-		// 			dataType : 'json',
-		// 			success : function(response){
-
-		// 			}//success
-		// 		});//ajax
-
-
-
-		// 	}else{//Store theme as light
-
-
-		// 		_currentTheme = "light";
-
-		// 		themeLight();
-
-		// 		//Build API url
-		// 		var API_URL = _baseUrl + '/set-theme/' + _userId + '/' + _currentTheme;
-
-		// 		//Call API to add song to library
-		// 		$.ajax({
-		// 			url : API_URL,
-		// 			method : 'GET',
-		// 			dataType : 'json',
-		// 			success : function(response){
-
-		// 			}//success
-		// 		});//ajax
-
-		// 	}//else
-
-		// });
 
 
 
@@ -892,52 +745,15 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','ge
 
 
 
+
+
+
+
+
+
 //================================//
 //Class methods===================//
 //================================//
-
-
-
-
-
-
-
-
-
-
-	// //Seek bar drag functionality====//
-	// function moving(scrubber){
-
-	// 	$(document).on('mousemove', function(e){
-	// 		// var set-time = ((e.pageX - seek.seekBarLeft) / seek.seekBarWidth) * seek.duration;
-
-	// 		//if dragging is true, allow scrubber to move
-	// 		if(_seek.drag){
-
-	// 			$(scrubber).offset({left: e.pageX});
-
-	// 			_seek.seekScrub = $(scrubber).offset().left;
-
-
-	// 			//creates a perimeter scrubber can't leave
-	// 			if(_seek.seekScrub < _seek.seekBarLeft){
-	// 				$(scrubber).offset({left: _seek.seekBarLeft});
-
-	// 			}else if(_seek.seekScrub > (_seek.seekBarRight  - $(scrubber).width())){
-	// 				$(scrubber).offset({left: (_seek.seekBarRight - $(scrubber).width())});
-
-	// 			}
-
-	// 			//Sets seek bar backfill bar width
-	// 			_seek.seekFill.width($(scrubber).offset().left - _seek.seekBarLeft);
-	// 		};
-	// 	});
-	// };
-
-
-
-
-
 
 
 
@@ -995,221 +811,6 @@ define(['jquery', 'qtip', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','ge
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// //Handles resultItems drag to playist coordinates
-	// function itemDragging(elem, event){
-
-
-	// 	if(_dragResult.dragging === false){
-	// 		console.log();
-	// 		//Set item to dragging
-	// 		_dragResult.dragging = true;
-
-	// 		var moving 			= false;
-	// 		var mouseIcon 		= $('img#mouseAddIcon');
-	// 		_dragResult.origX 	= elem.find('span.li-col2').offset().left;
-	// 		_dragResult.origY 	= elem.find('span.li-col2').offset().top;
-
-
-
-	// 			//If in dragging mode and we're moving the mouse then redraw resultItem
-	// 			$(document).on('mousemove.dragging', function(event){
-
-	// 				moving = true;
-
-	// 				if(_setClone === false){
-	// 					//Only set these values once
-	// 					_clone 		= elem.clone().find('span.li-col2').appendTo('#scroll-container');
-	// 					_setClone 	= true;
-
-
-	// 					_clone.css({
-	// 						'color' 		: '#cf2425',//red
- // 							'position' 		: 'absolute',
-	// 						'zIndex' 		: '999',
-	// 						'cursor'    	: 'move',
-	// 						'pointerEvents': 'none'
-	// 					});
-	// 				}//setClone
-
-	// 					var dragX 			= event.pageX + 15;
-	// 					var dragY 			= event.pageY - 5;
-	// 					var overPlaylist 	= getCoordinates(_overPlaylist);
-
-	// 					_dragResult.X 		= event.pageX;
-	// 					_dragResult.Y 		= event.pageY;
-
-	// 					//Only set position when dragging
-	// 					if(_dragResult.dragging){
-	// 						_clone.offset({top:dragY, left:dragX});
-	// 					}//dragging;
-
-
-	// 					//Change cursor to add icon
-	// 					if(typeof overPlaylist != 'undefined' && _dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
-	// 					   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){
-	// 						console.log("over");
-
-	// 						mouseIcon.css({
-	// 							'display'   : 'inline',
-	// 							'top' 		: event.pageY + 10,
-	// 							'left' 		: event.pageX + 10
-	// 						});
-	// 					}
-
-
-	// 			}).bind('mouseout', function(){
-	// 				mouseIcon.css({
-	// 					'display'   : 'none'
-	// 				});
-	// 			});//MOUSEMOVE
-
-
-
-
-
-
-	// 			//Releasing item. Check to see if we're over a playlist
-	// 			//otherwise return to original location
-	// 			$(document).on('mouseup.dragging', function(event){
-	// 				console.log("mouseup in itemDragging in ui");
-	// 				//Set item to not dragging !important
-
-	// 				if(moving === true){
-	// 					_dragResult.dragging 	= false;
-	// 					_setClone 				= false;
-	// 				}
-
-
-	// 				//If over new playlist, drop li-col2 title into input value
-	// 				var input 			= getCoordinates('.newPlaylistInput');
-	// 				var overPlaylist 	= getCoordinates(_overPlaylist);
-
-	// 					mouseIcon.css({
-	// 						'display'   : 'none'
-	// 					});
-
-
-	// 					_clone.css({
-	// 						'transition-duration' 	: '1s',
-	// 						'cursor' 				: 'pointer'
-	// 					});
-
-
-	// 					//OVER THE CREATE PLAYLIST FORM
-	// 					if(_dragResult.X   >= input.left &&  _dragResult.X   <= input.right &&
-	// 					   _dragResult.Y   >= input.top  &&  _dragResult.Y   <= input.bottom){
-
-	// 						//Set input value
-	// 						var submit = $('input.newPlaylistSubmit');
-
-	// 						//sanitize string
-	// 						var sanitized = _clone.text().replace(/[^a-zA-Z ]/g, "")
-	// 							sanitized = sanitized.substr(0, 25);
-
-	// 						$('input.newPlaylistInput').val(sanitized);
-	// 						submit.attr('data-user', _clone.attr('data-user'));
-	// 						submit.attr('data-id', _clone.attr('data-id'));//song id
-
-	// 						//Remove clone from stage
-	// 						_clone.fadeOut(function(){
-	// 							_clone.remove();
-	// 							_clone = '';
-
-	// 							//Unbind move listener
-	// 							$(document).unbind('mousemove.dragging');
-	// 							//Unbind mouseup listener
-	// 							$(document).unbind('mouseup.dragging');
-	// 						});
-
-
-
-	// 					//OVER A PLAYLIST
-	// 					}else if(typeof overPlaylist != 'undefined' && _dragResult.X   >= overPlaylist.left &&  _dragResult.X   <= overPlaylist.right &&
-	// 					   		 _dragResult.Y   >= overPlaylist.top  &&  _dragResult.Y   <= overPlaylist.bottom){//Return item to origin position
-
-	// 						var songId 		= _clone.attr('data-id');
-	// 						var playlistId 	= _overPlaylist.attr('data-id');
-	// 						var user 		= _userId;
-
-
-	// 						//Add song to playist
-	// 						Library.addSongToPlaylist(songId, playlistId, user);
-
-	// 						//Remove clone from stage
-	// 						_clone.fadeOut(function(){
-	// 							_clone.remove();
-	// 							_clone = '';
-
-	// 							//Unbind move listener
-	// 							$(document).unbind('mousemove.dragging');
-	// 							//Unbind mouseup listener
-	// 							$(document).unbind('mouseup.dragging');
-	// 						});
-
-
-
-	// 					}else{//RETURN TO ORIGINAL LOCATION
-
-	// 						_clone.offset({top: _dragResult.origY, left: _dragResult.origX});
-
-	// 						//Remove clone from stage
-	// 						_clone.fadeOut(function(){
-	// 							_clone.remove();
-	// 							_clone = '';
-
-	// 							//Unbind move listener
-	// 							$(document).unbind('mousemove.dragging');
-	// 							//Unbind mouseup listener
-	// 							$(document).unbind('mouseup.dragging');
-	// 						});
-
-	// 					}//else
-
-
-
-	// 			});//mouseup
-	// 	}//dragging === true
-	// }
-
-
-
-
-
-	// function getCoordinates(selector){
-
-	// 	if(typeof selector != 'undefined'){
-
-	// 		this.coordinates = {};
-	// 		this.item 		= $(selector);
-	// 		this.itemLeft 	= this.item.offset().left;
-	// 		this.itemRight 	= this.item.offset().left + this.item.width();
-	// 		this.itemTop 	= this.item.offset().top;
-	// 		this.itemBottom = this.item.offset().top + this.item.height();
-
-	// 		this.coordinates.top 	= this.itemTop,
-	// 		this.coordinates.right 	= this.itemRight,
-	// 		this.coordinates.bottom = this.itemBottom,
-	// 		this.coordinates.left 	= this.itemLeft,
-	// 		this.coordinates.height = this.item.height(),
-	// 		this.coordinates.width 	= this.item.width();
-
-	// 		return this.coordinates;
-	// 	}
-	// }
 
 
 

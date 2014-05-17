@@ -65,7 +65,8 @@ require.config({
 		renderSongInfo	: 'services/renderSongInfo',
 		sortContent 	: 'services/sortContent',
 		dragAndDrop 	: 'services/dragAndDropPlaylists',
-		slider 			: 'services/slider'
+		slider 			: 'services/slider',
+		tips 			: 'services/toolTips'
 	}
 });
 

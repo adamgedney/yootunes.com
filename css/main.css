@@ -5874,7 +5874,7 @@ section.app {
   font-size: 1em;
   font-family: OpenSansLight;
   /*background: transparent;*/
-  padding-left: 7.5%;
+  padding-left: 8.33333333%;
   outline: none;
   color: #d6d6d6;
 }
@@ -5943,7 +5943,7 @@ section.app {
 
 #returnToSearch {
   position: absolute;
-  margin: 16px 0 0 2%;
+  margin: 14px 0 0 2%;
   z-index: 1;
   cursor: pointer;
 }
@@ -5957,7 +5957,7 @@ section.app {
 }
 @media only screen and (min-width: 800px) {
   #returnToSearch {
-    margin: 27px 0 0 2%;
+    margin: 24px 0 0 2%;
   }
 }
 
