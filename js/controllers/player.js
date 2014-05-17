@@ -1293,6 +1293,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 		var volumeIcon 		= $('div.volume-ctrl img.vol-icon');
 		var transportPlay 	= $('div.transport-ctrl img#play-btn');
+			_thisDevice 	= window.thisDevice;
 
 		//Get device id of current play on device selection
 		if(window.windowWidth < app_break_smmd){
