@@ -154,6 +154,10 @@ input, button, .button, textarea, select {
   font-family: OpenSans, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
+input {
+  line-height: 100%;
+}
+
 ::-webkit-input-placeholder {
   /* WebKit browsers */
   color: #949494;
@@ -5391,17 +5395,41 @@ html {
 }
 #mobile-header #menu-btn {
   display: inline-block;
-  margin: 0 0 9px 18px;
+  margin: 0 0 3px 18px;
+  border-radius: 2px;
+  border: 1px solid #272a2a;
+  padding: 6px;
 }
 #mobile-header .mobile-logo {
   display: inline-block;
   width: 155px;
-  margin: 3px 22%;
+  margin: 3px 18%;
+}
+@media only screen and (min-width: 480px) {
+  #mobile-header .mobile-logo {
+    margin: 3px 20%;
+  }
+}
+@media only screen and (min-width: 800px) {
+  #mobile-header .mobile-logo {
+    margin: 3px 22%;
+  }
 }
 @media only screen and (min-width: 800px) {
   #mobile-header {
     display: none;
   }
+}
+
+#minimizeOverlay {
+  position: absolute;
+  top: 13px;
+  right: 9px;
+  height: 100%;
+  width: 8.33333333%;
+}
+#minimizeOverlay img {
+  width: 83.3333333%;
 }
 
 .sidebarSlideRight {
@@ -5432,6 +5460,19 @@ aside {
   background: #0f1010;
   /*experimenting with dark bg*/
   color: #949494;
+}
+aside li {
+  line-height: 42px;
+  border-bottom: 1px solid #272a2a;
+}
+@media only screen and (min-width: 800px) {
+  aside li {
+    line-height: 27px;
+    border-bottom: none;
+  }
+}
+aside li:first-child {
+  border-bottom: none;
 }
 @media only screen and (min-width: 800px) {
   aside {
@@ -5552,6 +5593,12 @@ aside.app::-webkit-scrollbar {
 
 .app-logo {
   margin: 18px 0 0 5.5%;
+  display: none;
+}
+@media only screen and (min-width: 800px) {
+  .app-logo {
+    display: inline;
+  }
 }
 
 .settings-nav {
@@ -5586,7 +5633,7 @@ aside.app::-webkit-scrollbar {
   cursor: pointer;
 }
 .playlist-nav ul li {
-  line-height: 27px;
+  line-height: 42px;
   cursor: pointer;
   padding: 0 6%;
   position: relative;
@@ -5594,6 +5641,11 @@ aside.app::-webkit-scrollbar {
 .playlist-nav ul li a {
   color: #949494;
   width: 91.6666666%;
+}
+@media only screen and (min-width: 800px) {
+  .playlist-nav ul li {
+    line-height: 27px;
+  }
 }
 
 #revealForm {
@@ -5718,13 +5770,25 @@ li.playlist-dropdown:hover {
   font-size: 1em;
   margin: 0;
   overflow: hidden;
+  color: #494f4f;
 }
 .playlist-popout .share-strip {
   margin-bottom: 9px;
 }
 .playlist-popout .share-strip img {
-  width: 24px;
-  height: 18px;
+  width: 32px;
+  height: 32px;
+  margin-right: 6px;
+}
+@media only screen and (min-width: 800px) {
+  .playlist-popout .share-strip img {
+    width: 21px;
+    height: 21px;
+  }
+}
+.playlist-popout .share-strip img:first-child {
+  padding-left: 0;
+  margin-left: 0;
 }
 .playlist-popout .bottom-inner {
   border-top: 1px solid #d6d6d6;
@@ -5737,8 +5801,8 @@ li.playlist-dropdown:hover {
   width: 36px;
 }
 .playlist-popout .trash-icon {
-  height: 18px;
-  width: 18px;
+  height: 15px;
+  width: 15px;
   float: right;
 }
 
@@ -5838,32 +5902,63 @@ section.app {
 .search input[type="text"]::-webkit-input-placeholder {
   /* WebKit browsers */
   font-family: OpenSansLight;
-  color: #494f4f;
+  color: #949494;
+  font-size: 1.2em;
+}
+@media only screen and (min-width: 800px) {
+  .search input[type="text"]::-webkit-input-placeholder {
+    font-size: 1em;
+  }
 }
 .search input[type="text"]:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   font-family: OpenSansLight;
-  color: #494f4f;
+  color: #949494;
+}
+@media only screen and (min-width: 800px) {
+  .search input[type="text"]:-moz-placeholder {
+    font-size: 1em;
+  }
 }
 .search input[type="text"]::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   font-family: OpenSansLight;
-  color: #494f4f;
+  color: #949494;
+}
+@media only screen and (min-width: 800px) {
+  .search input[type="text"]::-moz-placeholder {
+    font-size: 1em;
+  }
 }
 .search input[type="text"]:-ms-input-placeholder {
   /* Internet Explorer 10+ */
   font-family: OpenSansLight;
-  color: #494f4f;
+  color: #949494;
+}
+@media only screen and (min-width: 800px) {
+  .search input[type="text"]:-ms-input-placeholder {
+    font-size: 1em;
+  }
 }
 
 #returnToSearch {
   position: absolute;
-  margin: 27px 0 0 2%;
+  margin: 16px 0 0 2%;
   z-index: 1;
   cursor: pointer;
 }
 #returnToSearch img {
-  height: 18px;
+  height: 15px;
+}
+@media only screen and (min-width: 800px) {
+  #returnToSearch img {
+    height: 18px;
+  }
+}
+@media only screen and (min-width: 800px) {
+  #returnToSearch {
+    margin: 27px 0 0 2%;
+  }
 }
 
 #returnToSearch:hover {
@@ -6898,11 +6993,12 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 #mobile-playon {
-  margin-top: 27px;
+  margin-top: 102px;
 }
 @media only screen and (min-width: 800px) {
   #mobile-playon {
     display: none;
+    margin-top: 27px;
   }
 }
 

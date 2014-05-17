@@ -115,6 +115,10 @@ input, button, .button, textarea, select{
 	font-family : OpenSans, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
+input{
+	line-height: 100%;
+}
+
 ::-webkit-input-placeholder { /* WebKit browsers */
     color: nth($grey, 3);
 }

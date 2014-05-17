@@ -452,7 +452,7 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 			}else{//Handles mobile view popup toggling
 			//======================================//
 				var playOnDevice 	=  $('#mobile-play-on option:selected').attr('data-id');
-
+				var minimizeIcon 	= $('#minimizeOverlay');
 
 
 				//Highlight selected mobile video
@@ -467,37 +467,15 @@ define(['jquery', 'qtip', 'Player', 'Library','getCookies', 'lightbox'], functio
 				//Toggle mobile video if in normal mode not master mode
 				if(playOnDevice === window.thisDevice){
 
-					if(_previousId !== thisId){
+					//listen for user to tap video to attempt to minimize it
+					$(document).one('click', '#minimizeOverlay', function(){
 
-						//Handle mobile video popup
-						if(_popupToggle === true){
+						toggleMobileVideoSizes(thisId);
+					});
 
-
-							showNormalSize();
-
-						}else{
-							showMinSize();
-
-						}
-
-						//Set previousId for toggle flow
-						_previousId = thisId;
-
-					}else{
-
-						//Handle mobile video popup
-						if(_popupToggle === false){
+						toggleMobileVideoSizes(thisId);
 
 
-							showNormalSize();
-							_popupToggle = !_popupToggle;
-						}else{
-
-							showMinSize();
-
-							_popupToggle = !_popupToggle;
-						}//else
-					}//else
 				}else{
 
 					//Reset popup video
@@ -1517,6 +1495,51 @@ console.log("appclick");
 			return this.coordinates;
 		}
 	}
+
+
+
+
+
+
+
+
+
+	function toggleMobileVideoSizes(thisId){
+
+		if(_previousId !== thisId){
+
+			//Handle mobile video popup
+			if(_popupToggle === true){
+
+				showNormalSize();
+
+			}else{
+
+				showMinSize();
+
+			}
+
+			//Set previousId for toggle flow
+			_previousId = thisId;
+
+		}else{
+
+			//Handle mobile video popup
+			if(_popupToggle === false){
+
+				showNormalSize();
+
+				_popupToggle = !_popupToggle;
+
+			}else{
+
+				showMinSize();
+
+				_popupToggle = !_popupToggle;
+
+			}//else
+		}//else
+	}//toggleSizes
 
 
 

@@ -104,19 +104,43 @@ html{
 
 	#menu-btn{
 		display: inline-block;
-		margin: 0 0 9px 18px;
+		margin: 0 0 3px 18px;
+		border-radius: 2px;
+		border: 1px solid nth($grey, 1);
+		padding: 6px;
 	}
 
 	.mobile-logo{
 		display: inline-block;
 		width: 155px;
-		margin: 3px 22%;
+		margin: 3px 18%;
+
+		@include app-break-sm{
+			margin: 3px 20%;
+		}
+
+		@include app-break-smmd{
+			margin: 3px 22%;
+		}
 	}
 
 	@include app-break-smmd{
 		display: none;
 	}
 }
+
+#minimizeOverlay{
+	position: absolute;
+	top: 13px;
+	right: 9px;
+	height: 100%;
+	@include col(1);
+
+	img{
+		@include col(10);
+	}
+}
+
 
 // mobile slideout class
 .sidebarSlideRight{
@@ -144,6 +168,20 @@ aside{
 	padding-bottom: 306px;
 	background: $black; /*experimenting with dark bg*/
 	color: nth($grey, 3);
+
+	li{
+		line-height: 42px;
+		border-bottom: 1px solid nth($grey, 1);
+
+		@include app-break-smmd{
+			line-height: 27px;
+			border-bottom: none;
+		}
+	}
+
+	li:first-child{
+		border-bottom: none;
+	}
 
 
 
@@ -235,6 +273,8 @@ aside.app::-webkit-scrollbar {
 	}
 }
 
+
+
 .loading{
 	background: url('../images/icons/loading.GIF') no-repeat center;
 	position: absolute;
@@ -281,6 +321,11 @@ font-size: .8em;
 
 .app-logo{
 	margin: 18px 0 0 5.5%;
+	display: none;
+
+	@include app-break-smmd{
+		display: inline;
+	}
 }
 
 .settings-nav{
@@ -325,7 +370,7 @@ font-size: .8em;
 
 	ul{
 		li{
-			line-height: 27px;
+			line-height: 42px;
 			cursor: pointer;
 			padding: 0 6%;
 			position: relative;
@@ -334,6 +379,12 @@ font-size: .8em;
 				color: nth($grey, 3);
 				@include col(11);
 			}
+
+
+			@include app-break-smmd{
+				line-height: 27px;
+			}
+
 
 		}
 	}
@@ -478,14 +529,26 @@ li.playlist-dropdown:hover{
 		font-size: 1em;
 		margin: 0;
 		overflow: hidden;
+		color: nth($grey, 2);
 	}
 
 	.share-strip{
 		margin-bottom: 9px;
 
 		img{
-			width: 24px;
-			height: 18px;
+			width: 32px;
+			height: 32px;
+			margin-right: 6px;
+
+			@include app-break-smmd{
+				width: 21px;
+				height: 21px;
+			}
+		}
+
+		img:first-child{
+			padding-left: 0;
+			margin-left: 0;
 		}
 	}
 
@@ -502,8 +565,8 @@ li.playlist-dropdown:hover{
 	}
 
 	.trash-icon{
-		height: 18px;
-		width: 18px;
+		height: 15px;
+		width: 15px;
 		float: right;
 	}
 }
@@ -611,31 +674,56 @@ section.app{
 
 	input[type="text"]::-webkit-input-placeholder { /* WebKit browsers */
 		font-family: OpenSansLight;
-	    color: nth($grey, 2);
+	    color: nth($grey, 3);
+	    font-size: 1.2em;
+
+	    @include app-break-smmd{
+			font-size: 1em;
+		}
 	}
 	input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
 		font-family: OpenSansLight;
-	    color: nth($grey, 2);
+	    color: nth($grey, 3);
+
+	    @include app-break-smmd{
+			font-size: 1em;
+		}
 	}
 	input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
 		font-family: OpenSansLight;
-	    color: nth($grey, 2);
+	    color: nth($grey, 3);
+
+	    @include app-break-smmd{
+			font-size: 1em;
+		}
 	}
 	input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
 		font-family: OpenSansLight;
-	    color: nth($grey, 2);
+	    color: nth($grey, 3);
+
+	    @include app-break-smmd{
+			font-size: 1em;
+		}
 	}
 
 }
 
 #returnToSearch{
 	position: absolute;
-	margin: 27px 0 0 2%;
+	margin: 16px 0 0 2%;
 	z-index: 1;
 	cursor: pointer;
 
 	img{
-		height: 18px;
+		height: 15px;
+
+		@include app-break-smmd{
+			height: 18px;
+		}
+	}
+
+	@include app-break-smmd{
+		margin: 27px 0 0 2%;
 	}
 }
 
@@ -1801,10 +1889,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 }
 
 #mobile-playon{
-	margin-top: 27px;
+	margin-top: 102px;
 
 	@include app-break-smmd{
 		display: none;
+		margin-top: 27px;
 	}
 }
 
