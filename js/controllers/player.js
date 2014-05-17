@@ -1157,7 +1157,7 @@ console.log("update");
 			'controllerDevice' 	: _thisDevice
 		}
 
-		console.log(_thisDevice, _playOnDevice, "thisdevice/playondevicein play funct");
+
 		//Connection to socketserver runs if we choose to be a controller
 		if(_thisDevice !== _playOnDevice){
 			_socket = 'open';
@@ -1180,16 +1180,19 @@ console.log("update");
 
 			//Set icon to unmuted icon
 			volumeIcon.attr('src', 'images/icons/volume-icon.svg');
+
+			//Show the shuffle icon ** may need to display none it
+			$('#shuffleResults').css('opacity','1');
 		}
 
 
-
+console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket play funct");
 		//Signifies we're in play/pause loop
 		if(_paused === true){
 
 			//Only emit events on playOn device selection
 			if(_socket === 'open'){
-
+console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket PAUSED SOCKET OPEN");
 				//Change data.newVideo accordingly
 				_data.newVideo = 'false';
 
@@ -1203,7 +1206,7 @@ console.log("update");
 
 
 			}else if(_socket === null){
-
+console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket PAUSED SOCKET NULL");
 				//Play Local video normally w/out delay
 
 				_player.playVideo();
@@ -1225,7 +1228,7 @@ console.log("update");
 
 			//Only emit events on playOn device selection
 			if(_socket === 'open'){
-
+console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket NEW VIDEO SOCKET OPEN");
 				//Change data.newVideo accordingly
 				_data.newVideo = 'true';
 
@@ -1242,7 +1245,7 @@ console.log("update");
 
 
 			}else if(_socket === null){
-
+console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevicein/_paused/_socket NEW VIDEO SOCKET NULL");
 				//Play local video
 				if(window.windowWidth < app_break_smmd){
 					popupPlayer(youtubeId);
@@ -1259,10 +1262,12 @@ console.log("update");
 
 				//Updates button ui
 				transportPlay.attr('src', 'images/icons/pause.png');
-		}//else youtubeId
 
-		//Log the song being played
-		logPlay(playingSongId);
+				//Log the song being played
+				logPlay(playingSongId);
+		}//else bew video
+
+
 	}//play
 
 
