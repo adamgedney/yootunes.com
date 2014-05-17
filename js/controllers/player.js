@@ -575,8 +575,6 @@ define(['jquery', 'getCookies', 'videoSizer', 'socketService', 'renderSongInfo']
 
 
 
-		//NOTE: May need to add an event fired from the "return to search results
-		//interaction" to reset the play button to a pause button
 		//Play icon Click Handler=======//
 		$(document).on('click', '.play-icon', function(event){
 
@@ -585,13 +583,13 @@ define(['jquery', 'getCookies', 'videoSizer', 'socketService', 'renderSongInfo']
 
 			playItem($(this));
 
-			//Change li text color
-			// libraryWrapper.find('li.resultItems').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').removeClass('red');//red
-			// libraryWrapper.find('li.resultItems[data-id=' + id + ']').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').addClass('red');//red
-
-			// console.log($('.resultItems[data-id=' + id + ']'), id);
-
 		});//onclick play icon
+
+
+
+
+
+
 
 
 
@@ -656,16 +654,16 @@ define(['jquery', 'getCookies', 'videoSizer', 'socketService', 'renderSongInfo']
 
 
 
-_socketConnect.on('*', function (response) {
-	console.log("catchall",response);
-				});
+		// _socketConnect.on('*', function (response) {
+		// 	console.log("catchall",response);
+		// 				});
 
 
 		//=============================//
 		//Listen for socket ON PLAY
 		//=============================//
 		_socketConnect.on('playOn', function (response) {
-console.log("playon picked up as event");
+
 			//Set thisDevice from content controller's determination
 			_thisDevice = window.thisDevice;
 
@@ -722,7 +720,7 @@ console.log("playon picked up as event");
 		//Listen for socket ON PAUSE
 		//=============================//
 		_socketConnect.on('pauseOn', function(response){
-console.log(response.device);
+
 			if(_thisDevice === response.device){
 				_player.stopVideo();
 
@@ -857,11 +855,6 @@ console.log(response.device);
 
 			//Set video position based on scrubPos(x pos)
 			seekTo(scrubPos);
-
-			if(_playerPlaying){
-				//Calls updateTime() on regular intervals
-				_updateInterval = setInterval(updateTime, 100);
-			}
 		}
 	}
 
@@ -1282,7 +1275,8 @@ console.log("update");
 
 	function pause(){
 
-
+		//Clear update interval here to prevent Safari glitch
+		clearInterval(_updateInterval);
 
 		ensureUserExists();
 
@@ -1340,9 +1334,6 @@ console.log("update");
 			transportPlay.attr('src', 'images/icons/play-wht.png');
 
 			_playerPlaying = !_playerPlaying;
-
-			//Clear update interval here to prevent Safari glitch
-			clearInterval(_updateInterval);
 
 
 	}//pause()
