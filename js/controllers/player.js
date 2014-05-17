@@ -654,7 +654,9 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 
 
-
+_socketConnect.on('*', function (response) {
+	console.log("catchall",response);
+				});
 
 
 		//=============================//
