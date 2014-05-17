@@ -317,6 +317,14 @@ define(['jquery', 'getCookies', 'socketService'], function($, getCookies, socket
 
 
 
+
+
+
+
+
+
+
+
 			//Listens for the player API to load
 			window.onYouTubePlayerAPIReady = function() {
 
@@ -714,7 +722,7 @@ console.log("playon picked up as event");
 		//Listen for socket ON PAUSE
 		//=============================//
 		_socketConnect.on('pauseOn', function(response){
-
+console.log(response.device);
 			if(_thisDevice === response.device){
 				_player.stopVideo();
 
@@ -1130,9 +1138,6 @@ console.log("update");
 		var transportPlay 	= $('div.transport-ctrl #play-btn');
 		var playingSongId 	= $('span.play-icon[data-videoId=' + youtubeId + ']').attr('data-id');
 
-		//Log the song being played
-		logPlay(playingSongId);
-
 		if(window.windowWidth < app_break_smmd){
 			_playOnDevice =  $('#mobile-play-on option:selected').attr('data-id');
 			_mobileIframeId = youtubeId;
@@ -1162,7 +1167,7 @@ console.log("update");
 			volumeIcon.attr('src', 'images/icons/volume-icon-mute.svg');
 
 			//Hide the shuffle icon ** may need to display none it
-			$('img#shuffleResults').css('opacity','1');
+			$('#shuffleResults').css('opacity','0');
 
 
 		}else{
@@ -1253,6 +1258,9 @@ console.log("update");
 				//Updates button ui
 				transportPlay.attr('src', 'images/icons/pause.png');
 		}//else youtubeId
+
+		//Log the song being played
+		logPlay(playingSongId);
 	}//play
 
 
