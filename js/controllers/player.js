@@ -166,9 +166,13 @@ define(['jquery', 'getCookies', 'videoSizer', 'socketService', 'renderSongInfo']
 				$('img.playIconImg[data-videoid=' + _playingVideo + ']').attr('src', 'images/icons/pause-drk.png');
 
 				//Populate footer metadata with first li item data
-				if(_playerPlaying === false){
+				if(_playerPlaying === false &&  _paused === false){
 					var libraryWrapper 	= $('#libraryWrapper');
 					var id = libraryWrapper.find('li.resultItems:eq(' + 0 + ')').find('img.playIconImg').attr('data-videoId');
+
+					//Change li text color of the playing item
+					libraryWrapper.find('li.resultItems[data-videoId=' + id + ']').find('span.li-col2, span.li-col3, span.li-col4, span.li-col5, span.li-col6').addClass('red');//red
+
 					renderSongInfo(id);
 				}
 
