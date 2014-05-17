@@ -1134,6 +1134,11 @@ console.log("update");
 
 
 	function play(youtubeId){
+
+
+		ensureUserExists();
+
+
 		//Fallback thisDevice for mobile slips
 		_thisDevice 		= window.thisDevice;
 		var volumeIcon 		= $('div.volume-ctrl img.vol-icon');
@@ -1287,6 +1292,8 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 
 	function pause(){
+
+		ensureUseExists();
 
 		//Clear update interval here to prevent Safari glitch
 		clearInterval(_updateInterval);
@@ -1474,17 +1481,7 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 
 	function logPlay(songId){
 
-		//Ensures userId is always available
-		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
-			if(window.userId !== undefined){
-				_userId = window.userId;
-				console.log(_userId, "uid");
-			}else if(getCookies.userId !== undefined){
-				_userId = getCookies.userId;
-				window.userId = _userId;
-				console.log(_userId, "cookies");
-			}
-		}
+		ensureUserExists();
 
 		//Build according to state
 		if(window.state === 'playlist' && _lastPlaylist !== window.currentPlaylist){
@@ -1505,6 +1502,39 @@ console.log(_thisDevice, _playOnDevice, _paused, _socket, "thisdevice/playondevi
 			}//success
 		});//ajax
 	}//log
+
+
+
+
+
+
+
+
+
+
+	function ensureUserExists(){
+
+		//Ensures userId is always available
+		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
+			if(window.userId !== undefined){
+				_userId = window.userId;
+				console.log(_userId, "uid");
+			}else if(getCookies.userId !== undefined){
+				_userId = getCookies.userId;
+				window.userId = _userId;
+				console.log(_userId, "cookies");
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
 
 
 
