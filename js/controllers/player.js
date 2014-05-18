@@ -1,20 +1,21 @@
 (function(){
-define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'socketService', 'renderSongInfo'], function($, getCookies, determineDevice, logging, videoSizer, socketService, renderSongInfo){
+define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'logging', 'videoSizer', 'socketService', 'renderSongInfo'],
+	function($, getCookies, determineDevice, slider, logging, videoSizer, socketService, renderSongInfo){
 
 
 	//private vars
 	var _baseUrl 			= 'http://api.atomplayer.com';
-	var _player 			= {};
+	var PLAYER			= {};
 
 	var _playerPlaying      = false;
 	var	_playerNewVideo		= true;
-	var _updateInterval;
+	// var window.updateInterval;
 
-	var _seek 				= {};
-		_seek.scrubber		= '#seek-dot',
-		_seek.seekPos 		= 0,
-		_seek.duration 		= 0,
-		_dragging 			= false;
+	// var _seek 				= {};
+	// 	_seek.scrubber		= '#seek-dot',
+	// 	_seek.seekPos 		= 0,
+	// 	_seek.duration 		= 0,
+	// 	_dragging 			= false;
 
 	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
@@ -26,6 +27,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 	var _playMode 			= {};
 		_playMode.loop 		= false;
 		_playMode.shuffle 	= false;
+		_playMode.slave 	= false;
 
 	var _socketConnect 		= socketService.socket;
 	var _socket 			= null;
@@ -274,7 +276,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 		    	var prevVideo = libraryWrapper.find('li.resultItems[data-index="' + _shuffleIndexes[_prevIndex + _shuffleIndexes.length] + '"]').attr('data-videoId');
 
 				//Start playing
-				// _player.loadVideoById(prevVideo);
+				// PLAYER.loadVideoById(prevVideo);
 
 				play(prevVideo);
 
@@ -287,7 +289,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 		    	var prevVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 				//Start playing
-				// _player.loadVideoById(prevVideo);
+				// PLAYER.loadVideoById(prevVideo);
 
 				play(prevVideo);
 			}
@@ -315,7 +317,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 		    	var nextVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 				//Start playing
-				// _player.loadVideoById(nextVideo);
+				// PLAYER.loadVideoById(nextVideo);
 
 				play(nextVideo);
 			}
@@ -337,7 +339,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 			window.onYouTubePlayerAPIReady = function() {
 
 				// create the global player from the specific iframe (#video)
-				_player = new YT.Player('video', {
+				PLAYER = new YT.Player('video', {
 					playerVars: {
 						controls 		: 0,
 						enablejsapi 	: 1,
@@ -397,13 +399,13 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 					if(_socket === null){
 
 						//set volume normally
-						_player.setVolume(rangeVolume);
+						PLAYER.setVolume(rangeVolume);
 
 
 					}else{//PlayOn
 
 						//Be sure loacl volume is still muted
-						_player.mute();
+						PLAYER.mute();
 
 
 						//Build obj for socket transmission
@@ -447,7 +449,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 			window.onPlayerStateChange = function(event){
 
 				var libraryWrapper 	= $('#libraryWrapper');
-				var id = _player.getVideoData().video_id;
+				var id = PLAYER.getVideoData().video_id;
 
 
 				//================================//
@@ -476,8 +478,8 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 					//Set playing variable for use by the onrendered event
 					_playingVideo = id;
 
-					//Calls updateTime() on regular intervals
-					_updateInterval = setInterval(updateTime, 100);
+					//Calls runUpdate() on regular intervals
+					window.updateInterval = setInterval(runUpdate, 100);
 
 
 			      	//If user plays video from click on video, change play/pause in desktop view only
@@ -507,7 +509,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 
 
 			    	//Clears above update interval
-			    	clearInterval(_updateInterval);
+			    	clearInterval(window.updateInterval);
 
 			    	//If user plays video from click on video, change play/pause
 			    	if(window.windowWidth > app_break_smmd){
@@ -534,7 +536,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 			    	if(_playMode.loop){
 
 			    		//Start playing same video again
-						// _player.loadVideoById(id);
+						// PLAYER.loadVideoById(id);
 
 						play(id);
 
@@ -561,7 +563,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 				    	var nextVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
 						//Start playing
-						// _player.loadVideoById(currentVideo);
+						// PLAYER.loadVideoById(currentVideo);
 						console.log(nextVideo, "autoplay");
 						play(nextVideo);
 
@@ -621,7 +623,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 			if($(this).attr('src') === 'images/icons/volume-icon.svg'){
 
 				//mute player
-				_player.mute();
+				PLAYER.mute();
 
 				//Set icon to muted icon
 				$(this).attr('src', 'images/icons/volume-icon-mute.svg');
@@ -629,7 +631,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 			}else{
 
 				//unmute player
-				_player.unMute();
+				PLAYER.unMute();
 
 				//Set icon back to non muted icon
 				$(this).attr('src', 'images/icons/volume-icon.svg');
@@ -656,6 +658,24 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 
 
 
+
+
+		//Event fired by slider service to set the player seek time
+		$(document).on('seekto', function(event){
+
+			seekTo(event.scrubPos);
+		});
+
+
+
+
+
+
+
+
+
+
+
 		// _socketConnect.on('*', function (response) {
 		// 	console.log("catchall",response);
 		// 				});
@@ -665,6 +685,8 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 		//Listen for socket ON PLAY
 		//=============================//
 		_socketConnect.on('playOn', function (response) {
+
+			_playMode.slave = true;
 
 			//Set thisDevice from content controller's determination
 			_thisDevice = window.thisDevice;
@@ -685,13 +707,13 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 					if(response.newVideo === "false"){
 
 						//unmute the controller
-						_player.unMute();
+						PLAYER.unMute();
 
 						//Set icon to unmuted icon
 						$('div.volume-ctrl img.vol-icon').attr('src', 'images/icons/volume-icon.svg');
 
-						_player.playVideo();
-						// var id = _player.getVideoData().video_id;
+						PLAYER.playVideo();
+						// var id = PLAYER.getVideoData().video_id;
 
 						//Updates button ui
 						$('div.transport-ctrl img#play-btn').attr('src', 'images/icons/pause.png');
@@ -700,12 +722,12 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 
 					}else{
 						//unmute the controller
-						_player.unMute();
+						PLAYER.unMute();
 
 						//Set icon to unmuted icon
 						$('div.volume-ctrl img.vol-icon').attr('src', 'images/icons/volume-icon.svg');
 
-						_player.loadVideoById(response.youtubeId);
+						PLAYER.loadVideoById(response.youtubeId);
 					}//else
 			}//if _thisDevice
 		});//_socketConnect.on
@@ -723,8 +745,10 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 		//=============================//
 		_socketConnect.on('pauseOn', function(response){
 
+			_playMode.slave = true;
+
 			if(_thisDevice === response.device){
-				_player.stopVideo();
+				PLAYER.stopVideo();
 
 
 				videoSizer.minView();
@@ -751,9 +775,11 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 		//=============================//
 		_socketConnect.on('volumeOn', function(response){
 
+			_playMode.slave = true;
+
 			if(_thisDevice === response.device){
 				//set volume
-				_player.setVolume(response.volume);
+				PLAYER.setVolume(response.volume);
 
 				//Set the range slider value to match assigned value
 				$('#volumeRange').val(response.volume);
@@ -773,11 +799,13 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 		//Listen for socket ON SETTIME
 		//=============================//
 		_socketConnect.on('seekToOn', function(response){
+			_playMode.slave = true;
+
 			var seekBar = $('#seek-bar');
 
 			if(_thisDevice === response.device){
 				//Set playing video's position
-				_player.seekTo(response.seconds, true);
+				PLAYER.seekTo(response.seconds, true);
 
 
 				_seek.seekPos = ((seekBar.width() / _seek.duration) * response.seconds)  + seekBar.offset().left;
@@ -816,8 +844,6 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 		constructor  	: player,
 		play 		 	: play,
 		pause 		 	: pause,
-		seekTo 	 		: seekTo,
-		dragging 		: dragging,
 		playItem 		: playItem
 	};
 
@@ -838,42 +864,23 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 
 
 
+	function runUpdate(){
+		var duration 		= PLAYER.getDuration();
+		var currentTime 	= PLAYER.getCurrentTime();
+		var loadedFraction 	= PLAYER.getVideoLoadedFraction();
 
-
-
-
-
-
-
-
-	function dragging(drag, scrubPos){
-		_dragging = drag;
-
-		//Seek bar dragging
-		if(drag === true){
-			//clear update interval to release control to seekTo function
-			clearInterval(_updateInterval);
-		}else if(drag === false){
-
-			//Set video position based on scrubPos(x pos)
-			seekTo(scrubPos);
-		}
+		slider.updateTime(duration, currentTime, loadedFraction)
 	}
-
-
-
-
-
-
 
 
 
 	function seekTo(scrubberOffset){
 
 		var seekBar = $('#seek-bar');
+		var duration = PLAYER.getDuration();
 
 		//Set video time: ((scrubber x - bar left) / bar width) * duration
-		var s = ((scrubberOffset - seekBar.offset().left) / seekBar.width()) *_seek.duration;
+		var s = ((scrubberOffset - seekBar.offset().left) / seekBar.width()) * duration;
 
 
 		//Build obj for socket transmission
@@ -893,134 +900,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 
 
 		//seekTo normally
-		_player.seekTo(s, true);
-	}
-
-
-
-
-
-
-
-
-
-
-
-	//Updates the time in the transport view
-	function updateTime(){
-console.log("update");
-		if(_dragging === false){
-
-			_seek.duration 	= _player.getDuration();
-
-			var time 		= _player.getCurrentTime();
-			var h 			= 0;
-			var m 			= Math.floor(time / 60);
-			var secd 		= (time % 60) - 1;
-			var s 			= Math.ceil(secd);
-			var currentTime = $('p#current-time');
-			var seekBar 	= $('#seek-bar');
-			var seekDot 	= $('#seek-dot');
-			var seekBuffered= $('div.seek-buffered');
-
-			// var seek_time = ((300 / duration) * s) + _seek.stepper + $('.seek-line').offset().left;
-
-			//Adds digit if under 10s
-			if(s <= 0){
-				s = '00';
-			}else if(s < 10){
-				s = '0' + s;
-			}
-
-
-			//Hour handler for time display - handles 0-13hr videos
-			if(m >= 60){
-				m = m - 60;
-				h = 1;
-			}if(h == 1 && m >= 60){
-				m = m - 120;
-				h = 2;
-			}if(h == 2 && m >= 60){
-				m = m - 60;
-				h = 3;
-			}if(h == 3 && m >= 60){
-				m = m - 60;
-				h = 4;
-			}if(h == 4 && m >= 60){
-				m = m - 60;
-				h = 5;
-			}if(h == 5 && m >= 60){
-				m = m - 60;
-				h = 6;
-			}if(h == 6 && m >= 60){
-				m = m - 60;
-				h = 7;
-			}if(h == 7 && m >= 60){
-				m = m - 60;
-				h = 8;
-			}if(h == 8 && m >= 60){
-				m = m - 60;
-				h = 9;
-			}if(h == 9 && m >= 60){
-				m = m - 60;
-				h = 10;
-			}if(h == 10 && m >= 60){
-				m = m - 60;
-				h = 11;
-			}if(h == 11 && m >= 60){
-				m = m - 60;
-				h = 12;
-			}if(h == 12 && m >= 60){
-				m = m - 60;
-				h = 13;
-			};
-
-			var timeDisplay = m + ':' + s;
-
-			//Set Hours in time display
-			if(h === 0){
-				currentTime.html(timeDisplay);
-			}else{
-
-
-				//Adds digit if under 10m
-				if(m <= 0){
-					m = '00';
-				}else if(m < 10){
-					m = '0' + m;
-				}
-
-				//time format
-				timeDisplay  = h + ':' + m + ':' + s;
-
-				currentTime.html(timeDisplay);
-			}
-
-
-			//(bar width / video duration) * time = xPos of scrubber + seekbar left
-			_seek.seekPos = ((seekBar.width() / _seek.duration) * time)  + seekBar.offset().left;
-
-
-			//Update scrubber position
-			seekDot.offset({left: _seek.seekPos});
-
-
-			//Sets seek bar colored backfill bar width
-			$('.seek-fill').width(seekDot.offset().left - seekBar.offset().left);
-
-
-			//Set Buffered stream indicator in seek bar
-			var buffered = _player.getVideoLoadedFraction();
-			seekBuffered.width((seekDot.offset().left - seekBar.offset().left) + (buffered * 100));
-
-			//DOn't allow buffered indicator to exceed seek bar width
-			if(seekBuffered.width() >= seekBar.width()){
-				seekBuffered.width(seekBar.width());
-			}
-
-
-
-		}//if draggin false
+		PLAYER.seekTo(s, true);
 	}
 
 
@@ -1044,7 +924,7 @@ console.log("update");
 		if(window.windowWidth < app_break_smmd){
 			playerId = _mobileIframeId;
 		}else{
-			playerId = _player.getVideoData().video_id;
+			playerId = PLAYER.getVideoData().video_id;
 		}
 
 
@@ -1141,6 +1021,9 @@ console.log("update");
 			_playOnDevice =  $('#play-on option:selected').attr('data-id');
 		}
 
+		// //Necessary for decoupled scrubber
+		// window.playOnDevice = _playOnDevice;
+
 		//Build obj for socket transmission
 		_data = {
 			'userId'			: _userId,
@@ -1156,7 +1039,7 @@ console.log("update");
 			_socket = 'open';
 
 			//Mute this controller device
-			_player.mute();
+			PLAYER.mute();
 
 			//Set icon to muted icon
 			volumeIcon.attr('src', 'images/icons/volume-icon-mute.svg');
@@ -1169,7 +1052,7 @@ console.log("update");
 			_socket = null;
 
 			//unmute the controller
-			_player.unMute();
+			PLAYER.unMute();
 
 			//Set icon to unmuted icon
 			volumeIcon.attr('src', 'images/icons/volume-icon.svg');
@@ -1193,13 +1076,13 @@ console.log("update");
 				//Delay play by 1s to wait for socket connection to load slave video
 				// setTimeout(, 1000);
 
-				_player.playVideo()
+				PLAYER.playVideo()
 
 
 			}else if(_socket === null){
 				//Play Local video normally w/out delay
 
-				_player.playVideo();
+				PLAYER.playVideo();
 
 
 
@@ -1229,7 +1112,7 @@ console.log("update");
 
 
 				//Play local video
-				_player.loadVideoById(youtubeId);
+				PLAYER.loadVideoById(youtubeId);
 
 
 
@@ -1239,14 +1122,14 @@ console.log("update");
 					popupPlayer(youtubeId);
 
 				}else{
-					_player.loadVideoById(youtubeId);
+					PLAYER.loadVideoById(youtubeId);
 				}
 
 			}//if
 
 				//reset seek stepper for each new video
 				//to conrol seek bar fill
-				_seek.stepper = 0;
+				// _seek.stepper = 0;
 
 				//Updates button ui
 				transportPlay.attr('src', 'images/icons/pause.png');
@@ -1277,7 +1160,7 @@ console.log("update");
 	function pause(){
 
 		//Clear update interval here to prevent Safari glitch
-		clearInterval(_updateInterval);
+		clearInterval(window.updateInterval);
 
 		ensureUserExists();
 
@@ -1300,7 +1183,7 @@ console.log("update");
 			_socket = 'open';
 
 			//Mute this controller device
-			_player.mute();
+			PLAYER.mute();
 
 			//Set icon to muted icon
 			volumeIcon.attr('src', 'images/icons/volume-icon-mute.svg');
@@ -1308,7 +1191,7 @@ console.log("update");
 			_socket = null;
 
 			//Unmute this controller
-			_player.unMute();
+			PLAYER.unMute();
 
 			//Set icon to unmuted icon
 			volumeIcon.attr('src', 'images/icons/volume-icon.svg');
@@ -1329,7 +1212,7 @@ console.log("update");
 			}
 
 			//Pause local video normally
-			_player.stopVideo();
+			PLAYER.stopVideo();
 
 			//Updates button ui
 			transportPlay.attr('src', 'images/icons/play-wht.png');
@@ -1375,44 +1258,6 @@ console.log("update");
 
 
 
-
-
-
-
-
-
-	// function renderSongInfo(id){
-
-	// 	//Commented out thumb code loads a youtube thumb into the footer info section
-	// 	var playing 			= $('span.play-icon[data-videoId=' + id + ']');
-	// 	// var thumb 				= $('img#infoThumb');
-	// 	// var lbThumb 			= $('a#lbThumb');
-	// 	var song 				= $('#infoTitle');
-	// 	var artist 				= $('#infoArtist');
-	// 	var album 				= $('#infoAlbum');
-	// 	var dataSong 			= playing.attr('data-song');
-	// 	var dataArtist 			= playing.attr('data-artist');
-	// 	var dataAlbum 			= playing.attr('data-album');
-	// 	var fbShareMain 		= $('#fbShareMain');
-	// 	var googleShareMain 	= $('#googleShareMain');
-	// 	var twitterShareMain 	= $('#twitterShareMain');
-	// 	var linkShareMain 		= $('#linkShareMain');
-	// 	var youtubeUrl 			= 'https://www.youtube.com/watch?v=' + id;
-	// 	// var thumbSrc 		= 'https://i.ytimg.com/vi/' + id + '/default.jpg';
-	// 	// var thumbHiSrc 		= 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
-	// 	var playingSongId 		= $('span.play-icon[data-videoId=' + id + ']').attr('data-id');
-
-	// 	// thumb.attr('src', thumbSrc);
-	// 	// lbThumb.attr('data-lightbox', thumbHiSrc);
-	// 	// lbThumb.attr('href', thumbHiSrc);
-	// 	song.html(dataSong);
-	// 	artist.html(dataArtist);
-	// 	album.html(dataAlbum);
-	// 	fbShareMain.attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + youtubeUrl).attr('data-id', playingSongId);
-	// 	googleShareMain.attr('href', 'https://plus.google.com/share?url=' + youtubeUrl).attr('data-id', playingSongId);
-	// 	twitterShareMain.attr('href', 'https://twitter.com/home?status=' + youtubeUrl).attr('data-id', playingSongId);
-	// 	linkShareMain.attr('href', youtubeUrl).data('id', playingSongId);
-	// }
 
 
 

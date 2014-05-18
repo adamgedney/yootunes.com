@@ -994,10 +994,56 @@ section.app{
 }*/
 
 
-/*=========Experiment with block layout===========*/
-.blockLayout{
 
-}
+
+
+
+/*=========Experiment with block layout===========*/
+// .blockLayout{
+// 	position: relative;
+// 	@include col(3);
+// 	margin: 0 18px 18px;
+// 	float: left;
+// 	height: 300px;
+// 	background: nth($grey, 2);
+// 	padding: 9px;
+// 	overflow: visible;
+
+// 	.li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col6, .li-col7{
+// 		position: absolute;
+// 		@include col(11);
+// 		text-align: center;
+// 		margin: 0;
+// 		padding: 0;
+// 		font-size: .8em;
+// 	}
+
+// 	.li-col2{
+// 		background: red;
+// 	}
+
+// 	.li-col3{
+// 		top: 27px;
+// 	}
+
+// 	.li-col4{
+// 		top:36px;
+// 	}
+
+// 	.li-col5{
+// 		top:45px;
+// 	}
+
+// 	.li-col1{
+// 		top: 102px;
+// 		margin-left: 50%;
+// 		right: 50%;
+// 	}
+
+// 	.dropdown{
+// 		display: block;
+// 	}
+// }
 
 
 
@@ -1663,6 +1709,7 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 	#seek-bar{
 		@include col(10);
+		overflow: hidden;
 	}
 
 	@include app-break-smmd{

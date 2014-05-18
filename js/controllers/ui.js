@@ -71,11 +71,11 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 				if(event.template === '#app'){
 
-					//Set the slider funcitonality
+					//Set the slider functionality
 					var thumb 	= '#seek-dot';
 					var bar 	= '#seek-bar';
 					var fill 	= 'div.seek-fill';
-					slider(thumb, bar, fill);
+					slider.slider(thumb, bar, fill);
 
 
 				};
