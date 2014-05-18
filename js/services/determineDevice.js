@@ -17,7 +17,6 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies ,getUs
 
 	var obj = {};
 		obj.thisDevice;
-		obj.get = determineDevice;
 
 
 
@@ -96,6 +95,7 @@ console.log(cookies.devices, cookies.devices.length);
 
 
 
+	obj.get = determineDevice;
 
 	return obj;
 

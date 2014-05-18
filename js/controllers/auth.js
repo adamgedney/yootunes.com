@@ -1046,7 +1046,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		//#app needs to have rendered first
 		determineDevice.get(function(){});
 
-
+		console.log(determineDevice);
 	}
 
 
