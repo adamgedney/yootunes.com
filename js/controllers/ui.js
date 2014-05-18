@@ -693,16 +693,9 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 		$(document).on('click', '.playlistShare, .linkShare', function(event){
 
 			var playlistId = $(this).attr('data-id');
-			var API_URL = _baseUrl + '/log-shared-playlist/' + _userId + '/' + playlistId;
 
-			$.ajax({
-				url 		: API_URL,
-				method 		: 'GET',
-				dataType	: 'json',
-				success 	: function(response){
-					console.log(response);
-				}//success
-			});//ajax
+			logging.logPlaylistShare(_userId, playlistId);
+
 		});
 
 

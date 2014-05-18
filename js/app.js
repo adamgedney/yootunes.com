@@ -66,7 +66,9 @@ require.config({
 		sortContent 	: 'services/sortContent',
 		dragAndDrop 	: 'services/dragAndDropPlaylists',
 		slider 			: 'services/slider',
-		tips 			: 'services/toolTips'
+		tips 			: 'services/toolTips',
+		validation 		: 'services/validation',
+		logging 		: 'services/logging'
 	}
 });
 

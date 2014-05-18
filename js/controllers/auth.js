@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketService'], function($, Content, getCookies, determineDevice, Init, socketService){
+define(['jquery', 'Content', 'getCookies', 'validation', 'logging', 'determineDevice','Init', 'socketService'], function($, Content, getCookies, validation, logging, determineDevice, Init, socketService){
 
 
 	//Private variables
@@ -76,7 +76,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 
 
 			//Validate email and password
-			validate(email, passInputVal, function(resp){
+			validation.emailPass(email, passInputVal, function(resp){
 
 				if(resp.email === false){
 
@@ -121,7 +121,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 
 								//Log user signing in from registration
 								//form for testing purposes
-								logLoginFromSignup();
+								logging.logLoginFromSignup();
 
 							}else{//User doesn't already exist
 
@@ -181,7 +181,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 
 
 		//Validate email and password
-		validate(email, passField, function(resp){
+		validation.emailPass(email, passField, function(resp){
 
 			if(resp.email === false){
 
@@ -224,7 +224,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 							loadApplication(response[0][0]);
 
 							//log the login
-							logLogin();
+							logging.logLogin();
 
 						}else{//response failure. User may have been deleted
 
@@ -264,7 +264,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 											loadApplication(response[0]);
 
 											//log the login
-											logLogin();
+											logging.logLogin();
 
 										}//success
 									});//ajax
@@ -352,7 +352,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 							loadApplication(response[0][0]);
 
 							//log the login
-							logLogin();
+							logging.logLogin();
 
 
 				    	}//success
@@ -397,7 +397,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		disconnectUser(_auth.access_token);
 
 		//Log the logout
-		logLogout();
+		logging.logLogout();
 
 	});
 
@@ -477,7 +477,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 
 
 		//Validate email
-		validate(email, null, function(resp){
+		validation.emailPass(email, null, function(resp){
 
 			if(resp.email === false){
 
@@ -555,7 +555,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 
 
 		//Validate password
-		validate(null, passInputVal, function(resp){
+		validation.emailPass(null, passInputVal, function(resp){
 
 			if(resp.password === false){
 
@@ -655,7 +655,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 
 
 
-		validateProfile(email, displayName, birthdate, function(resp){
+		validation.settings(email, displayName, birthdate, function(resp){
 
 			if(resp.email === false){
 
@@ -776,7 +776,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 		//Check if passwords match first
 		if(passwordInput.val() === passwordAgainInput.val()){
 			//Validation===================//
-			validateResetPass(currentInput.val(), passwordInput.val(), passwordAgainInput.val(), function(resp){
+			validation.resetPass(currentInput.val(), passwordInput.val(), passwordAgainInput.val(), function(resp){
 
 				if(resp.currentPassword === false){
 
@@ -896,7 +896,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 				reloadLanding();
 
 				//Log the logout
-				logLogout();
+				logging.logLogout();
 
 
 			}//success
@@ -990,7 +990,7 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 					loadApplication(response[0]);
 
 					//log the login
-					logLogin();
+					logging.logLogin();
 
 
 					//Show device namer to new user
@@ -1084,221 +1084,6 @@ define(['jquery', 'Content', 'getCookies', 'determineDevice','Init', 'socketServ
 			document.cookie = 'uid=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 		}
 	};
-
-
-
-
-
-
-
-
-	function logLogin(){
-		//Ensures userId is always available
-		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
-			if(window.userId !== undefined){
-				_userId = window.userId;
-			}else if(getCookies.userId !== undefined){
-				_userId = getCookies.userId;
-			}
-		}
-
-		var API_URL = _baseUrl + '/log-login/' + _userId;
-
-		$.ajax({
-			url 		: API_URL,
-			method 		: 'GET',
-			dataType	: 'json',
-			success 	: function(response){
-				console.log(response);
-			}//success
-		});//ajax
-	}
-
-
-
-
-	function logLogout(){
-		//Ensures userId is always available
-		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
-			if(window.userId !== undefined){
-				_userId = window.userId;
-			}else if(getCookies.userId !== undefined){
-				_userId = getCookies.userId;
-			}
-		}
-
-		var API_URL = _baseUrl + '/log-logout/' + _userId;
-
-		$.ajax({
-			url 		: API_URL,
-			method 		: 'GET',
-			dataType	: 'json',
-			success 	: function(response){
-				console.log(response);
-			}//success
-		});//ajax
-	}
-
-
-
-
-
-	function logLoginFromSignup(){
-		//Ensures userId is always available
-		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
-			if(window.userId !== undefined){
-				_userId = window.userId;
-			}else if(getCookies.userId !== undefined){
-				_userId = getCookies.userId;
-			}
-		}
-
-		var API_URL = _baseUrl + '/log-login-from-signup/' + _userId;
-
-		$.ajax({
-			url 		: API_URL,
-			method 		: 'GET',
-			dataType	: 'json',
-			success 	: function(response){
-				console.log(response);
-			}//success
-		});//ajax
-	}
-
-
-
-
-
-
-
-
-
-
-
-	function validate(email, pass, callback){
-		var passPat 	= /^[a-zA-Z]\w{5,14}$/; //6-15 char abcd aBcd ac3D
-		var emailPat 	= /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/; // standard email validation
-		var response 	= {};
-
-
-		if(email !== null){
-			if(!emailPat.test(email)){
-				response.email = false;
-			}else{
-				response.email = true;
-			}
-		}
-
-
-		if(pass !== null){
-			if(!passPat.test(pass)){
-				response.password = false;
-			}else{
-				response.password = true;
-			}
-		}
-
-
-
-		if(typeof callback === "function"){
-
-			callback(response);
-		}
-	}
-
-
-
-
-
-
-
-
-
-	function validateProfile(email, fullName, birthdate, callback){
-
-		var emailPat 		= /^\w+[\w-\.]*\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/; // standard email validation
-		var letterPattern 	= /^[a-zA-Z \s]+$/;//only allow a-z /
-		var numberPattern 	= /^([0-9]{1,2})[/]+([0-9]{1,2})[/]+([0-9]{2}|[0-9]{4})$/;//only allow 0-9 /
-		var response 		= {};
-
-
-		if(email !== null){
-			if(!emailPat.test(email)){
-				response.email = false;
-			}else{
-				response.email = true;
-			}
-		}
-
-		if(fullName !== null){
-			if(!letterPattern.test(fullName)){
-				response.fullName = false;
-			}else{
-				response.fullName = true;
-			}
-		}
-
-		if(birthdate !== null){
-			if(!numberPattern.test(birthdate)){
-				response.birthdate = false;
-			}else{
-				response.birthdate = true;
-			}
-		}
-
-		if(typeof callback === "function"){
-
-			callback(response);
-		}
-	}
-
-
-
-
-
-
-	function validateResetPass(currentPass, pass, passAgain, callback){
-		var passPat 	= /^[a-zA-Z]\w{5,14}$/; //6-15 char abcd aBcd ac3D
-		var response 	= {};
-
-			if(!passPat.test(currentPass)){
-				response.currentPassword = false;
-			}else{
-				response.currentPassword = true;
-			}
-
-			if(!passPat.test(pass)){
-				response.password = false;
-			}else{
-				response.password = true;
-			}
-
-			if(!passPat.test(passAgain)){
-				response.passwordAgain = false;
-			}else{
-				response.passwordAgain = true;
-			}
-
-
-		if(typeof callback === "function"){
-
-			callback(response);
-		}
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'getCookies', 'videoSizer', 'socketService', 'renderSongInfo'], function($, getCookies, videoSizer, socketService, renderSongInfo){
+define(['jquery', 'getCookies', 'logging', 'videoSizer', 'socketService', 'renderSongInfo'], function($, getCookies, logging, videoSizer, socketService, renderSongInfo){
 
 
 	//private vars
@@ -1251,7 +1251,7 @@ console.log("update");
 				transportPlay.attr('src', 'images/icons/pause.png');
 
 				//Log the song being played
-				logPlay(playingSongId);
+				logging.logPlay(playingSongId, _lastPlaylist);
 		}//else bew video
 
 
@@ -1459,29 +1459,29 @@ console.log("update");
 
 
 
-	function logPlay(songId){
+	// function logPlay(songId){
 
-		ensureUserExists();
+	// 	ensureUserExists();
 
-		//Build according to state
-		if(window.state === 'playlist' && _lastPlaylist !== window.currentPlaylist){
-			var API_URL = _baseUrl + '/log-playlist-play/' + _userId + '/' + window.currentPlaylist;
+	// 	//Build according to state
+	// 	if(window.state === 'playlist' && _lastPlaylist !== window.currentPlaylist){
+	// 		var API_URL = _baseUrl + '/log-playlist-play/' + _userId + '/' + window.currentPlaylist;
 
-			_lastPlaylist = window.currentPlaylist;
-		}else{
-			var API_URL = _baseUrl + '/log-song-play/' + _userId + '/' + songId;
-		}
+	// 		_lastPlaylist = window.currentPlaylist;
+	// 	}else{
+	// 		var API_URL = _baseUrl + '/log-song-play/' + _userId + '/' + songId;
+	// 	}
 
 
-		$.ajax({
-			url 		: API_URL,
-			method 		: 'GET',
-			dataType	: 'json',
-			success 	: function(response){
-				console.log(response);
-			}//success
-		});//ajax
-	}//log
+	// 	$.ajax({
+	// 		url 		: API_URL,
+	// 		method 		: 'GET',
+	// 		dataType	: 'json',
+	// 		success 	: function(response){
+	// 			console.log(response);
+	// 		}//success
+	// 	});//ajax
+	// }//log
 
 
 
