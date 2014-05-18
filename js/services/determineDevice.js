@@ -15,13 +15,9 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies ,getUs
 
 
 
-	var obj = {};
-		obj.thisDevice;
 
 
-
-
-		function determineDevice(callback){
+		var determineDevice = function(){
 
 			var userId = window.userId;
 			var cookies = getCookies;
@@ -50,8 +46,6 @@ console.log(cookies.devices, cookies.devices.length);
 								window.thisDevice 	= devices[j];
 								match 				= true;
 
-								//trigger callback once ready
-								callback(devices[j]);
 
 								$.event.trigger({
 									type 			: 'renderdevices',
@@ -95,9 +89,8 @@ console.log(cookies.devices, cookies.devices.length);
 
 
 
-	obj.get = determineDevice;
 
-	return obj;
+	return determineDevice;
 
 
 

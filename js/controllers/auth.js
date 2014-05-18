@@ -1044,7 +1044,7 @@ define(['jquery', 'Content', 'getCookies', 'validation', 'logging', 'determineDe
 		Content.loadApp();
 
 		//#app needs to have rendered first
-		determineDevice.get(function(){});
+		determineDevice();
 
 		console.log(determineDevice);
 	}

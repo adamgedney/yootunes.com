@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'getCookies', 'logging', 'videoSizer', 'socketService', 'renderSongInfo'], function($, getCookies, logging, videoSizer, socketService, renderSongInfo){
+define(['jquery', 'getCookies', 'logging', 'videoSizer', 'socketService', 'renderSongInfo', 'determineDevice'], function($, getCookies, logging, videoSizer, socketService, renderSongInfo, determineDevice){
 
 
 	//private vars
@@ -161,6 +161,8 @@ define(['jquery', 'getCookies', 'logging', 'videoSizer', 'socketService', 'rende
 			//When libary items have loaded
 			if(event.template === '#libraryItem'){
 
+				//added as a failsafe
+				determineDevice();
 
 				//When list is loaded, if list item video is playing, set icon to pause
 				$('img.playIconImg[data-videoid=' + _playingVideo + ']').attr('src', 'images/icons/pause-drk.png');
@@ -1121,7 +1123,6 @@ console.log("update");
 
 
 	function play(youtubeId){
-
 
 		ensureUserExists();
 

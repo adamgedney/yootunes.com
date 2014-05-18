@@ -257,7 +257,7 @@ console.log(response, _cookies.userId);
 		Content.loadApp();
 
 		//#app needs to have rendered first
-		determineDevice.get(function(){});
+		determineDevice();
 	}
 
 
