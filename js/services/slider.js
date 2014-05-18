@@ -146,69 +146,6 @@ define(['jquery'], function($){
 
 
 
-	//Internal -used by slider()
-	var dragging = function(drag, scrubPos){
-		_dragging = drag;
-
-		//Seek bar dragging
-		if(drag === true){
-			//clear update interval to release control to seekTo function
-			clearInterval(window.updateInterval);
-		}else if(drag === false){
-
-			//Set video position based on scrubPos(x pos)
-			// seekTo(scrubPos);
-			$.event.trigger({
-				type : 'seekto',
-				scrubPos : scrubPos
-			});
-		}
-	}
-
-
-
-
-
-
-
-
-	// //Internal -Used by dragging()
-	// function seekTo(scrubberOffset){
-
-	// 	var seekBar = $('#seek-bar');
-
-	// 	//Set video time: ((scrubber x - bar left) / bar width) * duration
-	// 	var s = ((scrubberOffset - seekBar.offset().left) / seekBar.width()) *_seek.duration;
-
-
-	// 	//Build obj for socket transmission
-	// 	var data = {
-	// 		'device' 			: window.playOnDevice,
-	// 		'controllerDevice' 	: window.thisDevice,
-	// 		'userId' 			: window.userId,
-	// 		'seconds' 			: s
-	// 	}
-
-
-	// 	if(_socket === 'open'){
-
-	// 		//EMIT seekTo event back to server
-	// 		_socketConnect.emit('seekTo', data);
-	// 	}
-
-
-	// 	//seekTo normally
-	// 	_player.seekTo(s, true);
-	// }
-
-
-
-
-
-
-
-
-
 
 	//External - used by the playin status in playerjs
 	//Updates the time in the transport view
@@ -327,6 +264,41 @@ define(['jquery'], function($){
 
 		}//if draggin false
 	}
+
+
+
+
+
+
+
+
+
+	//Internal -used by slider()
+	var dragging = function(drag, scrubPos){
+		_dragging = drag;
+
+		//Seek bar dragging
+		if(drag === true){
+			//clear update interval to release control to seekTo function
+			clearInterval(window.updateInterval);
+		}else if(drag === false){
+
+			//Set video position based on scrubPos(x pos)
+			// seekTo(scrubPos);
+			$.event.trigger({
+				type : 'seekto',
+				scrubPos : scrubPos
+			});
+		}
+	}
+
+
+
+
+
+
+
+
 
 
 	//Return public methods

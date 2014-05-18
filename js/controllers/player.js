@@ -9,13 +9,6 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 	var _playerPlaying      = false;
 	var	_playerNewVideo		= true;
-	// var window.updateInterval;
-
-	// var _seek 				= {};
-	// 	_seek.scrubber		= '#seek-dot',
-	// 	_seek.seekPos 		= 0,
-	// 	_seek.duration 		= 0,
-	// 	_dragging 			= false;
 
 	var _resultLength 		= 0;
 	var _currentIndex 		= 0;
@@ -54,20 +47,20 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 
 
-		//Ensures private vars won't be set until ready
-		$(document).on('gotdevices', function(event){
+		// //Ensures private vars won't be set until ready
+		// $(document).on('gotdevices', function(event){
 
-			//Retrieve cookies & set device & userId
-			var userCookies = getCookies;
+		// 	//Retrieve cookies & set device & userId
+		// 	var userCookies = getCookies;
 
-			_thisDevice 	= event.thisDevice;
-			_playOnDevice 	= event.thisDevice;//default device
-			_userId 		= userCookies.userId;
+		// 	_thisDevice 	= event.thisDevice;
+		// 	_playOnDevice 	= event.thisDevice;//default device
+		// 	_userId 		= userCookies.userId;
 
 
-			console.log(_thisDevice, "player device", event, window.thisDevice);
+		// 	console.log(_thisDevice, "player device", event, window.thisDevice);
 
-		});
+		// });
 
 
 
@@ -364,15 +357,24 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 				$(document).on('click', '#play-btn', function(){
 					var libraryWrapper 	= $('#libraryWrapper');
 
-					var youtubeId = libraryWrapper.find('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
+						//FOOTER PLAY BUTTON click handling in slave mode
+						if(_playMode.slave !== false){
+							var youtubeId = libraryWrapper.find('li.resultItems:eq(' + 0 + ')').find('.playIconImg').attr('data-videoId');
+						}else{
+							var youtubeId = PLAYER.getVideoData().video_id;
+						}
 
 						//Play if not already playing
 						if(_playerPlaying === false){
 
-							play(youtubeId);
 
-							_playerPlaying 	= true;
-							_paused 		= false;
+								play(youtubeId);
+
+								_playerPlaying 	= true;
+								_paused 		= false;
+
+
+
 
 						//Stop playing if already playing
 						}else{
@@ -874,6 +876,10 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 
 
+
+
+
+
 	function seekTo(scrubberOffset){
 
 		var seekBar = $('#seek-bar');
@@ -1076,7 +1082,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 				//Delay play by 1s to wait for socket connection to load slave video
 				// setTimeout(, 1000);
 
-				PLAYER.playVideo()
+				PLAYER.playVideo();
 
 
 			}else if(_socket === null){
