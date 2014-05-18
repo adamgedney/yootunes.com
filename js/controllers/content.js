@@ -295,7 +295,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 			console.log("slave mode content cont");
 			getUserDevices.get(_userId, function(response){
 
-				renderDevices(response);
+				renderDevices(window.thisDevice, response);
 			});//getDevices
 
 		});
@@ -339,7 +339,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 				//Render devices once init has retrieved them
 				$(document).on('renderdevices', function(event){
-console.log("renderdevices event", event);
+;
 					//Set this device once a new one is created
 					if(event.thisDevice){
 						_thisDevice = event.thisDevice;
@@ -347,13 +347,13 @@ console.log("renderdevices event", event);
 
 					//Render devices
 					if(event.response){
-						console.log("evtresponse");
-						renderDevices(event.response);
+
+						renderDevices(event.thisDevice, event.response);
 					}else{
-						console.log("evtNOresponse");
+
 						//Fetch as render user devices in lists and modals
 						getUserDevices.get(_userId, function(response){
-							renderDevices(response);
+							renderDevices(window.thisDevice, response);
 						});
 					}
 				});//renderdevices
@@ -529,7 +529,7 @@ console.log("renderdevices event", event);
 
 				//Get Devices
 				getUserDevices.get(_userId, function(response){
-					renderDevices(response);
+					renderDevices(window.thisDevice, response);
 				});
 
 			}//acctSettings
@@ -1210,7 +1210,8 @@ console.log("renderdevices event", event);
 
 
 
-	function renderDevices(response){
+	function renderDevices(thisDevice, response){
+
 		var deviceName  	= $('#renameDeviceName');
 		var playOn 			= $('select#play-on');
 		var mobilePlayOn 	= $('select#mobile-play-on');
@@ -1226,7 +1227,7 @@ console.log("renderdevices event", event);
 		for(var j=0;j<response.length;j++){
 
 			//If device is this device, set name
-			if(response[j].id === _thisDevice){
+			if(response[j].id === thisDevice){
 
 				//Set ACCOUNT SETTINGS current device if it matches the cookie
 				deviceName.val(response[j].name);
