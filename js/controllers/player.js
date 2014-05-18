@@ -699,8 +699,6 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 				videoSizer.fullView();
 
-				console.log("socket play return event received thisDev/response", _thisDevice, response);
-
 				//Hide the shuffle icon ** may need to display none it
 				$('img#shuffleResults').css('opacity','0');
 
@@ -720,7 +718,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 						//Updates button ui
 						$('div.transport-ctrl img#play-btn').attr('src', 'images/icons/pause.png');
 
-						_playerPlaying= !_playerPlaying;
+						_playerPlaying = true;
 
 					}else{
 						//unmute the controller
@@ -730,6 +728,8 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 						$('div.volume-ctrl img.vol-icon').attr('src', 'images/icons/volume-icon.svg');
 
 						PLAYER.loadVideoById(response.youtubeId);
+
+						_playerPlaying = true;
 					}//else
 			}//if _thisDevice
 		});//_socketConnect.on
