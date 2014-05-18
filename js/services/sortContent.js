@@ -1,5 +1,5 @@
 (function(){
-define(['jquery'], function($){
+define(['jquery', 'activeItem'], function($, activeItem){
 
 
 	var _sort 			= {};
@@ -28,7 +28,9 @@ define(['jquery'], function($){
 		$(document).on('click', '.viewSongs, .viewArtists, .viewAlbums, .viewGenres', function(event){
 
 			if(window.state !== 'library'){
-				loadLibrary();
+				$.event.trigger({
+					type : 'loadlibrary',
+				});
 			}else if(window.state === 'library' && $(this).hasClass('viewSongs')){
 				var sortOn = 'span.li-col2';
 			}else if(window.state === 'library' && $(this).hasClass('viewArtists')){
@@ -38,6 +40,20 @@ define(['jquery'], function($){
 			}else if(window.state === 'library' && $(this).hasClass('viewGenres')){
 				var sortOn = 'span.li-col5';
 			}
+
+
+
+			//Used to set active item in activeItem service
+			if($(this).hasClass('viewSongs')){
+				activeItem('.viewSongs');
+			}else if($(this).hasClass('viewArtists')){
+				activeItem('.viewArtists');
+			}else if($(this).hasClass('viewAlbums')){
+				activeItem('.viewAlbums');
+			}else if($(this).hasClass('viewGenres')){
+				activeItem('.viewGenres');
+			}
+
 
 			sortContent(_sort.ul, _sort.li, sortOn);
 		});

@@ -1459,36 +1459,6 @@ console.log("update");
 
 
 
-	// function logPlay(songId){
-
-	// 	ensureUserExists();
-
-	// 	//Build according to state
-	// 	if(window.state === 'playlist' && _lastPlaylist !== window.currentPlaylist){
-	// 		var API_URL = _baseUrl + '/log-playlist-play/' + _userId + '/' + window.currentPlaylist;
-
-	// 		_lastPlaylist = window.currentPlaylist;
-	// 	}else{
-	// 		var API_URL = _baseUrl + '/log-song-play/' + _userId + '/' + songId;
-	// 	}
-
-
-	// 	$.ajax({
-	// 		url 		: API_URL,
-	// 		method 		: 'GET',
-	// 		dataType	: 'json',
-	// 		success 	: function(response){
-	// 			console.log(response);
-	// 		}//success
-	// 	});//ajax
-	// }//log
-
-
-
-
-
-
-
 
 
 

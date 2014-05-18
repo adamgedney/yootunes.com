@@ -68,7 +68,8 @@ require.config({
 		slider 			: 'services/slider',
 		tips 			: 'services/toolTips',
 		validation 		: 'services/validation',
-		logging 		: 'services/logging'
+		logging 		: 'services/logging',
+		activeItem 		: 'services/activeItem'
 	}
 });
 

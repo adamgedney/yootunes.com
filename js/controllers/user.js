@@ -220,35 +220,6 @@ console.log(name, deviceId, "rename");
 //================================//
 
 
-
-
-	// function getDevices(userId, callback){
-	// 	var API_URL = _baseUrl + '/get-devices/' + userId;
-
-	// 	//Get current user's devices
-	// 	$.ajax({
-	// 		url : API_URL,
-	// 		method : 'GET',
-	// 		dataType : 'json',
-	// 		success : function(response){
-
-	// 			//Callback once data received
-	// 			if(typeof callback === "function"){
-
-	// 				callback(response);
-	// 			}
-	// 		}//success
-	// 	});//ajax
-	// }
-
-
-
-
-
-
-
-
-
 	function addDevice(userId){
 
 		//retrieve device array from service

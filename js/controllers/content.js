@@ -1,6 +1,6 @@
 (function(){
-define(['jquery', 'Handlebars', 'getCookies', 'sortContent', 'getUserDevices','Init', 'User', 'Ui', 'Library'],
-	function($, handlebars, getCookies, sortContent, getUserDevices, Init, User, Ui, Library){
+define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getUserDevices','Init', 'User', 'Ui', 'Library'],
+	function($, handlebars, getCookies, activeItem, sortContent, getUserDevices, Init, User, Ui, Library){
 
 
 
@@ -44,7 +44,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'sortContent', 'getUserDevices','I
 			window.state 	= 'settings';
 
 
-			activeLibraryItem('#acctSettings');
+			activeItem('#acctSettings');
 
 			//Set correct container height
 			$('#scroll-container').css('height', '100vh');
@@ -72,7 +72,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'sortContent', 'getUserDevices','I
 			//Get & load playlist songs
 			loadPlaylistSongs(playlistId);
 
-			activeLibraryItem(playlistId);
+			activeItem(playlistId);
 
 			$('div.section-header').show();
 
@@ -618,6 +618,16 @@ define(['jquery', 'Handlebars', 'getCookies', 'sortContent', 'getUserDevices','I
 			event.preventDefault();
 
 			loadForgotPass();
+		});
+
+
+
+
+
+
+		//Loadlibrary event fired form the sortContent service
+		$(document).on('loadlibrary', function(){
+			loadLibrary();
 		});
 
 
@@ -1346,7 +1356,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'sortContent', 'getUserDevices','I
 
 		sortList(sortBy);
 
-		activeLibraryItem(activeItem);
+		activeItem(activeItem);
 
 		//Set correct container height
 		scrollContainer.css('height', '74vh');
@@ -1357,107 +1367,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'sortContent', 'getUserDevices','I
 
 
 
-
-
-
-
-
-	function activeLibraryItem(active){
-
-		var songs 		= $('li.viewSongs');
-		var artists 	= $('li.viewArtists');
-		var albums 		= $('li.viewAlbums');
-		var genres 		= $('li.viewGenres');
-		var settings 	= $('li#acctSettings');
-		var playlists 	= $('a.playlistTitle');
-
-		var songsA 		= songs.find('a');
-		var artistsA	= artists.find('a');
-		var albumsA 	= albums.find('a');
-		var genresA 	= genres.find('a');
-		var settingsA 	= settings.find('a');
-
-
-			if(active === songs){
-				songsA.addClass('red');
-				songs.addClass('red');
-
-				artists.removeClass('red');
-				albums.removeClass('red');
-				genres.removeClass('red');
-				artistsA.removeClass('red');
-				albumsA.removeClass('red');
-				genresA.removeClass('red');
-				settingsA.removeClass('red');
-				playlists.removeClass('red');
-
-			}else if(active === artists){
-				artistsA.addClass('red');
-				artists.addClass('red');
-
-				songs.removeClass('red');
-				albums.removeClass('red');
-				genres.removeClass('red');
-				songsA.removeClass('red');
-				albumsA.removeClass('red');
-				genresA.removeClass('red');
-				settingsA.removeClass('red');
-				playlists.removeClass('red');
-
-			}else if(active === albums){
-				albumsA.addClass('red');
-				albums.addClass('red');
-
-				artists.removeClass('red');
-				songs.removeClass('red');
-				genres.removeClass('red');
-				songsA.removeClass('red');
-				artistsA.removeClass('red');
-				genresA.removeClass('red');
-				settingsA.removeClass('red');
-				playlists.removeClass('red');
-
-			}else if(active === genres){
-				genresA.addClass('red');
-				genres.addClass('red');
-
-				artists.removeClass('red');
-				albums.removeClass('red');
-				songs.removeClass('red');
-				songsA.removeClass('red');
-				artistsA.removeClass('red');
-				albumsA.removeClass('red');
-				settingsA.removeClass('red');
-				playlists.removeClass('red');
-
-			}else if(active === settings){
-				settingsA.addClass('red');
-
-				artists.removeClass('red');
-				albums.removeClass('red');
-				songs.removeClass('red');
-				genres.removeClass('red');
-				songsA.removeClass('red');
-				artistsA.removeClass('red');
-				albumsA.removeClass('red');
-				genresA.removeClass('red');
-				playlists.removeClass('red');
-
-			}else{//if active is a playlist id
-				playlists.removeClass('red');
-				$('a.playlistTitle[data-id=' + active + ']').addClass('red');
-
-				artists.removeClass('red');
-				albums.removeClass('red');
-				songs.removeClass('red');
-				genres.removeClass('red');
-				songsA.removeClass('red');
-				artistsA.removeClass('red');
-				albumsA.removeClass('red');
-				genresA.removeClass('red');
-				settingsA.removeClass('red');
-			}
-	}
 
 
 
