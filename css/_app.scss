@@ -878,7 +878,7 @@ section.app{
 	margin-right: 2%;
 
 	@include app-break-smmd{
-		@include col(6);
+		@include col(5);
 	}
 }
 
