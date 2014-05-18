@@ -162,7 +162,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'soc
 			if(event.template === '#libraryItem'){
 
 				//added as a failsafe
-				determineDevice();
+				// determineDevice();
 
 				//When list is loaded, if list item video is playing, set icon to pause
 				$('img.playIconImg[data-videoid=' + _playingVideo + ']').attr('src', 'images/icons/pause-drk.png');

@@ -58,8 +58,8 @@ define(['jquery', 'Player'], function($, Player){
 
 
 		//Extra click handler to enable click to position on seek bar
-		$(document).on('click', _seek.seekBar, function(e){
-			var scrubberReference = $(_seek.scrubber);
+		$(document).on('click', bar, function(e){
+			var scrubberReference = $(thumb);
 
 			scrubberReference.offset({left: e.pageX});
 

@@ -1226,21 +1226,8 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 		//Loop through device list
 		for(var j=0;j<response.length;j++){
 
-			//If device is this device, set name
-			if(response[j].id === thisDevice){
-
-				//Set ACCOUNT SETTINGS current device if it matches the cookie
-				deviceName.val(response[j].name);
-				deviceName.attr('data-id', response[j].id);
-				var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
-				deviceList.append(li);
-
-				//set FOOTER list items first result to the current device
-				var option = '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
-				playOn.prepend(option);
-				mobilePlayOn.prepend(option);
-
-			}else{
+			//Render user devices
+			if(response[j].id !== thisDevice){
 
 				//Render MODAL window list
 				var option 	= '<option data-id="' + response[j].id + '">' + response[j].name + '</option>';
@@ -1257,7 +1244,24 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 				playOn.append(option);
 				mobilePlayOn.append(option);
 
-			}//else
+			}//if
+
+
+			//Send thisDevice to top of the list
+			if(response[j].id === thisDevice){
+
+				//Set ACCOUNT SETTINGS current device if it matches the cookie
+				deviceName.val(response[j].name);
+				deviceName.attr('data-id', response[j].id);
+				var li = '<li>' + response[j].name + ' <img id="deleteDevice" data-id="' + response[j].id + '" src="images/icons/trash-icon.svg"/></li>';
+				deviceList.append(li);
+
+				//set FOOTER list items first result to the current device
+				var option = '<option selected data-id="' + response[j].id + '">' + response[j].name + '</option>';
+				playOn.prepend(option);
+				mobilePlayOn.prepend(option);
+
+			}
 		}//for
 
 		//Add a blank device to MODAL list
