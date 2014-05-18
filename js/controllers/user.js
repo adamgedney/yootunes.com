@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies, getUserDevices){
+define(['jquery', 'getCookies', 'getUserDevices', 'determineDevice'], function($, getCookies, getUserDevices, determineDevice){
 
 
 	//private vars
@@ -282,7 +282,9 @@ console.log(name, deviceId, "rename");
 
 			nameDeviceModal.fadeOut();
 
-console.log(localStorage);
+
+			//#app needs to have rendered first
+			determineDevice.get(function(){});
 
 		}else{//NEW DEVICE
 
@@ -316,6 +318,9 @@ console.log(localStorage);
 
 
 					nameDeviceModal.fadeOut();
+
+					//#app needs to have rendered first
+					determineDevice.get(function(){});
 
 				}//success
 			});//ajax
