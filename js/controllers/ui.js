@@ -60,9 +60,9 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 					//Only run tooltips on desktop machines
 					//It's a slow parsing process
-					if(window.windowWidth > app_break_smmd){
-						tips();
-					}
+					// if(window.windowWidth > app_break_smmd){
+					// 	tips();
+					// }
 
 
 				}//if library or playlist rendered

@@ -22,7 +22,6 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies , getU
 			var userId = window.userId;
 			var cookies = getCookies;
 
-console.log(cookies.devices, cookies.devices.length);
 			if(cookies.devices.length !== 0){
 
 				var devices = cookies.devices;
@@ -46,7 +45,6 @@ console.log(cookies.devices, cookies.devices.length);
 								window.thisDevice 	= devices[j];
 								match 				= true;
 
-console.log("match found in determine");
 								//Picked up by contentjs
 								$.event.trigger({
 									type 			: 'renderdevices',
