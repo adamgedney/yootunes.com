@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'getCookies', 'logging', 'videoSizer', 'socketService', 'renderSongInfo', 'determineDevice'], function($, getCookies, logging, videoSizer, socketService, renderSongInfo, determineDevice){
+define(['jquery', 'getCookies', 'determineDevice', 'logging', 'videoSizer', 'socketService', 'renderSongInfo'], function($, getCookies, determineDevice, logging, videoSizer, socketService, renderSongInfo){
 
 
 	//private vars

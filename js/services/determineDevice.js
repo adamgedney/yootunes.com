@@ -85,7 +85,7 @@ console.log(cookies.devices, cookies.devices.length);
 						message : 'cookies do not exist'
 					});
 			}//else
-	}//get
+		}//get
 
 
 
