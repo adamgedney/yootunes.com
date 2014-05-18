@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies ,getUserDevices){
+define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies , getUserDevices){
 
 
 
@@ -46,7 +46,8 @@ console.log(cookies.devices, cookies.devices.length);
 								window.thisDevice 	= devices[j];
 								match 				= true;
 
-
+console.log("match found in determine");
+								//Picked up by contentjs
 								$.event.trigger({
 									type 			: 'renderdevices',
 									response 		: response,

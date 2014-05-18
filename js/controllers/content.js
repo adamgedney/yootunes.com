@@ -287,25 +287,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 
 
-		// //Set device on new device creation
-		// $(document).on('reloadDevices', function(event){
-
-
-		// 	//Set this device once a new one is created
-		// 	_thisDevice = event.thisDevice;
-
-		// 	//Load devices
-		// 	getUserDevices.get(_userId, function(response){
-		// 		renderDevices(response);
-		// 	});
-
-		// });//on reloadDevices
-
-
-
-
-
-
 
 
 		//Reload devices in slave mode to prevent glitched controlling
@@ -353,25 +334,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 				}
 
 
-				// //Failsafe retrieval of theme
-				// if(window.theme === undefined){
-				// 	window.theme = getCookies.theme;
-				// }
-
-				// //Set the application THEME colors
-				// if(window.theme === 'light'){
-
-				// 	Ui.themeLight();
-				// }else{
-
-				// 	Ui.themeDark();
-				// }
 
 
 
 				//Render devices once init has retrieved them
 				$(document).on('renderdevices', function(event){
-
+console.log("renderdevices event", event);
 					//Set this device once a new one is created
 					if(event.thisDevice){
 						_thisDevice = event.thisDevice;
@@ -379,8 +347,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 					//Render devices
 					if(event.response){
+						console.log("evtresponse");
 						renderDevices(event.response);
 					}else{
+						console.log("evtNOresponse");
 						//Fetch as render user devices in lists and modals
 						getUserDevices.get(_userId, function(response){
 							renderDevices(response);
