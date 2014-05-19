@@ -112,15 +112,16 @@ html{
 
 	.mobile-logo{
 		display: inline-block;
-		width: 155px;
-		margin: 3px 15%;
+		width: 125px;
+		margin: 3px 0 3px 20%;
 
 		@include app-break-sm{
-			margin: 3px 20%;
+			margin: 3px  0 3px 30%;
+			width: 155px;
 		}
 
 		@include app-break-smmd{
-			margin: 3px 22%;
+			margin: 3px 0 3px 42%;
 		}
 	}
 

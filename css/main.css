@@ -5402,17 +5402,18 @@ html {
 }
 #mobile-header .mobile-logo {
   display: inline-block;
-  width: 155px;
-  margin: 3px 15%;
+  width: 125px;
+  margin: 3px 0 3px 20%;
 }
 @media only screen and (min-width: 480px) {
   #mobile-header .mobile-logo {
-    margin: 3px 20%;
+    margin: 3px  0 3px 30%;
+    width: 155px;
   }
 }
 @media only screen and (min-width: 800px) {
   #mobile-header .mobile-logo {
-    margin: 3px 22%;
+    margin: 3px 0 3px 42%;
   }
 }
 @media only screen and (min-width: 800px) {
