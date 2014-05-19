@@ -133,8 +133,9 @@ html{
 	position: absolute;
 	top: 13px;
 	right: 9px;
-	height: 100%;
-	@include col(1);
+	// height: 48px;
+	width: 40px;
+	// @include col(1);
 
 	img{
 		@include col(10);

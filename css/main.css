@@ -5425,8 +5425,7 @@ html {
   position: absolute;
   top: 13px;
   right: 9px;
-  height: 100%;
-  width: 8.33333333%;
+  width: 40px;
 }
 #minimizeOverlay img {
   width: 83.3333333%;
