@@ -173,7 +173,7 @@ aside{
 
 	li{
 		line-height: 42px;
-		border-bottom: 1px solid nth($grey, 1);
+		// border-bottom: 1px solid nth($grey, 1);
 
 		@include app-break-smmd{
 			line-height: 27px;

@@ -5463,7 +5463,6 @@ aside {
 }
 aside li {
   line-height: 42px;
-  border-bottom: 1px solid #272a2a;
 }
 @media only screen and (min-width: 800px) {
   aside li {

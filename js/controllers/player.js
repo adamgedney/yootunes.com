@@ -137,7 +137,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 				}else{
 					video.show();
 					videoSizeCtrls.show();
-					footer.show();
+					// footer.show();
 				}
 
 				//Start loading the player script once #video is on DOM

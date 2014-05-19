@@ -111,7 +111,7 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 				window.windowWidth 	= $(window).width();
 				var videoSizeCtrl 	= $('div.video-size-ctrl');
 				var video 			= $('#video');
-				var footer 			= $('div.footer');
+				// var footer 			= $('div.footer');
 
 				//On resize show sidebar
 				if(window.windowWidth > app_break_smmd){
@@ -120,12 +120,12 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 					video.show();
 					videoSizeCtrl.show();
-					footer.show();
+					// footer.show();
 					$('span.li-col1').show();
 				}else{
 					video.hide();
 					videoSizeCtrl.hide();
-					footer.hide();
+					// footer.hide();
 				}
 
 
