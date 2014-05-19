@@ -21,8 +21,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 	var _libraryCount;
 	var _loadInterval;
 
-
 	window.state 		= 'library';
+
+	//CSS breakpoints
+	var app_break_smmd 	= '800';
 
 
 
@@ -319,7 +321,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 			if(event.template === '#app'){
 
 				//Show adsense ads on app load
-				$('#adsense').show();
+				if(window.windowWidth > app_break_smmd){
+					$('#adsense').show();
+				}
+
 				// DOM.video.show();
 
 
@@ -1195,6 +1200,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 		for(var i=0; i<selectors.length;i++){
 			$(selectors[i]).hide();
 		}
+
 	}
 
 
