@@ -35,6 +35,28 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
+	var logFailedLogin = function(email){
+
+		var API_URL = _baseUrl + '/log-failed-login/' + email;
+
+			$.ajax({
+				url 		: API_URL,
+				method 		: 'GET',
+				dataType	: 'json',
+				success 	: function(response){
+					console.log(response);
+				}//success
+			});//ajax
+	}
+
+
+
+
+
+
+
+
+
 
 	var logLogout = function(){
 
@@ -146,6 +168,13 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 
 
+
+
+
+
+
+
+
 	function ensureUserExists(){
 		//Ensures userId is always available
 		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
@@ -170,6 +199,7 @@ define(['jquery', 'getCookies'], function($, getCookies){
 
 	var logging = {
 		logLogin 			: logLogin,
+		logFailedLogin 		: logFailedLogin,
 		logLogout 			: logLogout,
 		logLoginFromSignup 	: logLoginFromSignup,
 		logPlay 			: logPlay,

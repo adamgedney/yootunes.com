@@ -283,6 +283,9 @@ define(['jquery', 'Content', 'getCookies', 'validation', 'logging', 'determineDe
 
 
 								});//onclick new account
+							}else{
+								//user never existed. Log failed login attempt
+								logging.logFailedLogin();
 							}//if restorable
 						}//if/else response
 					}//success

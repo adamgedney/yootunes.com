@@ -18,7 +18,7 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies , getU
 
 
 		var determineDevice = function(){
-
+console.log("determine ran");
 			var userId = window.userId;
 			var cookies = getCookies;
 
