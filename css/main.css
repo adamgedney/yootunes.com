@@ -5972,7 +5972,7 @@ section.app {
   width: 100%;
   background: #e2e2e2;
   position: absolute;
-  top: 157px;
+  top: 96px;
   height: auto;
   z-index: 15000;
 }
@@ -6086,7 +6086,7 @@ section.app {
 
 .li-col2 {
   display: inline-block;
-  width: 100%;
+  width: 83.3333333%;
   float: left;
   padding-right: 2%;
   margin-right: 2%;
@@ -6156,7 +6156,7 @@ section.app {
      -moz-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
   		box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);*/
 }
-.li-header .li-col1, .li-header .li-col2, .li-header .li-col3, .li-header .li-col4, .li-header .li-col5, .li-header .li-col5, .li-header .li-col7 {
+.li-header .li-col1, .li-header .li-col2, .li-header .li-col3, .li-header .li-col4, .li-header .li-col5, .li-header .li-col6, .li-header .li-col7 {
   max-height: 27px;
   line-height: 27px;
   font-family: OpenSansLight;
@@ -6169,6 +6169,10 @@ section.app {
 .li-header .li-col1 svg, .li-header .li-col1 img {
   display: block;
   margin-left: 24%;
+}
+.li-header .li-col5 {
+  width: 16.6666667%;
+  padding-left: 2%;
 }
 .li-header .li-col7 {
   text-align: right;

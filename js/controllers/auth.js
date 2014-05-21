@@ -324,43 +324,41 @@ define(['jquery', 'Content', 'getCookies', 'User', 'validation', 'logging', 'det
 			if (authResult.status.signed_in) {
 		    // Update the app to reflect a signed in user
 
-		    //Once client has laoded, implement plus features
-	  		gapi.client.load('plus','v1', function(data){
+			    //Once client has laoded, implement plus features
+		  		gapi.client.load('plus','v1', function(data){
 
-				var user = gapi.client.plus.people.get({'userId' : 'me'});
+					var user = gapi.client.plus.people.get({'userId' : 'me'});
 
-				//Request the profile defined above
-				user.execute(function(profile){
+					//Request the profile defined above
+					user.execute(function(profile){
 
-					//Build URL w/ data to send to API
-					var API_URL = _baseUrl + '/plus-user/' +
-								profile.displayName + '/' +
-								profile.id + '/' +
-								profile.gender;
+						//Build URL w/ data to send to API
+						var API_URL = _baseUrl + '/plus-user/' +
+									profile.displayName + '/' +
+									profile.id + '/' +
+									profile.gender;
 
-console.log(profile, "plus response");
+	console.log(profile, "plus response");
 
-				    //Call API to create or get Plus user
-				    $.ajax({
-				    	url : API_URL,
-				    	method : 'GET',
-				    	dataType : 'json',
-				    	success : function(response){
-console.log(response, "plus ajax response");
-			    			//Load app, set cookie, fire event
-							loadApplication(response[0][0]);
+					    //Call API to create or get Plus user
+					    $.ajax({
+					    	url : API_URL,
+					    	method : 'GET',
+					    	dataType : 'json',
+					    	success : function(response){
+	console.log(response, "plus ajax response");
+				    			//Load app, set cookie, fire event
+								loadApplication(response[0][0]);
 
-							//log the login
-							logging.logLogin();
-
-
-				    	}//success
-				    });//ajax
-			   });//user.execute
-			});//gapi.client.laod
+								//log the login
+								logging.logLogin();
 
 
-		  }//if
+					    	}//success
+					    });//ajax
+				   });//user.execute
+				});//gapi.client.laod
+		 	 }//if
 	};//AuthCallback
 
 

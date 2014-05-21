@@ -377,14 +377,14 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 					_dropdownOpen = true;
 
 					//Show/hide last col if not a query
-					if(window.state !== "query"){
-						//Show last column
-						$('span.li-col7').hide();//<----causing add icon to disappear
-						$('span.li-col4').css({'width':'16.6666667%'});//2 col Album column
+					// if(window.state !== "query"){
+					// 	//Show last column
+					// 	$('span.li-col7').hide();//<----causing add icon to disappear
+					// 	$('span.li-col4').css({'width':'16.6666667%'});//2 col Album column
 
-						$(this).find('span.li-col7').show();
-						$('span.li-col4').css({'width':'8.33333333%'});//1 col Album col
-					}
+					// 	$(this).find('span.li-col7').show();
+					// 	$('span.li-col4').css({'width':'8.33333333%'});//1 col Album col
+					// }
 
 
 
@@ -405,11 +405,11 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 				}else{//DROPDOWN CLOSE
 
 					//Show/hide last col if not a query
-					if(window.state !== "query"){
-						//Hide last column
-						$('span.li-col7').hide();//<----causing add icon to disappear
-						$('span.li-col4').css({'width':'16.6666667%'});//2 col Album column
-					}
+					// if(window.state !== "query"){
+					// 	//Hide last column
+					// 	$('span.li-col7').hide();//<----causing add icon to disappear
+					// 	$('span.li-col4').css({'width':'16.6666667%'});//2 col Album column
+					// }
 
 					$(this).parent().css({'background' : 'none'});
 

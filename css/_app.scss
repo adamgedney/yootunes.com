@@ -742,7 +742,7 @@ section.app{
 	@include col(12);
 	background: nth($grey, 5);
 	position: absolute;
-	top: 157px;
+	top: 96px;
 	height: auto;
 	z-index: 15000;
 
@@ -874,7 +874,7 @@ section.app{
 
 .li-col2{
 	display: inline-block;
-	@include col(12);
+	@include col(10);
 	float: left;
 	padding-right: 2%;
 	margin-right: 2%;
@@ -947,7 +947,7 @@ section.app{
 	   -moz-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
 			box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);*/
 
-	.li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col5, .li-col7{
+	.li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col6, .li-col7{
 		max-height: 27px;
 		line-height: 27px;
 		font-family: OpenSansLight;
@@ -963,6 +963,11 @@ section.app{
 			display: block;
 			margin-left: 24%;
 		}
+	}
+
+	.li-col5{
+		@include col(2);
+		padding-left: 2%;
 	}
 
 	.li-col7{

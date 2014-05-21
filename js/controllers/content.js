@@ -120,7 +120,10 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 						var startDisplay = true;
 						datalist.empty();
 
-						datalist.append('<li>Search History</li><li></li>');
+						if(response.length !== 0){
+							datalist.append('<li>Search History</li><li></li>');
+						}
+
 
 						//Creates list of previous queries from DB.
 						for(var i=1;i<response.length;i++){
@@ -389,14 +392,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
 				if($('span.sourceTitle').html() === 'Add'){
 
-					$('span.li-col7').show();
+					// $('span.li-col7').show();
 					// $('span.li-col2').css({'width':'41.6666666%'});//4 col
 
 					//Swaps out icon for add icon
 					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/add.png');
 				}else{
 
-					$('.li-col7').hide();
+					// $('.li-col7').hide();
 					// $('.li-col2').css({'width':'50%'});//5 col
 
 					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/trash-icon.svg');
@@ -973,7 +976,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 	//Gets data & Loads library template
 	function loadLibrary(){
-
+console.log("load library ran");
 		window.state 	= 'library';
 
 		//*** Rewrite API. No more need for pagination
@@ -1018,7 +1021,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 					prepareLibrary(localResponse);
 
-					// console.log("pulled lib from local storage");
+					console.log("pulled lib from local storage");
 
 				}else{//Library count has changed
 
@@ -1063,7 +1066,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 				if(localStorage){
 					localStorage.setItem('library', JSON.stringify(response));
 
-					// console.log("rewrote local storage");
+					console.log("rewrote local storage");
 				}
 
 				_libraryChanged = false;
