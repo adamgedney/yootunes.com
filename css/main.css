@@ -6412,6 +6412,12 @@ section.app {
   }
 }
 
+.sortIcon {
+  width: 8px;
+  opacity: .1;
+  margin: 6px 0 0 3px;
+}
+
 .li-group {
   color: #494f4f;
   font-size: .8em;
@@ -7009,8 +7015,8 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
   width: 16.6666667%;
   float: left;
   height: 100%;
-  padding: 0 4%;
   display: none;
+  padding: 0 2.5%;
 }
 .playing-share-ctrl svg, .playing-share-ctrl img {
   height: 18px;
@@ -7020,6 +7026,11 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 @media only screen and (min-width: 800px) {
   .playing-share-ctrl {
     display: inline-block;
+  }
+}
+@media only screen and (min-width: 1154px) {
+  .playing-share-ctrl {
+    padding: 0 4%;
   }
 }
 

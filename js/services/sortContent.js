@@ -46,16 +46,20 @@ define(['jquery', 'activeItem'], function($, activeItem){
 			//Used to set active item in activeItem service
 			if($(this).hasClass('viewSongs')){
 				activeItem('.viewSongs');
+				var iconTarget = $('.mainViewSongs').find('img.sortIcon');
 			}else if($(this).hasClass('viewArtists')){
 				activeItem('.viewArtists');
+				var iconTarget = $('.mainViewArtists').find('img.sortIcon');
 			}else if($(this).hasClass('viewAlbums')){
 				activeItem('.viewAlbums');
+				var iconTarget = $('.mainViewAlbums').find('img.sortIcon');
 			}else if($(this).hasClass('viewGenres')){
 				activeItem('.viewGenres');
+				var iconTarget = $('.mainViewGenres').find('img.sortIcon');
 			}
 
 
-			sortContent(_sort.ul, _sort.li, sortOn);
+			sortContent(_sort.ul, _sort.li, sortOn, iconTarget);
 		});
 
 
@@ -69,17 +73,20 @@ define(['jquery', 'activeItem'], function($, activeItem){
 
 				if($(this).hasClass('mainViewSongs')){
 					var sortOn 	= 'span.li-col2';
+					var icon 	= $(this).find('img.sortIcon');
 				}else if($(this).hasClass('mainViewArtists')){
 					var sortOn 	= 'span.li-col3';
+					var icon 	= $(this).find('img.sortIcon');
 				}else if($(this).hasClass('mainViewAlbums')){
 					var sortOn 	= 'span.li-col4';
+					var icon 	= $(this).find('img.sortIcon');
 				}else if($(this).hasClass('mainViewGenres')){
 					var sortOn 	= 'span.li-col5';
+					var icon 	= $(this).find('img.sortIcon');
 				}
 
-				sortContent(_sort.ul, _sort.li, sortOn);
+				sortContent(_sort.ul, _sort.li, sortOn, icon);
 		});
-
 
 
 
@@ -88,7 +95,7 @@ define(['jquery', 'activeItem'], function($, activeItem){
 
 	//Player screensize functions=======//
 	//Controls entering fullscreen iframe manipulation
-	var sortContent = function(ul, li, sortOn){
+	var sortContent = function(ul, li, sortOn, icon){
 		this.toggle;
 
 		function asc_sort(a, b){
@@ -103,12 +110,17 @@ define(['jquery', 'activeItem'], function($, activeItem){
 
 				$(ul).html($(li).sort(asc_sort));
 
+				icon.attr('src', 'images/icons/down-arrow-wht.svg');
+
 
 				this.toggle = !this.toggle;
 
 			}else{
 
 				$(ul).html($(li).sort(dec_sort));
+
+				icon.attr('src', 'images/icons/up-arrow-wht.svg');
+
 
 				this.toggle = !this.toggle;
 

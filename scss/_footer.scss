@@ -310,9 +310,9 @@
 	@include col(2);
 	float: left;
 	height: 100%;
-	padding: 0 4%;
 	// border-right: 1px solid nth($grey, 1);
 	display: none;
+	padding: 0 2.5%;
 
 	svg, img{
 		height: 18px;
@@ -322,6 +322,10 @@
 
 	@include app-break-smmd{
 		display: inline-block;
+	}
+
+	@include app-break-lg{
+		padding: 0 4%;
 	}
 }
 

@@ -405,6 +405,12 @@ section.app{
 	}
 }
 
+.sortIcon{
+	width: 8px;
+	opacity: .1;
+	margin: 6px 0 0 3px;
+}
+
 .li-group{
 	color: nth($grey, 2);
 	font-size: .8em;
