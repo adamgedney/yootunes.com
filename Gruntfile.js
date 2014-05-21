@@ -104,7 +104,71 @@ module.exports = function(grunt) {
         files: 'css/{,*/}*.{scss,sass}',
         tasks: ['sass:dev']
       },
-    }// watch
+    },// watch
+
+
+    //Require js r.js optimizer
+    requirejs : {
+      compile : {
+        options : {
+
+          appDir: "../",
+          baseUrl: "./js",
+          optimize: "uglify",
+          paths:{
+                  'jquery'          : 'jquery',
+                  'Handlebars'      : 'libs/handlebars',
+                  'lightbox'        : 'libs/lightbox-2.6.min',
+                  'User'            : 'controllers/user',
+                  'Init'            : 'controllers/init',
+                  'Auth'            : 'controllers/auth',
+                  'Content'         : 'controllers/content',
+                  'Ui'              : 'controllers/ui',
+                  'Library'         : 'controllers/library',
+                  'Player'          : 'controllers/player',
+                  'socketService'   : 'services/socketService',
+                  'getCookies'      : 'services/getCookiesService'
+                  'determineDevice' : 'services/determineDevice',
+                  'getUserDevices'  : 'services/getUserDevices',
+                  'toggleUi'        : 'services/toggleUi',
+                  'videoSizer'      : 'services/videoSizer',
+                  'renderSongInfo'  : 'services/renderSongInfo',
+                  'sortContent'     : 'services/sortContent',
+                  'dragAndDrop'     : 'services/dragAndDropPlaylists',
+                  'slider'          : 'services/slider',
+                  'tips'            : 'services/toolTips',
+                  'validation'      : 'services/validation',
+                  'logging'         : 'services/logging',
+                  'activeItem'      : 'services/activeItem'
+                },
+
+                dir: "../../build",
+                    modules: [
+                              {name : 'User'},
+                              {name : 'Init'},
+                              {name : 'Auth'},
+                              {name : 'Content'},
+                              {name : 'Ui'},
+                              {name : 'Library'},
+                              {name : 'Player'},
+                              {name : 'socketService'},
+                              {name : 'getCookies'},
+                              {name : 'determineDevice'},
+                              {name : 'getUserDevices'},
+                              {name : 'toggleUi'},
+                              {name : 'videoSizer'},
+                              {name : 'renderSongInfo'},
+                              {name : 'sortContent'},
+                              {name : 'dragAndDrop'},
+                              {name : 'slider'},
+                              {name : 'tips'},
+                              {name : 'validation'},
+                              {name : 'logging'},
+                              {name : 'activeItem'}
+                              ]
+        }
+      }
+    }
 
   });//grunt.initConfig
 
@@ -120,4 +184,14 @@ module.exports = function(grunt) {
       'sass:dev'
     ]);
   });
+
+
+  //Build
+  grunt.registerTask('build', 'requirejs');
+
+
+
+
+
+
 };//module.exports
