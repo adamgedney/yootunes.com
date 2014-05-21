@@ -393,31 +393,29 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 				if($('span.sourceTitle').html() === 'Add'){
 
 					//Shrink Genre title section width
-					$('.li-header span.li-col5').css({'width':'8.33333333%', 'marginRight' : '2%'});//2 col
+					$('.li-header span.li-col5').css({'width':'8.33333333%', 'marginRight' : '2%'});//1 col
 					//Swaps out icon for add icon
 					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/add.png');
 				}else{
 
 					//restore li-header genre width
-					$('.li-header span.li-col5').css({'width':'16.6666667%', 'marginRight' : '0'});//3 col
+					$('.li-header span.li-col5').css({'width':'16.6666667%', 'marginRight' : '0'});//2 col
 
 					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/trash-icon.svg');
 				}
 
+//unecessary loop. Find another way to handle identifying songs in user's library
 
-				//Loop through li items to see if song is in library
-				for(var i=0;i<_userSongs.length;i++){
+				// //Loop through li items to see if song is in library
+				// for(var i=0;i<_userSongs.length;i++){
 
-					//Sets an index number to each li item
-					libraryWrapper.find('li.resultItems:eq(' + i + ')').attr('data-index', i);
+				// 	//Sets an index number to each li item
+				// 	libraryWrapper.find('li.resultItems:eq(' + i + ')').attr('data-index', i);
 
-					//Gets the song_id from the displayed result item
-					var itemId = libraryWrapper.find('li.resultItems:eq(' + i + ')').find('span.addToLibrary').attr('data-id');
+				// 	// //Gets the song_id from the displayed result item
+				// 	// var itemId = libraryWrapper.find('li.resultItems:eq(' + i + ')').find('span.addToLibrary').attr('data-id');
 
-//**NOTE			//Should load the library here w/out a limit to get an array of song ids.
-					//if song id matches this song, then add the check mark icon instead
-
-				}//for
+				// }//for
 
 				//Hide DOM nodes
 				hideNodes();
@@ -986,7 +984,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 	//Gets data & Loads library template
 	function loadLibrary(){
-console.log("load library ran");
+
 		window.state 	= 'library';
 
 		//*** Rewrite API. No more need for pagination
