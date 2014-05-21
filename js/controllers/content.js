@@ -534,7 +534,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 					_thisDevice = window.thisDevice;
 
-console.log("getDevs in contentjs", window.thisDevice, event.thisDevice, event.response);
 				//Render devices
 				if(event.response){
 

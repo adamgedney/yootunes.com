@@ -30,7 +30,7 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies , getU
 
 				//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
 				getUserDevices.get(userId, function(response){
-console.log("determine ran-uid/cookies/userDevices", userId, cookies, response);
+
 					//Run through users devices
 					for(var i=0;i<response.length;i++){
 
@@ -52,7 +52,7 @@ console.log("determine ran-uid/cookies/userDevices", userId, cookies, response);
 									thisDevice 		: window.thisDevice,
 									origin 			: 'determinate'
 								});
-console.log(match, window.thisDevice, response[i].id, "determine match");
+
 								if(typeof callback === "function"){
 									callback("Determined device");
 								}

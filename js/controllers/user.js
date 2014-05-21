@@ -21,31 +21,23 @@ define(['jquery', 'getCookies', 'getUserDevices', 'determineDevice'], function($
 		$(document).on('namedevice', function(){
 
 
+			// Fade in modal to instruct user to name this device
+			$('#nameDeviceModal').fadeIn();
+			$('#devicePrompt').fadeIn();
 
+			//Maybe user deleted cookies? GET DEVICES TO ASK USER
+			getUserDevices.get(userId, function(response){
 
+				//Set for addDevice method
+				_devices = response;
 
-console.log("name device in userjs picked up");
-
-
-
-					console.log("app rendered in userjs");
-					// Fade in modal to instruct user to name this device
-					$('#nameDeviceModal').fadeIn();
-					$('#devicePrompt').fadeIn();
-
-					//Maybe user deleted cookies? GET DEVICES TO ASK USER
-					getUserDevices.get(userId, function(response){
-
-						//Set for addDevice method
-						_devices = response;
-
-						//Instructs Content to render device lists in ui & modal
-						$.event.trigger({
-							type 			: 'renderdevices',
-							response 		: response,
-							origin 			: 'indeterminate'
-						});
-					});//getDevices
+				//Instructs Content to render device lists in ui & modal
+				$.event.trigger({
+					type 			: 'renderdevices',
+					response 		: response,
+					origin 			: 'indeterminate'
+				});
+			});//getDevices
 
 		});//namedevice
 
@@ -105,7 +97,6 @@ console.log("name device in userjs picked up");
 				dataType : 'json',
 				success : function(response){
 
-					console.log(response, "delete device response");
 
 					//Fires a complete event after  device has been deleted
 					//Instructs Content to render device lists in ui & modal
@@ -135,7 +126,7 @@ console.log("name device in userjs picked up");
 			var name 		= $('input#renameDeviceName').val();
 			var deviceId 	= $(this).parent().find('#renameDeviceName').attr('data-id');
 			var API_URL 	= _baseUrl + '/rename-device/' + deviceId + '/' + name;
-console.log(name, deviceId, "rename");
+
 			//Delete device on deviceId
 			$.ajax({
 				url : API_URL,
@@ -143,7 +134,6 @@ console.log(name, deviceId, "rename");
 				dataType : 'json',
 				success : function(response){
 
-					console.log(response, "renamed device response");
 
 					//Fires a complete event after  device has been deleted
 					//Instructs Content to render device lists in ui & modal
@@ -318,7 +308,7 @@ console.log(name, deviceId, "rename");
 
 
 	function getUser(userId, callback){
-console.log("get user ran", userId);
+
 		//Build API request
 		var API_URL = _baseUrl + '/get-user/' + userId;
 

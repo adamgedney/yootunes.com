@@ -113,7 +113,7 @@ define(['jquery', 'Content', 'getCookies', 'User', 'validation', 'logging', 'det
 						method 		: 'GET',
 						dataType 	: 'json',
 						success 	: function(response){
-console.log("response check user", response);
+
 							//If user was authenticated
 							if(response.success === true){
 
@@ -294,10 +294,6 @@ console.log("response check user", response);
 			}//validate true
 		});//validate
 
-
-
-
-
 		event.preventDefault();
 	});//onclick
 
@@ -350,8 +346,7 @@ console.log("response check user", response);
 				    	method : 'GET',
 				    	dataType : 'json',
 				    	success : function(response){
-
-				    		console.log(response[0][0], "plus response");
+console.log(response, "plus response");
 			    			//Load app, set cookie, fire event
 							loadApplication(response[0][0]);
 
@@ -586,7 +581,6 @@ console.log("response check user", response);
 					dataType 	: 'json',
 					success 	: function(response){
 
-						console.log(response, "password reset success response");
 
 						if(response === "Password reset success"){
 
@@ -598,7 +592,6 @@ console.log("response check user", response);
 						}
 					},error : function(response){
 
-						console.log(response, "password reset error response");
 					}
 				});//ajax
 			}//validate true
@@ -703,7 +696,6 @@ console.log("response check user", response);
 					method : 'GET',
 					dataType : 'json',
 					success : function(response){
-						console.log(response, "update settings response-acct settings");
 
 						//Reload acct settings view
 						Content.loadAcctSettings();
@@ -769,7 +761,7 @@ console.log("response check user", response);
 					pwString += password.words[i].toString();
 
 				}else{
-					console.log("not same");
+
 				}
 			}//for
 		}//if/else password val
@@ -825,7 +817,6 @@ console.log("response check user", response);
 						dataType : 'json',
 						success : function(response){
 
-							console.log(response, "reset pass response- acct settings");
 							//Reload acct settings view
 							Content.loadAcctSettings();
 
@@ -1049,9 +1040,9 @@ console.log("response check user", response);
 
 		//load the application
 		Content.loadApp(function(){
-			console.log("rannnn");
+
 			determineDevice(function(data){
-					console.log(data, "determine callback in auth load application");
+
 				});//determine
 		});
 

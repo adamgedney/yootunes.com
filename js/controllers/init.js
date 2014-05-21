@@ -204,7 +204,6 @@ define(['jquery', 'Content', 'getCookies', 'socketService', 'determineDevice'], 
 			_userId = _cookies.userId;
 			window.userId = _userId;
 
-console.log("init userId", _cookies.userId);
 			//Run this ASAP to prepare for library load
 			//First get library count to compare against localstorage count
 			var API_URL = _baseUrl + '/get-library-count/' + _userId;
@@ -248,7 +247,6 @@ console.log("init userId", _cookies.userId);
 
 		//Must be run after the app has loaded in this case
 		determineDevice(function(data){
-			console.log(data, "determine callback in init");
 
 			//fire event passing user data to listening class
 			$.event.trigger({
