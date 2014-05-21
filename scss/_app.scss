@@ -72,7 +72,7 @@ input[type="password"]{
 }
 
 /* *:not(input.field) */
-li, .footer, span, .section-header, .search, #video, #adsense, .video-size-ctrl,  img, #searchForm input, section.app, aside.app  {
+li, .footer, span, .section-header, .search, #video, #adsense, .video-size-ctrl,  img, section.app, aside.app  {
    @extend .no-select;
 }
 
