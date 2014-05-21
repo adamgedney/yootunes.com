@@ -802,6 +802,17 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 	   	var s = document.getElementsByTagName('script')[0];
 	   		s.parentNode.insertBefore(po, s);
 	   	//End Google+ auth script
+
+
+
+
+	  //Insert lightbox script
+	   	var lb = document.createElement('script');
+		   lb.type = 'text/javascript'; po.async = true;
+		   lb.src = 'js/libs/lightbox-2.6.min.js';
+
+	   	var tag = document.getElementsByTagName('script')[0];
+	   		tag.parentNode.insertBefore(lb, tag);
 	}
 
 

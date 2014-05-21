@@ -1,6 +1,6 @@
 (function(){
-define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies', 'slider', 'lightbox', 'tips'],
-	function($, toggleUi, dragAndDrop, videoSizer, Library, getCookies, slider, lightbox, tips){
+define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies', 'slider', 'tips'],
+	function($, toggleUi, dragAndDrop, videoSizer, Library, getCookies, slider, tips){
 
 
 	//private vars

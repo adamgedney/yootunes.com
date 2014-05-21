@@ -45,7 +45,6 @@ require.config({
 		jquery 			: 'jquery',
 		modernizr 		: 'libs/modernizr',
 		Handlebars 		: 'libs/handlebars',
-		lightbox 		: 'libs/lightbox-2.6.min',
 		parallax 		: 'libs/parallax',
 		keyHash 		: 'libs/keyHash',
 		qtip 			: 'libs/qtip',

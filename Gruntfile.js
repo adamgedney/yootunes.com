@@ -143,7 +143,6 @@ module.exports = function(grunt) {
           paths:{
                   'jquery'          : 'jquery',
                   'Handlebars'      : 'libs/handlebars',
-                  'lightbox'        : 'libs/lightbox-2.6.min',
                   'User'            : 'controllers/user',
                   'Init'            : 'controllers/init',
                   'Auth'            : 'controllers/auth',
