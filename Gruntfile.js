@@ -31,7 +31,12 @@ module.exports = function(grunt) {
       }
     },
 
-    // //Sass configuration
+
+
+
+
+
+    //Sass configuration
     sass: {
       dev: {
         options: {
@@ -39,10 +44,15 @@ module.exports = function(grunt) {
           compass: true
         },
         files: {
-          'css/main.css': 'css/main.scss'
+          'css/main.css': 'scss/main.scss'
         }
       }
     },
+
+
+
+
+
 
     // Add vendor prefixed styles
     autoprefixer: {
@@ -58,6 +68,11 @@ module.exports = function(grunt) {
       }
     },//autoprefixer
 
+
+
+
+
+
     //compass -required for autoprefixer
     compass: {
       options: {
@@ -69,6 +84,11 @@ module.exports = function(grunt) {
       }
     },
 
+
+
+
+
+
     //Watches files and folders for us
     watch: {
 
@@ -79,7 +99,7 @@ module.exports = function(grunt) {
 
       //compass
       compass: {
-        files: ['css/{,*/}*.{scss,sass}'],
+        files: ['scss/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
         //tasks: ['compass:server', 'autoprefixer'] removed to hack error. Reenable before build
       },
@@ -93,18 +113,22 @@ module.exports = function(grunt) {
           '{,*/}*.html',
           '{,*/}*.php',
           'js/{,*/}*.js',
-          'css/{,*/}*.css',
-          'css/{,*/}*.scss',
+          'scss/{,*/}*.scss',
           'images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       },
 
       //sass
       sass: {
-        files: 'css/{,*/}*.{scss,sass}',
+        files: 'scss/{,*/}*.{scss,sass}',
         tasks: ['sass:dev']
       },
     },// watch
+
+
+
+
+
 
 
     //Require js r.js optimizer
@@ -112,9 +136,10 @@ module.exports = function(grunt) {
       compile : {
         options : {
 
-          appDir: "../",
+          appDir: "./",
           baseUrl: "./js",
           optimize: "uglify",
+          fileExclusionRegExp: /^node_modules|Gruntfile.js|package.json|working_files|scss|.sass-cache|.git$/,
           paths:{
                   'jquery'          : 'jquery',
                   'Handlebars'      : 'libs/handlebars',
@@ -127,7 +152,7 @@ module.exports = function(grunt) {
                   'Library'         : 'controllers/library',
                   'Player'          : 'controllers/player',
                   'socketService'   : 'services/socketService',
-                  'getCookies'      : 'services/getCookiesService'
+                  'getCookies'      : 'services/getCookiesService',
                   'determineDevice' : 'services/determineDevice',
                   'getUserDevices'  : 'services/getUserDevices',
                   'toggleUi'        : 'services/toggleUi',
@@ -142,7 +167,7 @@ module.exports = function(grunt) {
                   'activeItem'      : 'services/activeItem'
                 },
 
-                dir: "../../build",
+                dir: "../build",
                     modules: [
                               {name : 'User'},
                               {name : 'Init'},
@@ -166,9 +191,9 @@ module.exports = function(grunt) {
                               {name : 'logging'},
                               {name : 'activeItem'}
                               ]
-        }
-      }
-    }
+        }//options
+      }//compile
+    }//requirejs
 
   });//grunt.initConfig
 

@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'qtip'], function($, qtip){
+define(['jquery', 'js/libs/qtip.js'], function($, qtip){
 
 
 	//QTip renders title attributes as a tooltip.
