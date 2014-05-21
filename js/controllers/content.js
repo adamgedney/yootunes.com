@@ -392,15 +392,14 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 				//CHANGE ICON FROM TRASH TO PLUS SIGN============//
 				if($('span.sourceTitle').html() === 'Add'){
 
-					// $('span.li-col7').show();
-					// $('span.li-col2').css({'width':'41.6666666%'});//4 col
-
+					//Shrink Genre title section width
+					$('.li-header span.li-col5').css({'width':'8.33333333%', 'marginRight' : '2%'});//2 col
 					//Swaps out icon for add icon
 					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/add.png');
 				}else{
 
-					// $('.li-col7').hide();
-					// $('.li-col2').css({'width':'50%'});//5 col
+					//restore li-header genre width
+					$('.li-header span.li-col5').css({'width':'16.6666667%', 'marginRight' : '0'});//3 col
 
 					resultItems.find('span.addToLibrary').find('img.add-icon').attr('src', 'images/icons/trash-icon.svg');
 				}
