@@ -338,7 +338,7 @@ define(['jquery', 'Content', 'getCookies', 'User', 'validation', 'logging', 'det
 								profile.id + '/' +
 								profile.gender;
 
-
+console.log(profile, "plus response");
 
 				    //Call API to create or get Plus user
 				    $.ajax({
@@ -346,7 +346,7 @@ define(['jquery', 'Content', 'getCookies', 'User', 'validation', 'logging', 'det
 				    	method : 'GET',
 				    	dataType : 'json',
 				    	success : function(response){
-console.log(response, "plus response");
+console.log(response, "plus ajax response");
 			    			//Load app, set cookie, fire event
 							loadApplication(response[0][0]);
 
