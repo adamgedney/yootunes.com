@@ -254,25 +254,13 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 				var resultId = $(this).attr('data-id');
 
-				if(window.theme === 'light' || _currentTheme === 'light'){
 
-					//If dropdown is open or closed set hover color accordingly
-					if(!_dropdownOpen){
-						$(this).css({'background': '#e7e7e7'});
-					}else if(_dropdownOpen && resultId === _dropdownId){
-						$(this).css({'background': '#ffffff'});
-					}
-
-				}else if(window.theme === 'dark' || _currentTheme === 'dark'){
-
-					//If dropdown is open or closed set hover color accordingly
-					if(!_dropdownOpen){
+				if(!_dropdownOpen){
 						$(this).css({'background': '#202222'});
 					}else if(_dropdownOpen && resultId === _dropdownId){
 
 						$(this).css({'background': '#ffffff'});
 					}
-				}
 
 				//Show draggable icon on non-mobile devices
 				if(window.windowWidth > app_break_smmd){
@@ -294,23 +282,12 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 				var resultId = $(this).attr('data-id');
 
-				if(window.theme === 'light' || _currentTheme === 'light'){
 
-					//If dropdown is open or closed set hover color accordingly
-					if(!_dropdownOpen){
-						$(this).css({'background': 'none'});
-					}else if(_dropdownOpen && resultId === _dropdownId){
-						$(this).css({'background': '#ffffff'});
-					}
-
-				}else if(window.theme === 'dark' || _currentTheme === 'dark'){
-
-					//If dropdown is open or closed set hover color accordingly
-					if(!_dropdownOpen){
-						$(this).css({'background': 'none'});
-					}else if(_dropdownOpen && resultId === _dropdownId){
-						$(this).css({'background': '#ffffff'});
-					}
+				//If dropdown is open or closed set hover color accordingly
+				if(!_dropdownOpen){
+					$(this).css({'background': 'none'});
+				}else if(_dropdownOpen && resultId === _dropdownId){
+					$(this).css({'background': '#ffffff'});
 				}
 			});
 
