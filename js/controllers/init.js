@@ -11,7 +11,8 @@ define(['jquery', 'Content', 'getCookies', 'socketService', 'determineDevice'], 
 	var _userId;
 	var _cookies;
 
-
+	//CSS breakpoints
+	var app_break_smmd 	= '800';
 
 
 
@@ -186,6 +187,17 @@ define(['jquery', 'Content', 'getCookies', 'socketService', 'determineDevice'], 
 
 
 	function initSession(){
+
+		if(window.windowWidth < app_break_smmd){
+			//Force fullscreen on mobile devices
+			if(typeof document.documentElement.requestFullscreen === 'function'){
+				document.documentElement.requestFullscreen();
+			}
+
+			window.scrollTo(0,1);
+		}
+
+
 		//==========================================//
 		//Check cookies from service
 		//==========================================//
