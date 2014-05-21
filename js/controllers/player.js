@@ -1027,6 +1027,13 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 			_playOnDevice =  $('#play-on option:selected').attr('data-id');
 		}
 
+console.log(_thisDevice, _playOnDevice, "play");
+		//Ensure thisDevice is always recognized.
+		if(_thisDevice === null){
+			console.log("null device");
+			// determineDevice();
+		}
+
 		// //Necessary for decoupled scrubber
 		// window.playOnDevice = _playOnDevice;
 
@@ -1320,11 +1327,11 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
 			if(window.userId !== undefined){
 				_userId = window.userId;
-				console.log(_userId, "uid");
+				// console.log(_userId, "uid");
 			}else if(getCookies.userId !== undefined){
 				_userId = getCookies.userId;
 				window.userId = _userId;
-				console.log(_userId, "cookies");
+				// console.log(_userId, "cookies");
 			}
 		}
 	}

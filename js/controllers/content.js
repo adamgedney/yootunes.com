@@ -340,30 +340,6 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 
 
-
-
-				//Render devices once init has retrieved them
-				$(document).on('renderdevices', function(event){
-;
-					//Set this device once a new one is created
-					if(event.thisDevice){
-						_thisDevice = event.thisDevice;
-					}
-
-					//Render devices
-					if(event.response){
-
-						renderDevices(event.thisDevice, event.response);
-					}else{
-
-						//Fetch as render user devices in lists and modals
-						getUserDevices.get(_userId, function(response){
-							renderDevices(window.thisDevice, response);
-						});
-					}
-				});//renderdevices
-
-
 				//if playlistId cookie exists load playlist, else load library
 				if(_playlistShared === 0 || _playlistShared === undefined|| _playlistShared === ""){
 
@@ -551,6 +527,37 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 
 
+			//Render devices once init has retrieved them
+			$(document).on('renderdevices', function(event){
+
+				//Set this device once a new one is created
+
+					_thisDevice = window.thisDevice;
+
+console.log("getDevs in contentjs", window.thisDevice, event.thisDevice, event.response);
+				//Render devices
+				if(event.response){
+
+					renderDevices(window.thisDevice, event.response);
+				}else{
+
+					//Fetch as render user devices in lists and modals
+					getUserDevices.get(_userId, function(response){
+						renderDevices(window.thisDevice, response);
+
+					});
+				}
+			});//renderdevices
+
+
+
+
+
+
+
+
+
+
 
 		//Reload playlists when new playlist added
 		$(document).on('playlistadded', function(){
@@ -699,7 +706,7 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 
 	//Loads app template
-	function loadApp(){
+	function loadApp(callback){
 		var src 		= '/js/views/app.html',
 			id 			= '#app',
 			appendTo 	= '#wrapper';
@@ -713,6 +720,12 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 
 		render(src, id, appendTo, data);
+
+		if(typeof callback === 'function'){
+			callback();
+		}
+
+		//Determine device should run on app start
 	}
 
 

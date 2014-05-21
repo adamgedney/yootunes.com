@@ -1,5 +1,6 @@
 (function(){
-define(['jquery', 'Content', 'getCookies', 'validation', 'logging', 'determineDevice','Init', 'socketService'], function($, Content, getCookies, validation, logging, determineDevice, Init, socketService){
+define(['jquery', 'Content', 'getCookies', 'User', 'validation', 'logging', 'determineDevice','Init', 'socketService'],
+	function($, Content, getCookies, User, validation, logging, determineDevice, Init, socketService){
 
 
 	//Private variables
@@ -112,7 +113,7 @@ define(['jquery', 'Content', 'getCookies', 'validation', 'logging', 'determineDe
 						method 		: 'GET',
 						dataType 	: 'json',
 						success 	: function(response){
-
+console.log("response check user", response);
 							//If user was authenticated
 							if(response.success === true){
 
@@ -989,21 +990,24 @@ define(['jquery', 'Content', 'getCookies', 'validation', 'logging', 'determineDe
 					//Delete the current user id cookie
 					deleteUIDCookie();
 
-					//Load the application, fire event, set new cookie
-					loadApplication(response[0]);
+					//Once user is retrieved, load app.
+					//get uSer sets user cookies
+					User.getUser(response[0].id, function(){
 
-					//log the login
-					logging.logLogin();
+						//Load the application, fire event, set new cookie
+						loadApplication(response[0]);
+
+						//log the login
+						logging.logLogin();
 
 
-					//Show device namer to new user
-					$('#nameDeviceModal').fadeIn();
+						//===================================//
+						//Create a new room on the socket server for this user
+						//===================================//
+						socketService.createRoom(response[0].id);
+					});
 
 
-					//===================================//
-					//Create a new room on the socket server for this user
-					//===================================//
-					socketService.createRoom(response[0].id);
 
 			}//success
 		});//ajax
@@ -1044,12 +1048,14 @@ define(['jquery', 'Content', 'getCookies', 'validation', 'logging', 'determineDe
 		}
 
 		//load the application
-		Content.loadApp();
+		Content.loadApp(function(){
+			console.log("rannnn");
+			determineDevice(function(data){
+					console.log(data, "determine callback in auth load application");
+				});//determine
+		});
 
-		//#app needs to have rendered first
-		determineDevice();
 
-		console.log(determineDevice);
 	}
 
 

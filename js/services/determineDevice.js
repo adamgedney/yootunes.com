@@ -17,8 +17,8 @@ define(['jquery', 'getCookies', 'getUserDevices'], function($, getCookies , getU
 
 
 
-		var determineDevice = function(){
-console.log("determine ran");
+		var determineDevice = function(callback){
+
 			var userId = window.userId;
 			var cookies = getCookies;
 
@@ -30,7 +30,7 @@ console.log("determine ran");
 
 				//DETERMINE WHICH DEVICE COOKIE IS THIS USER'S
 				getUserDevices.get(userId, function(response){
-
+console.log("determine ran-uid/cookies/userDevices", userId, cookies, response);
 					//Run through users devices
 					for(var i=0;i<response.length;i++){
 
@@ -49,9 +49,13 @@ console.log("determine ran");
 								$.event.trigger({
 									type 			: 'renderdevices',
 									response 		: response,
-									thisDevice 		: devices[j],
+									thisDevice 		: window.thisDevice,
 									origin 			: 'determinate'
 								});
+console.log(match, window.thisDevice, response[i].id, "determine match");
+								if(typeof callback === "function"){
+									callback("Determined device");
+								}
 
 								break;
 							}//if
@@ -71,6 +75,10 @@ console.log("determine ran");
 							message : 'cookies exist | false match'
 						});
 
+						if(typeof callback === "function"){
+							callback("Cookies exist, user device does not");
+						}
+
 					}//if false
 				});//getDevices
 
@@ -83,6 +91,10 @@ console.log("determine ran");
 						type 	: 'namedevice',
 						message : 'cookies do not exist'
 					});
+
+					if(typeof callback === "function"){
+						callback("Cno device cookies found");
+					}
 			}//else
 		}//get
 

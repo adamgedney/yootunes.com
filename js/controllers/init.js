@@ -1,5 +1,5 @@
 (function(){
-define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDevice'], function($, User, Content, getCookies, socketService, determineDevice){
+define(['jquery', 'Content', 'getCookies', 'socketService', 'determineDevice'], function($, Content, getCookies, socketService, determineDevice){
 
 
 
@@ -52,7 +52,7 @@ define(['jquery', 'User','Content', 'getCookies', 'socketService', 'determineDev
 					method : 'GET',
 					dataType : 'json',
 					success : function(response){
-console.log(response, _cookies.userId);
+
 						//Token validity conditions
 						if(response.message === "Token valid"){
 
@@ -103,6 +103,9 @@ console.log(response, _cookies.userId);
 				window.playlistId 	= parseName[0];
 			}
 		}else{
+
+
+
 
 			//Start normal init flow
 			initSession();
@@ -201,6 +204,7 @@ console.log(response, _cookies.userId);
 			_userId = _cookies.userId;
 			window.userId = _userId;
 
+console.log("init userId", _cookies.userId);
 			//Run this ASAP to prepare for library load
 			//First get library count to compare against localstorage count
 			var API_URL = _baseUrl + '/get-library-count/' + _userId;
@@ -213,12 +217,6 @@ console.log(response, _cookies.userId);
 
 					//Used By Content.;oadLibrary to check local storage
 					window.libraryCount = response;
-
-					//get the user data for stored theme
-					//then load the app on success
-					//**Sets theme and uid cookie
-					User.getUser(_cookies.userId, function(){});
-
 
 					//Load app, set cookie, fire event
 					//Cookie setting here is redundant but harmless
@@ -246,18 +244,20 @@ console.log(response, _cookies.userId);
 
 	function loadApplication(){
 
-		//fire event passing user data to listening class
-		$.event.trigger({
-			type 			: 'userloggedin',
-			playlistId 		: _playlistId
-		});
+		Content.loadApp(null);
+
+		//Must be run after the app has loaded in this case
+		determineDevice(function(data){
+			console.log(data, "determine callback in init");
+
+			//fire event passing user data to listening class
+			$.event.trigger({
+				type 			: 'userloggedin',
+				playlistId 		: _playlistId
+			});
 
 
-		//load the application
-		Content.loadApp();
-
-		//#app needs to have rendered first
-		determineDevice();
+		});//determinDevice
 	}
 
 

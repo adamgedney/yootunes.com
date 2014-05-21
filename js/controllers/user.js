@@ -24,12 +24,11 @@ define(['jquery', 'getCookies', 'getUserDevices', 'determineDevice'], function($
 
 
 
+console.log("name device in userjs picked up");
 
 
 
-			//triggers a listen for rendered #app
-			$(document).on('rendered', function(event){
-				if(event.template === '#app'){
+					console.log("app rendered in userjs");
 					// Fade in modal to instruct user to name this device
 					$('#nameDeviceModal').fadeIn();
 					$('#devicePrompt').fadeIn();
@@ -48,9 +47,7 @@ define(['jquery', 'getCookies', 'getUserDevices', 'determineDevice'], function($
 						});
 					});//getDevices
 
-				}//if
-			});//#app
-		});//rendered
+		});//namedevice
 
 
 
@@ -246,16 +243,20 @@ console.log(name, deviceId, "rename");
 			 	document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + selectedDeviceId;
 			 }
 
-			 //Instructs COntent to reload device list
-			$.event.trigger({
-				type : 'renderdevices'
+			 //Set global on user choice
+			 window.thisDevice = selectedDeviceId;
+
+
+			//redetermine the device now that we have set user device
+			determineDevice(function(data){
+				 //Instructs COntent to reload device list
+				// $.event.trigger({
+				// 	type : 'renderdevices'
+				// });
+			//determine fires a render event
+
+				nameDeviceModal.fadeOut();
 			});
-
-			nameDeviceModal.fadeOut();
-
-
-			//#app needs to have rendered first
-			determineDevice.get(function(){});
 
 		}else{//NEW DEVICE
 
@@ -281,17 +282,22 @@ console.log(name, deviceId, "rename");
 					 	document.cookie = 'device' + (deviceCookieAmount + 1) + '=' + response.newDeviceId;
 					 }
 
-					//Instructs COntent to reload device list
-					$.event.trigger({
-						type : 'renderdevices'
+
+					 //set new device ID on global
+					 window.thisDevice = response.newDeviceId;
+
+					//redetermine the device now that we have set user device
+					determineDevice(function(data){
+						//Instructs COntent to reload device list
+						// $.event.trigger({
+						// 	type : 'renderdevices'
+						// });
+					//determine fries render event
+
+
+
+						nameDeviceModal.fadeOut();
 					});
-
-
-
-					nameDeviceModal.fadeOut();
-
-					//#app needs to have rendered first
-					determineDevice.get(function(){});
 
 				}//success
 			});//ajax
@@ -312,7 +318,7 @@ console.log(name, deviceId, "rename");
 
 
 	function getUser(userId, callback){
-
+console.log("get user ran", userId);
 		//Build API request
 		var API_URL = _baseUrl + '/get-user/' + userId;
 
@@ -323,15 +329,6 @@ console.log(name, deviceId, "rename");
 			dataType 	: 'json',
 			success 	: function(response){
 
-
-				//store theme info for app-wide use
-				window.theme = response[0].theme;
-
-				if(localStorage){
-					localStorage.setItem('theme', response[0].theme);
-				}else{
-					document.cookie = "theme=" + response[0].theme;
-				}
 
 				//Set a cookie in the browser to store user id
 				//Duplicate setting. Just for stability.
