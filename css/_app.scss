@@ -134,9 +134,8 @@ html{
 	position: absolute;
 	top: 13px;
 	right: 9px;
-	// height: 48px;
 	width: 40px;
-	// @include col(1);
+	display: none; //used in jQuery show/hide
 
 	img{
 		@include col(10);
@@ -329,6 +328,16 @@ font-size: .8em;
 .app-logo{
 	margin: 18px 0 0 5.5%;
 	display: none;
+
+	@include app-break-smmd{
+		display: inline;
+	}
+}
+
+#beta-tag{
+	display: none;
+	float: right;
+	margin: 27px 6% 0 0;
 
 	@include app-break-smmd{
 		display: inline;
@@ -837,6 +846,12 @@ section.app{
 	}
 }
 
+.newPlaylistForm{
+	display: none; //used in show/hide
+}
+
+
+
 .addToPlaylistTitle{
 	padding-bottom: 18px;
 
@@ -1086,7 +1101,7 @@ section.app{
 		font-size: 1.5em;
 		margin-left: 9px;
 		display: inline-block;
-		@include col(6);
+		@include col(5);
 	}
 
 	.li-col1{
@@ -1104,11 +1119,13 @@ ul.dropdown-main-menu{
 	li{
 		font-size: .7em;
 		line-height: 27px;
+		overflow: visible;//Necessary for subplaylist options to show
 
 		.addedToPlaylistCheck{
 			height: 12px !important;//overrides main li specificity. Used in jquery affordance
 		}
 	}
+
 
 	li.li-share{
 		margin: 9px 0 0 24px;
@@ -1145,10 +1162,11 @@ ul.dropdown-main-menu{
 		ul{
 			width: 130%;
 			position: absolute;
+			z-index: 10000;
 			right: 105%;
 			height: 200px;
 			overflow: auto;
-			padding: 6% 0 0 6%;
+			padding: 0 0 0 6%;
 			border-left: 1px solid nth($grey, 6);
 
 			li{/*submenu level*/

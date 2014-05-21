@@ -459,6 +459,8 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 				//================================//
 				if (event.data === 1){
 
+					//Used by ui.js to manage play button state when toggling dropdown
+					window.playingVideoId = id;
 
 					//Set song data & UI Changes
 					renderSongInfo(id);

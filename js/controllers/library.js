@@ -195,27 +195,26 @@ define(['jquery'], function($){
 
 
 
-//NOTE****   Sublist is hidden. Grab check affordance and move to dragon drop
 
-		//Add song to playlist
-		// $(document).on('click', '.playlist-menu-sub-list', function(event){
-		// 	var songId 		= $(this).parent().attr('data-id');
-		// 	var playlistId 	= $(this).attr('data-playlistId');
-		// 	var userId 		= $(this).attr('data-user');
-		// 	var that 		= $(this);
-
-
-		// 	//Show checkmark affordance when song added
-		// 	var thisCheck = $(this).find('.addedToPlaylistCheck');
-		// 		thisCheck.fadeIn(100, function(){
-		// 			hideCheck(thisCheck);
-		// 		});
+		//Add song to playlist from dropdown playlist options
+		$(document).on('click', '.playlist-menu-sub-list', function(event){
+			var songId 		= $(this).parent().attr('data-id');
+			var playlistId 	= $(this).attr('data-playlistId');
+			var userId 		= $(this).attr('data-user');
+			var that 		= $(this);
 
 
+			//Show checkmark affordance when song added
+			var thisCheck = $(this).find('.addedToPlaylistCheck');
+				thisCheck.fadeIn(100, function(){
+					hideCheck(thisCheck);
+				});
 
-		// 	//Add song to playlist
-		// 	addSongToPlaylist(songId, playlistId, userId);
-		// });
+
+
+			//Add song to playlist
+			addSongToPlaylist(songId, playlistId, userId);
+		});
 
 
 

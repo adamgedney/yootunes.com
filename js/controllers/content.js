@@ -1207,10 +1207,15 @@ console.log("load library ran");
 	//Maintains list of DOM nodes to hide on app init
 	function hideNodes(){
 
-		var selectors = ['.playlist-dropdown', 'li.main-dropdown',
-		 '.improve-meta-sub-menu', '.signin','#restoreAcctModal',
-		 '.newPlaylistForm', '#signupContainer','#hiddenCreatePlaylistForm',
-		 '#minimizeOverlay'];
+		// var selectors = ['.playlist-dropdown', 'li.main-dropdown',
+		//  '.signin','#restoreAcctModal','.newPlaylistForm',
+		//  '#signupContainer','#hiddenCreatePlaylistForm',
+		//  '#minimizeOverlay'];
+
+
+
+		var selectors = ['.signin','#restoreAcctModal',
+		 '#signupContainer'];
 
 		for(var i=0; i<selectors.length;i++){
 			$(selectors[i]).hide();
