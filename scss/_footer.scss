@@ -1,0 +1,396 @@
+
+
+/*=====================================*/
+/*Footer Container=====================*/
+/*=====================================*/
+.footer{
+	background: $black;
+	height: 72px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1001;
+	padding: 0 2%;
+	color: $white;
+	// overflow: hidden;
+
+	// -webkit-box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);//$white
+	//    -moz-box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);
+	// 		box-shadow: 0px -60px 27px -7px rgba(235,235,235,.8);
+}
+
+
+.info{
+	@include col(10);
+	float: left;
+	overflow: hidden;
+	// border-right: 1px solid nth($grey, 1);
+
+	ul{
+		float: left;
+		margin: 18px 0 0;
+		@include col(18);
+
+		li{
+			overflow: hidden;
+			font-size: .6em;
+
+			@include app-break-smmd{
+				font-size: .4em;
+			}
+		}
+
+		@include app-break-smmd{
+			margin: 9px 0 0;
+		}
+	}
+
+	svg, img{
+		display: none;
+		float: left;
+		height: 36px;
+		width: 27px;
+		margin: 18px 0 0 0;
+		@include col(1);
+
+		@include app-break-smmd{
+			display: block;
+		}
+	}
+
+	@include app-break-smmd{
+		@include col(3);
+	}
+}
+
+/*#infoThumb{
+	display: inline;
+	width: 48px;
+	height: 36px;
+	margin-bottom: 21px;
+	margin-right: 6%;
+}*/
+
+.transport-ctrl{
+	@include col(2);
+	float: left;
+	overflow: hidden;
+	// height: 18px;
+	height: 100%;
+	// border-right: 1px solid nth($grey, 1);
+
+	svg, img{
+		@include col(4);
+		float: left;
+		cursor: pointer;
+		@include vertical-align;
+	}
+
+	.play{
+		max-height: 12px;
+		max-width: 12px;
+		margin: 0 6px 0 9px;
+	}
+
+	.prev, .next{
+		max-height: 9px;
+		margin-top: 1px;
+		display: none;
+
+		@include app-break-smmd{
+			display: inline;
+		}
+	}
+
+	@include app-break-smmd{
+		@include col(1);
+	}
+}
+
+.seek-ctrl{
+	position: relative;
+	@include col(3);
+	top: 36px;
+	float: left;
+	@include vertical-align;
+	height: 36px;
+	overflow: hidden;
+	z-index: 1007;
+	display: none;
+
+	p{
+		font-size: 1.2em;
+		display: inline;
+		float: right;
+		line-height: 0px; //important for lining up seek-line
+		margin-right: 9px;
+
+		@include app-break-smmd{
+			margin-right: 0;
+		}
+	}
+
+	#seek-bar{
+		@include col(10);
+		overflow: hidden;
+	}
+
+	@include app-break-smmd{
+		display: inline-block;
+
+	}
+}
+
+
+
+.seek-line, .seek-fill, #seek-bar, .seek-buffered{
+	@include col(10);
+	// @include col-ctr(10);
+	height: 0px;
+	/*border-bottom: 1px solid nth($grey, 1);*/
+	// @include vertical-align;
+	margin-top:18px;
+
+	@include app-break-smmd{
+		border-bottom: 1px solid nth($grey, 1);
+	}
+}
+
+
+
+.seek-fill{
+	width: 0;
+	border-bottom: 1px solid $red;
+	position: absolute;
+}
+
+.seek-buffered{
+	width: 0;
+	border-bottom: 1px solid nth($grey, 2);
+	position: absolute;
+}
+
+#seek-dot{
+	width: 12px;
+	height: 12px;
+	// width: 0px;
+	// height: 0px;
+	background: $white;
+	border-radius: 50%;
+	position: absolute;
+	top: 13px;
+	z-index: 10000;
+	opacity: .9;
+	cursor: pointer;
+	// border: 1px solid nth($grey, 2);
+
+	@include app-break-smmd{
+		z-index: 10;
+	}
+}
+
+#seek-dot:active{
+	width: 18px;
+	height: 18px;
+	top: 10px;
+}
+
+
+.playmode-ctrl{
+	@include col(1);
+	float: left;
+	height: 100%;
+	padding-left: 2%;
+	display: none;
+
+	img{
+		@include vertical-align;
+		margin-left: 10%;
+		cursor: pointer;
+		height: 12px;
+	}
+
+	@include app-break-smmd{
+		display: inline-block;
+	}
+}
+
+.volume-ctrl{
+	@include col(1);
+	float: left;
+	height: 100%;
+	// padding-right: 10%;
+	// border-left: 1px solid nth($grey, 1);
+	// border-right: 1px solid nth($grey, 1);
+	display: none;
+
+	.vol-icon{
+		height: 15px;
+		cursor: pointer;
+		float: left;
+		// margin-left: 25%;
+		@include vertical-align;
+	}
+
+	input{
+		@include col(9);
+		@include vertical-align;
+		display: inline-block;
+		margin: 0;
+		float: right;
+	}
+
+	input[type='range']{
+	    -webkit-appearance: none;
+	    border: 0;
+	    background-color: nth($grey, 2);
+	    height: 1px;
+	    padding: 0;
+	}
+
+	input[type='range']::-moz-range-track {
+	    -webkit-appearance: none;
+	    border: 0;
+	    background-color: nth($grey, 2);
+	    height: 1px;
+	    padding: 0;
+	}
+
+	input[type='range']::-webkit-slider-thumb{
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    width: 6px;
+	    height: 6px;
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+	    background: $white;
+	    background-repeat: no-repeat;
+	    background-position: 50%;
+	}
+
+	input[type='range']::-moz-range-thumb  {
+	    -webkit-appearance: none;
+	    -moz-appearance: none;
+	    width: 6px;
+	    height: 6px;
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+	    background: $white;
+	    background-repeat: no-repeat;
+	    background-position: 50%;
+	}
+
+	input[type='range']::-moz-range-track {
+		outline: none;
+	/*	color: transparent;
+		height: 2px;*/
+	}
+
+
+	input[type='range']::-moz-range-thumb{
+		width: 6px;
+	    height: 6px;
+	    border: none;
+
+	    color: transparent;
+	    text-shadow: 0 0 0 $white;
+	}
+
+
+	@include app-break-smmd{
+		display: inline-block;
+	}
+
+}
+
+.playing-share-ctrl{
+	@include col(2);
+	float: left;
+	height: 100%;
+	padding: 0 4%;
+	// border-right: 1px solid nth($grey, 1);
+	display: none;
+
+	svg, img{
+		height: 18px;
+		width: 24px;
+		margin-top: 25%;
+	}
+
+	@include app-break-smmd{
+		display: inline-block;
+	}
+}
+
+.playon-ctrl{
+	@include col(12);
+	float: right;
+	@include vertical-align;
+
+	h3{
+		font-size: 1em;
+	}
+
+	select#play-on:-moz-focusring, select#mobile-play-on:-moz-focusring {
+	    color: transparent;
+	    text-shadow: 0 0 0 $white;
+	}
+
+	select#play-on, select#mobile-play-on{
+		@include col(11);
+		background: transparent;
+		background: url(../images/icons/down-arrow-wht.svg) no-repeat 90%;
+		border-radius: 2px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	    text-indent: 0.01px;
+	    text-overflow: '';
+		border: 1px solid nth($grey, 2);
+		color: nth($grey, 3);
+		font-size: .9em;
+		padding: 3px;
+		outline: none;
+		height: 27px;
+		color: $white;
+
+		option{
+			color: $white;
+		}
+	}
+
+	@include app-break-smmd{
+		@include col(1);
+	}
+}
+
+#mobile-playon{
+	margin-top: 102px;
+
+	@include app-break-smmd{
+		display: none;
+		margin-top: 27px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,658 @@
+
+
+
+/*=====================================*/
+/*Main Content container===============*/
+/*=====================================*/
+// mobile slideout class
+.mainSlideRight{
+	margin-left: 66.6666666%;
+	@include duration;
+}
+
+.mainSlideLeft{
+	margin-left: 0;
+	@include duration;
+}
+
+section.app{
+	@include col(12);
+	float: left;
+	height: 100%;
+
+	@include app-break-smmd{
+		@include col(9);
+	}
+}
+
+
+
+.section-header{
+	height: 48px; //120
+	border-bottom: 1px solid nth($grey, 1);
+
+	@include app-break-smmd{
+		height: 72px
+	}
+}
+
+.search{
+	overflow: hidden;
+	@include vertical-align;
+	position: relative;
+	@include col(12);
+
+	input{
+		float: left;
+		margin: 0;
+		height: 48px;//39
+		background: rgba(0,0,0,.1);/*slight dark overlay*/
+
+		@include app-break-smmd{
+			height: 72px
+		}
+	}
+
+	input[type="text"]{
+		@include col(10);
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		// border-right: none;
+		border: none;
+		font-size: 1em;
+		font-family: OpenSansLight;
+		/*background: transparent;*/
+		padding-left: 8.33333333%;
+		outline: none;
+		color: nth($grey, 4);
+
+
+		@include app-break-smmd{
+			@include col(11);
+			font-size: 2.7em;
+		}
+
+	}
+
+	input[type="submit"]{
+		@include col(2);
+		/*background: transparent;*/
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+		border-left: 1px solid nth($grey, 1);
+
+		@include app-break-smmd{
+			@include col(1);
+		}
+	}
+
+	input[type="submit"]:hover{
+		opacity: .8;
+	}
+
+	input[type="text"]::-webkit-input-placeholder { /* WebKit browsers */
+		font-family: OpenSansLight;
+	    color: nth($grey, 3);
+	    font-size: 1.2em;
+
+	    @include app-break-smmd{
+			font-size: 1em;
+		}
+	}
+	input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		font-family: OpenSansLight;
+	    color: nth($grey, 3);
+
+	    @include app-break-smmd{
+			font-size: 1em;
+		}
+	}
+	input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
+		font-family: OpenSansLight;
+	    color: nth($grey, 3);
+
+	    @include app-break-smmd{
+			font-size: 1em;
+		}
+	}
+	input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
+		font-family: OpenSansLight;
+	    color: nth($grey, 3);
+
+	    @include app-break-smmd{
+			font-size: 1em;
+		}
+	}
+
+}
+
+#returnToSearch{
+	position: absolute;
+	margin: 14px 0 0 2%;
+	z-index: 1;
+	cursor: pointer;
+
+	img{
+		height: 15px;
+
+		@include app-break-smmd{
+			height: 18px;
+		}
+	}
+
+	@include app-break-smmd{
+		margin: 24px 0 0 2%;
+	}
+}
+
+#returnToSearch:hover{
+	background: none;
+}
+
+#datalistContainer{
+	@include col(12);
+	background: nth($grey, 5);
+	position: absolute;
+	top: 96px;
+	height: auto;
+	z-index: 15000;
+
+		li{
+			line-height: 27px;
+		}
+
+		li:first-child{
+			color: nth($grey, 1);
+			border-bottom: 1px solid nth($grey, 4);
+		}
+
+		li:hover{
+			background: rgba(0,0,0,.1);
+			cursor: pointer;
+		}
+
+		li:first-child:hover{
+			background: none;
+		}
+
+	@include app-break-smmd{
+		@include col(9);
+		top: 68px;
+	}
+}
+
+#search-icon{
+	position: absolute;
+	right: 6.15%;
+	top: 39%;
+	height: 18px;
+
+	@include app-break-smmd{
+		right: 3.15%;
+	}
+}
+
+.main-container{
+	ul{
+		margin-bottom: 0;
+		position: relative; /*required for submenu overflow visibility*/
+
+		li{
+			line-height: 48px;
+			padding: 0 2%;
+			overflow: hidden;
+			color: nth($grey, 3);
+			position: relative;
+
+			svg,img,  .add-icon, .play-icon img{
+				height: 12px;
+				vertical-align: middle;
+			}
+
+			.draggableIcon{
+				position: absolute;
+				top: 11px;
+				left: 6px;
+				height: 27px;
+				opacity: .3;
+				display: none;
+			}
+
+			.add-icon{
+				width: 12px;
+				// margin-right: 31%;
+
+			}
+
+			.play-icon{
+				img{
+					width: 15px;
+					height: 15px;
+					margin-left: 23%;
+					position: relative;
+					z-index: 1;
+				}
+			}
+
+			.createNewPlaylistLink, .addToPlaylistTitle{
+				font-size: 1.5em;
+				line-height: 9px;
+
+				img{
+					float: left;
+					margin: 0px 6px 0 0;
+					height: 9px;
+				}
+			}
+		}
+	}
+}
+
+.newPlaylistForm{
+	display: none; //used in show/hide
+}
+
+
+
+.addToPlaylistTitle{
+	padding-bottom: 18px;
+
+	img.more-arrow-down{
+		width: 9px;
+	}
+}
+
+
+
+#scroll-container{
+	height: 74vh;
+	min-height: 500px;
+	overflow: scroll;
+}
+
+/*Column widths & floats*/
+
+.li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col6, .li-col7{
+	max-height: 48px; //matches li line height
+	@extend .truncate;
+}
+
+.li-col1{
+	float: left;
+}
+
+.li-col1, .li-col7{
+	@include col(1);
+
+	@include app-break-smmd{
+		width: 6%;
+	}
+}
+
+.li-col2{
+	display: inline-block;
+	@include col(10);
+	float: left;
+	padding-right: 2%;
+	margin-right: 2%;
+
+	@include app-break-smmd{
+		@include col(5);
+	}
+}
+
+.li-col3, .li-col4{
+	@include col(2);
+	display: inline-block;
+	float: left;
+	display: none;
+
+	@include app-break-smmd{
+		display: block;
+	}
+}
+
+.li-col3{
+
+}
+
+/*.li-col3:before{
+	content: " ";
+	width: 200px;
+}*/
+
+.li-col6, .li-col5{
+	@include col(1);
+	float: right;
+	display: none;
+
+	@include app-break-smmd{
+		display: inline-block;
+	}
+}
+
+.li-col6{
+	min-width: 8.33333333%;
+}
+
+.li-col7{
+	float: right;
+	margin-top: 18px;
+	/*display: none;*/
+
+	svg, img{
+		height: 12px;
+		width: 12px;
+		margin-right: 30%;
+	}
+
+	@include app-break-smmd{
+		/*display: inline-block;*/
+	}
+}
+
+.li-header{
+	height: 27px;
+	/*line-height: 27px;*/
+	font-weight: 700;
+	@include col(12);
+	border-bottom: 1px solid nth($grey, 1);
+	font-size: .6em;
+	background: rgba(0,0,0,.2);
+
+	/*-webkit-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
+	   -moz-box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);
+			box-shadow: 0px 6px 10px 0px rgba(0, 0, 0, 0.2);*/
+
+	.li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col6, .li-col7{
+		max-height: 27px;
+		line-height: 27px;
+		font-family: OpenSansLight;
+	}
+
+
+	.li-col1{
+		font-size: .6em;
+		padding-top: 19px;
+		color: nth($grey, 3);
+
+		svg, img{
+			display: block;
+			margin-left: 24%;
+		}
+	}
+
+	.li-col5{
+		@include col(2);
+		padding-left: 2%;
+	}
+
+	.li-col7{
+		text-align: right;
+		margin-top: 0;
+		display: none;
+
+		@include app-break-smmd{
+			display: inline-block;		}
+	}
+
+	.viewSongs, .viewArtists, .viewAlbums, .viewGenres, .mainViewSongs, .mainViewArtists, .mainViewAlbums, .mainViewGenres{
+		cursor: pointer;
+	}
+
+	@include app-break-smmd{
+		font-size: .8em;
+	}
+}
+
+.li-group{
+	color: nth($grey, 2);
+	font-size: .8em;
+	cursor: pointer;
+
+}
+
+/*row striping*/
+/*li.li-group:nth-child(even){
+	background: nth($grey, 6);
+}*/
+
+
+
+
+
+
+/*=========Experiment with block layout===========*/
+// .blockLayout{
+// 	position: relative;
+// 	@include col(3);
+// 	margin: 0 18px 18px;
+// 	float: left;
+// 	height: 300px;
+// 	background: nth($grey, 2);
+// 	padding: 9px;
+// 	overflow: visible;
+
+// 	.li-col1, .li-col2, .li-col3, .li-col4, .li-col5, .li-col6, .li-col7{
+// 		position: absolute;
+// 		@include col(11);
+// 		text-align: center;
+// 		margin: 0;
+// 		padding: 0;
+// 		font-size: .8em;
+// 	}
+
+// 	.li-col2{
+// 		background: red;
+// 	}
+
+// 	.li-col3{
+// 		top: 27px;
+// 	}
+
+// 	.li-col4{
+// 		top:36px;
+// 	}
+
+// 	.li-col5{
+// 		top:45px;
+// 	}
+
+// 	.li-col1{
+// 		top: 102px;
+// 		margin-left: 50%;
+// 		right: 50%;
+// 	}
+
+// 	.dropdown{
+// 		display: block;
+// 	}
+// }
+
+
+
+
+
+
+
+
+
+/*=====================================*/
+/*li dropdown==========================*/
+/*=====================================*/
+/*li.li-group.dropdown{*/
+.dropdown{
+	/*background: #fff;*/
+	padding: 18px 18px 18px 9px;
+	overflow: hidden;
+	min-height: 240px;
+	display: none;//Added to experiment with jquery show/hide on dropdowns
+	@include col(12);
+	position: relative;
+
+	.youtube-img{//youtube thumbnail
+		width: 100%;
+		/*height: 100%;*/
+		min-height: 102px;
+		max-height: 302px;
+	}
+
+	.li-desc{
+		line-height:1.5;
+		font-family: OpenSans;
+		font-size: 1.5em;
+		margin-left: 9px;
+		display: inline-block;
+		@include col(5);
+	}
+
+	.li-col1{
+		@include col(2);
+		max-height: 100%;
+	}
+
+}
+
+/*Right side menu in dropdown*/
+ul.dropdown-main-menu{
+	@include col(2);
+	float: right;
+
+	li{
+		font-size: .7em;
+		line-height: 27px;
+		overflow: visible;//Necessary for subplaylist options to show
+
+		.addedToPlaylistCheck{
+			height: 12px !important;//overrides main li specificity. Used in jquery affordance
+		}
+	}
+
+
+	li.li-share{
+		margin: 9px 0 0 24px;
+		font-size: .6em;
+
+		.share-strip{
+			img.svg:first-child{
+				padding-left: 0;
+				width: 21px;
+			}
+		}
+
+		svg, img{
+			height: 21px;
+			margin-right: 6px;
+		}
+	}
+
+	li.li-buy{
+		svg, img{
+			height: 36px;
+		}
+		margin:0 0 0 18px;
+	}
+}
+
+
+
+/*=====================================*/
+/*dropdown-main-menu-popouts===========*/
+/*=====================================*/
+ul.dropdown-main-menu{
+	li{/*do not write styles here. Write them in the above ul.dropdown-main-menu li*/
+		ul{
+			width: 130%;
+			position: absolute;
+			z-index: 10000;
+			right: 105%;
+			height: 200px;
+			overflow: auto;
+			padding: 0 0 0 6%;
+			border-left: 1px solid nth($grey, 6);
+
+			li{/*submenu level*/
+				form{
+					margin-bottom: 9px;
+					margin-top: 0;
+					padding-right: 12%;/*mimicks popout padding*/
+
+					input{
+						height: 24px;
+						font-size: 1.5em;
+						margin: 0;
+						margin-bottom: 3px;
+					}
+
+					input[type="submit"]{
+						line-height: 0px;
+						background: $green;
+						color: $white;
+					}
+				}
+			}
+		}
+	}
+}
+
+ul.dropdown-main-menu li ul::-webkit-scrollbar {
+    display: none;
+}
+
+
+#bg-container{
+	position: absolute;
+}
+
+.popout{
+	font-size: .8em;
+}
+
+.add-to-playlist-menu{
+	background: none;/*overrides popout styles*/
+	box-shadow: none;
+	padding-right: 0;/*orig: 6% Removed to allow right arrow to hit edge*/
+
+	svg, img{/*more arrow right*/
+		float: right;
+	}
+
+	p{
+		margin-bottom: 15px;
+	}
+
+	p:last-child{
+		margin-bottom: 3px;
+	}
+
+	li.playlist-menu-sub-list{
+		font-size: 1.2em;
+		line-height: 21px;
+	}
+
+	li.playlist-menu-sub-list:hover{
+		background: nth($grey, 6);
+	}
+}
+
+.add-to-playlist-menu-trigger{
+	img{
+		height: 9px !important; //overrides the add to playlist link icon size set by main-container li
+	}
+}
+
+ .addedToPlaylistCheck{
+ 	display: none;
+ }
+
+
+.playlist-menu-header{
+	border-bottom: 1px solid nth($grey, 6);
+	// margin-bottom: 3px;
+}
+
+
+
+
+
+

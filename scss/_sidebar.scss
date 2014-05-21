@@ -1,0 +1,446 @@
+
+// mobile slideout class
+.sidebarSlideRight{
+	left: 0 !important;
+	@include duration;
+}
+
+.sidebarSlideLeft{
+	left: -66.6666666% !important;
+	@include duration;
+}
+
+aside{
+	position: absolute;
+	z-index: 998;
+	/*display: none;*/
+	margin-left: 0;
+	left: -66.6666666%;
+	@include col(8);
+	min-height: 500px;
+	height: 100vh;
+	float: left;
+	border-right: 1px solid nth($grey, 1);
+	overflow: scroll;
+	padding-bottom: 306px;
+	background: $black; /*experimenting with dark bg*/
+	color: nth($grey, 3);
+
+	li{
+		line-height: 42px;
+		// border-bottom: 1px solid nth($grey, 1);
+
+		@include app-break-smmd{
+			line-height: 27px;
+			border-bottom: none;
+		}
+	}
+
+	li:first-child{
+		border-bottom: none;
+	}
+
+	@include app-break-smmd{
+		@include col(3);
+		left: 0;
+		display: block;
+		position: relative;
+		background: none;
+	}
+}
+
+
+
+aside.app::-webkit-scrollbar {
+    display: none;
+}
+
+
+.settings-menu a{
+	padding-bottom: 306px;
+}
+
+
+.video-size-ctrl{
+	background: $black;
+	@include col(12);
+	//margin-left: 16.6666667%;
+	position: fixed;
+	bottom: 72px;
+	left: 0;
+	z-index:990;
+	height: 48px;
+	text-align: right;
+	border-bottom: 1px solid nth($grey, 1);
+
+	svg, img{
+		height: 24px;
+		width: 27px;
+		margin: 9px 0 0;
+		padding-bottom: 11px;
+		vertical-align: middle;
+		cursor: pointer;
+	}
+
+
+	svg:first-child, img:first-child{
+		width: 15px;
+		height: 27px;
+		margin-right: 3px;
+	}
+
+	svg:last-child, img:last-child{
+		width: 39px;
+		height: 30px;
+		margin-left: -6px;
+	}
+
+	@include app-break-smmd{
+		@include col(3);
+		z-index: 1002;
+		height: 33px;
+		margin-top: 3px;
+	}
+}
+
+
+
+#collectionCount{
+	font-size: .8em;
+}
+
+#video, #video-overlay{
+	background: $black;
+	@include col(12);
+	position: fixed;
+	bottom: 87px;
+	left: 0;
+	/*z-index:1005;*/
+	z-index: 990;
+	height: 33px;
+	border: none;
+
+	@include app-break-smmd{
+		@include col(3);
+		z-index:1000;
+		bottom: 72px;
+	}
+}
+
+#video-overlay{
+	bottom: 0px;
+
+	@include app-break-smmd{
+		display: none;
+	}
+}
+
+
+
+.loading{
+	background: url('../images/icons/loading.GIF') no-repeat center;
+	position: absolute;
+	@include col(9);
+	height: 60px;
+	top: 45%;
+	right: 0;
+	display: none;
+	opacity: .6;
+
+	h2{
+		margin-top: 63px;
+		font-size: 1.5em;
+		text-align: center;
+
+	}
+}
+
+
+
+
+
+
+
+/*=====================================*/
+/*Sidebar Settings=====================*/
+/*=====================================*/
+.library-nav{
+line-height: 36px;
+font-size: .8em;
+
+	ul, .settings-nav{
+		margin-bottom: 0;
+
+		li{
+			padding: 0 6%;
+
+			a{
+				color: nth($grey, 2);
+			}
+		}
+	}
+}
+
+.app-logo{
+	margin: 18px 0 0 5.5%;
+	display: none;
+
+	@include app-break-smmd{
+		display: inline;
+	}
+}
+
+#beta-tag{
+	display: none;
+	float: right;
+	margin: 27px 6% 0 0;
+
+	@include app-break-smmd{
+		display: inline;
+	}
+}
+
+.settings-nav{
+	line-height: 36px;
+}
+
+
+
+
+.settings-menu{
+	margin-top: 33px;
+	border-top: 1px solid nth($grey, 1);
+}
+
+.library-menu{
+	margin-top: 9px;
+	@include col(12);
+}
+
+#collectionCount{
+	float: right;
+}
+
+
+
+
+
+
+/*=====================================*/
+/*Sidebar playlist=====================*/
+/*=====================================*/
+.playlist-nav{
+	font-size: .8em;
+	margin-top: 9px;
+
+	h3{
+		display: inline;
+		line-height: 36px;
+		padding: 0 6%;
+		cursor: pointer;
+	}
+
+	ul{
+		li{
+			line-height: 42px;
+			cursor: pointer;
+			padding: 0 6%;
+			position: relative;
+
+			a{
+				color: nth($grey, 3);
+				@include col(11);
+			}
+
+
+			@include app-break-smmd{
+				line-height: 27px;
+			}
+
+
+		}
+	}
+}
+
+#revealForm{
+	height: auto;
+	width: 100%;
+	display: block;
+}
+
+#hiddenCreatePlaylistForm{
+	@include col(12);
+	/*@include col_ctr(8);*/
+	margin: 0 0 18px;
+	opacity: .9;
+	background: rgba(0,0,0,.3);
+	border-radius: 2px;
+	padding: 6%;
+	overflow: hidden;
+	display: none;
+
+	input{
+		height: 27px;
+		font-family: OpenSansLight;
+		line-height: 27px;
+	}
+
+	input[type="submit"]{
+		margin: 0;
+		padding: 0;
+		opacity: .7;
+	}
+}
+
+.li-playlist{
+	.renamePlaylistForm{
+		position: absolute;
+		z-index: -20;
+		top: 0;
+		opacity: 0;
+		@include col(12);
+		margin-left: -5%;//accomidates for container padding
+		padding-left: 5%;
+		overflow: hidden;
+
+
+		input[type="text"]{
+			line-height: 27px;
+			height: 27px;
+			font-size: 1em;
+			font-family: OpenSansLight;
+			color: nth($grey, 4);
+			background: #1A1C1C;//dark theme background
+			border: none;
+		}
+
+		input[type="submit"]{
+			height: 22px;
+			line-height: 18px;
+			margin:2px 5% 0 0;
+			font-size: 1em;
+			@include col(3);
+			font-family: OpenSansLight;
+			position: absolute;
+			right: 0;
+			top: 0;
+
+		}
+
+	}
+}
+
+#renameShow{
+	z-index: 1 !important;
+	opacity: 1;
+}
+
+#renameHide{
+	z-index: -20 !important;
+	opacity: 0;
+}
+
+.playlist-menu{
+	@include col(1);
+	float: right;
+	display: none;
+
+	svg, img{
+		height: 6px;
+		vertical-align: middle;
+	}
+}
+
+
+.add-icon, .add-playlist-icon{
+	float: right;
+}
+
+.add-playlist-icon{
+	margin: 12px 6% 0 0;
+	width: 12px;
+	height: 12px;
+}
+
+/*.playlist-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+.playlist-scroll-container{
+	height: 47vh;
+	overflow: scroll;
+}*/
+
+
+
+
+
+
+/*=====================================*/
+/*Base popout & Playlist popout========*/
+/*=====================================*/
+.popout{
+	position: absolute;
+	right: 14.5%;
+	top: 0px;
+}
+
+.playlist-dropdown{
+	background: #fff;
+	display: none;//added to help jquery show/hide on load
+}
+
+li.playlist-dropdown:hover{
+	background: #fff;
+}
+
+.playlist-popout{
+	padding: 6% 0;
+
+	p{
+		font-size: 1em;
+		margin: 0;
+		overflow: hidden;
+		color: nth($grey, 2);
+	}
+
+	.share-strip{
+		margin-bottom: 9px;
+
+		img{
+			width: 32px;
+			height: 32px;
+			margin-right: 6px;
+
+			@include app-break-smmd{
+				width: 21px;
+				height: 21px;
+			}
+		}
+
+		img:first-child{
+			padding-left: 0;
+			margin-left: 0;
+		}
+	}
+
+	.bottom-inner{
+		border-top: 1px solid nth($grey, 4);
+		padding-top: 12px;
+		cursor: pointer;
+	}
+
+	svg, img{
+		cursor: pointer;
+		height: 36px;
+		width: 36px;
+	}
+
+	.trash-icon{
+		height: 15px;
+		width: 15px;
+		float: right;
+	}
+}
+
+
