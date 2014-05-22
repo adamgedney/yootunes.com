@@ -86,6 +86,22 @@ module.exports = function(grunt) {
 
 
 
+    //cssmin -minify css file
+    cssmin: {
+        minify: {
+          expand: true,
+          cwd: 'css/',
+          src: ['*.css', '!*.min.css'],
+          dest: 'css/',
+          ext: '.min.css'
+        }
+        // files: {
+        //   '/css/output.css': ['/css/main.css']
+        // }
+      },
+
+
+
 
 
 
@@ -121,8 +137,16 @@ module.exports = function(grunt) {
       //sass
       sass: {
         files: 'scss/{,*/}*.{scss,sass}',
-        tasks: ['sass:dev']
+        tasks: ['sass:dev', 'cssmin']
       },
+
+      //cssminification
+      // cssmin: {
+      //   files: 'css/main.css',
+      //   tasks: ['cssmin:minify']
+      // }
+
+
     },// watch
 
 
