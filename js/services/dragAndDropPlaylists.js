@@ -19,7 +19,7 @@ define(['jquery', 'Library'], function($, Library){
 
 
 	//Handles resultItems drag to playist coordinates
-	var itemDragging = function(elem, event){
+	var itemDragging = function(elem, event, callback){
 
 		//Ensures userId is always available
 		if(_userId === undefined || !_userId || _userId === '' || _userId === null){
@@ -32,7 +32,6 @@ define(['jquery', 'Library'], function($, Library){
 				console.log(_userId, "cookies");
 			}
 		}
-
 
 
 
@@ -54,10 +53,11 @@ define(['jquery', 'Library'], function($, Library){
 					moving = true;
 
 					if(_setClone === false){
+
 						//Only set these values once
 						_clone 		= elem.clone().find('span.li-col2').appendTo('#scroll-container');
 						_setClone 	= true;
-
+	console.log("moving", _setClone, _clone);
 
 						_clone.css({
 							'color' 		: '#cf2425',//red
@@ -93,12 +93,15 @@ define(['jquery', 'Library'], function($, Library){
 							});
 						}
 
+console.log("mouse move in d&d");
+				// }).bind('mouseout.dragging', function(){
+				// 	mouseIcon.css({
+				// 		'display'   : 'none'
+				// 	});
 
-				}).bind('mouseout', function(){
-					mouseIcon.css({
-						'display'   : 'none'
-					});
-				});//MOUSEMOVE
+				// 	console.log("bind in d&d");
+				// });//MOUSEMOVE
+});
 
 
 
@@ -109,11 +112,13 @@ define(['jquery', 'Library'], function($, Library){
 				//otherwise return to original location
 				$(document).on('mouseup.dragging', function(event){
 					console.log("mouseup in itemDragging in ui");
+
+
 					//Set item to not dragging !important
 
 					if(moving === true){
 						window.dragging 	= false;
-						_setClone 				= false;
+						_setClone 			= false;
 					}
 
 
@@ -124,7 +129,6 @@ define(['jquery', 'Library'], function($, Library){
 						mouseIcon.css({
 							'display'   : 'none'
 						});
-
 
 						_clone.css({
 							'transition-duration' 	: '1s',
@@ -203,7 +207,7 @@ define(['jquery', 'Library'], function($, Library){
 						}//else
 
 
-
+						callback();
 				});//mouseup
 		}//dragging === true
 	}

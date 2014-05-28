@@ -205,18 +205,32 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 			//Add to playlist DRAG & DROP interaction handler=======//
 			$(document).on('mousedown', '.resultItems', function(event){
-
 				var that 	= $(this);
 				var evt 	= event;
 
+				//Prevent search field selection to happen on drag
+				$('#searchInput').addClass('no-select');
+
 				//Wait for prolonged hold before enabling itemDragging
 				itemHolding = setTimeout(function(){
-					dragAndDrop(that, evt);
-				}, 1000);
+
+					dragAndDrop(that, evt, function(){
+						console.log("callback ran");
+						clearTimeout(itemHolding);
+
+					});
+				}, 500);
 
 			//bind events that can cancel timeout before it runs. Prevents multiple clones
-			}).bind('click mouseup mouseleave', '.resultItems', function(){
+			}).bind('mouseup mouseleave', '.resultItems', function(){
 			    clearTimeout(itemHolding);
+			});
+
+
+
+			//Resets user-no-select on input field for Safari browser funcitonality
+			$(document).on('click', '#searchInput', function(){
+				$('#searchInput').removeClass('no-select');
 			});
 
 

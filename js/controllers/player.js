@@ -1031,9 +1031,9 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 console.log(_thisDevice, _playOnDevice, "play");
 		//Ensure thisDevice is always recognized.
-		if(_thisDevice === null){
+		if(typeof _thisDevice === 'undefined'){
 			console.log("null device");
-			// determineDevice();
+			determineDevice();
 		}
 
 		// //Necessary for decoupled scrubber
