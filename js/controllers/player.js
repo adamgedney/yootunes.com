@@ -47,22 +47,6 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 
 
-		// //Ensures private vars won't be set until ready
-		// $(document).on('gotdevices', function(event){
-
-		// 	//Retrieve cookies & set device & userId
-		// 	var userCookies = getCookies;
-
-		// 	_thisDevice 	= event.thisDevice;
-		// 	_playOnDevice 	= event.thisDevice;//default device
-		// 	_userId 		= userCookies.userId;
-
-
-		// 	console.log(_thisDevice, "player device", event, window.thisDevice);
-
-		// });
-
-
 
 
 		//If a reload was picked up from conten.js app rendered
@@ -350,11 +334,13 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 			}
 
 
+
 			//Fires when player returns ready
 			window.onPlayerReady = function(event) {
 
 				//FOOTER PLAY BUTTON Click Handler=======//
-				$(document).on('click', '#play-btn', function(){
+				$(document).on('click', '#play-btn', function(event){
+
 					var libraryWrapper 	= $('#libraryWrapper');
 
 						//FOOTER PLAY BUTTON click handling in slave mode
@@ -392,8 +378,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 				//Volume Handler
 				//===================================//
 				var prevVolume;
-
-				$(document).on('mousemove', '#volumeRange', function(){
+				$(document).on('mouseup.vol', '#volumeRange' , function(event){
 
 					var rangeVolume = $('#volumeRange').val();
 
@@ -406,7 +391,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 					}else{//PlayOn
 
-						//Be sure loacl volume is still muted
+						//Be sure local volume is still muted
 						PLAYER.mute();
 
 
@@ -433,10 +418,13 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 				});//volume mousemove
 
 
+
+
+
+
 			//================================//
 			};//On Player Ready
 			//================================//
-
 
 
 
@@ -601,7 +589,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 
 
-			$(document).on('click', '.dropdown-trigger', function(event){
+			$(document).on('click', 'span.dropdown-trigger', function(event){
 				// console.log(window.windowWidth);
 				//Mobile view song play on li click
 
@@ -612,7 +600,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 				}
 
-			});//onclick play icon
+			});//dropdown
 
 
 

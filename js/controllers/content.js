@@ -1,6 +1,6 @@
 (function(){
-define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getUserDevices','Init', 'User', 'Ui', 'Library'],
-	function($, handlebars, getCookies, activeItem, sortContent, getUserDevices, Init, User, Ui, Library){
+define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getUserDevices', 'determineDevice', 'Init', 'User', 'Ui', 'Library'],
+	function($, handlebars, getCookies, activeItem, sortContent, getUserDevices, determineDevice, Init, User, Ui, Library){
 
 
 
@@ -329,6 +329,9 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 				}
 
 				// DOM.video.show();
+
+				//Determine device on app load
+				determineDevice(function(data){});//determine
 
 
 

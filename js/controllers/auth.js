@@ -1,6 +1,6 @@
 (function(){
-define(['jquery', 'Content', 'getCookies', 'User', 'validation', 'logging', 'determineDevice','Init', 'socketService'],
-	function($, Content, getCookies, User, validation, logging, determineDevice, Init, socketService){
+define(['jquery', 'Content', 'getCookies', 'User', 'validation', 'logging','Init', 'socketService'],
+	function($, Content, getCookies, User, validation, logging, Init, socketService){
 
 
 	//Private variables
@@ -1038,9 +1038,9 @@ define(['jquery', 'Content', 'getCookies', 'User', 'validation', 'logging', 'det
 		//load the application
 		Content.loadApp(function(){
 
-			determineDevice(function(data){
+			// determineDevice(function(data){
 
-				});//determine
+			// 	});//determine
 		});
 
 

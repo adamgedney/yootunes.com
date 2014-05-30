@@ -176,9 +176,22 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 				if(window.dragging === true){
 					$('#hiddenCreatePlaylistForm').show();
 				}
-
-
 			});
+
+			//Show/Hide create NEW PLAYLIST form on hover over playlist title
+			$(document).on('mouseleave', 'span#revealForm', function(event){
+
+				//Only allow form to show if we're dragging result
+				if(window.dragging === true){
+					$('#hiddenCreatePlaylistForm').hide();
+				}
+			});
+
+
+
+
+
+
 
 
 			//NEW PLAYLIST BUTTON interaction handler=======//
@@ -204,9 +217,13 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 
 			//Add to playlist DRAG & DROP interaction handler=======//
-			$(document).on('mousedown', '.resultItems', function(event){
+			$(document).on('mousedown.hold', '.resultItems', function(event){
+				event.stopPropagation();
+				console.log(event.isPropagationStopped(), "prop");
 				var that 	= $(this);
 				var evt 	= event;
+
+				window.downSelector = '';
 
 				//Prevent search field selection to happen on drag
 				$('#searchInput').addClass('no-select');
@@ -215,14 +232,16 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 				itemHolding = setTimeout(function(){
 
 					dragAndDrop(that, evt, function(){
-						console.log("callback ran");
-						clearTimeout(itemHolding);
+						window.downSelector = 'mousedown.hold';
 
+						console.log(window.downSelector, "down selector");
 					});
+					clearTimeout(itemHolding);
 				}, 500);
 
+
 			//bind events that can cancel timeout before it runs. Prevents multiple clones
-			}).bind('mouseup mouseleave', '.resultItems', function(){
+			}).bind('mouseup.hold mouseleave.hold', '.resultItems', function(){
 			    clearTimeout(itemHolding);
 			});
 
@@ -253,7 +272,7 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 			});
 
 			//MOUSEOVER triangle icon hover effect.
-			$(document).on('mouseout', '.li-playlist', function(event){
+			$(document).on('mouseleave', '.li-playlist', function(event){
 				$('li.li-playlist').find('span.playlist-menu').css({'display' : 'none'});
 			});
 
@@ -292,7 +311,7 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 
 			//MOUSEOUT hover effect.
-			$(document).on('mouseout', '.resultItems, .li-playlist, .library-nav ul li', function(){
+			$(document).on('mouseleave', '.resultItems, .li-playlist, .library-nav ul li', function(){
 
 				var resultId = $(this).attr('data-id');
 
@@ -498,7 +517,7 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 		//Prevents parent div from scrolling while reaching end of scroll in child
 		$(document).on('mouseover', '.playlistSubScrollContainer', function(){
 			$('#scroll-container').css({'overflow':'hidden'});
-		}).bind('mouseout', function(){
+		}).bind('mouseleave', function(){
 			$('#scroll-container').css({'overflow':'scroll'});
 		});
 

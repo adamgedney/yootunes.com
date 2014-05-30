@@ -21,12 +21,6 @@ define(['jquery'], function($){
 			if(!this.toggle){
 				selectorItem.fadeIn();
 
-				//custom event for notifying sub menu handler of new sub menu open
-				// $.event.trigger({
-				// 	type	: "subOpen",
-				// 	selector: selector
-				// });
-
 			//Fade out
 			}else{
 				selectorItem.fadeOut();
