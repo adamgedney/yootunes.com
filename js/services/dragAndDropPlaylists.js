@@ -101,7 +101,7 @@ define(['jquery', 'Library'], function($, Library){
 							});
 						}
 
-				}).bind('mouseleave.dragging', function(){
+				}).bind('mouseout.dragging', function(){
 					mouseIcon.css({
 						'display'   : 'none'
 					});
