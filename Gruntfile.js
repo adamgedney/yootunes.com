@@ -190,7 +190,7 @@ module.exports = function(grunt) {
                   'activeItem'      : 'services/activeItem'
                 },
 
-                dir: "../build",
+                dir: "../atom_production",
                     modules: [
                               {name : 'User'},
                               {name : 'Init'},

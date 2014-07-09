@@ -556,7 +556,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 						//Start playing
 						// PLAYER.loadVideoById(currentVideo);
-						console.log(nextVideo, "autoplay");
+						console.log(nextVideo, _currentIndex, "autoplay");
 						play(nextVideo);
 
 
