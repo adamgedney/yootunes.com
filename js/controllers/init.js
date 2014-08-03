@@ -102,6 +102,9 @@ define(['jquery', 'Content', 'getCookies', 'socketService', 'determineDevice'], 
 
 				_playlistId 		= parseName[0];
 				window.playlistId 	= parseName[0];
+
+				initSession();
+
 			}
 		}else{
 
@@ -260,7 +263,7 @@ define(['jquery', 'Content', 'getCookies', 'socketService', 'determineDevice'], 
 		//Must be run after the app has loaded in this case
 		determineDevice(function(data){
 
-			//fire event passing user data to listening class
+			//fire event passing user data to listening Content class
 			$.event.trigger({
 				type 			: 'userloggedin',
 				playlistId 		: _playlistId

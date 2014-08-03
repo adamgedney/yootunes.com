@@ -31,16 +31,16 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 
 
-
-		var apiUrl = _baseUrl  + '/db'
-		$.ajax({
-			url : apiUrl,
-			type: 'GET',
-			dataType: 'json',
-			success : function(response){
-				console.log("response", response);
-			}
-		});
+	//Dropbox api experiment
+		// var apiUrl = _baseUrl  + '/db'
+		// $.ajax({
+		// 	url : apiUrl,
+		// 	type: 'GET',
+		// 	dataType: 'json',
+		// 	success : function(response){
+		// 		console.log("response", response);
+		// 	}
+		// });
 
 
 

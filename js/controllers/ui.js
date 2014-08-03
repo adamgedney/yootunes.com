@@ -515,11 +515,11 @@ define(['jquery', 'toggleUi', 'dragAndDrop', 'videoSizer', 'Library','getCookies
 
 
 		//Prevents parent div from scrolling while reaching end of scroll in child
-		$(document).on('mouseover', '.playlistSubScrollContainer', function(){
-			$('#scroll-container').css({'overflow':'hidden'});
-		}).bind('mouseleave', function(){
-			$('#scroll-container').css({'overflow':'scroll'});
-		});
+		// $(document).on('mouseover', '.playlistSubScrollContainer', function(){
+		// 	$('#scroll-container').css({'overflow':'hidden'});
+		// }).bind('mouseleave', function(){
+		// 	$('#scroll-container').css({'overflow':'scroll'});
+		// });
 
 
 

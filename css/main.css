@@ -6268,7 +6268,8 @@ section.app {
 #scroll-container {
   height: 74vh;
   min-height: 500px;
-  overflow: scroll;
+  overflow: scroll !important;
+  /*Set to important to overide overfloe:hidden added after item added to playlist.*/
 }
 
 /*Column widths & floats*/
