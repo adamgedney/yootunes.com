@@ -6268,8 +6268,7 @@ section.app {
 #scroll-container {
   height: 74vh;
   min-height: 500px;
-  overflow: scroll !important;
-  /*Set to important to overide overfloe:hidden added after item added to playlist.*/
+  overflow: scroll;
 }
 
 /*Column widths & floats*/
@@ -6564,6 +6563,55 @@ ul.dropdown-main-menu li ul::-webkit-scrollbar {
 
 .playlist-menu-header {
   border-bottom: 1px solid #e7e7e7;
+}
+
+.graphic-mode {
+  overflow: hidden;
+}
+
+div.main-container.graphic-mode ul li.graphic-item:first-child {
+  display: none;
+}
+
+div.main-container.graphic-mode ul li.graphic-item {
+  height: 200px;
+  width: 100%;
+  float: left;
+  background: #333;
+  margin: 1%;
+  padding: 0;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.35);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.35);
+  box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.35);
+}
+@media only screen and (min-width: 480px) {
+  div.main-container.graphic-mode ul li.graphic-item {
+    width: 48%;
+  }
+}
+@media only screen and (min-width: 800px) {
+  div.main-container.graphic-mode ul li.graphic-item {
+    width: 31%;
+  }
+}
+@media only screen and (min-width: 1154px) {
+  div.main-container.graphic-mode ul li.graphic-item {
+    width: 23%;
+  }
+}
+
+div.main-container.graphic-mode ul li.graphic-item:hover {
+  border: 1px solid #272a2a;
+}
+
+div.main-container.graphic-mode ul li.graphic-item > span {
+  display: block;
+}
+
+div.main-container.graphic-mode ul li .artist-title {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  padding-left: 2%;
 }
 
 /*==================================*/

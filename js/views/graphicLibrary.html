@@ -1,0 +1,19 @@
+<div>
+	<script id="graphicLibraryItem" type="text/x-handlebars-template">
+
+	<ul id="libraryWrapper">
+
+
+		{{#each artists}}
+
+		<li draggable="false" class="graphic-item artist-item" data-artist="{{this.artist}}" data-userId="{{this.user.userId}}" data-index="{{@index}}" style="background: url({{this.img}}) no-repeat; background-attachment: cover;" >
+
+			<span class="artist-title truncate">{{this.artist}}</span>
+
+		</li>
+		{{/each}}
+
+	</ul>
+
+	</script>
+</div>

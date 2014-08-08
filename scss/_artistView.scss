@@ -1,0 +1,49 @@
+
+
+.graphic-mode{
+	overflow: hidden;
+}
+
+//.main-container.graphic-mode
+
+div.main-container.graphic-mode ul li.graphic-item:first-child{
+	display: none;
+}
+
+div.main-container.graphic-mode ul li.graphic-item{
+	height: 200px;
+	width: 100%;
+	float: left;
+	background: #333;
+	margin: 1%;
+	padding: 0;
+	-webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.35);
+	   -moz-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.35);
+			box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.35);
+
+	@include app-break-sm{
+		width: 48%;
+	}
+
+	@include app-break-smmd{
+		width: 31%;
+	}
+
+	@include app-break-lg{
+		width: 23%;
+	}
+}
+
+div.main-container.graphic-mode ul li.graphic-item:hover{
+	border: 1px solid nth($grey, 1);
+}
+
+div.main-container.graphic-mode ul li.graphic-item > span{
+	display: block;
+}
+
+div.main-container.graphic-mode ul li .artist-title{
+	width: 100%;
+	background: rgba(0,0,0,.95);
+	padding-left: 2%;
+}

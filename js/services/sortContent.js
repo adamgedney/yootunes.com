@@ -24,47 +24,6 @@ define(['jquery', 'activeItem'], function($, activeItem){
 
 
 
-		//Library list sort interaction=========//
-		$(document).on('click', '.viewSongs, .viewArtists, .viewAlbums, .viewGenres', function(event){
-
-			if(window.state !== 'library'){
-				$.event.trigger({
-					type : 'loadlibrary',
-				});
-			}else if(window.state === 'library' && $(this).hasClass('viewSongs')){
-				var sortOn = 'span.li-col2';
-			}else if(window.state === 'library' && $(this).hasClass('viewArtists')){
-				var sortOn = 'span.li-col3';
-			}else if(window.state === 'library' && $(this).hasClass('viewAlbums')){
-				var sortOn = 'span.li-col4';
-			}else if(window.state === 'library' && $(this).hasClass('viewGenres')){
-				var sortOn = 'span.li-col5';
-			}
-
-
-
-			//Used to set active item in activeItem service
-			if($(this).hasClass('viewSongs')){
-				activeItem('.viewSongs');
-				var iconTarget = $('.mainViewSongs').find('img.sortIcon');
-			}else if($(this).hasClass('viewArtists')){
-				activeItem('.viewArtists');
-				var iconTarget = $('.mainViewArtists').find('img.sortIcon');
-			}else if($(this).hasClass('viewAlbums')){
-				activeItem('.viewAlbums');
-				var iconTarget = $('.mainViewAlbums').find('img.sortIcon');
-			}else if($(this).hasClass('viewGenres')){
-				activeItem('.viewGenres');
-				var iconTarget = $('.mainViewGenres').find('img.sortIcon');
-			}
-
-
-			sortContent(_sort.ul, _sort.li, sortOn, iconTarget);
-		});
-
-
-
-
 
 
 
@@ -87,6 +46,9 @@ define(['jquery', 'activeItem'], function($, activeItem){
 
 				sortContent(_sort.ul, _sort.li, sortOn, icon);
 		});
+
+
+
 
 
 

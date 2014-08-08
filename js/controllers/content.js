@@ -629,6 +629,60 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 
 
+		//Library list load graphic template interaction=========//
+		$(document).on('click', '.viewSongs, .viewArtists, .viewAlbums, .viewGenres', function(event){
+
+			//Moved here to trigger library reload every tme
+			// $.event.trigger({
+			// 	type : 'loadlibrary',
+			// });
+
+
+			//Used to set active item in activeItem service
+			if($(this).hasClass('viewSongs')){
+				activeItem('.viewSongs');
+				var iconTarget = $('.mainViewSongs').find('img.sortIcon');
+				defineMode('song-mode');
+			}else if($(this).hasClass('viewArtists')){
+				activeItem('.viewArtists');
+				var iconTarget = $('.mainViewArtists').find('img.sortIcon');
+				defineMode('artist-mode');
+
+				loadArtists();
+
+			}else if($(this).hasClass('viewAlbums')){
+				activeItem('.viewAlbums');
+				var iconTarget = $('.mainViewAlbums').find('img.sortIcon');
+				defineMode('album-mode');
+			}else if($(this).hasClass('viewGenres')){
+				activeItem('.viewGenres');
+				var iconTarget = $('.mainViewGenres').find('img.sortIcon');
+				defineMode('genre-mode');
+			}
+
+		});
+
+
+		//Defines a mode (artist, album, song, genre) & adds class to scroll-container
+		function defineMode(className){
+
+			$('div.main-container').removeClass().addClass('main-container graphic-mode ' + className);
+		};
+
+
+
+
+
+		//Load artist songs on click
+		$(document).on('click', 'li.artist-item', function(){
+			var artistName = $(this).attr('data-artist');
+			loadArtistSongs(artistName);
+		});
+
+
+
+
+
 
 
 
@@ -1105,15 +1159,112 @@ define(['jquery', 'Handlebars', 'getCookies', 'activeItem', 'sortContent', 'getU
 
 
 
+	//Called when user clicks the library nav Artists link in the sidebar
+	function loadArtists(){
+		//Build API request
+		var API_URL = _baseUrl + '/get-library/' + _userId;
+		var appendTo= '#scroll-container';
+		var src 	= '/js/views/graphicLibrary.html';
+		var id 		= '#graphicLibraryItem';
+
+		//Call API for user's library
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success 	: function(response){
+			var artists 	= [];
+			var artistsObj 	= [];
+
+			//Loop through response, and extract only unique artist names
+			var len = response[0].length;
+			for(var i=0;i<len;i++){
+				if(response[0][i].artist !== " "){
+					if(artists.indexOf(response[0][i].artist) === -1){
+						//Push artist name to determine unique,
+						//then push obj for templating
+						artists.push(response[0][i].artist);
+
+						artistsObj.push({
+							artist : response[0][i].artist,
+							img : response[0][i].img_high
+						});
+					}
+
+				}
+
+				if(i === len -1){
+					startRender();
+				}
+			}
+
+
+			function startRender(){
+				var data = {
+					artists : artistsObj,
+					user : {userId : _userId}
+				};
+
+				//Clear append container
+				$(appendTo).empty();
+				render(src, id, appendTo, data);
+			}//render
+
+			}//success
+		});//ajax
+	}
+
+
+
+
+
+
+
+
+
+	function loadArtistSongs(artistName){
+		//Build API request
+		var API_URL = _baseUrl + '/get-artist/' + artistName + '/' + _userId;
+		var appendTo 	= '#scroll-container';
+		var src 		= '/js/views/library.html';
+		var	id 			= '#libraryItem';
+
+		//Call API for user's library
+		$.ajax({
+			url 		: API_URL,
+			method 		: 'GET',
+			dataType 	: 'json',
+			success 	: function(response){
+
+			var data = {
+				song : response,
+				user : {userId : _userId}
+			};
+console.log(response, data);
+				//Clear append container
+				$('div.main-container').removeClass().addClass('main-container');
+				$(appendTo).empty();
+				render(src, id, appendTo, data);
+			}
+		});
+	}
+
+
+
+
+
+
+
+
+
 
 
 	//Used by loadLibrary method
 	function prepareLibrary(response){
 
-		var src 		= '/js/views/library.html',
-			id 			= '#libraryItem',
-			appendTo 	= '#scroll-container';
-
+		var appendTo = '#scroll-container';
+		var src 		= '/js/views/library.html';
+		var	id 			= '#libraryItem';
 
 		data = {
 				song : response[0],
