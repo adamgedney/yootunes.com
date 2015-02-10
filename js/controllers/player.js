@@ -18,7 +18,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 	var _paused 			= false;
 
 	var _playMode 			= {};
-		_playMode.loop 		= false;
+		_playMode.loop   	= false;
 		_playMode.shuffle 	= false;
 		_playMode.slave 	= false;
 
@@ -173,22 +173,36 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 		$(document).on('click', '#loopSong', function(event){
 
 
-			if(!_playMode.loop){
+			if(_playMode.loop == false){
+                console.log("loop = playlist");
 
-				_playMode.loop = !_playMode.loop;
 
 				//Reset shuffle button and boolean val
 				_playMode.shuffle 	= false;
 				$('img#shuffleResults').attr('src', 'images/icons/shuffle-icon.png');
 
 				//Change icon to indicate selection
-				$(this).attr('src', 'images/icons/loop-icon-red.png');
-			}else{
+                _playMode.loop = 'playlist';
 
-				_playMode.loop = !_playMode.loop;
+                return $(this).attr('src', 'images/icons/loop-icon-red.png');
+			}
+            if(_playMode.loop == 'playlist'){
+                console.log("loop = song");
+
+                _playMode.shuffle = false;
+                $('img#shuffleResults').attr('src', 'images/icons/shuffle-icon.png');
 
 
-				$(this).attr('src', 'images/icons/loop-icon.png');
+                _playMode.loop = 'song';
+
+                return $(this).attr('src', 'images/icons/loop-icon-red2.png');
+            }
+
+            if(_playMode.loop == 'song'){
+                console.log("loop = false");
+                _playMode.loop = false;
+
+                return $(this).attr('src', 'images/icons/loop-icon.png');
 			}
 
 		});
@@ -292,6 +306,13 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 				_currentIndex = parseInt(_currentIndex, 10) + 1;
 
 		    	var nextVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
+
+                //loop = playlist
+                if (nextVideo == undefined && _playMode.loop == 'playlist') {
+                    console.log("next song undefined && loop");
+                    var firstVideo = libraryWrapper.find('li.resultItems[data-index="' + 0 + '"]').attr('data-videoId');
+                    return play(firstVideo);
+                }
 
 				//Start playing
 				// PLAYER.loadVideoById(nextVideo);
@@ -525,7 +546,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 			    	//======================//
 			    	//If loop is enabled
 			    	//======================//
-			    	if(_playMode.loop){
+			    	if(_playMode.loop == 'song'){
 
 			    		//Start playing same video again
 						// PLAYER.loadVideoById(id);
@@ -554,9 +575,18 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 
 				    	var nextVideo = libraryWrapper.find('li.resultItems[data-index="' + _currentIndex + '"]').attr('data-videoId');
 
+
 						//Start playing
 						// PLAYER.loadVideoById(currentVideo);
 						console.log(nextVideo, _currentIndex, "autoplay");
+
+                        //loop = playlist
+                        if (nextVideo == undefined && _playMode.loop == 'playlist') {
+                            console.log("next song undefined && loop");
+                            var firstVideo = libraryWrapper.find('li.resultItems[data-index="' + 0 + '"]').attr('data-videoId');
+                            return play(firstVideo);
+                        }
+
 						play(nextVideo);
 
 
@@ -1007,6 +1037,9 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 		_thisDevice 		= window.thisDevice;
 		var volumeIcon 		= $('div.volume-ctrl img.vol-icon');
 		var transportPlay 	= $('div.transport-ctrl #play-btn');
+
+
+
 		var playingSongId 	= $('span.play-icon[data-videoId=' + youtubeId + ']').attr('data-id');
 
 		if(window.windowWidth < app_break_smmd){
@@ -1017,7 +1050,7 @@ define(['jquery', 'getCookies', 'determineDevice', 'js/services/slider.js', 'log
 			_playOnDevice =  $('#play-on option:selected').attr('data-id');
 		}
 
-console.log(_thisDevice, _playOnDevice, "play");
+        console.log(_thisDevice, _playOnDevice, "play");
 		//Ensure thisDevice is always recognized.
 		if(typeof _thisDevice === 'undefined'){
 			console.log("null device");
